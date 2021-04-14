@@ -12,6 +12,7 @@ require_once('core/ArrayList.class.php');
  * @author: Alwyn Wymeersch
  * @date: ${date}
  */
+
 class DAOFactory extends CI_Model {
     public function __construct() {
         $this->load->database();
