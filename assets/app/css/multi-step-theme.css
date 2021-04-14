@@ -1,0 +1,55 @@
+.multi-step .btn.btn-primary {
+  color: white;
+  background-color: #39c0ba !important; }
+
+.multi-step .card-header .card-steps .step:before {
+  border-color: #EAEAEA; }
+
+.multi-step .card-header .card-steps .step .dot {
+  border-color: #EAEAEA;
+  background-color: #EAEAEA; }
+
+.multi-step .card-header .card-steps .step:after {
+  border-color: #EAEAEA; }
+
+.multi-step .card-header .card-steps .step.current:after {
+  border-color: #39c0ba; }
+
+.multi-step .card-header .card-steps .step.current .dot {
+  border-color: #39c0ba; }
+  .multi-step .card-header .card-steps .step.current .dot:before {
+    background-color: #EAEAEA; }
+
+.multi-step .card-header .card-steps .step.completed:after {
+  border-color: #39c0ba; }
+
+.multi-step .card-header .card-steps .step.completed .dot {
+  border-color: #39c0ba; }
+  .multi-step .card-header .card-steps .step.completed .dot:before {
+    background-color: #39c0ba; }
+
+.multi-step .card-header .card-steps .step.skipped:after {
+  border-color: #ffc107; }
+
+.multi-step .card-header .card-steps .step.skipped .dot {
+  border-color: #ffc107; }
+  .multi-step .card-header .card-steps .step.skipped .dot:before {
+    background-color: #ffc107; }
+
+.multi-step .card-footer .btn-prev {
+  background-color: #39c0ba; }
+  .multi-step .card-footer .btn-prev.disabled {
+    background-color: #EAEAEA;
+    color: #000; }
+
+.multi-step .card-footer .btn-skip {
+  background-color: #ffc107; }
+  .multi-step .card-footer .btn-skip.disabled {
+    background-color: #EAEAEA;
+    color: #000; }
+
+.multi-step .card-footer .btn-next {
+  background-color: #39c0ba; }
+  .multi-step .card-footer .btn-next.disabled {
+    background-color: #EAEAEA;
+    color: #000; }

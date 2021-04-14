@@ -1,0 +1,27 @@
+{
+    "data": [
+        {
+            "src": "https://picsum.photos/id/240/200/200",
+            "title": "a galerie test"
+        },
+        {
+            "src": "https://picsum.photos/id/250/200/200",
+            "title": "a galerie test"
+        },
+        {
+            "src": "https://picsum.photos/id/742/200/200",
+            "title": "a galerie test"
+        },
+        {
+            "src": "https://picsum.photos/id/732/200/200",
+            "title": "a galerie test"
+        },
+        {
+            "src": "https://picsum.photos/id/355/200/200",
+            "title": "a galerie test"
+        }
+    ],
+    "links": {
+        "next": "http://eissasoubhi.github.io/summernote-gallery/server/example.json?page={next}"
+    }
+}

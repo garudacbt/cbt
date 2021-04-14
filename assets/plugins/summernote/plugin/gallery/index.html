@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Summernote gallery demo</title>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <style type="text/css">
+        @-moz-keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            -moz-transform: translateY(0);
+            transform: translateY(0);
+          }
+          40% {
+            -moz-transform: translateY(-30px);
+            transform: translateY(-30px);
+          }
+          60% {
+            -moz-transform: translateY(-15px);
+            transform: translateY(-15px);
+          }
+        }
+        @-webkit-keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+          }
+          40% {
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+          }
+          60% {
+            -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+          }
+        }
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+          }
+          40% {
+            -moz-transform: translateY(-30px);
+            -ms-transform: translateY(-30px);
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+          }
+          60% {
+            -moz-transform: translateY(-15px);
+            -ms-transform: translateY(-15px);
+            -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+          }
+        }
+
+        .arrow {
+          margin-left: 25px;
+          width: 40px;
+          height: 40px;
+          font-size: 45px;
+          background-size: contain;
+          color: #ffbc8b;
+        }
+        .bounce {
+          -moz-animation: bounce 2s infinite;
+          -webkit-animation: bounce 2s infinite;
+          animation: bounce 2s infinite;
+        }
+        .arrow {
+            margin-left: 180px;
+            width: 40px;
+            height: 58px;
+            font-size: 45px;
+            background-size: contain;
+            color: #ffbc8b;
+        }
+
+        body {
+            padding-top: 50px;
+            height: 800px;
+            background-image: url('https://picsum.photos/id/1021/2000/1200');
+            background-size: cover;
+            background-position: center center;
+        }
+        h1{
+            text-align: center;
+            font-size: 45px;
+            font-family: cursive;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Summernote Gellery</h1>
+        <div class="arrow bounce">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        </div>
+        <div id="summernote"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="dist/summernote-gallery.min.js" type="text/javascript"></script>
+    <script>
+        var data = [
+            {
+                "src": "https://picsum.photos/id/40/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/50/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/60/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/70/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/80/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/90/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/100/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/10/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/20/200/200",
+                "title": "a galerie test"
+            },
+            {
+                "src": "https://picsum.photos/id/30/200/200",
+                "title": "a galerie test"
+            }
+        ];
+
+        $('#summernote').summernote({
+            height: 500,
+            toolbar: [
+                ['insert', ['picture', 'link', 'video', 'table', 'hr', 'gallery']],
+                ['font style', ['fontname', 'fontsize', 'color', 'bold', 'italic',
+                'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                ['paragraph style', ['style', 'ol', 'ul', 'paragraph', 'height']],
+                ['misc', ['fullscreen', 'codeview', 'undo', 'redo', 'help']]
+                ['extensions', ['gallery']],
+            ],
+            gallery: {
+                source: {
+                    data: data,
+                    //url: location.origin+location.pathname+'/server/example.json',
+                    responseDataKey: 'data',
+                    nextPageKey: 'links.next',
+                },
+                modal: {
+                    loadOnScroll: true,
+                    noImageSelected_msg: 'No image was selected, please select one by clicking it!',
+                }
+            }
+        });
+    </script>
+</body>
+</html>

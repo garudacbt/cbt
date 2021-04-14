@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-language" content="en"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description"
+          content="Image-Uploader is a simple jQuery Drag & Drop Image Uploader plugin made to be used in forms, without AJAX."/>
+    <meta name="keywords" content="image, upload, uploader, image-uploader, jquery, gallery, file, form, static"/>
+    <meta name="author" content="Christian Bayer"/>
+    <meta name="copyright" content="© 2019 - Christian Bayer"/>
+    <meta property="og:url" content="https://christianbayer.github.io/image-uploader/"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Image-Uploader"/>
+    <meta property="og:description"
+          content="Image-Uploader is a simple jQuery Drag & Drop Image Uploader plugin made to be used in forms, without AJAX."/>
+    <meta property="og:image" content="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"/>
+
+    <title>Image-Uploader</title>
+
+    <link rel="stylesheet" href="dist/image-uploader.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,700|Montserrat:300,400,500,600,700|Source+Code+Pro&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.9);
+            line-height: 1.5;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+        }
+
+        header p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            font-weight: 200;
+            margin-bottom: 4rem;
+        }
+
+        main {
+            text-align: justify;
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: rgb(255, 255, 255);
+            padding: 1rem 0;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            font-weight: 200;
+            margin: 0;
+        }
+
+        a {
+            color: #50ce7d;
+            text-decoration: none;
+        }
+
+        h1,
+        h4,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 3.6em;
+            margin: 4rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 2em;
+            margin: 3rem 0 1rem 0;
+        }
+
+        h6 {
+            font-size: 1.2em;
+            margin: 1rem 0;
+        }
+
+        h4 small {
+            font-size: 70%;
+            font-weight: 300;
+        }
+
+        p {
+            margin: 1rem 0;
+        }
+
+        nav {
+            position: absolute;
+            margin-left: -12em;
+        }
+
+        nav ul {
+            margin-left: 0;
+            list-style: none;
+        }
+
+        nav ul li {
+            padding: .2rem 0;
+        }
+
+        nav ul li a {
+            font-size: 1.2em;
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
+            color: #2196f3;
+        }
+
+        pre {
+            font-family: 'Source Code Pro', monospace;
+            margin: 1rem 0;
+            padding: 1rem 1rem;
+            background: #f3f3f3;
+            font-size: .9em;
+            overflow-x: auto;
+        }
+
+        table code,
+        p code {
+            font-family: 'Source Code Pro', monospace;
+            background: #f3f3f3;
+            font-size: .9em;
+            padding: .1rem .3rem;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        form > button {
+            -webkit-appearance: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border: none;
+            background-color: #50ce7d;
+            color: #fff;
+            text-transform: uppercase;
+            display: block;
+            margin: 2rem 0 2rem auto;
+            font-size: 1em;
+        }
+
+        ul {
+            margin-left: 2rem;
+        }
+
+        input {
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            outline: none;
+            width: 100%;
+            line-height: normal;
+            font-size: 1em;
+            padding: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+            margin: 0;
+            color: rgba(0, 0, 0, 0.72);
+            background-position: center bottom, center calc(100% - 1px);
+            background-repeat: no-repeat;
+            background-size: 0 2px, 100% 1px;
+            -webkit-transition: background 0s ease-out 0s;
+            -o-transition: background 0s ease-out 0s;
+            transition: background 0s ease-out 0s;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#2196f3), to(#2196f3)), -webkit-gradient(linear, left top, left bottom, from(#d9d9d9), to(#d9d9d9));
+            background-image: -webkit-linear-gradient(#2196f3, #2196f3), -webkit-linear-gradient(#d9d9d9, #d9d9d9);
+            background-image: -o-linear-gradient(#2196f3, #2196f3), -o-linear-gradient(#d9d9d9, #d9d9d9);
+            background-image: linear-gradient(#2196f3, #2196f3), linear-gradient(#d9d9d9, #d9d9d9);
+            height: 2.4em;
+        }
+
+        input:focus {
+            background-size: 100% 2px, 100% 1px;
+            outline: 0 none;
+            -webkit-transition-duration: 0.3s;
+            -o-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            border-bottom: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .input-field label {
+            width: 100%;
+            color: #9e9e9e;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            font-size: 1em;
+            cursor: text;
+            -webkit-transition: -webkit-transform .2s ease-out;
+            transition: -webkit-transform .2s ease-out;
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            text-align: initial;
+            -webkit-transform: translateY(7px);
+            transform: translateY(7px);
+            pointer-events: none;
+        }
+
+        input:focus + label {
+            color: #2196f3;
+        }
+
+        .input-field {
+            position: relative;
+            margin-top: 2.2rem;
+        }
+
+        .input-field label.active {
+            -webkit-transform: translateY(-15px) scale(0.8);
+            transform: translateY(-15px) scale(0.8);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+
+        .container {
+            width: 60%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .step {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-right: .5rem;
+        }
+
+        .option {
+            margin-top: 2rem;
+            border-bottom: 1px solid #d9d9d9;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal .content {
+            background: #fff;
+            display: inline-block;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal .content h4 {
+            margin-top: 0;
+        }
+
+        .modal .content a.close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: inherit;
+            font-size: 1.4rem;
+            line-height: 1;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        @media screen and (max-width: 1366px) {
+            body {
+                font-size: 15px;
+            }
+
+            nav ul li a {
+                font-size: 1.1em;
+
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            main {
+                margin: 2rem 0;
+            }
+
+            nav {
+                margin-left: -10em;
+            }
+        }
+
+        @media screen and (max-width: 786px) {
+            body {
+                font-size: 14px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .container {
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 450px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151759818-1"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-151759818-1');</script>
+
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Image-Uploader</h1>
+        <p>Image-Uploader is a simple jQuery Drag & Drop Image Uploader plugin made to be used in forms, without AJAX.</p>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+
+        <nav>
+            <ul>
+                <li><a href="#howtouse">How to use it</a></li>
+                <li><a href="#options">Options</a></li>
+                <li><a href="#example-1">Example 1</a></li>
+                <li><a href="#example-2">Example 2</a></li>
+            </ul>
+        </nav>
+
+        <h4 id="howtouse"><a href="#howtouse"># How to use it
+            <small>in 5 steps</small>
+        </a></h4>
+
+        <p><span class="step">1.</span>Import the CSS file at the <code>&lt;head&gt;</code>:</p>
+        <pre><code>&lt;link type="text/css" rel="stylesheet" href="http://example.com/image-uploader.min.css"&gt;</code></pre>
+
+        <p><span class="step">2.</span>Import the JS file at the end of the <code>&lt;body&gt;</code>, after the jQuery:
+        </p>
+        <pre><code>&lt;script type="text/javascript" src="http://example.com/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://example.com/image-uploader.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p><span class="step">3.</span>Create a form with <code>enctype="multipart/form-data"</code> attributte:</p>
+        <pre><code>&lt;form action="http://example.com/post" enctype="multipart/form-data"&gt;&lt;/form&gt;</code></pre>
+
+        <p><span class="step">4.</span>Inside the form, create a wrapper to the plugin:</p>
+        <pre><code>&lt;div class="input-images"&gt;&lt;/div&gt;</code></pre>
+
+        <p><span class="step">5.</span>Initialize it with jQuery</p>
+        <pre><code>$('.input-images').imageUploader();</code></pre>
+
+        <h4 id="options"><a href="#options"># Options
+            <small>for custumization</small>
+        </a></h4>
+
+        <div class="option">
+            <h6>label</h6>
+            <p><strong>Type:</strong> <code>string</code></p>
+            <p><strong>Default:</strong> <code>'Drag & Drop files here or click to browse'</code></p>
+            <p>Informative label, telling the user what to do with the draggable area.</p>
+        </div>
+        <div class="option">
+            <h6>preloaded</h6>
+            <p><strong>Type:</strong> <code>{id: number, src: string}[]</code></p>
+            <p><strong>Default:</strong> <code>[]</code></p>
+            <p>Array of objects representing images that are already stored, containing an identification for that image
+                and the source.</p>
+        </div>
+        <div class="option">
+            <h6>imagesInputName</h6>
+            <p><strong>Type:</strong> <code>string</code></p>
+            <p><strong>Default:</strong> <code>'images'</code></p>
+            <p>Name of the input that will be posted, containing the files list.</p>
+        </div>
+        <div class="option">
+            <h6>preloadedInputName</h6>
+            <p><strong>Type:</strong> <code>string</code></p>
+            <p><strong>Default:</strong> <code>'preloaded'</code></p>
+            <p>Name of the inputs that will be posted, containing the preloaded images identification.</p>
+        </div>
+        <div class="option">
+            <h6>extensions</h6>
+            <p><strong>Type:</strong> <code>array</code></p>
+            <p><strong>Default:</strong> <code>['.jpg', '.jpeg', '.png', '.gif', '.svg']</code></p>
+            <p>Array of strings with the allowed extensions. Enabled by default. To disable this validation, set it as <code>undefined</code>. If the uploaded file does not have one of these extensions, an alert will appear and the image will not be sent.</p>
+        </div>
+        <div class="option">
+            <h6>mimes</h6>
+            <p><strong>Type:</strong> <code>array</code></p>
+            <p><strong>Default:</strong> <code>['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml']</code></p>
+            <p>Array of strings with the allowed mime types. Enabled by default. To disable this validation, set it as <code>undefined</code>. If the uploaded file does not have one of these mime types, an alert will appear and the image will not be sent.</p>
+        </div>
+        <div class="option">
+            <h6>maxSize</h6>
+            <p><strong>Type:</strong> <code>int</code></p>
+            <p><strong>Default:</strong> <code>undefined</code></p>
+            <p>Value of the maximum file size allowed in bytes. Disabled by default. For a maximum size of 2 megabytes, you can set this option as <code>2 * 1024 * 1024</code> bytes. If the uploaded file does have more then allowed, an alert will appear and the image will not be sent.</p>
+        </div>
+        <div class="option">
+            <h6>maxFiles</h6>
+            <p><strong>Type:</strong> <code>int</code></p>
+            <p><strong>Default:</strong> <code>undefined</code></p>
+            <p>Value of the maximum number of files allowed. Disabled by default. If the maximum number was reached, an alert will appear and the image will not be sent.</p>
+        </div>
+
+        <h4 id="example-1"><a href="#example-1"># Example 1
+            <small>- basic usage</small>
+        </a></h4>
+
+        <form method="POST" name="form-example-1" id="form-example-1" enctype="multipart/form-data">
+
+            <div class="input-field">
+                <input type="text" name="name-1" id="name-1">
+                <label for="name-1">Name</label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" name="description-1" id="description-1">
+                <label for="description-1">Description</label>
+            </div>
+
+            <div class="input-field">
+                <label class="active">Photos</label>
+                <div class="input-images-1" style="padding-top: .5rem;"></div>
+            </div>
+
+            <button>Submit and display data</button>
+
+        </form>
+
+        <h6>HTML Source</h6>
+        <pre><code>&lt;form method=&quot;POST&quot; name=&quot;form-example-1&quot; id=&quot;form-example-1&quot; enctype=&quot;multipart/form-data&quot;&gt;
+
+    &lt;div class=&quot;input-field&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;name-1&quot; id=&quot;name-1&quot;&gt;
+        &lt;label for=&quot;name-1&quot;&gt;Name&lt;/label&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;input-field&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;description-1&quot; id=&quot;description-1&quot;&gt;
+        &lt;label for=&quot;description-1&quot;&gt;Description&lt;/label&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;input-field&quot;&gt;
+        &lt;label class=&quot;active&quot;&gt;Photos&lt;/label&gt;
+        &lt;div class=&quot;input-images-1&quot; style=&quot;padding-top: .5rem;&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;button&gt;Submit and display data&lt;/button&gt;
+
+&lt;/form&gt;</code></pre>
+
+        <h6>Javascript Source</h6>
+        <pre><code>$('.input-images-1').imageUploader();</code></pre>
+
+
+        <h4 id="example-2"><a href="#example-2"># Example 2
+            <small>- with options</small>
+        </a></h4>
+
+        <form method="POST" name="form-example-2" id="form-example-2" enctype="multipart/form-data">
+
+            <div class="input-field">
+                <input type="text" name="name-2" id="name-2" value="John Doe">
+                <label for="name-2" class="active">Name</label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" name="description-2" id="description-2"
+                       value="This form is already filed with some data, including images!">
+                <label for="description-2" class="active">Description</label>
+            </div>
+
+            <div class="input-field">
+                <label class="active">Photos</label>
+                <div class="input-images-2" style="padding-top: .5rem;"></div>
+            </div>
+
+            <button>Submit and display data</button>
+
+        </form>
+
+        <h6>HTML Source</h6>
+        <pre><code>&lt;form method=&quot;POST&quot; name=&quot;form-example-2&quot; id=&quot;form-example-2&quot; enctype=&quot;multipart/form-data&quot;&gt;
+
+    &lt;div class=&quot;input-field&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;name-2&quot; id=&quot;name-2&quot; value=&quot;John Doe&quot;&gt;
+        &lt;label for=&quot;name-2&quot; class=&quot;active&quot;&gt;Name&lt;/label&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;input-field&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;description-2&quot; id=&quot;description-2&quot;
+        value=&quot;This form is already filed with some data, including images!&quot;&gt;
+        &lt;label for=&quot;description-2&quot; class=&quot;active&quot;&gt;Description&lt;/label&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;input-field&quot;&gt;
+        &lt;label class=&quot;active&quot;&gt;Photos&lt;/label&gt;
+        &lt;div class=&quot;input-images-2&quot; style=&quot;padding-top: .5rem;&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;button&gt;Submit and display data&lt;/button&gt;
+
+&lt;/form&gt;</code></pre>
+
+        <h6>Javascript Source</h6>
+        <pre><code>let preloaded = [
+    {id: 1, src: 'https://picsum.photos/500/500?random=1'},
+    {id: 2, src: 'https://picsum.photos/500/500?random=2'},
+    {id: 3, src: 'https://picsum.photos/500/500?random=3'},
+    {id: 4, src: 'https://picsum.photos/500/500?random=4'},
+    {id: 5, src: 'https://picsum.photos/500/500?random=5'},
+    {id: 6, src: 'https://picsum.photos/500/500?random=6'},
+];
+
+$('.input-images-2').imageUploader({
+    preloaded: preloaded,
+    imagesInputName: 'photos',
+    preloadedInputName: 'old',
+    maxSize: 2 * 1024 * 1024,
+    maxFiles: 10
+});</code></pre>
+
+    </div>
+
+    <div id="show-submit-data" class="modal" style="visibility: hidden;">
+        <div class="content">
+            <h4>Submitted data:</h4>
+            <p id="display-name"><strong>Name:</strong> <span></span></p>
+            <p id="display-description"><strong>Description:</strong> <span></span></p>
+            <p><strong>Uploaded images:</strong></p>
+            <ul id="display-new-images"></ul>
+            <p><strong>Preloaded images:</strong></p>
+            <ul id="display-preloaded-images"></ul>
+            <a href="javascript:$('#show-submit-data').css('visibility', 'hidden')" class="close">x</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>This project is licensed under the MIT License - see the <a
+            href="https://github.com/christianbayer/image-uploader/blob/master/LICENSE">LICENSE</a> file for details</p>
+</footer>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="dist/image-uploader.min.js"></script>
+
+<script>
+    $(function () {
+
+        $('.input-images-1').imageUploader();
+
+        let preloaded = [
+            {id: 1, src: 'https://picsum.photos/500/500?random=1'},
+            {id: 2, src: 'https://picsum.photos/500/500?random=2'},
+            {id: 3, src: 'https://picsum.photos/500/500?random=3'},
+            {id: 4, src: 'https://picsum.photos/500/500?random=4'},
+            {id: 5, src: 'https://picsum.photos/500/500?random=5'},
+            {id: 6, src: 'https://picsum.photos/500/500?random=6'},
+        ];
+
+        $('.input-images-2').imageUploader({
+            preloaded: preloaded,
+            imagesInputName: 'photos',
+            preloadedInputName: 'old',
+            maxSize: 2 * 1024 * 1024,
+            maxFiles: 10
+        });
+
+        $('form').on('submit', function (event) {
+
+            // Stop propagation
+            event.preventDefault();
+            event.stopPropagation();
+
+            // Get some vars
+            let $form = $(this),
+                $modal = $('.modal');
+
+            // Set name and description
+            $modal.find('#display-name span').text($form.find('input[id^="name"]').val());
+            $modal.find('#display-description span').text($form.find('input[id^="description"]').val());
+
+            // Get the input file
+            let $inputImages = $form.find('input[name^="images"]');
+            if (!$inputImages.length) {
+                $inputImages = $form.find('input[name^="photos"]')
+            }
+
+            // Get the new files names
+            let $fileNames = $('<ul>');
+            for (let file of $inputImages.prop('files')) {
+                $('<li>', {text: file.name}).appendTo($fileNames);
+            }
+
+            // Set the new files names
+            $modal.find('#display-new-images').html($fileNames.html());
+
+            // Get the preloaded inputs
+            let $inputPreloaded = $form.find('input[name^="old"]');
+            if ($inputPreloaded.length) {
+
+                // Get the ids
+                let $preloadedIds = $('<ul>');
+                for (let iP of $inputPreloaded) {
+                    $('<li>', {text: '#' + iP.value}).appendTo($preloadedIds);
+                }
+
+                // Show the preloadede info and set the list of ids
+                $modal.find('#display-preloaded-images').show().html($preloadedIds.html());
+
+            } else {
+
+                // Hide the preloaded info
+                $modal.find('#display-preloaded-images').hide();
+
+            }
+
+            // Show the modal
+            $modal.css('visibility', 'visible');
+        });
+
+        // Input and label handler
+        $('input').on('focus', function () {
+            $(this).parent().find('label').addClass('active')
+        }).on('blur', function () {
+            if ($(this).val() == '') {
+                $(this).parent().find('label').removeClass('active');
+            }
+        });
+
+        // Sticky menu
+        let $nav = $('nav'),
+            $header = $('header'),
+            offset = 4 * parseFloat($('body').css('font-size')),
+            scrollTop = $(this).scrollTop();
+
+        // Initial verification
+        setNav();
+
+        // Bind scroll
+        $(window).on('scroll', function () {
+            scrollTop = $(this).scrollTop();
+            // Update nav
+            setNav();
+        });
+
+        function setNav() {
+            if (scrollTop > $header.outerHeight()) {
+                $nav.css({position: 'fixed', 'top': offset});
+            } else {
+                $nav.css({position: '', 'top': ''});
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

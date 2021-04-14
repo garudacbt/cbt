@@ -1,0 +1,29 @@
+{
+  "name": "tinymce-formula",
+  "version": "1.1.0",
+  "description": "Formula plugin for tinyMCE WYSIWYG editor. Allows user to add equations and formulas inside tinyMCE",
+  "main": "plugin.js",
+  "authors": [
+    "Panagiotis Tsavdaris"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "tinyMCE",
+    "formula",
+    "equation",
+    "editor"
+  ],
+  "homepage": "https://github.com/iCAPLyon1/tinymce-formula",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "package.json",
+    "gulpfile.js"
+  ],
+  "dependencies": {
+    "tinymce": ">=4.0"
+  }
+}

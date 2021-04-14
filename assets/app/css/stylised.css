@@ -1,0 +1,114 @@
+﻿@charset "UTF-8";
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+/* TYPOGRAPHY */
+.stylised-player h3, .stylised-player p {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+.stylised-player h3 {
+    font-size: 20px;
+    color: #1F1F1F;
+    font-family: "Montserrat-Medium", Arial;
+    line-height: 27px;
+    letter-spacing: -0.25px
+}
+
+.stylised-player p {
+    font-size: 20px;
+    color: #000000;
+    font-family: "Montserrat-Light", Arial;
+    line-height: 27px;
+    padding-bottom: 24px;
+}
+
+/* STYLISED PLAYER */
+.stylised-player {
+    max-width: 100%;
+    height: 40px;
+    margin: 10px 0;
+    background-color: #F5F3F0;
+    position: relative;
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.10);
+}
+
+.stylised-player p {
+    color: black;
+    text-align: center;
+    position: absolute;
+    top: 8px;
+    left: 40px;
+    right: 40px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.stylised-play, .stylised-pause {
+    width: 40px;
+    height: 40px;
+    background-color: #F7B932;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    padding-top: 24px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.stylised-restart {
+    width: 40px;
+    height: 40px;
+    background-color: #F7B932;
+    position: absolute;
+    right: 0;
+    background-image: url(../img/icon_restart_black.png);
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.stylised-time-wrapper {
+    height: 40px;
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.stylised-time-progress {
+    height: 40px;
+    background-color: #EF8609;
+    cursor: pointer;
+}
+
+.stylised-play:active, .stylised-pause:active, .stylised-restart:active {
+    background-color: #EF8609;
+}
+
+.stylised-play-icon {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background-image: url(../img/icon_play_black.png);
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
+
+.stylised-pause-icon {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background-image: url(../img/icon_pause_black.png);
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
