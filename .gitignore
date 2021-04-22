@@ -92,7 +92,13 @@ application/logs/*
 # git files
 .gitattributes export-ignore
 .gitignore export-ignore
-.idea export-ignore
-docs export-ignore
+/.idea/ export-ignore
+/docs/ export-ignore
+/backups/garuda.sql export-ignore
 
-sites/all/libraries/plupload/examples export-ignore
+# sites/all/libraries/plupload/examples export-ignore
+
+/.idea/
+# /docs/
+/garudacbt.iml
+/backups/garuda.sql
