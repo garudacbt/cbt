@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/install1.PNG" afterDir="false" />
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="#7">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app/db/master.sql" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/db/master.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,7 +32,7 @@
           <entry key="css" value="1" />
           <entry key="html" value="3" />
           <entry key="md" value="1" />
-          <entry key="php" value="7" />
+          <entry key="php" value="10" />
           <entry key="png" value="6" />
           <entry key="sql" value="2" />
           <entry key="svg" value="8" />
@@ -46,7 +44,7 @@
           <entry key="HTML" value="3" />
           <entry key="Image" value="6" />
           <entry key="Markdown" value="1" />
-          <entry key="PHP" value="7" />
+          <entry key="PHP" value="10" />
           <entry key="SQL" value="2" />
           <entry key="SVG" value="8" />
         </counts>
@@ -54,18 +52,18 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="5" />
-          <entry key="html" value="153" />
+          <entry key="html" value="381" />
           <entry key="php" value="304" />
           <entry key="svg" value="18" />
-          <entry key="txt" value="7" />
+          <entry key="txt" value="44" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="5" />
-          <entry key="HTML" value="153" />
+          <entry key="HTML" value="381" />
           <entry key="PHP" value="304" />
-          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="PLAIN_TEXT" value="44" />
           <entry key="SVG" value="18" />
         </counts>
       </usages-collector>
@@ -76,15 +74,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-442">
-              <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+            <state relative-caret-position="238">
+              <caret line="86" column="25" selection-start-line="86" selection-start-column="25" selection-end-line="86" selection-end-column="57" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="20" lean-forward="true" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -126,6 +128,7 @@
         <option value="$PROJECT_DIR$/application/views/install/header.php" />
         <option value="$PROJECT_DIR$/application/views/install/setup.php" />
         <option value="$PROJECT_DIR$/docs/index.html" />
+        <option value="$PROJECT_DIR$/application/controllers/Cbtalokasi.php" />
       </list>
     </option>
   </component>
@@ -223,7 +226,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1619092482788" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1619104751488" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -232,6 +235,7 @@
       <recent name="D:\xampp73\htdocs\garudacbt" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp73\htdocs\garudacbt\application\controllers" />
       <recent name="D:\xampp73\htdocs\garudacbt\assets\app\db" />
       <recent name="D:\xampp73\htdocs\garudacbt\assets\img" />
       <recent name="D:\xampp73\htdocs\garudacbt\docs" />
@@ -264,7 +268,7 @@
       <workItem from="1618435308167" duration="980000" />
       <workItem from="1618830576696" duration="2200000" />
       <workItem from="1618926033534" duration="941000" />
-      <workItem from="1619089604631" duration="1832000" />
+      <workItem from="1619089604631" duration="6438000" />
     </task>
     <task id="LOCAL-00001" summary="#1">
       <created>1618404952657</created>
@@ -308,11 +312,46 @@
       <option name="project" value="LOCAL" />
       <updated>1618832808058</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="#7">
+      <created>1619092513317</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1619092513317</updated>
+    </task>
+    <task id="LOCAL-00008" summary="#8">
+      <created>1619092960870</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619092960870</updated>
+    </task>
+    <task id="LOCAL-00009" summary="#9">
+      <created>1619093489349</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619093489349</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix import siswa">
+      <created>1619099944544</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619099944544</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix cbt alokasi">
+      <created>1619100620982</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619100620982</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12951000" />
+    <option name="totallyTimeSpent" value="17557000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -388,7 +427,12 @@
     <MESSAGE value="#4" />
     <MESSAGE value="#5" />
     <MESSAGE value="#6" />
-    <option name="LAST_COMMIT_MESSAGE" value="#6" />
+    <MESSAGE value="#7" />
+    <MESSAGE value="#8" />
+    <MESSAGE value="#9" />
+    <MESSAGE value="fix import siswa" />
+    <MESSAGE value="fix cbt alokasi" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix cbt alokasi" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/docs/hero.png">
@@ -420,9 +464,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/img/favicon.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Cbtalokasi.php">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/Auth.php">
       <provider selected="true" editor-type-id="text-editor" />
@@ -475,18 +516,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-442">
-          <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+        <state relative-caret-position="238">
+          <caret line="86" column="25" selection-start-line="86" selection-start-column="25" selection-end-line="86" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/Datasiswa.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/Cbtalokasi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="20" lean-forward="true" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
