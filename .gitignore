@@ -86,3 +86,13 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
+
+
+# used to remove files from deployment using `git archive`
+# git files
+.gitattributes export-ignore
+.gitignore export-ignore
+.idea export-ignore
+docs export-ignore
+
+sites/all/libraries/plupload/examples export-ignore
