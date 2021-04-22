@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/install1.PNG" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/garudacbt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/garudacbt.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app/db/master.sql" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/db/master.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,19 +20,23 @@
     <session id="-1517765607">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="1" />
           <entry key="html" value="3" />
+          <entry key="md" value="1" />
           <entry key="php" value="7" />
           <entry key="png" value="6" />
+          <entry key="sql" value="2" />
           <entry key="svg" value="8" />
         </counts>
       </usages-collector>
@@ -42,25 +45,27 @@
           <entry key="CSS" value="1" />
           <entry key="HTML" value="3" />
           <entry key="Image" value="6" />
+          <entry key="Markdown" value="1" />
           <entry key="PHP" value="7" />
+          <entry key="SQL" value="2" />
           <entry key="SVG" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="5" />
-          <entry key="html" value="137" />
+          <entry key="html" value="153" />
           <entry key="php" value="304" />
           <entry key="svg" value="18" />
-          <entry key="txt" value="5" />
+          <entry key="txt" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="5" />
-          <entry key="HTML" value="137" />
+          <entry key="HTML" value="153" />
           <entry key="PHP" value="304" />
-          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="PLAIN_TEXT" value="7" />
           <entry key="SVG" value="18" />
         </counts>
       </usages-collector>
@@ -68,11 +73,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="85" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="-442">
+              <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor />
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -81,7 +101,7 @@
         <entry file="file://$PROJECT_DIR$/application/views/_templates/dashboard/_header.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="12" lean-forward="true" selection-start-line="11" selection-end-line="12" />
+              <caret line="12" selection-start-line="11" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -94,6 +114,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -184,8 +205,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -193,52 +212,27 @@
               <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="_templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="_templates" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1618417873369" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1619092482788" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\xampp73\htdocs\garudacbt" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp73\htdocs\garudacbt\assets\app\db" />
       <recent name="D:\xampp73\htdocs\garudacbt\assets\img" />
       <recent name="D:\xampp73\htdocs\garudacbt\docs" />
       <recent name="D:\xampp73\htdocs\garudacbt" />
@@ -268,7 +262,9 @@
       <updated>1618402594170</updated>
       <workItem from="1618402596976" duration="6998000" />
       <workItem from="1618435308167" duration="980000" />
-      <workItem from="1618830576696" duration="524000" />
+      <workItem from="1618830576696" duration="2200000" />
+      <workItem from="1618926033534" duration="941000" />
+      <workItem from="1619089604631" duration="1832000" />
     </task>
     <task id="LOCAL-00001" summary="#1">
       <created>1618404952657</created>
@@ -298,17 +294,30 @@
       <option name="project" value="LOCAL" />
       <updated>1618417506283</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="#5">
+      <created>1618831320841</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1618831320842</updated>
+    </task>
+    <task id="LOCAL-00006" summary="#6">
+      <created>1618832808058</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1618832808058</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8502000" />
+    <option name="totallyTimeSpent" value="12951000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25718608" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2647504" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -377,7 +386,9 @@
     <MESSAGE value="#2" />
     <MESSAGE value="#3" />
     <MESSAGE value="#4" />
-    <option name="LAST_COMMIT_MESSAGE" value="#4" />
+    <MESSAGE value="#5" />
+    <MESSAGE value="#6" />
+    <option name="LAST_COMMIT_MESSAGE" value="#6" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/docs/hero.png">
@@ -443,25 +454,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/_templates/dashboard/_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" lean-forward="true" selection-start-line="11" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/garuda.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/garuda_circle.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/index.html">
+    <entry file="file://$PROJECT_DIR$/application/views/_templates/dashboard/_header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="11" selection-end-line="12" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-442">
+          <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
