@@ -242,6 +242,20 @@
                         <p>INPUT NILAI</p>
                     </a>
                 </li>
+                <!--
+                <li class="nav-item">
+                    <a href="<?=base_url('rapor/rapornilaiguru')?>" class="nav-link <?=$pageact==='rapornilaiguru'?"active":""?>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>SEMUA NILAI</p>
+                    </a>
+                </li>
+                -->
+                <li class="nav-item">
+                    <a href="<?=base_url('rapor/raporceknilai')?>" class="nav-link <?=$pageact==='raporceknilai'?"active":""?>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>PERIKSA NILAI</p>
+                    </a>
+                </li>
                 <?php if ($guru->id_jabatan == '4') : ?>
                 <li class="nav-item has-treeview <?= in_array($pageact, $rapor_input)  ? "menu-open" : ""  ?>">
                     <a href="#" class="nav-link <?= in_array($pageact, $rapor_input) ?"active":""?>">

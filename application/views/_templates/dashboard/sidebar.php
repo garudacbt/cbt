@@ -355,18 +355,14 @@
                         <p>LOGOUT</p>
                     </a>
                 </li>
+                <!--
                 <li class="nav-item">
                     <a href="<?= base_url('daotest') ?>" class="nav-link <?= $page === 'daotest' ? "active" : "" ?>">
                         <i class="fas fa-circle nav-icon"></i>
                         <p>DAO Test</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('ormtest') ?>" class="nav-link <?= $page === 'ormtest' ? "active" : "" ?>">
-                        <i class="fas fa-circle nav-icon"></i>
-                        <p>ORM Test</p>
-                    </a>
-                </li>
+                -->
 			</ul>
 		</nav>
 		<!-- /.sidebar-menu -->

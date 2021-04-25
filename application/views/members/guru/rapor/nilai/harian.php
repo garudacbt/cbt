@@ -361,9 +361,10 @@
         cols = $.grep(cols, function (n, i) {
             return (n != null && n.nilai !== '');
         });
+        //console.log('grepped', cols);
 
         var result = cols.length>1 ? 'Memiliki kemampuan' : '';
-        for (let i = 0; i < cols.length; i++) {
+        for (let i = 0; i < 2; i++) {
             if (cols[i].nilai != null && cols[i].nilai !== '' && cols[i].nilai > 0) {
                 if (i === 0) {
                     if (cols[i+1] != null) {
@@ -399,7 +400,7 @@
         //console.log(cols);
 
         var result = cols.length>1 ? 'Memiliki keterampilan' : '';
-        for (let i = 0; i < cols.length; i++) {
+        for (let i = 0; i < 2; i++) {
             if (cols[i].nilai != null && cols[i].nilai !== '' && cols[i].nilai > 0) {
                 if (i === 0) {
                     if (cols[i+1] != null) {
@@ -671,7 +672,7 @@
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil disimpan",
+                        html: "<b>"+data.updated+"<b> nilai berhasil disimpan",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
@@ -725,7 +726,7 @@
                 item ["id_kikd"] = id_kikd;
                 item ["id_mapel_kelas"] = '' + idMapel + idKelas;
                 item ["aspek"] = '1';
-                item ["materi_kikd"] = materi_kikd;
+                item ["materi_kikd"] = materi_kikd.trim();
 
                 jsonObj.push(item);
                 no++;

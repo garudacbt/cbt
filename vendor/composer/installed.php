@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => 'cf72cebd00932cbf54d4a07d9d281139a4b82830',
+    'reference' => '95905e759f2786d0722e667d74d405cf52e1e2cc',
     'name' => 'codeigniter/framework',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'codeigniter/framework' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => 'cf72cebd00932cbf54d4a07d9d281139a4b82830',
+      'reference' => '95905e759f2786d0722e667d74d405cf52e1e2cc',
     ),
     'doctrine/instantiator' => 
     array (
@@ -55,24 +55,6 @@
       array (
       ),
       'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
-    ),
-    'j4mie/idiorm' => 
-    array (
-      'pretty_version' => 'v1.5.7',
-      'version' => '1.5.7.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd23f97053ef5d0b988a02c6a71eb5c6118b2f5b4',
-    ),
-    'j4mie/paris' => 
-    array (
-      'pretty_version' => 'v1.5.6',
-      'version' => '1.5.6.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'ec43a1f7f59d237c147495d29523da52e375f9e7',
     ),
     'laminas/laminas-escaper' => 
     array (
@@ -440,12 +422,12 @@
     ),
     'symfony/yaml' => 
     array (
-      'pretty_version' => 'v4.4.20',
-      'version' => '4.4.20.0',
+      'pretty_version' => 'v4.4.21',
+      'version' => '4.4.21.0',
       'aliases' => 
       array (
       ),
-      'reference' => '29e61305e1c79d25f71060903982ead8f533e267',
+      'reference' => '3871c720871029f008928244e56cf43497da7e9d',
     ),
     'webmozart/assert' => 
     array (

@@ -534,12 +534,3 @@ $config['proxy_ips'] = '';
 $config['jml_opsi']	= 5; // opsi jawaban 1 - 5
 $config['min_password_length']  = 6;
 $config['max_password_length'] = 20;
-
-
-//ParisOrm
-$appFolder = explode('/',$_SERVER['REQUEST_URI']);
-defined('PARENTPATH') or define('PARENTPATH', $_SERVER['DOCUMENT_ROOT'].'/'.$appFolder[1]);
-
-require_once(PARENTPATH.'/vendor/autoload.php');
-require_once(PARENTPATH.'/application/config/orm_config.php');
-require_once(PARENTPATH.'/orm/autoload/ORMAutoloader.php');

@@ -76,11 +76,11 @@
                                 <div id="zoom" style="transform: scale(0.9); transform-origin: top center">
                                     <div id="print-preview">
                                         <div id="empty"
-                                             style="display: flex;-webkit-justify-content: center;justify-content: center;width: 210mm; min-height: 297mm;padding: 10mm">
+                                             style="display: flex;-webkit-justify-content: center;justify-content: center;width: 210mm; height: 297mm;padding: 10mm">
                                             Silahkan pilih siswa
                                         </div>
                                         <div id="print-sampul" class="border my-shadow mb-3 d-none"
-                                             style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; min-height: 297mm;padding: 10mm">
+                                             style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm;padding: 10mm">
                                             <div style="margin-top: 80px;text-align: center">
                                                 <div class="image">
                                                     <img src="<?= base_url('assets/img/garuda_bw.png') ?>"
@@ -143,7 +143,7 @@
                                              style="background: white;width: 210mm; min-height: 297mm;padding: 10mm">
                                         </div>
                                         <div id="print-nilai" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 10mm">
+                                             style="background: white;width: 210mm; height: 297mm;padding: 10mm">
                                         </div>
                                         <div id="print-deskripsi1" class="border my-shadow mb-3 d-none"
                                              style="background: white;width: 210mm; min-height: 297mm;padding: 10mm">
@@ -194,7 +194,7 @@
             adaKkm ++;
             jmlKkmMapel += parseInt(kkm[k].kkm)
         }
-    })
+    });
 
     //var isi = kkm[1] != null ? parseInt(kkm[1].kkm) : 0;
     var isi = adaKkm > 0 ? jmlKkmMapel / adaKkm : 70;
@@ -276,8 +276,21 @@
             return '';
         } else {
             var splitted = text.split(',');
-            if (splitted.length > 2) return splitted[0] + ',' + splitted[1];
-            else return text;
+            if (splitted.length > 2) {
+                var s1 = splitted[0];
+                var s2 = splitted[1];
+                //return s1.split('dan')[0] + ',' + s2.split('dan')[0];
+
+                var limit = 30;
+                var len = s2.length;
+                if (len >= limit) {
+                    s2 = s2.substring(0, limit) + '...';
+                }
+                return s1 + ',' + s2;
+            } else {
+                //return text.split('dan')[0];
+                return text;
+            }
         }
     }
 
@@ -373,10 +386,10 @@
 
     function createPageSikap(idSiswa, siswa) {
         var tableSikap = '<div style="padding: 0.5cm;">' +
-            '    <p style="font-family: \'Tahoma\';text-align: center;font-size: 14pt;"><b>PENCAPAIAN KOMPETENSI PESERTA DIDIK</b></p>' +
+            '    <p style="font-family: \'Tahoma\';text-align: center;font-size: 12pt;"><b>PENCAPAIAN KOMPETENSI PESERTA DIDIK</b></p>' +
             '    <hr>' +
             '    <table id="table-info-print" style="width: 100%; border: 0;">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;vertical-align: top">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td style="width:20%;">Nama</td>' +
             '            <td>:</td>' +
             '            <td style="width:40%;"><b>' + siswa.nama + '</b></td>' +
@@ -384,7 +397,7 @@
             '            <td>:</td>' +
             '            <td style="width:20%;"><b>' + siswa.nama_kelas + '</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;vertical-align: top">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td>No. Induk/NISN</td>' +
             '            <td>:</td>' +
             '            <td><b>' + siswa.nis + '/' + siswa.nisn + '</b></td>' +
@@ -392,7 +405,7 @@
             '            <td>:</td>' +
             '            <td><b>' + smt + '</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;vertical-align: top">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td>Nama Madrasah</td>' +
             '            <td>:</td>' +
             '            <td><b>' + setting.sekolah + '</b></td>' +
@@ -400,7 +413,7 @@
             '            <td>:</td>' +
             '            <td><b>' + tp + '</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;vertical-align: top">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td>Alamat</td>' +
             '            <td>:</td>' +
             '            <td><b>' + setting.alamat + ' ' + setting.kecamatan + ' ' + setting.kota + '</b>' +
@@ -413,17 +426,17 @@
             '<hr>' +
             '<br>' +
             '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>A. SIKAP</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>A. SIKAP</b></span>' +
             '<br>' +
             '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>1. Sikap Spiritual</b></span>' +
-            '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 4px;font-family: \'Tahoma\';font-size: 12pt;">' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>1. Sikap Spiritual</b></span>' +
+            '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 4px;">' +
             '        <table style="width: 100%; border: 2px solid black; border-collapse: collapse">'+
-            '<tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center">' +
+            '<tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center">' +
             '    <td style="width: 20%;height:30px;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Predikat</b></td>' +
             '    <td style="width:80%;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Deskripsi</b></td>' +
             '</tr>' +
-            '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '    <td style="width: 30%;height:200px;border: 1px solid black; border-collapse: collapse;text-align: center"><b>'+
             handlePredikat(sikap[idSiswa][1].predikat.predikat) +
             '</b></td>' +
@@ -434,14 +447,14 @@
             '</table></div>'+
             '<br>' +
             '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>2. Sikap Sosial</b></span>' +
-            '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 4px;font-family: \'Tahoma\';font-size: 12pt;">' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>2. Sikap Sosial</b></span>' +
+            '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 4px;">' +
             '        <table style="width: 100%; border: 2px solid black; border-collapse: collapse">'+
-            '<tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center">' +
+            '<tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center">' +
             '    <td style="width: 20%;height:30px;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Predikat</b></td>' +
             '    <td style="width:80%;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Deskripsi</b></td>' +
             '</tr>' +
-            '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '    <td style="width: 30%;height:200px;border: 1px solid black; border-collapse: collapse;text-align: center"><b>' +
             handlePredikat(sikap[idSiswa][2].predikat.predikat) +
             '</b></td>' +
@@ -468,28 +481,28 @@
 
     function createPageNilai(idSiswa) {
         var tableNilai = '<div style="padding: 0.5cm;margin-top: 20px">' +
-            '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>B. PENGETAHUAN DAN KETERAMPILAN</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>B. PENGETAHUAN DAN KETERAMPILAN</b></span>' +
             '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 12pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+isi+'</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+isi+'</b></span>' +
             '<br>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center;background: #E6E7E9">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td rowspan="2" style="width:45%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
             '            <td colspan="2" style="width:25%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
             '            <td colspan="2" style="width:25%;border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center;background: #E6E7E9">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:10%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
             '            <td style="width:15%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
             '            <td style="width:10%;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
             '            <td style="width:15%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td colspan="6" style="border: 1px solid black; border-collapse: collapse; padding: 8px"><b>Kelompok A (Umum)</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td rowspan="5" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
             '            <td style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
             '                Pendidikan Agama Islam' +
@@ -509,7 +522,7 @@
             var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
             var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
             if (mapel.urutan == '1') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
@@ -518,7 +531,7 @@
                     '</tr>';
                 pos++;
             } else if (mapel.urutan == '2') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
@@ -530,7 +543,7 @@
             }
         });
 
-        tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+        tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '<td colspan="6" style="border: 1px solid black; border-collapse: collapse; padding: 8px"><b>Kelompok B (Umum)</b></td>' +
             '</tr>';
 
@@ -540,7 +553,7 @@
             var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
             var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
             if (mapel.urutan == '3') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
@@ -560,7 +573,7 @@
         });
 
         if (totalMulok > 0) {
-            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td rowspan="2" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top;padding: 6px">' + no + '</td>' +
                 '<td colspan="5" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px"><b>Muatan Lokal *)</b></td>' +
                 '</tr>';
@@ -571,7 +584,7 @@
                 var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
                 var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
                 if (mapel.kelompok == 'MULOK') {
-                    tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                    tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                         '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + mapel.nama_mapel + '</td>' +
                         '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                         '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
@@ -585,19 +598,19 @@
         tableNilai += '</table>' +
             '<br>' +
             '<br>' +
-            '<span style="font-family: \'Tahoma\';font-size: 12pt">Table Interval Predikat Berdasarkan KKM</span>' +
+            '<span style="font-family: \'Tahoma\';font-size: 10pt">Table Interval Predikat Berdasarkan KKM</span>' +
             '<table id="table-kkm-print" style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '    <tr style="font-family: \'Tahoma\';font-size: 10pt;background: #E6E7E9">' +
+            '    <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9">' +
             '        <td rowspan="2" style="width: 20%;border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>KKM</b></td>' +
             '        <td colspan="4" style="width:80%;border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>PREDIKAT</b></td>' +
             '    </tr>' +
-            '    <tr style="font-family: \'Tahoma\';font-size: 10pt;background: #E6E7E9">' +
+            '    <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9">' +
             '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>D (kurang)</b></td>' +
             '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>C (cukup)</b></td>' +
             '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>B (baik)</b></td>' +
             '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>A (sangat baik)</b></td>' +
             '    </tr>' +
-            '    <tr style="font-family: \'Tahoma\';font-size: 10pt;vertical-align: top">' +
+            '    <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>' + isi + '</b></td>' +
             '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px">< ' + isi + '</td>' +
             '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px">' + pre_c + ' ~ ' + pre_csd + '</td>' +
@@ -612,19 +625,19 @@
 
     function createPageDeskripsi(idSiswa) {
         var tableNilai = '<div style="padding: 0.5cm;margin-top: 20px">' +
-            '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>C. DESKRIPSI PENGETAHUAN DAN KETERAMPILAN</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>C. DESKRIPSI PENGETAHUAN DAN KETERAMPILAN</b></span>' +
             '<br>' +
             '    <table id="table-nilai-print" style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px;">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center;background: #E6E7E9">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:5%;height:35px;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
             '            <td style="width:37%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
             '            <td style="width:38%;border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td colspan="4" style="border: 1px solid black; border-collapse: collapse; padding: 6px"><b>Kelompok A (Umum)</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td rowspan="5" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 4px">1</td>' +
             '            <td colspan="3" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 4px">' +
             '                Pendidikan Agama Islam' +
@@ -639,7 +652,7 @@
             var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
             var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
             if (mapel.urutan == '1') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                     ellipsisText(pdesk) +
@@ -650,7 +663,7 @@
                     '</tr>';
                 pos++;
             } else if (mapel.urutan == '2') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;padding: 4px">' + no + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
@@ -664,7 +677,7 @@
             }
         });
 
-        tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+        tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '<td colspan="4" style="border: 1px solid black; border-collapse: collapse; padding: 6px"><b>Kelompok B (Umum)</b></td>' +
             '</tr>';
 
@@ -672,7 +685,7 @@
             var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
             var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
             if (mapel.urutan == '3') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
@@ -693,7 +706,7 @@
         });
 
         if (totalMulok > 0) {
-            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td rowspan="2" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top;padding: 4px">' + no + '</td>' +
                 '<td colspan="3" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 4px"><b>Muatan Lokal *)</b></td>' +
                 '</tr>';
@@ -702,7 +715,7 @@
                 var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
                 var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
                 if (mapel.kelompok == 'MULOK') {
-                    tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                    tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                         '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + mapel.nama_mapel + '</td>' +
                         '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                         ellipsisText(pdesk) +
@@ -787,10 +800,10 @@
     function createPageekstra(idSiswa) {
         console.log('ekstra', ekstra);
         var tableNilai = '<div style="padding: 0.5cm;margin-top: 20px">' +
-            '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>D. EKSTRAKURIKULER</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>D. EKSTRAKURIKULER</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center;background: #E6E7E9">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td style="width:35%;border: 1px solid black; border-collapse: collapse"><b>Kegiatan Ekstrakurikuler</b></td>' +
             '            <td style="width:15%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
@@ -802,7 +815,7 @@
                 var nilaiEkstra = ekstra[idSiswa][k].predikat != null ? ekstra[idSiswa][k].predikat : '';
                 var nilaiDesk = ekstra[idSiswa][k].deskripsi != null ? ekstra[idSiswa][k].deskripsi : '';
                 console.log('ekstra', ekstra[idSiswa][k].deskripsi);
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+no+'</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">'+v.nama_ekstra+'</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+nilaiEkstra+'</td>' +
@@ -813,7 +826,7 @@
         });
 
         for (let i = no; i < 4; i++) {
-            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+no+'</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;"></td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;"></td>' +
@@ -823,10 +836,10 @@
         }
         tableNilai += '</table><br>';
 
-        tableNilai += '<span style="font-family: \'Tahoma\';font-size: 12pt;"><b>E. PRESTASI</b></span>' +
+        tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>E. PRESTASI</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center;background: #E6E7E9">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:5%;height:35px;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td style="width:35%;border: 1px solid black; border-collapse: collapse"><b>Jenis Kegiatan</b></td>' +
             '            <td style="width:60%;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
@@ -834,7 +847,7 @@
 
         no = 1;
         for (let i = 0; i < 3; i++) {
-            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+no+'</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1 + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1_desk + '</td>' +
@@ -846,16 +859,16 @@
         if (setting.jenjang == '1') {
             var sehat = ['Pendengaran', 'Penglihatan', 'Gigi', 'Lain-lain'];
             var kondisi = [fisik[idSiswa].kondisi.telinga, fisik[idSiswa].kondisi.mata, fisik[idSiswa].kondisi.gigi, fisik[idSiswa].kondisi.lain];
-            tableNilai += '<span style="font-family: \'Tahoma\';font-size: 12pt;"><b>F. KONDISI KESEHATAN DAN FISIK</b></span>' +
+            tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>F. KONDISI KESEHATAN DAN FISIK</b></span>' +
                 '<div style="display: flex">' +
                 '<table style="width: 58%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
-                '        <tr style="font-family: \'Tahoma\';font-size: 10pt;background: #E6E7E9;text-align: center">' +
+                '        <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9;text-align: center">' +
                 '            <td style="border: 1px solid black; border-collapse: collapse;height:35px"><b>Aspek yang Dinilai</b></td>' +
                 '            <td style="border: 1px solid black; border-collapse: collapse"><b>Keterangan</b></td>' +
                 '        </tr>';
 
             for (let i = 0; i < sehat.length; i++) {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">' + sehat[i] + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">' + kondisi[i] + '</td>' +
                     '</tr>';
@@ -863,11 +876,11 @@
             tableNilai += '</table><div style="width: 2%"></div>';
 
             tableNilai += '<table style="width: 40%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
-                '        <tr style="font-family: \'Tahoma\';font-size: 10pt;background: #E6E7E9;text-align: center">' +
+                '        <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9;text-align: center">' +
                 '            <td rowspan="2" style="width:40%;border: 1px solid black; border-collapse: collapse"><b>Aspek yang Dinilai</b></td>' +
                 '            <td colspan="2" style="width:60%;border: 1px solid black; border-collapse: collapse"><b>Semester</b></td>' +
                 '        </tr>' +
-                '        <tr style="font-family: \'Tahoma\';font-size: 10pt;text-align: center;background: #E6E7E9">' +
+                '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
                 '            <td style="width:30%;border: 1px solid black; border-collapse: collapse"><b>1</b></td>' +
                 '            <td style="width:30%;border: 1px solid black; border-collapse: collapse"><b>2</b></td>' +
                 '        </tr>' +
@@ -877,7 +890,7 @@
             var arrt = [fisik[idSiswa].smt1.tinggi, fisik[idSiswa].smt2.tinggi];
             var arrb = [fisik[idSiswa].smt1.berat, fisik[idSiswa].smt2.berat];
             for (let i = 0; i < tb.length; i++) {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">' + tb[i] + '</td>';
                 for (let j = 0; j < 2; j++) {
                     var tt = arrt[j] == '' ? '' : arrt[j] + ' cm';
@@ -892,45 +905,50 @@
             tableNilai += '</table></div><br>';
         }
 
-        tableNilai += '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>F. CATATAN WALI KELAS</b></span>' +
+        var sRank = parseInt(deskripsi[idSiswa].ranking) > 5 ? '--' : deskripsi[idSiswa].ranking;
+
+        tableNilai += '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>F. CATATAN WALI KELAS</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="width:100%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
-            'Ranking ke: ' + deskripsi[idSiswa].ranking + '. ' + deskripsi[idSiswa].rank_deskripsi +
-            '<br>' + deskripsi[idSiswa].saran +
+            'Ranking ke: ' + sRank + '. ' + deskripsi[idSiswa].rank_deskripsi +
+            '<br>' + absensi[idSiswa].saran +
             '</td>' +
             '        </tr>' +
             '</table>';
 
         tableNilai += '<br>' +
-        '    <span style="font-family: \'Tahoma\';font-size: 12pt;"><b>G. TANGGAPAN ORANG TUA/WALI</b></span>' +
+        '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>G. TANGGAPAN ORANG TUA/WALI</b></span>' +
         '<table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
         '<tr>' +
         '    <td style="width:100%;height: 60px;border: 1px solid black; border-collapse: collapse"></td>' +
         '</tr>' +
         '</table>';
 
+        var ssakit = absensi[idSiswa].nilai.s == '' ? '0' : absensi[idSiswa].nilai.s;
+        var sizin = absensi[idSiswa].nilai.i == '' ? '0' : absensi[idSiswa].nilai.i;
+        var salpa = absensi[idSiswa].nilai.a == '' ? '0' : absensi[idSiswa].nilai.a;
         tableNilai += '<br>' +
-            '<span style="font-family: \'Tahoma\';font-size: 12pt;"><b>H. KETIDAKHADIRAN</b></span>' +
+            '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>H. KETIDAKHADIRAN</b></span>' +
             '<div style="display: flex; align-items: flex-start;">' +
             '    <table style="width: 45%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">Sakit</td>' +
             '            <td style="width:30%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">'+
-            absensi[idSiswa].s +' hari' +
+            ssakit +' hari' +
             '</td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">Izin</td>' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
-            absensi[idSiswa].i +' hari' +
+            sizin +' hari' +
             '</td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">Tanpa Keterangan</td>' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
-            absensi[idSiswa].a +' hari' +
+            salpa +' hari' +
             '</td>' +
             '        </tr>' +
             '</table>' +
@@ -940,10 +958,10 @@
             var naikKe = parseInt(level)+1;
             var txtNaik = buatTeksKenaikan(naik[idSiswa]);
             tableNilai += '<table style="width: 48%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
-                '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+                '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '            <td style="width:100%;height: 55px;border: 1px solid black; border-collapse: collapse; padding-left: 6px">' +
                 '<b>Keputusan:</b><br>' +
-                'Berdasarkan pencapaian kompetensi pada semester ke-1 dan ke-2, peserta didik ditetapkan *)<br>' +
+                'Berdasarkan pencapaian kompetensi pada semester ke-1 dan ke-2, peserta didik ditetapkan <br>' +
                     txtNaik +
                 '<small>*) Coret yang tidak perlu.</small>' +
                 '</td>' +
@@ -956,7 +974,7 @@
 
         tableNilai += '    <br>' +
             '<table style="width: 100%">' +
-            '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '<td style="width: 35%;">' +
             '    Mengetahui:' +
             '    <br>' +
@@ -969,7 +987,7 @@
             '</td>' +
             '<td style="width: 30%;"></td>' +
             '<td style="width: 35%">' +
-            setting.kota + ',  ' + raporSetting.tgl_rapor_pts +
+            setting.kota + ',  ' + raporSetting.tgl_rapor_akhir +
             '    <br>' +
             'Wali Kelas' +
             '    <br>' +
@@ -986,7 +1004,7 @@
             '    <br>' +
             '<div style="display: flex;-webkit-justify-content: center;justify-content: center;">' +
             '    <table style="width: 500px;border: 0;">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style=" padding: 4px 4px 4px 180px">Mengetahui,' +
             '    <br>' +
             '    Kepala Madrasah' +

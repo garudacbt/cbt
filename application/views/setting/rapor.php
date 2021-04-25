@@ -134,6 +134,8 @@
                 horizontal: 'left',
                 vertical: 'bottom'
             }
+        }).change(function () {
+            $(this).val(buat_tanggal_indonesia($(this).val()));
         });
 
         $('#editsetting').submit(function (e) {

@@ -14,7 +14,7 @@
     width: 250%;
     height: 200%;
     z-index: -1;
-    background: linear-gradient(90deg, #6A21EA 0%, #F524EF 100%);
+    background-color: #e8ecf5;
     transform: skewY(135deg);
 }
 

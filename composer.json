@@ -21,8 +21,7 @@
     "alhimik1986/php-excel-templator": "^1.0",
     "ext-json": "*",
     "dompdf/dompdf": "^1.0",
-    "ext-gd": "*",
-    "j4mie/paris": "^1.5"
+    "ext-gd": "*"
   },
   "suggest": {
     "paragonie/random_compat": "Provides better randomness in PHP 5.x"

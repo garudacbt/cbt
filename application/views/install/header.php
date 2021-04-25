@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Garuda CBT Installer</title>
+    <title>Aurora Installer</title>
 
     <link rel="shortcut icon" href="<?= base_url('assets/img/favicon.png') ?>" type="image/x-icon">
 
@@ -32,15 +32,10 @@
     <script src="<?= base_url() ?>/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="<?= base_url() ?>/assets/app/js/multi-step.js"></script>
 
-    <style>
-        .gradient {
-            background: linear-gradient(90deg, #6A21EA 0%, #F524EF 100%);
-        }
-    </style>
 </head>
 
 <script type="text/javascript">
     let base_url = '<?=base_url()?>';
 </script>
 
-<body id="page-top">
+<body id="page-top" style="background: #f4f6f9">

@@ -125,6 +125,28 @@
         return i;
     }
 
+    function buat_tanggal_indonesia(str) {
+        str = str.replace("Jan", "Januari");
+        str = str.replace("Feb", "Februari");
+        str = str.replace("Mar", "Maret");
+        str = str.replace("Apr", "April");
+        str = str.replace("May", "Mei");
+        str = str.replace("Jun", "Juni");
+        str = str.replace("Jul", "Juli");
+        str = str.replace("Aug", "Agustus");
+        str = str.replace("Sep", "September");
+        str = str.replace("Oct", "Oktober");
+        str = str.replace("Nov", "Nopember");
+        str = str.replace("Dec", "Desember");
+        str = str.replace("Mon", "Senin");
+        str = str.replace("Tue", "Selasa");
+        str = str.replace("Wed", "Rabu");
+        str = str.replace("Thu", "Kamis");
+        str = str.replace("Fri", "Jumat");
+        str = str.replace("Sat", "Sabtu");
+        str = str.replace("Sun", "Minggu");
+        return str;
+    }
 </script>
 
 <?php
