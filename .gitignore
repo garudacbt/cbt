@@ -16,4 +16,3 @@ application/logs/*
 !application/logs/.htaccess
 /backups/
 /orm/
-#/vendor/
