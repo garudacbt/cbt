@@ -67,11 +67,13 @@ foreach ($materi as $k=>$m) {
                                 </li>
                             </ul>
                         </div>
-                    <?php
-                    $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
-                    ?>
-                    <div class="row <?=$dnone?>">
-                        <div class="col-md-6 mb-4">
+                    <div class="row">
+                        <?php
+                        $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
+                        $left = $this->ion_auth->is_admin() ? 'text-right' : 'text-left';
+                        $btnNone = count($materi) > 0 ? '' : 'd-none';
+                        ?>
+                        <div class="col-md-6 mb-4 <?=$dnone?>">
                             <label>Pilih Guru</label>
                             <?php echo form_dropdown(
                                 'guru',
@@ -100,9 +102,7 @@ foreach ($materi as $k=>$m) {
                             </select>
                         </div>
                         -->
-                    </div>
-					<div class="row">
-                        <div class="col-12">
+                        <div class="col-6 <?=$left?> <?=$btnNone?>">
                             <button type="button" id="delete-all" data-count="<?=count($materi)?>" class="btn btn-sm btn-danger mb-3"><i class="fa fa-trash"></i> Hapus Semua Materi</button>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ foreach ($materi as $k=>$m) {
 										<div class="card-header border-bottom-0 bg-gradient-success">
 											<div class="card-title">
 												<h5><b><?= $value->kode ?></b></h5>
-												<h6><?= $value->nama_guru ?></h6>
+												<small><?= $value->nama_guru ?></small>
 											</div>
 											<div class="card-tools">
 											<span data-toggle="tooltip" title="Edit Materi">
@@ -132,7 +132,7 @@ foreach ($materi as $k=>$m) {
 										</div>
 										<div class="card-body pt-0">
 											<ul class="list-group list-group-unbordered">
-												<li class="list-group-item text-center text-lg">
+												<li class="list-group-item text-center">
 													<b><?= $value->judul_materi ?></b>
 												</li>
 												<li class="list-group-item">

@@ -60,7 +60,11 @@ if (empty($kelas_pilih)) {
 
 	<section class="content">
 		<div class="container-fluid">
-			<div class="card card-default my-shadow mb-4">
+            <div class="alert alert-default-warning align-content-center" role="alert">
+                Untuk memulai membuat MATERI PEMBELAJARAN, pastikan setiap Guru sudah diatur mapelnya
+            </div>
+
+            <div class="card card-default my-shadow mb-4">
 				<?= form_open('', array('id' => 'formmateri')) ?>
 				<div class="card-header">
 					<h6 class="card-title"><?= $subjudul ?></h6>

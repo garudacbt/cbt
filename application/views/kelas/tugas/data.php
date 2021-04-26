@@ -6,6 +6,14 @@
  * Time: 22:29
  */
 
+$total = count($tugas);
+$all_tugas = [];
+foreach ($tugas as $k=>$m) {
+    if ($m->id_tp != $tp_active->tahun && $m->id_smt != $smt_active->id_smt) {
+        array_push($all_tugas, $m);
+        unset($tugas[$k]);
+    }
+}
 ?>
 
 <div class="content-wrapper bg-white pt-4">
@@ -39,24 +47,41 @@
 						<a href="<?= base_url('kelastugas/add') ?>" type="button" class="btn btn-primary btn-sm ml-1">
 							<i class="fas fa-plus-circle"></i> Buat tugas
 						</a>
-						<!--<button type="submit" class="btn btn-success btn-sm ml-1"><i class="fa fa-save mr-1"></i>Simpan</button>-->
+                        <button type="button" data-toggle="modal" data-target="#openAllTugas" class="btn btn-sm btn-success"><i class="fa fa-copy"></i> Copy Tugas</button>
 					</div>
 				</div>
 				<div class="card-body">
-                    <?php
-                    $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
-                    ?>
-					<div class="col-6 mb-4 <?=$dnone?>">
-						<?php echo form_dropdown(
-							'guru',
-							$gurus,
-							$id_guru,
-							'id="guru" class="select2 form-control" required'
-						); ?>
-					</div>
+                    <div class="alert alert-default-info align-content-center" role="alert">
+                        Untuk mengcopy tugas dari tahun atau semester sebelumnya <b>ke TP <?=$tp_active->tahun?> SMT <?=$smt_active->nama_smt?></b>,
+                        <ul>
+                            <li>
+                                Pilih Nama Guru
+                            </li>
+                            <li>
+                                Klik <b><i class="fa fa-copy"></i> Copy Tugas</b>
+                            </li>
+                            <li>
+                                Klik Aksi <b>Copy</b> untuk tugas yang akan dicopy
+                            </li>
+                        </ul>
+                    </div>
                     <div class="row">
-                        <div class="col-12">
-                            <button type="button" id="delete-all" data-count="<?=count($tugas)?>" class="btn btn-sm btn-danger float-right mb-3"><i class="fa fa-trash"></i> Hapus Semua Materi</button>
+                        <?php
+                        $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
+                        $left = $this->ion_auth->is_admin() ? 'text-right' : 'text-left';
+                        $btnNone = count($tugas) > 0 ? '' : 'd-none';
+                        ?>
+                        <div class="col-6 mb-4 <?=$dnone?>">
+                            <label>Pilih Guru</label>
+                            <?php echo form_dropdown(
+                                'guru',
+                                $gurus,
+                                $id_guru,
+                                'id="guru" class="select2 form-control" required'
+                            ); ?>
+                        </div>
+                        <div class="col-6 <?=$left?> <?=$btnNone?>">
+                            <button type="button" id="delete-all" data-count="<?=count($tugas)?>" class="btn btn-sm btn-danger mb-3"><i class="fa fa-trash"></i> Hapus Semua Tugas</button>
                         </div>
                     </div>
 					<div class="row">
@@ -68,26 +93,26 @@
                                 array_push($arrIds, $value->id_tugas);
 								?>
 								<div class="col-md-6 col-lg-4">
-									<div class="card border mb-4">
-										<div class="card-header border-bottom-0 bg-gradient-red">
-											<h3 class="card-title mt-1"><b><?= $value->judul_tugas ?></b></h3>
-											<div class="card-tools">
+									<div class="card border mb-4 border">
+                                        <div class="card-header border-bottom-0 bg-gradient-red">
+                                            <div class="card-title">
+                                                <h5><b><?= $value->kode ?></b></h5>
+                                                <small><?= $value->nama_guru ?></small>
+                                            </div>
+                                            <div class="card-tools">
 											<span data-toggle="tooltip" title="Edit Tugas">
 												<a type="button" class="btn btn-sm btn-warning"
-												   href="<?= base_url('kelastugas/add/' . $value->id_tugas) ?>">
+                                                   href="<?= base_url('kelastugas/add/' . $value->id_tugas) ?>">
 													<i class="fa fa-pencil-alt mr-1"></i> Edit
 												</a>
 											</span>
-											</div>
-										</div>
+                                            </div>
+                                        </div>
 										<div class="card-body pt-0">
 											<ul class="list-group list-group-unbordered">
-												<li class="list-group-item">
-													<b><?= $value->kode ?></b>
-													<span class="float-right">
-													<b><?= $value->nama_guru ?></b>
-												</span>
-												</li>
+                                                <li class="list-group-item text-center">
+                                                    <b><?= $value->judul_tugas ?></b>
+                                                </li>
 												<li class="list-group-item">
 													<table class="w-100 table-sm">
 														<tr>
@@ -109,6 +134,7 @@
 																	   data-toggle="modal"
 																	   data-target="#editJadwalModal"
 																	   data-idtugas="<?= $value->id_tugas ?>"
+                                                                       data-idmapel="<?= $value->id_mapel ?>"
 																	   data-judul="<?= $value->judul_tugas ?>"
 																	   data-tgl="<?= isset($jadwal_tugas[$value->id_tugas][$v]) ? $jadwal_tugas[$value->id_tugas][$v] : '' ?>"
 																	   data-kelas="<?= $v ?>"
@@ -177,9 +203,9 @@
 														}
 													}
 
-													if ($dataFileAttach==null){
-														$dataFileAttach = [];
-													}
+													//if ($dataFileAttach==null){
+													//	$dataFileAttach = [];
+													//}
 													foreach ($dataFileAttach as $f) :
 														$icon = 'fa-file';
 														$arrFile = ['jpg', 'jpeg', 'png', 'gif'];
@@ -357,6 +383,72 @@
 	</div>
 	<script src="<?= base_url() ?>/assets/app/js/kelas/jadwal/kalender.js"></script>
 </div>
+
+<div class="modal fade" id="openAllTugas" tabindex="-1" role="dialog" aria-labelledby="openTugasLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="openTugasLabel">Semua Tugas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php if (count($all_tugas)>0) :?>
+                    <table id="tableEkstra" class="w-100 table table-striped table-bordered table-hover table-head-fixed overflow-auto display nowrap" style="height: 300px">
+                        <thead>
+                        <tr>
+                            <th class="text-center align-middle p-0">No.</th>
+                            <th>Judul</th>
+                            <th>Mapel</th>
+                            <th>Kelas</th>
+                            <th>TP/SMT</th>
+                            <th class="text-center align-middle p-0" style="width: 100px"><span>Aksi</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $no =1;
+                        foreach ($all_tugas as $am) :
+                            $arr = unserialize($am->tugas_kelas);
+                            $kelas = '';
+                            for ($i=0;$i<count($arr);$i++) {
+                                $kelas .= $arr[$i];
+                                if ($i<(count($arr)-1)){
+                                    $kelas .= ', ';
+                                }
+                            }
+                            ?>
+                            <tr>
+                                <td><?=$no?></td>
+                                <td><?=$am->judul_tugas?></td>
+                                <td><?=$am->kode_mapel?></td>
+                                <td><?=$kelas?></td>
+                                <td><?=$am->tahun.' - '.$am->nama_smt?></td>
+                                <td>
+                                    <button onclick="copy(<?= $am->id_tugas ?>)" type="button"
+                                            class="btn btn-sm btn-success"><i class="fa fa-copy"></i> Copy
+                                    </button>
+                                </td>
+                            </tr>
+                            <?php
+                            $no ++;
+                        endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="alert alert-default-info align-content-center" role="alert">
+                        belum ada tugas
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= form_open('', array('id' => 'up')) ?>
 <?= form_close() ?>
 
@@ -391,6 +483,7 @@
 
 		$('#editJadwalModal').on('show.bs.modal', function (e) {
 			var id_tugas = $(e.relatedTarget).data('idtugas');
+            var id_mapel = $(e.relatedTarget).data('idmapel');
 			var judul = $(e.relatedTarget).data('judul');
 			var kelas = $(e.relatedTarget).data('kelas');
 			var mapel = $(e.relatedTarget).data('mapel');
@@ -519,8 +612,8 @@
                 });
             } else {
                 swal.fire({
-                    title: "Materi Kosong",
-                    text: "Tidak ada materi yang bisa dihapus",
+                    title: "Tugas Kosong",
+                    text: "Tidak ada tugas yang bisa dihapus",
                     icon: "info"
                 });
             }

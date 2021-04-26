@@ -364,19 +364,22 @@
         //console.log('grepped', cols);
 
         var result = cols.length>1 ? 'Memiliki kemampuan' : '';
-        for (let i = 0; i < 2; i++) {
-            if (cols[i].nilai != null && cols[i].nilai !== '' && cols[i].nilai > 0) {
-                if (i === 0) {
-                    if (cols[i+1] != null) {
-                        result += preCalcPeng(null, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
-                    }
-                } else if (i === cols.length-1) {
-                    if (cols[i-1] != null) {
-                        result += preCalcPeng(cols[i-1].nilai, cols[i].nilai, null, i, cols[i].pos);
-                    }
-                } else {
-                    if (cols[i-1] != null && cols[i+1] != null) {
-                        result += preCalcPeng(cols[i-1].nilai, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
+        if (cols.length > 0) {
+            var count = cols.length > 2 ? 2 : cols.length;
+            for (let i = 0; i < count; i++) {
+                if (cols[i].nilai != null && cols[i].nilai !== '' && cols[i].nilai > 0) {
+                    if (i === 0) {
+                        if (cols[i+1] != null) {
+                            result += preCalcPeng(null, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
+                        }
+                    } else if (i === cols.length-1) {
+                        if (cols[i-1] != null) {
+                            result += preCalcPeng(cols[i-1].nilai, cols[i].nilai, null, i, cols[i].pos);
+                        }
+                    } else {
+                        if (cols[i-1] != null && cols[i+1] != null) {
+                            result += preCalcPeng(cols[i-1].nilai, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
+                        }
                     }
                 }
             }
@@ -400,19 +403,22 @@
         //console.log(cols);
 
         var result = cols.length>1 ? 'Memiliki keterampilan' : '';
-        for (let i = 0; i < 2; i++) {
-            if (cols[i].nilai != null && cols[i].nilai !== '' && cols[i].nilai > 0) {
-                if (i === 0) {
-                    if (cols[i+1] != null) {
-                        result += preCalcKetr(null, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
-                    }
-                } else if (i === cols.length-1) {
-                    if (cols[i-1] != null) {
-                        result += preCalcKetr(cols[i-1].nilai, cols[i].nilai, null, i, cols[i].pos);
-                    }
-                } else {
-                    if (cols[i-1] != null && cols[i+1] != null) {
-                        result += preCalcKetr(cols[i-1].nilai, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
+        if (cols.length > 0) {
+            var count = cols.length > 2 ? 2 : cols.length;
+            for (let i = 0; i < count; i++) {
+                if (cols[i].nilai != null && cols[i].nilai !== '' && cols[i].nilai > 0) {
+                    if (i === 0) {
+                        if (cols[i + 1] != null) {
+                            result += preCalcKetr(null, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
+                        }
+                    } else if (i === cols.length - 1) {
+                        if (cols[i - 1] != null) {
+                            result += preCalcKetr(cols[i - 1].nilai, cols[i].nilai, null, i, cols[i].pos);
+                        }
+                    } else {
+                        if (cols[i - 1] != null && cols[i + 1] != null) {
+                            result += preCalcKetr(cols[i - 1].nilai, cols[i].nilai, cols[i + 1].nilai, i, cols[i].pos);
+                        }
                     }
                 }
             }
@@ -656,7 +662,7 @@
 
             var tbl = $('table.jexcel tr').get().map(function(row) {
                 return $(row).find('td').get().map(function(cell) {
-                    return $(cell).html();
+                    return $(cell).html().replace(/\&nbsp;/g, '');
                 });
             });
             tbl.shift();
@@ -736,7 +742,7 @@
             no = 1;
             $rows2.each((i, row) => {
                 var id_kikd = ''+idMapel+idKelas+'2'+ no;
-                const materi_kikd = $(row).find('.editable').text();
+                const materi_kikd = $(row).find('.editable').text().trim();
 
                 let item = {};
                 item ["id_kikd"] = id_kikd;
