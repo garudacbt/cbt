@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,15 +16,15 @@
     <session id="-1517765607">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
-          <entry key="project.open.time.0" value="2" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -38,7 +36,7 @@
           <entry key="html" value="12" />
           <entry key="json" value="1" />
           <entry key="md" value="3" />
-          <entry key="php" value="18" />
+          <entry key="php" value="20" />
           <entry key="png" value="6" />
           <entry key="rst" value="1" />
           <entry key="sql" value="3" />
@@ -55,7 +53,7 @@
           <entry key="Image" value="6" />
           <entry key="JSON" value="1" />
           <entry key="Markdown" value="3" />
-          <entry key="PHP" value="18" />
+          <entry key="PHP" value="20" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="SQL" value="3" />
           <entry key="SVG" value="8" />
@@ -68,7 +66,7 @@
           <entry key="html" value="381" />
           <entry key="php" value="381" />
           <entry key="svg" value="18" />
-          <entry key="txt" value="74" />
+          <entry key="txt" value="100" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -77,20 +75,14 @@
           <entry key="Git file" value="22" />
           <entry key="HTML" value="381" />
           <entry key="PHP" value="381" />
-          <entry key="PLAIN_TEXT" value="102" />
+          <entry key="PLAIN_TEXT" value="128" />
           <entry key="SVG" value="18" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/models/DAOFactory.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -197,8 +189,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -209,12 +199,60 @@
             <path>
               <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="members" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="members" type="462c0819:PsiDirectoryNode" />
+              <item name="guru" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="members" type="462c0819:PsiDirectoryNode" />
+              <item name="guru" type="462c0819:PsiDirectoryNode" />
+              <item name="rapor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="members" type="462c0819:PsiDirectoryNode" />
+              <item name="guru" type="462c0819:PsiDirectoryNode" />
+              <item name="rapor" type="462c0819:PsiDirectoryNode" />
+              <item name="nilai" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -268,6 +306,7 @@
       <workItem from="1619105779125" duration="2387000" />
       <workItem from="1619108264801" duration="438000" />
       <workItem from="1619351057935" duration="2964000" />
+      <workItem from="1619464410019" duration="211000" />
     </task>
     <task id="LOCAL-00001" summary="#1">
       <created>1618404952657</created>
@@ -416,23 +455,30 @@
       <option name="project" value="LOCAL" />
       <updated>1619356884553</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix kelas/materi/tugas/rapor">
+      <created>1619464546909</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1619464546909</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24446000" />
+    <option name="totallyTimeSpent" value="24657000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27609682" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2806354" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -445,6 +491,8 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="right" id="Flutter Inspector" />
+      <window_info anchor="right" id="Flutter Outline" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -504,7 +552,8 @@
     <MESSAGE value="fix cbt alokasi" />
     <MESSAGE value="add ignore" />
     <MESSAGE value="fix error dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix error dashboard" />
+    <MESSAGE value="fix kelas/materi/tugas/rapor" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix kelas/materi/tugas/rapor" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/docs/hero.png">
@@ -650,22 +699,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
           <caret line="244" selection-start-line="244" selection-end-line="244" />
-          <folding>
-            <element signature="n#style#0;n#section#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#section#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#!!top" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#11206#11213#1#HTML" expanded="true" />
-            <element signature="e#12764#12771#1#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/database.php">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -677,24 +712,9 @@
     <entry file="file://$PROJECT_DIR$/application/models/Cbt_model.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapidexe.app.config">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.rst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-479">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/table2excel.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/rapidexe.app.config" />
+    <entry file="file://$PROJECT_DIR$/readme.rst" />
+    <entry file="file://$PROJECT_DIR$/table2excel.md" />
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -709,7 +729,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/database.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DAOFactory.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Kelas_model.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
