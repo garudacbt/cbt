@@ -704,8 +704,8 @@ CREATE TABLE `kelas_tugas` (
   `kode_tugas` text NOT NULL,
   `id_guru` int(11) NOT NULL,
   `tugas_kelas` text NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `nama_mapel` varchar(100) NOT NULL,
+  `id_mapel` int(11) NOT NULL DEFAULT 0,
+  `kode_mapel` varchar(300) DEFAULT NULL,
   `judul_tugas` text NOT NULL,
   `isi_tugas` longtext NOT NULL,
   `file` longtext DEFAULT NULL,
@@ -714,7 +714,7 @@ CREATE TABLE `kelas_tugas` (
   `created_on` datetime DEFAULT NULL,
   `updated_on` datetime DEFAULT current_timestamp(),
   `status` int(1) DEFAULT NULL,
-  `tgl_selesai` text NOT NULL,
+  `youtube` varchar(255) NOT NULL,
   PRIMARY KEY (`id_tugas`)
 ) ENGINE=InnoDB AUTO_INCREMENT=272 DEFAULT CHARSET=utf8mb4;
 
