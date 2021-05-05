@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_soal_siswa'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtSoalSiswaMySqlDAO implements CbtSoalSiswaDAO{
 
@@ -60,25 +60,25 @@ class CbtSoalSiswaMySqlDAO implements CbtSoalSiswaDAO{
 		$sql = 'INSERT INTO cbt_soal_siswa (id_bank, id_jadwal, id_soal, id_siswa, jenis_soal, no_soal_alias, opsi_alias_a, opsi_alias_b, opsi_alias_c, opsi_alias_d, opsi_alias_e, jawaban_alias, jawaban_siswa, jawaban_benar, point_essai, soal_end) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtSoalSiswa->idBank);
-		$sqlQuery->setNumber($cbtSoalSiswa->idJadwal);
-		$sqlQuery->setNumber($cbtSoalSiswa->idSoal);
-		$sqlQuery->setNumber($cbtSoalSiswa->idSiswa);
-		$sqlQuery->setNumber($cbtSoalSiswa->jenisSoal);
-		$sqlQuery->setNumber($cbtSoalSiswa->noSoalAlias);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasA);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasB);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasC);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasD);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasE);
-		$sqlQuery->set($cbtSoalSiswa->jawabanAlias);
-		$sqlQuery->set($cbtSoalSiswa->jawabanSiswa);
-		$sqlQuery->set($cbtSoalSiswa->jawabanBenar);
-		$sqlQuery->setNumber($cbtSoalSiswa->pointEssai);
-		$sqlQuery->setNumber($cbtSoalSiswa->soalEnd);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_bank);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_jadwal);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_soal);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_siswa);
+		$sqlQuery->setNumber($cbtSoalSiswa->jenis_soal);
+		$sqlQuery->setNumber($cbtSoalSiswa->no_soal_alias);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_a);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_b);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_c);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_d);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_e);
+		$sqlQuery->set($cbtSoalSiswa->jawaban_alias);
+		$sqlQuery->set($cbtSoalSiswa->jawaban_siswa);
+		$sqlQuery->set($cbtSoalSiswa->jawaban_benar);
+		$sqlQuery->setNumber($cbtSoalSiswa->point_essai);
+		$sqlQuery->setNumber($cbtSoalSiswa->soal_end);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtSoalSiswa->idSoalSiswa = $id;
+		$cbtSoalSiswa->id_soal_siswa = $id;
 		return $id;
 	}
 	
@@ -91,24 +91,24 @@ class CbtSoalSiswaMySqlDAO implements CbtSoalSiswaDAO{
 		$sql = 'UPDATE cbt_soal_siswa SET id_bank = ?, id_jadwal = ?, id_soal = ?, id_siswa = ?, jenis_soal = ?, no_soal_alias = ?, opsi_alias_a = ?, opsi_alias_b = ?, opsi_alias_c = ?, opsi_alias_d = ?, opsi_alias_e = ?, jawaban_alias = ?, jawaban_siswa = ?, jawaban_benar = ?, point_essai = ?, soal_end = ? WHERE id_soal_siswa = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtSoalSiswa->idBank);
-		$sqlQuery->setNumber($cbtSoalSiswa->idJadwal);
-		$sqlQuery->setNumber($cbtSoalSiswa->idSoal);
-		$sqlQuery->setNumber($cbtSoalSiswa->idSiswa);
-		$sqlQuery->setNumber($cbtSoalSiswa->jenisSoal);
-		$sqlQuery->setNumber($cbtSoalSiswa->noSoalAlias);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasA);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasB);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasC);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasD);
-		$sqlQuery->set($cbtSoalSiswa->opsiAliasE);
-		$sqlQuery->set($cbtSoalSiswa->jawabanAlias);
-		$sqlQuery->set($cbtSoalSiswa->jawabanSiswa);
-		$sqlQuery->set($cbtSoalSiswa->jawabanBenar);
-		$sqlQuery->setNumber($cbtSoalSiswa->pointEssai);
-		$sqlQuery->setNumber($cbtSoalSiswa->soalEnd);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_bank);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_jadwal);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_soal);
+		$sqlQuery->setNumber($cbtSoalSiswa->id_siswa);
+		$sqlQuery->setNumber($cbtSoalSiswa->jenis_soal);
+		$sqlQuery->setNumber($cbtSoalSiswa->no_soal_alias);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_a);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_b);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_c);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_d);
+		$sqlQuery->set($cbtSoalSiswa->opsi_alias_e);
+		$sqlQuery->set($cbtSoalSiswa->jawaban_alias);
+		$sqlQuery->set($cbtSoalSiswa->jawaban_siswa);
+		$sqlQuery->set($cbtSoalSiswa->jawaban_benar);
+		$sqlQuery->setNumber($cbtSoalSiswa->point_essai);
+		$sqlQuery->setNumber($cbtSoalSiswa->soal_end);
 
-		$sqlQuery->set($cbtSoalSiswa->idSoalSiswa);
+		$sqlQuery->set($cbtSoalSiswa->id_soal_siswa);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -478,23 +478,23 @@ class CbtSoalSiswaMySqlDAO implements CbtSoalSiswaDAO{
 	protected function readRow($row){
 		$cbtSoalSiswa = new CbtSoalSiswaDTO();
 		
-		$cbtSoalSiswa->idSoalSiswa = isset($row['id_soal_siswa']) ? $row['id_soal_siswa'] : null;
-		$cbtSoalSiswa->idBank = isset($row['id_bank']) ? $row['id_bank'] : null;
-		$cbtSoalSiswa->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
-		$cbtSoalSiswa->idSoal = isset($row['id_soal']) ? $row['id_soal'] : null;
-		$cbtSoalSiswa->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$cbtSoalSiswa->jenisSoal = isset($row['jenis_soal']) ? $row['jenis_soal'] : null;
-		$cbtSoalSiswa->noSoalAlias = isset($row['no_soal_alias']) ? $row['no_soal_alias'] : null;
-		$cbtSoalSiswa->opsiAliasA = isset($row['opsi_alias_a']) ? $row['opsi_alias_a'] : null;
-		$cbtSoalSiswa->opsiAliasB = isset($row['opsi_alias_b']) ? $row['opsi_alias_b'] : null;
-		$cbtSoalSiswa->opsiAliasC = isset($row['opsi_alias_c']) ? $row['opsi_alias_c'] : null;
-		$cbtSoalSiswa->opsiAliasD = isset($row['opsi_alias_d']) ? $row['opsi_alias_d'] : null;
-		$cbtSoalSiswa->opsiAliasE = isset($row['opsi_alias_e']) ? $row['opsi_alias_e'] : null;
-		$cbtSoalSiswa->jawabanAlias = isset($row['jawaban_alias']) ? $row['jawaban_alias'] : null;
-		$cbtSoalSiswa->jawabanSiswa = isset($row['jawaban_siswa']) ? $row['jawaban_siswa'] : null;
-		$cbtSoalSiswa->jawabanBenar = isset($row['jawaban_benar']) ? $row['jawaban_benar'] : null;
-		$cbtSoalSiswa->pointEssai = isset($row['point_essai']) ? $row['point_essai'] : null;
-		$cbtSoalSiswa->soalEnd = isset($row['soal_end']) ? $row['soal_end'] : null;
+		$cbtSoalSiswa->id_soal_siswa = isset($row['id_soal_siswa']) ? $row['id_soal_siswa'] : null;
+		$cbtSoalSiswa->id_bank = isset($row['id_bank']) ? $row['id_bank'] : null;
+		$cbtSoalSiswa->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$cbtSoalSiswa->id_soal = isset($row['id_soal']) ? $row['id_soal'] : null;
+		$cbtSoalSiswa->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$cbtSoalSiswa->jenis_soal = isset($row['jenis_soal']) ? $row['jenis_soal'] : null;
+		$cbtSoalSiswa->no_soal_alias = isset($row['no_soal_alias']) ? $row['no_soal_alias'] : null;
+		$cbtSoalSiswa->opsi_alias_a = isset($row['opsi_alias_a']) ? $row['opsi_alias_a'] : null;
+		$cbtSoalSiswa->opsi_alias_b = isset($row['opsi_alias_b']) ? $row['opsi_alias_b'] : null;
+		$cbtSoalSiswa->opsi_alias_c = isset($row['opsi_alias_c']) ? $row['opsi_alias_c'] : null;
+		$cbtSoalSiswa->opsi_alias_d = isset($row['opsi_alias_d']) ? $row['opsi_alias_d'] : null;
+		$cbtSoalSiswa->opsi_alias_e = isset($row['opsi_alias_e']) ? $row['opsi_alias_e'] : null;
+		$cbtSoalSiswa->jawaban_alias = isset($row['jawaban_alias']) ? $row['jawaban_alias'] : null;
+		$cbtSoalSiswa->jawaban_siswa = isset($row['jawaban_siswa']) ? $row['jawaban_siswa'] : null;
+		$cbtSoalSiswa->jawaban_benar = isset($row['jawaban_benar']) ? $row['jawaban_benar'] : null;
+		$cbtSoalSiswa->point_essai = isset($row['point_essai']) ? $row['point_essai'] : null;
+		$cbtSoalSiswa->soal_end = isset($row['soal_end']) ? $row['soal_end'] : null;
 
 		return $cbtSoalSiswa;
 	}

@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_kop_berita'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtKopBeritaMySqlDAO implements CbtKopBeritaDAO{
 
@@ -60,13 +60,13 @@ class CbtKopBeritaMySqlDAO implements CbtKopBeritaDAO{
 		$sql = 'INSERT INTO cbt_kop_berita (header_1, header_2, header_3, header_4) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtKopBerita->header1);
-		$sqlQuery->set($cbtKopBerita->header2);
-		$sqlQuery->set($cbtKopBerita->header3);
-		$sqlQuery->set($cbtKopBerita->header4);
+		$sqlQuery->set($cbtKopBerita->header_1);
+		$sqlQuery->set($cbtKopBerita->header_2);
+		$sqlQuery->set($cbtKopBerita->header_3);
+		$sqlQuery->set($cbtKopBerita->header_4);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtKopBerita->idKop = $id;
+		$cbtKopBerita->id_kop = $id;
 		return $id;
 	}
 	
@@ -79,12 +79,12 @@ class CbtKopBeritaMySqlDAO implements CbtKopBeritaDAO{
 		$sql = 'UPDATE cbt_kop_berita SET header_1 = ?, header_2 = ?, header_3 = ?, header_4 = ? WHERE id_kop = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtKopBerita->header1);
-		$sqlQuery->set($cbtKopBerita->header2);
-		$sqlQuery->set($cbtKopBerita->header3);
-		$sqlQuery->set($cbtKopBerita->header4);
+		$sqlQuery->set($cbtKopBerita->header_1);
+		$sqlQuery->set($cbtKopBerita->header_2);
+		$sqlQuery->set($cbtKopBerita->header_3);
+		$sqlQuery->set($cbtKopBerita->header_4);
 
-		$sqlQuery->setNumber($cbtKopBerita->idKop);
+		$sqlQuery->setNumber($cbtKopBerita->id_kop);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -250,11 +250,11 @@ class CbtKopBeritaMySqlDAO implements CbtKopBeritaDAO{
 	protected function readRow($row){
 		$cbtKopBerita = new CbtKopBeritaDTO();
 		
-		$cbtKopBerita->idKop = isset($row['id_kop']) ? $row['id_kop'] : null;
-		$cbtKopBerita->header1 = isset($row['header_1']) ? $row['header_1'] : null;
-		$cbtKopBerita->header2 = isset($row['header_2']) ? $row['header_2'] : null;
-		$cbtKopBerita->header3 = isset($row['header_3']) ? $row['header_3'] : null;
-		$cbtKopBerita->header4 = isset($row['header_4']) ? $row['header_4'] : null;
+		$cbtKopBerita->id_kop = isset($row['id_kop']) ? $row['id_kop'] : null;
+		$cbtKopBerita->header_1 = isset($row['header_1']) ? $row['header_1'] : null;
+		$cbtKopBerita->header_2 = isset($row['header_2']) ? $row['header_2'] : null;
+		$cbtKopBerita->header_3 = isset($row['header_3']) ? $row['header_3'] : null;
+		$cbtKopBerita->header_4 = isset($row['header_4']) ? $row['header_4'] : null;
 
 		return $cbtKopBerita;
 	}

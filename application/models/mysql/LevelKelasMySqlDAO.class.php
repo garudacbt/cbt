@@ -3,7 +3,7 @@
  * Class that operate on table 'level_kelas'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class LevelKelasMySqlDAO implements LevelKelasDAO{
 
@@ -63,7 +63,7 @@ class LevelKelasMySqlDAO implements LevelKelasDAO{
 		$sqlQuery->setNumber($levelKela->level);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$levelKela->idLevel = $id;
+		$levelKela->id_level = $id;
 		return $id;
 	}
 	
@@ -78,7 +78,7 @@ class LevelKelasMySqlDAO implements LevelKelasDAO{
 		
 		$sqlQuery->setNumber($levelKela->level);
 
-		$sqlQuery->setNumber($levelKela->idLevel);
+		$sqlQuery->setNumber($levelKela->id_level);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -193,7 +193,7 @@ class LevelKelasMySqlDAO implements LevelKelasDAO{
 	protected function readRow($row){
 		$levelKela = new LevelKelasDTO();
 		
-		$levelKela->idLevel = isset($row['id_level']) ? $row['id_level'] : null;
+		$levelKela->id_level = isset($row['id_level']) ? $row['id_level'] : null;
 		$levelKela->level = isset($row['level']) ? $row['level'] : null;
 
 		return $levelKela;

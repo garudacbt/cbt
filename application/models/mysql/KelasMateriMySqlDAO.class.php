@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_materi'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasMateriMySqlDAO implements KelasMateriDAO{
 
@@ -60,25 +60,25 @@ class KelasMateriMySqlDAO implements KelasMateriDAO{
 		$sql = 'INSERT INTO kelas_materi (id_tp, id_smt, kode_materi, id_guru, materi_kelas, id_mapel, kode_mapel, judul_materi, isi_materi, file, link_file, tgl_mulai, created_on, updated_on, status, youtube) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasMateri->idTp);
-		$sqlQuery->setNumber($kelasMateri->idSmt);
-		$sqlQuery->set($kelasMateri->kodeMateri);
-		$sqlQuery->setNumber($kelasMateri->idGuru);
-		$sqlQuery->set($kelasMateri->materiKelas);
-		$sqlQuery->setNumber($kelasMateri->idMapel);
-		$sqlQuery->set($kelasMateri->kodeMapel);
-		$sqlQuery->set($kelasMateri->judulMateri);
-		$sqlQuery->set($kelasMateri->isiMateri);
+		$sqlQuery->setNumber($kelasMateri->id_tp);
+		$sqlQuery->setNumber($kelasMateri->id_smt);
+		$sqlQuery->set($kelasMateri->kode_materi);
+		$sqlQuery->setNumber($kelasMateri->id_guru);
+		$sqlQuery->set($kelasMateri->materi_kelas);
+		$sqlQuery->setNumber($kelasMateri->id_mapel);
+		$sqlQuery->set($kelasMateri->kode_mapel);
+		$sqlQuery->set($kelasMateri->judul_materi);
+		$sqlQuery->set($kelasMateri->isi_materi);
 		$sqlQuery->set($kelasMateri->file);
-		$sqlQuery->set($kelasMateri->linkFile);
-		$sqlQuery->set($kelasMateri->tglMulai);
-		$sqlQuery->set($kelasMateri->createdOn);
-		$sqlQuery->set($kelasMateri->updatedOn);
+		$sqlQuery->set($kelasMateri->link_file);
+		$sqlQuery->set($kelasMateri->tgl_mulai);
+		$sqlQuery->set($kelasMateri->created_on);
+		$sqlQuery->set($kelasMateri->updated_on);
 		$sqlQuery->setNumber($kelasMateri->status);
 		$sqlQuery->set($kelasMateri->youtube);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasMateri->idMateri = $id;
+		$kelasMateri->id_materi = $id;
 		return $id;
 	}
 	
@@ -91,24 +91,24 @@ class KelasMateriMySqlDAO implements KelasMateriDAO{
 		$sql = 'UPDATE kelas_materi SET id_tp = ?, id_smt = ?, kode_materi = ?, id_guru = ?, materi_kelas = ?, id_mapel = ?, kode_mapel = ?, judul_materi = ?, isi_materi = ?, file = ?, link_file = ?, tgl_mulai = ?, created_on = ?, updated_on = ?, status = ?, youtube = ? WHERE id_materi = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasMateri->idTp);
-		$sqlQuery->setNumber($kelasMateri->idSmt);
-		$sqlQuery->set($kelasMateri->kodeMateri);
-		$sqlQuery->setNumber($kelasMateri->idGuru);
-		$sqlQuery->set($kelasMateri->materiKelas);
-		$sqlQuery->setNumber($kelasMateri->idMapel);
-		$sqlQuery->set($kelasMateri->kodeMapel);
-		$sqlQuery->set($kelasMateri->judulMateri);
-		$sqlQuery->set($kelasMateri->isiMateri);
+		$sqlQuery->setNumber($kelasMateri->id_tp);
+		$sqlQuery->setNumber($kelasMateri->id_smt);
+		$sqlQuery->set($kelasMateri->kode_materi);
+		$sqlQuery->setNumber($kelasMateri->id_guru);
+		$sqlQuery->set($kelasMateri->materi_kelas);
+		$sqlQuery->setNumber($kelasMateri->id_mapel);
+		$sqlQuery->set($kelasMateri->kode_mapel);
+		$sqlQuery->set($kelasMateri->judul_materi);
+		$sqlQuery->set($kelasMateri->isi_materi);
 		$sqlQuery->set($kelasMateri->file);
-		$sqlQuery->set($kelasMateri->linkFile);
-		$sqlQuery->set($kelasMateri->tglMulai);
-		$sqlQuery->set($kelasMateri->createdOn);
-		$sqlQuery->set($kelasMateri->updatedOn);
+		$sqlQuery->set($kelasMateri->link_file);
+		$sqlQuery->set($kelasMateri->tgl_mulai);
+		$sqlQuery->set($kelasMateri->created_on);
+		$sqlQuery->set($kelasMateri->updated_on);
 		$sqlQuery->setNumber($kelasMateri->status);
 		$sqlQuery->set($kelasMateri->youtube);
 
-		$sqlQuery->setNumber($kelasMateri->idMateri);
+		$sqlQuery->setNumber($kelasMateri->id_materi);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -478,21 +478,21 @@ class KelasMateriMySqlDAO implements KelasMateriDAO{
 	protected function readRow($row){
 		$kelasMateri = new KelasMateriDTO();
 		
-		$kelasMateri->idMateri = isset($row['id_materi']) ? $row['id_materi'] : null;
-		$kelasMateri->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasMateri->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$kelasMateri->kodeMateri = isset($row['kode_materi']) ? $row['kode_materi'] : null;
-		$kelasMateri->idGuru = isset($row['id_guru']) ? $row['id_guru'] : null;
-		$kelasMateri->materiKelas = isset($row['materi_kelas']) ? $row['materi_kelas'] : null;
-		$kelasMateri->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$kelasMateri->kodeMapel = isset($row['kode_mapel']) ? $row['kode_mapel'] : null;
-		$kelasMateri->judulMateri = isset($row['judul_materi']) ? $row['judul_materi'] : null;
-		$kelasMateri->isiMateri = isset($row['isi_materi']) ? $row['isi_materi'] : null;
+		$kelasMateri->id_materi = isset($row['id_materi']) ? $row['id_materi'] : null;
+		$kelasMateri->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasMateri->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasMateri->kode_materi = isset($row['kode_materi']) ? $row['kode_materi'] : null;
+		$kelasMateri->id_guru = isset($row['id_guru']) ? $row['id_guru'] : null;
+		$kelasMateri->materi_kelas = isset($row['materi_kelas']) ? $row['materi_kelas'] : null;
+		$kelasMateri->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$kelasMateri->kode_mapel = isset($row['kode_mapel']) ? $row['kode_mapel'] : null;
+		$kelasMateri->judul_materi = isset($row['judul_materi']) ? $row['judul_materi'] : null;
+		$kelasMateri->isi_materi = isset($row['isi_materi']) ? $row['isi_materi'] : null;
 		$kelasMateri->file = isset($row['file']) ? $row['file'] : null;
-		$kelasMateri->linkFile = isset($row['link_file']) ? $row['link_file'] : null;
-		$kelasMateri->tglMulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
-		$kelasMateri->createdOn = isset($row['created_on']) ? $row['created_on'] : null;
-		$kelasMateri->updatedOn = isset($row['updated_on']) ? $row['updated_on'] : null;
+		$kelasMateri->link_file = isset($row['link_file']) ? $row['link_file'] : null;
+		$kelasMateri->tgl_mulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
+		$kelasMateri->created_on = isset($row['created_on']) ? $row['created_on'] : null;
+		$kelasMateri->updated_on = isset($row['updated_on']) ? $row['updated_on'] : null;
 		$kelasMateri->status = isset($row['status']) ? $row['status'] : null;
 		$kelasMateri->youtube = isset($row['youtube']) ? $row['youtube'] : null;
 

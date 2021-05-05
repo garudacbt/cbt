@@ -3,7 +3,7 @@
  * Class that operate on table 'master_siswa'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterSiswaMySqlDAO implements MasterSiswaDAO{
 
@@ -63,20 +63,20 @@ class MasterSiswaMySqlDAO implements MasterSiswaDAO{
 		$sqlQuery->set($masterSiswa->nisn);
 		$sqlQuery->set($masterSiswa->nis);
 		$sqlQuery->set($masterSiswa->nama);
-		$sqlQuery->set($masterSiswa->jenisKelamin);
+		$sqlQuery->set($masterSiswa->jenis_kelamin);
 		$sqlQuery->set($masterSiswa->username);
 		$sqlQuery->set($masterSiswa->password);
-		$sqlQuery->setNumber($masterSiswa->kelasAwal);
-		$sqlQuery->set($masterSiswa->tahunMasuk);
-		$sqlQuery->set($masterSiswa->sekolahAsal);
-		$sqlQuery->set($masterSiswa->tempatLahir);
-		$sqlQuery->set($masterSiswa->tanggalLahir);
+		$sqlQuery->setNumber($masterSiswa->kelas_awal);
+		$sqlQuery->set($masterSiswa->tahun_masuk);
+		$sqlQuery->set($masterSiswa->sekolah_asal);
+		$sqlQuery->set($masterSiswa->tempat_lahir);
+		$sqlQuery->set($masterSiswa->tanggal_lahir);
 		$sqlQuery->set($masterSiswa->agama);
 		$sqlQuery->set($masterSiswa->hp);
 		$sqlQuery->set($masterSiswa->email);
 		$sqlQuery->set($masterSiswa->foto);
-		$sqlQuery->setNumber($masterSiswa->anakKe);
-		$sqlQuery->set($masterSiswa->statusKeluarga);
+		$sqlQuery->setNumber($masterSiswa->anak_ke);
+		$sqlQuery->set($masterSiswa->status_keluarga);
 		$sqlQuery->set($masterSiswa->alamat);
 		$sqlQuery->set($masterSiswa->rt);
 		$sqlQuery->set($masterSiswa->rw);
@@ -84,28 +84,28 @@ class MasterSiswaMySqlDAO implements MasterSiswaDAO{
 		$sqlQuery->set($masterSiswa->kecamatan);
 		$sqlQuery->set($masterSiswa->kabupaten);
 		$sqlQuery->set($masterSiswa->provinsi);
-		$sqlQuery->setNumber($masterSiswa->kodePos);
-		$sqlQuery->set($masterSiswa->namaAyah);
-		$sqlQuery->set($masterSiswa->tglLahirAyah);
-		$sqlQuery->set($masterSiswa->pendidikanAyah);
-		$sqlQuery->set($masterSiswa->pekerjaanAyah);
-		$sqlQuery->set($masterSiswa->nohpAyah);
-		$sqlQuery->set($masterSiswa->alamatAyah);
-		$sqlQuery->set($masterSiswa->namaIbu);
-		$sqlQuery->set($masterSiswa->tglLahirIbu);
-		$sqlQuery->set($masterSiswa->pendidikanIbu);
-		$sqlQuery->set($masterSiswa->pekerjaanIbu);
-		$sqlQuery->setNumber($masterSiswa->nohpIbu);
-		$sqlQuery->set($masterSiswa->alamatIbu);
-		$sqlQuery->set($masterSiswa->namaWali);
-		$sqlQuery->set($masterSiswa->tglLahirWali);
-		$sqlQuery->set($masterSiswa->pendidikanWali);
-		$sqlQuery->set($masterSiswa->pekerjaanWali);
-		$sqlQuery->setNumber($masterSiswa->nohpWali);
-		$sqlQuery->set($masterSiswa->alamatWali);
+		$sqlQuery->setNumber($masterSiswa->kode_pos);
+		$sqlQuery->set($masterSiswa->nama_ayah);
+		$sqlQuery->set($masterSiswa->tgl_lahir_ayah);
+		$sqlQuery->set($masterSiswa->pendidikan_ayah);
+		$sqlQuery->set($masterSiswa->pekerjaan_ayah);
+		$sqlQuery->set($masterSiswa->nohp_ayah);
+		$sqlQuery->set($masterSiswa->alamat_ayah);
+		$sqlQuery->set($masterSiswa->nama_ibu);
+		$sqlQuery->set($masterSiswa->tgl_lahir_ibu);
+		$sqlQuery->set($masterSiswa->pendidikan_ibu);
+		$sqlQuery->set($masterSiswa->pekerjaan_ibu);
+		$sqlQuery->setNumber($masterSiswa->nohp_ibu);
+		$sqlQuery->set($masterSiswa->alamat_ibu);
+		$sqlQuery->set($masterSiswa->nama_wali);
+		$sqlQuery->set($masterSiswa->tgl_lahir_wali);
+		$sqlQuery->set($masterSiswa->pendidikan_wali);
+		$sqlQuery->set($masterSiswa->pekerjaan_wali);
+		$sqlQuery->setNumber($masterSiswa->nohp_wali);
+		$sqlQuery->set($masterSiswa->alamat_wali);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterSiswa->idSiswa = $id;
+		$masterSiswa->id_siswa = $id;
 		return $id;
 	}
 	
@@ -121,20 +121,20 @@ class MasterSiswaMySqlDAO implements MasterSiswaDAO{
 		$sqlQuery->set($masterSiswa->nisn);
 		$sqlQuery->set($masterSiswa->nis);
 		$sqlQuery->set($masterSiswa->nama);
-		$sqlQuery->set($masterSiswa->jenisKelamin);
+		$sqlQuery->set($masterSiswa->jenis_kelamin);
 		$sqlQuery->set($masterSiswa->username);
 		$sqlQuery->set($masterSiswa->password);
-		$sqlQuery->setNumber($masterSiswa->kelasAwal);
-		$sqlQuery->set($masterSiswa->tahunMasuk);
-		$sqlQuery->set($masterSiswa->sekolahAsal);
-		$sqlQuery->set($masterSiswa->tempatLahir);
-		$sqlQuery->set($masterSiswa->tanggalLahir);
+		$sqlQuery->setNumber($masterSiswa->kelas_awal);
+		$sqlQuery->set($masterSiswa->tahun_masuk);
+		$sqlQuery->set($masterSiswa->sekolah_asal);
+		$sqlQuery->set($masterSiswa->tempat_lahir);
+		$sqlQuery->set($masterSiswa->tanggal_lahir);
 		$sqlQuery->set($masterSiswa->agama);
 		$sqlQuery->set($masterSiswa->hp);
 		$sqlQuery->set($masterSiswa->email);
 		$sqlQuery->set($masterSiswa->foto);
-		$sqlQuery->setNumber($masterSiswa->anakKe);
-		$sqlQuery->set($masterSiswa->statusKeluarga);
+		$sqlQuery->setNumber($masterSiswa->anak_ke);
+		$sqlQuery->set($masterSiswa->status_keluarga);
 		$sqlQuery->set($masterSiswa->alamat);
 		$sqlQuery->set($masterSiswa->rt);
 		$sqlQuery->set($masterSiswa->rw);
@@ -142,27 +142,27 @@ class MasterSiswaMySqlDAO implements MasterSiswaDAO{
 		$sqlQuery->set($masterSiswa->kecamatan);
 		$sqlQuery->set($masterSiswa->kabupaten);
 		$sqlQuery->set($masterSiswa->provinsi);
-		$sqlQuery->setNumber($masterSiswa->kodePos);
-		$sqlQuery->set($masterSiswa->namaAyah);
-		$sqlQuery->set($masterSiswa->tglLahirAyah);
-		$sqlQuery->set($masterSiswa->pendidikanAyah);
-		$sqlQuery->set($masterSiswa->pekerjaanAyah);
-		$sqlQuery->set($masterSiswa->nohpAyah);
-		$sqlQuery->set($masterSiswa->alamatAyah);
-		$sqlQuery->set($masterSiswa->namaIbu);
-		$sqlQuery->set($masterSiswa->tglLahirIbu);
-		$sqlQuery->set($masterSiswa->pendidikanIbu);
-		$sqlQuery->set($masterSiswa->pekerjaanIbu);
-		$sqlQuery->setNumber($masterSiswa->nohpIbu);
-		$sqlQuery->set($masterSiswa->alamatIbu);
-		$sqlQuery->set($masterSiswa->namaWali);
-		$sqlQuery->set($masterSiswa->tglLahirWali);
-		$sqlQuery->set($masterSiswa->pendidikanWali);
-		$sqlQuery->set($masterSiswa->pekerjaanWali);
-		$sqlQuery->setNumber($masterSiswa->nohpWali);
-		$sqlQuery->set($masterSiswa->alamatWali);
+		$sqlQuery->setNumber($masterSiswa->kode_pos);
+		$sqlQuery->set($masterSiswa->nama_ayah);
+		$sqlQuery->set($masterSiswa->tgl_lahir_ayah);
+		$sqlQuery->set($masterSiswa->pendidikan_ayah);
+		$sqlQuery->set($masterSiswa->pekerjaan_ayah);
+		$sqlQuery->set($masterSiswa->nohp_ayah);
+		$sqlQuery->set($masterSiswa->alamat_ayah);
+		$sqlQuery->set($masterSiswa->nama_ibu);
+		$sqlQuery->set($masterSiswa->tgl_lahir_ibu);
+		$sqlQuery->set($masterSiswa->pendidikan_ibu);
+		$sqlQuery->set($masterSiswa->pekerjaan_ibu);
+		$sqlQuery->setNumber($masterSiswa->nohp_ibu);
+		$sqlQuery->set($masterSiswa->alamat_ibu);
+		$sqlQuery->set($masterSiswa->nama_wali);
+		$sqlQuery->set($masterSiswa->tgl_lahir_wali);
+		$sqlQuery->set($masterSiswa->pendidikan_wali);
+		$sqlQuery->set($masterSiswa->pekerjaan_wali);
+		$sqlQuery->setNumber($masterSiswa->nohp_wali);
+		$sqlQuery->set($masterSiswa->alamat_wali);
 
-		$sqlQuery->setNumber($masterSiswa->idSiswa);
+		$sqlQuery->setNumber($masterSiswa->id_siswa);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -991,24 +991,24 @@ class MasterSiswaMySqlDAO implements MasterSiswaDAO{
 	protected function readRow($row){
 		$masterSiswa = new MasterSiswaDTO();
 		
-		$masterSiswa->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$masterSiswa->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
 		$masterSiswa->nisn = isset($row['nisn']) ? $row['nisn'] : null;
 		$masterSiswa->nis = isset($row['nis']) ? $row['nis'] : null;
 		$masterSiswa->nama = isset($row['nama']) ? $row['nama'] : null;
-		$masterSiswa->jenisKelamin = isset($row['jenis_kelamin']) ? $row['jenis_kelamin'] : null;
+		$masterSiswa->jenis_kelamin = isset($row['jenis_kelamin']) ? $row['jenis_kelamin'] : null;
 		$masterSiswa->username = isset($row['username']) ? $row['username'] : null;
 		$masterSiswa->password = isset($row['password']) ? $row['password'] : null;
-		$masterSiswa->kelasAwal = isset($row['kelas_awal']) ? $row['kelas_awal'] : null;
-		$masterSiswa->tahunMasuk = isset($row['tahun_masuk']) ? $row['tahun_masuk'] : null;
-		$masterSiswa->sekolahAsal = isset($row['sekolah_asal']) ? $row['sekolah_asal'] : null;
-		$masterSiswa->tempatLahir = isset($row['tempat_lahir']) ? $row['tempat_lahir'] : null;
-		$masterSiswa->tanggalLahir = isset($row['tanggal_lahir']) ? $row['tanggal_lahir'] : null;
+		$masterSiswa->kelas_awal = isset($row['kelas_awal']) ? $row['kelas_awal'] : null;
+		$masterSiswa->tahun_masuk = isset($row['tahun_masuk']) ? $row['tahun_masuk'] : null;
+		$masterSiswa->sekolah_asal = isset($row['sekolah_asal']) ? $row['sekolah_asal'] : null;
+		$masterSiswa->tempat_lahir = isset($row['tempat_lahir']) ? $row['tempat_lahir'] : null;
+		$masterSiswa->tanggal_lahir = isset($row['tanggal_lahir']) ? $row['tanggal_lahir'] : null;
 		$masterSiswa->agama = isset($row['agama']) ? $row['agama'] : null;
 		$masterSiswa->hp = isset($row['hp']) ? $row['hp'] : null;
 		$masterSiswa->email = isset($row['email']) ? $row['email'] : null;
 		$masterSiswa->foto = isset($row['foto']) ? $row['foto'] : null;
-		$masterSiswa->anakKe = isset($row['anak_ke']) ? $row['anak_ke'] : null;
-		$masterSiswa->statusKeluarga = isset($row['status_keluarga']) ? $row['status_keluarga'] : null;
+		$masterSiswa->anak_ke = isset($row['anak_ke']) ? $row['anak_ke'] : null;
+		$masterSiswa->status_keluarga = isset($row['status_keluarga']) ? $row['status_keluarga'] : null;
 		$masterSiswa->alamat = isset($row['alamat']) ? $row['alamat'] : null;
 		$masterSiswa->rt = isset($row['rt']) ? $row['rt'] : null;
 		$masterSiswa->rw = isset($row['rw']) ? $row['rw'] : null;
@@ -1016,25 +1016,25 @@ class MasterSiswaMySqlDAO implements MasterSiswaDAO{
 		$masterSiswa->kecamatan = isset($row['kecamatan']) ? $row['kecamatan'] : null;
 		$masterSiswa->kabupaten = isset($row['kabupaten']) ? $row['kabupaten'] : null;
 		$masterSiswa->provinsi = isset($row['provinsi']) ? $row['provinsi'] : null;
-		$masterSiswa->kodePos = isset($row['kode_pos']) ? $row['kode_pos'] : null;
-		$masterSiswa->namaAyah = isset($row['nama_ayah']) ? $row['nama_ayah'] : null;
-		$masterSiswa->tglLahirAyah = isset($row['tgl_lahir_ayah']) ? $row['tgl_lahir_ayah'] : null;
-		$masterSiswa->pendidikanAyah = isset($row['pendidikan_ayah']) ? $row['pendidikan_ayah'] : null;
-		$masterSiswa->pekerjaanAyah = isset($row['pekerjaan_ayah']) ? $row['pekerjaan_ayah'] : null;
-		$masterSiswa->nohpAyah = isset($row['nohp_ayah']) ? $row['nohp_ayah'] : null;
-		$masterSiswa->alamatAyah = isset($row['alamat_ayah']) ? $row['alamat_ayah'] : null;
-		$masterSiswa->namaIbu = isset($row['nama_ibu']) ? $row['nama_ibu'] : null;
-		$masterSiswa->tglLahirIbu = isset($row['tgl_lahir_ibu']) ? $row['tgl_lahir_ibu'] : null;
-		$masterSiswa->pendidikanIbu = isset($row['pendidikan_ibu']) ? $row['pendidikan_ibu'] : null;
-		$masterSiswa->pekerjaanIbu = isset($row['pekerjaan_ibu']) ? $row['pekerjaan_ibu'] : null;
-		$masterSiswa->nohpIbu = isset($row['nohp_ibu']) ? $row['nohp_ibu'] : null;
-		$masterSiswa->alamatIbu = isset($row['alamat_ibu']) ? $row['alamat_ibu'] : null;
-		$masterSiswa->namaWali = isset($row['nama_wali']) ? $row['nama_wali'] : null;
-		$masterSiswa->tglLahirWali = isset($row['tgl_lahir_wali']) ? $row['tgl_lahir_wali'] : null;
-		$masterSiswa->pendidikanWali = isset($row['pendidikan_wali']) ? $row['pendidikan_wali'] : null;
-		$masterSiswa->pekerjaanWali = isset($row['pekerjaan_wali']) ? $row['pekerjaan_wali'] : null;
-		$masterSiswa->nohpWali = isset($row['nohp_wali']) ? $row['nohp_wali'] : null;
-		$masterSiswa->alamatWali = isset($row['alamat_wali']) ? $row['alamat_wali'] : null;
+		$masterSiswa->kode_pos = isset($row['kode_pos']) ? $row['kode_pos'] : null;
+		$masterSiswa->nama_ayah = isset($row['nama_ayah']) ? $row['nama_ayah'] : null;
+		$masterSiswa->tgl_lahir_ayah = isset($row['tgl_lahir_ayah']) ? $row['tgl_lahir_ayah'] : null;
+		$masterSiswa->pendidikan_ayah = isset($row['pendidikan_ayah']) ? $row['pendidikan_ayah'] : null;
+		$masterSiswa->pekerjaan_ayah = isset($row['pekerjaan_ayah']) ? $row['pekerjaan_ayah'] : null;
+		$masterSiswa->nohp_ayah = isset($row['nohp_ayah']) ? $row['nohp_ayah'] : null;
+		$masterSiswa->alamat_ayah = isset($row['alamat_ayah']) ? $row['alamat_ayah'] : null;
+		$masterSiswa->nama_ibu = isset($row['nama_ibu']) ? $row['nama_ibu'] : null;
+		$masterSiswa->tgl_lahir_ibu = isset($row['tgl_lahir_ibu']) ? $row['tgl_lahir_ibu'] : null;
+		$masterSiswa->pendidikan_ibu = isset($row['pendidikan_ibu']) ? $row['pendidikan_ibu'] : null;
+		$masterSiswa->pekerjaan_ibu = isset($row['pekerjaan_ibu']) ? $row['pekerjaan_ibu'] : null;
+		$masterSiswa->nohp_ibu = isset($row['nohp_ibu']) ? $row['nohp_ibu'] : null;
+		$masterSiswa->alamat_ibu = isset($row['alamat_ibu']) ? $row['alamat_ibu'] : null;
+		$masterSiswa->nama_wali = isset($row['nama_wali']) ? $row['nama_wali'] : null;
+		$masterSiswa->tgl_lahir_wali = isset($row['tgl_lahir_wali']) ? $row['tgl_lahir_wali'] : null;
+		$masterSiswa->pendidikan_wali = isset($row['pendidikan_wali']) ? $row['pendidikan_wali'] : null;
+		$masterSiswa->pekerjaan_wali = isset($row['pekerjaan_wali']) ? $row['pekerjaan_wali'] : null;
+		$masterSiswa->nohp_wali = isset($row['nohp_wali']) ? $row['nohp_wali'] : null;
+		$masterSiswa->alamat_wali = isset($row['alamat_wali']) ? $row['alamat_wali'] : null;
 
 		return $masterSiswa;
 	}

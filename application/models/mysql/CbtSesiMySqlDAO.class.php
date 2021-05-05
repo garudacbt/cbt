@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_sesi'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtSesiMySqlDAO implements CbtSesiDAO{
 
@@ -60,14 +60,14 @@ class CbtSesiMySqlDAO implements CbtSesiDAO{
 		$sql = 'INSERT INTO cbt_sesi (nama_sesi, kode_sesi, waktu_mulai, waktu_akhir, aktif) VALUES (?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtSesi->namaSesi);
-		$sqlQuery->set($cbtSesi->kodeSesi);
-		$sqlQuery->set($cbtSesi->waktuMulai);
-		$sqlQuery->set($cbtSesi->waktuAkhir);
+		$sqlQuery->set($cbtSesi->nama_sesi);
+		$sqlQuery->set($cbtSesi->kode_sesi);
+		$sqlQuery->set($cbtSesi->waktu_mulai);
+		$sqlQuery->set($cbtSesi->waktu_akhir);
 		$sqlQuery->setNumber($cbtSesi->aktif);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtSesi->idSesi = $id;
+		$cbtSesi->id_sesi = $id;
 		return $id;
 	}
 	
@@ -80,13 +80,13 @@ class CbtSesiMySqlDAO implements CbtSesiDAO{
 		$sql = 'UPDATE cbt_sesi SET nama_sesi = ?, kode_sesi = ?, waktu_mulai = ?, waktu_akhir = ?, aktif = ? WHERE id_sesi = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtSesi->namaSesi);
-		$sqlQuery->set($cbtSesi->kodeSesi);
-		$sqlQuery->set($cbtSesi->waktuMulai);
-		$sqlQuery->set($cbtSesi->waktuAkhir);
+		$sqlQuery->set($cbtSesi->nama_sesi);
+		$sqlQuery->set($cbtSesi->kode_sesi);
+		$sqlQuery->set($cbtSesi->waktu_mulai);
+		$sqlQuery->set($cbtSesi->waktu_akhir);
 		$sqlQuery->setNumber($cbtSesi->aktif);
 
-		$sqlQuery->setNumber($cbtSesi->idSesi);
+		$sqlQuery->setNumber($cbtSesi->id_sesi);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -269,11 +269,11 @@ class CbtSesiMySqlDAO implements CbtSesiDAO{
 	protected function readRow($row){
 		$cbtSesi = new CbtSesiDTO();
 		
-		$cbtSesi->idSesi = isset($row['id_sesi']) ? $row['id_sesi'] : null;
-		$cbtSesi->namaSesi = isset($row['nama_sesi']) ? $row['nama_sesi'] : null;
-		$cbtSesi->kodeSesi = isset($row['kode_sesi']) ? $row['kode_sesi'] : null;
-		$cbtSesi->waktuMulai = isset($row['waktu_mulai']) ? $row['waktu_mulai'] : null;
-		$cbtSesi->waktuAkhir = isset($row['waktu_akhir']) ? $row['waktu_akhir'] : null;
+		$cbtSesi->id_sesi = isset($row['id_sesi']) ? $row['id_sesi'] : null;
+		$cbtSesi->nama_sesi = isset($row['nama_sesi']) ? $row['nama_sesi'] : null;
+		$cbtSesi->kode_sesi = isset($row['kode_sesi']) ? $row['kode_sesi'] : null;
+		$cbtSesi->waktu_mulai = isset($row['waktu_mulai']) ? $row['waktu_mulai'] : null;
+		$cbtSesi->waktu_akhir = isset($row['waktu_akhir']) ? $row['waktu_akhir'] : null;
 		$cbtSesi->aktif = isset($row['aktif']) ? $row['aktif'] : null;
 
 		return $cbtSesi;

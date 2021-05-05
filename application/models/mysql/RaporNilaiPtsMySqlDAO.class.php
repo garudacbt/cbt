@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_nilai_pts'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporNilaiPtsMySqlDAO implements RaporNilaiPtsDAO{
 
@@ -60,16 +60,16 @@ class RaporNilaiPtsMySqlDAO implements RaporNilaiPtsDAO{
 		$sql = 'INSERT INTO rapor_nilai_pts (id_mapel, id_kelas, id_siswa, id_tp, id_smt, nilai, predikat) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporNilaiPt->idMapel);
-		$sqlQuery->setNumber($raporNilaiPt->idKelas);
-		$sqlQuery->setNumber($raporNilaiPt->idSiswa);
-		$sqlQuery->setNumber($raporNilaiPt->idTp);
-		$sqlQuery->setNumber($raporNilaiPt->idSmt);
+		$sqlQuery->setNumber($raporNilaiPt->id_mapel);
+		$sqlQuery->setNumber($raporNilaiPt->id_kelas);
+		$sqlQuery->setNumber($raporNilaiPt->id_siswa);
+		$sqlQuery->setNumber($raporNilaiPt->id_tp);
+		$sqlQuery->setNumber($raporNilaiPt->id_smt);
 		$sqlQuery->setNumber($raporNilaiPt->nilai);
 		$sqlQuery->set($raporNilaiPt->predikat);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporNilaiPt->idNilaiPts = $id;
+		$raporNilaiPt->id_nilai_pts = $id;
 		return $id;
 	}
 	
@@ -82,15 +82,15 @@ class RaporNilaiPtsMySqlDAO implements RaporNilaiPtsDAO{
 		$sql = 'UPDATE rapor_nilai_pts SET id_mapel = ?, id_kelas = ?, id_siswa = ?, id_tp = ?, id_smt = ?, nilai = ?, predikat = ? WHERE id_nilai_pts = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporNilaiPt->idMapel);
-		$sqlQuery->setNumber($raporNilaiPt->idKelas);
-		$sqlQuery->setNumber($raporNilaiPt->idSiswa);
-		$sqlQuery->setNumber($raporNilaiPt->idTp);
-		$sqlQuery->setNumber($raporNilaiPt->idSmt);
+		$sqlQuery->setNumber($raporNilaiPt->id_mapel);
+		$sqlQuery->setNumber($raporNilaiPt->id_kelas);
+		$sqlQuery->setNumber($raporNilaiPt->id_siswa);
+		$sqlQuery->setNumber($raporNilaiPt->id_tp);
+		$sqlQuery->setNumber($raporNilaiPt->id_smt);
 		$sqlQuery->setNumber($raporNilaiPt->nilai);
 		$sqlQuery->set($raporNilaiPt->predikat);
 
-		$sqlQuery->setNumber($raporNilaiPt->idNilaiPts);
+		$sqlQuery->setNumber($raporNilaiPt->id_nilai_pts);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -307,12 +307,12 @@ class RaporNilaiPtsMySqlDAO implements RaporNilaiPtsDAO{
 	protected function readRow($row){
 		$raporNilaiPt = new RaporNilaiPtsDTO();
 		
-		$raporNilaiPt->idNilaiPts = isset($row['id_nilai_pts']) ? $row['id_nilai_pts'] : null;
-		$raporNilaiPt->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$raporNilaiPt->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$raporNilaiPt->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$raporNilaiPt->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$raporNilaiPt->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporNilaiPt->id_nilai_pts = isset($row['id_nilai_pts']) ? $row['id_nilai_pts'] : null;
+		$raporNilaiPt->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$raporNilaiPt->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporNilaiPt->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$raporNilaiPt->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporNilaiPt->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$raporNilaiPt->nilai = isset($row['nilai']) ? $row['nilai'] : null;
 		$raporNilaiPt->predikat = isset($row['predikat']) ? $row['predikat'] : null;
 

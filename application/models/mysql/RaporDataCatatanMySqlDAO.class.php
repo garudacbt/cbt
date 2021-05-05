@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_data_catatan'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporDataCatatanMySqlDAO implements RaporDataCatatanDAO{
 
@@ -57,17 +57,19 @@ class RaporDataCatatanMySqlDAO implements RaporDataCatatanDAO{
  	 * @param RaporDataCatatanDTO raporDataCatatan
  	 */
 	public function insert($raporDataCatatan){
-		$sql = 'INSERT INTO rapor_data_catatan (id_kelas, jenis, kode, deskripsi, rank) VALUES (?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO rapor_data_catatan (id_tp, id_smt, id_kelas, jenis, kode, deskripsi, rank) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporDataCatatan->idKelas);
+		$sqlQuery->setNumber($raporDataCatatan->id_tp);
+		$sqlQuery->setNumber($raporDataCatatan->id_smt);
+		$sqlQuery->setNumber($raporDataCatatan->id_kelas);
 		$sqlQuery->setNumber($raporDataCatatan->jenis);
 		$sqlQuery->setNumber($raporDataCatatan->kode);
 		$sqlQuery->set($raporDataCatatan->deskripsi);
 		$sqlQuery->set($raporDataCatatan->rank);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporDataCatatan->idCatatan = $id;
+		$raporDataCatatan->id_catatan = $id;
 		return $id;
 	}
 	
@@ -77,16 +79,18 @@ class RaporDataCatatanMySqlDAO implements RaporDataCatatanDAO{
  	 * @param RaporDataCatatanDTO raporDataCatatan
  	 */
 	public function update($raporDataCatatan){
-		$sql = 'UPDATE rapor_data_catatan SET id_kelas = ?, jenis = ?, kode = ?, deskripsi = ?, rank = ? WHERE id_catatan = ?';
+		$sql = 'UPDATE rapor_data_catatan SET id_tp = ?, id_smt = ?, id_kelas = ?, jenis = ?, kode = ?, deskripsi = ?, rank = ? WHERE id_catatan = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporDataCatatan->idKelas);
+		$sqlQuery->setNumber($raporDataCatatan->id_tp);
+		$sqlQuery->setNumber($raporDataCatatan->id_smt);
+		$sqlQuery->setNumber($raporDataCatatan->id_kelas);
 		$sqlQuery->setNumber($raporDataCatatan->jenis);
 		$sqlQuery->setNumber($raporDataCatatan->kode);
 		$sqlQuery->set($raporDataCatatan->deskripsi);
 		$sqlQuery->set($raporDataCatatan->rank);
 
-		$sqlQuery->setNumber($raporDataCatatan->idCatatan);
+		$sqlQuery->setNumber($raporDataCatatan->id_catatan);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -148,6 +152,26 @@ class RaporDataCatatanMySqlDAO implements RaporDataCatatanDAO{
 			return $this->getList($sqlQuery);
 	}
 
+	public function queryByIdTp($value, $single = false){
+		$sql = 'SELECT * FROM rapor_data_catatan WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdSmt($value, $single = false){
+		$sql = 'SELECT * FROM rapor_data_catatan WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
 	public function queryByIdKelas($value, $single = false){
 		$sql = 'SELECT * FROM rapor_data_catatan WHERE id_kelas = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -201,6 +225,20 @@ class RaporDataCatatanMySqlDAO implements RaporDataCatatanDAO{
 
 	public function deleteByIdCatatan($value){
 		$sql = 'DELETE FROM rapor_data_catatan WHERE id_catatan = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdTp($value){
+		$sql = 'DELETE FROM rapor_data_catatan WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdSmt($value){
+		$sql = 'DELETE FROM rapor_data_catatan WHERE id_smt = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
@@ -269,8 +307,10 @@ class RaporDataCatatanMySqlDAO implements RaporDataCatatanDAO{
 	protected function readRow($row){
 		$raporDataCatatan = new RaporDataCatatanDTO();
 		
-		$raporDataCatatan->idCatatan = isset($row['id_catatan']) ? $row['id_catatan'] : null;
-		$raporDataCatatan->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporDataCatatan->id_catatan = isset($row['id_catatan']) ? $row['id_catatan'] : null;
+		$raporDataCatatan->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporDataCatatan->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporDataCatatan->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 		$raporDataCatatan->jenis = isset($row['jenis']) ? $row['jenis'] : null;
 		$raporDataCatatan->kode = isset($row['kode']) ? $row['kode'] : null;
 		$raporDataCatatan->deskripsi = isset($row['deskripsi']) ? $row['deskripsi'] : null;

@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 interface CbtRekapNilaiDAO{
 
@@ -71,6 +71,8 @@ interface CbtRekapNilaiDAO{
 
 	public function queryByIdSiswa($value, $single);
 
+	public function queryByIdKelas($value, $single);
+
 	public function queryByKelas($value, $single);
 
 	public function queryByMulai($value, $single);
@@ -113,6 +115,8 @@ interface CbtRekapNilaiDAO{
 	public function deleteByIdMapel($value);
 
 	public function deleteByIdSiswa($value);
+
+	public function deleteByIdKelas($value);
 
 	public function deleteByKelas($value);
 

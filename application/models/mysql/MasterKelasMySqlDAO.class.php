@@ -3,7 +3,7 @@
  * Class that operate on table 'master_kelas'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterKelasMySqlDAO implements MasterKelasDAO{
 
@@ -60,19 +60,19 @@ class MasterKelasMySqlDAO implements MasterKelasDAO{
 		$sql = 'INSERT INTO master_kelas (id_tp, id_smt, nama_kelas, kode_kelas, jurusan_id, level_id, guru_id, siswa_id, jumlah_siswa, set_siswa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($masterKela->idTp);
-		$sqlQuery->setNumber($masterKela->idSmt);
-		$sqlQuery->set($masterKela->namaKelas);
-		$sqlQuery->set($masterKela->kodeKelas);
-		$sqlQuery->setNumber($masterKela->jurusanId);
-		$sqlQuery->setNumber($masterKela->levelId);
-		$sqlQuery->setNumber($masterKela->guruId);
-		$sqlQuery->setNumber($masterKela->siswaId);
-		$sqlQuery->set($masterKela->jumlahSiswa);
-		$sqlQuery->set($masterKela->setSiswa);
+		$sqlQuery->setNumber($masterKela->id_tp);
+		$sqlQuery->setNumber($masterKela->id_smt);
+		$sqlQuery->set($masterKela->nama_kelas);
+		$sqlQuery->set($masterKela->kode_kelas);
+		$sqlQuery->setNumber($masterKela->jurusan_id);
+		$sqlQuery->setNumber($masterKela->level_id);
+		$sqlQuery->setNumber($masterKela->guru_id);
+		$sqlQuery->setNumber($masterKela->siswa_id);
+		$sqlQuery->set($masterKela->jumlah_siswa);
+		$sqlQuery->set($masterKela->set_siswa);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterKela->idKelas = $id;
+		$masterKela->id_kelas = $id;
 		return $id;
 	}
 	
@@ -85,18 +85,18 @@ class MasterKelasMySqlDAO implements MasterKelasDAO{
 		$sql = 'UPDATE master_kelas SET id_tp = ?, id_smt = ?, nama_kelas = ?, kode_kelas = ?, jurusan_id = ?, level_id = ?, guru_id = ?, siswa_id = ?, jumlah_siswa = ?, set_siswa = ? WHERE id_kelas = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($masterKela->idTp);
-		$sqlQuery->setNumber($masterKela->idSmt);
-		$sqlQuery->set($masterKela->namaKelas);
-		$sqlQuery->set($masterKela->kodeKelas);
-		$sqlQuery->setNumber($masterKela->jurusanId);
-		$sqlQuery->setNumber($masterKela->levelId);
-		$sqlQuery->setNumber($masterKela->guruId);
-		$sqlQuery->setNumber($masterKela->siswaId);
-		$sqlQuery->set($masterKela->jumlahSiswa);
-		$sqlQuery->set($masterKela->setSiswa);
+		$sqlQuery->setNumber($masterKela->id_tp);
+		$sqlQuery->setNumber($masterKela->id_smt);
+		$sqlQuery->set($masterKela->nama_kelas);
+		$sqlQuery->set($masterKela->kode_kelas);
+		$sqlQuery->setNumber($masterKela->jurusan_id);
+		$sqlQuery->setNumber($masterKela->level_id);
+		$sqlQuery->setNumber($masterKela->guru_id);
+		$sqlQuery->setNumber($masterKela->siswa_id);
+		$sqlQuery->set($masterKela->jumlah_siswa);
+		$sqlQuery->set($masterKela->set_siswa);
 
-		$sqlQuery->setNumber($masterKela->idKelas);
+		$sqlQuery->setNumber($masterKela->id_kelas);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -364,17 +364,17 @@ class MasterKelasMySqlDAO implements MasterKelasDAO{
 	protected function readRow($row){
 		$masterKela = new MasterKelasDTO();
 		
-		$masterKela->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$masterKela->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$masterKela->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$masterKela->namaKelas = isset($row['nama_kelas']) ? $row['nama_kelas'] : null;
-		$masterKela->kodeKelas = isset($row['kode_kelas']) ? $row['kode_kelas'] : null;
-		$masterKela->jurusanId = isset($row['jurusan_id']) ? $row['jurusan_id'] : null;
-		$masterKela->levelId = isset($row['level_id']) ? $row['level_id'] : null;
-		$masterKela->guruId = isset($row['guru_id']) ? $row['guru_id'] : null;
-		$masterKela->siswaId = isset($row['siswa_id']) ? $row['siswa_id'] : null;
-		$masterKela->jumlahSiswa = isset($row['jumlah_siswa']) ? $row['jumlah_siswa'] : null;
-		$masterKela->setSiswa = isset($row['set_siswa']) ? $row['set_siswa'] : null;
+		$masterKela->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$masterKela->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$masterKela->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$masterKela->nama_kelas = isset($row['nama_kelas']) ? $row['nama_kelas'] : null;
+		$masterKela->kode_kelas = isset($row['kode_kelas']) ? $row['kode_kelas'] : null;
+		$masterKela->jurusan_id = isset($row['jurusan_id']) ? $row['jurusan_id'] : null;
+		$masterKela->level_id = isset($row['level_id']) ? $row['level_id'] : null;
+		$masterKela->guru_id = isset($row['guru_id']) ? $row['guru_id'] : null;
+		$masterKela->siswa_id = isset($row['siswa_id']) ? $row['siswa_id'] : null;
+		$masterKela->jumlah_siswa = isset($row['jumlah_siswa']) ? $row['jumlah_siswa'] : null;
+		$masterKela->set_siswa = isset($row['set_siswa']) ? $row['set_siswa'] : null;
 
 		return $masterKela;
 	}

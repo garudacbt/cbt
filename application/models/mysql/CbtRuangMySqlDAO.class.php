@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_ruang'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtRuangMySqlDAO implements CbtRuangDAO{
 
@@ -60,11 +60,11 @@ class CbtRuangMySqlDAO implements CbtRuangDAO{
 		$sql = 'INSERT INTO cbt_ruang (nama_ruang, kode_ruang) VALUES (?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtRuang->namaRuang);
-		$sqlQuery->set($cbtRuang->kodeRuang);
+		$sqlQuery->set($cbtRuang->nama_ruang);
+		$sqlQuery->set($cbtRuang->kode_ruang);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtRuang->idRuang = $id;
+		$cbtRuang->id_ruang = $id;
 		return $id;
 	}
 	
@@ -77,10 +77,10 @@ class CbtRuangMySqlDAO implements CbtRuangDAO{
 		$sql = 'UPDATE cbt_ruang SET nama_ruang = ?, kode_ruang = ? WHERE id_ruang = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtRuang->namaRuang);
-		$sqlQuery->set($cbtRuang->kodeRuang);
+		$sqlQuery->set($cbtRuang->nama_ruang);
+		$sqlQuery->set($cbtRuang->kode_ruang);
 
-		$sqlQuery->setNumber($cbtRuang->idRuang);
+		$sqlQuery->setNumber($cbtRuang->id_ruang);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -212,9 +212,9 @@ class CbtRuangMySqlDAO implements CbtRuangDAO{
 	protected function readRow($row){
 		$cbtRuang = new CbtRuangDTO();
 		
-		$cbtRuang->idRuang = isset($row['id_ruang']) ? $row['id_ruang'] : null;
-		$cbtRuang->namaRuang = isset($row['nama_ruang']) ? $row['nama_ruang'] : null;
-		$cbtRuang->kodeRuang = isset($row['kode_ruang']) ? $row['kode_ruang'] : null;
+		$cbtRuang->id_ruang = isset($row['id_ruang']) ? $row['id_ruang'] : null;
+		$cbtRuang->nama_ruang = isset($row['nama_ruang']) ? $row['nama_ruang'] : null;
+		$cbtRuang->kode_ruang = isset($row['kode_ruang']) ? $row['kode_ruang'] : null;
 
 		return $cbtRuang;
 	}

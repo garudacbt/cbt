@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_kop_kartu'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtKopKartuMySqlDAO implements CbtKopKartuDAO{
 
@@ -60,14 +60,14 @@ class CbtKopKartuMySqlDAO implements CbtKopKartuDAO{
 		$sql = 'INSERT INTO cbt_kop_kartu (header_1, header_2, header_3, header_4, tanggal) VALUES (?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtKopKartu->header1);
-		$sqlQuery->set($cbtKopKartu->header2);
-		$sqlQuery->set($cbtKopKartu->header3);
-		$sqlQuery->set($cbtKopKartu->header4);
+		$sqlQuery->set($cbtKopKartu->header_1);
+		$sqlQuery->set($cbtKopKartu->header_2);
+		$sqlQuery->set($cbtKopKartu->header_3);
+		$sqlQuery->set($cbtKopKartu->header_4);
 		$sqlQuery->set($cbtKopKartu->tanggal);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtKopKartu->idSetKartu = $id;
+		$cbtKopKartu->id_set_kartu = $id;
 		return $id;
 	}
 	
@@ -80,13 +80,13 @@ class CbtKopKartuMySqlDAO implements CbtKopKartuDAO{
 		$sql = 'UPDATE cbt_kop_kartu SET header_1 = ?, header_2 = ?, header_3 = ?, header_4 = ?, tanggal = ? WHERE id_set_kartu = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtKopKartu->header1);
-		$sqlQuery->set($cbtKopKartu->header2);
-		$sqlQuery->set($cbtKopKartu->header3);
-		$sqlQuery->set($cbtKopKartu->header4);
+		$sqlQuery->set($cbtKopKartu->header_1);
+		$sqlQuery->set($cbtKopKartu->header_2);
+		$sqlQuery->set($cbtKopKartu->header_3);
+		$sqlQuery->set($cbtKopKartu->header_4);
 		$sqlQuery->set($cbtKopKartu->tanggal);
 
-		$sqlQuery->setNumber($cbtKopKartu->idSetKartu);
+		$sqlQuery->setNumber($cbtKopKartu->id_set_kartu);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -269,11 +269,11 @@ class CbtKopKartuMySqlDAO implements CbtKopKartuDAO{
 	protected function readRow($row){
 		$cbtKopKartu = new CbtKopKartuDTO();
 		
-		$cbtKopKartu->idSetKartu = isset($row['id_set_kartu']) ? $row['id_set_kartu'] : null;
-		$cbtKopKartu->header1 = isset($row['header_1']) ? $row['header_1'] : null;
-		$cbtKopKartu->header2 = isset($row['header_2']) ? $row['header_2'] : null;
-		$cbtKopKartu->header3 = isset($row['header_3']) ? $row['header_3'] : null;
-		$cbtKopKartu->header4 = isset($row['header_4']) ? $row['header_4'] : null;
+		$cbtKopKartu->id_set_kartu = isset($row['id_set_kartu']) ? $row['id_set_kartu'] : null;
+		$cbtKopKartu->header_1 = isset($row['header_1']) ? $row['header_1'] : null;
+		$cbtKopKartu->header_2 = isset($row['header_2']) ? $row['header_2'] : null;
+		$cbtKopKartu->header_3 = isset($row['header_3']) ? $row['header_3'] : null;
+		$cbtKopKartu->header_4 = isset($row['header_4']) ? $row['header_4'] : null;
 		$cbtKopKartu->tanggal = isset($row['tanggal']) ? $row['tanggal'] : null;
 
 		return $cbtKopKartu;

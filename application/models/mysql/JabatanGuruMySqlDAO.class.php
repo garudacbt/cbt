@@ -3,7 +3,7 @@
  * Class that operate on table 'jabatan_guru'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class JabatanGuruMySqlDAO implements JabatanGuruDAO{
 
@@ -60,16 +60,16 @@ class JabatanGuruMySqlDAO implements JabatanGuruDAO{
 		$sql = 'INSERT INTO jabatan_guru (id_guru, id_jabatan, id_kelas, mapel_kelas, ekstra_kelas, id_tp, id_smt) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($jabatanGuru->idGuru);
-		$sqlQuery->setNumber($jabatanGuru->idJabatan);
-		$sqlQuery->setNumber($jabatanGuru->idKelas);
-		$sqlQuery->set($jabatanGuru->mapelKelas);
-		$sqlQuery->set($jabatanGuru->ekstraKelas);
-		$sqlQuery->setNumber($jabatanGuru->idTp);
-		$sqlQuery->setNumber($jabatanGuru->idSmt);
+		$sqlQuery->setNumber($jabatanGuru->id_guru);
+		$sqlQuery->setNumber($jabatanGuru->id_jabatan);
+		$sqlQuery->setNumber($jabatanGuru->id_kelas);
+		$sqlQuery->set($jabatanGuru->mapel_kelas);
+		$sqlQuery->set($jabatanGuru->ekstra_kelas);
+		$sqlQuery->setNumber($jabatanGuru->id_tp);
+		$sqlQuery->setNumber($jabatanGuru->id_smt);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$jabatanGuru->idJabatanGuru = $id;
+		$jabatanGuru->id_jabatan_guru = $id;
 		return $id;
 	}
 	
@@ -82,15 +82,15 @@ class JabatanGuruMySqlDAO implements JabatanGuruDAO{
 		$sql = 'UPDATE jabatan_guru SET id_guru = ?, id_jabatan = ?, id_kelas = ?, mapel_kelas = ?, ekstra_kelas = ?, id_tp = ?, id_smt = ? WHERE id_jabatan_guru = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($jabatanGuru->idGuru);
-		$sqlQuery->setNumber($jabatanGuru->idJabatan);
-		$sqlQuery->setNumber($jabatanGuru->idKelas);
-		$sqlQuery->set($jabatanGuru->mapelKelas);
-		$sqlQuery->set($jabatanGuru->ekstraKelas);
-		$sqlQuery->setNumber($jabatanGuru->idTp);
-		$sqlQuery->setNumber($jabatanGuru->idSmt);
+		$sqlQuery->setNumber($jabatanGuru->id_guru);
+		$sqlQuery->setNumber($jabatanGuru->id_jabatan);
+		$sqlQuery->setNumber($jabatanGuru->id_kelas);
+		$sqlQuery->set($jabatanGuru->mapel_kelas);
+		$sqlQuery->set($jabatanGuru->ekstra_kelas);
+		$sqlQuery->setNumber($jabatanGuru->id_tp);
+		$sqlQuery->setNumber($jabatanGuru->id_smt);
 
-		$sqlQuery->set($jabatanGuru->idJabatanGuru);
+		$sqlQuery->set($jabatanGuru->id_jabatan_guru);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -307,14 +307,14 @@ class JabatanGuruMySqlDAO implements JabatanGuruDAO{
 	protected function readRow($row){
 		$jabatanGuru = new JabatanGuruDTO();
 		
-		$jabatanGuru->idJabatanGuru = isset($row['id_jabatan_guru']) ? $row['id_jabatan_guru'] : null;
-		$jabatanGuru->idGuru = isset($row['id_guru']) ? $row['id_guru'] : null;
-		$jabatanGuru->idJabatan = isset($row['id_jabatan']) ? $row['id_jabatan'] : null;
-		$jabatanGuru->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$jabatanGuru->mapelKelas = isset($row['mapel_kelas']) ? $row['mapel_kelas'] : null;
-		$jabatanGuru->ekstraKelas = isset($row['ekstra_kelas']) ? $row['ekstra_kelas'] : null;
-		$jabatanGuru->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$jabatanGuru->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$jabatanGuru->id_jabatan_guru = isset($row['id_jabatan_guru']) ? $row['id_jabatan_guru'] : null;
+		$jabatanGuru->id_guru = isset($row['id_guru']) ? $row['id_guru'] : null;
+		$jabatanGuru->id_jabatan = isset($row['id_jabatan']) ? $row['id_jabatan'] : null;
+		$jabatanGuru->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$jabatanGuru->mapel_kelas = isset($row['mapel_kelas']) ? $row['mapel_kelas'] : null;
+		$jabatanGuru->ekstra_kelas = isset($row['ekstra_kelas']) ? $row['ekstra_kelas'] : null;
+		$jabatanGuru->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$jabatanGuru->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 
 		return $jabatanGuru;
 	}

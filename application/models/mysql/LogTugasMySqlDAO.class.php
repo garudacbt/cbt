@@ -3,7 +3,7 @@
  * Class that operate on table 'log_tugas'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class LogTugasMySqlDAO implements LogTugasDAO{
 
@@ -60,13 +60,13 @@ class LogTugasMySqlDAO implements LogTugasDAO{
 		$sql = 'INSERT INTO log_tugas (log_time, id_siswa, jam_ke, id_tugas, id_mapel, log_type, log_desc, text, file, nilai, catatan, address, agent, device) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($logTuga->logTime);
-		$sqlQuery->setNumber($logTuga->idSiswa);
-		$sqlQuery->setNumber($logTuga->jamKe);
-		$sqlQuery->setNumber($logTuga->idTugas);
-		$sqlQuery->setNumber($logTuga->idMapel);
-		$sqlQuery->setNumber($logTuga->logType);
-		$sqlQuery->set($logTuga->logDesc);
+		$sqlQuery->set($logTuga->log_time);
+		$sqlQuery->setNumber($logTuga->id_siswa);
+		$sqlQuery->setNumber($logTuga->jam_ke);
+		$sqlQuery->setNumber($logTuga->id_tugas);
+		$sqlQuery->setNumber($logTuga->id_mapel);
+		$sqlQuery->setNumber($logTuga->log_type);
+		$sqlQuery->set($logTuga->log_desc);
 		$sqlQuery->set($logTuga->text);
 		$sqlQuery->set($logTuga->file);
 		$sqlQuery->set($logTuga->nilai);
@@ -76,7 +76,7 @@ class LogTugasMySqlDAO implements LogTugasDAO{
 		$sqlQuery->set($logTuga->device);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$logTuga->idLog = $id;
+		$logTuga->id_log = $id;
 		return $id;
 	}
 	
@@ -89,13 +89,13 @@ class LogTugasMySqlDAO implements LogTugasDAO{
 		$sql = 'UPDATE log_tugas SET log_time = ?, id_siswa = ?, jam_ke = ?, id_tugas = ?, id_mapel = ?, log_type = ?, log_desc = ?, text = ?, file = ?, nilai = ?, catatan = ?, address = ?, agent = ?, device = ? WHERE id_log = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($logTuga->logTime);
-		$sqlQuery->setNumber($logTuga->idSiswa);
-		$sqlQuery->setNumber($logTuga->jamKe);
-		$sqlQuery->setNumber($logTuga->idTugas);
-		$sqlQuery->setNumber($logTuga->idMapel);
-		$sqlQuery->setNumber($logTuga->logType);
-		$sqlQuery->set($logTuga->logDesc);
+		$sqlQuery->set($logTuga->log_time);
+		$sqlQuery->setNumber($logTuga->id_siswa);
+		$sqlQuery->setNumber($logTuga->jam_ke);
+		$sqlQuery->setNumber($logTuga->id_tugas);
+		$sqlQuery->setNumber($logTuga->id_mapel);
+		$sqlQuery->setNumber($logTuga->log_type);
+		$sqlQuery->set($logTuga->log_desc);
 		$sqlQuery->set($logTuga->text);
 		$sqlQuery->set($logTuga->file);
 		$sqlQuery->set($logTuga->nilai);
@@ -104,7 +104,7 @@ class LogTugasMySqlDAO implements LogTugasDAO{
 		$sqlQuery->set($logTuga->agent);
 		$sqlQuery->set($logTuga->device);
 
-		$sqlQuery->set($logTuga->idLog);
+		$sqlQuery->set($logTuga->id_log);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -440,14 +440,14 @@ class LogTugasMySqlDAO implements LogTugasDAO{
 	protected function readRow($row){
 		$logTuga = new LogTugasDTO();
 		
-		$logTuga->idLog = isset($row['id_log']) ? $row['id_log'] : null;
-		$logTuga->logTime = isset($row['log_time']) ? $row['log_time'] : null;
-		$logTuga->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$logTuga->jamKe = isset($row['jam_ke']) ? $row['jam_ke'] : null;
-		$logTuga->idTugas = isset($row['id_tugas']) ? $row['id_tugas'] : null;
-		$logTuga->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$logTuga->logType = isset($row['log_type']) ? $row['log_type'] : null;
-		$logTuga->logDesc = isset($row['log_desc']) ? $row['log_desc'] : null;
+		$logTuga->id_log = isset($row['id_log']) ? $row['id_log'] : null;
+		$logTuga->log_time = isset($row['log_time']) ? $row['log_time'] : null;
+		$logTuga->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$logTuga->jam_ke = isset($row['jam_ke']) ? $row['jam_ke'] : null;
+		$logTuga->id_tugas = isset($row['id_tugas']) ? $row['id_tugas'] : null;
+		$logTuga->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$logTuga->log_type = isset($row['log_type']) ? $row['log_type'] : null;
+		$logTuga->log_desc = isset($row['log_desc']) ? $row['log_desc'] : null;
 		$logTuga->text = isset($row['text']) ? $row['text'] : null;
 		$logTuga->file = isset($row['file']) ? $row['file'] : null;
 		$logTuga->nilai = isset($row['nilai']) ? $row['nilai'] : null;

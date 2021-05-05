@@ -3,7 +3,7 @@
  * Class that operate on table 'hari'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class HariMySqlDAO implements HariDAO{
 
@@ -60,10 +60,10 @@ class HariMySqlDAO implements HariDAO{
 		$sql = 'INSERT INTO hari (nama_hri) VALUES (?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($hari->namaHri);
+		$sqlQuery->set($hari->nama_hri);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$hari->idHri = $id;
+		$hari->id_hri = $id;
 		return $id;
 	}
 	
@@ -76,9 +76,9 @@ class HariMySqlDAO implements HariDAO{
 		$sql = 'UPDATE hari SET nama_hri = ? WHERE id_hri = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($hari->namaHri);
+		$sqlQuery->set($hari->nama_hri);
 
-		$sqlQuery->setNumber($hari->idHri);
+		$sqlQuery->setNumber($hari->id_hri);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -193,8 +193,8 @@ class HariMySqlDAO implements HariDAO{
 	protected function readRow($row){
 		$hari = new HariDTO();
 		
-		$hari->idHri = isset($row['id_hri']) ? $row['id_hri'] : null;
-		$hari->namaHri = isset($row['nama_hri']) ? $row['nama_hri'] : null;
+		$hari->id_hri = isset($row['id_hri']) ? $row['id_hri'] : null;
+		$hari->nama_hri = isset($row['nama_hri']) ? $row['nama_hri'] : null;
 
 		return $hari;
 	}

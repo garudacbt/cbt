@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_kkm'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporKkmMySqlDAO implements RaporKkmDAO{
 
@@ -57,18 +57,20 @@ class RaporKkmMySqlDAO implements RaporKkmDAO{
  	 * @param RaporKkmDTO raporKkm
  	 */
 	public function insert($raporKkm){
-		$sql = 'INSERT INTO rapor_kkm (kkm, bobot_ph, bobot_pts, bobot_pas, bobot_absen, beban_jam) VALUES (?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO rapor_kkm (kkm, bobot_ph, bobot_pts, bobot_pas, bobot_absen, beban_jam, id_tp, id_smt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($raporKkm->kkm);
-		$sqlQuery->setNumber($raporKkm->bobotPh);
-		$sqlQuery->setNumber($raporKkm->bobotPts);
-		$sqlQuery->setNumber($raporKkm->bobotPas);
-		$sqlQuery->setNumber($raporKkm->bobotAbsen);
-		$sqlQuery->setNumber($raporKkm->bebanJam);
+		$sqlQuery->setNumber($raporKkm->bobot_ph);
+		$sqlQuery->setNumber($raporKkm->bobot_pts);
+		$sqlQuery->setNumber($raporKkm->bobot_pas);
+		$sqlQuery->setNumber($raporKkm->bobot_absen);
+		$sqlQuery->setNumber($raporKkm->beban_jam);
+		$sqlQuery->setNumber($raporKkm->id_tp);
+		$sqlQuery->setNumber($raporKkm->id_smt);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporKkm->idKkm = $id;
+		$raporKkm->id_kkm = $id;
 		return $id;
 	}
 	
@@ -78,17 +80,19 @@ class RaporKkmMySqlDAO implements RaporKkmDAO{
  	 * @param RaporKkmDTO raporKkm
  	 */
 	public function update($raporKkm){
-		$sql = 'UPDATE rapor_kkm SET kkm = ?, bobot_ph = ?, bobot_pts = ?, bobot_pas = ?, bobot_absen = ?, beban_jam = ? WHERE id_kkm = ?';
+		$sql = 'UPDATE rapor_kkm SET kkm = ?, bobot_ph = ?, bobot_pts = ?, bobot_pas = ?, bobot_absen = ?, beban_jam = ?, id_tp = ?, id_smt = ? WHERE id_kkm = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($raporKkm->kkm);
-		$sqlQuery->setNumber($raporKkm->bobotPh);
-		$sqlQuery->setNumber($raporKkm->bobotPts);
-		$sqlQuery->setNumber($raporKkm->bobotPas);
-		$sqlQuery->setNumber($raporKkm->bobotAbsen);
-		$sqlQuery->setNumber($raporKkm->bebanJam);
+		$sqlQuery->setNumber($raporKkm->bobot_ph);
+		$sqlQuery->setNumber($raporKkm->bobot_pts);
+		$sqlQuery->setNumber($raporKkm->bobot_pas);
+		$sqlQuery->setNumber($raporKkm->bobot_absen);
+		$sqlQuery->setNumber($raporKkm->beban_jam);
+		$sqlQuery->setNumber($raporKkm->id_tp);
+		$sqlQuery->setNumber($raporKkm->id_smt);
 
-		$sqlQuery->setNumber($raporKkm->idKkm);
+		$sqlQuery->setNumber($raporKkm->id_kkm);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -210,6 +214,26 @@ class RaporKkmMySqlDAO implements RaporKkmDAO{
 		return $this->getList($sqlQuery);
 	}
 
+	public function queryByIdTp($value, $single = false){
+		$sql = 'SELECT * FROM rapor_kkm WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdSmt($value, $single = false){
+		$sql = 'SELECT * FROM rapor_kkm WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
 
 	public function deleteByIdKkm($value){
 		$sql = 'DELETE FROM rapor_kkm WHERE id_kkm = ?';
@@ -260,6 +284,20 @@ class RaporKkmMySqlDAO implements RaporKkmDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByIdTp($value){
+		$sql = 'DELETE FROM rapor_kkm WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdSmt($value){
+		$sql = 'DELETE FROM rapor_kkm WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 
 			
 	/**
@@ -288,13 +326,15 @@ class RaporKkmMySqlDAO implements RaporKkmDAO{
 	protected function readRow($row){
 		$raporKkm = new RaporKkmDTO();
 		
-		$raporKkm->idKkm = isset($row['id_kkm']) ? $row['id_kkm'] : null;
+		$raporKkm->id_kkm = isset($row['id_kkm']) ? $row['id_kkm'] : null;
 		$raporKkm->kkm = isset($row['kkm']) ? $row['kkm'] : null;
-		$raporKkm->bobotPh = isset($row['bobot_ph']) ? $row['bobot_ph'] : null;
-		$raporKkm->bobotPts = isset($row['bobot_pts']) ? $row['bobot_pts'] : null;
-		$raporKkm->bobotPas = isset($row['bobot_pas']) ? $row['bobot_pas'] : null;
-		$raporKkm->bobotAbsen = isset($row['bobot_absen']) ? $row['bobot_absen'] : null;
-		$raporKkm->bebanJam = isset($row['beban_jam']) ? $row['beban_jam'] : null;
+		$raporKkm->bobot_ph = isset($row['bobot_ph']) ? $row['bobot_ph'] : null;
+		$raporKkm->bobot_pts = isset($row['bobot_pts']) ? $row['bobot_pts'] : null;
+		$raporKkm->bobot_pas = isset($row['bobot_pas']) ? $row['bobot_pas'] : null;
+		$raporKkm->bobot_absen = isset($row['bobot_absen']) ? $row['bobot_absen'] : null;
+		$raporKkm->beban_jam = isset($row['beban_jam']) ? $row['beban_jam'] : null;
+		$raporKkm->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporKkm->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 
 		return $raporKkm;
 	}

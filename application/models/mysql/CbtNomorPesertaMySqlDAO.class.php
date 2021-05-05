@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_nomor_peserta'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtNomorPesertaMySqlDAO implements CbtNomorPesertaDAO{
 
@@ -60,13 +60,13 @@ class CbtNomorPesertaMySqlDAO implements CbtNomorPesertaDAO{
 		$sql = 'INSERT INTO cbt_nomor_peserta (id_siswa, id_tp, id_smt, nomor_peserta) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtNomorPeserta->idSiswa);
-		$sqlQuery->setNumber($cbtNomorPeserta->idTp);
-		$sqlQuery->setNumber($cbtNomorPeserta->idSmt);
-		$sqlQuery->set($cbtNomorPeserta->nomorPeserta);
+		$sqlQuery->setNumber($cbtNomorPeserta->id_siswa);
+		$sqlQuery->setNumber($cbtNomorPeserta->id_tp);
+		$sqlQuery->setNumber($cbtNomorPeserta->id_smt);
+		$sqlQuery->set($cbtNomorPeserta->nomor_peserta);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtNomorPeserta->idNomor = $id;
+		$cbtNomorPeserta->id_nomor = $id;
 		return $id;
 	}
 	
@@ -79,12 +79,12 @@ class CbtNomorPesertaMySqlDAO implements CbtNomorPesertaDAO{
 		$sql = 'UPDATE cbt_nomor_peserta SET id_siswa = ?, id_tp = ?, id_smt = ?, nomor_peserta = ? WHERE id_nomor = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtNomorPeserta->idSiswa);
-		$sqlQuery->setNumber($cbtNomorPeserta->idTp);
-		$sqlQuery->setNumber($cbtNomorPeserta->idSmt);
-		$sqlQuery->set($cbtNomorPeserta->nomorPeserta);
+		$sqlQuery->setNumber($cbtNomorPeserta->id_siswa);
+		$sqlQuery->setNumber($cbtNomorPeserta->id_tp);
+		$sqlQuery->setNumber($cbtNomorPeserta->id_smt);
+		$sqlQuery->set($cbtNomorPeserta->nomor_peserta);
 
-		$sqlQuery->set($cbtNomorPeserta->idNomor);
+		$sqlQuery->set($cbtNomorPeserta->id_nomor);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -250,11 +250,11 @@ class CbtNomorPesertaMySqlDAO implements CbtNomorPesertaDAO{
 	protected function readRow($row){
 		$cbtNomorPeserta = new CbtNomorPesertaDTO();
 		
-		$cbtNomorPeserta->idNomor = isset($row['id_nomor']) ? $row['id_nomor'] : null;
-		$cbtNomorPeserta->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$cbtNomorPeserta->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$cbtNomorPeserta->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$cbtNomorPeserta->nomorPeserta = isset($row['nomor_peserta']) ? $row['nomor_peserta'] : null;
+		$cbtNomorPeserta->id_nomor = isset($row['id_nomor']) ? $row['id_nomor'] : null;
+		$cbtNomorPeserta->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$cbtNomorPeserta->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$cbtNomorPeserta->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$cbtNomorPeserta->nomor_peserta = isset($row['nomor_peserta']) ? $row['nomor_peserta'] : null;
 
 		return $cbtNomorPeserta;
 	}

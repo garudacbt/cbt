@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_prestasi'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporPrestasiMySqlDAO implements RaporPrestasiDAO{
 
@@ -60,21 +60,21 @@ class RaporPrestasiMySqlDAO implements RaporPrestasiDAO{
 		$sql = 'INSERT INTO rapor_prestasi (id_kelas, id_siswa, id_tp, id_smt, ranking, deskripsi, p1, p1_desk, p2, p2_desk, p3, p3_desk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporPrestasi->idKelas);
-		$sqlQuery->setNumber($raporPrestasi->idSiswa);
-		$sqlQuery->setNumber($raporPrestasi->idTp);
-		$sqlQuery->setNumber($raporPrestasi->idSmt);
+		$sqlQuery->setNumber($raporPrestasi->id_kelas);
+		$sqlQuery->setNumber($raporPrestasi->id_siswa);
+		$sqlQuery->setNumber($raporPrestasi->id_tp);
+		$sqlQuery->setNumber($raporPrestasi->id_smt);
 		$sqlQuery->setNumber($raporPrestasi->ranking);
 		$sqlQuery->set($raporPrestasi->deskripsi);
 		$sqlQuery->set($raporPrestasi->p1);
-		$sqlQuery->set($raporPrestasi->p1Desk);
+		$sqlQuery->set($raporPrestasi->p1_desk);
 		$sqlQuery->set($raporPrestasi->p2);
-		$sqlQuery->set($raporPrestasi->p2Desk);
+		$sqlQuery->set($raporPrestasi->p2_desk);
 		$sqlQuery->set($raporPrestasi->p3);
-		$sqlQuery->set($raporPrestasi->p3Desk);
+		$sqlQuery->set($raporPrestasi->p3_desk);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporPrestasi->idRanking = $id;
+		$raporPrestasi->id_ranking = $id;
 		return $id;
 	}
 	
@@ -87,20 +87,20 @@ class RaporPrestasiMySqlDAO implements RaporPrestasiDAO{
 		$sql = 'UPDATE rapor_prestasi SET id_kelas = ?, id_siswa = ?, id_tp = ?, id_smt = ?, ranking = ?, deskripsi = ?, p1 = ?, p1_desk = ?, p2 = ?, p2_desk = ?, p3 = ?, p3_desk = ? WHERE id_ranking = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporPrestasi->idKelas);
-		$sqlQuery->setNumber($raporPrestasi->idSiswa);
-		$sqlQuery->setNumber($raporPrestasi->idTp);
-		$sqlQuery->setNumber($raporPrestasi->idSmt);
+		$sqlQuery->setNumber($raporPrestasi->id_kelas);
+		$sqlQuery->setNumber($raporPrestasi->id_siswa);
+		$sqlQuery->setNumber($raporPrestasi->id_tp);
+		$sqlQuery->setNumber($raporPrestasi->id_smt);
 		$sqlQuery->setNumber($raporPrestasi->ranking);
 		$sqlQuery->set($raporPrestasi->deskripsi);
 		$sqlQuery->set($raporPrestasi->p1);
-		$sqlQuery->set($raporPrestasi->p1Desk);
+		$sqlQuery->set($raporPrestasi->p1_desk);
 		$sqlQuery->set($raporPrestasi->p2);
-		$sqlQuery->set($raporPrestasi->p2Desk);
+		$sqlQuery->set($raporPrestasi->p2_desk);
 		$sqlQuery->set($raporPrestasi->p3);
-		$sqlQuery->set($raporPrestasi->p3Desk);
+		$sqlQuery->set($raporPrestasi->p3_desk);
 
-		$sqlQuery->setNumber($raporPrestasi->idRanking);
+		$sqlQuery->setNumber($raporPrestasi->id_ranking);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -402,19 +402,19 @@ class RaporPrestasiMySqlDAO implements RaporPrestasiDAO{
 	protected function readRow($row){
 		$raporPrestasi = new RaporPrestasiDTO();
 		
-		$raporPrestasi->idRanking = isset($row['id_ranking']) ? $row['id_ranking'] : null;
-		$raporPrestasi->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$raporPrestasi->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$raporPrestasi->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$raporPrestasi->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporPrestasi->id_ranking = isset($row['id_ranking']) ? $row['id_ranking'] : null;
+		$raporPrestasi->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporPrestasi->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$raporPrestasi->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporPrestasi->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$raporPrestasi->ranking = isset($row['ranking']) ? $row['ranking'] : null;
 		$raporPrestasi->deskripsi = isset($row['deskripsi']) ? $row['deskripsi'] : null;
 		$raporPrestasi->p1 = isset($row['p1']) ? $row['p1'] : null;
-		$raporPrestasi->p1Desk = isset($row['p1_desk']) ? $row['p1_desk'] : null;
+		$raporPrestasi->p1_desk = isset($row['p1_desk']) ? $row['p1_desk'] : null;
 		$raporPrestasi->p2 = isset($row['p2']) ? $row['p2'] : null;
-		$raporPrestasi->p2Desk = isset($row['p2_desk']) ? $row['p2_desk'] : null;
+		$raporPrestasi->p2_desk = isset($row['p2_desk']) ? $row['p2_desk'] : null;
 		$raporPrestasi->p3 = isset($row['p3']) ? $row['p3'] : null;
-		$raporPrestasi->p3Desk = isset($row['p3_desk']) ? $row['p3_desk'] : null;
+		$raporPrestasi->p3_desk = isset($row['p3_desk']) ? $row['p3_desk'] : null;
 
 		return $raporPrestasi;
 	}

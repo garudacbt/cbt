@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_siswa'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasSiswaMySqlDAO implements KelasSiswaDAO{
 
@@ -60,13 +60,13 @@ class KelasSiswaMySqlDAO implements KelasSiswaDAO{
 		$sql = 'INSERT INTO kelas_siswa (id_tp, id_smt, id_siswa, id_kelas) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasSiswa->idTp);
-		$sqlQuery->setNumber($kelasSiswa->idSmt);
-		$sqlQuery->setNumber($kelasSiswa->idSiswa);
-		$sqlQuery->setNumber($kelasSiswa->idKelas);
+		$sqlQuery->setNumber($kelasSiswa->id_tp);
+		$sqlQuery->setNumber($kelasSiswa->id_smt);
+		$sqlQuery->setNumber($kelasSiswa->id_siswa);
+		$sqlQuery->setNumber($kelasSiswa->id_kelas);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasSiswa->idKelasSiswa = $id;
+		$kelasSiswa->id_kelas_siswa = $id;
 		return $id;
 	}
 	
@@ -79,12 +79,12 @@ class KelasSiswaMySqlDAO implements KelasSiswaDAO{
 		$sql = 'UPDATE kelas_siswa SET id_tp = ?, id_smt = ?, id_siswa = ?, id_kelas = ? WHERE id_kelas_siswa = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasSiswa->idTp);
-		$sqlQuery->setNumber($kelasSiswa->idSmt);
-		$sqlQuery->setNumber($kelasSiswa->idSiswa);
-		$sqlQuery->setNumber($kelasSiswa->idKelas);
+		$sqlQuery->setNumber($kelasSiswa->id_tp);
+		$sqlQuery->setNumber($kelasSiswa->id_smt);
+		$sqlQuery->setNumber($kelasSiswa->id_siswa);
+		$sqlQuery->setNumber($kelasSiswa->id_kelas);
 
-		$sqlQuery->setNumber($kelasSiswa->idKelasSiswa);
+		$sqlQuery->setNumber($kelasSiswa->id_kelas_siswa);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -250,11 +250,11 @@ class KelasSiswaMySqlDAO implements KelasSiswaDAO{
 	protected function readRow($row){
 		$kelasSiswa = new KelasSiswaDTO();
 		
-		$kelasSiswa->idKelasSiswa = isset($row['id_kelas_siswa']) ? $row['id_kelas_siswa'] : null;
-		$kelasSiswa->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasSiswa->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$kelasSiswa->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$kelasSiswa->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$kelasSiswa->id_kelas_siswa = isset($row['id_kelas_siswa']) ? $row['id_kelas_siswa'] : null;
+		$kelasSiswa->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasSiswa->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasSiswa->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$kelasSiswa->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 
 		return $kelasSiswa;
 	}

@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 interface CbtSoalDAO{
 
@@ -61,6 +61,10 @@ interface CbtSoalDAO{
 
 	public function queryByFile($value, $single);
 
+	public function queryByFile1($value, $single);
+
+	public function queryByTipeFile($value, $single);
+
 	public function queryBySoal($value, $single);
 
 	public function queryByOpsiA($value, $single);
@@ -101,6 +105,10 @@ interface CbtSoalDAO{
 	public function deleteByNomorSoal($value);
 
 	public function deleteByFile($value);
+
+	public function deleteByFile1($value);
+
+	public function deleteByTipeFile($value);
 
 	public function deleteBySoal($value);
 

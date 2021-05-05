@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_bank_soal'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtBankSoalMySqlDAO implements CbtBankSoalDAO{
 
@@ -60,28 +60,28 @@ class CbtBankSoalMySqlDAO implements CbtBankSoalDAO{
 		$sql = 'INSERT INTO cbt_bank_soal (bank_jenis_id, bank_kode, bank_level, bank_kelas, bank_mapel_id, bank_jurusan_id, bank_guru_id, bank_nama, kkm, jml_soal, jml_esai, tampil_pg, tampil_esai, bobot_pg, bobot_esai, opsi, date, status, soal_agama) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtBankSoal->bankJenisId);
-		$sqlQuery->set($cbtBankSoal->bankKode);
-		$sqlQuery->set($cbtBankSoal->bankLevel);
-		$sqlQuery->set($cbtBankSoal->bankKelas);
-		$sqlQuery->setNumber($cbtBankSoal->bankMapelId);
-		$sqlQuery->setNumber($cbtBankSoal->bankJurusanId);
-		$sqlQuery->setNumber($cbtBankSoal->bankGuruId);
-		$sqlQuery->set($cbtBankSoal->bankNama);
+		$sqlQuery->setNumber($cbtBankSoal->bank_jenis_id);
+		$sqlQuery->set($cbtBankSoal->bank_kode);
+		$sqlQuery->set($cbtBankSoal->bank_level);
+		$sqlQuery->set($cbtBankSoal->bank_kelas);
+		$sqlQuery->setNumber($cbtBankSoal->bank_mapel_id);
+		$sqlQuery->setNumber($cbtBankSoal->bank_jurusan_id);
+		$sqlQuery->setNumber($cbtBankSoal->bank_guru_id);
+		$sqlQuery->set($cbtBankSoal->bank_nama);
 		$sqlQuery->setNumber($cbtBankSoal->kkm);
-		$sqlQuery->setNumber($cbtBankSoal->jmlSoal);
-		$sqlQuery->setNumber($cbtBankSoal->jmlEsai);
-		$sqlQuery->setNumber($cbtBankSoal->tampilPg);
-		$sqlQuery->setNumber($cbtBankSoal->tampilEsai);
-		$sqlQuery->setNumber($cbtBankSoal->bobotPg);
-		$sqlQuery->setNumber($cbtBankSoal->bobotEsai);
+		$sqlQuery->setNumber($cbtBankSoal->jml_soal);
+		$sqlQuery->setNumber($cbtBankSoal->jml_esai);
+		$sqlQuery->setNumber($cbtBankSoal->tampil_pg);
+		$sqlQuery->setNumber($cbtBankSoal->tampil_esai);
+		$sqlQuery->setNumber($cbtBankSoal->bobot_pg);
+		$sqlQuery->setNumber($cbtBankSoal->bobot_esai);
 		$sqlQuery->setNumber($cbtBankSoal->opsi);
 		$sqlQuery->set($cbtBankSoal->date);
 		$sqlQuery->setNumber($cbtBankSoal->status);
-		$sqlQuery->setNumber($cbtBankSoal->soalAgama);
+		$sqlQuery->setNumber($cbtBankSoal->soal_agama);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtBankSoal->idBank = $id;
+		$cbtBankSoal->id_bank = $id;
 		return $id;
 	}
 	
@@ -94,27 +94,27 @@ class CbtBankSoalMySqlDAO implements CbtBankSoalDAO{
 		$sql = 'UPDATE cbt_bank_soal SET bank_jenis_id = ?, bank_kode = ?, bank_level = ?, bank_kelas = ?, bank_mapel_id = ?, bank_jurusan_id = ?, bank_guru_id = ?, bank_nama = ?, kkm = ?, jml_soal = ?, jml_esai = ?, tampil_pg = ?, tampil_esai = ?, bobot_pg = ?, bobot_esai = ?, opsi = ?, date = ?, status = ?, soal_agama = ? WHERE id_bank = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtBankSoal->bankJenisId);
-		$sqlQuery->set($cbtBankSoal->bankKode);
-		$sqlQuery->set($cbtBankSoal->bankLevel);
-		$sqlQuery->set($cbtBankSoal->bankKelas);
-		$sqlQuery->setNumber($cbtBankSoal->bankMapelId);
-		$sqlQuery->setNumber($cbtBankSoal->bankJurusanId);
-		$sqlQuery->setNumber($cbtBankSoal->bankGuruId);
-		$sqlQuery->set($cbtBankSoal->bankNama);
+		$sqlQuery->setNumber($cbtBankSoal->bank_jenis_id);
+		$sqlQuery->set($cbtBankSoal->bank_kode);
+		$sqlQuery->set($cbtBankSoal->bank_level);
+		$sqlQuery->set($cbtBankSoal->bank_kelas);
+		$sqlQuery->setNumber($cbtBankSoal->bank_mapel_id);
+		$sqlQuery->setNumber($cbtBankSoal->bank_jurusan_id);
+		$sqlQuery->setNumber($cbtBankSoal->bank_guru_id);
+		$sqlQuery->set($cbtBankSoal->bank_nama);
 		$sqlQuery->setNumber($cbtBankSoal->kkm);
-		$sqlQuery->setNumber($cbtBankSoal->jmlSoal);
-		$sqlQuery->setNumber($cbtBankSoal->jmlEsai);
-		$sqlQuery->setNumber($cbtBankSoal->tampilPg);
-		$sqlQuery->setNumber($cbtBankSoal->tampilEsai);
-		$sqlQuery->setNumber($cbtBankSoal->bobotPg);
-		$sqlQuery->setNumber($cbtBankSoal->bobotEsai);
+		$sqlQuery->setNumber($cbtBankSoal->jml_soal);
+		$sqlQuery->setNumber($cbtBankSoal->jml_esai);
+		$sqlQuery->setNumber($cbtBankSoal->tampil_pg);
+		$sqlQuery->setNumber($cbtBankSoal->tampil_esai);
+		$sqlQuery->setNumber($cbtBankSoal->bobot_pg);
+		$sqlQuery->setNumber($cbtBankSoal->bobot_esai);
 		$sqlQuery->setNumber($cbtBankSoal->opsi);
 		$sqlQuery->set($cbtBankSoal->date);
 		$sqlQuery->setNumber($cbtBankSoal->status);
-		$sqlQuery->setNumber($cbtBankSoal->soalAgama);
+		$sqlQuery->setNumber($cbtBankSoal->soal_agama);
 
-		$sqlQuery->setNumber($cbtBankSoal->idBank);
+		$sqlQuery->setNumber($cbtBankSoal->id_bank);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -535,26 +535,26 @@ class CbtBankSoalMySqlDAO implements CbtBankSoalDAO{
 	protected function readRow($row){
 		$cbtBankSoal = new CbtBankSoalDTO();
 		
-		$cbtBankSoal->idBank = isset($row['id_bank']) ? $row['id_bank'] : null;
-		$cbtBankSoal->bankJenisId = isset($row['bank_jenis_id']) ? $row['bank_jenis_id'] : null;
-		$cbtBankSoal->bankKode = isset($row['bank_kode']) ? $row['bank_kode'] : null;
-		$cbtBankSoal->bankLevel = isset($row['bank_level']) ? $row['bank_level'] : null;
-		$cbtBankSoal->bankKelas = isset($row['bank_kelas']) ? $row['bank_kelas'] : null;
-		$cbtBankSoal->bankMapelId = isset($row['bank_mapel_id']) ? $row['bank_mapel_id'] : null;
-		$cbtBankSoal->bankJurusanId = isset($row['bank_jurusan_id']) ? $row['bank_jurusan_id'] : null;
-		$cbtBankSoal->bankGuruId = isset($row['bank_guru_id']) ? $row['bank_guru_id'] : null;
-		$cbtBankSoal->bankNama = isset($row['bank_nama']) ? $row['bank_nama'] : null;
+		$cbtBankSoal->id_bank = isset($row['id_bank']) ? $row['id_bank'] : null;
+		$cbtBankSoal->bank_jenis_id = isset($row['bank_jenis_id']) ? $row['bank_jenis_id'] : null;
+		$cbtBankSoal->bank_kode = isset($row['bank_kode']) ? $row['bank_kode'] : null;
+		$cbtBankSoal->bank_level = isset($row['bank_level']) ? $row['bank_level'] : null;
+		$cbtBankSoal->bank_kelas = isset($row['bank_kelas']) ? $row['bank_kelas'] : null;
+		$cbtBankSoal->bank_mapel_id = isset($row['bank_mapel_id']) ? $row['bank_mapel_id'] : null;
+		$cbtBankSoal->bank_jurusan_id = isset($row['bank_jurusan_id']) ? $row['bank_jurusan_id'] : null;
+		$cbtBankSoal->bank_guru_id = isset($row['bank_guru_id']) ? $row['bank_guru_id'] : null;
+		$cbtBankSoal->bank_nama = isset($row['bank_nama']) ? $row['bank_nama'] : null;
 		$cbtBankSoal->kkm = isset($row['kkm']) ? $row['kkm'] : null;
-		$cbtBankSoal->jmlSoal = isset($row['jml_soal']) ? $row['jml_soal'] : null;
-		$cbtBankSoal->jmlEsai = isset($row['jml_esai']) ? $row['jml_esai'] : null;
-		$cbtBankSoal->tampilPg = isset($row['tampil_pg']) ? $row['tampil_pg'] : null;
-		$cbtBankSoal->tampilEsai = isset($row['tampil_esai']) ? $row['tampil_esai'] : null;
-		$cbtBankSoal->bobotPg = isset($row['bobot_pg']) ? $row['bobot_pg'] : null;
-		$cbtBankSoal->bobotEsai = isset($row['bobot_esai']) ? $row['bobot_esai'] : null;
+		$cbtBankSoal->jml_soal = isset($row['jml_soal']) ? $row['jml_soal'] : null;
+		$cbtBankSoal->jml_esai = isset($row['jml_esai']) ? $row['jml_esai'] : null;
+		$cbtBankSoal->tampil_pg = isset($row['tampil_pg']) ? $row['tampil_pg'] : null;
+		$cbtBankSoal->tampil_esai = isset($row['tampil_esai']) ? $row['tampil_esai'] : null;
+		$cbtBankSoal->bobot_pg = isset($row['bobot_pg']) ? $row['bobot_pg'] : null;
+		$cbtBankSoal->bobot_esai = isset($row['bobot_esai']) ? $row['bobot_esai'] : null;
 		$cbtBankSoal->opsi = isset($row['opsi']) ? $row['opsi'] : null;
 		$cbtBankSoal->date = isset($row['date']) ? $row['date'] : null;
 		$cbtBankSoal->status = isset($row['status']) ? $row['status'] : null;
-		$cbtBankSoal->soalAgama = isset($row['soal_agama']) ? $row['soal_agama'] : null;
+		$cbtBankSoal->soal_agama = isset($row['soal_agama']) ? $row['soal_agama'] : null;
 
 		return $cbtBankSoal;
 	}

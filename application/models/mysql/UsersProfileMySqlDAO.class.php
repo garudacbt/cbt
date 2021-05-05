@@ -3,7 +3,7 @@
  * Class that operate on table 'users_profile'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class UsersProfileMySqlDAO implements UsersProfileDAO{
 
@@ -60,13 +60,13 @@ class UsersProfileMySqlDAO implements UsersProfileDAO{
 		$sql = 'INSERT INTO users_profile (nama_lengkap, jabatan, level_access, foto) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($usersProfile->namaLengkap);
+		$sqlQuery->set($usersProfile->nama_lengkap);
 		$sqlQuery->set($usersProfile->jabatan);
-		$sqlQuery->setNumber($usersProfile->levelAccess);
+		$sqlQuery->setNumber($usersProfile->level_access);
 		$sqlQuery->set($usersProfile->foto);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$usersProfile->idUser = $id;
+		$usersProfile->id_user = $id;
 		return $id;
 	}
 	
@@ -79,12 +79,12 @@ class UsersProfileMySqlDAO implements UsersProfileDAO{
 		$sql = 'UPDATE users_profile SET nama_lengkap = ?, jabatan = ?, level_access = ?, foto = ? WHERE id_user = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($usersProfile->namaLengkap);
+		$sqlQuery->set($usersProfile->nama_lengkap);
 		$sqlQuery->set($usersProfile->jabatan);
-		$sqlQuery->setNumber($usersProfile->levelAccess);
+		$sqlQuery->setNumber($usersProfile->level_access);
 		$sqlQuery->set($usersProfile->foto);
 
-		$sqlQuery->setNumber($usersProfile->idUser);
+		$sqlQuery->setNumber($usersProfile->id_user);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -250,10 +250,10 @@ class UsersProfileMySqlDAO implements UsersProfileDAO{
 	protected function readRow($row){
 		$usersProfile = new UsersProfileDTO();
 		
-		$usersProfile->idUser = isset($row['id_user']) ? $row['id_user'] : null;
-		$usersProfile->namaLengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : null;
+		$usersProfile->id_user = isset($row['id_user']) ? $row['id_user'] : null;
+		$usersProfile->nama_lengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : null;
 		$usersProfile->jabatan = isset($row['jabatan']) ? $row['jabatan'] : null;
-		$usersProfile->levelAccess = isset($row['level_access']) ? $row['level_access'] : null;
+		$usersProfile->level_access = isset($row['level_access']) ? $row['level_access'] : null;
 		$usersProfile->foto = isset($row['foto']) ? $row['foto'] : null;
 
 		return $usersProfile;

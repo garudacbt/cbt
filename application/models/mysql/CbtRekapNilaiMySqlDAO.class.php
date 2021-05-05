@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_rekap_nilai'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtRekapNilaiMySqlDAO implements CbtRekapNilaiDAO{
 
@@ -57,33 +57,34 @@ class CbtRekapNilaiMySqlDAO implements CbtRekapNilaiDAO{
  	 * @param CbtRekapNilaiDTO cbtRekapNilai
  	 */
 	public function insert($cbtRekapNilai){
-		$sql = 'INSERT INTO cbt_rekap_nilai (id_jadwal, id_tp, tp, id_smt, smt, id_jenis, kode_jenis, id_bank, id_mapel, id_siswa, kelas, mulai, selesai, durasi, bobot_pg, jawaban_pg, nilai_pg, bobot_esai, jawaban_esai, nilai_esai, id_guru) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO cbt_rekap_nilai (id_jadwal, id_tp, tp, id_smt, smt, id_jenis, kode_jenis, id_bank, id_mapel, id_siswa, id_kelas, kelas, mulai, selesai, durasi, bobot_pg, jawaban_pg, nilai_pg, bobot_esai, jawaban_esai, nilai_esai, id_guru) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtRekapNilai->idJadwal);
-		$sqlQuery->setNumber($cbtRekapNilai->idTp);
+		$sqlQuery->setNumber($cbtRekapNilai->id_jadwal);
+		$sqlQuery->setNumber($cbtRekapNilai->id_tp);
 		$sqlQuery->set($cbtRekapNilai->tp);
-		$sqlQuery->setNumber($cbtRekapNilai->idSmt);
+		$sqlQuery->setNumber($cbtRekapNilai->id_smt);
 		$sqlQuery->set($cbtRekapNilai->smt);
-		$sqlQuery->setNumber($cbtRekapNilai->idJenis);
-		$sqlQuery->set($cbtRekapNilai->kodeJenis);
-		$sqlQuery->setNumber($cbtRekapNilai->idBank);
-		$sqlQuery->setNumber($cbtRekapNilai->idMapel);
-		$sqlQuery->setNumber($cbtRekapNilai->idSiswa);
+		$sqlQuery->setNumber($cbtRekapNilai->id_jenis);
+		$sqlQuery->set($cbtRekapNilai->kode_jenis);
+		$sqlQuery->setNumber($cbtRekapNilai->id_bank);
+		$sqlQuery->setNumber($cbtRekapNilai->id_mapel);
+		$sqlQuery->setNumber($cbtRekapNilai->id_siswa);
+		$sqlQuery->setNumber($cbtRekapNilai->id_kelas);
 		$sqlQuery->set($cbtRekapNilai->kelas);
 		$sqlQuery->set($cbtRekapNilai->mulai);
 		$sqlQuery->set($cbtRekapNilai->selesai);
 		$sqlQuery->set($cbtRekapNilai->durasi);
-		$sqlQuery->setNumber($cbtRekapNilai->bobotPg);
-		$sqlQuery->set($cbtRekapNilai->jawabanPg);
-		$sqlQuery->set($cbtRekapNilai->nilaiPg);
-		$sqlQuery->setNumber($cbtRekapNilai->bobotEsai);
-		$sqlQuery->set($cbtRekapNilai->jawabanEsai);
-		$sqlQuery->set($cbtRekapNilai->nilaiEsai);
-		$sqlQuery->setNumber($cbtRekapNilai->idGuru);
+		$sqlQuery->setNumber($cbtRekapNilai->bobot_pg);
+		$sqlQuery->set($cbtRekapNilai->jawaban_pg);
+		$sqlQuery->set($cbtRekapNilai->nilai_pg);
+		$sqlQuery->setNumber($cbtRekapNilai->bobot_esai);
+		$sqlQuery->set($cbtRekapNilai->jawaban_esai);
+		$sqlQuery->set($cbtRekapNilai->nilai_esai);
+		$sqlQuery->setNumber($cbtRekapNilai->id_guru);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtRekapNilai->idRekapNilai = $id;
+		$cbtRekapNilai->id_rekap_nilai = $id;
 		return $id;
 	}
 	
@@ -93,32 +94,33 @@ class CbtRekapNilaiMySqlDAO implements CbtRekapNilaiDAO{
  	 * @param CbtRekapNilaiDTO cbtRekapNilai
  	 */
 	public function update($cbtRekapNilai){
-		$sql = 'UPDATE cbt_rekap_nilai SET id_jadwal = ?, id_tp = ?, tp = ?, id_smt = ?, smt = ?, id_jenis = ?, kode_jenis = ?, id_bank = ?, id_mapel = ?, id_siswa = ?, kelas = ?, mulai = ?, selesai = ?, durasi = ?, bobot_pg = ?, jawaban_pg = ?, nilai_pg = ?, bobot_esai = ?, jawaban_esai = ?, nilai_esai = ?, id_guru = ? WHERE id_rekap_nilai = ?';
+		$sql = 'UPDATE cbt_rekap_nilai SET id_jadwal = ?, id_tp = ?, tp = ?, id_smt = ?, smt = ?, id_jenis = ?, kode_jenis = ?, id_bank = ?, id_mapel = ?, id_siswa = ?, id_kelas = ?, kelas = ?, mulai = ?, selesai = ?, durasi = ?, bobot_pg = ?, jawaban_pg = ?, nilai_pg = ?, bobot_esai = ?, jawaban_esai = ?, nilai_esai = ?, id_guru = ? WHERE id_rekap_nilai = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtRekapNilai->idJadwal);
-		$sqlQuery->setNumber($cbtRekapNilai->idTp);
+		$sqlQuery->setNumber($cbtRekapNilai->id_jadwal);
+		$sqlQuery->setNumber($cbtRekapNilai->id_tp);
 		$sqlQuery->set($cbtRekapNilai->tp);
-		$sqlQuery->setNumber($cbtRekapNilai->idSmt);
+		$sqlQuery->setNumber($cbtRekapNilai->id_smt);
 		$sqlQuery->set($cbtRekapNilai->smt);
-		$sqlQuery->setNumber($cbtRekapNilai->idJenis);
-		$sqlQuery->set($cbtRekapNilai->kodeJenis);
-		$sqlQuery->setNumber($cbtRekapNilai->idBank);
-		$sqlQuery->setNumber($cbtRekapNilai->idMapel);
-		$sqlQuery->setNumber($cbtRekapNilai->idSiswa);
+		$sqlQuery->setNumber($cbtRekapNilai->id_jenis);
+		$sqlQuery->set($cbtRekapNilai->kode_jenis);
+		$sqlQuery->setNumber($cbtRekapNilai->id_bank);
+		$sqlQuery->setNumber($cbtRekapNilai->id_mapel);
+		$sqlQuery->setNumber($cbtRekapNilai->id_siswa);
+		$sqlQuery->setNumber($cbtRekapNilai->id_kelas);
 		$sqlQuery->set($cbtRekapNilai->kelas);
 		$sqlQuery->set($cbtRekapNilai->mulai);
 		$sqlQuery->set($cbtRekapNilai->selesai);
 		$sqlQuery->set($cbtRekapNilai->durasi);
-		$sqlQuery->setNumber($cbtRekapNilai->bobotPg);
-		$sqlQuery->set($cbtRekapNilai->jawabanPg);
-		$sqlQuery->set($cbtRekapNilai->nilaiPg);
-		$sqlQuery->setNumber($cbtRekapNilai->bobotEsai);
-		$sqlQuery->set($cbtRekapNilai->jawabanEsai);
-		$sqlQuery->set($cbtRekapNilai->nilaiEsai);
-		$sqlQuery->setNumber($cbtRekapNilai->idGuru);
+		$sqlQuery->setNumber($cbtRekapNilai->bobot_pg);
+		$sqlQuery->set($cbtRekapNilai->jawaban_pg);
+		$sqlQuery->set($cbtRekapNilai->nilai_pg);
+		$sqlQuery->setNumber($cbtRekapNilai->bobot_esai);
+		$sqlQuery->set($cbtRekapNilai->jawaban_esai);
+		$sqlQuery->set($cbtRekapNilai->nilai_esai);
+		$sqlQuery->setNumber($cbtRekapNilai->id_guru);
 
-		$sqlQuery->setNumber($cbtRekapNilai->idRekapNilai);
+		$sqlQuery->setNumber($cbtRekapNilai->id_rekap_nilai);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -272,6 +274,16 @@ class CbtRekapNilaiMySqlDAO implements CbtRekapNilaiDAO{
 
 	public function queryByIdSiswa($value, $single = false){
 		$sql = 'SELECT * FROM cbt_rekap_nilai WHERE id_siswa = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdKelas($value, $single = false){
+		$sql = 'SELECT * FROM cbt_rekap_nilai WHERE id_kelas = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		if ($single === true)
@@ -468,6 +480,13 @@ class CbtRekapNilaiMySqlDAO implements CbtRekapNilaiDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByIdKelas($value){
+		$sql = 'DELETE FROM cbt_rekap_nilai WHERE id_kelas = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 	public function deleteByKelas($value){
 		$sql = 'DELETE FROM cbt_rekap_nilai WHERE kelas = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -573,28 +592,29 @@ class CbtRekapNilaiMySqlDAO implements CbtRekapNilaiDAO{
 	protected function readRow($row){
 		$cbtRekapNilai = new CbtRekapNilaiDTO();
 		
-		$cbtRekapNilai->idRekapNilai = isset($row['id_rekap_nilai']) ? $row['id_rekap_nilai'] : null;
-		$cbtRekapNilai->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
-		$cbtRekapNilai->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$cbtRekapNilai->id_rekap_nilai = isset($row['id_rekap_nilai']) ? $row['id_rekap_nilai'] : null;
+		$cbtRekapNilai->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$cbtRekapNilai->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
 		$cbtRekapNilai->tp = isset($row['tp']) ? $row['tp'] : null;
-		$cbtRekapNilai->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$cbtRekapNilai->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$cbtRekapNilai->smt = isset($row['smt']) ? $row['smt'] : null;
-		$cbtRekapNilai->idJenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
-		$cbtRekapNilai->kodeJenis = isset($row['kode_jenis']) ? $row['kode_jenis'] : null;
-		$cbtRekapNilai->idBank = isset($row['id_bank']) ? $row['id_bank'] : null;
-		$cbtRekapNilai->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$cbtRekapNilai->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$cbtRekapNilai->id_jenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
+		$cbtRekapNilai->kode_jenis = isset($row['kode_jenis']) ? $row['kode_jenis'] : null;
+		$cbtRekapNilai->id_bank = isset($row['id_bank']) ? $row['id_bank'] : null;
+		$cbtRekapNilai->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$cbtRekapNilai->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$cbtRekapNilai->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 		$cbtRekapNilai->kelas = isset($row['kelas']) ? $row['kelas'] : null;
 		$cbtRekapNilai->mulai = isset($row['mulai']) ? $row['mulai'] : null;
 		$cbtRekapNilai->selesai = isset($row['selesai']) ? $row['selesai'] : null;
 		$cbtRekapNilai->durasi = isset($row['durasi']) ? $row['durasi'] : null;
-		$cbtRekapNilai->bobotPg = isset($row['bobot_pg']) ? $row['bobot_pg'] : null;
-		$cbtRekapNilai->jawabanPg = isset($row['jawaban_pg']) ? $row['jawaban_pg'] : null;
-		$cbtRekapNilai->nilaiPg = isset($row['nilai_pg']) ? $row['nilai_pg'] : null;
-		$cbtRekapNilai->bobotEsai = isset($row['bobot_esai']) ? $row['bobot_esai'] : null;
-		$cbtRekapNilai->jawabanEsai = isset($row['jawaban_esai']) ? $row['jawaban_esai'] : null;
-		$cbtRekapNilai->nilaiEsai = isset($row['nilai_esai']) ? $row['nilai_esai'] : null;
-		$cbtRekapNilai->idGuru = isset($row['id_guru']) ? $row['id_guru'] : null;
+		$cbtRekapNilai->bobot_pg = isset($row['bobot_pg']) ? $row['bobot_pg'] : null;
+		$cbtRekapNilai->jawaban_pg = isset($row['jawaban_pg']) ? $row['jawaban_pg'] : null;
+		$cbtRekapNilai->nilai_pg = isset($row['nilai_pg']) ? $row['nilai_pg'] : null;
+		$cbtRekapNilai->bobot_esai = isset($row['bobot_esai']) ? $row['bobot_esai'] : null;
+		$cbtRekapNilai->jawaban_esai = isset($row['jawaban_esai']) ? $row['jawaban_esai'] : null;
+		$cbtRekapNilai->nilai_esai = isset($row['nilai_esai']) ? $row['nilai_esai'] : null;
+		$cbtRekapNilai->id_guru = isset($row['id_guru']) ? $row['id_guru'] : null;
 
 		return $cbtRekapNilai;
 	}

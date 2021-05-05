@@ -3,7 +3,7 @@
  * Class that operate on table 'post'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class PostMySqlDAO implements PostDAO{
 
@@ -61,14 +61,14 @@ class PostMySqlDAO implements PostDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($post->dari);
-		$sqlQuery->setNumber($post->dariGroup);
+		$sqlQuery->setNumber($post->dari_group);
 		$sqlQuery->set($post->kepada);
 		$sqlQuery->set($post->text);
 		$sqlQuery->set($post->tanggal);
 		$sqlQuery->set($post->updated);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$post->idPost = $id;
+		$post->id_post = $id;
 		return $id;
 	}
 	
@@ -82,13 +82,13 @@ class PostMySqlDAO implements PostDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($post->dari);
-		$sqlQuery->setNumber($post->dariGroup);
+		$sqlQuery->setNumber($post->dari_group);
 		$sqlQuery->set($post->kepada);
 		$sqlQuery->set($post->text);
 		$sqlQuery->set($post->tanggal);
 		$sqlQuery->set($post->updated);
 
-		$sqlQuery->setNumber($post->idPost);
+		$sqlQuery->setNumber($post->id_post);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -288,9 +288,9 @@ class PostMySqlDAO implements PostDAO{
 	protected function readRow($row){
 		$post = new PostDTO();
 		
-		$post->idPost = isset($row['id_post']) ? $row['id_post'] : null;
+		$post->id_post = isset($row['id_post']) ? $row['id_post'] : null;
 		$post->dari = isset($row['dari']) ? $row['dari'] : null;
-		$post->dariGroup = isset($row['dari_group']) ? $row['dari_group'] : null;
+		$post->dari_group = isset($row['dari_group']) ? $row['dari_group'] : null;
 		$post->kepada = isset($row['kepada']) ? $row['kepada'] : null;
 		$post->text = isset($row['text']) ? $row['text'] : null;
 		$post->tanggal = isset($row['tanggal']) ? $row['tanggal'] : null;

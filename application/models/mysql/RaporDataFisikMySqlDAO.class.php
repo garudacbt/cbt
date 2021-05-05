@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_data_fisik'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporDataFisikMySqlDAO implements RaporDataFisikDAO{
 
@@ -57,16 +57,18 @@ class RaporDataFisikMySqlDAO implements RaporDataFisikDAO{
  	 * @param RaporDataFisikDTO raporDataFisik
  	 */
 	public function insert($raporDataFisik){
-		$sql = 'INSERT INTO rapor_data_fisik (id_kelas, jenis, kode, deskripsi) VALUES (?, ?, ?, ?)';
+		$sql = 'INSERT INTO rapor_data_fisik (id_tp, id_smt, id_kelas, jenis, kode, deskripsi) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporDataFisik->idKelas);
+		$sqlQuery->setNumber($raporDataFisik->id_tp);
+		$sqlQuery->setNumber($raporDataFisik->id_smt);
+		$sqlQuery->setNumber($raporDataFisik->id_kelas);
 		$sqlQuery->setNumber($raporDataFisik->jenis);
 		$sqlQuery->setNumber($raporDataFisik->kode);
 		$sqlQuery->set($raporDataFisik->deskripsi);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporDataFisik->idFisik = $id;
+		$raporDataFisik->id_fisik = $id;
 		return $id;
 	}
 	
@@ -76,15 +78,17 @@ class RaporDataFisikMySqlDAO implements RaporDataFisikDAO{
  	 * @param RaporDataFisikDTO raporDataFisik
  	 */
 	public function update($raporDataFisik){
-		$sql = 'UPDATE rapor_data_fisik SET id_kelas = ?, jenis = ?, kode = ?, deskripsi = ? WHERE id_fisik = ?';
+		$sql = 'UPDATE rapor_data_fisik SET id_tp = ?, id_smt = ?, id_kelas = ?, jenis = ?, kode = ?, deskripsi = ? WHERE id_fisik = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporDataFisik->idKelas);
+		$sqlQuery->setNumber($raporDataFisik->id_tp);
+		$sqlQuery->setNumber($raporDataFisik->id_smt);
+		$sqlQuery->setNumber($raporDataFisik->id_kelas);
 		$sqlQuery->setNumber($raporDataFisik->jenis);
 		$sqlQuery->setNumber($raporDataFisik->kode);
 		$sqlQuery->set($raporDataFisik->deskripsi);
 
-		$sqlQuery->setNumber($raporDataFisik->idFisik);
+		$sqlQuery->setNumber($raporDataFisik->id_fisik);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -146,6 +150,26 @@ class RaporDataFisikMySqlDAO implements RaporDataFisikDAO{
 			return $this->getList($sqlQuery);
 	}
 
+	public function queryByIdTp($value, $single = false){
+		$sql = 'SELECT * FROM rapor_data_fisik WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdSmt($value, $single = false){
+		$sql = 'SELECT * FROM rapor_data_fisik WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
 	public function queryByIdKelas($value, $single = false){
 		$sql = 'SELECT * FROM rapor_data_fisik WHERE id_kelas = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -189,6 +213,20 @@ class RaporDataFisikMySqlDAO implements RaporDataFisikDAO{
 
 	public function deleteByIdFisik($value){
 		$sql = 'DELETE FROM rapor_data_fisik WHERE id_fisik = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdTp($value){
+		$sql = 'DELETE FROM rapor_data_fisik WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdSmt($value){
+		$sql = 'DELETE FROM rapor_data_fisik WHERE id_smt = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
@@ -250,8 +288,10 @@ class RaporDataFisikMySqlDAO implements RaporDataFisikDAO{
 	protected function readRow($row){
 		$raporDataFisik = new RaporDataFisikDTO();
 		
-		$raporDataFisik->idFisik = isset($row['id_fisik']) ? $row['id_fisik'] : null;
-		$raporDataFisik->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporDataFisik->id_fisik = isset($row['id_fisik']) ? $row['id_fisik'] : null;
+		$raporDataFisik->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporDataFisik->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporDataFisik->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 		$raporDataFisik->jenis = isset($row['jenis']) ? $row['jenis'] : null;
 		$raporDataFisik->kode = isset($row['kode']) ? $row['kode'] : null;
 		$raporDataFisik->deskripsi = isset($row['deskripsi']) ? $row['deskripsi'] : null;

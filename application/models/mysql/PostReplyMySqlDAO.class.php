@@ -3,7 +3,7 @@
  * Class that operate on table 'post_reply'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class PostReplyMySqlDAO implements PostReplyDAO{
 
@@ -60,15 +60,15 @@ class PostReplyMySqlDAO implements PostReplyDAO{
 		$sql = 'INSERT INTO post_reply (id_comment, dari, dari_group, text, tanggal, updated) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($postReply->idComment);
+		$sqlQuery->setNumber($postReply->id_comment);
 		$sqlQuery->setNumber($postReply->dari);
-		$sqlQuery->setNumber($postReply->dariGroup);
+		$sqlQuery->setNumber($postReply->dari_group);
 		$sqlQuery->set($postReply->text);
 		$sqlQuery->set($postReply->tanggal);
 		$sqlQuery->set($postReply->updated);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$postReply->idReply = $id;
+		$postReply->id_reply = $id;
 		return $id;
 	}
 	
@@ -81,14 +81,14 @@ class PostReplyMySqlDAO implements PostReplyDAO{
 		$sql = 'UPDATE post_reply SET id_comment = ?, dari = ?, dari_group = ?, text = ?, tanggal = ?, updated = ? WHERE id_reply = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($postReply->idComment);
+		$sqlQuery->setNumber($postReply->id_comment);
 		$sqlQuery->setNumber($postReply->dari);
-		$sqlQuery->setNumber($postReply->dariGroup);
+		$sqlQuery->setNumber($postReply->dari_group);
 		$sqlQuery->set($postReply->text);
 		$sqlQuery->set($postReply->tanggal);
 		$sqlQuery->set($postReply->updated);
 
-		$sqlQuery->setNumber($postReply->idReply);
+		$sqlQuery->setNumber($postReply->id_reply);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -288,10 +288,10 @@ class PostReplyMySqlDAO implements PostReplyDAO{
 	protected function readRow($row){
 		$postReply = new PostReplyDTO();
 		
-		$postReply->idReply = isset($row['id_reply']) ? $row['id_reply'] : null;
-		$postReply->idComment = isset($row['id_comment']) ? $row['id_comment'] : null;
+		$postReply->id_reply = isset($row['id_reply']) ? $row['id_reply'] : null;
+		$postReply->id_comment = isset($row['id_comment']) ? $row['id_comment'] : null;
 		$postReply->dari = isset($row['dari']) ? $row['dari'] : null;
-		$postReply->dariGroup = isset($row['dari_group']) ? $row['dari_group'] : null;
+		$postReply->dari_group = isset($row['dari_group']) ? $row['dari_group'] : null;
 		$postReply->text = isset($row['text']) ? $row['text'] : null;
 		$postReply->tanggal = isset($row['tanggal']) ? $row['tanggal'] : null;
 		$postReply->updated = isset($row['updated']) ? $row['updated'] : null;

@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_nilai_harian'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 
@@ -60,11 +60,11 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$sql = 'INSERT INTO rapor_nilai_harian (id_siswa, id_mapel, id_kelas, id_tp, id_smt, p1, p2, p3, p4, p5, p6, p7, p8, p_rata_rata, p_predikat, p_deskripsi, k1, k2, k3, k4, k5, k6, k7, k8, k_rata_rata, k_predikat, k_deskripsi, jml) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporNilaiHarian->idSiswa);
-		$sqlQuery->setNumber($raporNilaiHarian->idMapel);
-		$sqlQuery->setNumber($raporNilaiHarian->idKelas);
-		$sqlQuery->setNumber($raporNilaiHarian->idTp);
-		$sqlQuery->setNumber($raporNilaiHarian->idSmt);
+		$sqlQuery->setNumber($raporNilaiHarian->id_siswa);
+		$sqlQuery->setNumber($raporNilaiHarian->id_mapel);
+		$sqlQuery->setNumber($raporNilaiHarian->id_kelas);
+		$sqlQuery->setNumber($raporNilaiHarian->id_tp);
+		$sqlQuery->setNumber($raporNilaiHarian->id_smt);
 		$sqlQuery->set($raporNilaiHarian->p1);
 		$sqlQuery->set($raporNilaiHarian->p2);
 		$sqlQuery->set($raporNilaiHarian->p3);
@@ -73,9 +73,9 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$sqlQuery->set($raporNilaiHarian->p6);
 		$sqlQuery->set($raporNilaiHarian->p7);
 		$sqlQuery->set($raporNilaiHarian->p8);
-		$sqlQuery->set($raporNilaiHarian->pRataRata);
-		$sqlQuery->set($raporNilaiHarian->pPredikat);
-		$sqlQuery->set($raporNilaiHarian->pDeskripsi);
+		$sqlQuery->set($raporNilaiHarian->p_rata_rata);
+		$sqlQuery->set($raporNilaiHarian->p_predikat);
+		$sqlQuery->set($raporNilaiHarian->p_deskripsi);
 		$sqlQuery->set($raporNilaiHarian->k1);
 		$sqlQuery->set($raporNilaiHarian->k2);
 		$sqlQuery->set($raporNilaiHarian->k3);
@@ -84,13 +84,13 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$sqlQuery->set($raporNilaiHarian->k6);
 		$sqlQuery->set($raporNilaiHarian->k7);
 		$sqlQuery->set($raporNilaiHarian->k8);
-		$sqlQuery->set($raporNilaiHarian->kRataRata);
-		$sqlQuery->set($raporNilaiHarian->kPredikat);
-		$sqlQuery->set($raporNilaiHarian->kDeskripsi);
+		$sqlQuery->set($raporNilaiHarian->k_rata_rata);
+		$sqlQuery->set($raporNilaiHarian->k_predikat);
+		$sqlQuery->set($raporNilaiHarian->k_deskripsi);
 		$sqlQuery->setNumber($raporNilaiHarian->jml);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporNilaiHarian->idNilaiHarian = $id;
+		$raporNilaiHarian->id_nilai_harian = $id;
 		return $id;
 	}
 	
@@ -103,11 +103,11 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$sql = 'UPDATE rapor_nilai_harian SET id_siswa = ?, id_mapel = ?, id_kelas = ?, id_tp = ?, id_smt = ?, p1 = ?, p2 = ?, p3 = ?, p4 = ?, p5 = ?, p6 = ?, p7 = ?, p8 = ?, p_rata_rata = ?, p_predikat = ?, p_deskripsi = ?, k1 = ?, k2 = ?, k3 = ?, k4 = ?, k5 = ?, k6 = ?, k7 = ?, k8 = ?, k_rata_rata = ?, k_predikat = ?, k_deskripsi = ?, jml = ? WHERE id_nilai_harian = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporNilaiHarian->idSiswa);
-		$sqlQuery->setNumber($raporNilaiHarian->idMapel);
-		$sqlQuery->setNumber($raporNilaiHarian->idKelas);
-		$sqlQuery->setNumber($raporNilaiHarian->idTp);
-		$sqlQuery->setNumber($raporNilaiHarian->idSmt);
+		$sqlQuery->setNumber($raporNilaiHarian->id_siswa);
+		$sqlQuery->setNumber($raporNilaiHarian->id_mapel);
+		$sqlQuery->setNumber($raporNilaiHarian->id_kelas);
+		$sqlQuery->setNumber($raporNilaiHarian->id_tp);
+		$sqlQuery->setNumber($raporNilaiHarian->id_smt);
 		$sqlQuery->set($raporNilaiHarian->p1);
 		$sqlQuery->set($raporNilaiHarian->p2);
 		$sqlQuery->set($raporNilaiHarian->p3);
@@ -116,9 +116,9 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$sqlQuery->set($raporNilaiHarian->p6);
 		$sqlQuery->set($raporNilaiHarian->p7);
 		$sqlQuery->set($raporNilaiHarian->p8);
-		$sqlQuery->set($raporNilaiHarian->pRataRata);
-		$sqlQuery->set($raporNilaiHarian->pPredikat);
-		$sqlQuery->set($raporNilaiHarian->pDeskripsi);
+		$sqlQuery->set($raporNilaiHarian->p_rata_rata);
+		$sqlQuery->set($raporNilaiHarian->p_predikat);
+		$sqlQuery->set($raporNilaiHarian->p_deskripsi);
 		$sqlQuery->set($raporNilaiHarian->k1);
 		$sqlQuery->set($raporNilaiHarian->k2);
 		$sqlQuery->set($raporNilaiHarian->k3);
@@ -127,12 +127,12 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$sqlQuery->set($raporNilaiHarian->k6);
 		$sqlQuery->set($raporNilaiHarian->k7);
 		$sqlQuery->set($raporNilaiHarian->k8);
-		$sqlQuery->set($raporNilaiHarian->kRataRata);
-		$sqlQuery->set($raporNilaiHarian->kPredikat);
-		$sqlQuery->set($raporNilaiHarian->kDeskripsi);
+		$sqlQuery->set($raporNilaiHarian->k_rata_rata);
+		$sqlQuery->set($raporNilaiHarian->k_predikat);
+		$sqlQuery->set($raporNilaiHarian->k_deskripsi);
 		$sqlQuery->setNumber($raporNilaiHarian->jml);
 
-		$sqlQuery->set($raporNilaiHarian->idNilaiHarian);
+		$sqlQuery->set($raporNilaiHarian->id_nilai_harian);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -706,12 +706,12 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 	protected function readRow($row){
 		$raporNilaiHarian = new RaporNilaiHarianDTO();
 		
-		$raporNilaiHarian->idNilaiHarian = isset($row['id_nilai_harian']) ? $row['id_nilai_harian'] : null;
-		$raporNilaiHarian->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$raporNilaiHarian->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$raporNilaiHarian->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$raporNilaiHarian->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$raporNilaiHarian->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporNilaiHarian->id_nilai_harian = isset($row['id_nilai_harian']) ? $row['id_nilai_harian'] : null;
+		$raporNilaiHarian->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$raporNilaiHarian->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$raporNilaiHarian->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporNilaiHarian->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporNilaiHarian->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$raporNilaiHarian->p1 = isset($row['p1']) ? $row['p1'] : null;
 		$raporNilaiHarian->p2 = isset($row['p2']) ? $row['p2'] : null;
 		$raporNilaiHarian->p3 = isset($row['p3']) ? $row['p3'] : null;
@@ -720,9 +720,9 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$raporNilaiHarian->p6 = isset($row['p6']) ? $row['p6'] : null;
 		$raporNilaiHarian->p7 = isset($row['p7']) ? $row['p7'] : null;
 		$raporNilaiHarian->p8 = isset($row['p8']) ? $row['p8'] : null;
-		$raporNilaiHarian->pRataRata = isset($row['p_rata_rata']) ? $row['p_rata_rata'] : null;
-		$raporNilaiHarian->pPredikat = isset($row['p_predikat']) ? $row['p_predikat'] : null;
-		$raporNilaiHarian->pDeskripsi = isset($row['p_deskripsi']) ? $row['p_deskripsi'] : null;
+		$raporNilaiHarian->p_rata_rata = isset($row['p_rata_rata']) ? $row['p_rata_rata'] : null;
+		$raporNilaiHarian->p_predikat = isset($row['p_predikat']) ? $row['p_predikat'] : null;
+		$raporNilaiHarian->p_deskripsi = isset($row['p_deskripsi']) ? $row['p_deskripsi'] : null;
 		$raporNilaiHarian->k1 = isset($row['k1']) ? $row['k1'] : null;
 		$raporNilaiHarian->k2 = isset($row['k2']) ? $row['k2'] : null;
 		$raporNilaiHarian->k3 = isset($row['k3']) ? $row['k3'] : null;
@@ -731,9 +731,9 @@ class RaporNilaiHarianMySqlDAO implements RaporNilaiHarianDAO{
 		$raporNilaiHarian->k6 = isset($row['k6']) ? $row['k6'] : null;
 		$raporNilaiHarian->k7 = isset($row['k7']) ? $row['k7'] : null;
 		$raporNilaiHarian->k8 = isset($row['k8']) ? $row['k8'] : null;
-		$raporNilaiHarian->kRataRata = isset($row['k_rata_rata']) ? $row['k_rata_rata'] : null;
-		$raporNilaiHarian->kPredikat = isset($row['k_predikat']) ? $row['k_predikat'] : null;
-		$raporNilaiHarian->kDeskripsi = isset($row['k_deskripsi']) ? $row['k_deskripsi'] : null;
+		$raporNilaiHarian->k_rata_rata = isset($row['k_rata_rata']) ? $row['k_rata_rata'] : null;
+		$raporNilaiHarian->k_predikat = isset($row['k_predikat']) ? $row['k_predikat'] : null;
+		$raporNilaiHarian->k_deskripsi = isset($row['k_deskripsi']) ? $row['k_deskripsi'] : null;
 		$raporNilaiHarian->jml = isset($row['jml']) ? $row['jml'] : null;
 
 		return $raporNilaiHarian;

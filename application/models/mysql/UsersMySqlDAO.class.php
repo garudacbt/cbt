@@ -3,7 +3,7 @@
  * Class that operate on table 'users'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class UsersMySqlDAO implements UsersDAO{
 
@@ -60,22 +60,22 @@ class UsersMySqlDAO implements UsersDAO{
 		$sql = 'INSERT INTO users (ip_address, username, password, email, activation_selector, activation_code, forgotten_password_selector, forgotten_password_code, forgotten_password_time, remember_selector, remember_code, created_on, last_login, active, first_name, last_name, company, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($user->ipAddress);
+		$sqlQuery->set($user->ip_address);
 		$sqlQuery->set($user->username);
 		$sqlQuery->set($user->password);
 		$sqlQuery->set($user->email);
-		$sqlQuery->set($user->activationSelector);
-		$sqlQuery->set($user->activationCode);
-		$sqlQuery->set($user->forgottenPasswordSelector);
-		$sqlQuery->set($user->forgottenPasswordCode);
-		$sqlQuery->setNumber($user->forgottenPasswordTime);
-		$sqlQuery->set($user->rememberSelector);
-		$sqlQuery->set($user->rememberCode);
-		$sqlQuery->setNumber($user->createdOn);
-		$sqlQuery->setNumber($user->lastLogin);
+		$sqlQuery->set($user->activation_selector);
+		$sqlQuery->set($user->activation_code);
+		$sqlQuery->set($user->forgotten_password_selector);
+		$sqlQuery->set($user->forgotten_password_code);
+		$sqlQuery->setNumber($user->forgotten_password_time);
+		$sqlQuery->set($user->remember_selector);
+		$sqlQuery->set($user->remember_code);
+		$sqlQuery->setNumber($user->created_on);
+		$sqlQuery->setNumber($user->last_login);
 		$sqlQuery->setNumber($user->active);
-		$sqlQuery->set($user->firstName);
-		$sqlQuery->set($user->lastName);
+		$sqlQuery->set($user->first_name);
+		$sqlQuery->set($user->last_name);
 		$sqlQuery->set($user->company);
 		$sqlQuery->set($user->phone);
 
@@ -93,22 +93,22 @@ class UsersMySqlDAO implements UsersDAO{
 		$sql = 'UPDATE users SET ip_address = ?, username = ?, password = ?, email = ?, activation_selector = ?, activation_code = ?, forgotten_password_selector = ?, forgotten_password_code = ?, forgotten_password_time = ?, remember_selector = ?, remember_code = ?, created_on = ?, last_login = ?, active = ?, first_name = ?, last_name = ?, company = ?, phone = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($user->ipAddress);
+		$sqlQuery->set($user->ip_address);
 		$sqlQuery->set($user->username);
 		$sqlQuery->set($user->password);
 		$sqlQuery->set($user->email);
-		$sqlQuery->set($user->activationSelector);
-		$sqlQuery->set($user->activationCode);
-		$sqlQuery->set($user->forgottenPasswordSelector);
-		$sqlQuery->set($user->forgottenPasswordCode);
-		$sqlQuery->setNumber($user->forgottenPasswordTime);
-		$sqlQuery->set($user->rememberSelector);
-		$sqlQuery->set($user->rememberCode);
-		$sqlQuery->setNumber($user->createdOn);
-		$sqlQuery->setNumber($user->lastLogin);
+		$sqlQuery->set($user->activation_selector);
+		$sqlQuery->set($user->activation_code);
+		$sqlQuery->set($user->forgotten_password_selector);
+		$sqlQuery->set($user->forgotten_password_code);
+		$sqlQuery->setNumber($user->forgotten_password_time);
+		$sqlQuery->set($user->remember_selector);
+		$sqlQuery->set($user->remember_code);
+		$sqlQuery->setNumber($user->created_on);
+		$sqlQuery->setNumber($user->last_login);
 		$sqlQuery->setNumber($user->active);
-		$sqlQuery->set($user->firstName);
-		$sqlQuery->set($user->lastName);
+		$sqlQuery->set($user->first_name);
+		$sqlQuery->set($user->last_name);
 		$sqlQuery->set($user->company);
 		$sqlQuery->set($user->phone);
 
@@ -517,22 +517,22 @@ class UsersMySqlDAO implements UsersDAO{
 		$user = new UsersDTO();
 		
 		$user->id = isset($row['id']) ? $row['id'] : null;
-		$user->ipAddress = isset($row['ip_address']) ? $row['ip_address'] : null;
+		$user->ip_address = isset($row['ip_address']) ? $row['ip_address'] : null;
 		$user->username = isset($row['username']) ? $row['username'] : null;
 		$user->password = isset($row['password']) ? $row['password'] : null;
 		$user->email = isset($row['email']) ? $row['email'] : null;
-		$user->activationSelector = isset($row['activation_selector']) ? $row['activation_selector'] : null;
-		$user->activationCode = isset($row['activation_code']) ? $row['activation_code'] : null;
-		$user->forgottenPasswordSelector = isset($row['forgotten_password_selector']) ? $row['forgotten_password_selector'] : null;
-		$user->forgottenPasswordCode = isset($row['forgotten_password_code']) ? $row['forgotten_password_code'] : null;
-		$user->forgottenPasswordTime = isset($row['forgotten_password_time']) ? $row['forgotten_password_time'] : null;
-		$user->rememberSelector = isset($row['remember_selector']) ? $row['remember_selector'] : null;
-		$user->rememberCode = isset($row['remember_code']) ? $row['remember_code'] : null;
-		$user->createdOn = isset($row['created_on']) ? $row['created_on'] : null;
-		$user->lastLogin = isset($row['last_login']) ? $row['last_login'] : null;
+		$user->activation_selector = isset($row['activation_selector']) ? $row['activation_selector'] : null;
+		$user->activation_code = isset($row['activation_code']) ? $row['activation_code'] : null;
+		$user->forgotten_password_selector = isset($row['forgotten_password_selector']) ? $row['forgotten_password_selector'] : null;
+		$user->forgotten_password_code = isset($row['forgotten_password_code']) ? $row['forgotten_password_code'] : null;
+		$user->forgotten_password_time = isset($row['forgotten_password_time']) ? $row['forgotten_password_time'] : null;
+		$user->remember_selector = isset($row['remember_selector']) ? $row['remember_selector'] : null;
+		$user->remember_code = isset($row['remember_code']) ? $row['remember_code'] : null;
+		$user->created_on = isset($row['created_on']) ? $row['created_on'] : null;
+		$user->last_login = isset($row['last_login']) ? $row['last_login'] : null;
 		$user->active = isset($row['active']) ? $row['active'] : null;
-		$user->firstName = isset($row['first_name']) ? $row['first_name'] : null;
-		$user->lastName = isset($row['last_name']) ? $row['last_name'] : null;
+		$user->first_name = isset($row['first_name']) ? $row['first_name'] : null;
+		$user->last_name = isset($row['last_name']) ? $row['last_name'] : null;
 		$user->company = isset($row['company']) ? $row['company'] : null;
 		$user->phone = isset($row['phone']) ? $row['phone'] : null;
 

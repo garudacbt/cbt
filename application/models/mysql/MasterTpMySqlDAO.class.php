@@ -3,7 +3,7 @@
  * Class that operate on table 'master_tp'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterTpMySqlDAO implements MasterTpDAO{
 
@@ -64,7 +64,7 @@ class MasterTpMySqlDAO implements MasterTpDAO{
 		$sqlQuery->setNumber($masterTp->active);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterTp->idTp = $id;
+		$masterTp->id_tp = $id;
 		return $id;
 	}
 	
@@ -80,7 +80,7 @@ class MasterTpMySqlDAO implements MasterTpDAO{
 		$sqlQuery->set($masterTp->tahun);
 		$sqlQuery->setNumber($masterTp->active);
 
-		$sqlQuery->setNumber($masterTp->idTp);
+		$sqlQuery->setNumber($masterTp->id_tp);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -212,7 +212,7 @@ class MasterTpMySqlDAO implements MasterTpDAO{
 	protected function readRow($row){
 		$masterTp = new MasterTpDTO();
 		
-		$masterTp->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$masterTp->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
 		$masterTp->tahun = isset($row['tahun']) ? $row['tahun'] : null;
 		$masterTp->active = isset($row['active']) ? $row['active'] : null;
 

@@ -3,7 +3,7 @@
  * Class that operate on table 'log_ujian'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class LogUjianMySqlDAO implements LogUjianDAO{
 
@@ -60,17 +60,17 @@ class LogUjianMySqlDAO implements LogUjianDAO{
 		$sql = 'INSERT INTO log_ujian (log_time, id_siswa, id_jadwal, log_type, log_desc, address, agent, device) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($logUjian->logTime);
-		$sqlQuery->setNumber($logUjian->idSiswa);
-		$sqlQuery->setNumber($logUjian->idJadwal);
-		$sqlQuery->setNumber($logUjian->logType);
-		$sqlQuery->set($logUjian->logDesc);
+		$sqlQuery->set($logUjian->log_time);
+		$sqlQuery->setNumber($logUjian->id_siswa);
+		$sqlQuery->setNumber($logUjian->id_jadwal);
+		$sqlQuery->setNumber($logUjian->log_type);
+		$sqlQuery->set($logUjian->log_desc);
 		$sqlQuery->set($logUjian->address);
 		$sqlQuery->set($logUjian->agent);
 		$sqlQuery->set($logUjian->device);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$logUjian->idLog = $id;
+		$logUjian->id_log = $id;
 		return $id;
 	}
 	
@@ -83,16 +83,16 @@ class LogUjianMySqlDAO implements LogUjianDAO{
 		$sql = 'UPDATE log_ujian SET log_time = ?, id_siswa = ?, id_jadwal = ?, log_type = ?, log_desc = ?, address = ?, agent = ?, device = ? WHERE id_log = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($logUjian->logTime);
-		$sqlQuery->setNumber($logUjian->idSiswa);
-		$sqlQuery->setNumber($logUjian->idJadwal);
-		$sqlQuery->setNumber($logUjian->logType);
-		$sqlQuery->set($logUjian->logDesc);
+		$sqlQuery->set($logUjian->log_time);
+		$sqlQuery->setNumber($logUjian->id_siswa);
+		$sqlQuery->setNumber($logUjian->id_jadwal);
+		$sqlQuery->setNumber($logUjian->log_type);
+		$sqlQuery->set($logUjian->log_desc);
 		$sqlQuery->set($logUjian->address);
 		$sqlQuery->set($logUjian->agent);
 		$sqlQuery->set($logUjian->device);
 
-		$sqlQuery->setNumber($logUjian->idLog);
+		$sqlQuery->setNumber($logUjian->id_log);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -326,12 +326,12 @@ class LogUjianMySqlDAO implements LogUjianDAO{
 	protected function readRow($row){
 		$logUjian = new LogUjianDTO();
 		
-		$logUjian->idLog = isset($row['id_log']) ? $row['id_log'] : null;
-		$logUjian->logTime = isset($row['log_time']) ? $row['log_time'] : null;
-		$logUjian->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$logUjian->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
-		$logUjian->logType = isset($row['log_type']) ? $row['log_type'] : null;
-		$logUjian->logDesc = isset($row['log_desc']) ? $row['log_desc'] : null;
+		$logUjian->id_log = isset($row['id_log']) ? $row['id_log'] : null;
+		$logUjian->log_time = isset($row['log_time']) ? $row['log_time'] : null;
+		$logUjian->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$logUjian->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$logUjian->log_type = isset($row['log_type']) ? $row['log_type'] : null;
+		$logUjian->log_desc = isset($row['log_desc']) ? $row['log_desc'] : null;
 		$logUjian->address = isset($row['address']) ? $row['address'] : null;
 		$logUjian->agent = isset($row['agent']) ? $row['agent'] : null;
 		$logUjian->device = isset($row['device']) ? $row['device'] : null;

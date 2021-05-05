@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_jadwal'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtJadwalMySqlDAO implements CbtJadwalDAO{
 
@@ -57,28 +57,30 @@ class CbtJadwalMySqlDAO implements CbtJadwalDAO{
  	 * @param CbtJadwalDTO cbtJadwal
  	 */
 	public function insert($cbtJadwal){
-		$sql = 'INSERT INTO cbt_jadwal (id_tp, id_smt, id_bank, id_jenis, tgl_mulai, tgl_selesai, durasi_ujian, pengawas, acak_soal, acak_opsi, hasil_tampil, token, status, ulang, reset_login, rekap) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO cbt_jadwal (id_tp, id_smt, id_bank, id_jenis, tgl_mulai, tgl_selesai, durasi_ujian, pengawas, acak_soal, acak_opsi, hasil_tampil, token, status, ulang, reset_login, rekap, jam_ke, jarak) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtJadwal->idTp);
-		$sqlQuery->setNumber($cbtJadwal->idSmt);
-		$sqlQuery->setNumber($cbtJadwal->idBank);
-		$sqlQuery->setNumber($cbtJadwal->idJenis);
-		$sqlQuery->set($cbtJadwal->tglMulai);
-		$sqlQuery->set($cbtJadwal->tglSelesai);
-		$sqlQuery->setNumber($cbtJadwal->durasiUjian);
+		$sqlQuery->setNumber($cbtJadwal->id_tp);
+		$sqlQuery->setNumber($cbtJadwal->id_smt);
+		$sqlQuery->setNumber($cbtJadwal->id_bank);
+		$sqlQuery->setNumber($cbtJadwal->id_jenis);
+		$sqlQuery->set($cbtJadwal->tgl_mulai);
+		$sqlQuery->set($cbtJadwal->tgl_selesai);
+		$sqlQuery->setNumber($cbtJadwal->durasi_ujian);
 		$sqlQuery->set($cbtJadwal->pengawas);
-		$sqlQuery->setNumber($cbtJadwal->acakSoal);
-		$sqlQuery->setNumber($cbtJadwal->acakOpsi);
-		$sqlQuery->setNumber($cbtJadwal->hasilTampil);
+		$sqlQuery->setNumber($cbtJadwal->acak_soal);
+		$sqlQuery->setNumber($cbtJadwal->acak_opsi);
+		$sqlQuery->setNumber($cbtJadwal->hasil_tampil);
 		$sqlQuery->setNumber($cbtJadwal->token);
 		$sqlQuery->setNumber($cbtJadwal->status);
 		$sqlQuery->setNumber($cbtJadwal->ulang);
-		$sqlQuery->setNumber($cbtJadwal->resetLogin);
+		$sqlQuery->setNumber($cbtJadwal->reset_login);
 		$sqlQuery->setNumber($cbtJadwal->rekap);
+		$sqlQuery->setNumber($cbtJadwal->jam_ke);
+		$sqlQuery->setNumber($cbtJadwal->jarak);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtJadwal->idJadwal = $id;
+		$cbtJadwal->id_jadwal = $id;
 		return $id;
 	}
 	
@@ -88,27 +90,29 @@ class CbtJadwalMySqlDAO implements CbtJadwalDAO{
  	 * @param CbtJadwalDTO cbtJadwal
  	 */
 	public function update($cbtJadwal){
-		$sql = 'UPDATE cbt_jadwal SET id_tp = ?, id_smt = ?, id_bank = ?, id_jenis = ?, tgl_mulai = ?, tgl_selesai = ?, durasi_ujian = ?, pengawas = ?, acak_soal = ?, acak_opsi = ?, hasil_tampil = ?, token = ?, status = ?, ulang = ?, reset_login = ?, rekap = ? WHERE id_jadwal = ?';
+		$sql = 'UPDATE cbt_jadwal SET id_tp = ?, id_smt = ?, id_bank = ?, id_jenis = ?, tgl_mulai = ?, tgl_selesai = ?, durasi_ujian = ?, pengawas = ?, acak_soal = ?, acak_opsi = ?, hasil_tampil = ?, token = ?, status = ?, ulang = ?, reset_login = ?, rekap = ?, jam_ke = ?, jarak = ? WHERE id_jadwal = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtJadwal->idTp);
-		$sqlQuery->setNumber($cbtJadwal->idSmt);
-		$sqlQuery->setNumber($cbtJadwal->idBank);
-		$sqlQuery->setNumber($cbtJadwal->idJenis);
-		$sqlQuery->set($cbtJadwal->tglMulai);
-		$sqlQuery->set($cbtJadwal->tglSelesai);
-		$sqlQuery->setNumber($cbtJadwal->durasiUjian);
+		$sqlQuery->setNumber($cbtJadwal->id_tp);
+		$sqlQuery->setNumber($cbtJadwal->id_smt);
+		$sqlQuery->setNumber($cbtJadwal->id_bank);
+		$sqlQuery->setNumber($cbtJadwal->id_jenis);
+		$sqlQuery->set($cbtJadwal->tgl_mulai);
+		$sqlQuery->set($cbtJadwal->tgl_selesai);
+		$sqlQuery->setNumber($cbtJadwal->durasi_ujian);
 		$sqlQuery->set($cbtJadwal->pengawas);
-		$sqlQuery->setNumber($cbtJadwal->acakSoal);
-		$sqlQuery->setNumber($cbtJadwal->acakOpsi);
-		$sqlQuery->setNumber($cbtJadwal->hasilTampil);
+		$sqlQuery->setNumber($cbtJadwal->acak_soal);
+		$sqlQuery->setNumber($cbtJadwal->acak_opsi);
+		$sqlQuery->setNumber($cbtJadwal->hasil_tampil);
 		$sqlQuery->setNumber($cbtJadwal->token);
 		$sqlQuery->setNumber($cbtJadwal->status);
 		$sqlQuery->setNumber($cbtJadwal->ulang);
-		$sqlQuery->setNumber($cbtJadwal->resetLogin);
+		$sqlQuery->setNumber($cbtJadwal->reset_login);
 		$sqlQuery->setNumber($cbtJadwal->rekap);
+		$sqlQuery->setNumber($cbtJadwal->jam_ke);
+		$sqlQuery->setNumber($cbtJadwal->jarak);
 
-		$sqlQuery->setNumber($cbtJadwal->idJadwal);
+		$sqlQuery->setNumber($cbtJadwal->id_jadwal);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -330,6 +334,26 @@ class CbtJadwalMySqlDAO implements CbtJadwalDAO{
 		return $this->getList($sqlQuery);
 	}
 
+	public function queryByJamKe($value, $single = false){
+		$sql = 'SELECT * FROM cbt_jadwal WHERE jam_ke = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByJarak($value, $single = false){
+		$sql = 'SELECT * FROM cbt_jadwal WHERE jarak = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
 
 	public function deleteByIdJadwal($value){
 		$sql = 'DELETE FROM cbt_jadwal WHERE id_jadwal = ?';
@@ -450,6 +474,20 @@ class CbtJadwalMySqlDAO implements CbtJadwalDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByJamKe($value){
+		$sql = 'DELETE FROM cbt_jadwal WHERE jam_ke = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByJarak($value){
+		$sql = 'DELETE FROM cbt_jadwal WHERE jarak = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 
 			
 	/**
@@ -478,23 +516,25 @@ class CbtJadwalMySqlDAO implements CbtJadwalDAO{
 	protected function readRow($row){
 		$cbtJadwal = new CbtJadwalDTO();
 		
-		$cbtJadwal->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
-		$cbtJadwal->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$cbtJadwal->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$cbtJadwal->idBank = isset($row['id_bank']) ? $row['id_bank'] : null;
-		$cbtJadwal->idJenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
-		$cbtJadwal->tglMulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
-		$cbtJadwal->tglSelesai = isset($row['tgl_selesai']) ? $row['tgl_selesai'] : null;
-		$cbtJadwal->durasiUjian = isset($row['durasi_ujian']) ? $row['durasi_ujian'] : null;
+		$cbtJadwal->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$cbtJadwal->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$cbtJadwal->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$cbtJadwal->id_bank = isset($row['id_bank']) ? $row['id_bank'] : null;
+		$cbtJadwal->id_jenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
+		$cbtJadwal->tgl_mulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
+		$cbtJadwal->tgl_selesai = isset($row['tgl_selesai']) ? $row['tgl_selesai'] : null;
+		$cbtJadwal->durasi_ujian = isset($row['durasi_ujian']) ? $row['durasi_ujian'] : null;
 		$cbtJadwal->pengawas = isset($row['pengawas']) ? $row['pengawas'] : null;
-		$cbtJadwal->acakSoal = isset($row['acak_soal']) ? $row['acak_soal'] : null;
-		$cbtJadwal->acakOpsi = isset($row['acak_opsi']) ? $row['acak_opsi'] : null;
-		$cbtJadwal->hasilTampil = isset($row['hasil_tampil']) ? $row['hasil_tampil'] : null;
+		$cbtJadwal->acak_soal = isset($row['acak_soal']) ? $row['acak_soal'] : null;
+		$cbtJadwal->acak_opsi = isset($row['acak_opsi']) ? $row['acak_opsi'] : null;
+		$cbtJadwal->hasil_tampil = isset($row['hasil_tampil']) ? $row['hasil_tampil'] : null;
 		$cbtJadwal->token = isset($row['token']) ? $row['token'] : null;
 		$cbtJadwal->status = isset($row['status']) ? $row['status'] : null;
 		$cbtJadwal->ulang = isset($row['ulang']) ? $row['ulang'] : null;
-		$cbtJadwal->resetLogin = isset($row['reset_login']) ? $row['reset_login'] : null;
+		$cbtJadwal->reset_login = isset($row['reset_login']) ? $row['reset_login'] : null;
 		$cbtJadwal->rekap = isset($row['rekap']) ? $row['rekap'] : null;
+		$cbtJadwal->jam_ke = isset($row['jam_ke']) ? $row['jam_ke'] : null;
+		$cbtJadwal->jarak = isset($row['jarak']) ? $row['jarak'] : null;
 
 		return $cbtJadwal;
 	}

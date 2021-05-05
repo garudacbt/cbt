@@ -3,7 +3,7 @@
  * Class that operate on table 'master_jurusan'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterJurusanMySqlDAO implements MasterJurusanDAO{
 
@@ -60,13 +60,13 @@ class MasterJurusanMySqlDAO implements MasterJurusanDAO{
 		$sql = 'INSERT INTO master_jurusan (nama_jurusan, kode_jurusan, status, deletable) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($masterJurusan->namaJurusan);
-		$sqlQuery->set($masterJurusan->kodeJurusan);
+		$sqlQuery->set($masterJurusan->nama_jurusan);
+		$sqlQuery->set($masterJurusan->kode_jurusan);
 		$sqlQuery->setNumber($masterJurusan->status);
 		$sqlQuery->setNumber($masterJurusan->deletable);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterJurusan->idJurusan = $id;
+		$masterJurusan->id_jurusan = $id;
 		return $id;
 	}
 	
@@ -79,12 +79,12 @@ class MasterJurusanMySqlDAO implements MasterJurusanDAO{
 		$sql = 'UPDATE master_jurusan SET nama_jurusan = ?, kode_jurusan = ?, status = ?, deletable = ? WHERE id_jurusan = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($masterJurusan->namaJurusan);
-		$sqlQuery->set($masterJurusan->kodeJurusan);
+		$sqlQuery->set($masterJurusan->nama_jurusan);
+		$sqlQuery->set($masterJurusan->kode_jurusan);
 		$sqlQuery->setNumber($masterJurusan->status);
 		$sqlQuery->setNumber($masterJurusan->deletable);
 
-		$sqlQuery->setNumber($masterJurusan->idJurusan);
+		$sqlQuery->setNumber($masterJurusan->id_jurusan);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -250,9 +250,9 @@ class MasterJurusanMySqlDAO implements MasterJurusanDAO{
 	protected function readRow($row){
 		$masterJurusan = new MasterJurusanDTO();
 		
-		$masterJurusan->idJurusan = isset($row['id_jurusan']) ? $row['id_jurusan'] : null;
-		$masterJurusan->namaJurusan = isset($row['nama_jurusan']) ? $row['nama_jurusan'] : null;
-		$masterJurusan->kodeJurusan = isset($row['kode_jurusan']) ? $row['kode_jurusan'] : null;
+		$masterJurusan->id_jurusan = isset($row['id_jurusan']) ? $row['id_jurusan'] : null;
+		$masterJurusan->nama_jurusan = isset($row['nama_jurusan']) ? $row['nama_jurusan'] : null;
+		$masterJurusan->kode_jurusan = isset($row['kode_jurusan']) ? $row['kode_jurusan'] : null;
 		$masterJurusan->status = isset($row['status']) ? $row['status'] : null;
 		$masterJurusan->deletable = isset($row['deletable']) ? $row['deletable'] : null;
 

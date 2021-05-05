@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 interface KelasTugasDAO{
 
@@ -63,7 +63,7 @@ interface KelasTugasDAO{
 
 	public function queryByIdMapel($value, $single);
 
-	public function queryByNamaMapel($value, $single);
+	public function queryByKodeMapel($value, $single);
 
 	public function queryByJudulTugas($value, $single);
 
@@ -81,7 +81,7 @@ interface KelasTugasDAO{
 
 	public function queryByStatus($value, $single);
 
-	public function queryByTglSelesai($value, $single);
+	public function queryByYoutube($value, $single);
 
 
 	public function deleteByIdTp($value);
@@ -96,7 +96,7 @@ interface KelasTugasDAO{
 
 	public function deleteByIdMapel($value);
 
-	public function deleteByNamaMapel($value);
+	public function deleteByKodeMapel($value);
 
 	public function deleteByJudulTugas($value);
 
@@ -114,7 +114,7 @@ interface KelasTugasDAO{
 
 	public function deleteByStatus($value);
 
-	public function deleteByTglSelesai($value);
+	public function deleteByYoutube($value);
 
 
 }

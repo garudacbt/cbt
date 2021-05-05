@@ -3,7 +3,7 @@
 	 * Object represents table 'cbt_rekap_nilai'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2021-03-25 11:46	 
+     	 * @date: 2021-05-04 15:32	 
 	 */
 	class CbtRekapNilaiDTO{
 		
@@ -18,6 +18,7 @@
 		var $id_bank;
 		var $id_mapel;
 		var $id_siswa;
+		var $id_kelas;
 		var $kelas;
 		var $mulai;
 		var $selesai;

@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_rekap'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtRekapMySqlDAO implements CbtRekapDAO{
 
@@ -60,33 +60,33 @@ class CbtRekapMySqlDAO implements CbtRekapDAO{
 		$sql = 'INSERT INTO cbt_rekap (id_tp, tp, id_smt, smt, id_jadwal, id_jenis, kode_jenis, id_bank, bank_kelas, bank_kode, bank_level, id_mapel, nama_mapel, kode, tgl_mulai, tgl_selesai, tampil_pg, jawaban_pg, tampil_esai, jawaban_esai, bobot_pg, bobot_esai, id_guru, nama_guru) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtRekap->idTp);
+		$sqlQuery->setNumber($cbtRekap->id_tp);
 		$sqlQuery->set($cbtRekap->tp);
-		$sqlQuery->setNumber($cbtRekap->idSmt);
+		$sqlQuery->setNumber($cbtRekap->id_smt);
 		$sqlQuery->set($cbtRekap->smt);
-		$sqlQuery->set($cbtRekap->idJadwal);
-		$sqlQuery->set($cbtRekap->idJenis);
-		$sqlQuery->set($cbtRekap->kodeJenis);
-		$sqlQuery->set($cbtRekap->idBank);
-		$sqlQuery->set($cbtRekap->bankKelas);
-		$sqlQuery->set($cbtRekap->bankKode);
-		$sqlQuery->setNumber($cbtRekap->bankLevel);
-		$sqlQuery->set($cbtRekap->idMapel);
-		$sqlQuery->set($cbtRekap->namaMapel);
+		$sqlQuery->set($cbtRekap->id_jadwal);
+		$sqlQuery->set($cbtRekap->id_jenis);
+		$sqlQuery->set($cbtRekap->kode_jenis);
+		$sqlQuery->set($cbtRekap->id_bank);
+		$sqlQuery->set($cbtRekap->bank_kelas);
+		$sqlQuery->set($cbtRekap->bank_kode);
+		$sqlQuery->setNumber($cbtRekap->bank_level);
+		$sqlQuery->set($cbtRekap->id_mapel);
+		$sqlQuery->set($cbtRekap->nama_mapel);
 		$sqlQuery->set($cbtRekap->kode);
-		$sqlQuery->set($cbtRekap->tglMulai);
-		$sqlQuery->set($cbtRekap->tglSelesai);
-		$sqlQuery->setNumber($cbtRekap->tampilPg);
-		$sqlQuery->set($cbtRekap->jawabanPg);
-		$sqlQuery->setNumber($cbtRekap->tampilEsai);
-		$sqlQuery->set($cbtRekap->jawabanEsai);
-		$sqlQuery->setNumber($cbtRekap->bobotPg);
-		$sqlQuery->setNumber($cbtRekap->bobotEsai);
-		$sqlQuery->set($cbtRekap->idGuru);
-		$sqlQuery->set($cbtRekap->namaGuru);
+		$sqlQuery->set($cbtRekap->tgl_mulai);
+		$sqlQuery->set($cbtRekap->tgl_selesai);
+		$sqlQuery->setNumber($cbtRekap->tampil_pg);
+		$sqlQuery->set($cbtRekap->jawaban_pg);
+		$sqlQuery->setNumber($cbtRekap->tampil_esai);
+		$sqlQuery->set($cbtRekap->jawaban_esai);
+		$sqlQuery->setNumber($cbtRekap->bobot_pg);
+		$sqlQuery->setNumber($cbtRekap->bobot_esai);
+		$sqlQuery->set($cbtRekap->id_guru);
+		$sqlQuery->set($cbtRekap->nama_guru);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtRekap->idRekap = $id;
+		$cbtRekap->id_rekap = $id;
 		return $id;
 	}
 	
@@ -99,32 +99,32 @@ class CbtRekapMySqlDAO implements CbtRekapDAO{
 		$sql = 'UPDATE cbt_rekap SET id_tp = ?, tp = ?, id_smt = ?, smt = ?, id_jadwal = ?, id_jenis = ?, kode_jenis = ?, id_bank = ?, bank_kelas = ?, bank_kode = ?, bank_level = ?, id_mapel = ?, nama_mapel = ?, kode = ?, tgl_mulai = ?, tgl_selesai = ?, tampil_pg = ?, jawaban_pg = ?, tampil_esai = ?, jawaban_esai = ?, bobot_pg = ?, bobot_esai = ?, id_guru = ?, nama_guru = ? WHERE id_rekap = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtRekap->idTp);
+		$sqlQuery->setNumber($cbtRekap->id_tp);
 		$sqlQuery->set($cbtRekap->tp);
-		$sqlQuery->setNumber($cbtRekap->idSmt);
+		$sqlQuery->setNumber($cbtRekap->id_smt);
 		$sqlQuery->set($cbtRekap->smt);
-		$sqlQuery->set($cbtRekap->idJadwal);
-		$sqlQuery->set($cbtRekap->idJenis);
-		$sqlQuery->set($cbtRekap->kodeJenis);
-		$sqlQuery->set($cbtRekap->idBank);
-		$sqlQuery->set($cbtRekap->bankKelas);
-		$sqlQuery->set($cbtRekap->bankKode);
-		$sqlQuery->setNumber($cbtRekap->bankLevel);
-		$sqlQuery->set($cbtRekap->idMapel);
-		$sqlQuery->set($cbtRekap->namaMapel);
+		$sqlQuery->set($cbtRekap->id_jadwal);
+		$sqlQuery->set($cbtRekap->id_jenis);
+		$sqlQuery->set($cbtRekap->kode_jenis);
+		$sqlQuery->set($cbtRekap->id_bank);
+		$sqlQuery->set($cbtRekap->bank_kelas);
+		$sqlQuery->set($cbtRekap->bank_kode);
+		$sqlQuery->setNumber($cbtRekap->bank_level);
+		$sqlQuery->set($cbtRekap->id_mapel);
+		$sqlQuery->set($cbtRekap->nama_mapel);
 		$sqlQuery->set($cbtRekap->kode);
-		$sqlQuery->set($cbtRekap->tglMulai);
-		$sqlQuery->set($cbtRekap->tglSelesai);
-		$sqlQuery->setNumber($cbtRekap->tampilPg);
-		$sqlQuery->set($cbtRekap->jawabanPg);
-		$sqlQuery->setNumber($cbtRekap->tampilEsai);
-		$sqlQuery->set($cbtRekap->jawabanEsai);
-		$sqlQuery->setNumber($cbtRekap->bobotPg);
-		$sqlQuery->setNumber($cbtRekap->bobotEsai);
-		$sqlQuery->set($cbtRekap->idGuru);
-		$sqlQuery->set($cbtRekap->namaGuru);
+		$sqlQuery->set($cbtRekap->tgl_mulai);
+		$sqlQuery->set($cbtRekap->tgl_selesai);
+		$sqlQuery->setNumber($cbtRekap->tampil_pg);
+		$sqlQuery->set($cbtRekap->jawaban_pg);
+		$sqlQuery->setNumber($cbtRekap->tampil_esai);
+		$sqlQuery->set($cbtRekap->jawaban_esai);
+		$sqlQuery->setNumber($cbtRekap->bobot_pg);
+		$sqlQuery->setNumber($cbtRekap->bobot_esai);
+		$sqlQuery->set($cbtRekap->id_guru);
+		$sqlQuery->set($cbtRekap->nama_guru);
 
-		$sqlQuery->setNumber($cbtRekap->idRekap);
+		$sqlQuery->setNumber($cbtRekap->id_rekap);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -630,31 +630,31 @@ class CbtRekapMySqlDAO implements CbtRekapDAO{
 	protected function readRow($row){
 		$cbtRekap = new CbtRekapDTO();
 		
-		$cbtRekap->idRekap = isset($row['id_rekap']) ? $row['id_rekap'] : null;
-		$cbtRekap->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$cbtRekap->id_rekap = isset($row['id_rekap']) ? $row['id_rekap'] : null;
+		$cbtRekap->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
 		$cbtRekap->tp = isset($row['tp']) ? $row['tp'] : null;
-		$cbtRekap->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$cbtRekap->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$cbtRekap->smt = isset($row['smt']) ? $row['smt'] : null;
-		$cbtRekap->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
-		$cbtRekap->idJenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
-		$cbtRekap->kodeJenis = isset($row['kode_jenis']) ? $row['kode_jenis'] : null;
-		$cbtRekap->idBank = isset($row['id_bank']) ? $row['id_bank'] : null;
-		$cbtRekap->bankKelas = isset($row['bank_kelas']) ? $row['bank_kelas'] : null;
-		$cbtRekap->bankKode = isset($row['bank_kode']) ? $row['bank_kode'] : null;
-		$cbtRekap->bankLevel = isset($row['bank_level']) ? $row['bank_level'] : null;
-		$cbtRekap->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$cbtRekap->namaMapel = isset($row['nama_mapel']) ? $row['nama_mapel'] : null;
+		$cbtRekap->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$cbtRekap->id_jenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
+		$cbtRekap->kode_jenis = isset($row['kode_jenis']) ? $row['kode_jenis'] : null;
+		$cbtRekap->id_bank = isset($row['id_bank']) ? $row['id_bank'] : null;
+		$cbtRekap->bank_kelas = isset($row['bank_kelas']) ? $row['bank_kelas'] : null;
+		$cbtRekap->bank_kode = isset($row['bank_kode']) ? $row['bank_kode'] : null;
+		$cbtRekap->bank_level = isset($row['bank_level']) ? $row['bank_level'] : null;
+		$cbtRekap->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$cbtRekap->nama_mapel = isset($row['nama_mapel']) ? $row['nama_mapel'] : null;
 		$cbtRekap->kode = isset($row['kode']) ? $row['kode'] : null;
-		$cbtRekap->tglMulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
-		$cbtRekap->tglSelesai = isset($row['tgl_selesai']) ? $row['tgl_selesai'] : null;
-		$cbtRekap->tampilPg = isset($row['tampil_pg']) ? $row['tampil_pg'] : null;
-		$cbtRekap->jawabanPg = isset($row['jawaban_pg']) ? $row['jawaban_pg'] : null;
-		$cbtRekap->tampilEsai = isset($row['tampil_esai']) ? $row['tampil_esai'] : null;
-		$cbtRekap->jawabanEsai = isset($row['jawaban_esai']) ? $row['jawaban_esai'] : null;
-		$cbtRekap->bobotPg = isset($row['bobot_pg']) ? $row['bobot_pg'] : null;
-		$cbtRekap->bobotEsai = isset($row['bobot_esai']) ? $row['bobot_esai'] : null;
-		$cbtRekap->idGuru = isset($row['id_guru']) ? $row['id_guru'] : null;
-		$cbtRekap->namaGuru = isset($row['nama_guru']) ? $row['nama_guru'] : null;
+		$cbtRekap->tgl_mulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
+		$cbtRekap->tgl_selesai = isset($row['tgl_selesai']) ? $row['tgl_selesai'] : null;
+		$cbtRekap->tampil_pg = isset($row['tampil_pg']) ? $row['tampil_pg'] : null;
+		$cbtRekap->jawaban_pg = isset($row['jawaban_pg']) ? $row['jawaban_pg'] : null;
+		$cbtRekap->tampil_esai = isset($row['tampil_esai']) ? $row['tampil_esai'] : null;
+		$cbtRekap->jawaban_esai = isset($row['jawaban_esai']) ? $row['jawaban_esai'] : null;
+		$cbtRekap->bobot_pg = isset($row['bobot_pg']) ? $row['bobot_pg'] : null;
+		$cbtRekap->bobot_esai = isset($row['bobot_esai']) ? $row['bobot_esai'] : null;
+		$cbtRekap->id_guru = isset($row['id_guru']) ? $row['id_guru'] : null;
+		$cbtRekap->nama_guru = isset($row['nama_guru']) ? $row['nama_guru'] : null;
 
 		return $cbtRekap;
 	}

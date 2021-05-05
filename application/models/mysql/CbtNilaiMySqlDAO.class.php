@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_nilai'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtNilaiMySqlDAO implements CbtNilaiDAO{
 
@@ -60,12 +60,12 @@ class CbtNilaiMySqlDAO implements CbtNilaiDAO{
 		$sql = 'INSERT INTO cbt_nilai (pg_benar, pg_nilai, essai_nilai) VALUES (?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtNilai->pgBenar);
-		$sqlQuery->setNumber($cbtNilai->pgNilai);
-		$sqlQuery->setNumber($cbtNilai->essaiNilai);
+		$sqlQuery->setNumber($cbtNilai->pg_benar);
+		$sqlQuery->setNumber($cbtNilai->pg_nilai);
+		$sqlQuery->setNumber($cbtNilai->essai_nilai);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtNilai->idNilai = $id;
+		$cbtNilai->id_nilai = $id;
 		return $id;
 	}
 	
@@ -78,11 +78,11 @@ class CbtNilaiMySqlDAO implements CbtNilaiDAO{
 		$sql = 'UPDATE cbt_nilai SET pg_benar = ?, pg_nilai = ?, essai_nilai = ? WHERE id_nilai = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtNilai->pgBenar);
-		$sqlQuery->setNumber($cbtNilai->pgNilai);
-		$sqlQuery->setNumber($cbtNilai->essaiNilai);
+		$sqlQuery->setNumber($cbtNilai->pg_benar);
+		$sqlQuery->setNumber($cbtNilai->pg_nilai);
+		$sqlQuery->setNumber($cbtNilai->essai_nilai);
 
-		$sqlQuery->set($cbtNilai->idNilai);
+		$sqlQuery->set($cbtNilai->id_nilai);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -231,10 +231,10 @@ class CbtNilaiMySqlDAO implements CbtNilaiDAO{
 	protected function readRow($row){
 		$cbtNilai = new CbtNilaiDTO();
 		
-		$cbtNilai->idNilai = isset($row['id_nilai']) ? $row['id_nilai'] : null;
-		$cbtNilai->pgBenar = isset($row['pg_benar']) ? $row['pg_benar'] : null;
-		$cbtNilai->pgNilai = isset($row['pg_nilai']) ? $row['pg_nilai'] : null;
-		$cbtNilai->essaiNilai = isset($row['essai_nilai']) ? $row['essai_nilai'] : null;
+		$cbtNilai->id_nilai = isset($row['id_nilai']) ? $row['id_nilai'] : null;
+		$cbtNilai->pg_benar = isset($row['pg_benar']) ? $row['pg_benar'] : null;
+		$cbtNilai->pg_nilai = isset($row['pg_nilai']) ? $row['pg_nilai'] : null;
+		$cbtNilai->essai_nilai = isset($row['essai_nilai']) ? $row['essai_nilai'] : null;
 
 		return $cbtNilai;
 	}

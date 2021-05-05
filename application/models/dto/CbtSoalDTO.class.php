@@ -3,7 +3,7 @@
 	 * Object represents table 'cbt_soal'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2021-03-25 11:46	 
+     	 * @date: 2021-05-04 15:32	 
 	 */
 	class CbtSoalDTO{
 		
@@ -13,6 +13,8 @@
 		var $jenis;
 		var $nomor_soal;
 		var $file;
+		var $file1;
+		var $tipe_file;
 		var $soal;
 		var $opsi_a;
 		var $opsi_b;

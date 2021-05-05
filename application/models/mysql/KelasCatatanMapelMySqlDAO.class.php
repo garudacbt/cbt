@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_catatan_mapel'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasCatatanMapelMySqlDAO implements KelasCatatanMapelDAO{
 
@@ -60,13 +60,13 @@ class KelasCatatanMapelMySqlDAO implements KelasCatatanMapelDAO{
 		$sql = 'INSERT INTO kelas_catatan_mapel (id_tp, id_smt, type, id_siswa, id_mapel, id_kelas, id_guru, level, tgl, text, readed, reading, jml) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasCatatanMapel->idTp);
-		$sqlQuery->setNumber($kelasCatatanMapel->idSmt);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_tp);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_smt);
 		$sqlQuery->setNumber($kelasCatatanMapel->type);
-		$sqlQuery->setNumber($kelasCatatanMapel->idSiswa);
-		$sqlQuery->setNumber($kelasCatatanMapel->idMapel);
-		$sqlQuery->setNumber($kelasCatatanMapel->idKelas);
-		$sqlQuery->setNumber($kelasCatatanMapel->idGuru);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_siswa);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_mapel);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_kelas);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_guru);
 		$sqlQuery->set($kelasCatatanMapel->level);
 		$sqlQuery->set($kelasCatatanMapel->tgl);
 		$sqlQuery->set($kelasCatatanMapel->text);
@@ -75,7 +75,7 @@ class KelasCatatanMapelMySqlDAO implements KelasCatatanMapelDAO{
 		$sqlQuery->setNumber($kelasCatatanMapel->jml);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasCatatanMapel->idCatatan = $id;
+		$kelasCatatanMapel->id_catatan = $id;
 		return $id;
 	}
 	
@@ -88,13 +88,13 @@ class KelasCatatanMapelMySqlDAO implements KelasCatatanMapelDAO{
 		$sql = 'UPDATE kelas_catatan_mapel SET id_tp = ?, id_smt = ?, type = ?, id_siswa = ?, id_mapel = ?, id_kelas = ?, id_guru = ?, level = ?, tgl = ?, text = ?, readed = ?, reading = ?, jml = ? WHERE id_catatan = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasCatatanMapel->idTp);
-		$sqlQuery->setNumber($kelasCatatanMapel->idSmt);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_tp);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_smt);
 		$sqlQuery->setNumber($kelasCatatanMapel->type);
-		$sqlQuery->setNumber($kelasCatatanMapel->idSiswa);
-		$sqlQuery->setNumber($kelasCatatanMapel->idMapel);
-		$sqlQuery->setNumber($kelasCatatanMapel->idKelas);
-		$sqlQuery->setNumber($kelasCatatanMapel->idGuru);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_siswa);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_mapel);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_kelas);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_guru);
 		$sqlQuery->set($kelasCatatanMapel->level);
 		$sqlQuery->set($kelasCatatanMapel->tgl);
 		$sqlQuery->set($kelasCatatanMapel->text);
@@ -102,7 +102,7 @@ class KelasCatatanMapelMySqlDAO implements KelasCatatanMapelDAO{
 		$sqlQuery->set($kelasCatatanMapel->reading);
 		$sqlQuery->setNumber($kelasCatatanMapel->jml);
 
-		$sqlQuery->setNumber($kelasCatatanMapel->idCatatan);
+		$sqlQuery->setNumber($kelasCatatanMapel->id_catatan);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -421,14 +421,14 @@ class KelasCatatanMapelMySqlDAO implements KelasCatatanMapelDAO{
 	protected function readRow($row){
 		$kelasCatatanMapel = new KelasCatatanMapelDTO();
 		
-		$kelasCatatanMapel->idCatatan = isset($row['id_catatan']) ? $row['id_catatan'] : null;
-		$kelasCatatanMapel->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasCatatanMapel->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasCatatanMapel->id_catatan = isset($row['id_catatan']) ? $row['id_catatan'] : null;
+		$kelasCatatanMapel->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasCatatanMapel->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$kelasCatatanMapel->type = isset($row['type']) ? $row['type'] : null;
-		$kelasCatatanMapel->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$kelasCatatanMapel->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$kelasCatatanMapel->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$kelasCatatanMapel->idGuru = isset($row['id_guru']) ? $row['id_guru'] : null;
+		$kelasCatatanMapel->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$kelasCatatanMapel->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$kelasCatatanMapel->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$kelasCatatanMapel->id_guru = isset($row['id_guru']) ? $row['id_guru'] : null;
 		$kelasCatatanMapel->level = isset($row['level']) ? $row['level'] : null;
 		$kelasCatatanMapel->tgl = isset($row['tgl']) ? $row['tgl'] : null;
 		$kelasCatatanMapel->text = isset($row['text']) ? $row['text'] : null;

@@ -3,7 +3,7 @@
  * Class that operate on table 'running_text'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RunningTextMySqlDAO implements RunningTextDAO{
 
@@ -63,7 +63,7 @@ class RunningTextMySqlDAO implements RunningTextDAO{
 		$sqlQuery->set($runningText->text);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$runningText->idText = $id;
+		$runningText->id_text = $id;
 		return $id;
 	}
 	
@@ -78,7 +78,7 @@ class RunningTextMySqlDAO implements RunningTextDAO{
 		
 		$sqlQuery->set($runningText->text);
 
-		$sqlQuery->setNumber($runningText->idText);
+		$sqlQuery->setNumber($runningText->id_text);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -193,7 +193,7 @@ class RunningTextMySqlDAO implements RunningTextDAO{
 	protected function readRow($row){
 		$runningText = new RunningTextDTO();
 		
-		$runningText->idText = isset($row['id_text']) ? $row['id_text'] : null;
+		$runningText->id_text = isset($row['id_text']) ? $row['id_text'] : null;
 		$runningText->text = isset($row['text']) ? $row['text'] : null;
 
 		return $runningText;

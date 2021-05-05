@@ -3,7 +3,7 @@
  * Class that operate on table 'post_comments'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class PostCommentsMySqlDAO implements PostCommentsDAO{
 
@@ -60,15 +60,15 @@ class PostCommentsMySqlDAO implements PostCommentsDAO{
 		$sql = 'INSERT INTO post_comments (id_post, dari, dari_group, text, tanggal, updated) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($postComment->idPost);
+		$sqlQuery->setNumber($postComment->id_post);
 		$sqlQuery->setNumber($postComment->dari);
-		$sqlQuery->setNumber($postComment->dariGroup);
+		$sqlQuery->setNumber($postComment->dari_group);
 		$sqlQuery->set($postComment->text);
 		$sqlQuery->set($postComment->tanggal);
 		$sqlQuery->set($postComment->updated);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$postComment->idComment = $id;
+		$postComment->id_comment = $id;
 		return $id;
 	}
 	
@@ -81,14 +81,14 @@ class PostCommentsMySqlDAO implements PostCommentsDAO{
 		$sql = 'UPDATE post_comments SET id_post = ?, dari = ?, dari_group = ?, text = ?, tanggal = ?, updated = ? WHERE id_comment = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($postComment->idPost);
+		$sqlQuery->setNumber($postComment->id_post);
 		$sqlQuery->setNumber($postComment->dari);
-		$sqlQuery->setNumber($postComment->dariGroup);
+		$sqlQuery->setNumber($postComment->dari_group);
 		$sqlQuery->set($postComment->text);
 		$sqlQuery->set($postComment->tanggal);
 		$sqlQuery->set($postComment->updated);
 
-		$sqlQuery->setNumber($postComment->idComment);
+		$sqlQuery->setNumber($postComment->id_comment);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -288,10 +288,10 @@ class PostCommentsMySqlDAO implements PostCommentsDAO{
 	protected function readRow($row){
 		$postComment = new PostCommentsDTO();
 		
-		$postComment->idComment = isset($row['id_comment']) ? $row['id_comment'] : null;
-		$postComment->idPost = isset($row['id_post']) ? $row['id_post'] : null;
+		$postComment->id_comment = isset($row['id_comment']) ? $row['id_comment'] : null;
+		$postComment->id_post = isset($row['id_post']) ? $row['id_post'] : null;
 		$postComment->dari = isset($row['dari']) ? $row['dari'] : null;
-		$postComment->dariGroup = isset($row['dari_group']) ? $row['dari_group'] : null;
+		$postComment->dari_group = isset($row['dari_group']) ? $row['dari_group'] : null;
 		$postComment->text = isset($row['text']) ? $row['text'] : null;
 		$postComment->tanggal = isset($row['tanggal']) ? $row['tanggal'] : null;
 		$postComment->updated = isset($row['updated']) ? $row['updated'] : null;

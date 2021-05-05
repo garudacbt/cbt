@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 interface RaporKkmDAO{
 
@@ -63,6 +63,10 @@ interface RaporKkmDAO{
 
 	public function queryByBebanJam($value, $single);
 
+	public function queryByIdTp($value, $single);
+
+	public function queryByIdSmt($value, $single);
+
 
 	public function deleteByKkm($value);
 
@@ -75,6 +79,10 @@ interface RaporKkmDAO{
 	public function deleteByBobotAbsen($value);
 
 	public function deleteByBebanJam($value);
+
+	public function deleteByIdTp($value);
+
+	public function deleteByIdSmt($value);
 
 
 }

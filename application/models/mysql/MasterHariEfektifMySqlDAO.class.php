@@ -3,7 +3,7 @@
  * Class that operate on table 'master_hari_efektif'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterHariEfektifMySqlDAO implements MasterHariEfektifDAO{
 
@@ -60,10 +60,10 @@ class MasterHariEfektifMySqlDAO implements MasterHariEfektifDAO{
 		$sql = 'INSERT INTO master_hari_efektif (jml_hari_efektif) VALUES (?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($masterHariEfektif->jmlHariEfektif);
+		$sqlQuery->setNumber($masterHariEfektif->jml_hari_efektif);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterHariEfektif->idHariEfektif = $id;
+		$masterHariEfektif->id_hari_efektif = $id;
 		return $id;
 	}
 	
@@ -76,9 +76,9 @@ class MasterHariEfektifMySqlDAO implements MasterHariEfektifDAO{
 		$sql = 'UPDATE master_hari_efektif SET jml_hari_efektif = ? WHERE id_hari_efektif = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($masterHariEfektif->jmlHariEfektif);
+		$sqlQuery->setNumber($masterHariEfektif->jml_hari_efektif);
 
-		$sqlQuery->setNumber($masterHariEfektif->idHariEfektif);
+		$sqlQuery->setNumber($masterHariEfektif->id_hari_efektif);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -193,8 +193,8 @@ class MasterHariEfektifMySqlDAO implements MasterHariEfektifDAO{
 	protected function readRow($row){
 		$masterHariEfektif = new MasterHariEfektifDTO();
 		
-		$masterHariEfektif->idHariEfektif = isset($row['id_hari_efektif']) ? $row['id_hari_efektif'] : null;
-		$masterHariEfektif->jmlHariEfektif = isset($row['jml_hari_efektif']) ? $row['jml_hari_efektif'] : null;
+		$masterHariEfektif->id_hari_efektif = isset($row['id_hari_efektif']) ? $row['id_hari_efektif'] : null;
+		$masterHariEfektif->jml_hari_efektif = isset($row['jml_hari_efektif']) ? $row['jml_hari_efektif'] : null;
 
 		return $masterHariEfektif;
 	}

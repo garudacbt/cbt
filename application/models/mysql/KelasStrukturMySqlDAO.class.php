@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_struktur'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasStrukturMySqlDAO implements KelasStrukturDAO{
 
@@ -61,25 +61,25 @@ class KelasStrukturMySqlDAO implements KelasStrukturDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($kelasStruktur->ketua);
-		$sqlQuery->setNumber($kelasStruktur->wakilKetua);
-		$sqlQuery->setNumber($kelasStruktur->sekretaris1);
-		$sqlQuery->setNumber($kelasStruktur->sekretaris2);
-		$sqlQuery->setNumber($kelasStruktur->bendahara1);
-		$sqlQuery->setNumber($kelasStruktur->bendahara2);
-		$sqlQuery->setNumber($kelasStruktur->sieEkstrakurikuler);
-		$sqlQuery->setNumber($kelasStruktur->sieUpacara);
-		$sqlQuery->setNumber($kelasStruktur->sieOlahraga);
-		$sqlQuery->setNumber($kelasStruktur->sieKeagamaan);
-		$sqlQuery->setNumber($kelasStruktur->sieKeamanan);
-		$sqlQuery->setNumber($kelasStruktur->sieKetertiban);
-		$sqlQuery->setNumber($kelasStruktur->sieKebersihan);
-		$sqlQuery->setNumber($kelasStruktur->sieKeindahan);
-		$sqlQuery->setNumber($kelasStruktur->sieKesehatan);
-		$sqlQuery->setNumber($kelasStruktur->sieKekeluargaan);
-		$sqlQuery->setNumber($kelasStruktur->sieHumas);
+		$sqlQuery->setNumber($kelasStruktur->wakil_ketua);
+		$sqlQuery->setNumber($kelasStruktur->sekretaris_1);
+		$sqlQuery->setNumber($kelasStruktur->sekretaris_2);
+		$sqlQuery->setNumber($kelasStruktur->bendahara_1);
+		$sqlQuery->setNumber($kelasStruktur->bendahara_2);
+		$sqlQuery->setNumber($kelasStruktur->sie_ekstrakurikuler);
+		$sqlQuery->setNumber($kelasStruktur->sie_upacara);
+		$sqlQuery->setNumber($kelasStruktur->sie_olahraga);
+		$sqlQuery->setNumber($kelasStruktur->sie_keagamaan);
+		$sqlQuery->setNumber($kelasStruktur->sie_keamanan);
+		$sqlQuery->setNumber($kelasStruktur->sie_ketertiban);
+		$sqlQuery->setNumber($kelasStruktur->sie_kebersihan);
+		$sqlQuery->setNumber($kelasStruktur->sie_keindahan);
+		$sqlQuery->setNumber($kelasStruktur->sie_kesehatan);
+		$sqlQuery->setNumber($kelasStruktur->sie_kekeluargaan);
+		$sqlQuery->setNumber($kelasStruktur->sie_humas);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasStruktur->idKelas = $id;
+		$kelasStruktur->id_kelas = $id;
 		return $id;
 	}
 	
@@ -93,24 +93,24 @@ class KelasStrukturMySqlDAO implements KelasStrukturDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($kelasStruktur->ketua);
-		$sqlQuery->setNumber($kelasStruktur->wakilKetua);
-		$sqlQuery->setNumber($kelasStruktur->sekretaris1);
-		$sqlQuery->setNumber($kelasStruktur->sekretaris2);
-		$sqlQuery->setNumber($kelasStruktur->bendahara1);
-		$sqlQuery->setNumber($kelasStruktur->bendahara2);
-		$sqlQuery->setNumber($kelasStruktur->sieEkstrakurikuler);
-		$sqlQuery->setNumber($kelasStruktur->sieUpacara);
-		$sqlQuery->setNumber($kelasStruktur->sieOlahraga);
-		$sqlQuery->setNumber($kelasStruktur->sieKeagamaan);
-		$sqlQuery->setNumber($kelasStruktur->sieKeamanan);
-		$sqlQuery->setNumber($kelasStruktur->sieKetertiban);
-		$sqlQuery->setNumber($kelasStruktur->sieKebersihan);
-		$sqlQuery->setNumber($kelasStruktur->sieKeindahan);
-		$sqlQuery->setNumber($kelasStruktur->sieKesehatan);
-		$sqlQuery->setNumber($kelasStruktur->sieKekeluargaan);
-		$sqlQuery->setNumber($kelasStruktur->sieHumas);
+		$sqlQuery->setNumber($kelasStruktur->wakil_ketua);
+		$sqlQuery->setNumber($kelasStruktur->sekretaris_1);
+		$sqlQuery->setNumber($kelasStruktur->sekretaris_2);
+		$sqlQuery->setNumber($kelasStruktur->bendahara_1);
+		$sqlQuery->setNumber($kelasStruktur->bendahara_2);
+		$sqlQuery->setNumber($kelasStruktur->sie_ekstrakurikuler);
+		$sqlQuery->setNumber($kelasStruktur->sie_upacara);
+		$sqlQuery->setNumber($kelasStruktur->sie_olahraga);
+		$sqlQuery->setNumber($kelasStruktur->sie_keagamaan);
+		$sqlQuery->setNumber($kelasStruktur->sie_keamanan);
+		$sqlQuery->setNumber($kelasStruktur->sie_ketertiban);
+		$sqlQuery->setNumber($kelasStruktur->sie_kebersihan);
+		$sqlQuery->setNumber($kelasStruktur->sie_keindahan);
+		$sqlQuery->setNumber($kelasStruktur->sie_kesehatan);
+		$sqlQuery->setNumber($kelasStruktur->sie_kekeluargaan);
+		$sqlQuery->setNumber($kelasStruktur->sie_humas);
 
-		$sqlQuery->setNumber($kelasStruktur->idKelas);
+		$sqlQuery->setNumber($kelasStruktur->id_kelas);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -497,24 +497,24 @@ class KelasStrukturMySqlDAO implements KelasStrukturDAO{
 	protected function readRow($row){
 		$kelasStruktur = new KelasStrukturDTO();
 		
-		$kelasStruktur->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$kelasStruktur->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 		$kelasStruktur->ketua = isset($row['ketua']) ? $row['ketua'] : null;
-		$kelasStruktur->wakilKetua = isset($row['wakil_ketua']) ? $row['wakil_ketua'] : null;
-		$kelasStruktur->sekretaris1 = isset($row['sekretaris_1']) ? $row['sekretaris_1'] : null;
-		$kelasStruktur->sekretaris2 = isset($row['sekretaris_2']) ? $row['sekretaris_2'] : null;
-		$kelasStruktur->bendahara1 = isset($row['bendahara_1']) ? $row['bendahara_1'] : null;
-		$kelasStruktur->bendahara2 = isset($row['bendahara_2']) ? $row['bendahara_2'] : null;
-		$kelasStruktur->sieEkstrakurikuler = isset($row['sie_ekstrakurikuler']) ? $row['sie_ekstrakurikuler'] : null;
-		$kelasStruktur->sieUpacara = isset($row['sie_upacara']) ? $row['sie_upacara'] : null;
-		$kelasStruktur->sieOlahraga = isset($row['sie_olahraga']) ? $row['sie_olahraga'] : null;
-		$kelasStruktur->sieKeagamaan = isset($row['sie_keagamaan']) ? $row['sie_keagamaan'] : null;
-		$kelasStruktur->sieKeamanan = isset($row['sie_keamanan']) ? $row['sie_keamanan'] : null;
-		$kelasStruktur->sieKetertiban = isset($row['sie_ketertiban']) ? $row['sie_ketertiban'] : null;
-		$kelasStruktur->sieKebersihan = isset($row['sie_kebersihan']) ? $row['sie_kebersihan'] : null;
-		$kelasStruktur->sieKeindahan = isset($row['sie_keindahan']) ? $row['sie_keindahan'] : null;
-		$kelasStruktur->sieKesehatan = isset($row['sie_kesehatan']) ? $row['sie_kesehatan'] : null;
-		$kelasStruktur->sieKekeluargaan = isset($row['sie_kekeluargaan']) ? $row['sie_kekeluargaan'] : null;
-		$kelasStruktur->sieHumas = isset($row['sie_humas']) ? $row['sie_humas'] : null;
+		$kelasStruktur->wakil_ketua = isset($row['wakil_ketua']) ? $row['wakil_ketua'] : null;
+		$kelasStruktur->sekretaris_1 = isset($row['sekretaris_1']) ? $row['sekretaris_1'] : null;
+		$kelasStruktur->sekretaris_2 = isset($row['sekretaris_2']) ? $row['sekretaris_2'] : null;
+		$kelasStruktur->bendahara_1 = isset($row['bendahara_1']) ? $row['bendahara_1'] : null;
+		$kelasStruktur->bendahara_2 = isset($row['bendahara_2']) ? $row['bendahara_2'] : null;
+		$kelasStruktur->sie_ekstrakurikuler = isset($row['sie_ekstrakurikuler']) ? $row['sie_ekstrakurikuler'] : null;
+		$kelasStruktur->sie_upacara = isset($row['sie_upacara']) ? $row['sie_upacara'] : null;
+		$kelasStruktur->sie_olahraga = isset($row['sie_olahraga']) ? $row['sie_olahraga'] : null;
+		$kelasStruktur->sie_keagamaan = isset($row['sie_keagamaan']) ? $row['sie_keagamaan'] : null;
+		$kelasStruktur->sie_keamanan = isset($row['sie_keamanan']) ? $row['sie_keamanan'] : null;
+		$kelasStruktur->sie_ketertiban = isset($row['sie_ketertiban']) ? $row['sie_ketertiban'] : null;
+		$kelasStruktur->sie_kebersihan = isset($row['sie_kebersihan']) ? $row['sie_kebersihan'] : null;
+		$kelasStruktur->sie_keindahan = isset($row['sie_keindahan']) ? $row['sie_keindahan'] : null;
+		$kelasStruktur->sie_kesehatan = isset($row['sie_kesehatan']) ? $row['sie_kesehatan'] : null;
+		$kelasStruktur->sie_kekeluargaan = isset($row['sie_kekeluargaan']) ? $row['sie_kekeluargaan'] : null;
+		$kelasStruktur->sie_humas = isset($row['sie_humas']) ? $row['sie_humas'] : null;
 
 		return $kelasStruktur;
 	}

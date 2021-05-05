@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_kelas_ruang'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtKelasRuangMySqlDAO implements CbtKelasRuangDAO{
 
@@ -60,15 +60,15 @@ class CbtKelasRuangMySqlDAO implements CbtKelasRuangDAO{
 		$sql = 'INSERT INTO cbt_kelas_ruang (id_kelas, id_ruang, id_sesi, id_tp, id_smt, set_siswa) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtKelasRuang->idKelas);
-		$sqlQuery->setNumber($cbtKelasRuang->idRuang);
-		$sqlQuery->setNumber($cbtKelasRuang->idSesi);
-		$sqlQuery->setNumber($cbtKelasRuang->idTp);
-		$sqlQuery->setNumber($cbtKelasRuang->idSmt);
-		$sqlQuery->setNumber($cbtKelasRuang->setSiswa);
+		$sqlQuery->setNumber($cbtKelasRuang->id_kelas);
+		$sqlQuery->setNumber($cbtKelasRuang->id_ruang);
+		$sqlQuery->setNumber($cbtKelasRuang->id_sesi);
+		$sqlQuery->setNumber($cbtKelasRuang->id_tp);
+		$sqlQuery->setNumber($cbtKelasRuang->id_smt);
+		$sqlQuery->setNumber($cbtKelasRuang->set_siswa);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtKelasRuang->idKelasRuang = $id;
+		$cbtKelasRuang->id_kelas_ruang = $id;
 		return $id;
 	}
 	
@@ -81,14 +81,14 @@ class CbtKelasRuangMySqlDAO implements CbtKelasRuangDAO{
 		$sql = 'UPDATE cbt_kelas_ruang SET id_kelas = ?, id_ruang = ?, id_sesi = ?, id_tp = ?, id_smt = ?, set_siswa = ? WHERE id_kelas_ruang = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtKelasRuang->idKelas);
-		$sqlQuery->setNumber($cbtKelasRuang->idRuang);
-		$sqlQuery->setNumber($cbtKelasRuang->idSesi);
-		$sqlQuery->setNumber($cbtKelasRuang->idTp);
-		$sqlQuery->setNumber($cbtKelasRuang->idSmt);
-		$sqlQuery->setNumber($cbtKelasRuang->setSiswa);
+		$sqlQuery->setNumber($cbtKelasRuang->id_kelas);
+		$sqlQuery->setNumber($cbtKelasRuang->id_ruang);
+		$sqlQuery->setNumber($cbtKelasRuang->id_sesi);
+		$sqlQuery->setNumber($cbtKelasRuang->id_tp);
+		$sqlQuery->setNumber($cbtKelasRuang->id_smt);
+		$sqlQuery->setNumber($cbtKelasRuang->set_siswa);
 
-		$sqlQuery->set($cbtKelasRuang->idKelasRuang);
+		$sqlQuery->set($cbtKelasRuang->id_kelas_ruang);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -288,13 +288,13 @@ class CbtKelasRuangMySqlDAO implements CbtKelasRuangDAO{
 	protected function readRow($row){
 		$cbtKelasRuang = new CbtKelasRuangDTO();
 		
-		$cbtKelasRuang->idKelasRuang = isset($row['id_kelas_ruang']) ? $row['id_kelas_ruang'] : null;
-		$cbtKelasRuang->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$cbtKelasRuang->idRuang = isset($row['id_ruang']) ? $row['id_ruang'] : null;
-		$cbtKelasRuang->idSesi = isset($row['id_sesi']) ? $row['id_sesi'] : null;
-		$cbtKelasRuang->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$cbtKelasRuang->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$cbtKelasRuang->setSiswa = isset($row['set_siswa']) ? $row['set_siswa'] : null;
+		$cbtKelasRuang->id_kelas_ruang = isset($row['id_kelas_ruang']) ? $row['id_kelas_ruang'] : null;
+		$cbtKelasRuang->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$cbtKelasRuang->id_ruang = isset($row['id_ruang']) ? $row['id_ruang'] : null;
+		$cbtKelasRuang->id_sesi = isset($row['id_sesi']) ? $row['id_sesi'] : null;
+		$cbtKelasRuang->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$cbtKelasRuang->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$cbtKelasRuang->set_siswa = isset($row['set_siswa']) ? $row['set_siswa'] : null;
 
 		return $cbtKelasRuang;
 	}

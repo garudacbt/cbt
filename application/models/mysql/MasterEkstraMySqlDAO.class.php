@@ -3,7 +3,7 @@
  * Class that operate on table 'master_ekstra'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterEkstraMySqlDAO implements MasterEkstraDAO{
 
@@ -60,11 +60,11 @@ class MasterEkstraMySqlDAO implements MasterEkstraDAO{
 		$sql = 'INSERT INTO master_ekstra (nama_ekstra, kode_ekstra) VALUES (?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($masterEkstra->namaEkstra);
-		$sqlQuery->set($masterEkstra->kodeEkstra);
+		$sqlQuery->set($masterEkstra->nama_ekstra);
+		$sqlQuery->set($masterEkstra->kode_ekstra);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterEkstra->idEkstra = $id;
+		$masterEkstra->id_ekstra = $id;
 		return $id;
 	}
 	
@@ -77,10 +77,10 @@ class MasterEkstraMySqlDAO implements MasterEkstraDAO{
 		$sql = 'UPDATE master_ekstra SET nama_ekstra = ?, kode_ekstra = ? WHERE id_ekstra = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($masterEkstra->namaEkstra);
-		$sqlQuery->set($masterEkstra->kodeEkstra);
+		$sqlQuery->set($masterEkstra->nama_ekstra);
+		$sqlQuery->set($masterEkstra->kode_ekstra);
 
-		$sqlQuery->setNumber($masterEkstra->idEkstra);
+		$sqlQuery->setNumber($masterEkstra->id_ekstra);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -212,9 +212,9 @@ class MasterEkstraMySqlDAO implements MasterEkstraDAO{
 	protected function readRow($row){
 		$masterEkstra = new MasterEkstraDTO();
 		
-		$masterEkstra->idEkstra = isset($row['id_ekstra']) ? $row['id_ekstra'] : null;
-		$masterEkstra->namaEkstra = isset($row['nama_ekstra']) ? $row['nama_ekstra'] : null;
-		$masterEkstra->kodeEkstra = isset($row['kode_ekstra']) ? $row['kode_ekstra'] : null;
+		$masterEkstra->id_ekstra = isset($row['id_ekstra']) ? $row['id_ekstra'] : null;
+		$masterEkstra->nama_ekstra = isset($row['nama_ekstra']) ? $row['nama_ekstra'] : null;
+		$masterEkstra->kode_ekstra = isset($row['kode_ekstra']) ? $row['kode_ekstra'] : null;
 
 		return $masterEkstra;
 	}

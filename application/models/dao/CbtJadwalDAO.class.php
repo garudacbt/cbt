@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 interface CbtJadwalDAO{
 
@@ -83,6 +83,10 @@ interface CbtJadwalDAO{
 
 	public function queryByRekap($value, $single);
 
+	public function queryByJamKe($value, $single);
+
+	public function queryByJarak($value, $single);
+
 
 	public function deleteByIdTp($value);
 
@@ -115,6 +119,10 @@ interface CbtJadwalDAO{
 	public function deleteByResetLogin($value);
 
 	public function deleteByRekap($value);
+
+	public function deleteByJamKe($value);
+
+	public function deleteByJarak($value);
 
 
 }

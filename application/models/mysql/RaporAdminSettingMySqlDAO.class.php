@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_admin_setting'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporAdminSettingMySqlDAO implements RaporAdminSettingDAO{
 
@@ -57,20 +57,22 @@ class RaporAdminSettingMySqlDAO implements RaporAdminSettingDAO{
  	 * @param RaporAdminSettingDTO raporAdminSetting
  	 */
 	public function insert($raporAdminSetting){
-		$sql = 'INSERT INTO rapor_admin_setting (kkm_tunggal, kkm, bobot_ph, bobot_pts, bobot_pas, bobot_absen, tgl_rapor_akhir, tgl_rapor_pts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO rapor_admin_setting (id_tp, id_smt, kkm_tunggal, kkm, bobot_ph, bobot_pts, bobot_pas, bobot_absen, tgl_rapor_akhir, tgl_rapor_pts) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporAdminSetting->kkmTunggal);
+		$sqlQuery->setNumber($raporAdminSetting->id_tp);
+		$sqlQuery->setNumber($raporAdminSetting->id_smt);
+		$sqlQuery->setNumber($raporAdminSetting->kkm_tunggal);
 		$sqlQuery->setNumber($raporAdminSetting->kkm);
-		$sqlQuery->setNumber($raporAdminSetting->bobotPh);
-		$sqlQuery->setNumber($raporAdminSetting->bobotPts);
-		$sqlQuery->setNumber($raporAdminSetting->bobotPas);
-		$sqlQuery->setNumber($raporAdminSetting->bobotAbsen);
-		$sqlQuery->set($raporAdminSetting->tglRaporAkhir);
-		$sqlQuery->set($raporAdminSetting->tglRaporPts);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_ph);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_pts);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_pas);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_absen);
+		$sqlQuery->set($raporAdminSetting->tgl_rapor_akhir);
+		$sqlQuery->set($raporAdminSetting->tgl_rapor_pts);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporAdminSetting->idSetting = $id;
+		$raporAdminSetting->id_setting = $id;
 		return $id;
 	}
 	
@@ -80,19 +82,21 @@ class RaporAdminSettingMySqlDAO implements RaporAdminSettingDAO{
  	 * @param RaporAdminSettingDTO raporAdminSetting
  	 */
 	public function update($raporAdminSetting){
-		$sql = 'UPDATE rapor_admin_setting SET kkm_tunggal = ?, kkm = ?, bobot_ph = ?, bobot_pts = ?, bobot_pas = ?, bobot_absen = ?, tgl_rapor_akhir = ?, tgl_rapor_pts = ? WHERE id_setting = ?';
+		$sql = 'UPDATE rapor_admin_setting SET id_tp = ?, id_smt = ?, kkm_tunggal = ?, kkm = ?, bobot_ph = ?, bobot_pts = ?, bobot_pas = ?, bobot_absen = ?, tgl_rapor_akhir = ?, tgl_rapor_pts = ? WHERE id_setting = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporAdminSetting->kkmTunggal);
+		$sqlQuery->setNumber($raporAdminSetting->id_tp);
+		$sqlQuery->setNumber($raporAdminSetting->id_smt);
+		$sqlQuery->setNumber($raporAdminSetting->kkm_tunggal);
 		$sqlQuery->setNumber($raporAdminSetting->kkm);
-		$sqlQuery->setNumber($raporAdminSetting->bobotPh);
-		$sqlQuery->setNumber($raporAdminSetting->bobotPts);
-		$sqlQuery->setNumber($raporAdminSetting->bobotPas);
-		$sqlQuery->setNumber($raporAdminSetting->bobotAbsen);
-		$sqlQuery->set($raporAdminSetting->tglRaporAkhir);
-		$sqlQuery->set($raporAdminSetting->tglRaporPts);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_ph);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_pts);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_pas);
+		$sqlQuery->setNumber($raporAdminSetting->bobot_absen);
+		$sqlQuery->set($raporAdminSetting->tgl_rapor_akhir);
+		$sqlQuery->set($raporAdminSetting->tgl_rapor_pts);
 
-		$sqlQuery->setNumber($raporAdminSetting->idSetting);
+		$sqlQuery->setNumber($raporAdminSetting->id_setting);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -152,6 +156,26 @@ class RaporAdminSettingMySqlDAO implements RaporAdminSettingDAO{
 			return $this->getRow($sqlQuery);
 		else
 			return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdTp($value, $single = false){
+		$sql = 'SELECT * FROM rapor_admin_setting WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdSmt($value, $single = false){
+		$sql = 'SELECT * FROM rapor_admin_setting WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
 	}
 
 	public function queryByKkmTunggal($value, $single = false){
@@ -242,6 +266,20 @@ class RaporAdminSettingMySqlDAO implements RaporAdminSettingDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByIdTp($value){
+		$sql = 'DELETE FROM rapor_admin_setting WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdSmt($value){
+		$sql = 'DELETE FROM rapor_admin_setting WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 	public function deleteByKkmTunggal($value){
 		$sql = 'DELETE FROM rapor_admin_setting WHERE kkm_tunggal = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -326,15 +364,17 @@ class RaporAdminSettingMySqlDAO implements RaporAdminSettingDAO{
 	protected function readRow($row){
 		$raporAdminSetting = new RaporAdminSettingDTO();
 		
-		$raporAdminSetting->idSetting = isset($row['id_setting']) ? $row['id_setting'] : null;
-		$raporAdminSetting->kkmTunggal = isset($row['kkm_tunggal']) ? $row['kkm_tunggal'] : null;
+		$raporAdminSetting->id_setting = isset($row['id_setting']) ? $row['id_setting'] : null;
+		$raporAdminSetting->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporAdminSetting->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporAdminSetting->kkm_tunggal = isset($row['kkm_tunggal']) ? $row['kkm_tunggal'] : null;
 		$raporAdminSetting->kkm = isset($row['kkm']) ? $row['kkm'] : null;
-		$raporAdminSetting->bobotPh = isset($row['bobot_ph']) ? $row['bobot_ph'] : null;
-		$raporAdminSetting->bobotPts = isset($row['bobot_pts']) ? $row['bobot_pts'] : null;
-		$raporAdminSetting->bobotPas = isset($row['bobot_pas']) ? $row['bobot_pas'] : null;
-		$raporAdminSetting->bobotAbsen = isset($row['bobot_absen']) ? $row['bobot_absen'] : null;
-		$raporAdminSetting->tglRaporAkhir = isset($row['tgl_rapor_akhir']) ? $row['tgl_rapor_akhir'] : null;
-		$raporAdminSetting->tglRaporPts = isset($row['tgl_rapor_pts']) ? $row['tgl_rapor_pts'] : null;
+		$raporAdminSetting->bobot_ph = isset($row['bobot_ph']) ? $row['bobot_ph'] : null;
+		$raporAdminSetting->bobot_pts = isset($row['bobot_pts']) ? $row['bobot_pts'] : null;
+		$raporAdminSetting->bobot_pas = isset($row['bobot_pas']) ? $row['bobot_pas'] : null;
+		$raporAdminSetting->bobot_absen = isset($row['bobot_absen']) ? $row['bobot_absen'] : null;
+		$raporAdminSetting->tgl_rapor_akhir = isset($row['tgl_rapor_akhir']) ? $row['tgl_rapor_akhir'] : null;
+		$raporAdminSetting->tgl_rapor_pts = isset($row['tgl_rapor_pts']) ? $row['tgl_rapor_pts'] : null;
 
 		return $raporAdminSetting;
 	}

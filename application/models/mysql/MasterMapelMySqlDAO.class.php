@@ -3,7 +3,7 @@
  * Class that operate on table 'master_mapel'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterMapelMySqlDAO implements MasterMapelDAO{
 
@@ -60,18 +60,18 @@ class MasterMapelMySqlDAO implements MasterMapelDAO{
 		$sql = 'INSERT INTO master_mapel (nama_mapel, kode, kelompok, bobot_p, bobot_k, jenjang, urutan, status, deletable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($masterMapel->namaMapel);
+		$sqlQuery->set($masterMapel->nama_mapel);
 		$sqlQuery->set($masterMapel->kode);
 		$sqlQuery->set($masterMapel->kelompok);
-		$sqlQuery->setNumber($masterMapel->bobotP);
-		$sqlQuery->setNumber($masterMapel->bobotK);
+		$sqlQuery->setNumber($masterMapel->bobot_p);
+		$sqlQuery->setNumber($masterMapel->bobot_k);
 		$sqlQuery->setNumber($masterMapel->jenjang);
 		$sqlQuery->setNumber($masterMapel->urutan);
 		$sqlQuery->setNumber($masterMapel->status);
 		$sqlQuery->setNumber($masterMapel->deletable);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterMapel->idMapel = $id;
+		$masterMapel->id_mapel = $id;
 		return $id;
 	}
 	
@@ -84,17 +84,17 @@ class MasterMapelMySqlDAO implements MasterMapelDAO{
 		$sql = 'UPDATE master_mapel SET nama_mapel = ?, kode = ?, kelompok = ?, bobot_p = ?, bobot_k = ?, jenjang = ?, urutan = ?, status = ?, deletable = ? WHERE id_mapel = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($masterMapel->namaMapel);
+		$sqlQuery->set($masterMapel->nama_mapel);
 		$sqlQuery->set($masterMapel->kode);
 		$sqlQuery->set($masterMapel->kelompok);
-		$sqlQuery->setNumber($masterMapel->bobotP);
-		$sqlQuery->setNumber($masterMapel->bobotK);
+		$sqlQuery->setNumber($masterMapel->bobot_p);
+		$sqlQuery->setNumber($masterMapel->bobot_k);
 		$sqlQuery->setNumber($masterMapel->jenjang);
 		$sqlQuery->setNumber($masterMapel->urutan);
 		$sqlQuery->setNumber($masterMapel->status);
 		$sqlQuery->setNumber($masterMapel->deletable);
 
-		$sqlQuery->setNumber($masterMapel->idMapel);
+		$sqlQuery->setNumber($masterMapel->id_mapel);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -345,12 +345,12 @@ class MasterMapelMySqlDAO implements MasterMapelDAO{
 	protected function readRow($row){
 		$masterMapel = new MasterMapelDTO();
 		
-		$masterMapel->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$masterMapel->namaMapel = isset($row['nama_mapel']) ? $row['nama_mapel'] : null;
+		$masterMapel->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$masterMapel->nama_mapel = isset($row['nama_mapel']) ? $row['nama_mapel'] : null;
 		$masterMapel->kode = isset($row['kode']) ? $row['kode'] : null;
 		$masterMapel->kelompok = isset($row['kelompok']) ? $row['kelompok'] : null;
-		$masterMapel->bobotP = isset($row['bobot_p']) ? $row['bobot_p'] : null;
-		$masterMapel->bobotK = isset($row['bobot_k']) ? $row['bobot_k'] : null;
+		$masterMapel->bobot_p = isset($row['bobot_p']) ? $row['bobot_p'] : null;
+		$masterMapel->bobot_k = isset($row['bobot_k']) ? $row['bobot_k'] : null;
 		$masterMapel->jenjang = isset($row['jenjang']) ? $row['jenjang'] : null;
 		$masterMapel->urutan = isset($row['urutan']) ? $row['urutan'] : null;
 		$masterMapel->status = isset($row['status']) ? $row['status'] : null;

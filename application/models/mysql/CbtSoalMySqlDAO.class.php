@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_soal'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtSoalMySqlDAO implements CbtSoalDAO{
 
@@ -57,32 +57,34 @@ class CbtSoalMySqlDAO implements CbtSoalDAO{
  	 * @param CbtSoalDTO cbtSoal
  	 */
 	public function insert($cbtSoal){
-		$sql = 'INSERT INTO cbt_soal (bank_id, mapel_id, jenis, nomor_soal, file, soal, opsi_a, opsi_b, opsi_c, opsi_d, opsi_e, file_a, file_b, file_c, file_d, file_e, jawaban, created_on, updated_on, tampilkan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO cbt_soal (bank_id, mapel_id, jenis, nomor_soal, file, file1, tipe_file, soal, opsi_a, opsi_b, opsi_c, opsi_d, opsi_e, file_a, file_b, file_c, file_d, file_e, jawaban, created_on, updated_on, tampilkan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtSoal->bankId);
-		$sqlQuery->setNumber($cbtSoal->mapelId);
+		$sqlQuery->setNumber($cbtSoal->bank_id);
+		$sqlQuery->setNumber($cbtSoal->mapel_id);
 		$sqlQuery->setNumber($cbtSoal->jenis);
-		$sqlQuery->setNumber($cbtSoal->nomorSoal);
+		$sqlQuery->setNumber($cbtSoal->nomor_soal);
 		$sqlQuery->set($cbtSoal->file);
+		$sqlQuery->set($cbtSoal->file1);
+		$sqlQuery->set($cbtSoal->tipe_file);
 		$sqlQuery->set($cbtSoal->soal);
-		$sqlQuery->set($cbtSoal->opsiA);
-		$sqlQuery->set($cbtSoal->opsiB);
-		$sqlQuery->set($cbtSoal->opsiC);
-		$sqlQuery->set($cbtSoal->opsiD);
-		$sqlQuery->set($cbtSoal->opsiE);
-		$sqlQuery->set($cbtSoal->fileA);
-		$sqlQuery->set($cbtSoal->fileB);
-		$sqlQuery->set($cbtSoal->fileC);
-		$sqlQuery->set($cbtSoal->fileD);
-		$sqlQuery->set($cbtSoal->fileE);
+		$sqlQuery->set($cbtSoal->opsi_a);
+		$sqlQuery->set($cbtSoal->opsi_b);
+		$sqlQuery->set($cbtSoal->opsi_c);
+		$sqlQuery->set($cbtSoal->opsi_d);
+		$sqlQuery->set($cbtSoal->opsi_e);
+		$sqlQuery->set($cbtSoal->file_a);
+		$sqlQuery->set($cbtSoal->file_b);
+		$sqlQuery->set($cbtSoal->file_c);
+		$sqlQuery->set($cbtSoal->file_d);
+		$sqlQuery->set($cbtSoal->file_e);
 		$sqlQuery->set($cbtSoal->jawaban);
-		$sqlQuery->setNumber($cbtSoal->createdOn);
-		$sqlQuery->setNumber($cbtSoal->updatedOn);
+		$sqlQuery->setNumber($cbtSoal->created_on);
+		$sqlQuery->setNumber($cbtSoal->updated_on);
 		$sqlQuery->setNumber($cbtSoal->tampilkan);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtSoal->idSoal = $id;
+		$cbtSoal->id_soal = $id;
 		return $id;
 	}
 	
@@ -92,31 +94,33 @@ class CbtSoalMySqlDAO implements CbtSoalDAO{
  	 * @param CbtSoalDTO cbtSoal
  	 */
 	public function update($cbtSoal){
-		$sql = 'UPDATE cbt_soal SET bank_id = ?, mapel_id = ?, jenis = ?, nomor_soal = ?, file = ?, soal = ?, opsi_a = ?, opsi_b = ?, opsi_c = ?, opsi_d = ?, opsi_e = ?, file_a = ?, file_b = ?, file_c = ?, file_d = ?, file_e = ?, jawaban = ?, created_on = ?, updated_on = ?, tampilkan = ? WHERE id_soal = ?';
+		$sql = 'UPDATE cbt_soal SET bank_id = ?, mapel_id = ?, jenis = ?, nomor_soal = ?, file = ?, file1 = ?, tipe_file = ?, soal = ?, opsi_a = ?, opsi_b = ?, opsi_c = ?, opsi_d = ?, opsi_e = ?, file_a = ?, file_b = ?, file_c = ?, file_d = ?, file_e = ?, jawaban = ?, created_on = ?, updated_on = ?, tampilkan = ? WHERE id_soal = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtSoal->bankId);
-		$sqlQuery->setNumber($cbtSoal->mapelId);
+		$sqlQuery->setNumber($cbtSoal->bank_id);
+		$sqlQuery->setNumber($cbtSoal->mapel_id);
 		$sqlQuery->setNumber($cbtSoal->jenis);
-		$sqlQuery->setNumber($cbtSoal->nomorSoal);
+		$sqlQuery->setNumber($cbtSoal->nomor_soal);
 		$sqlQuery->set($cbtSoal->file);
+		$sqlQuery->set($cbtSoal->file1);
+		$sqlQuery->set($cbtSoal->tipe_file);
 		$sqlQuery->set($cbtSoal->soal);
-		$sqlQuery->set($cbtSoal->opsiA);
-		$sqlQuery->set($cbtSoal->opsiB);
-		$sqlQuery->set($cbtSoal->opsiC);
-		$sqlQuery->set($cbtSoal->opsiD);
-		$sqlQuery->set($cbtSoal->opsiE);
-		$sqlQuery->set($cbtSoal->fileA);
-		$sqlQuery->set($cbtSoal->fileB);
-		$sqlQuery->set($cbtSoal->fileC);
-		$sqlQuery->set($cbtSoal->fileD);
-		$sqlQuery->set($cbtSoal->fileE);
+		$sqlQuery->set($cbtSoal->opsi_a);
+		$sqlQuery->set($cbtSoal->opsi_b);
+		$sqlQuery->set($cbtSoal->opsi_c);
+		$sqlQuery->set($cbtSoal->opsi_d);
+		$sqlQuery->set($cbtSoal->opsi_e);
+		$sqlQuery->set($cbtSoal->file_a);
+		$sqlQuery->set($cbtSoal->file_b);
+		$sqlQuery->set($cbtSoal->file_c);
+		$sqlQuery->set($cbtSoal->file_d);
+		$sqlQuery->set($cbtSoal->file_e);
 		$sqlQuery->set($cbtSoal->jawaban);
-		$sqlQuery->setNumber($cbtSoal->createdOn);
-		$sqlQuery->setNumber($cbtSoal->updatedOn);
+		$sqlQuery->setNumber($cbtSoal->created_on);
+		$sqlQuery->setNumber($cbtSoal->updated_on);
 		$sqlQuery->setNumber($cbtSoal->tampilkan);
 
-		$sqlQuery->setNumber($cbtSoal->idSoal);
+		$sqlQuery->setNumber($cbtSoal->id_soal);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -220,6 +224,26 @@ class CbtSoalMySqlDAO implements CbtSoalDAO{
 
 	public function queryByFile($value, $single = false){
 		$sql = 'SELECT * FROM cbt_soal WHERE file = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByFile1($value, $single = false){
+		$sql = 'SELECT * FROM cbt_soal WHERE file1 = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByTipeFile($value, $single = false){
+		$sql = 'SELECT * FROM cbt_soal WHERE tipe_file = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		if ($single === true)
@@ -421,6 +445,20 @@ class CbtSoalMySqlDAO implements CbtSoalDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByFile1($value){
+		$sql = 'DELETE FROM cbt_soal WHERE file1 = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByTipeFile($value){
+		$sql = 'DELETE FROM cbt_soal WHERE tipe_file = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 	public function deleteBySoal($value){
 		$sql = 'DELETE FROM cbt_soal WHERE soal = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -554,26 +592,28 @@ class CbtSoalMySqlDAO implements CbtSoalDAO{
 	protected function readRow($row){
 		$cbtSoal = new CbtSoalDTO();
 		
-		$cbtSoal->idSoal = isset($row['id_soal']) ? $row['id_soal'] : null;
-		$cbtSoal->bankId = isset($row['bank_id']) ? $row['bank_id'] : null;
-		$cbtSoal->mapelId = isset($row['mapel_id']) ? $row['mapel_id'] : null;
+		$cbtSoal->id_soal = isset($row['id_soal']) ? $row['id_soal'] : null;
+		$cbtSoal->bank_id = isset($row['bank_id']) ? $row['bank_id'] : null;
+		$cbtSoal->mapel_id = isset($row['mapel_id']) ? $row['mapel_id'] : null;
 		$cbtSoal->jenis = isset($row['jenis']) ? $row['jenis'] : null;
-		$cbtSoal->nomorSoal = isset($row['nomor_soal']) ? $row['nomor_soal'] : null;
+		$cbtSoal->nomor_soal = isset($row['nomor_soal']) ? $row['nomor_soal'] : null;
 		$cbtSoal->file = isset($row['file']) ? $row['file'] : null;
+		$cbtSoal->file1 = isset($row['file1']) ? $row['file1'] : null;
+		$cbtSoal->tipe_file = isset($row['tipe_file']) ? $row['tipe_file'] : null;
 		$cbtSoal->soal = isset($row['soal']) ? $row['soal'] : null;
-		$cbtSoal->opsiA = isset($row['opsi_a']) ? $row['opsi_a'] : null;
-		$cbtSoal->opsiB = isset($row['opsi_b']) ? $row['opsi_b'] : null;
-		$cbtSoal->opsiC = isset($row['opsi_c']) ? $row['opsi_c'] : null;
-		$cbtSoal->opsiD = isset($row['opsi_d']) ? $row['opsi_d'] : null;
-		$cbtSoal->opsiE = isset($row['opsi_e']) ? $row['opsi_e'] : null;
-		$cbtSoal->fileA = isset($row['file_a']) ? $row['file_a'] : null;
-		$cbtSoal->fileB = isset($row['file_b']) ? $row['file_b'] : null;
-		$cbtSoal->fileC = isset($row['file_c']) ? $row['file_c'] : null;
-		$cbtSoal->fileD = isset($row['file_d']) ? $row['file_d'] : null;
-		$cbtSoal->fileE = isset($row['file_e']) ? $row['file_e'] : null;
+		$cbtSoal->opsi_a = isset($row['opsi_a']) ? $row['opsi_a'] : null;
+		$cbtSoal->opsi_b = isset($row['opsi_b']) ? $row['opsi_b'] : null;
+		$cbtSoal->opsi_c = isset($row['opsi_c']) ? $row['opsi_c'] : null;
+		$cbtSoal->opsi_d = isset($row['opsi_d']) ? $row['opsi_d'] : null;
+		$cbtSoal->opsi_e = isset($row['opsi_e']) ? $row['opsi_e'] : null;
+		$cbtSoal->file_a = isset($row['file_a']) ? $row['file_a'] : null;
+		$cbtSoal->file_b = isset($row['file_b']) ? $row['file_b'] : null;
+		$cbtSoal->file_c = isset($row['file_c']) ? $row['file_c'] : null;
+		$cbtSoal->file_d = isset($row['file_d']) ? $row['file_d'] : null;
+		$cbtSoal->file_e = isset($row['file_e']) ? $row['file_e'] : null;
 		$cbtSoal->jawaban = isset($row['jawaban']) ? $row['jawaban'] : null;
-		$cbtSoal->createdOn = isset($row['created_on']) ? $row['created_on'] : null;
-		$cbtSoal->updatedOn = isset($row['updated_on']) ? $row['updated_on'] : null;
+		$cbtSoal->created_on = isset($row['created_on']) ? $row['created_on'] : null;
+		$cbtSoal->updated_on = isset($row['updated_on']) ? $row['updated_on'] : null;
 		$cbtSoal->tampilkan = isset($row['tampilkan']) ? $row['tampilkan'] : null;
 
 		return $cbtSoal;

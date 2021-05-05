@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_kikd'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporKikdMySqlDAO implements RaporKikdDAO{
 
@@ -60,14 +60,14 @@ class RaporKikdMySqlDAO implements RaporKikdDAO{
 		$sql = 'INSERT INTO rapor_kikd (id_mapel_kelas, aspek, id_tp, id_smt, materi_kikd) VALUES (?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporKikd->idMapelKelas);
+		$sqlQuery->setNumber($raporKikd->id_mapel_kelas);
 		$sqlQuery->setNumber($raporKikd->aspek);
-		$sqlQuery->setNumber($raporKikd->idTp);
-		$sqlQuery->setNumber($raporKikd->idSmt);
-		$sqlQuery->set($raporKikd->materiKikd);
+		$sqlQuery->setNumber($raporKikd->id_tp);
+		$sqlQuery->setNumber($raporKikd->id_smt);
+		$sqlQuery->set($raporKikd->materi_kikd);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporKikd->idKikd = $id;
+		$raporKikd->id_kikd = $id;
 		return $id;
 	}
 	
@@ -80,13 +80,13 @@ class RaporKikdMySqlDAO implements RaporKikdDAO{
 		$sql = 'UPDATE rapor_kikd SET id_mapel_kelas = ?, aspek = ?, id_tp = ?, id_smt = ?, materi_kikd = ? WHERE id_kikd = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporKikd->idMapelKelas);
+		$sqlQuery->setNumber($raporKikd->id_mapel_kelas);
 		$sqlQuery->setNumber($raporKikd->aspek);
-		$sqlQuery->setNumber($raporKikd->idTp);
-		$sqlQuery->setNumber($raporKikd->idSmt);
-		$sqlQuery->set($raporKikd->materiKikd);
+		$sqlQuery->setNumber($raporKikd->id_tp);
+		$sqlQuery->setNumber($raporKikd->id_smt);
+		$sqlQuery->set($raporKikd->materi_kikd);
 
-		$sqlQuery->setNumber($raporKikd->idKikd);
+		$sqlQuery->setNumber($raporKikd->id_kikd);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -269,12 +269,12 @@ class RaporKikdMySqlDAO implements RaporKikdDAO{
 	protected function readRow($row){
 		$raporKikd = new RaporKikdDTO();
 		
-		$raporKikd->idKikd = isset($row['id_kikd']) ? $row['id_kikd'] : null;
-		$raporKikd->idMapelKelas = isset($row['id_mapel_kelas']) ? $row['id_mapel_kelas'] : null;
+		$raporKikd->id_kikd = isset($row['id_kikd']) ? $row['id_kikd'] : null;
+		$raporKikd->id_mapel_kelas = isset($row['id_mapel_kelas']) ? $row['id_mapel_kelas'] : null;
 		$raporKikd->aspek = isset($row['aspek']) ? $row['aspek'] : null;
-		$raporKikd->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$raporKikd->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$raporKikd->materiKikd = isset($row['materi_kikd']) ? $row['materi_kikd'] : null;
+		$raporKikd->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporKikd->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporKikd->materi_kikd = isset($row['materi_kikd']) ? $row['materi_kikd'] : null;
 
 		return $raporKikd;
 	}

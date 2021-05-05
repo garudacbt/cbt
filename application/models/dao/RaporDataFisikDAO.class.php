@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 interface RaporDataFisikDAO{
 
@@ -51,6 +51,10 @@ interface RaporDataFisikDAO{
 	 */
 	public function clean();
 
+	public function queryByIdTp($value, $single);
+
+	public function queryByIdSmt($value, $single);
+
 	public function queryByIdKelas($value, $single);
 
 	public function queryByJenis($value, $single);
@@ -59,6 +63,10 @@ interface RaporDataFisikDAO{
 
 	public function queryByDeskripsi($value, $single);
 
+
+	public function deleteByIdTp($value);
+
+	public function deleteByIdSmt($value);
 
 	public function deleteByIdKelas($value);
 

@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_ekstra'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasEkstraMySqlDAO implements KelasEkstraDAO{
 
@@ -60,13 +60,13 @@ class KelasEkstraMySqlDAO implements KelasEkstraDAO{
 		$sql = 'INSERT INTO kelas_ekstra (id_tp, id_smt, id_kelas, ekstra) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasEkstra->idTp);
-		$sqlQuery->setNumber($kelasEkstra->idSmt);
-		$sqlQuery->setNumber($kelasEkstra->idKelas);
+		$sqlQuery->setNumber($kelasEkstra->id_tp);
+		$sqlQuery->setNumber($kelasEkstra->id_smt);
+		$sqlQuery->setNumber($kelasEkstra->id_kelas);
 		$sqlQuery->set($kelasEkstra->ekstra);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasEkstra->idKelasEkstra = $id;
+		$kelasEkstra->id_kelas_ekstra = $id;
 		return $id;
 	}
 	
@@ -79,12 +79,12 @@ class KelasEkstraMySqlDAO implements KelasEkstraDAO{
 		$sql = 'UPDATE kelas_ekstra SET id_tp = ?, id_smt = ?, id_kelas = ?, ekstra = ? WHERE id_kelas_ekstra = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasEkstra->idTp);
-		$sqlQuery->setNumber($kelasEkstra->idSmt);
-		$sqlQuery->setNumber($kelasEkstra->idKelas);
+		$sqlQuery->setNumber($kelasEkstra->id_tp);
+		$sqlQuery->setNumber($kelasEkstra->id_smt);
+		$sqlQuery->setNumber($kelasEkstra->id_kelas);
 		$sqlQuery->set($kelasEkstra->ekstra);
 
-		$sqlQuery->set($kelasEkstra->idKelasEkstra);
+		$sqlQuery->set($kelasEkstra->id_kelas_ekstra);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -250,10 +250,10 @@ class KelasEkstraMySqlDAO implements KelasEkstraDAO{
 	protected function readRow($row){
 		$kelasEkstra = new KelasEkstraDTO();
 		
-		$kelasEkstra->idKelasEkstra = isset($row['id_kelas_ekstra']) ? $row['id_kelas_ekstra'] : null;
-		$kelasEkstra->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasEkstra->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$kelasEkstra->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$kelasEkstra->id_kelas_ekstra = isset($row['id_kelas_ekstra']) ? $row['id_kelas_ekstra'] : null;
+		$kelasEkstra->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasEkstra->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasEkstra->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 		$kelasEkstra->ekstra = isset($row['ekstra']) ? $row['ekstra'] : null;
 
 		return $kelasEkstra;

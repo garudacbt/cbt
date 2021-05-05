@@ -3,7 +3,7 @@
  * Class that operate on table 'level_guru'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class LevelGuruMySqlDAO implements LevelGuruDAO{
 
@@ -63,7 +63,7 @@ class LevelGuruMySqlDAO implements LevelGuruDAO{
 		$sqlQuery->set($levelGuru->level);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$levelGuru->idLevel = $id;
+		$levelGuru->id_level = $id;
 		return $id;
 	}
 	
@@ -78,7 +78,7 @@ class LevelGuruMySqlDAO implements LevelGuruDAO{
 		
 		$sqlQuery->set($levelGuru->level);
 
-		$sqlQuery->setNumber($levelGuru->idLevel);
+		$sqlQuery->setNumber($levelGuru->id_level);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -193,7 +193,7 @@ class LevelGuruMySqlDAO implements LevelGuruDAO{
 	protected function readRow($row){
 		$levelGuru = new LevelGuruDTO();
 		
-		$levelGuru->idLevel = isset($row['id_level']) ? $row['id_level'] : null;
+		$levelGuru->id_level = isset($row['id_level']) ? $row['id_level'] : null;
 		$levelGuru->level = isset($row['level']) ? $row['level'] : null;
 
 		return $levelGuru;

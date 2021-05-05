@@ -3,7 +3,7 @@
  * Class that operate on table 'setting'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class SettingMySqlDAO implements SettingDAO{
 
@@ -60,37 +60,37 @@ class SettingMySqlDAO implements SettingDAO{
 		$sql = 'INSERT INTO setting (kode_sekolah, sekolah, npsn, nss, jenjang, kepsek, nip, tanda_tangan, alamat, desa, kecamatan, kota, provinsi, kode_pos, telp, fax, web, email, nama_aplikasi, logo_kanan, logo_kiri, versi, ip_server, waktu, server, id_server, sekolah_id, db_versi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($setting->kodeSekolah);
+		$sqlQuery->set($setting->kode_sekolah);
 		$sqlQuery->set($setting->sekolah);
 		$sqlQuery->set($setting->npsn);
 		$sqlQuery->set($setting->nss);
 		$sqlQuery->setNumber($setting->jenjang);
 		$sqlQuery->set($setting->kepsek);
 		$sqlQuery->set($setting->nip);
-		$sqlQuery->set($setting->tandaTangan);
+		$sqlQuery->set($setting->tanda_tangan);
 		$sqlQuery->set($setting->alamat);
 		$sqlQuery->set($setting->desa);
 		$sqlQuery->set($setting->kecamatan);
 		$sqlQuery->set($setting->kota);
 		$sqlQuery->set($setting->provinsi);
-		$sqlQuery->setNumber($setting->kodePos);
+		$sqlQuery->setNumber($setting->kode_pos);
 		$sqlQuery->set($setting->telp);
 		$sqlQuery->set($setting->fax);
 		$sqlQuery->set($setting->web);
 		$sqlQuery->set($setting->email);
-		$sqlQuery->set($setting->namaAplikasi);
-		$sqlQuery->set($setting->logoKanan);
-		$sqlQuery->set($setting->logoKiri);
+		$sqlQuery->set($setting->nama_aplikasi);
+		$sqlQuery->set($setting->logo_kanan);
+		$sqlQuery->set($setting->logo_kiri);
 		$sqlQuery->set($setting->versi);
-		$sqlQuery->set($setting->ipServer);
+		$sqlQuery->set($setting->ip_server);
 		$sqlQuery->set($setting->waktu);
 		$sqlQuery->set($setting->server);
-		$sqlQuery->set($setting->idServer);
-		$sqlQuery->set($setting->sekolahId);
-		$sqlQuery->set($setting->dbVersi);
+		$sqlQuery->set($setting->id_server);
+		$sqlQuery->set($setting->sekolah_id);
+		$sqlQuery->set($setting->db_versi);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$setting->idSetting = $id;
+		$setting->id_setting = $id;
 		return $id;
 	}
 	
@@ -103,36 +103,36 @@ class SettingMySqlDAO implements SettingDAO{
 		$sql = 'UPDATE setting SET kode_sekolah = ?, sekolah = ?, npsn = ?, nss = ?, jenjang = ?, kepsek = ?, nip = ?, tanda_tangan = ?, alamat = ?, desa = ?, kecamatan = ?, kota = ?, provinsi = ?, kode_pos = ?, telp = ?, fax = ?, web = ?, email = ?, nama_aplikasi = ?, logo_kanan = ?, logo_kiri = ?, versi = ?, ip_server = ?, waktu = ?, server = ?, id_server = ?, sekolah_id = ?, db_versi = ? WHERE id_setting = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($setting->kodeSekolah);
+		$sqlQuery->set($setting->kode_sekolah);
 		$sqlQuery->set($setting->sekolah);
 		$sqlQuery->set($setting->npsn);
 		$sqlQuery->set($setting->nss);
 		$sqlQuery->setNumber($setting->jenjang);
 		$sqlQuery->set($setting->kepsek);
 		$sqlQuery->set($setting->nip);
-		$sqlQuery->set($setting->tandaTangan);
+		$sqlQuery->set($setting->tanda_tangan);
 		$sqlQuery->set($setting->alamat);
 		$sqlQuery->set($setting->desa);
 		$sqlQuery->set($setting->kecamatan);
 		$sqlQuery->set($setting->kota);
 		$sqlQuery->set($setting->provinsi);
-		$sqlQuery->setNumber($setting->kodePos);
+		$sqlQuery->setNumber($setting->kode_pos);
 		$sqlQuery->set($setting->telp);
 		$sqlQuery->set($setting->fax);
 		$sqlQuery->set($setting->web);
 		$sqlQuery->set($setting->email);
-		$sqlQuery->set($setting->namaAplikasi);
-		$sqlQuery->set($setting->logoKanan);
-		$sqlQuery->set($setting->logoKiri);
+		$sqlQuery->set($setting->nama_aplikasi);
+		$sqlQuery->set($setting->logo_kanan);
+		$sqlQuery->set($setting->logo_kiri);
 		$sqlQuery->set($setting->versi);
-		$sqlQuery->set($setting->ipServer);
+		$sqlQuery->set($setting->ip_server);
 		$sqlQuery->set($setting->waktu);
 		$sqlQuery->set($setting->server);
-		$sqlQuery->set($setting->idServer);
-		$sqlQuery->set($setting->sekolahId);
-		$sqlQuery->set($setting->dbVersi);
+		$sqlQuery->set($setting->id_server);
+		$sqlQuery->set($setting->sekolah_id);
+		$sqlQuery->set($setting->db_versi);
 
-		$sqlQuery->setNumber($setting->idSetting);
+		$sqlQuery->setNumber($setting->id_setting);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -706,35 +706,35 @@ class SettingMySqlDAO implements SettingDAO{
 	protected function readRow($row){
 		$setting = new SettingDTO();
 		
-		$setting->idSetting = isset($row['id_setting']) ? $row['id_setting'] : null;
-		$setting->kodeSekolah = isset($row['kode_sekolah']) ? $row['kode_sekolah'] : null;
+		$setting->id_setting = isset($row['id_setting']) ? $row['id_setting'] : null;
+		$setting->kode_sekolah = isset($row['kode_sekolah']) ? $row['kode_sekolah'] : null;
 		$setting->sekolah = isset($row['sekolah']) ? $row['sekolah'] : null;
 		$setting->npsn = isset($row['npsn']) ? $row['npsn'] : null;
 		$setting->nss = isset($row['nss']) ? $row['nss'] : null;
 		$setting->jenjang = isset($row['jenjang']) ? $row['jenjang'] : null;
 		$setting->kepsek = isset($row['kepsek']) ? $row['kepsek'] : null;
 		$setting->nip = isset($row['nip']) ? $row['nip'] : null;
-		$setting->tandaTangan = isset($row['tanda_tangan']) ? $row['tanda_tangan'] : null;
+		$setting->tanda_tangan = isset($row['tanda_tangan']) ? $row['tanda_tangan'] : null;
 		$setting->alamat = isset($row['alamat']) ? $row['alamat'] : null;
 		$setting->desa = isset($row['desa']) ? $row['desa'] : null;
 		$setting->kecamatan = isset($row['kecamatan']) ? $row['kecamatan'] : null;
 		$setting->kota = isset($row['kota']) ? $row['kota'] : null;
 		$setting->provinsi = isset($row['provinsi']) ? $row['provinsi'] : null;
-		$setting->kodePos = isset($row['kode_pos']) ? $row['kode_pos'] : null;
+		$setting->kode_pos = isset($row['kode_pos']) ? $row['kode_pos'] : null;
 		$setting->telp = isset($row['telp']) ? $row['telp'] : null;
 		$setting->fax = isset($row['fax']) ? $row['fax'] : null;
 		$setting->web = isset($row['web']) ? $row['web'] : null;
 		$setting->email = isset($row['email']) ? $row['email'] : null;
-		$setting->namaAplikasi = isset($row['nama_aplikasi']) ? $row['nama_aplikasi'] : null;
-		$setting->logoKanan = isset($row['logo_kanan']) ? $row['logo_kanan'] : null;
-		$setting->logoKiri = isset($row['logo_kiri']) ? $row['logo_kiri'] : null;
+		$setting->nama_aplikasi = isset($row['nama_aplikasi']) ? $row['nama_aplikasi'] : null;
+		$setting->logo_kanan = isset($row['logo_kanan']) ? $row['logo_kanan'] : null;
+		$setting->logo_kiri = isset($row['logo_kiri']) ? $row['logo_kiri'] : null;
 		$setting->versi = isset($row['versi']) ? $row['versi'] : null;
-		$setting->ipServer = isset($row['ip_server']) ? $row['ip_server'] : null;
+		$setting->ip_server = isset($row['ip_server']) ? $row['ip_server'] : null;
 		$setting->waktu = isset($row['waktu']) ? $row['waktu'] : null;
 		$setting->server = isset($row['server']) ? $row['server'] : null;
-		$setting->idServer = isset($row['id_server']) ? $row['id_server'] : null;
-		$setting->sekolahId = isset($row['sekolah_id']) ? $row['sekolah_id'] : null;
-		$setting->dbVersi = isset($row['db_versi']) ? $row['db_versi'] : null;
+		$setting->id_server = isset($row['id_server']) ? $row['id_server'] : null;
+		$setting->sekolah_id = isset($row['sekolah_id']) ? $row['sekolah_id'] : null;
+		$setting->db_versi = isset($row['db_versi']) ? $row['db_versi'] : null;
 
 		return $setting;
 	}

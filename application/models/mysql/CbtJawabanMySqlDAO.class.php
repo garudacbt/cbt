@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_jawaban'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtJawabanMySqlDAO implements CbtJawabanDAO{
 
@@ -61,11 +61,11 @@ class CbtJawabanMySqlDAO implements CbtJawabanDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($cbtJawaban->jawaban);
-		$sqlQuery->set($cbtJawaban->jawabanBenar);
+		$sqlQuery->set($cbtJawaban->jawaban_benar);
 		$sqlQuery->setNumber($cbtJawaban->koreksi);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtJawaban->idJawaban = $id;
+		$cbtJawaban->id_jawaban = $id;
 		return $id;
 	}
 	
@@ -79,10 +79,10 @@ class CbtJawabanMySqlDAO implements CbtJawabanDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($cbtJawaban->jawaban);
-		$sqlQuery->set($cbtJawaban->jawabanBenar);
+		$sqlQuery->set($cbtJawaban->jawaban_benar);
 		$sqlQuery->setNumber($cbtJawaban->koreksi);
 
-		$sqlQuery->set($cbtJawaban->idJawaban);
+		$sqlQuery->set($cbtJawaban->id_jawaban);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -231,9 +231,9 @@ class CbtJawabanMySqlDAO implements CbtJawabanDAO{
 	protected function readRow($row){
 		$cbtJawaban = new CbtJawabanDTO();
 		
-		$cbtJawaban->idJawaban = isset($row['id_jawaban']) ? $row['id_jawaban'] : null;
+		$cbtJawaban->id_jawaban = isset($row['id_jawaban']) ? $row['id_jawaban'] : null;
 		$cbtJawaban->jawaban = isset($row['jawaban']) ? $row['jawaban'] : null;
-		$cbtJawaban->jawabanBenar = isset($row['jawaban_benar']) ? $row['jawaban_benar'] : null;
+		$cbtJawaban->jawaban_benar = isset($row['jawaban_benar']) ? $row['jawaban_benar'] : null;
 		$cbtJawaban->koreksi = isset($row['koreksi']) ? $row['koreksi'] : null;
 
 		return $cbtJawaban;

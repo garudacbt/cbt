@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_data_sikap'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporDataSikapMySqlDAO implements RaporDataSikapDAO{
 
@@ -57,16 +57,18 @@ class RaporDataSikapMySqlDAO implements RaporDataSikapDAO{
  	 * @param RaporDataSikapDTO raporDataSikap
  	 */
 	public function insert($raporDataSikap){
-		$sql = 'INSERT INTO rapor_data_sikap (id_kelas, jenis, kode, sikap) VALUES (?, ?, ?, ?)';
+		$sql = 'INSERT INTO rapor_data_sikap (id_tp, id_smt, id_kelas, jenis, kode, sikap) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporDataSikap->idKelas);
+		$sqlQuery->setNumber($raporDataSikap->id_tp);
+		$sqlQuery->setNumber($raporDataSikap->id_smt);
+		$sqlQuery->setNumber($raporDataSikap->id_kelas);
 		$sqlQuery->setNumber($raporDataSikap->jenis);
 		$sqlQuery->setNumber($raporDataSikap->kode);
 		$sqlQuery->set($raporDataSikap->sikap);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporDataSikap->idSikap = $id;
+		$raporDataSikap->id_sikap = $id;
 		return $id;
 	}
 	
@@ -76,15 +78,17 @@ class RaporDataSikapMySqlDAO implements RaporDataSikapDAO{
  	 * @param RaporDataSikapDTO raporDataSikap
  	 */
 	public function update($raporDataSikap){
-		$sql = 'UPDATE rapor_data_sikap SET id_kelas = ?, jenis = ?, kode = ?, sikap = ? WHERE id_sikap = ?';
+		$sql = 'UPDATE rapor_data_sikap SET id_tp = ?, id_smt = ?, id_kelas = ?, jenis = ?, kode = ?, sikap = ? WHERE id_sikap = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporDataSikap->idKelas);
+		$sqlQuery->setNumber($raporDataSikap->id_tp);
+		$sqlQuery->setNumber($raporDataSikap->id_smt);
+		$sqlQuery->setNumber($raporDataSikap->id_kelas);
 		$sqlQuery->setNumber($raporDataSikap->jenis);
 		$sqlQuery->setNumber($raporDataSikap->kode);
 		$sqlQuery->set($raporDataSikap->sikap);
 
-		$sqlQuery->setNumber($raporDataSikap->idSikap);
+		$sqlQuery->setNumber($raporDataSikap->id_sikap);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -146,6 +150,26 @@ class RaporDataSikapMySqlDAO implements RaporDataSikapDAO{
 			return $this->getList($sqlQuery);
 	}
 
+	public function queryByIdTp($value, $single = false){
+		$sql = 'SELECT * FROM rapor_data_sikap WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdSmt($value, $single = false){
+		$sql = 'SELECT * FROM rapor_data_sikap WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
 	public function queryByIdKelas($value, $single = false){
 		$sql = 'SELECT * FROM rapor_data_sikap WHERE id_kelas = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -189,6 +213,20 @@ class RaporDataSikapMySqlDAO implements RaporDataSikapDAO{
 
 	public function deleteByIdSikap($value){
 		$sql = 'DELETE FROM rapor_data_sikap WHERE id_sikap = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdTp($value){
+		$sql = 'DELETE FROM rapor_data_sikap WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdSmt($value){
+		$sql = 'DELETE FROM rapor_data_sikap WHERE id_smt = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
@@ -250,8 +288,10 @@ class RaporDataSikapMySqlDAO implements RaporDataSikapDAO{
 	protected function readRow($row){
 		$raporDataSikap = new RaporDataSikapDTO();
 		
-		$raporDataSikap->idSikap = isset($row['id_sikap']) ? $row['id_sikap'] : null;
-		$raporDataSikap->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporDataSikap->id_sikap = isset($row['id_sikap']) ? $row['id_sikap'] : null;
+		$raporDataSikap->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporDataSikap->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporDataSikap->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 		$raporDataSikap->jenis = isset($row['jenis']) ? $row['jenis'] : null;
 		$raporDataSikap->kode = isset($row['kode']) ? $row['kode'] : null;
 		$raporDataSikap->sikap = isset($row['sikap']) ? $row['sikap'] : null;

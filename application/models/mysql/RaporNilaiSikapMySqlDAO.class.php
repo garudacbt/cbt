@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_nilai_sikap'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
 
@@ -57,19 +57,19 @@ class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
  	 * @param RaporNilaiSikapDTO raporNilaiSikap
  	 */
 	public function insert($raporNilaiSikap){
-		$sql = 'INSERT INTO rapor_nilai_sikap (id_siswa, id_kelas, jenis, nilai, deskripsi, id_tp, id_smt) VALUES (?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO rapor_nilai_sikap (id_siswa, id_kelas, id_tp, id_smt, jenis, nilai, deskripsi) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporNilaiSikap->idSiswa);
-		$sqlQuery->setNumber($raporNilaiSikap->idKelas);
+		$sqlQuery->setNumber($raporNilaiSikap->id_siswa);
+		$sqlQuery->setNumber($raporNilaiSikap->id_kelas);
+		$sqlQuery->setNumber($raporNilaiSikap->id_tp);
+		$sqlQuery->setNumber($raporNilaiSikap->id_smt);
 		$sqlQuery->setNumber($raporNilaiSikap->jenis);
 		$sqlQuery->set($raporNilaiSikap->nilai);
 		$sqlQuery->set($raporNilaiSikap->deskripsi);
-		$sqlQuery->setNumber($raporNilaiSikap->idTp);
-		$sqlQuery->setNumber($raporNilaiSikap->idSmt);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporNilaiSikap->idNilaiSikap = $id;
+		$raporNilaiSikap->id_nilai_sikap = $id;
 		return $id;
 	}
 	
@@ -79,18 +79,18 @@ class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
  	 * @param RaporNilaiSikapDTO raporNilaiSikap
  	 */
 	public function update($raporNilaiSikap){
-		$sql = 'UPDATE rapor_nilai_sikap SET id_siswa = ?, id_kelas = ?, jenis = ?, nilai = ?, deskripsi = ?, id_tp = ?, id_smt = ? WHERE id_nilai_sikap = ?';
+		$sql = 'UPDATE rapor_nilai_sikap SET id_siswa = ?, id_kelas = ?, id_tp = ?, id_smt = ?, jenis = ?, nilai = ?, deskripsi = ? WHERE id_nilai_sikap = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporNilaiSikap->idSiswa);
-		$sqlQuery->setNumber($raporNilaiSikap->idKelas);
+		$sqlQuery->setNumber($raporNilaiSikap->id_siswa);
+		$sqlQuery->setNumber($raporNilaiSikap->id_kelas);
+		$sqlQuery->setNumber($raporNilaiSikap->id_tp);
+		$sqlQuery->setNumber($raporNilaiSikap->id_smt);
 		$sqlQuery->setNumber($raporNilaiSikap->jenis);
 		$sqlQuery->set($raporNilaiSikap->nilai);
 		$sqlQuery->set($raporNilaiSikap->deskripsi);
-		$sqlQuery->setNumber($raporNilaiSikap->idTp);
-		$sqlQuery->setNumber($raporNilaiSikap->idSmt);
 
-		$sqlQuery->setNumber($raporNilaiSikap->idNilaiSikap);
+		$sqlQuery->setNumber($raporNilaiSikap->id_nilai_sikap);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -172,6 +172,26 @@ class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
 		return $this->getList($sqlQuery);
 	}
 
+	public function queryByIdTp($value, $single = false){
+		$sql = 'SELECT * FROM rapor_nilai_sikap WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdSmt($value, $single = false){
+		$sql = 'SELECT * FROM rapor_nilai_sikap WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
 	public function queryByJenis($value, $single = false){
 		$sql = 'SELECT * FROM rapor_nilai_sikap WHERE jenis = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -202,26 +222,6 @@ class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
 		return $this->getList($sqlQuery);
 	}
 
-	public function queryByIdTp($value, $single = false){
-		$sql = 'SELECT * FROM rapor_nilai_sikap WHERE id_tp = ?';
-		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
-		if ($single === true)
-			return $this->getRow($sqlQuery);
-		else
-		return $this->getList($sqlQuery);
-	}
-
-	public function queryByIdSmt($value, $single = false){
-		$sql = 'SELECT * FROM rapor_nilai_sikap WHERE id_smt = ?';
-		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
-		if ($single === true)
-			return $this->getRow($sqlQuery);
-		else
-		return $this->getList($sqlQuery);
-	}
-
 
 	public function deleteByIdNilaiSikap($value){
 		$sql = 'DELETE FROM rapor_nilai_sikap WHERE id_nilai_sikap = ?';
@@ -239,6 +239,20 @@ class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
 
 	public function deleteByIdKelas($value){
 		$sql = 'DELETE FROM rapor_nilai_sikap WHERE id_kelas = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdTp($value){
+		$sql = 'DELETE FROM rapor_nilai_sikap WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdSmt($value){
+		$sql = 'DELETE FROM rapor_nilai_sikap WHERE id_smt = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
@@ -262,20 +276,6 @@ class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
 		$sql = 'DELETE FROM rapor_nilai_sikap WHERE deskripsi = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
-		return $this->executeUpdate($sqlQuery);
-	}
-
-	public function deleteByIdTp($value){
-		$sql = 'DELETE FROM rapor_nilai_sikap WHERE id_tp = ?';
-		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
-		return $this->executeUpdate($sqlQuery);
-	}
-
-	public function deleteByIdSmt($value){
-		$sql = 'DELETE FROM rapor_nilai_sikap WHERE id_smt = ?';
-		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -307,14 +307,14 @@ class RaporNilaiSikapMySqlDAO implements RaporNilaiSikapDAO{
 	protected function readRow($row){
 		$raporNilaiSikap = new RaporNilaiSikapDTO();
 		
-		$raporNilaiSikap->idNilaiSikap = isset($row['id_nilai_sikap']) ? $row['id_nilai_sikap'] : null;
-		$raporNilaiSikap->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$raporNilaiSikap->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporNilaiSikap->id_nilai_sikap = isset($row['id_nilai_sikap']) ? $row['id_nilai_sikap'] : null;
+		$raporNilaiSikap->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$raporNilaiSikap->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporNilaiSikap->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporNilaiSikap->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$raporNilaiSikap->jenis = isset($row['jenis']) ? $row['jenis'] : null;
 		$raporNilaiSikap->nilai = isset($row['nilai']) ? $row['nilai'] : null;
 		$raporNilaiSikap->deskripsi = isset($row['deskripsi']) ? $row['deskripsi'] : null;
-		$raporNilaiSikap->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$raporNilaiSikap->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
 
 		return $raporNilaiSikap;
 	}

@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_durasi_siswa'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtDurasiSiswaMySqlDAO implements CbtDurasiSiswaDAO{
 
@@ -60,16 +60,16 @@ class CbtDurasiSiswaMySqlDAO implements CbtDurasiSiswaDAO{
 		$sql = 'INSERT INTO cbt_durasi_siswa (id_siswa, id_jadwal, status, lama_ujian, mulai, selesai, reset) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtDurasiSiswa->idSiswa);
-		$sqlQuery->setNumber($cbtDurasiSiswa->idJadwal);
+		$sqlQuery->setNumber($cbtDurasiSiswa->id_siswa);
+		$sqlQuery->setNumber($cbtDurasiSiswa->id_jadwal);
 		$sqlQuery->setNumber($cbtDurasiSiswa->status);
-		$sqlQuery->setNumber($cbtDurasiSiswa->lamaUjian);
+		$sqlQuery->setNumber($cbtDurasiSiswa->lama_ujian);
 		$sqlQuery->set($cbtDurasiSiswa->mulai);
 		$sqlQuery->set($cbtDurasiSiswa->selesai);
 		$sqlQuery->setNumber($cbtDurasiSiswa->reset);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtDurasiSiswa->idDurasi = $id;
+		$cbtDurasiSiswa->id_durasi = $id;
 		return $id;
 	}
 	
@@ -82,15 +82,15 @@ class CbtDurasiSiswaMySqlDAO implements CbtDurasiSiswaDAO{
 		$sql = 'UPDATE cbt_durasi_siswa SET id_siswa = ?, id_jadwal = ?, status = ?, lama_ujian = ?, mulai = ?, selesai = ?, reset = ? WHERE id_durasi = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtDurasiSiswa->idSiswa);
-		$sqlQuery->setNumber($cbtDurasiSiswa->idJadwal);
+		$sqlQuery->setNumber($cbtDurasiSiswa->id_siswa);
+		$sqlQuery->setNumber($cbtDurasiSiswa->id_jadwal);
 		$sqlQuery->setNumber($cbtDurasiSiswa->status);
-		$sqlQuery->setNumber($cbtDurasiSiswa->lamaUjian);
+		$sqlQuery->setNumber($cbtDurasiSiswa->lama_ujian);
 		$sqlQuery->set($cbtDurasiSiswa->mulai);
 		$sqlQuery->set($cbtDurasiSiswa->selesai);
 		$sqlQuery->setNumber($cbtDurasiSiswa->reset);
 
-		$sqlQuery->set($cbtDurasiSiswa->idDurasi);
+		$sqlQuery->set($cbtDurasiSiswa->id_durasi);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -307,11 +307,11 @@ class CbtDurasiSiswaMySqlDAO implements CbtDurasiSiswaDAO{
 	protected function readRow($row){
 		$cbtDurasiSiswa = new CbtDurasiSiswaDTO();
 		
-		$cbtDurasiSiswa->idDurasi = isset($row['id_durasi']) ? $row['id_durasi'] : null;
-		$cbtDurasiSiswa->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$cbtDurasiSiswa->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$cbtDurasiSiswa->id_durasi = isset($row['id_durasi']) ? $row['id_durasi'] : null;
+		$cbtDurasiSiswa->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$cbtDurasiSiswa->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
 		$cbtDurasiSiswa->status = isset($row['status']) ? $row['status'] : null;
-		$cbtDurasiSiswa->lamaUjian = isset($row['lama_ujian']) ? $row['lama_ujian'] : null;
+		$cbtDurasiSiswa->lama_ujian = isset($row['lama_ujian']) ? $row['lama_ujian'] : null;
 		$cbtDurasiSiswa->mulai = isset($row['mulai']) ? $row['mulai'] : null;
 		$cbtDurasiSiswa->selesai = isset($row['selesai']) ? $row['selesai'] : null;
 		$cbtDurasiSiswa->reset = isset($row['reset']) ? $row['reset'] : null;

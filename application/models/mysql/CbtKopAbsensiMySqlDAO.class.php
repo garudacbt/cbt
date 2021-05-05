@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_kop_absensi'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtKopAbsensiMySqlDAO implements CbtKopAbsensiDAO{
 
@@ -60,16 +60,16 @@ class CbtKopAbsensiMySqlDAO implements CbtKopAbsensiDAO{
 		$sql = 'INSERT INTO cbt_kop_absensi (header_1, header_2, header_3, header_4, proktor, pengawas_1, pengawas_2) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtKopAbsensi->header1);
-		$sqlQuery->set($cbtKopAbsensi->header2);
-		$sqlQuery->set($cbtKopAbsensi->header3);
-		$sqlQuery->set($cbtKopAbsensi->header4);
+		$sqlQuery->set($cbtKopAbsensi->header_1);
+		$sqlQuery->set($cbtKopAbsensi->header_2);
+		$sqlQuery->set($cbtKopAbsensi->header_3);
+		$sqlQuery->set($cbtKopAbsensi->header_4);
 		$sqlQuery->set($cbtKopAbsensi->proktor);
-		$sqlQuery->set($cbtKopAbsensi->pengawas1);
-		$sqlQuery->set($cbtKopAbsensi->pengawas2);
+		$sqlQuery->set($cbtKopAbsensi->pengawas_1);
+		$sqlQuery->set($cbtKopAbsensi->pengawas_2);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtKopAbsensi->idKop = $id;
+		$cbtKopAbsensi->id_kop = $id;
 		return $id;
 	}
 	
@@ -82,15 +82,15 @@ class CbtKopAbsensiMySqlDAO implements CbtKopAbsensiDAO{
 		$sql = 'UPDATE cbt_kop_absensi SET header_1 = ?, header_2 = ?, header_3 = ?, header_4 = ?, proktor = ?, pengawas_1 = ?, pengawas_2 = ? WHERE id_kop = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtKopAbsensi->header1);
-		$sqlQuery->set($cbtKopAbsensi->header2);
-		$sqlQuery->set($cbtKopAbsensi->header3);
-		$sqlQuery->set($cbtKopAbsensi->header4);
+		$sqlQuery->set($cbtKopAbsensi->header_1);
+		$sqlQuery->set($cbtKopAbsensi->header_2);
+		$sqlQuery->set($cbtKopAbsensi->header_3);
+		$sqlQuery->set($cbtKopAbsensi->header_4);
 		$sqlQuery->set($cbtKopAbsensi->proktor);
-		$sqlQuery->set($cbtKopAbsensi->pengawas1);
-		$sqlQuery->set($cbtKopAbsensi->pengawas2);
+		$sqlQuery->set($cbtKopAbsensi->pengawas_1);
+		$sqlQuery->set($cbtKopAbsensi->pengawas_2);
 
-		$sqlQuery->setNumber($cbtKopAbsensi->idKop);
+		$sqlQuery->setNumber($cbtKopAbsensi->id_kop);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -307,14 +307,14 @@ class CbtKopAbsensiMySqlDAO implements CbtKopAbsensiDAO{
 	protected function readRow($row){
 		$cbtKopAbsensi = new CbtKopAbsensiDTO();
 		
-		$cbtKopAbsensi->idKop = isset($row['id_kop']) ? $row['id_kop'] : null;
-		$cbtKopAbsensi->header1 = isset($row['header_1']) ? $row['header_1'] : null;
-		$cbtKopAbsensi->header2 = isset($row['header_2']) ? $row['header_2'] : null;
-		$cbtKopAbsensi->header3 = isset($row['header_3']) ? $row['header_3'] : null;
-		$cbtKopAbsensi->header4 = isset($row['header_4']) ? $row['header_4'] : null;
+		$cbtKopAbsensi->id_kop = isset($row['id_kop']) ? $row['id_kop'] : null;
+		$cbtKopAbsensi->header_1 = isset($row['header_1']) ? $row['header_1'] : null;
+		$cbtKopAbsensi->header_2 = isset($row['header_2']) ? $row['header_2'] : null;
+		$cbtKopAbsensi->header_3 = isset($row['header_3']) ? $row['header_3'] : null;
+		$cbtKopAbsensi->header_4 = isset($row['header_4']) ? $row['header_4'] : null;
 		$cbtKopAbsensi->proktor = isset($row['proktor']) ? $row['proktor'] : null;
-		$cbtKopAbsensi->pengawas1 = isset($row['pengawas_1']) ? $row['pengawas_1'] : null;
-		$cbtKopAbsensi->pengawas2 = isset($row['pengawas_2']) ? $row['pengawas_2'] : null;
+		$cbtKopAbsensi->pengawas_1 = isset($row['pengawas_1']) ? $row['pengawas_1'] : null;
+		$cbtKopAbsensi->pengawas_2 = isset($row['pengawas_2']) ? $row['pengawas_2'] : null;
 
 		return $cbtKopAbsensi;
 	}

@@ -3,7 +3,7 @@
  * Class that operate on table 'login_attempts'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class LoginAttemptsMySqlDAO implements LoginAttemptsDAO{
 
@@ -60,7 +60,7 @@ class LoginAttemptsMySqlDAO implements LoginAttemptsDAO{
 		$sql = 'INSERT INTO login_attempts (ip_address, login, time) VALUES (?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($loginAttempt->ipAddress);
+		$sqlQuery->set($loginAttempt->ip_address);
 		$sqlQuery->set($loginAttempt->login);
 		$sqlQuery->setNumber($loginAttempt->time);
 
@@ -78,7 +78,7 @@ class LoginAttemptsMySqlDAO implements LoginAttemptsDAO{
 		$sql = 'UPDATE login_attempts SET ip_address = ?, login = ?, time = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($loginAttempt->ipAddress);
+		$sqlQuery->set($loginAttempt->ip_address);
 		$sqlQuery->set($loginAttempt->login);
 		$sqlQuery->setNumber($loginAttempt->time);
 
@@ -232,7 +232,7 @@ class LoginAttemptsMySqlDAO implements LoginAttemptsDAO{
 		$loginAttempt = new LoginAttemptsDTO();
 		
 		$loginAttempt->id = isset($row['id']) ? $row['id'] : null;
-		$loginAttempt->ipAddress = isset($row['ip_address']) ? $row['ip_address'] : null;
+		$loginAttempt->ip_address = isset($row['ip_address']) ? $row['ip_address'] : null;
 		$loginAttempt->login = isset($row['login']) ? $row['login'] : null;
 		$loginAttempt->time = isset($row['time']) ? $row['time'] : null;
 

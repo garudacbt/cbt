@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_pengawas'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtPengawasMySqlDAO implements CbtPengawasDAO{
 
@@ -60,10 +60,10 @@ class CbtPengawasMySqlDAO implements CbtPengawasDAO{
 		$sql = 'INSERT INTO cbt_pengawas (id_jadwal) VALUES (?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtPengawa->idJadwal);
+		$sqlQuery->set($cbtPengawa->id_jadwal);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtPengawa->idPengawas = $id;
+		$cbtPengawa->id_pengawas = $id;
 		return $id;
 	}
 	
@@ -76,9 +76,9 @@ class CbtPengawasMySqlDAO implements CbtPengawasDAO{
 		$sql = 'UPDATE cbt_pengawas SET id_jadwal = ? WHERE id_pengawas = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtPengawa->idJadwal);
+		$sqlQuery->set($cbtPengawa->id_jadwal);
 
-		$sqlQuery->setNumber($cbtPengawa->idPengawas);
+		$sqlQuery->setNumber($cbtPengawa->id_pengawas);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -193,8 +193,8 @@ class CbtPengawasMySqlDAO implements CbtPengawasDAO{
 	protected function readRow($row){
 		$cbtPengawa = new CbtPengawasDTO();
 		
-		$cbtPengawa->idPengawas = isset($row['id_pengawas']) ? $row['id_pengawas'] : null;
-		$cbtPengawa->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$cbtPengawa->id_pengawas = isset($row['id_pengawas']) ? $row['id_pengawas'] : null;
+		$cbtPengawa->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
 
 		return $cbtPengawa;
 	}

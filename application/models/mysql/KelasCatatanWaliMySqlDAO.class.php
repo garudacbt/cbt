@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_catatan_wali'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasCatatanWaliMySqlDAO implements KelasCatatanWaliDAO{
 
@@ -60,20 +60,20 @@ class KelasCatatanWaliMySqlDAO implements KelasCatatanWaliDAO{
 		$sql = 'INSERT INTO kelas_catatan_wali (id_tp, id_smt, type, level, tgl, id_siswa, id_kelas, text, readed, reading, jml) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasCatatanWali->idTp);
-		$sqlQuery->setNumber($kelasCatatanWali->idSmt);
+		$sqlQuery->setNumber($kelasCatatanWali->id_tp);
+		$sqlQuery->setNumber($kelasCatatanWali->id_smt);
 		$sqlQuery->setNumber($kelasCatatanWali->type);
 		$sqlQuery->set($kelasCatatanWali->level);
 		$sqlQuery->set($kelasCatatanWali->tgl);
-		$sqlQuery->setNumber($kelasCatatanWali->idSiswa);
-		$sqlQuery->setNumber($kelasCatatanWali->idKelas);
+		$sqlQuery->setNumber($kelasCatatanWali->id_siswa);
+		$sqlQuery->setNumber($kelasCatatanWali->id_kelas);
 		$sqlQuery->set($kelasCatatanWali->text);
 		$sqlQuery->set($kelasCatatanWali->readed);
 		$sqlQuery->set($kelasCatatanWali->reading);
 		$sqlQuery->setNumber($kelasCatatanWali->jml);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasCatatanWali->idCatatan = $id;
+		$kelasCatatanWali->id_catatan = $id;
 		return $id;
 	}
 	
@@ -86,19 +86,19 @@ class KelasCatatanWaliMySqlDAO implements KelasCatatanWaliDAO{
 		$sql = 'UPDATE kelas_catatan_wali SET id_tp = ?, id_smt = ?, type = ?, level = ?, tgl = ?, id_siswa = ?, id_kelas = ?, text = ?, readed = ?, reading = ?, jml = ? WHERE id_catatan = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasCatatanWali->idTp);
-		$sqlQuery->setNumber($kelasCatatanWali->idSmt);
+		$sqlQuery->setNumber($kelasCatatanWali->id_tp);
+		$sqlQuery->setNumber($kelasCatatanWali->id_smt);
 		$sqlQuery->setNumber($kelasCatatanWali->type);
 		$sqlQuery->set($kelasCatatanWali->level);
 		$sqlQuery->set($kelasCatatanWali->tgl);
-		$sqlQuery->setNumber($kelasCatatanWali->idSiswa);
-		$sqlQuery->setNumber($kelasCatatanWali->idKelas);
+		$sqlQuery->setNumber($kelasCatatanWali->id_siswa);
+		$sqlQuery->setNumber($kelasCatatanWali->id_kelas);
 		$sqlQuery->set($kelasCatatanWali->text);
 		$sqlQuery->set($kelasCatatanWali->readed);
 		$sqlQuery->set($kelasCatatanWali->reading);
 		$sqlQuery->setNumber($kelasCatatanWali->jml);
 
-		$sqlQuery->setNumber($kelasCatatanWali->idCatatan);
+		$sqlQuery->setNumber($kelasCatatanWali->id_catatan);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -383,14 +383,14 @@ class KelasCatatanWaliMySqlDAO implements KelasCatatanWaliDAO{
 	protected function readRow($row){
 		$kelasCatatanWali = new KelasCatatanWaliDTO();
 		
-		$kelasCatatanWali->idCatatan = isset($row['id_catatan']) ? $row['id_catatan'] : null;
-		$kelasCatatanWali->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasCatatanWali->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasCatatanWali->id_catatan = isset($row['id_catatan']) ? $row['id_catatan'] : null;
+		$kelasCatatanWali->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasCatatanWali->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$kelasCatatanWali->type = isset($row['type']) ? $row['type'] : null;
 		$kelasCatatanWali->level = isset($row['level']) ? $row['level'] : null;
 		$kelasCatatanWali->tgl = isset($row['tgl']) ? $row['tgl'] : null;
-		$kelasCatatanWali->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$kelasCatatanWali->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$kelasCatatanWali->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$kelasCatatanWali->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
 		$kelasCatatanWali->text = isset($row['text']) ? $row['text'] : null;
 		$kelasCatatanWali->readed = isset($row['readed']) ? $row['readed'] : null;
 		$kelasCatatanWali->reading = isset($row['reading']) ? $row['reading'] : null;

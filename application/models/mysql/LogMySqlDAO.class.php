@@ -3,7 +3,7 @@
  * Class that operate on table 'log'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class LogMySqlDAO implements LogDAO{
 
@@ -60,18 +60,18 @@ class LogMySqlDAO implements LogDAO{
 		$sql = 'INSERT INTO log (log_time, id_user, id_group, name_group, log_type, log_desc, address, agent, device) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($log->logTime);
-		$sqlQuery->setNumber($log->idUser);
-		$sqlQuery->setNumber($log->idGroup);
-		$sqlQuery->set($log->nameGroup);
-		$sqlQuery->setNumber($log->logType);
-		$sqlQuery->set($log->logDesc);
+		$sqlQuery->set($log->log_time);
+		$sqlQuery->setNumber($log->id_user);
+		$sqlQuery->setNumber($log->id_group);
+		$sqlQuery->set($log->name_group);
+		$sqlQuery->setNumber($log->log_type);
+		$sqlQuery->set($log->log_desc);
 		$sqlQuery->set($log->address);
 		$sqlQuery->set($log->agent);
 		$sqlQuery->set($log->device);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$log->idLog = $id;
+		$log->id_log = $id;
 		return $id;
 	}
 	
@@ -84,17 +84,17 @@ class LogMySqlDAO implements LogDAO{
 		$sql = 'UPDATE log SET log_time = ?, id_user = ?, id_group = ?, name_group = ?, log_type = ?, log_desc = ?, address = ?, agent = ?, device = ? WHERE id_log = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($log->logTime);
-		$sqlQuery->setNumber($log->idUser);
-		$sqlQuery->setNumber($log->idGroup);
-		$sqlQuery->set($log->nameGroup);
-		$sqlQuery->setNumber($log->logType);
-		$sqlQuery->set($log->logDesc);
+		$sqlQuery->set($log->log_time);
+		$sqlQuery->setNumber($log->id_user);
+		$sqlQuery->setNumber($log->id_group);
+		$sqlQuery->set($log->name_group);
+		$sqlQuery->setNumber($log->log_type);
+		$sqlQuery->set($log->log_desc);
 		$sqlQuery->set($log->address);
 		$sqlQuery->set($log->agent);
 		$sqlQuery->set($log->device);
 
-		$sqlQuery->setNumber($log->idLog);
+		$sqlQuery->setNumber($log->id_log);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -345,13 +345,13 @@ class LogMySqlDAO implements LogDAO{
 	protected function readRow($row){
 		$log = new LogDTO();
 		
-		$log->idLog = isset($row['id_log']) ? $row['id_log'] : null;
-		$log->logTime = isset($row['log_time']) ? $row['log_time'] : null;
-		$log->idUser = isset($row['id_user']) ? $row['id_user'] : null;
-		$log->idGroup = isset($row['id_group']) ? $row['id_group'] : null;
-		$log->nameGroup = isset($row['name_group']) ? $row['name_group'] : null;
-		$log->logType = isset($row['log_type']) ? $row['log_type'] : null;
-		$log->logDesc = isset($row['log_desc']) ? $row['log_desc'] : null;
+		$log->id_log = isset($row['id_log']) ? $row['id_log'] : null;
+		$log->log_time = isset($row['log_time']) ? $row['log_time'] : null;
+		$log->id_user = isset($row['id_user']) ? $row['id_user'] : null;
+		$log->id_group = isset($row['id_group']) ? $row['id_group'] : null;
+		$log->name_group = isset($row['name_group']) ? $row['name_group'] : null;
+		$log->log_type = isset($row['log_type']) ? $row['log_type'] : null;
+		$log->log_desc = isset($row['log_desc']) ? $row['log_desc'] : null;
 		$log->address = isset($row['address']) ? $row['address'] : null;
 		$log->agent = isset($row['agent']) ? $row['agent'] : null;
 		$log->device = isset($row['device']) ? $row['device'] : null;

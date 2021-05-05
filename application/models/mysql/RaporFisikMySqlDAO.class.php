@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_fisik'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporFisikMySqlDAO implements RaporFisikDAO{
 
@@ -60,16 +60,16 @@ class RaporFisikMySqlDAO implements RaporFisikDAO{
 		$sql = 'INSERT INTO rapor_fisik (id_kelas, id_siswa, id_tp, id_smt, kondisi, tinggi, berat) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporFisik->idKelas);
-		$sqlQuery->setNumber($raporFisik->idSiswa);
-		$sqlQuery->setNumber($raporFisik->idTp);
-		$sqlQuery->setNumber($raporFisik->idSmt);
+		$sqlQuery->setNumber($raporFisik->id_kelas);
+		$sqlQuery->setNumber($raporFisik->id_siswa);
+		$sqlQuery->setNumber($raporFisik->id_tp);
+		$sqlQuery->setNumber($raporFisik->id_smt);
 		$sqlQuery->set($raporFisik->kondisi);
 		$sqlQuery->setNumber($raporFisik->tinggi);
 		$sqlQuery->setNumber($raporFisik->berat);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporFisik->idFisik = $id;
+		$raporFisik->id_fisik = $id;
 		return $id;
 	}
 	
@@ -82,15 +82,15 @@ class RaporFisikMySqlDAO implements RaporFisikDAO{
 		$sql = 'UPDATE rapor_fisik SET id_kelas = ?, id_siswa = ?, id_tp = ?, id_smt = ?, kondisi = ?, tinggi = ?, berat = ? WHERE id_fisik = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporFisik->idKelas);
-		$sqlQuery->setNumber($raporFisik->idSiswa);
-		$sqlQuery->setNumber($raporFisik->idTp);
-		$sqlQuery->setNumber($raporFisik->idSmt);
+		$sqlQuery->setNumber($raporFisik->id_kelas);
+		$sqlQuery->setNumber($raporFisik->id_siswa);
+		$sqlQuery->setNumber($raporFisik->id_tp);
+		$sqlQuery->setNumber($raporFisik->id_smt);
 		$sqlQuery->set($raporFisik->kondisi);
 		$sqlQuery->setNumber($raporFisik->tinggi);
 		$sqlQuery->setNumber($raporFisik->berat);
 
-		$sqlQuery->setNumber($raporFisik->idFisik);
+		$sqlQuery->setNumber($raporFisik->id_fisik);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -307,11 +307,11 @@ class RaporFisikMySqlDAO implements RaporFisikDAO{
 	protected function readRow($row){
 		$raporFisik = new RaporFisikDTO();
 		
-		$raporFisik->idFisik = isset($row['id_fisik']) ? $row['id_fisik'] : null;
-		$raporFisik->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$raporFisik->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$raporFisik->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$raporFisik->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporFisik->id_fisik = isset($row['id_fisik']) ? $row['id_fisik'] : null;
+		$raporFisik->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporFisik->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$raporFisik->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporFisik->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$raporFisik->kondisi = isset($row['kondisi']) ? $row['kondisi'] : null;
 		$raporFisik->tinggi = isset($row['tinggi']) ? $row['tinggi'] : null;
 		$raporFisik->berat = isset($row['berat']) ? $row['berat'] : null;

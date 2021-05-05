@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_jenis'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtJenisMySqlDAO implements CbtJenisDAO{
 
@@ -60,11 +60,11 @@ class CbtJenisMySqlDAO implements CbtJenisDAO{
 		$sql = 'INSERT INTO cbt_jenis (nama_jenis, kode_jenis) VALUES (?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtJeni->namaJenis);
-		$sqlQuery->set($cbtJeni->kodeJenis);
+		$sqlQuery->set($cbtJeni->nama_jenis);
+		$sqlQuery->set($cbtJeni->kode_jenis);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtJeni->idJenis = $id;
+		$cbtJeni->id_jenis = $id;
 		return $id;
 	}
 	
@@ -77,10 +77,10 @@ class CbtJenisMySqlDAO implements CbtJenisDAO{
 		$sql = 'UPDATE cbt_jenis SET nama_jenis = ?, kode_jenis = ? WHERE id_jenis = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($cbtJeni->namaJenis);
-		$sqlQuery->set($cbtJeni->kodeJenis);
+		$sqlQuery->set($cbtJeni->nama_jenis);
+		$sqlQuery->set($cbtJeni->kode_jenis);
 
-		$sqlQuery->setNumber($cbtJeni->idJenis);
+		$sqlQuery->setNumber($cbtJeni->id_jenis);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -212,9 +212,9 @@ class CbtJenisMySqlDAO implements CbtJenisDAO{
 	protected function readRow($row){
 		$cbtJeni = new CbtJenisDTO();
 		
-		$cbtJeni->idJenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
-		$cbtJeni->namaJenis = isset($row['nama_jenis']) ? $row['nama_jenis'] : null;
-		$cbtJeni->kodeJenis = isset($row['kode_jenis']) ? $row['kode_jenis'] : null;
+		$cbtJeni->id_jenis = isset($row['id_jenis']) ? $row['id_jenis'] : null;
+		$cbtJeni->nama_jenis = isset($row['nama_jenis']) ? $row['nama_jenis'] : null;
+		$cbtJeni->kode_jenis = isset($row['kode_jenis']) ? $row['kode_jenis'] : null;
 
 		return $cbtJeni;
 	}

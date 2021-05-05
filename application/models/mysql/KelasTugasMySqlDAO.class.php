@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_tugas'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasTugasMySqlDAO implements KelasTugasDAO{
 
@@ -57,28 +57,28 @@ class KelasTugasMySqlDAO implements KelasTugasDAO{
  	 * @param KelasTugasDTO kelasTuga
  	 */
 	public function insert($kelasTuga){
-		$sql = 'INSERT INTO kelas_tugas (id_tp, id_smt, kode_tugas, id_guru, tugas_kelas, id_mapel, nama_mapel, judul_tugas, isi_tugas, file, link_file, tgl_mulai, created_on, updated_on, status, tgl_selesai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO kelas_tugas (id_tp, id_smt, kode_tugas, id_guru, tugas_kelas, id_mapel, kode_mapel, judul_tugas, isi_tugas, file, link_file, tgl_mulai, created_on, updated_on, status, youtube) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasTuga->idTp);
-		$sqlQuery->setNumber($kelasTuga->idSmt);
-		$sqlQuery->set($kelasTuga->kodeTugas);
-		$sqlQuery->setNumber($kelasTuga->idGuru);
-		$sqlQuery->set($kelasTuga->tugasKelas);
-		$sqlQuery->setNumber($kelasTuga->idMapel);
-		$sqlQuery->set($kelasTuga->namaMapel);
-		$sqlQuery->set($kelasTuga->judulTugas);
-		$sqlQuery->set($kelasTuga->isiTugas);
+		$sqlQuery->setNumber($kelasTuga->id_tp);
+		$sqlQuery->setNumber($kelasTuga->id_smt);
+		$sqlQuery->set($kelasTuga->kode_tugas);
+		$sqlQuery->setNumber($kelasTuga->id_guru);
+		$sqlQuery->set($kelasTuga->tugas_kelas);
+		$sqlQuery->setNumber($kelasTuga->id_mapel);
+		$sqlQuery->set($kelasTuga->kode_mapel);
+		$sqlQuery->set($kelasTuga->judul_tugas);
+		$sqlQuery->set($kelasTuga->isi_tugas);
 		$sqlQuery->set($kelasTuga->file);
-		$sqlQuery->set($kelasTuga->linkFile);
-		$sqlQuery->set($kelasTuga->tglMulai);
-		$sqlQuery->set($kelasTuga->createdOn);
-		$sqlQuery->set($kelasTuga->updatedOn);
+		$sqlQuery->set($kelasTuga->link_file);
+		$sqlQuery->set($kelasTuga->tgl_mulai);
+		$sqlQuery->set($kelasTuga->created_on);
+		$sqlQuery->set($kelasTuga->updated_on);
 		$sqlQuery->setNumber($kelasTuga->status);
-		$sqlQuery->set($kelasTuga->tglSelesai);
+		$sqlQuery->set($kelasTuga->youtube);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasTuga->idTugas = $id;
+		$kelasTuga->id_tugas = $id;
 		return $id;
 	}
 	
@@ -88,27 +88,27 @@ class KelasTugasMySqlDAO implements KelasTugasDAO{
  	 * @param KelasTugasDTO kelasTuga
  	 */
 	public function update($kelasTuga){
-		$sql = 'UPDATE kelas_tugas SET id_tp = ?, id_smt = ?, kode_tugas = ?, id_guru = ?, tugas_kelas = ?, id_mapel = ?, nama_mapel = ?, judul_tugas = ?, isi_tugas = ?, file = ?, link_file = ?, tgl_mulai = ?, created_on = ?, updated_on = ?, status = ?, tgl_selesai = ? WHERE id_tugas = ?';
+		$sql = 'UPDATE kelas_tugas SET id_tp = ?, id_smt = ?, kode_tugas = ?, id_guru = ?, tugas_kelas = ?, id_mapel = ?, kode_mapel = ?, judul_tugas = ?, isi_tugas = ?, file = ?, link_file = ?, tgl_mulai = ?, created_on = ?, updated_on = ?, status = ?, youtube = ? WHERE id_tugas = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasTuga->idTp);
-		$sqlQuery->setNumber($kelasTuga->idSmt);
-		$sqlQuery->set($kelasTuga->kodeTugas);
-		$sqlQuery->setNumber($kelasTuga->idGuru);
-		$sqlQuery->set($kelasTuga->tugasKelas);
-		$sqlQuery->setNumber($kelasTuga->idMapel);
-		$sqlQuery->set($kelasTuga->namaMapel);
-		$sqlQuery->set($kelasTuga->judulTugas);
-		$sqlQuery->set($kelasTuga->isiTugas);
+		$sqlQuery->setNumber($kelasTuga->id_tp);
+		$sqlQuery->setNumber($kelasTuga->id_smt);
+		$sqlQuery->set($kelasTuga->kode_tugas);
+		$sqlQuery->setNumber($kelasTuga->id_guru);
+		$sqlQuery->set($kelasTuga->tugas_kelas);
+		$sqlQuery->setNumber($kelasTuga->id_mapel);
+		$sqlQuery->set($kelasTuga->kode_mapel);
+		$sqlQuery->set($kelasTuga->judul_tugas);
+		$sqlQuery->set($kelasTuga->isi_tugas);
 		$sqlQuery->set($kelasTuga->file);
-		$sqlQuery->set($kelasTuga->linkFile);
-		$sqlQuery->set($kelasTuga->tglMulai);
-		$sqlQuery->set($kelasTuga->createdOn);
-		$sqlQuery->set($kelasTuga->updatedOn);
+		$sqlQuery->set($kelasTuga->link_file);
+		$sqlQuery->set($kelasTuga->tgl_mulai);
+		$sqlQuery->set($kelasTuga->created_on);
+		$sqlQuery->set($kelasTuga->updated_on);
 		$sqlQuery->setNumber($kelasTuga->status);
-		$sqlQuery->set($kelasTuga->tglSelesai);
+		$sqlQuery->set($kelasTuga->youtube);
 
-		$sqlQuery->setNumber($kelasTuga->idTugas);
+		$sqlQuery->setNumber($kelasTuga->id_tugas);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -230,8 +230,8 @@ class KelasTugasMySqlDAO implements KelasTugasDAO{
 		return $this->getList($sqlQuery);
 	}
 
-	public function queryByNamaMapel($value, $single = false){
-		$sql = 'SELECT * FROM kelas_tugas WHERE nama_mapel = ?';
+	public function queryByKodeMapel($value, $single = false){
+		$sql = 'SELECT * FROM kelas_tugas WHERE kode_mapel = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		if ($single === true)
@@ -320,8 +320,8 @@ class KelasTugasMySqlDAO implements KelasTugasDAO{
 		return $this->getList($sqlQuery);
 	}
 
-	public function queryByTglSelesai($value, $single = false){
-		$sql = 'SELECT * FROM kelas_tugas WHERE tgl_selesai = ?';
+	public function queryByYoutube($value, $single = false){
+		$sql = 'SELECT * FROM kelas_tugas WHERE youtube = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		if ($single === true)
@@ -380,8 +380,8 @@ class KelasTugasMySqlDAO implements KelasTugasDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
-	public function deleteByNamaMapel($value){
-		$sql = 'DELETE FROM kelas_tugas WHERE nama_mapel = ?';
+	public function deleteByKodeMapel($value){
+		$sql = 'DELETE FROM kelas_tugas WHERE kode_mapel = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
@@ -443,8 +443,8 @@ class KelasTugasMySqlDAO implements KelasTugasDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
-	public function deleteByTglSelesai($value){
-		$sql = 'DELETE FROM kelas_tugas WHERE tgl_selesai = ?';
+	public function deleteByYoutube($value){
+		$sql = 'DELETE FROM kelas_tugas WHERE youtube = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
@@ -478,23 +478,23 @@ class KelasTugasMySqlDAO implements KelasTugasDAO{
 	protected function readRow($row){
 		$kelasTuga = new KelasTugasDTO();
 		
-		$kelasTuga->idTugas = isset($row['id_tugas']) ? $row['id_tugas'] : null;
-		$kelasTuga->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasTuga->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$kelasTuga->kodeTugas = isset($row['kode_tugas']) ? $row['kode_tugas'] : null;
-		$kelasTuga->idGuru = isset($row['id_guru']) ? $row['id_guru'] : null;
-		$kelasTuga->tugasKelas = isset($row['tugas_kelas']) ? $row['tugas_kelas'] : null;
-		$kelasTuga->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$kelasTuga->namaMapel = isset($row['nama_mapel']) ? $row['nama_mapel'] : null;
-		$kelasTuga->judulTugas = isset($row['judul_tugas']) ? $row['judul_tugas'] : null;
-		$kelasTuga->isiTugas = isset($row['isi_tugas']) ? $row['isi_tugas'] : null;
+		$kelasTuga->id_tugas = isset($row['id_tugas']) ? $row['id_tugas'] : null;
+		$kelasTuga->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasTuga->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasTuga->kode_tugas = isset($row['kode_tugas']) ? $row['kode_tugas'] : null;
+		$kelasTuga->id_guru = isset($row['id_guru']) ? $row['id_guru'] : null;
+		$kelasTuga->tugas_kelas = isset($row['tugas_kelas']) ? $row['tugas_kelas'] : null;
+		$kelasTuga->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$kelasTuga->kode_mapel = isset($row['kode_mapel']) ? $row['kode_mapel'] : null;
+		$kelasTuga->judul_tugas = isset($row['judul_tugas']) ? $row['judul_tugas'] : null;
+		$kelasTuga->isi_tugas = isset($row['isi_tugas']) ? $row['isi_tugas'] : null;
 		$kelasTuga->file = isset($row['file']) ? $row['file'] : null;
-		$kelasTuga->linkFile = isset($row['link_file']) ? $row['link_file'] : null;
-		$kelasTuga->tglMulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
-		$kelasTuga->createdOn = isset($row['created_on']) ? $row['created_on'] : null;
-		$kelasTuga->updatedOn = isset($row['updated_on']) ? $row['updated_on'] : null;
+		$kelasTuga->link_file = isset($row['link_file']) ? $row['link_file'] : null;
+		$kelasTuga->tgl_mulai = isset($row['tgl_mulai']) ? $row['tgl_mulai'] : null;
+		$kelasTuga->created_on = isset($row['created_on']) ? $row['created_on'] : null;
+		$kelasTuga->updated_on = isset($row['updated_on']) ? $row['updated_on'] : null;
 		$kelasTuga->status = isset($row['status']) ? $row['status'] : null;
-		$kelasTuga->tglSelesai = isset($row['tgl_selesai']) ? $row['tgl_selesai'] : null;
+		$kelasTuga->youtube = isset($row['youtube']) ? $row['youtube'] : null;
 
 		return $kelasTuga;
 	}

@@ -3,7 +3,7 @@
  * Class that operate on table 'users_groups'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class UsersGroupsMySqlDAO implements UsersGroupsDAO{
 
@@ -60,8 +60,8 @@ class UsersGroupsMySqlDAO implements UsersGroupsDAO{
 		$sql = 'INSERT INTO users_groups (user_id, group_id) VALUES (?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($usersGroup->userId);
-		$sqlQuery->set($usersGroup->groupId);
+		$sqlQuery->setNumber($usersGroup->user_id);
+		$sqlQuery->set($usersGroup->group_id);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$usersGroup->id = $id;
@@ -77,8 +77,8 @@ class UsersGroupsMySqlDAO implements UsersGroupsDAO{
 		$sql = 'UPDATE users_groups SET user_id = ?, group_id = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($usersGroup->userId);
-		$sqlQuery->set($usersGroup->groupId);
+		$sqlQuery->setNumber($usersGroup->user_id);
+		$sqlQuery->set($usersGroup->group_id);
 
 		$sqlQuery->setNumber($usersGroup->id);
 		return $this->executeUpdate($sqlQuery);
@@ -213,8 +213,8 @@ class UsersGroupsMySqlDAO implements UsersGroupsDAO{
 		$usersGroup = new UsersGroupsDTO();
 		
 		$usersGroup->id = isset($row['id']) ? $row['id'] : null;
-		$usersGroup->userId = isset($row['user_id']) ? $row['user_id'] : null;
-		$usersGroup->groupId = isset($row['group_id']) ? $row['group_id'] : null;
+		$usersGroup->user_id = isset($row['user_id']) ? $row['user_id'] : null;
+		$usersGroup->group_id = isset($row['group_id']) ? $row['group_id'] : null;
 
 		return $usersGroup;
 	}

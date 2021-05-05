@@ -3,7 +3,7 @@
  * Class that operate on table 'master_guru'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterGuruMySqlDAO implements MasterGuruDAO{
 
@@ -60,41 +60,41 @@ class MasterGuruMySqlDAO implements MasterGuruDAO{
 		$sql = 'INSERT INTO master_guru (id_user, nip, nama_guru, email, kode_guru, username, password, no_ktp, tempat_lahir, tgl_lahir, jenis_kelamin, agama, no_hp, alamat_jalan, rt_rw, dusun, kelurahan, kecamatan, kabupaten, provinsi, kode_pos, kewarganegaraan, nuptk, jenis_ptk, tgs_tambahan, status_pegawai, status_aktif, status_nikah, tmt, keahlian_isyarat, npwp, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($masterGuru->idUser);
+		$sqlQuery->setNumber($masterGuru->id_user);
 		$sqlQuery->set($masterGuru->nip);
-		$sqlQuery->set($masterGuru->namaGuru);
+		$sqlQuery->set($masterGuru->nama_guru);
 		$sqlQuery->set($masterGuru->email);
-		$sqlQuery->set($masterGuru->kodeGuru);
+		$sqlQuery->set($masterGuru->kode_guru);
 		$sqlQuery->set($masterGuru->username);
 		$sqlQuery->set($masterGuru->password);
-		$sqlQuery->set($masterGuru->noKtp);
-		$sqlQuery->set($masterGuru->tempatLahir);
-		$sqlQuery->set($masterGuru->tglLahir);
-		$sqlQuery->set($masterGuru->jenisKelamin);
+		$sqlQuery->set($masterGuru->no_ktp);
+		$sqlQuery->set($masterGuru->tempat_lahir);
+		$sqlQuery->set($masterGuru->tgl_lahir);
+		$sqlQuery->set($masterGuru->jenis_kelamin);
 		$sqlQuery->set($masterGuru->agama);
-		$sqlQuery->set($masterGuru->noHp);
-		$sqlQuery->set($masterGuru->alamatJalan);
-		$sqlQuery->set($masterGuru->rtRw);
+		$sqlQuery->set($masterGuru->no_hp);
+		$sqlQuery->set($masterGuru->alamat_jalan);
+		$sqlQuery->set($masterGuru->rt_rw);
 		$sqlQuery->set($masterGuru->dusun);
 		$sqlQuery->set($masterGuru->kelurahan);
 		$sqlQuery->set($masterGuru->kecamatan);
 		$sqlQuery->set($masterGuru->kabupaten);
 		$sqlQuery->set($masterGuru->provinsi);
-		$sqlQuery->setNumber($masterGuru->kodePos);
+		$sqlQuery->setNumber($masterGuru->kode_pos);
 		$sqlQuery->set($masterGuru->kewarganegaraan);
 		$sqlQuery->set($masterGuru->nuptk);
-		$sqlQuery->set($masterGuru->jenisPtk);
-		$sqlQuery->set($masterGuru->tgsTambahan);
-		$sqlQuery->set($masterGuru->statusPegawai);
-		$sqlQuery->set($masterGuru->statusAktif);
-		$sqlQuery->set($masterGuru->statusNikah);
+		$sqlQuery->set($masterGuru->jenis_ptk);
+		$sqlQuery->set($masterGuru->tgs_tambahan);
+		$sqlQuery->set($masterGuru->status_pegawai);
+		$sqlQuery->set($masterGuru->status_aktif);
+		$sqlQuery->set($masterGuru->status_nikah);
 		$sqlQuery->set($masterGuru->tmt);
-		$sqlQuery->set($masterGuru->keahlianIsyarat);
+		$sqlQuery->set($masterGuru->keahlian_isyarat);
 		$sqlQuery->set($masterGuru->npwp);
 		$sqlQuery->set($masterGuru->foto);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterGuru->idGuru = $id;
+		$masterGuru->id_guru = $id;
 		return $id;
 	}
 	
@@ -107,40 +107,40 @@ class MasterGuruMySqlDAO implements MasterGuruDAO{
 		$sql = 'UPDATE master_guru SET id_user = ?, nip = ?, nama_guru = ?, email = ?, kode_guru = ?, username = ?, password = ?, no_ktp = ?, tempat_lahir = ?, tgl_lahir = ?, jenis_kelamin = ?, agama = ?, no_hp = ?, alamat_jalan = ?, rt_rw = ?, dusun = ?, kelurahan = ?, kecamatan = ?, kabupaten = ?, provinsi = ?, kode_pos = ?, kewarganegaraan = ?, nuptk = ?, jenis_ptk = ?, tgs_tambahan = ?, status_pegawai = ?, status_aktif = ?, status_nikah = ?, tmt = ?, keahlian_isyarat = ?, npwp = ?, foto = ? WHERE id_guru = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($masterGuru->idUser);
+		$sqlQuery->setNumber($masterGuru->id_user);
 		$sqlQuery->set($masterGuru->nip);
-		$sqlQuery->set($masterGuru->namaGuru);
+		$sqlQuery->set($masterGuru->nama_guru);
 		$sqlQuery->set($masterGuru->email);
-		$sqlQuery->set($masterGuru->kodeGuru);
+		$sqlQuery->set($masterGuru->kode_guru);
 		$sqlQuery->set($masterGuru->username);
 		$sqlQuery->set($masterGuru->password);
-		$sqlQuery->set($masterGuru->noKtp);
-		$sqlQuery->set($masterGuru->tempatLahir);
-		$sqlQuery->set($masterGuru->tglLahir);
-		$sqlQuery->set($masterGuru->jenisKelamin);
+		$sqlQuery->set($masterGuru->no_ktp);
+		$sqlQuery->set($masterGuru->tempat_lahir);
+		$sqlQuery->set($masterGuru->tgl_lahir);
+		$sqlQuery->set($masterGuru->jenis_kelamin);
 		$sqlQuery->set($masterGuru->agama);
-		$sqlQuery->set($masterGuru->noHp);
-		$sqlQuery->set($masterGuru->alamatJalan);
-		$sqlQuery->set($masterGuru->rtRw);
+		$sqlQuery->set($masterGuru->no_hp);
+		$sqlQuery->set($masterGuru->alamat_jalan);
+		$sqlQuery->set($masterGuru->rt_rw);
 		$sqlQuery->set($masterGuru->dusun);
 		$sqlQuery->set($masterGuru->kelurahan);
 		$sqlQuery->set($masterGuru->kecamatan);
 		$sqlQuery->set($masterGuru->kabupaten);
 		$sqlQuery->set($masterGuru->provinsi);
-		$sqlQuery->setNumber($masterGuru->kodePos);
+		$sqlQuery->setNumber($masterGuru->kode_pos);
 		$sqlQuery->set($masterGuru->kewarganegaraan);
 		$sqlQuery->set($masterGuru->nuptk);
-		$sqlQuery->set($masterGuru->jenisPtk);
-		$sqlQuery->set($masterGuru->tgsTambahan);
-		$sqlQuery->set($masterGuru->statusPegawai);
-		$sqlQuery->set($masterGuru->statusAktif);
-		$sqlQuery->set($masterGuru->statusNikah);
+		$sqlQuery->set($masterGuru->jenis_ptk);
+		$sqlQuery->set($masterGuru->tgs_tambahan);
+		$sqlQuery->set($masterGuru->status_pegawai);
+		$sqlQuery->set($masterGuru->status_aktif);
+		$sqlQuery->set($masterGuru->status_nikah);
 		$sqlQuery->set($masterGuru->tmt);
-		$sqlQuery->set($masterGuru->keahlianIsyarat);
+		$sqlQuery->set($masterGuru->keahlian_isyarat);
 		$sqlQuery->set($masterGuru->npwp);
 		$sqlQuery->set($masterGuru->foto);
 
-		$sqlQuery->setNumber($masterGuru->idGuru);
+		$sqlQuery->setNumber($masterGuru->id_guru);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -782,37 +782,37 @@ class MasterGuruMySqlDAO implements MasterGuruDAO{
 	protected function readRow($row){
 		$masterGuru = new MasterGuruDTO();
 		
-		$masterGuru->idGuru = isset($row['id_guru']) ? $row['id_guru'] : null;
-		$masterGuru->idUser = isset($row['id_user']) ? $row['id_user'] : null;
+		$masterGuru->id_guru = isset($row['id_guru']) ? $row['id_guru'] : null;
+		$masterGuru->id_user = isset($row['id_user']) ? $row['id_user'] : null;
 		$masterGuru->nip = isset($row['nip']) ? $row['nip'] : null;
-		$masterGuru->namaGuru = isset($row['nama_guru']) ? $row['nama_guru'] : null;
+		$masterGuru->nama_guru = isset($row['nama_guru']) ? $row['nama_guru'] : null;
 		$masterGuru->email = isset($row['email']) ? $row['email'] : null;
-		$masterGuru->kodeGuru = isset($row['kode_guru']) ? $row['kode_guru'] : null;
+		$masterGuru->kode_guru = isset($row['kode_guru']) ? $row['kode_guru'] : null;
 		$masterGuru->username = isset($row['username']) ? $row['username'] : null;
 		$masterGuru->password = isset($row['password']) ? $row['password'] : null;
-		$masterGuru->noKtp = isset($row['no_ktp']) ? $row['no_ktp'] : null;
-		$masterGuru->tempatLahir = isset($row['tempat_lahir']) ? $row['tempat_lahir'] : null;
-		$masterGuru->tglLahir = isset($row['tgl_lahir']) ? $row['tgl_lahir'] : null;
-		$masterGuru->jenisKelamin = isset($row['jenis_kelamin']) ? $row['jenis_kelamin'] : null;
+		$masterGuru->no_ktp = isset($row['no_ktp']) ? $row['no_ktp'] : null;
+		$masterGuru->tempat_lahir = isset($row['tempat_lahir']) ? $row['tempat_lahir'] : null;
+		$masterGuru->tgl_lahir = isset($row['tgl_lahir']) ? $row['tgl_lahir'] : null;
+		$masterGuru->jenis_kelamin = isset($row['jenis_kelamin']) ? $row['jenis_kelamin'] : null;
 		$masterGuru->agama = isset($row['agama']) ? $row['agama'] : null;
-		$masterGuru->noHp = isset($row['no_hp']) ? $row['no_hp'] : null;
-		$masterGuru->alamatJalan = isset($row['alamat_jalan']) ? $row['alamat_jalan'] : null;
-		$masterGuru->rtRw = isset($row['rt_rw']) ? $row['rt_rw'] : null;
+		$masterGuru->no_hp = isset($row['no_hp']) ? $row['no_hp'] : null;
+		$masterGuru->alamat_jalan = isset($row['alamat_jalan']) ? $row['alamat_jalan'] : null;
+		$masterGuru->rt_rw = isset($row['rt_rw']) ? $row['rt_rw'] : null;
 		$masterGuru->dusun = isset($row['dusun']) ? $row['dusun'] : null;
 		$masterGuru->kelurahan = isset($row['kelurahan']) ? $row['kelurahan'] : null;
 		$masterGuru->kecamatan = isset($row['kecamatan']) ? $row['kecamatan'] : null;
 		$masterGuru->kabupaten = isset($row['kabupaten']) ? $row['kabupaten'] : null;
 		$masterGuru->provinsi = isset($row['provinsi']) ? $row['provinsi'] : null;
-		$masterGuru->kodePos = isset($row['kode_pos']) ? $row['kode_pos'] : null;
+		$masterGuru->kode_pos = isset($row['kode_pos']) ? $row['kode_pos'] : null;
 		$masterGuru->kewarganegaraan = isset($row['kewarganegaraan']) ? $row['kewarganegaraan'] : null;
 		$masterGuru->nuptk = isset($row['nuptk']) ? $row['nuptk'] : null;
-		$masterGuru->jenisPtk = isset($row['jenis_ptk']) ? $row['jenis_ptk'] : null;
-		$masterGuru->tgsTambahan = isset($row['tgs_tambahan']) ? $row['tgs_tambahan'] : null;
-		$masterGuru->statusPegawai = isset($row['status_pegawai']) ? $row['status_pegawai'] : null;
-		$masterGuru->statusAktif = isset($row['status_aktif']) ? $row['status_aktif'] : null;
-		$masterGuru->statusNikah = isset($row['status_nikah']) ? $row['status_nikah'] : null;
+		$masterGuru->jenis_ptk = isset($row['jenis_ptk']) ? $row['jenis_ptk'] : null;
+		$masterGuru->tgs_tambahan = isset($row['tgs_tambahan']) ? $row['tgs_tambahan'] : null;
+		$masterGuru->status_pegawai = isset($row['status_pegawai']) ? $row['status_pegawai'] : null;
+		$masterGuru->status_aktif = isset($row['status_aktif']) ? $row['status_aktif'] : null;
+		$masterGuru->status_nikah = isset($row['status_nikah']) ? $row['status_nikah'] : null;
 		$masterGuru->tmt = isset($row['tmt']) ? $row['tmt'] : null;
-		$masterGuru->keahlianIsyarat = isset($row['keahlian_isyarat']) ? $row['keahlian_isyarat'] : null;
+		$masterGuru->keahlian_isyarat = isset($row['keahlian_isyarat']) ? $row['keahlian_isyarat'] : null;
 		$masterGuru->npwp = isset($row['npwp']) ? $row['npwp'] : null;
 		$masterGuru->foto = isset($row['foto']) ? $row['foto'] : null;
 

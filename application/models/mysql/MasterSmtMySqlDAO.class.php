@@ -3,7 +3,7 @@
  * Class that operate on table 'master_smt'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class MasterSmtMySqlDAO implements MasterSmtDAO{
 
@@ -61,11 +61,11 @@ class MasterSmtMySqlDAO implements MasterSmtDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($masterSmt->smt);
-		$sqlQuery->set($masterSmt->namaSmt);
+		$sqlQuery->set($masterSmt->nama_smt);
 		$sqlQuery->setNumber($masterSmt->active);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$masterSmt->idSmt = $id;
+		$masterSmt->id_smt = $id;
 		return $id;
 	}
 	
@@ -79,10 +79,10 @@ class MasterSmtMySqlDAO implements MasterSmtDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($masterSmt->smt);
-		$sqlQuery->set($masterSmt->namaSmt);
+		$sqlQuery->set($masterSmt->nama_smt);
 		$sqlQuery->setNumber($masterSmt->active);
 
-		$sqlQuery->setNumber($masterSmt->idSmt);
+		$sqlQuery->setNumber($masterSmt->id_smt);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -231,9 +231,9 @@ class MasterSmtMySqlDAO implements MasterSmtDAO{
 	protected function readRow($row){
 		$masterSmt = new MasterSmtDTO();
 		
-		$masterSmt->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$masterSmt->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
 		$masterSmt->smt = isset($row['smt']) ? $row['smt'] : null;
-		$masterSmt->namaSmt = isset($row['nama_smt']) ? $row['nama_smt'] : null;
+		$masterSmt->nama_smt = isset($row['nama_smt']) ? $row['nama_smt'] : null;
 		$masterSmt->active = isset($row['active']) ? $row['active'] : null;
 
 		return $masterSmt;

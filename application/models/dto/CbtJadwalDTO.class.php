@@ -3,7 +3,7 @@
 	 * Object represents table 'cbt_jadwal'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2021-03-25 11:46	 
+     	 * @date: 2021-05-04 15:32	 
 	 */
 	class CbtJadwalDTO{
 		
@@ -24,6 +24,8 @@
 		var $ulang;
 		var $reset_login;
 		var $rekap;
+		var $jam_ke;
+		var $jarak;
 		
 	}
 ?>

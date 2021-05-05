@@ -3,7 +3,7 @@
  * Class that operate on table 'rapor_catatan_wali'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class RaporCatatanWaliMySqlDAO implements RaporCatatanWaliDAO{
 
@@ -57,16 +57,18 @@ class RaporCatatanWaliMySqlDAO implements RaporCatatanWaliDAO{
  	 * @param RaporCatatanWaliDTO raporCatatanWali
  	 */
 	public function insert($raporCatatanWali){
-		$sql = 'INSERT INTO rapor_catatan_wali (id_kelas, id_siswa, nilai, deskripsi) VALUES (?, ?, ?, ?)';
+		$sql = 'INSERT INTO rapor_catatan_wali (id_tp, id_smt, id_kelas, id_siswa, nilai, deskripsi) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporCatatanWali->idKelas);
-		$sqlQuery->setNumber($raporCatatanWali->idSiswa);
+		$sqlQuery->setNumber($raporCatatanWali->id_tp);
+		$sqlQuery->setNumber($raporCatatanWali->id_smt);
+		$sqlQuery->setNumber($raporCatatanWali->id_kelas);
+		$sqlQuery->setNumber($raporCatatanWali->id_siswa);
 		$sqlQuery->set($raporCatatanWali->nilai);
 		$sqlQuery->set($raporCatatanWali->deskripsi);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$raporCatatanWali->idCatatanWali = $id;
+		$raporCatatanWali->id_catatan_wali = $id;
 		return $id;
 	}
 	
@@ -76,15 +78,17 @@ class RaporCatatanWaliMySqlDAO implements RaporCatatanWaliDAO{
  	 * @param RaporCatatanWaliDTO raporCatatanWali
  	 */
 	public function update($raporCatatanWali){
-		$sql = 'UPDATE rapor_catatan_wali SET id_kelas = ?, id_siswa = ?, nilai = ?, deskripsi = ? WHERE id_catatan_wali = ?';
+		$sql = 'UPDATE rapor_catatan_wali SET id_tp = ?, id_smt = ?, id_kelas = ?, id_siswa = ?, nilai = ?, deskripsi = ? WHERE id_catatan_wali = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($raporCatatanWali->idKelas);
-		$sqlQuery->setNumber($raporCatatanWali->idSiswa);
+		$sqlQuery->setNumber($raporCatatanWali->id_tp);
+		$sqlQuery->setNumber($raporCatatanWali->id_smt);
+		$sqlQuery->setNumber($raporCatatanWali->id_kelas);
+		$sqlQuery->setNumber($raporCatatanWali->id_siswa);
 		$sqlQuery->set($raporCatatanWali->nilai);
 		$sqlQuery->set($raporCatatanWali->deskripsi);
 
-		$sqlQuery->setNumber($raporCatatanWali->idCatatanWali);
+		$sqlQuery->setNumber($raporCatatanWali->id_catatan_wali);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -146,6 +150,26 @@ class RaporCatatanWaliMySqlDAO implements RaporCatatanWaliDAO{
 			return $this->getList($sqlQuery);
 	}
 
+	public function queryByIdTp($value, $single = false){
+		$sql = 'SELECT * FROM rapor_catatan_wali WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByIdSmt($value, $single = false){
+		$sql = 'SELECT * FROM rapor_catatan_wali WHERE id_smt = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		if ($single === true)
+			return $this->getRow($sqlQuery);
+		else
+		return $this->getList($sqlQuery);
+	}
+
 	public function queryByIdKelas($value, $single = false){
 		$sql = 'SELECT * FROM rapor_catatan_wali WHERE id_kelas = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -189,6 +213,20 @@ class RaporCatatanWaliMySqlDAO implements RaporCatatanWaliDAO{
 
 	public function deleteByIdCatatanWali($value){
 		$sql = 'DELETE FROM rapor_catatan_wali WHERE id_catatan_wali = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdTp($value){
+		$sql = 'DELETE FROM rapor_catatan_wali WHERE id_tp = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByIdSmt($value){
+		$sql = 'DELETE FROM rapor_catatan_wali WHERE id_smt = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
@@ -250,9 +288,11 @@ class RaporCatatanWaliMySqlDAO implements RaporCatatanWaliDAO{
 	protected function readRow($row){
 		$raporCatatanWali = new RaporCatatanWaliDTO();
 		
-		$raporCatatanWali->idCatatanWali = isset($row['id_catatan_wali']) ? $row['id_catatan_wali'] : null;
-		$raporCatatanWali->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$raporCatatanWali->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$raporCatatanWali->id_catatan_wali = isset($row['id_catatan_wali']) ? $row['id_catatan_wali'] : null;
+		$raporCatatanWali->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$raporCatatanWali->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$raporCatatanWali->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$raporCatatanWali->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
 		$raporCatatanWali->nilai = isset($row['nilai']) ? $row['nilai'] : null;
 		$raporCatatanWali->deskripsi = isset($row['deskripsi']) ? $row['deskripsi'] : null;
 

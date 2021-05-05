@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_jadwal_mapel'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasJadwalMapelMySqlDAO implements KelasJadwalMapelDAO{
 
@@ -60,15 +60,15 @@ class KelasJadwalMapelMySqlDAO implements KelasJadwalMapelDAO{
 		$sql = 'INSERT INTO kelas_jadwal_mapel (id_tp, id_smt, id_kelas, id_hari, jam_ke, id_mapel) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasJadwalMapel->idTp);
-		$sqlQuery->setNumber($kelasJadwalMapel->idSmt);
-		$sqlQuery->setNumber($kelasJadwalMapel->idKelas);
-		$sqlQuery->setNumber($kelasJadwalMapel->idHari);
-		$sqlQuery->setNumber($kelasJadwalMapel->jamKe);
-		$sqlQuery->setNumber($kelasJadwalMapel->idMapel);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_tp);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_smt);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_kelas);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_hari);
+		$sqlQuery->setNumber($kelasJadwalMapel->jam_ke);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_mapel);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasJadwalMapel->idJadwal = $id;
+		$kelasJadwalMapel->id_jadwal = $id;
 		return $id;
 	}
 	
@@ -81,14 +81,14 @@ class KelasJadwalMapelMySqlDAO implements KelasJadwalMapelDAO{
 		$sql = 'UPDATE kelas_jadwal_mapel SET id_tp = ?, id_smt = ?, id_kelas = ?, id_hari = ?, jam_ke = ?, id_mapel = ? WHERE id_jadwal = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasJadwalMapel->idTp);
-		$sqlQuery->setNumber($kelasJadwalMapel->idSmt);
-		$sqlQuery->setNumber($kelasJadwalMapel->idKelas);
-		$sqlQuery->setNumber($kelasJadwalMapel->idHari);
-		$sqlQuery->setNumber($kelasJadwalMapel->jamKe);
-		$sqlQuery->setNumber($kelasJadwalMapel->idMapel);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_tp);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_smt);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_kelas);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_hari);
+		$sqlQuery->setNumber($kelasJadwalMapel->jam_ke);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_mapel);
 
-		$sqlQuery->setNumber($kelasJadwalMapel->idJadwal);
+		$sqlQuery->setNumber($kelasJadwalMapel->id_jadwal);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -288,13 +288,13 @@ class KelasJadwalMapelMySqlDAO implements KelasJadwalMapelDAO{
 	protected function readRow($row){
 		$kelasJadwalMapel = new KelasJadwalMapelDTO();
 		
-		$kelasJadwalMapel->idJadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
-		$kelasJadwalMapel->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasJadwalMapel->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$kelasJadwalMapel->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$kelasJadwalMapel->idHari = isset($row['id_hari']) ? $row['id_hari'] : null;
-		$kelasJadwalMapel->jamKe = isset($row['jam_ke']) ? $row['jam_ke'] : null;
-		$kelasJadwalMapel->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$kelasJadwalMapel->id_jadwal = isset($row['id_jadwal']) ? $row['id_jadwal'] : null;
+		$kelasJadwalMapel->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasJadwalMapel->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasJadwalMapel->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$kelasJadwalMapel->id_hari = isset($row['id_hari']) ? $row['id_hari'] : null;
+		$kelasJadwalMapel->jam_ke = isset($row['jam_ke']) ? $row['jam_ke'] : null;
+		$kelasJadwalMapel->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
 
 		return $kelasJadwalMapel;
 	}

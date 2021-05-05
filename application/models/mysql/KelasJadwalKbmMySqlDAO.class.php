@@ -3,7 +3,7 @@
  * Class that operate on table 'kelas_jadwal_kbm'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class KelasJadwalKbmMySqlDAO implements KelasJadwalKbmDAO{
 
@@ -60,16 +60,16 @@ class KelasJadwalKbmMySqlDAO implements KelasJadwalKbmDAO{
 		$sql = 'INSERT INTO kelas_jadwal_kbm (id_tp, id_smt, id_kelas, kbm_jam_pel, kbm_jam_mulai, kbm_jml_mapel_hari, istirahat) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasJadwalKbm->idTp);
-		$sqlQuery->setNumber($kelasJadwalKbm->idSmt);
-		$sqlQuery->setNumber($kelasJadwalKbm->idKelas);
-		$sqlQuery->setNumber($kelasJadwalKbm->kbmJamPel);
-		$sqlQuery->set($kelasJadwalKbm->kbmJamMulai);
-		$sqlQuery->setNumber($kelasJadwalKbm->kbmJmlMapelHari);
+		$sqlQuery->setNumber($kelasJadwalKbm->id_tp);
+		$sqlQuery->setNumber($kelasJadwalKbm->id_smt);
+		$sqlQuery->setNumber($kelasJadwalKbm->id_kelas);
+		$sqlQuery->setNumber($kelasJadwalKbm->kbm_jam_pel);
+		$sqlQuery->set($kelasJadwalKbm->kbm_jam_mulai);
+		$sqlQuery->setNumber($kelasJadwalKbm->kbm_jml_mapel_hari);
 		$sqlQuery->set($kelasJadwalKbm->istirahat);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$kelasJadwalKbm->idKbm = $id;
+		$kelasJadwalKbm->id_kbm = $id;
 		return $id;
 	}
 	
@@ -82,15 +82,15 @@ class KelasJadwalKbmMySqlDAO implements KelasJadwalKbmDAO{
 		$sql = 'UPDATE kelas_jadwal_kbm SET id_tp = ?, id_smt = ?, id_kelas = ?, kbm_jam_pel = ?, kbm_jam_mulai = ?, kbm_jml_mapel_hari = ?, istirahat = ? WHERE id_kbm = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($kelasJadwalKbm->idTp);
-		$sqlQuery->setNumber($kelasJadwalKbm->idSmt);
-		$sqlQuery->setNumber($kelasJadwalKbm->idKelas);
-		$sqlQuery->setNumber($kelasJadwalKbm->kbmJamPel);
-		$sqlQuery->set($kelasJadwalKbm->kbmJamMulai);
-		$sqlQuery->setNumber($kelasJadwalKbm->kbmJmlMapelHari);
+		$sqlQuery->setNumber($kelasJadwalKbm->id_tp);
+		$sqlQuery->setNumber($kelasJadwalKbm->id_smt);
+		$sqlQuery->setNumber($kelasJadwalKbm->id_kelas);
+		$sqlQuery->setNumber($kelasJadwalKbm->kbm_jam_pel);
+		$sqlQuery->set($kelasJadwalKbm->kbm_jam_mulai);
+		$sqlQuery->setNumber($kelasJadwalKbm->kbm_jml_mapel_hari);
 		$sqlQuery->set($kelasJadwalKbm->istirahat);
 
-		$sqlQuery->setNumber($kelasJadwalKbm->idKbm);
+		$sqlQuery->setNumber($kelasJadwalKbm->id_kbm);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -307,13 +307,13 @@ class KelasJadwalKbmMySqlDAO implements KelasJadwalKbmDAO{
 	protected function readRow($row){
 		$kelasJadwalKbm = new KelasJadwalKbmDTO();
 		
-		$kelasJadwalKbm->idKbm = isset($row['id_kbm']) ? $row['id_kbm'] : null;
-		$kelasJadwalKbm->idTp = isset($row['id_tp']) ? $row['id_tp'] : null;
-		$kelasJadwalKbm->idSmt = isset($row['id_smt']) ? $row['id_smt'] : null;
-		$kelasJadwalKbm->idKelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
-		$kelasJadwalKbm->kbmJamPel = isset($row['kbm_jam_pel']) ? $row['kbm_jam_pel'] : null;
-		$kelasJadwalKbm->kbmJamMulai = isset($row['kbm_jam_mulai']) ? $row['kbm_jam_mulai'] : null;
-		$kelasJadwalKbm->kbmJmlMapelHari = isset($row['kbm_jml_mapel_hari']) ? $row['kbm_jml_mapel_hari'] : null;
+		$kelasJadwalKbm->id_kbm = isset($row['id_kbm']) ? $row['id_kbm'] : null;
+		$kelasJadwalKbm->id_tp = isset($row['id_tp']) ? $row['id_tp'] : null;
+		$kelasJadwalKbm->id_smt = isset($row['id_smt']) ? $row['id_smt'] : null;
+		$kelasJadwalKbm->id_kelas = isset($row['id_kelas']) ? $row['id_kelas'] : null;
+		$kelasJadwalKbm->kbm_jam_pel = isset($row['kbm_jam_pel']) ? $row['kbm_jam_pel'] : null;
+		$kelasJadwalKbm->kbm_jam_mulai = isset($row['kbm_jam_mulai']) ? $row['kbm_jam_mulai'] : null;
+		$kelasJadwalKbm->kbm_jml_mapel_hari = isset($row['kbm_jml_mapel_hari']) ? $row['kbm_jml_mapel_hari'] : null;
 		$kelasJadwalKbm->istirahat = isset($row['istirahat']) ? $row['istirahat'] : null;
 
 		return $kelasJadwalKbm;

@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 interface RaporNilaiSikapDAO{
 
@@ -55,30 +55,30 @@ interface RaporNilaiSikapDAO{
 
 	public function queryByIdKelas($value, $single);
 
+	public function queryByIdTp($value, $single);
+
+	public function queryByIdSmt($value, $single);
+
 	public function queryByJenis($value, $single);
 
 	public function queryByNilai($value, $single);
 
 	public function queryByDeskripsi($value, $single);
 
-	public function queryByIdTp($value, $single);
-
-	public function queryByIdSmt($value, $single);
-
 
 	public function deleteByIdSiswa($value);
 
 	public function deleteByIdKelas($value);
+
+	public function deleteByIdTp($value);
+
+	public function deleteByIdSmt($value);
 
 	public function deleteByJenis($value);
 
 	public function deleteByNilai($value);
 
 	public function deleteByDeskripsi($value);
-
-	public function deleteByIdTp($value);
-
-	public function deleteByIdSmt($value);
 
 
 }

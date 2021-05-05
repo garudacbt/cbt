@@ -3,7 +3,7 @@
  * Class that operate on table 'bulan'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class BulanMySqlDAO implements BulanDAO{
 
@@ -60,10 +60,10 @@ class BulanMySqlDAO implements BulanDAO{
 		$sql = 'INSERT INTO bulan (nama_bln) VALUES (?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($bulan->namaBln);
+		$sqlQuery->set($bulan->nama_bln);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$bulan->idBln = $id;
+		$bulan->id_bln = $id;
 		return $id;
 	}
 	
@@ -76,9 +76,9 @@ class BulanMySqlDAO implements BulanDAO{
 		$sql = 'UPDATE bulan SET nama_bln = ? WHERE id_bln = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($bulan->namaBln);
+		$sqlQuery->set($bulan->nama_bln);
 
-		$sqlQuery->setNumber($bulan->idBln);
+		$sqlQuery->setNumber($bulan->id_bln);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -193,8 +193,8 @@ class BulanMySqlDAO implements BulanDAO{
 	protected function readRow($row){
 		$bulan = new BulanDTO();
 		
-		$bulan->idBln = isset($row['id_bln']) ? $row['id_bln'] : null;
-		$bulan->namaBln = isset($row['nama_bln']) ? $row['nama_bln'] : null;
+		$bulan->id_bln = isset($row['id_bln']) ? $row['id_bln'] : null;
+		$bulan->nama_bln = isset($row['nama_bln']) ? $row['nama_bln'] : null;
 
 		return $bulan;
 	}

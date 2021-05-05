@@ -3,7 +3,7 @@
  * Class that operate on table 'cbt_sesi_siswa'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class CbtSesiSiswaMySqlDAO implements CbtSesiSiswaDAO{
 
@@ -60,14 +60,14 @@ class CbtSesiSiswaMySqlDAO implements CbtSesiSiswaDAO{
 		$sql = 'INSERT INTO cbt_sesi_siswa (kelas_id, ruang_id, sesi_id, tp_id, smt_id) VALUES (?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtSesiSiswa->kelasId);
-		$sqlQuery->setNumber($cbtSesiSiswa->ruangId);
-		$sqlQuery->setNumber($cbtSesiSiswa->sesiId);
-		$sqlQuery->setNumber($cbtSesiSiswa->tpId);
-		$sqlQuery->setNumber($cbtSesiSiswa->smtId);
+		$sqlQuery->setNumber($cbtSesiSiswa->kelas_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->ruang_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->sesi_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->tp_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->smt_id);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$cbtSesiSiswa->siswaId = $id;
+		$cbtSesiSiswa->siswa_id = $id;
 		return $id;
 	}
 	
@@ -80,13 +80,13 @@ class CbtSesiSiswaMySqlDAO implements CbtSesiSiswaDAO{
 		$sql = 'UPDATE cbt_sesi_siswa SET kelas_id = ?, ruang_id = ?, sesi_id = ?, tp_id = ?, smt_id = ? WHERE siswa_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($cbtSesiSiswa->kelasId);
-		$sqlQuery->setNumber($cbtSesiSiswa->ruangId);
-		$sqlQuery->setNumber($cbtSesiSiswa->sesiId);
-		$sqlQuery->setNumber($cbtSesiSiswa->tpId);
-		$sqlQuery->setNumber($cbtSesiSiswa->smtId);
+		$sqlQuery->setNumber($cbtSesiSiswa->kelas_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->ruang_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->sesi_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->tp_id);
+		$sqlQuery->setNumber($cbtSesiSiswa->smt_id);
 
-		$sqlQuery->setNumber($cbtSesiSiswa->siswaId);
+		$sqlQuery->setNumber($cbtSesiSiswa->siswa_id);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -269,12 +269,12 @@ class CbtSesiSiswaMySqlDAO implements CbtSesiSiswaDAO{
 	protected function readRow($row){
 		$cbtSesiSiswa = new CbtSesiSiswaDTO();
 		
-		$cbtSesiSiswa->siswaId = isset($row['siswa_id']) ? $row['siswa_id'] : null;
-		$cbtSesiSiswa->kelasId = isset($row['kelas_id']) ? $row['kelas_id'] : null;
-		$cbtSesiSiswa->ruangId = isset($row['ruang_id']) ? $row['ruang_id'] : null;
-		$cbtSesiSiswa->sesiId = isset($row['sesi_id']) ? $row['sesi_id'] : null;
-		$cbtSesiSiswa->tpId = isset($row['tp_id']) ? $row['tp_id'] : null;
-		$cbtSesiSiswa->smtId = isset($row['smt_id']) ? $row['smt_id'] : null;
+		$cbtSesiSiswa->siswa_id = isset($row['siswa_id']) ? $row['siswa_id'] : null;
+		$cbtSesiSiswa->kelas_id = isset($row['kelas_id']) ? $row['kelas_id'] : null;
+		$cbtSesiSiswa->ruang_id = isset($row['ruang_id']) ? $row['ruang_id'] : null;
+		$cbtSesiSiswa->sesi_id = isset($row['sesi_id']) ? $row['sesi_id'] : null;
+		$cbtSesiSiswa->tp_id = isset($row['tp_id']) ? $row['tp_id'] : null;
+		$cbtSesiSiswa->smt_id = isset($row['smt_id']) ? $row['smt_id'] : null;
 
 		return $cbtSesiSiswa;
 	}

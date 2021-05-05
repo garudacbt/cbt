@@ -3,7 +3,7 @@
  * Class that operate on table 'log_materi'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2021-03-25 11:46
+ * @date: 2021-05-04 15:32
  */
 class LogMateriMySqlDAO implements LogMateriDAO{
 
@@ -60,13 +60,13 @@ class LogMateriMySqlDAO implements LogMateriDAO{
 		$sql = 'INSERT INTO log_materi (log_time, id_siswa, jam_ke, id_materi, id_mapel, log_type, log_desc, text, file, nilai, catatan, address, agent, device) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($logMateri->logTime);
-		$sqlQuery->setNumber($logMateri->idSiswa);
-		$sqlQuery->setNumber($logMateri->jamKe);
-		$sqlQuery->setNumber($logMateri->idMateri);
-		$sqlQuery->setNumber($logMateri->idMapel);
-		$sqlQuery->setNumber($logMateri->logType);
-		$sqlQuery->set($logMateri->logDesc);
+		$sqlQuery->set($logMateri->log_time);
+		$sqlQuery->setNumber($logMateri->id_siswa);
+		$sqlQuery->setNumber($logMateri->jam_ke);
+		$sqlQuery->setNumber($logMateri->id_materi);
+		$sqlQuery->setNumber($logMateri->id_mapel);
+		$sqlQuery->setNumber($logMateri->log_type);
+		$sqlQuery->set($logMateri->log_desc);
 		$sqlQuery->set($logMateri->text);
 		$sqlQuery->set($logMateri->file);
 		$sqlQuery->set($logMateri->nilai);
@@ -76,7 +76,7 @@ class LogMateriMySqlDAO implements LogMateriDAO{
 		$sqlQuery->set($logMateri->device);
 
 		$id = $this->executeInsert($sqlQuery);	
-		$logMateri->idLog = $id;
+		$logMateri->id_log = $id;
 		return $id;
 	}
 	
@@ -89,13 +89,13 @@ class LogMateriMySqlDAO implements LogMateriDAO{
 		$sql = 'UPDATE log_materi SET log_time = ?, id_siswa = ?, jam_ke = ?, id_materi = ?, id_mapel = ?, log_type = ?, log_desc = ?, text = ?, file = ?, nilai = ?, catatan = ?, address = ?, agent = ?, device = ? WHERE id_log = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($logMateri->logTime);
-		$sqlQuery->setNumber($logMateri->idSiswa);
-		$sqlQuery->setNumber($logMateri->jamKe);
-		$sqlQuery->setNumber($logMateri->idMateri);
-		$sqlQuery->setNumber($logMateri->idMapel);
-		$sqlQuery->setNumber($logMateri->logType);
-		$sqlQuery->set($logMateri->logDesc);
+		$sqlQuery->set($logMateri->log_time);
+		$sqlQuery->setNumber($logMateri->id_siswa);
+		$sqlQuery->setNumber($logMateri->jam_ke);
+		$sqlQuery->setNumber($logMateri->id_materi);
+		$sqlQuery->setNumber($logMateri->id_mapel);
+		$sqlQuery->setNumber($logMateri->log_type);
+		$sqlQuery->set($logMateri->log_desc);
 		$sqlQuery->set($logMateri->text);
 		$sqlQuery->set($logMateri->file);
 		$sqlQuery->set($logMateri->nilai);
@@ -104,7 +104,7 @@ class LogMateriMySqlDAO implements LogMateriDAO{
 		$sqlQuery->set($logMateri->agent);
 		$sqlQuery->set($logMateri->device);
 
-		$sqlQuery->set($logMateri->idLog);
+		$sqlQuery->set($logMateri->id_log);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -440,14 +440,14 @@ class LogMateriMySqlDAO implements LogMateriDAO{
 	protected function readRow($row){
 		$logMateri = new LogMateriDTO();
 		
-		$logMateri->idLog = isset($row['id_log']) ? $row['id_log'] : null;
-		$logMateri->logTime = isset($row['log_time']) ? $row['log_time'] : null;
-		$logMateri->idSiswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
-		$logMateri->jamKe = isset($row['jam_ke']) ? $row['jam_ke'] : null;
-		$logMateri->idMateri = isset($row['id_materi']) ? $row['id_materi'] : null;
-		$logMateri->idMapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
-		$logMateri->logType = isset($row['log_type']) ? $row['log_type'] : null;
-		$logMateri->logDesc = isset($row['log_desc']) ? $row['log_desc'] : null;
+		$logMateri->id_log = isset($row['id_log']) ? $row['id_log'] : null;
+		$logMateri->log_time = isset($row['log_time']) ? $row['log_time'] : null;
+		$logMateri->id_siswa = isset($row['id_siswa']) ? $row['id_siswa'] : null;
+		$logMateri->jam_ke = isset($row['jam_ke']) ? $row['jam_ke'] : null;
+		$logMateri->id_materi = isset($row['id_materi']) ? $row['id_materi'] : null;
+		$logMateri->id_mapel = isset($row['id_mapel']) ? $row['id_mapel'] : null;
+		$logMateri->log_type = isset($row['log_type']) ? $row['log_type'] : null;
+		$logMateri->log_desc = isset($row['log_desc']) ? $row['log_desc'] : null;
 		$logMateri->text = isset($row['text']) ? $row['text'] : null;
 		$logMateri->file = isset($row['file']) ? $row['file'] : null;
 		$logMateri->nilai = isset($row['nilai']) ? $row['nilai'] : null;
