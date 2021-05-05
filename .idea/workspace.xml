@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="fix kelas/materi/tugas/rapor">
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Datamapel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Datamapel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Master_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Master_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app/db/kelas_tugas.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app/db/master.sql" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/db/master.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,7 +18,7 @@
     <session id="-1517765607">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.14" value="1" />
@@ -98,6 +93,7 @@
     <findStrings>
       <find>gradient</find>
       <find>materi</find>
+      <find>CREATE TABLE</find>
     </findStrings>
     <replaceStrings>
       <replace>tugas</replace>
@@ -248,7 +244,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/backups/garuda.sql" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1619521326108" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1620213672864" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -299,7 +295,7 @@
       <workItem from="1619464410019" duration="211000" />
       <workItem from="1619464663690" duration="3227000" />
       <workItem from="1619519976222" duration="1032000" />
-      <workItem from="1620213334980" duration="293000" />
+      <workItem from="1620213334980" duration="396000" />
     </task>
     <task id="LOCAL-00001" summary="#1">
       <created>1618404952657</created>
@@ -476,11 +472,18 @@
       <option name="project" value="LOCAL" />
       <updated>1619520205466</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="fix kelas/materi/tugas/rapor">
+      <created>1620213641752</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1620213641752</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29209000" />
+    <option name="totallyTimeSpent" value="29312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
