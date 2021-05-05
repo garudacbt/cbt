@@ -1,0 +1,5 @@
+jika install baru dari versi 0.5, langsung saja import file master.sql
+
+jika update database dari versi sebelumnya:
+		- jika database sudah terisi, buka folder update lalu import semua file .sql
+		- jika database masih kosong, import file master.sql
