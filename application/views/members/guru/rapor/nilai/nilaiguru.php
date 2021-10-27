@@ -56,21 +56,33 @@
                     //echo '</pre>';
                     if (isset($siswa)) : ?>
                         <div class="overflow-auto">
-                            <table id="table-nilai" class="table table-sm table-bordered table-striped text-sm" style="width: 2000px">
+                            <?php
+                            $widthTable = $mapelNone ? '800px' : '2000px';
+                            $widthNama = $mapelNone ? '30%' : '10%';
+                            $widthDesk = $mapelNone ? '50%' : '30%';
+                            ?>
+                            <table id="table-nilai" class="table table-sm table-bordered table-striped text-sm" style="width: <?=$widthTable?>">
                                 <thead>
                                 <tr class="bg-gray">
                                     <th rowspan="2" class="text-center align-middle">NO</th>
-                                    <th rowspan="2" class="text-center align-middle">N I S</th>
-                                    <th rowspan="2" class="text-center align-middle" style="width: 10%;">NAMA</th>
+                                    <th rowspan="2" class="text-center align-middle">NIS/NISN</th>
+                                    <th rowspan="2" class="text-center align-middle" style="width: <?=$widthNama?>;">NAMA</th>
+                                    <?php if ($extraNone) : ?>
                                     <th colspan="8" class="text-center">NILAI PENGETAHUAN</th>
                                     <th rowspan="2" class="text-center align-middle">RPH P</th>
                                     <th rowspan="2" class="text-center align-middle">PRED P</th>
-                                    <th rowspan="2" class="text-center align-middle" style="width: 30%">DESKRIPSI PENGETAHUAN</th>
+                                    <th rowspan="2" class="text-center align-middle" style="width: <?=$widthDesk?>">DESKRIPSI PENGETAHUAN</th>
                                     <th colspan="8" class="text-center">NILAI KETERAMPILAN</th>
                                     <th rowspan="2" class="text-center align-middle">RPH K</th>
                                     <th rowspan="2" class="text-center align-middle">PRED K</th>
-                                    <th rowspan="2" class="text-center align-middle" style="width: 30%">DESKRIPSI KETERAMPILAN</th>
+                                    <th rowspan="2" class="text-center align-middle" style="width: <?=$widthDesk?>">DESKRIPSI KETERAMPILAN</th>
+                                    <?php else: ?>
+                                        <th rowspan="2" class="text-center">NILAI</th>
+                                        <th rowspan="2" class="text-center align-middle">PRED</th>
+                                        <th rowspan="2" class="text-center align-middle" style="width: <?=$widthDesk?>">DESKRIPSI</th>
+                                    <?php endif; ?>
                                 </tr>
+                                <?php if ($extraNone) : ?>
                                 <tr class="bg-gray">
                                     <th class="text-center">P1</th>
                                     <th class="text-center">P2</th>
@@ -89,6 +101,7 @@
                                     <th class="text-center">K7</th>
                                     <th class="text-center">K8</th>
                                 </tr>
+                                <?php endif; ?>
                                 </thead>
                                 <tbody>
                                 <?php
@@ -99,6 +112,7 @@
                                         <td class="text-center"><?=$no?></td>
                                         <td class="text-center"><?=$s->nis?></td>
                                         <td><?=$s->nama?></td>
+                                        <?php if ($extraNone) : ?>
                                         <td class="text-center"><?=$ns->p1?></td>
                                         <td class="text-center"><?=$ns->p2?></td>
                                         <td class="text-center"><?=$ns->p3?></td>
@@ -121,6 +135,11 @@
                                         <td class="text-center text-bold"><?=$ns->k_rata_rata?></td>
                                         <td class="text-center text-bold"><?=$ns->k_predikat?></td>
                                         <td style="font-size: 8pt"><?=$ns->k_deskripsi?></td>
+                                        <?php else: ?>
+                                            <td class="text-center"><?=$ns->nilai?></td>
+                                            <td class="text-center"><?=$ns->predikat?></td>
+                                            <td class="text-center"><?=$ns->deskripsi?></td>
+                                        <?php endif; ?>
                                     </tr>
                                     <?php $no++; endforeach;?>
                                 </tbody>

@@ -173,7 +173,7 @@ $(document).ready(function () {
 			kelas = JSON.parse(data);
 			createDropdownKelasMapel();
             createDropdownKelasEkstra();
-			//createDropdownKelasWali();
+			createDropdownKelasWali();
 		}, error: function (xhr, status, error) {
 			console.log(xhr.responseText);
 			showDangerToast('Data error.');
@@ -340,13 +340,11 @@ $(document).ready(function () {
         }
     });
 
-    /*
 	$('#kelas-wali').select2({
 		dropdownAutoWidth : true,
 		width: 'auto'
 	});
 
-	/*
 	$('#level').on('select2:select', function (e) {
 		var data = e.params.data;
 		console.log(data);
@@ -379,5 +377,4 @@ $(document).ready(function () {
 			$("div").remove("#input-group-walikelas");
 		}
 	});
-	*/
 });

@@ -59,8 +59,14 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 //$autoload['libraries'] = array();
-$autoload['libraries'] = array('database','ion_auth', 'encryption', 'session');
+$autoload['libraries'] = array('database', 'ion_auth', 'encryption', 'session');
 
+/*
+$CI =& get_instance();
+if ($CI->router->class != 'update') {
+    array_push($autoload['libraries'], 'database');
+    array_push($autoload['libraries'], 'ion_auth');
+}
 /*
 | -------------------------------------------------------------------
 |  Auto-load Drivers
@@ -134,4 +140,4 @@ $autoload['language'] = array('auth', 'ion_auth');
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('DAOFactory' => 'dao');
+//$autoload['model'] = array('DAOFactory' => 'dao');

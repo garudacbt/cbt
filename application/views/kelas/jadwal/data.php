@@ -143,7 +143,7 @@ if (isset($jadwal_kbm)) {
 									<div class="col-md-3 mb-3">
 										<div class="input-group">
 											<div class="input-group-prepend">
-												<span class="input-group-text">Istirahat</span>
+												<span class="input-group-text">Jml. Istirahat</span>
 											</div>
 											<?php
 											$kali[''] = 'Jml Istirahat';
@@ -170,7 +170,15 @@ if (isset($jadwal_kbm)) {
 						</div>
 						<?= form_close() ?>
 						<hr>
-						<?= form_open('setMapel', array('id' => 'setmapel')); ?>
+                        <?php
+                        if (isset($jadwal_kbm->ada)) : ?>
+                            <div class="col-lg-12 p-0">
+                                <div class="alert align-content-center" role="alert">
+                                    <strong>Jadwal belum di GENERATE.</strong> .
+                                </div>
+                            </div>
+                        <?php else:?>
+                        <?= form_open('setMapel', array('id' => 'setmapel')); ?>
 						<div class="table-responsive">
 							<table id="jadwal-pelajaran" class="w-100 table table-striped table-bordered">
 								<thead class="alert alert-primary">
@@ -236,7 +244,7 @@ if (isset($jadwal_kbm)) {
 														<?php foreach ($mapels as $mp): ?>
 															<div data-id="<?= $value['id_hari'] . $jamke ?>"
 																 data-idmapel="<?= $mp->id_mapel ?>"
-																 class="popr-item"><?= $mp->kode ?></div>
+																 class="popr-item"><i class="fa fa-book mr-2"></i><?= $mp->kode ?></div>
 														<?php
 														endforeach; ?>
 													</div>
@@ -277,15 +285,6 @@ if (isset($jadwal_kbm)) {
 								endfor; ?>
 								</tbody>
 							</table>
-							<?php
-							if (isset($jadwal_kbm->ada)) : ?>
-								<div class="col-lg-12 p-0">
-									<div class="alert align-content-center" role="alert">
-										<strong>Jadwal belum di GENERATE.</strong> .
-									</div>
-								</div>
-							<?php endif;
-							?>
 						</div>
 						<input type="hidden" name="id_kelas" value="<?= $id_kelas ?>" class="form-control">
 						<button class="btn btn-primary float-right" <?= isset($jadwal_kbm->ada) ? 'disabled' : '' ?>>
@@ -293,6 +292,7 @@ if (isset($jadwal_kbm)) {
 							Jadwal
 						</button>
 						<?= form_close() ?>
+                        <?php endif; ?>
 					<?php else: ?>
 						<div class="col-lg-12 p-0">
 							<div class="alert alert-default-info shadow align-content-center" role="alert">
@@ -309,8 +309,11 @@ if (isset($jadwal_kbm)) {
 	</section>
 </div>
 
+<script src="<?= base_url() ?>/assets/plugins/contextmenu/jquery.contextmenu.js"></script>
+
 <script>
-	let method = '<?= $method ?>';
+    var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
+    let method = '<?= $method ?>';
 	var jmlMapel = 0;
 	$(document).ready(function () {
 		$('.popr').popr();
@@ -319,7 +322,8 @@ if (isset($jadwal_kbm)) {
 			datepicker: false,
 			format: 'H:i',
 			step: 15,
-			minTime: '06:00',
+            disabledWeekDays: [0],
+            minTime: '06:00',
 			maxTime: '17:00'
 		});
 

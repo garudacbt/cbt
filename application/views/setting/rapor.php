@@ -35,13 +35,13 @@
                     <div class="form-group row">
                         <label class="col-3 col-md-2 col-form-label">Tgl Rapor PTS</label>
                         <div class="col-6 col-md-3">
-                            <input type="text" name="tgl_rapor_pts" value="<?=$rapor !=null ? $rapor->tgl_rapor_pts : ''?>" class="form-control tgl" required>
+                            <input type="text" name="tgl_rapor_pts" value="<?=$rapor !=null ? $rapor->tgl_rapor_pts : ''?>" class="form-control tgl" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-3 col-md-2 col-form-label">Tgl Rapor Akhir</label>
                         <div class="col-6 col-md-3">
-                            <input type="text" name="tgl_rapor_akhir" value="<?=$rapor !=null ? $rapor->tgl_rapor_akhir : ''?>" class="form-control tgl" required>
+                            <input type="text" name="tgl_rapor_akhir" value="<?=$rapor !=null ? $rapor->tgl_rapor_akhir : ''?>" class="form-control tgl" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -130,6 +130,7 @@
                 },
             timepicker: false,
             format: 'd M Y',
+            disabledWeekDays: [0],
             widgetPositioning: {
                 horizontal: 'left',
                 vertical: 'bottom'

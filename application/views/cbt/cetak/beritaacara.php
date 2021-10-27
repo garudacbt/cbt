@@ -31,28 +31,28 @@
 							<div class="form-group">
 								<label>Header 1</label>
 								<textarea id="header-1" class="form-control" name="header_1" rows="2"
-										  placeholder="Header baris 1" required><?= $kop->header_1 ?></textarea>
+										  placeholder="Header baris 1" required><?= isset($kop->header_1) ? $kop->header_1 : '' ?></textarea>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Header 2</label>
 								<textarea id="header-2" class="form-control" name="header_2" rows="2"
-										  placeholder="Header baris 2" required><?= $kop->header_2 ?></textarea>
+										  placeholder="Header baris 2" required><?= isset($kop->header_2) ? $kop->header_2 : '' ?></textarea>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Header 3</label>
 								<textarea id="header-3" class="form-control" name="header_3" rows="2"
-										  placeholder="Header baris 3" required><?= $kop->header_3 ?></textarea>
+										  placeholder="Header baris 3" required><?= isset($kop->header_3) ? $kop->header_3 : '' ?></textarea>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Header 4</label>
 								<textarea id="header-4" class="form-control" name="header_4" rows="2"
-										  placeholder="Header baris 4" required><?= $kop->header_4 ?></textarea>
+										  placeholder="Header baris 4" required><?= isset($kop->header_4) ? $kop->header_4 : '' ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -143,16 +143,16 @@
 									   style="width: 100%; border: 0;">
 									<tr>
 										<td style="width:15%;">
-											<img id="prev-logo-kanan-print" src="<?= base_url().$kop->logo_kiri ?>" style="width:85px; height:85px; margin: 6px;">
+											<img alt="logo kiri" id="prev-logo-kanan-print" src="<?= isset($kop->logo_kiri) ? base_url().$kop->logo_kiri : '' ?>" style="width:85px; height:85px; margin: 6px;">
 										</td>
 										<td style="width:70%; text-align: center;">
-											<div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 14pt"><?= $kop->header_1 ?></div>
-											<div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 16pt"><b><?= $kop->header_2 ?></b></div>
-											<div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 13pt"><?= $kop->header_3 ?></div>
-											<div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 12pt"><?= $kop->header_4 ?></div>
+											<div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 14pt"><?= isset($kop->header_1) ? $kop->header_1 : '' ?></div>
+											<div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 16pt"><b><?= isset($kop->header_2) ? $kop->header_2 : '' ?></b></div>
+											<div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 13pt"><?= isset($kop->header_3) ? $kop->header_3 : '' ?></div>
+											<div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 12pt"><?= isset($kop->header_4) ? $kop->header_4 : '' ?></div>
 										</td>
 										<td style="width:15%;">
-											<img id="prev-logo-kiri-print" src="<?= base_url().$kop->logo_kanan ?>"
+											<img alt="logo kanan" id="prev-logo-kiri-print" src="<?= isset($kop->logo_kanan) ? base_url().$kop->logo_kanan : ''?>"
 												 style="width:85px; height:85px; margin: 6px; border-style: none">
 										</td>
 									</tr>
@@ -178,7 +178,7 @@
 											Pada Sekolah/Madrasah
 										</td>
 										<td>:</td>
-										<td class="editable bg-lime" id="edit-nama_sekolah"><?= $kop->sekolah ?></td>
+										<td class="editable bg-lime" id="edit-nama_sekolah"><?= isset($kop->sekolah) ? $kop->sekolah : '' ?></td>
 									</tr>
 									<tr>
 										<td></td>
@@ -253,7 +253,7 @@
 										<td style="width: 30px;">1.</td>
 										<td>Proktor</td>
 										<td>:</td>
-										<td class="editable bg-lime"><?= $kop->proktor ?></td>
+										<td class="editable bg-lime"><?= isset($kop->proktor) ? $kop->proktor : '' ?></td>
 										<td style="padding-left: 20px" rowspan="2">1. _________________________</td>
 									</tr>
 									<tr>
@@ -287,7 +287,7 @@
 											Kepala Sekolah
 										</td>
 										<td style="padding-top: 12px">:</td>
-										<td style="padding-top: 12px" class="editable bg-lime"><?= $kop->kepsek ?></td>
+										<td style="padding-top: 12px" class="editable bg-lime"><?= isset($kop->kepsek) ? $kop->kepsek : '' ?></td>
 										<td style="padding-left: 20px" rowspan="2">3. _________________________</td>
 									</tr>
 									<tr>
@@ -313,15 +313,15 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-	var oldVal1 = '<?=$kop->header_1?>';
-	var oldVal2 = '<?=$kop->header_2?>';
-	var oldVal3 = '<?=$kop->header_3?>';
-	var oldVal4 = '<?=$kop->header_4?>';
+	var oldVal1 = '<?=isset($kop->header_1) ? $kop->header_1 : ""?>';
+	var oldVal2 = '<?=isset($kop->header_2) ? $kop->header_2 : ""?>';
+	var oldVal3 = '<?=isset($kop->header_3) ? $kop->header_3 : ""?>';
+	var oldVal4 = '<?=isset($kop->header_4) ? $kop->header_4 : ""?>';
 
-	var kepsek = '<?=$kop->kepsek?>';
-	var logoKanan = '<?=base_url().$kop->logo_kanan?>';
-	var logoKiri = '<?=base_url().$kop->logo_kiri?>';
-	var tandatangan = '<?=base_url().$kop->tanda_tangan?>';
+	var kepsek = '<?=isset($kop->kepsek) ? $kop->kepsek : ""?>';
+	var logoKanan = '<?=isset($kop->logo_kanan) ? base_url().$kop->logo_kanan : ""?>';
+	var logoKiri = '<?=isset($kop->logo_kiri) ? base_url().$kop->logo_kiri : ""?>';
+	var tandatangan = '<?=isset($kop->tanda_tangan) ? base_url().$kop->tanda_tangan : ""?>';
 
 	var printBy = 1;
 	var infoData = {};

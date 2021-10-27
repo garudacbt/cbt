@@ -15,11 +15,6 @@
 				<div class="col-xl-4 col-md-4">
 					<div class="card my-shadow card-primary card-outline">
 						<div class="box-info text-center user-profile-2">
-							<!--
-							<div class="header-cover">
-								<img src="https://bootdey.com/img/Content/HexGames349.jpg" alt="User cover">
-							</div>
-							-->
 							<div class="user-profile-inner">
 								<?php
 								$foto = $guru->foto;
@@ -277,12 +272,14 @@
 				},
 			format: 'Y-m-d',
 			timepicker: false,
-			widgetPositioning: {
+            disabledWeekDays: [0],
+            widgetPositioning: {
 				horizontal: 'left',
 				vertical: 'bottom'
 			}
 		});
 
+        $('#foto-profile').attr("data-default-file", base_url+src);
 		var drEvent = $('.dropify').dropify({
 			messages: {
 				'default': 'Seret foto kesini atau klik',
@@ -482,7 +479,7 @@
 		console.log(src);
 		$.ajax({
 			data: {src: src},
-			type: "POST",
+			type: "GET",
 			url: base_url + "guruview/deletefile/"+idGuru,
 			cache: false,
 			success: function (response) {

@@ -1,8 +1,10 @@
 <?php
-function date_sort($a, $b) {
+function date_sort($a, $b)
+{
     return strtotime($a) - strtotime($b);
 }
 
+$allowedDates = [];
 ?>
 <div class="content-wrapper bg-white">
     <section class="content-header">
@@ -21,35 +23,25 @@ function date_sort($a, $b) {
                 <?php
                 $arr = [];
                 foreach ($jadwals as $key => $item) {
-                    $arr[$item->tgl_mulai][] = $item;
+                    $arr[$item->tgl_mulai]['level'] = $item->bank_level;
+                    $arr[$item->tgl_mulai]['jadwal'][] = $item;
                 }
 
                 ksort($arr, SORT_ASC);
+                $allowedDates = array_keys($arr);
 
                 //echo '<pre>';
-                //var_dump($jadwals);
+                //var_dump($arr);
                 //echo '</pre>';
                 ?>
                 <div class="card-header">
                     <h3 class="card-title"><b><?= $subjudul ?></b></h3>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <div class="input-group">
-                                <div class="input-group-prepend w-30">
-                                    <span class="input-group-text">Jenis Ujian</span>
-                                </div>
-                                <?php
-                                echo form_dropdown('jenis', $jenis, $jenis_selected, 'id="jenis" class="form-control"'); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
                     <!--<p><b>Alokasi Jadwal <?= $jenis[$jenis_selected] ?></b></p>-->
-                    <div class="alert alert-info shadow align-content-center" role="alert">
+                    <div class="alert alert-default-info shadow align-content-center" role="alert">
                         <strong>Catatan!</strong>
-                        <ul>
+                        <ol>
                             <li>
                                 Mengatur berapa menit jadwal ujian akan aktif setelah sesi dimulai
                             </li>
@@ -63,94 +55,261 @@ function date_sort($a, $b) {
                                 halaman ini berlaku jika semua jadwal telah diaktifkan
                             </li>
                             <li>
-                                Jika halaman ini tidak diatur, maka jadwal ujian mengikuti aturan di MENU <b>JADWAL</b>
+                                Jika halaman ini tidak diatur/tidak disimpan, maka jadwal ujian mengikuti aturan di MENU <b>JADWAL</b>
                             </li>
-                        </ul>
+                        </ol>
+                    </div>
+                    <br>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-6">
+                            <div class="form-group">
+                                <label for="jenis">Jenis</label>
+                                <?php
+                                echo form_dropdown('jenis', $jenis, $jenis_selected, 'id="jenis" class="form-control"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-6" id="by-level">
+                            <div class="form-group">
+                                <label for="level">Level Kelas</label>
+                                <?php
+                                echo form_dropdown('level', $levels, $level_selected, 'id="level" class="form-control"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <div class="form-group">
+                                <label for="filter">Filter</label>
+                                <?php
+                                echo form_dropdown('filter', $filter, $filter_selected, 'id="filter" class="form-control"'); ?>
+                            </div>
+                        </div>
+                        <?php
+                        $dnone = $filter_selected == '0' ? 'd-none' : ''?>
+                        <div class='col-md-2 col-4 <?=$dnone?>' id="tgl-dari">
+                            <div class="form-group">
+                                <label for="dari">Dari</label>
+                                <input type='text' id="dari" name='dari' value="<?= $dari_selected ?>"
+                                       class='tgl form-control' autocomplete='off'/>
+                            </div>
+                        </div>
+                        <div class='col-md-2 col-4 <?=$dnone?>' id="tgl-sampai">
+                            <div class="form-group">
+                                <label for="sampai">Sampai</label>
+                                <input type='text' id="sampai" name='sampai'
+                                       class='tgl form-control' value="<?= $sampai_selected ?>"
+                                       autocomplete='off'/>
+                            </div>
+                        </div>
                     </div>
                     <?php
-                    if ($jenis_selected != null) : ?>
-                    <table class="table table-sm border mt-4" id="tbl">
-                        <tr>
-                            <th class="text-center align-middle border">
-                                Hari & Tanggal
-                            </th>
-                            <th class="text-center align-middle border">
-                                Jam ke
-                            </th>
-                            <th width="100" class="text-center align-middle border">
-                                Menit ke
-                            </th>
-                            <th class="text-center align-middle border">
-                                Mata Pelajaran
-                            </th>
-                        </tr>
-                        <?php
-                        if (count($arr) > 0) :
-                            foreach ($arr as $key => $jadwal):
-                                $drop_jadwal = [];
-                                foreach ($jadwal as $jdwl) {
-                                    $drop_jadwal[$jdwl->id_jadwal] = $jdwl->nama_mapel;
-                                }
-                                ?>
+                    if (count($arr) > 0) :
+                        if ($jenis_selected != null) :?>
+                            <table class="table table-sm border mt-4" id="tbl">
                                 <tr>
-                                    <td rowspan="<?= count($jadwal) ?>" class="text-center align-middle border">
-                                        <?= buat_tanggal(date('D, d M Y', strtotime($key))) ?>
-                                    </td>
-                                    <td class="border text-center align-middle jam-ke">
-                                        1
-                                    </td>
-                                    <td class="border">
-                                        <input type="number" id="jarak" name="jarak" value="0" class="form-control form-control-sm jarak" required readonly>
-                                    </td>
-                                    <td class="border">
-                                        <?php
-                                        $keyj = array_search('1', array_column($jadwal, 'jam_ke'));
-                                        if (!$keyj) $keyj = 0;
-                                        echo form_dropdown('mapel', $drop_jadwal, $jadwal[$keyj]->id_jadwal, 'id="'.$jadwal[$keyj]->id_jadwal.'" class="form-control form-control-sm jadwal"'); ?>
-                                    </td>
+                                    <th class="text-center align-middle border">
+                                        Hari & Tanggal
+                                    </th>
+                                    <th class="text-center align-middle border">
+                                        Level Kelas
+                                    </th>
+                                    <th class="text-center align-middle border d-none">
+                                        Jam ke
+                                    </th>
+                                    <th width="100" class="text-center align-middle border">
+                                        Menit ke
+                                    </th>
+                                    <th class="text-center align-middle border">
+                                        Jadwal / Mata Pelajaran
+                                    </th>
                                 </tr>
                                 <?php
-                            if (count($jadwal)>1) :
-                                for ($i=1;$i<count($jadwal);$i++) :
-                                    $keyi = array_search($i+1, array_column($jadwal, 'jam_ke'));
-                                if (!$keyi) $keyi = $i;
+                                foreach ($arr as $key => $jadwal):
+                                    $drop_jadwal = [];
+                                    $kls_jadwal = [];
+                                    foreach ($jadwal['jadwal'] as $jdwl) {
+                                        $drop_jadwal[$jdwl->id_jadwal] = $jdwl->bank_kode.' ('.$jdwl->nama_mapel.')';
+
+                                        $jumlahKelas = json_decode(json_encode(unserialize($jdwl->bank_kelas)));
+                                        $kelasbank = '';
+                                        $no = 1;
+                                        foreach ($jumlahKelas as $j) {
+                                            if (isset($kelas[$j->kelas_id])) {
+                                                if ($no > 1) {
+                                                    $kelasbank .= ', ';
+                                                }
+                                                $kelasbank .= $kelas[$j->kelas_id];
+                                                $no++;
+                                            }
+                                        }
+                                        $kls_jadwal[] = $kelasbank;
+                                    }
+
                                     ?>
-                                <tr>
-                                    <td class="border text-center align-middle jam-ke">
-                                        <?=$i+1?>
-                                    </td>
-                                    <td class="border">
-                                        <input type="number" id="jarak" name="jarak" value="<?=$jadwal[$keyi]->jarak?>" class="form-control form-control-sm jarak" required>
-                                    </td>
-                                    <td class="border">
-                                        <?php
-                                        echo form_dropdown('mapel', $drop_jadwal, $jadwal[$keyi]->id_jadwal, 'id="'.$jadwal[$keyi]->id_jadwal.'" class="form-control form-control-sm jadwal"'); ?>
-                                    </td>
-                                </tr>
-                            <?php endfor; endif; endforeach;
-                        endif; ?>
-                    </table>
+                                    <tr>
+                                        <td rowspan="<?= count($jadwal['jadwal']) ?>" class="text-center align-middle border">
+                                            <?= buat_tanggal(date('D, d M Y', strtotime($key))) ?>
+                                        </td>
+                                        <?php $keyj = array_search('1', array_column($jadwal['jadwal'], 'jam_ke'));
+                                        if (!$keyj) $keyj = 0; ?>
+                                        <td class="border text-center align-middle level">
+                                            <?= $jadwal['level'] ?> (<?= $kls_jadwal[$keyj] ?>)
+                                        </td>
+                                        <td class="border text-center align-middle jam-ke d-none">
+                                            1
+                                        </td>
+                                        <td class="border">
+                                            <input type="number" id="jarak" name="jarak" value="0"
+                                                   class="form-control form-control-sm jarak" required readonly>
+                                        </td>
+                                        <td class="border">
+                                            <?php
+                                            echo form_dropdown('mapel', $drop_jadwal, $jadwal['jadwal'][$keyj]->id_jadwal, 'id="' . $jadwal['jadwal'][$keyj]->id_jadwal . '" class="form-control form-control-sm jadwal"'); ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    if (count($jadwal['jadwal']) > 1) :
+                                        for ($i = 1; $i < count($jadwal['jadwal']); $i++) :
+                                            $keyi = array_search($i + 1, array_column($jadwal['jadwal'], 'jam_ke'));
+                                            if (!$keyi) $keyi = $i;
+                                            ?>
+                                            <tr>
+                                                <td class="border text-center align-middle level">
+                                                    <?= $jadwal['level'] ?> (<?= $kls_jadwal[$keyi] ?>)
+                                                </td>
+                                                <td class="border text-center align-middle jam-ke d-none">
+                                                    <?= $i + 1 ?>
+                                                </td>
+                                                <td class="border">
+                                                    <input type="number" id="jarak" name="jarak"
+                                                           value="<?= $jadwal['jadwal'][$keyi]->jarak ?>"
+                                                           class="form-control form-control-sm jarak" required>
+                                                </td>
+                                                <td class="border">
+                                                    <?php
+                                                    echo form_dropdown('mapel', $drop_jadwal, $jadwal['jadwal'][$keyi]->id_jadwal, 'id="' . $jadwal['jadwal'][$keyi]->id_jadwal . '" class="form-control form-control-sm jadwal"'); ?>
+                                                </td>
+                                            </tr>
+                                        <?php endfor; endif; endforeach; ?>
+                            </table>
+                        <?php endif; ?>
+                        <?= form_open('', array('id' => 'simpanalokasi')) ?>
+                        <button type="submit" class="btn btn-primary card-tools mt-3 float-right">
+                            <i class="fas fa-save mr-2"></i>Simpan
+                        </button>
+                        <?= form_close() ?>
                     <?php endif; ?>
-                    <?= form_open('', array('id' => 'simpanalokasi')) ?>
-                    <button type="submit" class="btn btn-primary card-tools mt-3 float-right">
-                        <i class="fas fa-save mr-2"></i>Simpan
-                    </button>
-                    <?= form_close() ?>
                 </div>
             </div>
+        </div>
     </section>
 </div>
 <script>
     $(document).ready(function () {
         ajaxcsrf();
 
-        var old = "<?=$jenis_selected?>";
-        $('#jenis').change(function () {
-            var jj = $(this).val();
-            if (jj != "" && jj !== old) {
-                window.location.href = base_url + 'cbtalokasi?jenis=' + jj;
+        var allowed = JSON.parse('<?=json_encode($allowedDates)?>');
+        console.log(allowed);
+        $('.tgl').datetimepicker({
+            icons:
+                {
+                    next: 'fa fa-angle-right',
+                    previous: 'fa fa-angle-left'
+                },
+            timepicker: false,
+            format: 'Y-m-d',
+            disabledWeekDays: [0],
+            allowDates: allowed,
+            formatDate: 'Y-m-d',
+            widgetPositioning: {
+                horizontal: 'left',
+                vertical: 'bottom'
             }
         });
+
+        var opsiLevel = $("#level");
+        var opsiJenis = $("#jenis");
+
+        //var opsiRuang = $("#ruang");
+        //var opsiKelas = $("#kelas");
+
+        var opsiFilter = $("#filter");
+        var opsiDari = $("#dari");
+        var opsiSampai = $("#sampai");
+
+        //opsiRuang.prepend("<option value='' selected='selected'>Pilih Ruang</option>");
+        //opsiKelas.prepend("<option value='' selected='selected'>Pilih Kelas</option>");
+
+        //opsiKelas.change(function () {
+            //loadSiswaKelas($(this).val(), opsiSesi.val(), opsiJadwal.val())
+        //});
+
+        //opsiRuang.change(function () {
+            //loadSiswaRuang($(this).val(), opsiSesi.val(), opsiJadwal.val())
+        //});
+
+        opsiFilter.change(function () {
+            if ($(this).val() == '0') {
+                $('#tgl-dari').addClass('d-none');
+                $('#tgl-sampai').addClass('d-none');
+                var jenis = opsiJenis.val();
+                var level = opsiLevel.val();
+                var url =  base_url + 'cbtalokasi?jenis=' + jenis + '&level=' + level + '&filter=0';
+                if (jenis != "" && level != "0") {
+                    window.location.href = url;
+                }
+            } else {
+                $('#tgl-dari').removeClass('d-none');
+                $('#tgl-sampai').removeClass('d-none');
+            }
+        });
+
+        opsiLevel.change(function () {
+            //var lvl = $(this).val();
+            //if (lvl != "" && lvl !== old) {
+                getAllJadwal();
+                //window.location.href = base_url + 'cbtalokasi?jenis=' + opsiJenis.val() + '&level=' + lvl;
+            //}
+        });
+
+        var old = "<?=$jenis_selected?>";
+        opsiJenis.change(function () {
+            //var jj = $(this).val();
+            //if (jj != "" && jj !== old) {
+                getAllJadwal();
+                //window.location.href = base_url + 'cbtalokasi?jenis=' + jj + '&level=' + opsiLevel.val();
+            //}
+        });
+
+        var dariold = "<?=$dari_selected?>";
+        opsiDari.change(function () {
+            var dari = $(this).val();
+            if (dari != "" && dari !== dariold) {
+                getAllJadwal();
+            }
+        });
+
+        var sampaiold = "<?=$sampai_selected?>";
+        opsiSampai.change(function () {
+            var sampai = $(this).val();
+            if (sampai != "" && sampai !== sampaiold) {
+                getAllJadwal();
+            }
+        });
+
+        function getAllJadwal() {
+            var jenis = opsiJenis.val();
+            var level = opsiLevel.val();
+            var dari = opsiDari.val();
+            var sampai = opsiSampai.val();
+            var fil = opsiFilter.val();
+
+            var tglKosong = fil == '1' && (dari == "" || sampai == "");
+            var url = base_url + 'cbtalokasi?jenis=' + jenis + '&level=' + level + '&filter=' + opsiFilter.val() + '&dari=' + dari + '&sampai=' + sampai;
+            console.log(url);
+            if (jenis != "" && level != "0" && !tglKosong) {
+                window.location.href = url;
+            }
+        }
 
         $('#simpanalokasi').on('submit', function (e) {
             e.stopPropagation();
@@ -206,5 +365,18 @@ function date_sort($a, $b) {
             });
 
         });
+
+        $('#selector button').click(function () {
+            $(this).addClass('active').siblings().addClass('btn-outline-primary').removeClass('active btn-primary');
+
+            if (!$('#by-kelas').is(':hidden')) {
+                $('#by-kelas').addClass('d-none');
+                $('#by-ruang').removeClass('d-none');
+            } else {
+                $('#by-kelas').removeClass('d-none');
+                $('#by-ruang').addClass('d-none');
+            }
+        });
+
     })
 </script>

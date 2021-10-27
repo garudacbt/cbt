@@ -41,7 +41,7 @@
                         $ekstra_ekstra = [];
                         if (count($mapel_ekstra) < 4) {
                             for ($i=0;$i<(4-count($mapel_ekstra));$i++) {
-                                $ekstra_ekstra[] = 'Ekstra '. (($i+1)+count($mapel_ekstra));
+                                $ekstra_ekstra[] = 'Ekstrakurikuler '. (($i+1)+count($mapel_ekstra));
                             }
                         }
                         //echo '<pre>';
@@ -49,9 +49,16 @@
                         //var_dump($absensi[1]['s']);
                         //var_dump($absensi[137]);
                         //echo '</pre>';
+                        $sizeAllMapel = (count($arrMapel)*2) + (count($arrMulok)*2);
+                        $widthColumns = '5,25,10';
+
+                        for ($i=0;$i<($sizeAllMapel+10);$i++) {
+                            $widthColumns .= ',5';
+                        }
+                        $widthColumns .= ',20';
                         ?>
 
-                        <table cellspacing="0" id="tbl-leger" class="table table-bordered border-primary table-sm text-sm" data-cols-width="5,25,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5">
+                        <table cellspacing="0" id="tbl-leger" class="table table-bordered border-primary table-sm text-sm" data-cols-width="<?=$widthColumns?>">
                             <thead>
                             <tr class="alert-default-primary" data-height="30">
                                 <th rowspan="4" width="40" class="text-center align-middle border-primary" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true">No.</th>
@@ -128,7 +135,11 @@
                                         <?=$siswa->nis?>/<?=$siswa->nisn?>
                                     </td>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin">HPH</td>
-                                    <?php foreach ($mapels as $mpl) : $id = $mpl->id_mapel?>
+                                    <?php foreach ($arrMapel as $mpl) : $id = $mpl->id_mapel?>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->p_rata_rata ?></td>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->k_rata_rata ?></td>
+                                    <?php endforeach; ?>
+                                    <?php foreach ($arrMulok as $mpl) : $id = $mpl->id_mapel?>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->p_rata_rata ?></td>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->k_rata_rata ?></td>
                                     <?php endforeach; ?>
@@ -148,17 +159,29 @@
                                 </tr>
                             <tr>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin">HPTS</td>
-                                    <?php foreach ($mapels as $mpl) :
+                                    <?php foreach ($arrMapel as $mpl) :
                                         $id = $mpl->id_mapel ?>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin">
                                         <?= $nilai_pts[$siswa->id_siswa]->$id == 0 ? '' : $nilai_pts[$siswa->id_siswa]->$id?>
                                     </td>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"></td>
                                     <?php endforeach; ?>
+                                <?php foreach ($arrMulok as $mpl) :
+                                    $id = $mpl->id_mapel ?>
+                                    <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin">
+                                        <?= $nilai_pts[$siswa->id_siswa]->$id == 0 ? '' : $nilai_pts[$siswa->id_siswa]->$id?>
+                                    </td>
+                                    <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"></td>
+                                <?php endforeach; ?>
                                 </tr>
                                 <tr>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin">HPAS</td>
-                                    <?php foreach ($mapels as $mpl) :
+                                    <?php foreach ($arrMapel as $mpl) :
+                                        $id = $mpl->id_mapel ?>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->nilai_pas ?></td>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"></td>
+                                    <?php endforeach; ?>
+                                    <?php foreach ($arrMulok as $mpl) :
                                         $id = $mpl->id_mapel ?>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->nilai_pas ?></td>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"></td>
@@ -166,7 +189,12 @@
                                 </tr>
                                 <tr>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin">HPA</td>
-                                    <?php foreach ($mapels as $mpl) :
+                                    <?php foreach ($arrMapel as $mpl) :
+                                        $id = $mpl->id_mapel ?>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->nilai ?></td>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->k_rata_rata ?></td>
+                                    <?php endforeach; ?>
+                                    <?php foreach ($arrMulok as $mpl) :
                                         $id = $mpl->id_mapel ?>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->nilai ?></td>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->k_rata_rata ?></td>
@@ -174,7 +202,12 @@
                                 </tr>
                                 <tr>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin">PRED</td>
-                                    <?php foreach ($mapels as $mpl) :
+                                    <?php foreach ($arrMapel as $mpl) :
+                                        $id = $mpl->id_mapel ?>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->predikat ?></td>
+                                        <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->k_predikat ?></td>
+                                    <?php endforeach; ?>
+                                    <?php foreach ($arrMulok as $mpl) :
                                         $id = $mpl->id_mapel ?>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->predikat ?></td>
                                         <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $nilai[$siswa->id_siswa]->$id->k_predikat ?></td>
@@ -193,6 +226,9 @@
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 <script type="text/javascript" src="<?=base_url()?>/assets/app/js/freeze-table.js"></script>
 <script>
+    var kelas = '<?= $kelases->nama_kelas?>';
+    var tp = '<?=$tp_active->tahun?>';
+    var smt = '<?=$smt_active->smt?>';
     $(document).ready(function() {
         $("#table-leger").freezeTable({
             'columnNum' : 3,
@@ -200,7 +236,11 @@
 
         $('#download').on('click', function (e) {
             var table = document.querySelector("#tbl-leger");
-            TableToExcel.convert(table);
+            //TableToExcel.convert(table);
+            TableToExcel.convert(table, {
+                name: "Leger Nilai Kelas "+kelas+" "+ tp +" "+ smt +".xlsx",
+                //sheet: {name: "Sheet 1"}
+            });
         });
     });
 </script>

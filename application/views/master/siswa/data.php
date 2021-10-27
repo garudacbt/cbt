@@ -50,6 +50,7 @@
 								<th>NIS</th>
 								<th>Nama</th>
 								<th>L/P</th>
+                                <th width="80" class="align-middle text-center p-0">Status</th>
 								<th width="80" class="align-middle text-center p-0">Aksi</th>
 							</tr>
 							</thead>

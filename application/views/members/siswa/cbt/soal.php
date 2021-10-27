@@ -93,13 +93,6 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
         </section>
     </div>
 <?php else: ?>
-    <nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-        <div class="mx-auto text-white text-center" style="line-height: 1">
-            <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
-            <br>
-            <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-        </div>
-    </nav>
     <div class="content-wrapper" style="margin-top: -1px;">
         <div class="sticky">
         </div>
@@ -261,7 +254,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
         //console.log(runningText);
         if (log.length === 0) {
             $.ajax({
-                url: base_url + "siswaview/savelogujian/" + idSiswa + "/" + idJadwal,
+                url: base_url + "siswa/savelogujian/" + idSiswa + "/" + idJadwal,
                 method: 'GET',
                 success: function (data) {
                     //console.log(data);
@@ -282,7 +275,11 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
         let reset = <?= $reset ?>;
 
         let jmlPg = <?= $jadwal->tampil_pg?>;
+        let jmlPg2 = <?= $jadwal->tampil_kompleks?>;
+        let jmljodohkan = <?= $jadwal->tampil_jodohkan?>;
+        let jmlIsian = <?= $jadwal->tampil_isian?>;
         let jmlEssai = parseInt('<?= $jadwal->tampil_esai?>');
+
         let acakSoal = <?= $jadwal->acak_soal ?>;
         let acakOpsi = <?= $jadwal->acak_opsi ?>;
         let jenjang = <?= $setting->jenjang ?>;
@@ -346,7 +343,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
         function saveElapsedTime() {
             elapsed += 1;
             $.ajax({
-                url: base_url + "siswaview/savetimer?id_siswa=" + idSiswa + "&id_jadwal=" + idJadwal + "&elapsed=" + elapsed + "&id_durasi=" + ID,
+                url: base_url + "siswa/savetimer?id_siswa=" + idSiswa + "&id_jadwal=" + idJadwal + "&elapsed=" + elapsed + "&id_durasi=" + ID,
                 method: 'GET',
                 success: function (data) {
                     //console.log(data.status);
@@ -375,7 +372,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
                     confirmButtonText: "OK"
                 }).then(result => {
                     if (result.value) {
-                        window.location.href = base_url + 'siswaview/cbt';
+                        window.location.href = base_url + 'siswa/cbt';
                     }
                 });
                 //alert("Time is up");
@@ -418,7 +415,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
         */
         history.pushState(null, null, '<?php echo $_SERVER["REQUEST_URI"]; ?>');
         window.addEventListener('popstate', function(event) {
-            window.location.href = base_url + 'siswaview/loadsoal/'+idJadwal+'/'+bank_id
+            window.location.href = base_url + 'siswa/loadsoal/'+idJadwal+'/'+bank_id
         });
 
         function loadSoalNomor(datas) {
@@ -449,7 +446,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
             var dataPost = $('#up').serialize() + '&id=' + ID + '&bank=' + bank_id + '&nomor=' + nomorSoal + '&jenis=' + jenis + '&jadwal=' + idJadwal;
             console.log('post', dataPost);
             $.ajax({
-                url: base_url + 'siswaview/loadNomorSoal',
+                url: base_url + 'siswa/loadNomorSoal',
                 method: 'POST',
                 data : dataPost,
                 cache: false,
@@ -466,7 +463,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
                             confirmButtonText: "OK"
                         }).then(result => {
                             if (result.value) {
-                                window.location.href = base_url + 'siswaview/cbt';
+                                window.location.href = base_url + 'siswa/cbt';
                             }
                         });
                     } else {
@@ -778,6 +775,11 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
                 arrNumPg.push(i + 1);
             }
 
+            let arrNumEss = [];
+            for (let i = 0; i < jmlEssai; i++) {
+                arrNumEss.push(i + 1);
+            }
+
             if (acakSoal === 1) {
                 arrNumPg = shuffle(arrNumPg);
 
@@ -821,11 +823,6 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
                 }
             }
 
-            let arrNumEss = [];
-            for (let i = 0; i < jmlEssai; i++) {
-                arrNumEss.push(i + 1);
-            }
-
             if (acakSoal === 1) {
                 arrNumEss = shuffle(arrNumEss);
 
@@ -861,7 +858,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
             var dataPost = $('#up').serialize() + '&shuffle=' + JSON.stringify(arrSoal);
             //console.log(dataPost);
             $.ajax({
-                url: base_url + 'siswaview/savesoalsiswa',
+                url: base_url + 'siswa/savesoalsiswa',
                 type: 'JSON',
                 method: 'POST',
                 data: dataPost,
@@ -901,7 +898,7 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
 
                 //console.log($(this).serialize() + '&data=' + JSON.stringify(jawabanItem));
                 $.ajax({
-                    url: base_url + 'siswaview/savejawaban',
+                    url: base_url + 'siswa/savejawaban',
                     method: 'POST',
                     data: $(this).serialize() + '&data=' + JSON.stringify(jawabanItem),
                     success: function (response) {
@@ -989,12 +986,12 @@ if ($reset_login && (!empty($log) && $agent != $log[0]->agent && $ip != $log[0]-
                 }).then(result => {
                     if (result.value) {
                         $.ajax({
-                            url: base_url + 'siswaview/selesaiujian/' + idSiswa+'/'+idJadwal,
+                            url: base_url + 'siswa/selesaiujian/' + idSiswa+'/'+idJadwal,
                             method: "GET",
                             success: function (respon) {
                                 //console.log(respon);
                                 if (respon.status) {
-                                    window.location.href = base_url + 'siswaview/cbt';
+                                    window.location.href = base_url + 'siswa/cbt';
                                 } else {
                                     swal.fire({
                                         title: "Gagal",

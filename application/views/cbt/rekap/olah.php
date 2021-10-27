@@ -15,6 +15,19 @@ function unserialize_with_key($serialized) {
     return $result;
 }
 
+if (!isset($rekap)) {
+$rekap = json_decode(json_encode(['kode_jenis'=>'',  'nama_mapel'=> '']));
+}
+
+$XA = isset($convert) ? $convert['xa'] : 0;
+$XB = isset($convert) ? $convert['xb'] : 20;
+$YA = isset($convert) ? $convert['ya'] : 100;
+$YB = isset($convert) ? $convert['yb'] : 60;
+
+function decimalFixed($num) {
+    return round(($num * 100) / 100, 2);
+}
+
 ?>
 
 <div class="content-wrapper bg-white">
@@ -25,10 +38,10 @@ function unserialize_with_key($serialized) {
                     <h1><?= $judul ?></h1>
                 </div>
                 <div class="col-6">
-                    <button onclick="window.history.back();" type="button" class="btn btn-sm btn-danger float-right">
+                    <a href="<?=base_url('cbtrekap')?>" type="button" class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-arrow-circle-left"></i><span
                                 class="d-none d-sm-inline-block ml-1">Kembali</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -48,197 +61,300 @@ function unserialize_with_key($serialized) {
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <?php $dnone = $kelas_selected == null ? 'class="d-none"' : ''; ?>
                         <div class="col-md-3" id="by-kelas">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Kelas</span>
                                 </div>
                                 <?php
-                                echo form_dropdown('kelas', $kelas, $kelas_selected, 'id="kelas" class="form-control"'); ?>
+                                $disable = $kelas ? '' : 'disabled="disabled"';
+                                echo form_dropdown('kelas', $kelas, $kelas_selected, 'id="kelas" class="form-control" '.$disable); ?>
                             </div>
                         </div>
+                        <div class="col-9 <?= $kelas ? 'd-none' : ''?>">
+                            <div class="alert alert-default-warning shadow align-content-center" role="alert">
+                                Tidak bisa ditampilkan, Coba lagi <b>ULANGI REKAP</b> di halaman REKAP
+                            </div>
+                        </div>
+
                     </div>
                     <hr>
-                    <div class="float-right <?= $dnone ?>" id="group-export">
-                        <!--
-                        <button id="refresh" class="btn btn-default align-text-bottom" onclick="refreshStatus()"
-                                data-toggle="tooltip"
-                                title="Refresh">
-                            <i class="fa fa-sync ml-1 mr-1"></i> Refresh
-                        </button>
-                        -->
-                        <button type="button" id="download-excel" class="btn btn-success align-text-bottom"
-                                data-toggle="tooltip"
-                                title="Download Excel">
-                            <i class="fa fa-file-excel ml-1 mr-1"></i> Ekspor ke Excel
-                        </button>
-                    </div>
                     <?php
-                    if (isset($siswas)) :
-                        $info = $infos[0];
-
+                    if (isset($rekap) && $kelas) :
                         //echo '<pre>';
-                        //var_dump($infos);
-                        //echo var_export($siswas[39]->nilai, true);
+                        //var_dump($rekap);
+                        //echo var_export($rekap, true);
+                        //echo '<br>';
+                        //echo var_export($info, true);
+                        //echo var_export(unserialize_with_key($infos[0]->jawaban_pg), true);
                         //$soal_pgs = unserialize($siswas[39]->nilai[4]->soal_pg);
-                        //var_dump($);
-                        //var_dump($infos);
+                        //var_dump($siswas[0]);
+                        //var_dump($info->jawaban_pg);
                         //echo '</pre>';
 
-                        $soal_pgs = unserialize_with_key($info->jawaban_pg);
-                        $soal_ess = unserialize_with_key($info->jawaban_esai);
-
-
                         $colWidth = '5,15,35';
-                        for ($s = 0; $s < $info->tampil_pg; $s++) {
+                        for ($s = 0; $s < $rekap->tampil_pg; $s++) {
                             $colWidth .= ',4';
                         }
                         $colWidth .= ',10,10,10';
 
+                        $jml_soal = $rekap->tampil_pg + $rekap->soal_kompleks->tampil +
+                            $rekap->soal_jodohkan->tampil + $rekap->soal_isian->tampil + $rekap->soal_essai->tampil;
+
+                        $cols = [$rekap->tampil_pg, $rekap->soal_kompleks->tampil, $rekap->soal_jodohkan->tampil, $rekap->soal_isian->tampil, $rekap->soal_essai->tampil];
+                        $cols = array_filter($cols);
+                        $rows = count($cols) > 1 ? 1 : 2;
                         ?>
-                        <div class="d-none" id="info">
-                            <div id="info-ujian"></div>
+                        <div class="row">
+                            <div class="col-12 text-right" id="group-export">
+                                <?php if (isset($convert)) : ?>
+                                    <button type="button" id="rollback" class="btn btn-warning align-text-bottom">
+                                        <i class="fa fa-undo ml-1 mr-1"></i> Nilai Asli
+                                    </button>
+                                <?php else: ?>
+                                    <button type="button" class="btn btn-danger align-text-bottom"
+                                            data-toggle="modal" data-target="#perbaikanModal">
+                                        <i class="fa fa-balance-scale-right ml-1 mr-1"></i> Katrol Nilai
+                                    </button>
+                                <?php endif; ?>
+                                <button type="button" id="download-excel" class="btn btn-success align-text-bottom"
+                                        data-toggle="tooltip"
+                                        title="Download Excel">
+                                    <i class="fa fa-file-excel ml-1 mr-1"></i> Ekspor ke Excel
+                                </button>
+                            </div>
+
                         </div>
-                        <div <?= $dnone ?>>
-                            <table class="w-100 table-sm" id="table-status" data-cols-width="<?= $colWidth ?>">
-                                <tr>
-                                    <td colspan="2" style="width: 120px">Soal</td>
-                                    <td colspan="5"><?= $info->bank_kode ?></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Mata Pelajaran</td>
-                                    <td colspan="5"><?= $info->nama_mapel ?></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Level Kelas</td>
-                                    <td colspan="5"><?= $info->bank_level ?></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" height="60" class="align-top">Jumlah Soal</td>
-                                    <td colspan="5" class="align-top"><?= $info->tampil_pg ?></td>
-                                </tr>
-                                <tr></tr>
-                                <tr>
-                                    <th rowspan="2" class="text-center align-middle bg-blue" width="40"
-                                        data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                        data-f-bold="true"
-                                        style="border: 1px solid gray;border-collapse: collapse; text-align: center;">
-                                        No.
-                                    </th>
-                                    <th rowspan="2" class="text-center align-middle bg-blue" width="100"
-                                        data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                        data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        No. Peserta
-                                    </th>
-                                    <th rowspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        Nama
-                                    </th>
-                                    <th colspan="<?= $info->tampil_pg ?>" class="text-center align-middle bg-blue"
-                                        data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                        data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        Nomor Soal
-                                    </th>
-                                    <th rowspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        Jml. Benar
-                                    </th>
-                                    <th colspan="3" class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        Nilai
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <?php for ($s = 0; $s < $info->tampil_pg; $s++) : ?>
-                                        <th class="text-center align-middle bg-blue p-1" data-fill-color="b8daff"
-                                            data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                            style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                            <?= $s + 1 ?>
-                                        </th>
-                                    <?php endfor; ?>
-                                    <th class="text-center align-middle bg-blue p-1" data-fill-color="b8daff"
-                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        PG
-                                    </th>
-                                    <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        Essai
-                                    </th>
-                                    <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                        Skor
-                                    </th>
-                                </tr>
 
-                                <?php
-                                $no = 1;
-                                foreach ($siswas as $siswa) :
-                                    $idSiswa = $siswa->id_siswa;
-                                    //var_dump($idSiswa);
-
-                                    $nil = $siswa->nilai[$mapel];
-                                    $jwb_pgs = unserialize_with_key($nil->jawaban_pg);
-                                    $jwb_ess = unserialize_with_key($nil->jawaban_esai);
-
-                                    ?>
+                        <div class="row">
+                            <div class="col-12 overflow-auto">
+                                <table class="table-sm" id="table-status" data-cols-width="<?= $colWidth ?>" style="white-space: nowrap;">
                                     <tr>
-                                        <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
-                                            data-b-a-s="thin"
-                                            style="border: 1px solid grey;border-collapse: collapse; text-align: center;"> <?= $no ?> </td>
-                                        <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
-                                            data-b-a-s="thin"
-                                            style="border: 1px solid grey;border-collapse: collapse; text-align: center;"> <?= $siswa->nomor_peserta ?> </td>
-                                        <td class="align-middle" data-a-v="middle" data-b-a-s="thin"
-                                            style="border: 1px solid grey;border-collapse: collapse;"> <?= $siswa->nama ?> </td>
-                                        <?php
-                                        if ($soal_pgs > 0) :
-                                            $benar_pg = 0;
-                                        $salah_pg = 0;
-                                        foreach ($soal_pgs as $key => $benar) :
-                                            $bg1 = 'bg-red';
-                                            $bg2 = 'data-fill-color="FF7043"';
-                                        $jwbn = '';
-                                            if (isset($jwb_pgs[$key])) {
-                                                $jwbn = isset($jwb_pgs[$key]) ? $jwb_pgs[$key] : '';
-                                                if (strtoupper($benar) == strtoupper($jwb_pgs[$key])) {
-                                                    $bg1 = 'bg-green';
-                                                    $bg2 = 'data-fill-color="00E676"';
-                                                    $benar_pg ++;
-                                                } else {
-                                                    $salah_pg ++;
-                                                }
-                                            }
-                                            ?>
-                                            <td class="<?= $bg1 ?>" <?= $bg2 ?> data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                                style="border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $jwbn ?></td>
-                                        <?php endforeach; endif; ?>
-                                        <td data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                            style="border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $benar_pg ?></td>
-                                        <td class="text-center text-success align-middle" data-a-v="middle"
-                                            data-a-h="center" data-b-a-s="thin"
-                                            style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                            <b><?= $nil->nilai_pg ?></b></td>
-                                        <td class="text-center text-success align-middle" data-a-v="middle"
-                                            data-a-h="center" data-b-a-s="thin"
-                                            style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                            <b><?= $nil->nilai_esai ?></b></td>
-                                        <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
-                                            data-b-a-s="thin"
-                                            style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                            <b><?= $nil->nilai_pg + $nil->nilai_esai ?></b></td>
+                                        <td colspan="2" style="width: 120px">Soal</td>
+                                        <td colspan="2"><b><?= $rekap->bank_kode ?></b></td>
+                                        <td colspan="8">Mata Pelajaran</td>
+                                        <td colspan="12"><b><?= $rekap->nama_mapel ?></b></td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="2">Jenis Penilaian</td>
+                                        <td colspan="2"><b><?= $rekap->kode_jenis ?></b></td>
+                                        <td colspan="8">Guru Pengampu</td>
+                                        <td colspan="12"><b><?= $rekap->nama_guru ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Kelas</td>
+                                        <td colspan="2"><b><?= $nama_kelas ?></b></td>
+                                        <td colspan="8">Waktu Pelaksanaan</td>
+                                        <td colspan="12"><b><?= singkat_tanggal(date('d M Y', strtotime($rekap->tgl_mulai))) ?></b> s/d <b><?= singkat_tanggal(date('d M Y', strtotime($rekap->tgl_selesai))) ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Jumlah Soal</td>
+                                        <td colspan="2"><b><?= $jml_soal ?></b></td>
+                                        <td colspan="8">TP / SMT</td>
+                                        <td colspan="12"><b><?= $rekap->tp ?></b> smt <b><?= $rekap->smt ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    <?php if (isset($siswas)) :
+                                        $soal_pgs = $rekap->jawaban_pg;
+                                        ?>
 
-                                    <?php $no++; endforeach; ?>
-                            </table>
+                                        <tr>
+                                            <th rowspan="2" class="text-center align-middle bg-blue" width="40"
+                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                No.
+                                            </th>
+                                            <th rowspan="2" class="text-center align-middle bg-blue" width="100"
+                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center; padding: 0 20px 0 20px;">
+                                                No. Peserta
+                                            </th>
+                                            <th rowspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                Nama
+                                            </th>
+                                            <?php if ($rekap->tampil_pg > 0) :?>
+                                            <th colspan="<?= $rekap->tampil_pg ?>" class="text-center align-middle bg-blue"
+                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                Nomor Soal
+                                            </th>
+                                            <th rowspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                PG Benar
+                                            </th>
+                                            <?php endif; ?>
+                                            <th colspan="<?= count($cols) ?>" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                SKOR
+                                            </th>
+                                            <th colspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                Nilai
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <?php if ($rekap->tampil_pg > 0) :
+                                            for ($s = 0; $s < $rekap->tampil_pg; $s++) : ?>
+                                                <th class="text-center align-middle bg-blue p-1" data-fill-color="b8daff"
+                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    <?= $s + 1 ?>
+                                                </th>
+                                            <?php endfor; ?>
+                                            <th class="text-center align-middle bg-blue p-1" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                PG
+                                            </th>
+                                            <?php endif;
+                                            if ($rekap->soal_kompleks->tampil > 0) :?>
+                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                PGK
+                                            </th>
+                                            <?php endif;
+                                            if ($rekap->soal_jodohkan->tampil > 0) :?>
+                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                JOD
+                                            </th>
+                                            <?php endif;
+                                            if ($rekap->soal_isian->tampil > 0) :?>
+                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                IS
+                                            </th>
+                                            <?php endif;
+                                            if ($rekap->soal_essai->tampil > 0) :?>
+                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                ES
+                                            </th>
+                                            <?php endif; ?>
+                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                Asli
+                                            </th>
+                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                Katrol
+                                            </th>
+                                        </tr>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($siswas as $siswa) :
+                                            $idSiswa = $siswa->id_siswa;
+
+                                            $jwb_pgs = $siswa->jawaban_pg;
+                                            $total = $siswa->nilai_pg + $siswa->soal_kompleks->nilai +
+                                                $siswa->soal_jodohkan->nilai + $siswa->soal_isian->nilai + $siswa->soal_essai->nilai;
+                                            $nilai_convert = decimalFixed($total);
+                                            if (isset($convert)) {
+                                                //((YA-YB)/(XA-XB))*(NX-XB)+YB
+                                                $nilai_convert = decimalFixed(((($YA-$YB)/100)* $nilai_convert) + $YB);
+                                            } else {
+                                                if ($nilai_convert > $XA) {
+                                                    $XA = $nilai_convert;
+                                                }
+                                                if ($nilai_convert < $XB) {
+                                                    $XB = $nilai_convert;
+                                                }
+                                                //$nilai_pg = $skor_pg;
+                                                $nilai_convert = decimalFixed($total);
+                                            }
+
+                                            ?>
+                                            <tr>
+                                                <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
+                                                    data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;"> <?= $no ?> </td>
+                                                <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
+                                                    data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;"> <?= $siswa->nomor_peserta ?> </td>
+                                                <td class="align-middle" data-a-v="middle" data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse;"> <?= $siswa->nama ?> </td>
+                                                <?php
+                                                if ($soal_pgs > 0) :
+                                                    $benar_pg = 0;
+                                                    $salah_pg = 0;
+                                                    foreach ($soal_pgs as $key => $benar) :
+                                                        $bg1 = '#FF7043';
+                                                        $bg2 = 'data-fill-color="FF7043"';
+                                                        $jwbn = '';
+                                                        if (isset($jwb_pgs[$key])) {
+                                                            $jwbn = isset($jwb_pgs[$key]) ? $jwb_pgs[$key] : '';
+                                                            if (strtoupper($benar) == strtoupper($jwb_pgs[$key])) {
+                                                                $bg1 = '#00E676';
+                                                                $bg2 = 'data-fill-color="00E676"';
+                                                                $benar_pg ++;
+                                                            } else {
+                                                                $salah_pg ++;
+                                                            }
+                                                        }
+                                                        ?>
+                                                        <td <?= $bg2 ?> data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                                        style="background-color: <?= $bg1 ?>;border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $jwbn ?></td>
+                                                    <?php endforeach; ?>
+                                                <td data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $benar_pg ?></td>
+                                                <td class="text-center text-success align-middle" data-a-v="middle"
+                                                    data-a-h="center" data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                    <b><?= $siswa->nilai_pg ?></b></td>
+                                            <?php endif;
+                                            if ($rekap->soal_kompleks->tampil > 0) :?>
+                                                <td class="text-center text-success align-middle" data-a-v="middle"
+                                                    data-a-h="center" data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                    <b><?= $siswa->soal_kompleks->nilai ?></b></td>
+                                            <?php endif;
+                                            if ($rekap->soal_jodohkan->tampil > 0) :?>
+                                                <td class="text-center text-success align-middle" data-a-v="middle"
+                                                    data-a-h="center" data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                    <b><?= $siswa->soal_jodohkan->nilai ?></b></td>
+                                            <?php endif;
+                                            if ($rekap->soal_isian->tampil > 0) :?>
+                                                <td class="text-center text-success align-middle" data-a-v="middle"
+                                                    data-a-h="center" data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                    <b><?= $siswa->soal_isian->nilai ?></b></td>
+                                            <?php endif;
+                                            if ($rekap->soal_essai->tampil > 0) :?>
+                                                <td class="text-center text-success align-middle" data-a-v="middle"
+                                                    data-a-h="center" data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                    <b><?= $siswa->soal_essai->nilai ?></b></td>
+                                            <?php endif; ?>
+                                                <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
+                                                    data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                    <b><?= $total ?></b></td>
+                                                <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
+                                                    data-b-a-s="thin"
+                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                    <b><?= $nilai_convert ?></b></td>
+                                            </tr>
+
+                                            <?php $no++; endforeach; endif;?>
+                                </table>
+                            </div>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -249,196 +365,61 @@ function unserialize_with_key($serialized) {
         </div>
     </section>
 </div>
+
+<?= form_open('update', array('id' => 'perbaikan-nilai')) ?>
+<div class="modal fade" id="perbaikanModal" tabindex="-1" role="dialog" aria-labelledby="perbaikanModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="perbaikanModalLabel">Perbaikan Nilai</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="nama_sesi" class="col-md-4 col-form-label">Nilai Tertinggi</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="ya" value="<?= $YA ?>"
+                               placeholder="Nilai tertinggi yang diinginkan" required>
+                        <small>diisi nilai puluhan maksimal 100, misal 80 sampai 100</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="kode_sesi" class="col-md-4 col-form-label">Nilai Terrendah</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="yb" value="<?= $YB ?>"
+                               placeholder="Nilai terrendah yang diinginkan" required>
+                        <small>diisi nilai puluhan dibawah nilai tertinggi, misal 60</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary" id="convert">Katrol  <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<?=form_close()?>
+
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
-    var url = '';
-    var bagi_pg = 0;
-    var bobot_pg = 0;
-    var bagi_essai = 0;
-    var bobot_essai = 0;
     var idJadwal = '<?=$jadwal_selected?>';
     var isSelected = <?= isset($siswa) ? '1' : '0'?>;
+    var mapel = '<?=  $rekap->nama_mapel . " " . $rekap->kode_jenis . " " . $rekap->tp . " SMT " . $rekap->smt ?>';
+
+    var nilai_max = <?=$XA?>;//nilai siswa terbesar
+    var nilai_min = <?=$XB?>;//nilai siswa terkecil
+    var hasil_max = <?=$YA?>;//batas nilai terbesar
+    var hasil_min = <?=$YB?>;//batas nilai terkecil
 
     function lihatJawaban(idSiswa) {
         console.log("cbtnilai/getnilaisiswa?siswa=" + idSiswa + '&jadwal=' + idJadwal);
         window.location.href = base_url + 'cbtnilai/getnilaisiswa?siswa=' + idSiswa + '&jadwal=' + idJadwal;
-    }
-
-    function refreshStatus() {
-        $('#table-status').html('');
-        $('#info').addClass('d-none');
-        $('#loading').removeClass('d-none');
-
-        setTimeout(function () {
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (response) {
-                    console.log(response);
-                    createPreview(response)
-                }
-            });
-        }, 500);
-    }
-
-    function createPreview(data) {
-        /*
-        var bagi = ($info->tampil_pg + $info->tampil_esai) / 100;
-        var bobot = $mapel['bobot_pg'] / 100;
-        var skor = ($benar / $bagi) * $bobot;
-        */
-        bagi_pg = data.info.tampil_pg / 100;
-        bobot_pg = data.info.bobot_pg / 100;
-        bagi_essai = data.info.tampil_esai / 100;
-        bobot_essai = data.info.bobot_esai / 100;
-
-        console.log('bagi', bagi_pg);
-        console.log('bobot', bobot_pg);
-
-        var tbody = '    <tr>' +
-            '        <td colspan="2" style="width: 120px">Soal</td>' +
-            '        <td colspan="5">' + data.info.bank_kode + '</td>' +
-            '    </tr>' +
-            '    <tr>' +
-            '        <td colspan="2">Maata Pelajaran</td>' +
-            '        <td colspan="5">' + data.info.nama_mapel + '</td>' +
-            '    </tr>' +
-            '    <tr>' +
-            '        <td colspan="2">Level Kelas</td>' +
-            '        <td colspan="5">' + data.info.bank_level + '</td>' +
-            '    </tr>' +
-            '    <tr>' +
-            '        <td colspan="2">Jumlah Soal</td>' +
-            '        <td colspan="5">' + data.info.tampil_pg + '</td>' +
-            '    </tr>' +
-            '    <tr>' +
-            '    </tr>' +
-            //'<thead class="alert-primary">' +
-            '<tr>' +
-            '<th rowspan="2" class="text-center align-middle" width="40">No.</th>' +
-            '<th rowspan="2" class="text-center align-middle" width="100">No. Peserta</th>' +
-            '<th rowspan="2" class="text-center align-middle">Nama</th>' +
-            '<th colspan="3" class="text-center align-middle">Nilai</th>' +
-            '<th rowspan="2" class="text-center align-middle">Aksi</th>' +
-            '</tr>' +
-            '<tr>' +
-            '<th class="text-center align-middle p-1">PG</th>' +
-            '<th class="text-center align-middle">Essai</th>' +
-            '<th class="text-center align-middle">Skor</th>' +
-            '</tr>';
-
-        for (let i = 0; i < data.siswa.length; i++) {
-            var idSiswa = data.siswa[i].id_siswa;
-
-            //PG
-            var jawaban_pg = data.jawaban[idSiswa].jawab_pg;
-            var benar_pg = 0;
-            var salah_pg = 0;
-            for (let j = 0; j < jawaban_pg.length; j++) {
-                if (jawaban_pg[j] != null && jawaban_pg[j].jawaban_siswa != null) {
-                    if (jawaban_pg[j].jawaban_siswa.toUpperCase() === jawaban_pg[j].jawaban_benar.toUpperCase()) {
-                        benar_pg += 1;
-                    } else {
-                        salah_pg += 1;
-                    }
-                }
-            }
-            console.log(benar_pg, salah_pg);
-            var skor_pg = (benar_pg / bagi_pg) * bobot_pg;
-
-            //ESSAI
-            var jawaban_es = data.jawaban[idSiswa].jawab_essai;
-            var benar_es = 0;
-            var salah_es = 0;
-            var dikoreksi = false;
-            var skor_es = 0;
-            if (data.info.tampil_esai > 0) {
-                for (let j = 0; j < jawaban_es.length; j++) {
-                    if (jawaban_es[j] != null) {
-                        if (jawaban_es[j].koreksi === 1) {
-                            benar_es += 1;
-                            dikoreksi = true;
-                        } else if (jawaban_es[j].koreksi === 2) {
-                            salah_es += 1;
-                            dikoreksi = true;
-                        } else {
-                            dikoreksi = false;
-                            break;
-                        }
-                    }
-                }
-                skor_es = (benar_es / bagi_essai) * bobot_essai
-            }
-
-
-            var logging = data.jawaban[idSiswa].log;
-            var mulai = '- -  :  - -';
-            var selesai = '- -  :  - -';
-            for (let k = 0; k < logging.length; k++) {
-                if (logging[k].log_type === '1') {
-                    if (logging[k] != null) {
-                        var t = logging[k].log_time.split(/[- :]/);
-                        //var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
-                        mulai = t[3] + ':' + t[4];
-                    }
-                } else {
-                    if (logging[k] != null) {
-                        var ti = logging[k].log_time.split(/[- :]/);
-                        selesai = ti[3] + ':' + ti[4];
-                    }
-                }
-            }
-
-            var disabled = mulai.includes('-') ? 'disabled' : '';
-            tbody += '<tr>' +
-                '<td class="text-center align-middle">' + (i + 1) + '</td>' +
-                '<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
-                '<td class="align-middle">' + data.siswa[i].nama + '</td>' +
-                '<td class="text-center text-success align-middle"><b>' + skor_pg + '</b></td>';
-            if (dikoreksi) {
-                tbody += '<td class="text-center text-success align-middle"><b>' + skor_es + '</b></td>';
-            } else {
-                tbody += '<td class="text-center align-middle">';
-                if (data.info.tampil_esai == 0) {
-                    tbody += '--';
-                } else {
-                    tbody += '<button type="button" class="btn btn-xs bg-primary mb-1 ' + disabled + '" onclick="koreksiEssai()" data-toggle="tooltip" title="Koreksi Jawaban Essai">Koreksi</button>';
-                }
-                tbody += '</td>';
-            }
-            tbody += '<td class="text-center align-middle"><b>' + (skor_pg + skor_es) + '</b></td>' +
-                '<td class="text-center align-middle">' +
-                '	<button type="button" class="btn btn-xs bg-success mb-1 ' + disabled + '" onclick="lihatJawaban(' + data.siswa[i].id_siswa + ')" data-toggle="tooltip" title="Reset">Lihat</button>' +
-                '</td>' +
-                '</tr>';
-        }
-
-        tbody += '';
-        $('#table-status').html(tbody);
-        $('#info').removeClass('d-none');
-        $('#group-export').removeClass('d-none');
-        $('#loading').addClass('d-none');
-
-        $('#info-ujian').html('<table class="table table-bordered table-sm">' +
-            '    <tr>' +
-            '        <td style="width: 120px">Soal</td>' +
-            '        <td>' + data.info.bank_kode + '</td>' +
-            '    </tr>' +
-            '    <tr>' +
-            '        <td>Maata Pelajaran</td>' +
-            '        <td>' + data.info.nama_mapel + '</td>' +
-            '    </tr>' +
-            '    <tr>' +
-            '        <td>Level Kelas</td>' +
-            '        <td>' + data.info.bank_level + '</td>' +
-            '    </tr>' +
-            '    <tr>' +
-            '        <td>Jumlah Soal</td>' +
-            '        <td>' + data.info.tampil_pg + '</td>' +
-            '    </tr>' +
-            '</table>');
-        $('#loading').addClass('d-none');
     }
 
     $(document).ready(function () {
@@ -465,15 +446,55 @@ function unserialize_with_key($serialized) {
         });
 
         //getDetailJadwal(idJadwal);
+        $('#rollback').on('click', function (e) {
+            loadSiswaKelas(opsiKelas.val(), opsiJadwal.val())
+        });
 
+        $('#perbaikan-nilai').on('submit', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            var table = document.querySelector("#table-status");
+            if (table != null) {
+                var $inputs = $('#perbaikan-nilai :input');
+                var values = {};
+                $inputs.each(function () {
+                    values[this.name] = $(this).val();
+                });
+                hasil_max = values['ya'];
+                hasil_min = values['yb'];
+                //console.log(hasil_max, hasil_min);
+                //console.log(nilai_max, nilai_min);
+
+                $('#perbaikanModal').modal('hide').data('bs.modal', null);
+                $('#perbaikanModal').on('hidden', function () {
+                    $(this).data('modal', null);  // destroys modal
+                });
+                $('#loading').removeClass('d-none');
+                window.location.href = base_url + 'cbtrekap/olahnilai?kelas=' + opsiKelas.val() + '&jadwal=' + idJadwal +
+                    '&xa=' + nilai_max + '&xb=' + nilai_min + '&ya=' + hasil_max + '&yb=' + hasil_min;
+            } else {
+                $('#perbaikanModal').modal('hide').data('bs.modal', null);
+                $('#perbaikanModal').on('hidden', function () {
+                    $(this).data('modal', null);  // destroys modal
+                });
+
+
+                Swal.fire({
+                    title: "ERROR",
+                    text: "Isi JADWAL dan KELAS terlebih dulu",
+                    icon: "error"
+                })
+            }
+        });
 
         $("#download-excel").click(function (event) {
             var table = document.querySelector("#table-status");
             //TableToExcel.convert(table);
             TableToExcel.convert(table, {
-                name: `Hasil Siswa ${$("#kelas option:selected").text()}.xlsx`,
+                name: `Nilai Siswa ${$("#kelas option:selected").text()} ${mapel}.xlsx`,
                 sheet: {
-                    name: "Sheet 1"
+                    name: "Nilai"
                 }
             });
         });

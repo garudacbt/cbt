@@ -112,6 +112,7 @@
                                         ?>
                                     </div>
                                 </div>
+                                <!--
                                 <div class="form-group row">
                                     <label for="guru_id" class="col-md-3 control-label">Wali Kelas</label>
                                     <div class="col-md-9">
@@ -125,6 +126,7 @@
                                         ?>
                                     </div>
                                 </div>
+                                -->
 							</div>
 						</div>
                         <hr>

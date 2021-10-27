@@ -47,6 +47,7 @@
 			<script src="<?=base_url()?>/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 			<!-- ChartJS -->
 			<script src="<?=base_url()?>/assets/plugins/chart.js/Chart.min.js"></script>
+            <script src="<?=base_url()?>/assets/plugins/chart.js/chartjs-plugin-labels.min.js"></script>
 			<!-- jQuery Knob Chart -->
 			<script src="<?=base_url()?>/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
 			<!-- moment -->
@@ -81,6 +82,8 @@
 			<script src="<?=base_url()?>/assets/plugins/dropify/js/dropify.min.js"></script>
 			<script src="<?= base_url() ?>/assets/app/js/jquery.toast.min.js"></script>
 
+            <script src="<?=base_url()?>/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
 			<!-- AdminLTE App -->
 			<script src="<?=base_url()?>/assets/adminlte/dist/js/adminlte.js"></script>
 			<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -99,7 +102,6 @@
 			<!--
 			<script src="<?= base_url() ?>/assets/plugins/file-uploader/src/image-uploader.js"></script>
 			-->
-			<script src="<?= base_url() ?>/assets/app/js/generate.js"></script>
 			<script src="<?= base_url() ?>/assets/app/js/jquery-thumbnail-cut.js"></script>
 
 			<!-- Custom JS -->
@@ -129,8 +131,6 @@
 				function reload_ajax() {
 					table.ajax.reload();
 				}
-
-				getToken();
 
 				var initDestroyTimeOutPace = function() {
 					var counter = 0;

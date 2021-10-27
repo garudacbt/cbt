@@ -26,21 +26,26 @@
 
 						<?= form_open("auth/cek_login", array('id' => 'login')); ?>
 						<div class="input-group mb-3 has-feedback">
-							<?= form_input($identity, '', 'required'); ?>
-							<div class="input-group-append">
+							<div class="input-group-prepend">
 								<div class="input-group-text">
-									<span class="fas fa-envelope"></span>
+									<span class="fas fa-user"></span>
 								</div>
 							</div>
+                            <?= form_input($identity, '', 'required'); ?>
 							<div class="help-block"></div>
 						</div>
 						<div class="input-group mb-3 has-feedback">
-							<?= form_input($password, '', 'required'); ?>
-							<div class="input-group-append">
+							<div class="input-group-prepend">
 								<div class="input-group-text">
 									<span class="fas fa-lock"></span>
 								</div>
 							</div>
+                            <?= form_input($password, '', 'required'); ?>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span id="toggle-password" class="fas fa-eye-slash" style="cursor: pointer"></span>
+                                </div>
+                            </div>
 							<div class="help-block"></div>
 						</div>
 						<div class="row">

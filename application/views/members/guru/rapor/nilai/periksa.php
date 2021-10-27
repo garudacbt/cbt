@@ -9,15 +9,16 @@
         </div>
     </section>
 
+    <?php
+    $mapelNone = $filter_selected != '1' ? 'd-none' : '';
+    $extraNone = $filter_selected != '2' ? 'd-none' : '';
+    ?>
+
     <section class="content">
         <div class="container-fluid">
             <div class="card my-shadow mb-4">
                 <div class="card-body">
                     <div class="row">
-                        <?php
-                        $mapelNone = $filter_selected != '1' ? 'd-none' : '';
-                        $extraNone = $filter_selected != '2' ? 'd-none' : '';
-                        ?>
                         <div class="col-md-4 mb-3">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
@@ -60,8 +61,9 @@
                                 <thead>
                                 <tr class="bg-gray">
                                     <th rowspan="2" class="text-center align-middle">NO</th>
-                                    <th rowspan="2" class="text-center align-middle">N I S</th>
+                                    <th rowspan="2" class="text-center align-middle">NIS/NISN</th>
                                     <th rowspan="2" class="text-center align-middle" style="width: 10%;">NAMA</th>
+                                    <?php if ($extraNone) : ?>
                                     <th colspan="8" class="text-center">NILAI PENGETAHUAN</th>
                                     <th rowspan="2" class="text-center align-middle">RPH P</th>
                                     <th rowspan="2" class="text-center align-middle">PRED P</th>
@@ -70,8 +72,14 @@
                                     <th rowspan="2" class="text-center align-middle">RPH K</th>
                                     <th rowspan="2" class="text-center align-middle">PRED K</th>
                                     <th rowspan="2" class="text-center align-middle" style="width: 20%">DESKRIPSI KETERAMPILAN</th>
+                                    <?php else: ?>
+                                    <th rowspan="2" class="text-center">NILAI</th>
+                                        <th rowspan="2" class="text-center align-middle">PRED</th>
+                                        <th rowspan="2" class="text-center align-middle">DESKRIPSI</th>
+                                    <?php endif; ?>
                                 </tr>
                                 <tr class="bg-gray">
+                                    <?php if ($extraNone) : ?>
                                     <th class="text-center">P1</th>
                                     <th class="text-center">P2</th>
                                     <th class="text-center">P3</th>
@@ -88,18 +96,20 @@
                                     <th class="text-center">K6</th>
                                     <th class="text-center">K7</th>
                                     <th class="text-center">K8</th>
+                                    <?php endif; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                 $no = 1;
                                 foreach ($siswa as $s) :
-                                    $ns = $nilai[$s->id_siswa]?>
+                                    $ns = $nilai[$s->id_siswa]; ?>
                                     <tr>
                                         <td class="text-center"><?=$no?></td>
                                         <td class="text-center"><?=$s->nis?></td>
                                         <td><?=$s->nama?></td>
-                                        <td class="text-center"><?=$ns->p1?></td>
+                                        <?php if ($extraNone) : ?>
+                                        <td class="text-center"><?=$ns->p1 != null ? $ns->p1 : ''?></td>
                                         <td class="text-center"><?=$ns->p2?></td>
                                         <td class="text-center"><?=$ns->p3?></td>
                                         <td class="text-center"><?=$ns->p4?></td>
@@ -121,6 +131,11 @@
                                         <td class="text-center text-bold"><?=$ns->k_rata_rata?></td>
                                         <td class="text-center text-bold"><?=$ns->k_predikat?></td>
                                         <td style="font-size: 8pt"><?=$ns->k_deskripsi?></td>
+                                        <?php else: ?>
+                                            <td class="text-center"><?=$ns->nilai?></td>
+                                            <td class="text-center"><?=$ns->predikat?></td>
+                                            <td class="text-center"><?=$ns->deskripsi?></td>
+                                        <?php endif; ?>
                                     </tr>
                                     <?php $no++; endforeach;?>
                                 </tbody>

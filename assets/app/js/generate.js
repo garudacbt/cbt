@@ -1,56 +1,75 @@
-var timer;
-var token;
+let timer;
+let jarak;
+let updated;
 
-function getToken() {
+function startInterval(func) {
+    timer = setInterval(function(){
+        generateToken(func);
+    }, jarak * 60000); //1000*60*15 = 15 menit
+    //if (func && (typeof f == "function")) {
+    //    func(jarak);
+    //}
+}
+
+function stopInterval(func) {
+    if (timer != null) {
+        clearInterval(timer);
+    }
+    if (func && (typeof f == "function")) {
+        func('Timer Stopped');
+    }
+}
+
+function getToken(func) {
 	$.ajax({
 		url: base_url + "cbttoken/loadtoken",
 		type: "GET",
 		success: function (response) {
-			token = response;
-			console.log("getToken", token);
+		    globalToken = response;
+		    jarak = response.jarak;
+            updated = response.updated;
+            //if (response.auto == '1') {
+            //    startInterval(func);
+            //} else {
+            //    stopInterval(func);
+            //}
+            if (func && (typeof func == "function")) {
+                func(response);
+            }
 		},
 		error: function (xhr, status, error) {
 			console.log(xhr);
 		}
 	});
-}
-
-function createToken(t, f) {
-	token = t;
-	clearInterval(timer);
-	if (token.auto==='1') {
-		timer = setInterval(function(){
-			generateToken(f);
-		}, 1000*60*15); //1000*60*15 = 15 menit
-	} else {
-		generateToken(f);
-	}
 }
 
 function generateToken(f) {
-	var tokenBaru        = '';
-	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	var charactersLength = characters.length;
-	for ( var i = 0; i < 6; i++ ) {
-		tokenBaru += characters.charAt(Math.floor(Math.random() * charactersLength));
-	}
+    var tokenBaru        = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 6; i++ ) {
+        tokenBaru += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
 
-	var tkn = token.token==='' ? '-' : token.token;
-	$.ajax({
-		url: base_url + "cbttoken/generatetoken/"+tkn+"/"+tokenBaru+"/"+token.auto,
-		type: "GET",
-		success: function () {
-			if (f && (typeof f == "function")) {
-				var resultData = {};
-				resultData ["token"] = tokenBaru;
-				resultData ["auto"] = token.auto;
-				token = resultData;
-				f(resultData);
-			}
-		},
-		error: function (xhr, status, error) {
-			console.log(xhr);
-		}
-	});
-	//return result;
+    var tkn = globalToken.token==='' ? '-' : globalToken.token;
+    $.ajax({
+        url: base_url + "cbttoken/generatetoken/"+tkn+"/"+tokenBaru+"/"+globalToken.auto,
+        type: "GET",
+        success: function () {
+            console.log('tokenResult', tokenBaru);
+
+            if (f && (typeof f == "function")) {
+                var resultData = {};
+                resultData ["token"] = tokenBaru;
+                resultData ["auto"] = globalToken.auto;
+                globalToken = resultData;
+
+                f(resultData);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr);
+        }
+    });
+    //return result;
 }

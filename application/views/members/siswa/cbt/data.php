@@ -11,19 +11,6 @@ foreach ($guru as $g) {
     $arrGuru[$g->id_guru] = $g->nama_guru;
 }
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <ul class="navbar-nav ml-2">
-        <li class="nav-item">
-            <a class="nav-link btn-outline-success" href="<?= base_url('dashboard') ?>" role="button"><i
-                        class="fas fa-arrow-left"></i> Beranda</a>
-        </li>
-    </ul>
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?= $setting->nama_aplikasi ?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
 <div class="content-wrapper" style="margin-top: -1px;">
     <div class="sticky">
     </div>
@@ -31,17 +18,9 @@ foreach ($guru as $g) {
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="info-box bg-transparent shadow-none">
-                        <img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" width="90" height="90">
-                        <div class="info-box-content">
-                            <h5 class="info-box-text text-white text-wrap"><b><?= $siswa->nama ?></b></h5>
-                            <span class="info-box-text text-white"><?= $siswa->nis ?></span>
-                            <span class="info-box-text text-white"><?= $siswa->nama_kelas ?></span>
-                            <button onclick="logout()" class="btn btn-danger btn-outline-light" style="width: 200px">
-                                LOGOUT<i class="fas fa-sign-out-alt ml-2"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <?php
+                    $cbt_setting = [];
+                    $this->load->view('members/siswa/templates/top'); ?>
                 </div>
             </div>
 
@@ -70,6 +49,7 @@ foreach ($guru as $g) {
                                                     $arrTitle = ['Ruang', 'Sesi', 'Dari', 'Sampai'];
                                                     $arrSub = [$cbt_info->nama_ruang, $cbt_info->nama_sesi, substr($cbt_info->waktu_mulai, 0, -3), substr($cbt_info->waktu_akhir, 0, -3)];
                                                     foreach ($arrTitle as $key => $title) :
+                                                        if ($arrSub[$key] == null) array_push($cbt_setting, $title)
                                                         ?>
                                                         <li class="list-group-item p-1">
                                                             <?= $title ?>
@@ -120,16 +100,13 @@ foreach ($guru as $g) {
                         <div class="card-body">
                             <div class="row" id="jadwal-content">
                                 <?php
-                                //echo '<pre>';
-                                //var_dump($cbt_jadwal);
-                                //echo '</pre>';
-                                if ($cbt_info == null) : ?>
+                                if ($cbt_info == null || count($cbt_setting) > 0) : ?>
                                     <div class="col-12 alert alert-default-warning">
-                                        <div class="text-center">Tidak ada jadwal penilaian</div>
+                                        <div class="text-center">Tidak ada jadwal penilaian.<b>Tidak bisa mengerjakan
+                                                ulangan/ujian.<br>Hubungi Proktor/Admin</div>
                                     </div>
                                 <?php else:
                                     $jamSesi = $cbt_info == null ? '0' : (isset($cbt_info->sesi_id) ? $cbt_info->sesi_id : $cbt_info->id_sesi);
-
                                     foreach ($cbt_jadwal as $key => $jadwal)  :
                                         $kk = unserialize($jadwal->bank_kelas);
                                         $arrKelasCbt = [];
@@ -155,13 +132,12 @@ foreach ($guru as $g) {
                                         $hariSampai = new DateTime($jadwal->tgl_selesai);
 
 
-                                        $jamMulai = new DateTime($sesi[$jamSesi]['mulai']);
-                                        $jamSampai = new DateTime($sesi[$jamSesi]['akhir']);
+                                        $sesiMulai = new DateTime($sesi[$jamSesi]['mulai']);
+                                        $sesiSampai = new DateTime($sesi[$jamSesi]['akhir']);
                                         $now = strtotime(date('H:i'));
 
                                         $durasi = $elapsed[$jadwal->id_jadwal];
 
-                                        $bg;
                                         if ($durasi != null) {
                                             $selesai = $durasi->selesai != null;
                                             $lanjutkan = $durasi->lama_ujian != null;
@@ -174,14 +150,26 @@ foreach ($guru as $g) {
                                             $reset = 0;
                                             $bg = 'bg-gradient-danger';
                                         }
+
+                                        $durasiMulai = new DateTime($sesi[$jamSesi]['mulai']);
+                                        $durasiSampai = new DateTime($sesi[$jamSesi]['mulai']);
+                                        $durasiMulai->add(new DateInterval('PT' . $jadwal->jarak . 'M'));
+                                        $durasiSampai->add(new DateInterval('PT' . ($jadwal->jarak + $jadwal->durasi_ujian) . 'M'));
+                                        //echo '<pre>';
+                                        //var_dump($now);
+                                        //var_dump(strtotime($durasiMulai->format('H:i')));
+                                        //echo '</pre>';
                                         ?>
                                         <div class="jadwal-cbt col-md-6 col-lg-4">
                                             <div class="card border">
                                                 <div class="card-header">
                                                     <div class="card-title">
                                                         <b><i class="fa fa-clock-o text-gray mr-1"></i>
-                                                            <?= $jamMulai->format('H:i') ?>
-                                                            s/d <?= $jamSampai->format('H:i') ?></b>
+                                                            <?= $jadwal->durasi_ujian ?> mnt</b>
+                                                    </div>
+                                                    <div class="card-tools">
+                                                        <?= $durasiMulai->format('H:i') ?>
+                                                        ~ <?= $durasiSampai->format('H:i') ?>
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-0">
@@ -224,25 +212,32 @@ foreach ($guru as $g) {
                                                                     <b>SUDAH BERAKHIR</b>
                                                                 </div>
                                                             <?php else: ?>
-                                                                <?php if ($now < strtotime($jamMulai->format('H:i'))) : ?>
+                                                                <?php if ($now < strtotime($sesiMulai->format('H:i'))) : ?>
                                                                     <div id="status" class="small-box-footer p-2">
                                                                         <b><?= strtoupper($cbt_info->nama_sesi) ?> BELUM
                                                                             DIMULAI</b>
                                                                     </div>
-                                                                <?php elseif ($now > strtotime($jamSampai->format('H:i'))) : ?>
+                                                                <?php elseif ($now > strtotime($sesiSampai->format('H:i'))) : ?>
                                                                     <div id="status" class="small-box-footer p-2">
                                                                         <b><?= strtoupper($cbt_info->nama_sesi) ?> SUDAH
                                                                             BERAKHIR</b>
                                                                     </div>
                                                                 <?php else : ?>
-                                                                    <a id="status" href="<?= base_url('siswaview/konfirmasi/' . $jadwal->id_jadwal) ?>"
-                                                                       class="text-white small-box-footer p-2">
-                                                                    <b>KERJAKAN</b><i
-                                                                            class="fas fa-arrow-circle-right ml-3"></i>
-                                                                    </a>
-                                                                <?php endif; endif; ?>
+                                                                    <?php if ($now < strtotime($durasiMulai->format('H:i'))) : ?>
+                                                                        <div id="status" class="small-box-footer p-2">
+                                                                            <b>BELUM DIMULAI</b>
+                                                                        </div>
+                                                                    <?php else : ?>
+                                                                        <a id="status"
+                                                                           href="<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>"
+                                                                           class="text-white small-box-footer p-2">
+                                                                            <b>KERJAKAN</b><i
+                                                                                    class="fas fa-arrow-circle-right ml-3"></i>
+                                                                        </a>
+                                                                    <?php endif; endif; endif; ?>
                                                         <?php elseif ($lanjutkan && !$selesai) : ?>
-                                                            <a id="status" class="small-box-footer p-2 text-white" href="<?= base_url('siswaview/konfirmasi/' . $jadwal->id_jadwal) ?>">
+                                                            <a id="status" class="small-box-footer p-2 text-white"
+                                                               href="<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>">
                                                                 <b>LANJUTKAN</b><i
                                                                         class="fas fa-arrow-circle-right ml-3"></i>
                                                             </a>
@@ -299,7 +294,18 @@ foreach ($guru as $g) {
 
         if (!$('.jadwal-cbt').length) {
             var html = '<div class="col-12 alert alert-default-warning">' +
-                '<div class="text-center">Tidak ada jadwal penilaian</div>' +
+                'Tidak ada jadwal penilaian.' +
+                '</div>';
+
+            $('#jadwal-content').html(html);
+        }
+
+        if (<?= count($cbt_setting)?> >
+        0
+    )
+        {
+            var html = '<div class="col-12 alert alert-default-warning">' +
+                'RUANG atau SESI belum terdaftar.<br>Tidak bisa mengerjakan ulangan/ujian.<br>Hubungi Proktor/Admin' +
                 '</div>';
 
             $('#jadwal-content').html(html);

@@ -24,30 +24,36 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <a href="<?=base_url('rapor/downloadtemplateharian/'.$mapel['id_mapel'].'/'.$kelas['id_kelas'])?>" id="download" type="button" class="btn btn-primary w-100">
-                                <i class="fa fa-download"></i> <span class="ml-1">Download Template</span>
-                            </a>
-                        </div>
+                        <?php if ($kkm == null): ?>
+                            <div class="alert alert-default-danger align-content-center" role="alert">
+                                Download template tidak tersedia, Anda harus mengisi KKM terlebih dahulu di menu <b>DATA RAPOR > KKM DAN BOBOT</b>
+                            </div>
+                        <?php else: ?>
+                            <div class="col-md-4 mb-3">
+                                <a href="<?=base_url('rapor/downloadtemplateharian/'.$mapel['id_mapel'].'/'.$kelas['id_kelas'])?>" id="download" type="button" class="btn btn-primary w-100">
+                                    <i class="fa fa-download"></i> <span class="ml-1">Download Template</span>
+                                </a>
+                            </div>
 
-                        <div class="col-md-8">
-                            <?= form_open_multipart('', array('id'=>'uploadharian')); ?>
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="custom-file">
-                                        <input type="file" name="upload_file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Pilih file excel</label>
+                            <div class="col-md-8">
+                                <?= form_open_multipart('', array('id'=>'uploadharian')); ?>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="custom-file">
+                                            <input type="file" name="upload_file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Pilih file excel</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <button id="upload" type="submit" class="btn btn-success w-100">
+                                            <i class="fa fa-upload"></i> <span class="ml-1">Upload</span>
+                                        </button>
                                     </div>
                                 </div>
-
-                                <div class="col-4">
-                                    <button id="upload" type="submit" class="btn btn-success w-100">
-                                        <i class="fa fa-upload"></i> <span class="ml-1">Upload</span>
-                                    </button>
-                                </div>
+                                <?= form_close(); ?>
                             </div>
-                            <?= form_close(); ?>
-                        </div>
+                        <?php endif; ?>
                     </div>
                     <hr>
                 </div>
@@ -122,8 +128,8 @@
                     <?= form_close() ?>
                 </div>
             </div>
-
-            <div class="card my-shadow mb-4">
+            <?php $dnone = $kkm == null ? 'd-none' : ''; ?>
+            <div class="card my-shadow mb-4 <?=$dnone?>">
                 <div class="card-header py-3">
                     <div class="card-title">
                         <h6><b>Edit Nilai <?=$mapel['nama_mapel']?></b></h6>
@@ -135,6 +141,37 @@
                             KKM dan Bobot belum diatur
                         </div>
                     <?php endif; ?>
+                    <?php
+                    $multi = $setting_rapor->kkm_tunggal == "0" ? "MULTI" : "TUNGGAL";
+                    $isi = $kkm->kkm;
+                    $d = 0;
+                    $dsd = $isi - 1;
+                    $c = $isi;
+                    $csd = floor($isi + (100 - $isi) / 3);
+                    $b = $csd + 1;
+                    $bsd = floor($b + (100 - $b) / 2);
+                    $a = $bsd + 1;
+                    $asd = 100;
+                    ?>
+                    <table class="table w-100 table-bordered border-dark table-sm">
+                        <tr class="bg-light text-center">
+                            <td style="width: 20%">KKM</td>
+                            <td style="width: 20%">Jenis KKM</td>
+                            <td style="width: 40%">Interval Predikat Berdasarkan KKM</td>
+                            <td style="width: 20%">Bobot Nilai Harian</td>
+                        </tr>
+                        <tr class="text-center text-md text-dark">
+                            <td><?=$kkm->kkm?></td>
+                            <td><?=$multi?></td>
+                            <td>
+                                <span class="bg-danger badge p-1">0 ~ <?= $dsd ?> : D</span>
+                                <span class="bg-warning badge p-1"><?= $c . ' ~ ' . $csd ?> : C</span>
+                                <span class="bg-blue badge p-1"><?= $b . ' ~ ' .  $bsd ?> : B</span>
+                                <span class="bg-success badge p-1"><?= $a ?> ~ 100 : A</span>
+                            </td>
+                            <td><?=$kkm->bobot_ph?> %</td>
+                        </tr>
+                    </table>
                     <div id="t-siswa" class="w-100"></div>
                     <?= form_open('', array('id' => 'uploadnilai')) ?>
                     <button type="submit" class="btn btn-primary float-right mt-3 mb-3">
@@ -156,7 +193,10 @@
     var idMapel = '<?=$mapel['id_mapel']?>';
     var idKelas = '<?=$kelas['id_kelas']?>';
 
-    var isi = parseInt(kkm.kkm);
+    var isi = 0;
+    if (kkm != null) {
+        isi = parseInt(kkm.kkm);
+    }
     var pre_d = 0;
     var pre_dsd = isi - 1;
     var pre_c = isi;
@@ -361,7 +401,7 @@
         cols = $.grep(cols, function (n, i) {
             return (n != null && n.nilai !== '');
         });
-        //console.log('grepped', cols);
+        console.log('grepped', cols);
 
         var result = cols.length>1 ? 'Memiliki kemampuan' : '';
         if (cols.length > 0) {
@@ -428,10 +468,12 @@
 
     $(document).ready(function() {
         console.log(idKelas);
+        console.log(arrNilai);
         //console.log('a' + pre_a + ' b' + pre_b + ' bd' + pre_bsd + ' c' + pre_c + ' cd' + pre_csd + ' dd' + pre_dsd);
         var dataSiswa = [];
         var row = 1;
         $.each(arrSiswa, function (i, v) {
+            var noInduk = v.nisn == null || v.nisn == '' ? v.nis : v.nisn;
             var nilai = arrNilai[v.id_siswa];
             var p1 = nilai.p1=='0'?'':nilai.p1; var p2 = nilai.p2=='0'?'':nilai.p2;
             var p3 = nilai.p3=='0'?'':nilai.p3; var p4 = nilai.p4=='0'?'':nilai.p4;
@@ -445,7 +487,7 @@
 
             dataSiswa.push(
                 [
-                    v.nisn, v.nama, p1, p2, p3, p4, p5, p6, p7, p8,
+                    noInduk, v.nama, p1, p2, p3, p4, p5, p6, p7, p8,
                     '=COUNTA(C'+row+':J'+row+')',
                     '=IF(COUNT(C'+row+':J'+row+')<2,"",ROUND(SUM(C'+row+':J'+row+')/K'+row+',0))',
                     '=IF(L'+row+'>'+pre_bsd+',"A",IF(L'+row+'>'+pre_csd+',"B",IF(L'+row+'>'+pre_dsd+',"C",IF(L'+row+'<'+pre_c+',"D",""))))',
@@ -473,8 +515,8 @@
             var item = {};
 
             if (i === 0) {
-                item['title'] = 'N I S N\n'+char.charAt(i);
-                item['width'] = 100;
+                item['title'] = 'NIS/NISN\n'+char.charAt(i);
+                item['width'] = 160;
             } else if (i === 1) {
                 item['title'] = 'NAMA SISWA\n'+char.charAt(i);
                 item['width'] = 250;
@@ -560,7 +602,14 @@
                 ],
             ],
             updateTable:function(instance, cell, col, row, val, label, cellName) {
-                if (col === 0 || col === 1) {
+                if (col === 0) {
+                    cell.className = '';
+                    cell.style.backgroundColor = '#f8d7da';
+                    cell.style.textAlign = 'center';
+                    cell.classList.add('readonly');
+                }
+
+                if (col === 1) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
                     cell.style.textAlign = 'left';
@@ -662,7 +711,7 @@
 
             var tbl = $('table.jexcel tr').get().map(function(row) {
                 return $(row).find('td').get().map(function(cell) {
-                    return $(cell).html().replace(/\&nbsp;/g, '');
+                    return $(cell).html().replace(/\&nbsp;/g, '').trim();
                 });
             });
             tbl.shift();

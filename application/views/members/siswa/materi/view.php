@@ -8,20 +8,6 @@
 
 $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unserialize($log_selesai->file) : [];
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <ul class="navbar-nav ml-2">
-        <li class="nav-item">
-            <a class="nav-link btn-outline-success" href="<?= base_url('siswaview/materi') ?>" role="button"><i
-                        class="fas fa-arrow-left"></i> Materi Pelajaran</a>
-        </li>
-    </ul>
-
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
 
 <div class="content-wrapper" style="margin-top: -1px;">
 	<div class="sticky">
@@ -31,8 +17,8 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 			<div class="row">
 				<div class="col-12">
 					<div class="card my-shadow mt-5">
-						<div class="card-header p-4">
-							<div class="media" style="line-height: 1.2">
+						<div class="card-header">
+							<div class="media card-title" style="line-height: 1.2">
                                 <?php
                                 $avatar = $materi->foto == null ? 'assets/img/guru.png' : $materi->foto;
                                 ?>
@@ -45,10 +31,54 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 									  <span>Kelas <?= $siswa->nama_kelas ?> </span>
 									  </div>
 								</div>
+                            <div class="card-tools pl-3 pr-3 pb-1 pt-1 text-center alert alert-default-info m-0" style="line-height: 1">
+                                Nilai
+                                <br>
+                                <span style="font-size: 28pt">
+                                <?= $log_selesai!=null && $log_selesai->nilai !=null ? $log_selesai->nilai : ''?>
+                                </span>
+                            </div>
 						</div>
+                        <?php
+                        //str_replace("world","Peter","Hello world!");
+                        //
+                        //        var sMateri = $($.parseHTML(checkMateri));
+                        //        sMateri.find(`img`).each(function () {
+                        //            var curSrc = $(this).attr('src');
+                        //            if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
+                        //                $(this).attr('src', base_url+curSrc);
+                        //            } else if (curSrc.indexOf(base_url) === -1) {
+                        //                var pathUpload = 'uploads';
+                        //                var forReplace = curSrc.split(pathUpload);
+                        //                $(this).attr('src', base_url + pathUpload + forReplace[1]);
+                        //            }
+                        //        });
+
+                        //$html = str_get_html($received_str);
+                        //
+                        ////Image tag
+                        //$img_tag = $html->find("img", 0)->outertext;
+                        //
+                        ////Example Text
+                        //$example_text = $html->find('div[style=example]', 0)->last_child()->innertext;
+                        $dom = new DOMDocument();
+                        @$dom->loadHTML($materi->isi_materi);
+                        $images = $dom->getElementsByTagName('img');
+                        foreach ($images as $image) {
+                            $curSrc = $image->getAttribute('src');
+                            if (strpos($curSrc, 'http') !== false) {
+                                $pathUpload = 'uploads';
+                                $forReplace = explode($pathUpload, $pathUpload);
+                                $image->setAttribute('src', base_url(). $pathUpload . $forReplace[1]);
+                            } else {
+                                $image->setAttribute('src', base_url().$curSrc);
+                            }
+                        }
+                        $isi_materi = $dom->saveHTML();
+                        ?>
 						<div class="card-body">
 							<h3 class="text-center"><?= $materi->judul_materi ?></h3>
-							<div class="text-justify"><?= $materi->isi_materi ?></div>
+							<div class="text-justify"><?= $isi_materi ?></div>
 						</div>
 					</div>
 				</div>
@@ -129,6 +159,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 	var idSiswa = '<?= $siswa->id_siswa ?>';
 	var idKjm = '<?= $materi->id_kjm ?>';
 	var jamKe = '<?= $jamke ?>';
+    var mapel = '<?= $materi->id_mapel ?>';
 
 	var dataFiles = [];
 	var arrFileAttach = JSON.parse('<?= json_encode($dataFileAttach)?>');
@@ -170,7 +201,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 			setTimeout(function() {
 				$.ajax({
 					type: "GET",
-					url: base_url + "siswaview/savelogmateri?id_siswa=" + idSiswa + '&id_kjm=' + idKjm + '&jamke=' + jamKe,
+					url: base_url + "siswa/savelogmateri?id_siswa=" + idSiswa + '&id_kjm=' + idKjm + '&jamke=' + jamKe + '&mapel=' + mapel,
 					success: function (response) {
 						console.log(response);
 					}
@@ -185,11 +216,11 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 			e.preventDefault();
 
 			var update = logSelesai === '' ? '0' : '1';
-			var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjm=' + idKjm + '&jamke=' + jamKe + '&attach='+JSON.stringify(dataFiles);
+			var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjm=' + idKjm + '&jamke=' + jamKe + '&mapel=' + mapel + '&attach='+JSON.stringify(dataFiles);
 
 			$.ajax({
 				type: 'POST',
-				url: base_url + 'siswaview/savefilemateriselesai',
+				url: base_url + 'siswa/savefilemateriselesai',
 				data: dataUpload,
 				success: function (data) {
 					if (data.status === 'error') {
@@ -225,7 +256,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 		$("#picupload").on('change', function (e) {
 			var form = new FormData($("#formfile")[0]);
 			//console.log('nama file', names_files);
-			uploadAttach(base_url + 'siswaview/uploadfile', form);
+			uploadAttach(base_url + 'siswa/uploadfile', form);
 			//createPreviewFile($(this), e)
 		});
 
@@ -250,7 +281,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 
 		$.ajax({
 			type: 'POST',
-			url: base_url + 'siswaview/savefilemateriselesai',
+			url: base_url + 'siswa/savefilemateriselesai',
 			data: dataUpload,
 			success: function (data) {
 				showSuccessToast(data.status);
@@ -307,7 +338,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 		$.ajax({
 			data: {src: src},
 			type: "POST",
-			url: base_url + "siswaview/deletefile",
+			url: base_url + "siswa/deletefile",
 			cache: false,
 			success: function (response) {
 				console.log(response);
@@ -324,7 +355,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 			div.setAttribute("id", "f-" + file.name);
 			if (!$("#f-" + file.name).length) {
 				if (file.type.match('image')) {
-					div.innerHTML = "<img src='" + file.src + "'/>" +
+					div.innerHTML = "<img src='" + base_url+"/"+file.src + "'/>" +
 						"<div  class='post-thumb'>" +
 						"<div class='inner-post-thumb'>" +
 						"<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
@@ -333,7 +364,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 						"</div>";
 					$("#media-list").prepend(div);
 				} else if (file.type.match('video')) {
-					div.innerHTML = "<video src='" + file.src + "'></video>" +
+					div.innerHTML = "<video src='" + base_url+"/"+file.src + "'></video>" +
 						"<div class='post-thumb'>" +
 						"<div  class='inner-post-thumb'>" +
 						"<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +

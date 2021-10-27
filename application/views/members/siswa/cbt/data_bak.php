@@ -17,19 +17,6 @@ foreach ($guru as $g) {
     $arrGuru[$g->id_guru] = $g->nama_guru;
 }
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <ul class="navbar-nav ml-2">
-        <li class="nav-item">
-            <a class="nav-link btn-outline-success" href="<?= base_url('dashboard') ?>" role="button"><i
-                        class="fas fa-arrow-left"></i> Beranda</a>
-        </li>
-    </ul>
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?= $setting->nama_aplikasi ?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
 <div class="content-wrapper" style="margin-top: -1px;">
     <div class="sticky">
     </div>
@@ -37,17 +24,7 @@ foreach ($guru as $g) {
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="info-box bg-transparent shadow-none">
-                        <img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" width="90" height="90">
-                        <div class="info-box-content">
-                            <h5 class="info-box-text text-white text-wrap"><b><?= $siswa->nama ?></b></h5>
-                            <span class="info-box-text text-white"><?= $siswa->nis ?></span>
-                            <span class="info-box-text text-white"><?= $siswa->nama_kelas ?></span>
-                            <button onclick="logout()" class="btn btn-danger btn-outline-light" style="width: 200px">
-                                LOGOUT<i class="fas fa-sign-out-alt ml-2"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <?php $this->load->view('members/siswa/templates/top'); ?>
                 </div>
             </div>
 
@@ -260,7 +237,7 @@ foreach ($guru as $g) {
                                                                 <?php
                                                                 else:
                                                                     ?>
-                                                                    <a id="status" href="<?= base_url('siswaview/konfirmasi/' . $jadwal->id_jadwal) ?>"
+                                                                    <a id="status" href="<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>"
                                                                        class="text-white small-box-footer p-2">
                                                                     <b>KERJAKAN</b><i
                                                                             class="fas fa-arrow-circle-right ml-3"></i>
@@ -290,7 +267,7 @@ foreach ($guru as $g) {
                                                             -->
                                                                 <?php endif; endif; endif; ?>
                                                         <?php elseif ($lanjutkan && !$selesai) : ?>
-                                                            <a id="status" class="small-box-footer p-2 text-white" href="<?= base_url('siswaview/konfirmasi/' . $jadwal->id_jadwal) ?>">
+                                                            <a id="status" class="small-box-footer p-2 text-white" href="<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>">
                                                                 <b>LANJUTKAN</b><i
                                                                         class="fas fa-arrow-circle-right ml-3"></i>
                                                             </a>

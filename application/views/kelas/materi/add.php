@@ -74,6 +74,7 @@ if (empty($kelas_pilih)) {
 				</div>
 				<div class="card-body">
 					<input type="hidden" class="form-control" name="id_materi" value="<?= $id_materi ?>">
+                    <input type="hidden" class="form-control" name="jenis" value="<?= $jenis ?>">
 					<div id="input-materi" class="row">
 						<div class="col-md-3 mb-3">
 							<label>Kode</label>
@@ -105,11 +106,11 @@ if (empty($kelas_pilih)) {
 						<div class="col-12 mb-3">
 							<label>Isi Materi</label>
 							<textarea id="text-materi" name='isi_materi' class='editor'
+                                      spellcheck="false" autocomplete="off"
 									  data-id="<?= $this->security->get_csrf_hash() ?>"
 									  data-name="<?= $this->security->get_csrf_token_name() ?>"
 									  rows='10' cols='80' style='width:100%;'>
-								<?= $materi->isi_materi ?>
-							</textarea>
+                            </textarea>
 						</div>
 					</div>
 				</div>
@@ -138,12 +139,20 @@ if (empty($kelas_pilih)) {
 					<div class="overlay d-none"><i class="fas fa-2x fa-sync-alt fa-spin mr-4"></i> Memuat file ...</div>
 				</div>
 				<?= form_close(); ?>
+
+                <div class="overlay" id="loading">
+                    <div class="spinner-grow"></div>
+                </div>
 			</div>
 	</section>
 </div>
 
+<?= form_open('', array('id' => 'csrf')) ?>
+<?= form_close(); ?>
+
 <script>
 	const kls = JSON.parse('<?=json_encode($kelas)?>');
+    var jenis = '<?=$jenis?>';
 	var arrJadwal = [];
 	var arrKelas = [];
 	var arrKelasMapel = [];
@@ -160,6 +169,65 @@ if (empty($kelas_pilih)) {
 	});
 
 	$(document).ready(function () {
+
+        $('#text-materi').summernote({
+            tabsize: 2,
+            minHeight: 200,
+            /*
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'file', 'removeFile']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            placeholder: 'Tulis isi materi disini',
+            */
+            callbacks: {
+                /*
+                onImageUpload: function (image) {
+                    var idtextarea = $(this);
+                    uploadFileSummernote(image[0]);
+                },
+                onMediaDelete: function (target) {
+                    deleteImage(target[0].src);
+                },
+                onFileUpload: function (file) {
+                    uploadFileSummernote(file[0]);
+                },
+                */
+                onInit: function() {
+                    console.log('Summernote is launched');
+                    $('#loading').addClass('d-none');
+                },
+                //onChange: function(contents, $editable) {
+                //    console.log('onChange:', contents, $editable);
+                //}
+            }
+        });
+        var isiMateri = `<?=$materi->isi_materi?>`;
+        var checkMateri = isiMateri == null ? '' : isiMateri;
+        var sMateri = $($.parseHTML(checkMateri));
+
+
+        sMateri.find(`img`).each(function () {
+            var curSrc = $(this).attr('src');
+            if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
+                $(this).attr('src', base_url+curSrc);
+            } else if (curSrc.indexOf(base_url) === -1) {
+                var pathUpload = 'uploads';
+                var forReplace = curSrc.split(pathUpload);
+                $(this).attr('src', base_url + pathUpload + forReplace[1]);
+            }
+        });
+
+        $('#text-materi').summernote('code', sMateri);
+
+
+
 	    console.log('kls',arrKelas);
 		$('#kelas').select2();
 		$('#guru').select2();
@@ -167,37 +235,6 @@ if (empty($kelas_pilih)) {
 
 		onChangeGuru('<?=$id_guru?>');
 		console.log(dataFiles);
-		$('.editor').summernote({
-            tabsize: 2,
-            minHeight: 200,
-            /*
-			toolbar: [
-				['style', ['style']],
-				['font', ['bold', 'underline', 'clear']],
-				['fontname', ['fontname']],
-				['color', ['color']],
-				['para', ['ul', 'ol', 'paragraph']],
-				['table', ['table']],
-				['insert', ['link', 'picture', 'video', 'file', 'removeFile']],
-				['view', ['fullscreen', 'codeview', 'help']],
-			],
-			placeholder: 'Tulis isi materi disini',
-			tabsize: 2,
-			minHeight: 200,
-			callbacks: {
-				onImageUpload: function (image) {
-					var idtextarea = $(this);
-					uploadFileSummernote(image[0]);
-				},
-				onMediaDelete: function (target) {
-					deleteImage(target[0].src);
-				},
-				onFileUpload: function (file) {
-					uploadFileSummernote(file[0]);
-				},
-			}
-			*/
-		});
 
 		$('#guru').on('change', function () {
 			onChangeGuru($(this).val());
@@ -238,14 +275,15 @@ if (empty($kelas_pilih)) {
 					if (data.status === 'error') {
 						showDangerToast(data.status);
 					} else {
-						setTimeout(function () {
-							window.history.back();
+					    showSuccessToast('Berhasil disimpan');
+						//setTimeout(function () {
+						//	window.history.back();
 							//showSuccessToast(data.status)
-						}, 1000);
+						//}, 1000);
 					}
 				}, error: function (data) {
 					showDangerToast('Gagal membuat materi');
-					console.log(data);
+					console.log(data.responseText);
 				}
 			});
 		});
@@ -435,6 +473,8 @@ if (empty($kelas_pilih)) {
 				dataFiles.push(item);
 				console.log(data.type);
 				createPreviewFile();
+
+                $('#formmateri').submit();
 			},
 			error: function (e) {
 				console.log("error", e.responseText);
@@ -452,13 +492,16 @@ if (empty($kelas_pilih)) {
 	}
 
 	function deleteImage(src) {
+	    var csrf = $('#csrf').serialize() + '&src=' + src;
+	    console.log(csrf);
 		$.ajax({
-			data: {src: src},
+			data: csrf,
 			type: "POST",
 			url: base_url + "kelasmateri/deletefile",
 			cache: false,
 			success: function (response) {
 				console.log(response);
+                $('#formmateri').submit();
 			}
 		});
 	}
@@ -503,7 +546,8 @@ if (empty($kelas_pilih)) {
 
 		}
 		console.log(dataFiles);
-	}
+
+    }
 
 	var entityMap = {
 		'&': '&amp;',

@@ -86,18 +86,49 @@
 					</div>
 					<hr>
 					<div class="row d-none" id="info">
-						<div class="col-12">
-							<div class="alert alert-default-info border-info">
-								<h5><i class="icon fas fa-check"></i> Info Ujian</h5>
-								<div id="info-ujian"></div>
+						<div class="col-md-4">
+							<div class="alert alert-default-success border-success">
+                                <h6><i class="icon fas fa-check"></i> Info Ujian</h6>
+                                <div id="info-ujian"></div>
 							</div>
 						</div>
+                        <div class="col-md-8">
+                            <div class="alert alert-default-info border-info">
+                                <div id="info-penggunaan">
+                                    <ul>
+                                        <li>
+                                            Gunakan tombol <span class="badge badge-success pt-1 pb-1"><i class="fa fa-sync ml-1 mr-1"></i> Refresh</span>
+                                            untuk merefresh halaman
+                                        </li>
+                                        <li>
+                                            Aksi <b>RESET</b> untuk mengizinkkan siswa mengerjakan ujian di beberapa komputer.
+                                        </li>
+                                        <li>
+                                            Aksi <b>SELESAIKAN</b> untuk memaksa siswa menyelesaikan ujian.
+                                        </li>
+                                        <li>
+                                            Aksi <b>ULANGI</b> untuk mengulang ujian siswa dari awal.
+                                        </li>
+                                        <li>
+                                            <span class="badge badge-success"><i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi</span>
+                                            untuk menerapkan aksi terpilih ke setiap siswa yang dipilih
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <button type="button" class="btn btn-success align-bottom mb-2"
                                     onclick="refreshStatus()"
                                     data-toggle="tooltip"
                                     title="Refresh">
                                 <i class="fa fa-sync ml-1 mr-1"></i> Refresh
+                            </button>
+                            <button type="button" class="btn btn-success align-bottom mb-2 float-right"
+                                    onclick="terapkanAksi()"
+                                    data-toggle="tooltip"
+                                    title="Terapkan Aksi pada siswa terpilih">
+                                <i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi
                             </button>
                         </div>
 					</div>
@@ -152,6 +183,74 @@
 	var kelas;
 	var jadwal;
 
+	function terapkanAksi() {
+        const $rows = $('#table-status').find('tr'), headers = $rows.splice(0, 2);
+        let item = {};
+        item ["reset"] = [];
+        //item ["id_logs"] = [];
+        item ["force"] = [];
+        item ["log"] = [];
+        item ["ulang"] = [];
+        item ["hapus"] = [];
+        $rows.each((i, row) => {
+            var siswa_id = $(row).attr("data-id");
+
+            const $colReset = $(row).find('.input-reset');
+            const $colForce = $(row).find('.input-force');
+            const $colUlang = $(row).find('.input-ulang');
+            if ($colReset.prop("checked") === true) {
+                item ["reset"].push(siswa_id+''+jadwal+'1');
+                //item ["id_logs"].push(siswa_id+''+jadwal);
+            }
+            if ($colForce.prop("checked") === true) {
+                item ["force"].push(siswa_id+''+jadwal);
+                item ["log"].push(siswa_id);
+            }
+            if ($colUlang.prop("checked") === true) {
+                item ["ulang"].push(siswa_id);
+                item ["hapus"].push(siswa_id+''+jadwal);
+            }
+        });
+
+        var dataSiswa = $('#reset').serialize() + '&jadwal=' + jadwal + "&aksi=" + JSON.stringify(item);
+        console.log(dataSiswa);
+
+        var jmlReset = item.reset.length === 0 ? '' : '<b>' + item.reset.length + '</b> siswa akan direset<br>';
+        var jmlForce = item.force.length === 0 ? '' : '<b>' + item.force.length + '</b> siswa akan dipaksa selesai<br>';
+        var jmlUlang = item.ulang.length === 0 ? '' : '<b>' + item.ulang.length + '</b> siswa akan mengulang ujian';
+
+        if (item.reset.length === 0 && item.force.length === 0 && item.ulang.length === 0) {
+            showWarningToast('Silahkan pilih siswa');
+            return;
+        }
+
+        swal.fire({
+            title: "Terapkan Aksi",
+            html: jmlReset + jmlForce + jmlUlang,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Apply"
+        }).then(result => {
+            if (result.value) {
+                $.ajax({
+                    url: base_url + "siswa/applyaction",
+                    type: 'POST',
+                    data: dataSiswa,
+                    success: function (data) {
+                        console.log(data);
+                        url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&jadwal=' + jadwal;
+                        refreshStatus();
+                    }, error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        });
+
+    }
+
 	function paksaSelesai(id) {
         var idSiswa = $(`#paksa-${id}`).attr('data-siswa');
         var idJadwal = $(`#paksa-${id}`).attr('data-jadwal');
@@ -169,7 +268,7 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "siswaview/selesaiujian/" + idSiswa+'/'+idJadwal,
+                    url: base_url + "siswa/selesaiujian/" + idSiswa+'/'+idJadwal,
                     type: 'GET',
                     success: function (data) {
                         console.log(data.status);
@@ -201,7 +300,7 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "siswaview/ulangiujian/" + idSiswa+''+idJadwal + "/" + idBank,
+                    url: base_url + "siswa/ulangiujian/" + idSiswa+''+idJadwal + "/" + idBank,
                     type: 'GET',
                     success: function (data) {
                         console.log(data);
@@ -237,20 +336,22 @@
 			'<th rowspan="2" class="text-center align-middle">Nama</th>' +
             '<th rowspan="2" class="text-center align-middle">Ruang</th>' +
             '<th rowspan="2" class="text-center align-middle">Sesi</th>' +
-			'<th colspan="4" class="text-center align-middle">Status</th>' +
-			'<th rowspan="2" class="text-center align-middle">Aksi</th>' +
+			'<th colspan="2" class="text-center align-middle">Status</th>' +
+			'<th colspan="4" class="text-center align-middle">Aksi</th>' +
 			'</tr>' +
 			'<tr>' +
 			'<th class="text-center align-middle p-1">Mulai</th>' +
-			'<th class="text-center align-middle">Benar</th>' +
-			'<th class="text-center align-middle">Salah</th>' +
-			'<th class="text-center align-middle">Durasi</th>' +
+            '<th class="text-center align-middle">Durasi</th>' +
+			'<th class="text-center align-middle">Reset</th>' +
+            '<th class="text-center align-middle">Selesaikan</th>' +
+            '<th class="text-center align-middle">Ulangi</th>' +
 			'</tr></thead><tbody>';
 
 		for (let i = 0; i < data.siswa.length; i++) {
 			var idSiswa = data.siswa[i].id_siswa;
-			var durasi = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.lama_ujian + ' m' : ' - -';
+			var durasi = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.lama_ujian : ' - -';
 
+			/*
 			var jawaban = data.durasi[idSiswa].jawab;
 			var benar = 0;
 			var salah = 0;
@@ -263,13 +364,16 @@
 					}
 				}
 			}
+			*/
 
 			var logging = data.durasi[idSiswa].log;
 			var mulai = '- -  :  - -';
 			var selesai = '- -  :  - -';
+            var reset = null;
 			for (let k = 0; k < logging.length; k++) {
 				if (logging[k].log_type === '1') {
 					if (logging[k] != null) {
+					    reset = logging[k].reset;
 						var t = logging[k].log_time.split(/[- :]/);
 						//var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
 						mulai = t[3] + ':' + t[4];
@@ -282,37 +386,45 @@
 				}
 			}
 
-			var reset = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.reset : '0';
+			//var reset = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.reset : '0';
             var belumUjian = data.durasi[idSiswa].dur == null;
             var sudahSelesai = !belumUjian && data.durasi[idSiswa].dur.selesai != null;
             var loading = belumUjian ? '' : (sudahSelesai ? "" : '<i class="fa fa-spinner fa-spin mr-2"></i>');
 
-            var disabledReset = !sudahSelesai && !belumUjian && reset === '0' ? '' : 'disabled';
+            var disabledReset = !sudahSelesai && reset != null && reset == '0' ? '' : 'disabled';
+            var disabledSelesai = !sudahSelesai && !belumUjian ? '' : 'disabled';
             var disabledUlang = belumUjian ? 'disabled' : (sudahSelesai ? '' : 'disabled');
 
             var sesi = data.siswa[i].kode_sesi;
             var ruang = data.siswa[i].kode_ruang;
 
-            tbody += '<tr>' +
+            tbody += '<tr data-id="'+idSiswa+'">' +
 				'<td class="text-center align-middle">' + (i + 1) + '</td>' +
 				'<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
 				'<td class="align-middle">' + data.siswa[i].nama + '</td>' +
                 '<td class="text-center align-middle">' + ruang + '</td>' +
                 '<td class="text-center align-middle">' + sesi + '</td>' +
 				'<td class="text-center align-middle">' + mulai + '</td>' +
-				'<td class="text-center text-success align-middle"><b>' + benar + '</b></td>' +
-				'<td class="text-center text-danger align-middle"><b>' + salah + '</b></td>' +
-				'<td class="text-center align-middle">' + loading + durasi + '</td>' +
-				'<td class="text-center align-middle">' +
-				'	<button type="button" class="btn btn-xs bg-fuchsia mb-1" ' +
-                'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" ' +
-                'data-toggle="modal" data-target="#resetModal" '+disabledReset+'>Reset</button>' +
-				'	<button id="paksa-'+idSiswa+'" type="button" class="btn btn-xs bg-orange mb-1" ' +
-                'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" onclick="paksaSelesai('+idSiswa+')" '+disabledReset+'>Selesaikan</button>' +
-				'	<button id="ulangi-'+idSiswa+'" type="button" class="btn btn-xs bg-maroon mb-1" ' +
-                'data-bank="'+data.info.id_bank+'" data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" onclick="ulangiSiswa('+idSiswa+')" '+disabledUlang+'>Ulangi</button>' +
-                //'	<a type="button" class="ml-3 btn btn-xs bg-success mb-1" href="'+base_url+'cbtstatus/detail?siswa='+idSiswa+'&jadwal='+data.info.id_jadwal+'">Detail</a>' +
+                '<td class="text-center align-middle">' + loading + durasi + '</td>' +
+				'<td class="text-center text-success align-middle">' +
+                '<input class="check input-reset" type="checkbox" '+disabledReset+'>' +
                 '</td>' +
+				'<td class="text-center text-danger align-middle">' +
+                '<input class="check input-force" type="checkbox" '+disabledSelesai+'>' +
+                '</td>' +
+                '<td class="text-center text-danger align-middle">' +
+                '<input class="check input-ulang" type="checkbox" '+disabledUlang+'>' +
+                '</td>' +
+                //'<td class="text-center align-middle">' +
+				//'	<button type="button" class="btn btn-xs bg-fuchsia mb-1" ' +
+                //'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" ' +
+                //'data-toggle="modal" data-target="#resetModal" '+disabledReset+'>Reset</button>' +
+				//'	<button id="paksa-'+idSiswa+'" type="button" class="btn btn-xs bg-orange mb-1" ' +
+                //'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" onclick="paksaSelesai('+idSiswa+')" '+disabledReset+'>Selesaikan</button>' +
+				//'	<button id="ulangi-'+idSiswa+'" type="button" class="btn btn-xs bg-maroon mb-1" ' +
+                //'data-bank="'+data.info.id_bank+'" data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" onclick="ulangiSiswa('+idSiswa+')" '+disabledUlang+'>Ulangi</button>' +
+                //'	<a type="button" class="ml-3 btn btn-xs bg-success mb-1" href="'+base_url+'cbtstatus/detail?siswa='+idSiswa+'&jadwal='+data.info.id_jadwal+'">Detail</a>' +
+                //'</td>' +
 				'</tr>';
 		}
 
@@ -321,29 +433,19 @@
 		$('#info').removeClass('d-none');
 
 		var infoJadwal = '<div class="row">' +
-            '<div class="col-4 col-md-2">Bank Soal</div>' +
-            '<div class="col-8 col-md-4">' +
-            '<b>'+data.info.bank_kode+'</b>' +
-            '</div>' +
-            '<div class="col-4 col-md-2">Mata Pelajaran</div>' +
-            '<div class="col-8 col-md-4">' +
+            '<div class="col-4">Mapel</div>' +
+            '<div class="col-8">' +
             '<b>'+data.info.nama_mapel+'</b>' +
             '</div>' +
-            '<div class="col-4 col-md-2">Guru</div>' +
-            '<div class="col-8 col-md-4">' +
+            '<div class="col-4">Guru</div>' +
+            '<div class="col-8">' +
             '<b>'+data.info.nama_guru+'</b>' +
             '</div>' +
-            '<div class="col-4 col-md-2">Level Kelas</div>' +
-            '<div class="col-8 col-md-4">' +
-            '<b>'+data.info.bank_level+'</b>' +
-            '</div>' +
-            '<div class="col-4 col-md-2">Jumlah PG</div>' +
-            '<div class="col-8 col-md-4">' +
-            '<b>'+data.info.tampil_pg+'</b>' +
-            '</div>' +
-            '<div class="col-4 col-md-2">Jumlah Essai</div>' +
-            '<div class="col-8 col-md-4">' +
-            '<b>'+data.info.tampil_esai+'</b>' +
+            '<div class="col-4">Jml. Soal</div>' +
+            '<div class="col-8">' +
+            '<b>'+ (parseInt(data.info.tampil_pg) + parseInt(data.info.tampil_kompleks) +
+                parseInt(data.info.tampil_jodohkan) + parseInt(data.info.tampil_isian) +
+                parseInt(data.info.tampil_esai)) +'</b>' +
             '</div>' +
             '</div>';
 
@@ -460,7 +562,7 @@
             });
 
             $.ajax({
-                url: base_url + "siswaview/resettimer",
+                url: base_url + "siswa/resettimer",
                 type: 'POST',
                 data: $(this).serialize() + '&id_durasi=' + idSiswa+''+idJadwal,
                 success: function (data) {

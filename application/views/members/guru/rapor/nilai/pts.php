@@ -23,6 +23,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <?php if ($kkm == null): ?>
+                        <div class="alert alert-default-danger align-content-center" role="alert">
+                            Download template tidak tersedia, Anda harus mengisi KKM terlebih dahulu di menu <b>DATA RAPOR > KKM DAN BOBOT</b>
+                        </div>
+                    <?php else: ?>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <a href="<?=base_url('rapor/downloadtemplatepts/'.$mapel['id_mapel'].'/'.$kelas['id_kelas'])?>" id="download" type="button" class="btn btn-primary w-100">
@@ -61,6 +66,7 @@
                         <i class="fa fa-save mr-1"></i>Simpan
                     </button>
                     <?= form_close() ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -95,10 +101,11 @@
         var dataSiswa = [];
         var row = 1;
         $.each(arrSiswa, function (i, v) {
+            var noInduk = v.nisn == null || v.nisn == '' ? v.nis : v.nisn;
             var nilai = arrNilai[v.id_siswa];
             dataSiswa.push(
                 [
-                    v.nisn, v.nama, nilai.nilai,
+                    noInduk, v.nama, nilai.nilai,
                     '=IF(C'+row+'>'+pre_bsd+',"A",IF(C'+row+'>'+pre_csd+',"B",IF(C'+row+'>'+pre_dsd+',"C",IF(C'+row+'<'+pre_c+',"D",""))))',
                     v.id_siswa
                 ]
@@ -114,8 +121,8 @@
         for (let i = 0; i < 5; i++) {
             var item = {};
             if (i === 0) {
-                item['title'] = 'N I S N\n'+char.charAt(i);
-                item['width'] = 100;
+                item['title'] = 'NIS/NISN\n'+char.charAt(i);
+                item['width'] = 160;
             } else if (i === 1) {
                 item['title'] = 'NAMA SISWA\n'+char.charAt(i);
                 item['width'] = 250;
@@ -150,7 +157,14 @@
             {width: 100},
             {width: 300},       ],*/
             updateTable:function(instance, cell, col, row, val, label, cellName) {
-                if (col === 0 || col === 1) {
+                if (col === 0) {
+                    cell.className = '';
+                    cell.style.backgroundColor = '#f8d7da';
+                    cell.style.textAlign = 'center';
+                    cell.classList.add('readonly');
+                }
+
+                if (col === 1) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
                     cell.style.textAlign = 'left';

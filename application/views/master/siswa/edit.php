@@ -29,7 +29,7 @@
                                 <div class="user-profile-inner">
                                     <?php
                                     //var_dump(file_exists(FCPATH.$siswa->foto));
-                                    if (!file_exists(FCPATH.$siswa->foto)): ?>
+                                    if (!file_exists(FCPATH.$siswa->foto) || $siswa->foto == ""): ?>
                                         <?php if ($siswa->jenis_kelamin == 'L'): ?>
                                             <img src="<?= base_url() ?>/assets/img/siswa-l.png"
                                                  class="img-circle profile-avatar mt-2" alt="User avatar">
@@ -413,6 +413,7 @@
                 },
             timepicker: false,
             format: 'Y-m-d',
+            disabledWeekDays: [0],
             widgetPositioning: {
                 horizontal: 'left',
                 vertical: 'bottom'

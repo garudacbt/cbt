@@ -7,21 +7,6 @@
  */
 
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <ul class="navbar-nav ml-2">
-        <li class="nav-item">
-            <a class="nav-link btn-outline-success" href="<?= base_url('dashboard') ?>" role="button"><i
-                        class="fas fa-arrow-left"></i> Beranda</a>
-        </li>
-    </ul>
-
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
-
 <div class="content-wrapper" style="margin-top: -1px;">
 	<div class="sticky">
 	</div>
@@ -29,17 +14,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<div class="info-box bg-transparent shadow-none">
-						<img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" width="90" height="90">
-						<div class="info-box-content">
-							<h5 class="info-box-text text-white text-wrap"><b><?= $siswa->nama ?></b></h5>
-							<span class="info-box-text text-white"><?= $siswa->nis ?></span>
-							<span class="info-box-text text-white"><?= $siswa->nama_kelas ?></span>
-                            <button onclick="logout()" class="btn btn-danger btn-outline-light" style="width: 200px">
-                                LOGOUT<i class="fas fa-sign-out-alt ml-2"></i>
-                            </button>
-						</div>
-					</div>
+                    <?php $this->load->view('members/siswa/templates/top'); ?>
 				</div>
 			</div>
 
@@ -131,7 +106,7 @@
 															</div>
 															<hr style="margin-top:0; margin-bottom: 0">
 
-															<a href="<?= base_url('siswaview/bukamateri/'.$materi[$jamke]->id_kjm . '/' . $jamke)?>" class="small-box-footer p-2">BUKA MATERI
+															<a href="<?= base_url('siswa/bukamateri/'.$materi[$jamke]->id_kjm . '/' . $jamke)?>" class="small-box-footer p-2">BUKA MATERI
 																<i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
 															</a>
 														</div>
@@ -171,7 +146,110 @@
 						</div>
 					</div>
 				</div>
+                <div class="col-12">
+                    <div class="card my-shadow">
+                        <div class="card-header">
+                            <h5 class="text-center">
+                                MATERI SEMINGGU
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-pills">
+                                <?php foreach ($week as $tgl) :?>
+                                <li class="nav-item"><button type="button" class="btn nav-link seminggu" id="<?=$tgl?>" onclick="getMateri('<?=$tgl?>')">
+                                        <?= str_replace(',', '<br>', singkat_tanggal(date('D, d M', strtotime($tgl)))) ?>
+                                    </button></li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <hr>
+                            <div id="tab-content">
+                            </div>
+                            <?php
+                            //echo '<pre>';
+                            //var_dump($week);
+                            //echo '</pre>';
+                            ?>
+                        </div>
+                        <div class="overlay d-none" id="loading">
+                            <div class="spinner-grow"></div>
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</section>
 </div>
+
+<script>
+    var idKelas = '<?= $siswa->id_kelas?>';
+    var idSiswa = '<?= $siswa->id_siswa?>';
+    var senin = '<?=$week[0]?>';
+
+    function getMateri(tgl) {
+        $('#loading').removeClass('d-none');
+        $('.seminggu').removeClass('active');
+        $(`#${tgl}`).addClass('active');
+
+        setTimeout(function() {
+            $.ajax({
+                url: base_url + 'siswa/seminggu?id_siswa='+idSiswa+'&id_kelas='+idKelas+'&tgl='+tgl+'&jenis=1',
+                type:"GET",
+                success: function(data) {
+                    console.log(data);
+
+                    var html = '<table class="table table-sm">' +
+                        '    <tr class="alert alert-default-secondary">' +
+                        '        <th class="text-center">' +
+                        '            Jam Ke' +
+                        '        </th>' +
+                        '        <th>' +
+                        '            Mata Pelajaran' +
+                        '        </th>' +
+                        '        <th>' +
+                        '            Materi' +
+                        '        </th>' +
+                        '        <th class="text-center">' +
+                        '            Status' +
+                        '        </th>' +
+                        '    </tr>';
+
+                    $.each(data.materi, function (i, mtr) {
+                        html += '<tr><td class="text-center">'+i+'</td>';
+                        if (mtr.id_kjm != null) {
+                            var status = '';
+                            if (data.logs != null && Object.keys(data.logs).length > 0) {
+                                if (data.logs[mtr.id_kjm][2] == null) {
+                                    status = '<a href="'+base_url+'siswa/bukamateri/'+ mtr.id_kjm + '/' +i+'" class="btn btn-warning">Belum Selesai</a>';
+                                } else {
+                                    status = '<a href="'+base_url+'siswa/bukamateri/'+ mtr.id_kjm + '/' +i+'" class="btn btn-success">Selesai</a>';
+                                }
+                            } else {
+                                status = '<a href="'+base_url+'siswa/bukamateri/'+ mtr.id_kjm + '/' +i+'" class="btn btn-danger">Belum Dikerjakan</a>';
+                            }
+
+                            html += '<td>'+ mtr.nama_mapel +'</td>' +
+                            '<td style="line-height: 1">'+ mtr.kode_materi +'<br><small>'+mtr.judul_materi+'</small></td>' +
+                            '<td class="text-center">' + status + '</td>';
+                        } else {
+                            html += '<td>'+ mtr.nama_mapel +'</td>' +
+                                '<td>-</td>' +
+                                '<td class="text-center">-</td>';
+                        }
+                        html += '</tr>';
+                    });
+                    html += '</table>';
+
+                    $('#loading').addClass('d-none');
+                    $('#tab-content').html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    $('#loading').addClass('d-none');
+                }
+            });
+        }, 500);
+    }
+    $(document).ready(function() {
+        getMateri(senin)
+    })
+</script>

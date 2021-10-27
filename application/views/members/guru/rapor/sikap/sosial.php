@@ -172,6 +172,7 @@
         var dataSiswa = [];
         var row = 1;
         $.each(arrSiswa, function (i, v) {
+            var noInduk = v.nisn == null || v.nisn == '' ? v.nis : v.nisn;
             var n1 = arrNilai[v.id_siswa].a1;
             var n2 = arrNilai[v.id_siswa].a2;
             var n3 = arrNilai[v.id_siswa].a3;
@@ -182,7 +183,7 @@
             var n8 = arrNilai[v.id_siswa].c2;
             dataSiswa.push(
                 [
-                    v.nisn, v.nama,
+                    noInduk, v.nama,
                     arrNilai[v.id_siswa].predikat,
                     n1,n2,n3,n4,n5,n6,n7,n8,
                     v.nama + ' ' + setDesk([n1, n2, n3], 1) + setDesk([n4, n5, n6], 2) + setDesk([n7, n8], 3),
@@ -196,7 +197,7 @@
         for (let i = 0; i < 13; i++) {
             var item = {};
             if (i === 0) {
-                item['width'] = 100;
+                item['width'] = 160;
             } else if (i === 1) {
                 item['width'] = 250;
             } else if (i === 2) {
@@ -224,7 +225,7 @@
             //defaultColWidth: 100,
             tableOverflow: true,
             tableWidth: ''+tableSize.width()+'px',
-            tableHeight: (80*dataSiswa.length)+'px',
+            tableHeight: (80*(dataSiswa.length+2))+'px',
             search:true,
             freezeColumns: 2,
             //rowResize: true,

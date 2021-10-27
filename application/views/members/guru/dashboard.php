@@ -57,14 +57,17 @@
                                             $no = 1;
                                             foreach ($kelases as $ky=>$kelas) :
                                                 $arrIst = [];
+                                            if (isset($kbms[$ky]->istirahat)) {
                                                 foreach ($kbms[$ky]->istirahat as $istirahat) {
                                                     array_push($arrIst, $istirahat['ist']);
                                                     $arrDur[$istirahat['ist']] = $istirahat['dur'];
-                                                };
+                                                }
+                                            }
 
                                                 $active = $no == 1 ? 'active' : '';
                                                 ?>
                                                 <div class="tab-pane <?=$active?>" id="tab_<?=$ky?>">
+                                                    <?php if (isset($kbms[$ky])) : ?>
                                                     <div class="table-responsive">
                                                         <table class="w-100 table">
                                                             <tbody>
@@ -103,6 +106,11 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    <?php else: ?>
+                                                        <div class="m-4">
+                                                            Jadwal untuk kelas <?= $kelas ?> belum dibuat
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <?php $no++; endforeach; ?>
                                         </div>

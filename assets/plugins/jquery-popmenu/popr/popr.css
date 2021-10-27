@@ -23,7 +23,7 @@ http://www.tipue.com/popr
 }
 .popr_content
 {
-     background-color: #ffbb33;
+     background-color: #f8f9fa;
      padding: 7px 0;
      margin: 0;
 }
@@ -31,7 +31,7 @@ http://www.tipue.com/popr
 {
      font: 300 14px/1.7 'Helvetica Neue', Helvetica, Arial, sans-serif;
      color: #333;
-     padding: 4px 29px 5px 29px; 
+     padding: 0 12px 0 12px;
 }
 .popr-item:hover
 {
@@ -102,7 +102,7 @@ http://www.tipue.com/popr
 }
 .popr_point_bottom:after
 {
-	border-bottom-color: #ffbb33;
+	border-bottom-color: #f8f9fa;
 	border-width: 8px;
 	left: 50%;
 	margin-left: -8px;

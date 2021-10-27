@@ -42,12 +42,25 @@ $(document).ready(function () {
 			{data: "nisn"},
 			{data: "nis"},
 			{data: "nama"},
-			{data: "jenis_kelamin"}
+			{data: "jenis_kelamin", className: "text-center",},
+            //{data: "status"}
 		],
 		columnDefs: [
+            {
+                searchable: false,
+                targets: 6,
+                className: "text-center",
+                data: {
+                    id_siswa: "status",
+                },
+                render: function (data, type, row, meta) {
+                	var stat = ['', 'Aktif', 'Lulus', 'Pindah', 'Keluar'];
+                    return stat[data.status];
+                }
+            },
 			{
 				searchable: false,
-				targets: 6,
+				targets: 7,
 				data: {
 					id_siswa: "id_siswa",
 				},
@@ -88,7 +101,9 @@ $(document).ready(function () {
 		.appendTo("#siswa_wrapper .col-md-6:eq(1)");
 
     $("div.toolbar").html(
-        '<button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-danger mr-3 d-none" data-toggle="tooltip" title="Hapus Terpilh"><i class="far fa-trash-alt"></i></button>' +
+        '<button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-danger" data-toggle="tooltip" title="Hapus Terpilh" disabled="disabled">' +
+		'<i class="far fa-trash-alt mr-2"></i> Hapus Terpilih</button>'
+        /*
         '<div class="btn-group">' +
         '<button type="button" class="btn btn-default" data-toggle="tooltip" title="Print"><i class="fas fa-print"></i></button>' +
         '<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As PDF"><i class="fas fa-file-pdf"></i></button>' +
@@ -96,8 +111,10 @@ $(document).ready(function () {
         '<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As Excel"><i class="fa fa-file-excel"></i></button>' +
         //'<button type="button" class="btn btn-default" data-toggle="modal" data-target="#mapelNonAktif">Lihat Mapel Nonaktif</button>' +
         '</div>'
+        */
     );
 
+    /*
 	$("div.toolbar").html(
 		'<button id="hapusterpilih" onclick="bulk_delete(false)" type="button" class="btn btn-danger mr-3 d-none" data-toggle="tooltip" title="Hapus Terpilh"><i class="far fa-trash-alt"></i></button>' +
 		'<div class="btn-group">' +
@@ -107,19 +124,20 @@ $(document).ready(function () {
 		'<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As Excel"><i class="fa fa-file-excel"></i></button>' +
 		'</div>'
 	);
+	*/
 
 	$(".select_all").on("click", function () {
 		if (this.checked) {
 			$(".check").each(function () {
 				this.checked = true;
 				$(".select_all").prop("checked", true);
-				$('#hapusterpilih').removeClass('d-none');
+				$('#hapusterpilih').removeAttr('disabled');
 			});
 		} else {
 			$(".check").each(function () {
 				this.checked = false;
 				$(".select_all").prop("checked", false);
-				$('#hapusterpilih').addClass('d-none');
+				$('#hapusterpilih').attr('disabled', 'disabled');
 			});
 		}
 	});
@@ -134,9 +152,11 @@ $(document).ready(function () {
 		}
 
 		if (checked === 0) {
-			$('#hapusterpilih').addClass('d-none');
+			//$('#hapusterpilih').addClass('d-none');
+            $('#hapusterpilih').attr('disabled', 'disabled');
 		} else {
-			$('#hapusterpilih').removeClass('d-none');
+			//$('#hapusterpilih').removeClass('d-none');
+            $('#hapusterpilih').removeAttr('disabled');
 		}
 	});
 
@@ -182,6 +202,7 @@ $(document).ready(function () {
             },
         timepicker: false,
         format: 'Y-m-d',
+		disabledWeekDays: [0],
         widgetPositioning: {
             horizontal: 'left',
             vertical: 'bottom'

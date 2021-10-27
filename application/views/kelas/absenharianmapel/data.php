@@ -28,14 +28,18 @@
 							<i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
 						</a>
 						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-default" data-toggle="tooltip" title="Print"><i
-									class="fas fa-print"></i></button>
-							<button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
-									title="Export As PDF"><i class="fas fa-file-pdf"></i></button>
-							<button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
-									title="Export As Word"><i class="fa fa-file-word"></i></button>
-							<button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
-									title="Export As Excel"><i class="fa fa-file-excel"></i></button>
+                            <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
+                                    title="Print" onclick="print()">
+                                <i class="fas fa-print"></i> <span class="d-none d-sm-inline-block ml-1"> Print</span></button>
+                            <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
+                                    title="Export As PDF" onclick="exportPdf()">
+                                <i class="fas fa-file-pdf"></i> <span class="d-none d-sm-inline-block ml-1"> PDF</span></button>
+                            <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
+                                    title="Export As Word" onclick="exportWord()">
+                                <i class="fa fa-file-word"></i> <span class="d-none d-sm-inline-block ml-1"> Word</span></button>
+                            <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
+                                    title="Export As Excel" onclick="exportExcel()">
+                                <i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline-block ml-1"> Excel</span></button>
 						</div>
 					</div>
 				</div>
@@ -55,7 +59,16 @@
 										'id="opsi-mapel" class="form-control"'
 									); ?>
 								</div>
-								<div class="col-md-3 mb-2">
+                                <div class="col-md-3 mb-2">
+                                    <label id="lbl-materi">Materi, Tugas</label>
+                                    <select id="opsi-materi" class="form-control">
+                                        <optgroup label="Materi" id="opt-materi">
+                                        </optgroup>
+                                        <optgroup label="Tugas" id="opt-tugas">
+                                        </optgroup>
+                                    </select>
+                                </div>
+								<div class="col-md-2 mb-2">
 									<label>Kelas</label>
 									<?php
 									echo form_dropdown(
@@ -85,7 +98,7 @@
 
 <script>
 	var kelas = JSON.parse('<?= json_encode($kelas)?>');
-	var arrKelas = [];
+    var arrMateri = JSON.parse(JSON.stringify(<?= json_encode($materi)?>));
 	var form;
 	var hari = '';
 	var tgl = '';
@@ -133,9 +146,12 @@
 	$(document).ready(function() {
 		var selKelas = $('#opsi-kelas');
 		var selMapel = $('#opsi-mapel');
-		form = $('#formselect');
+        var selMateri = $('#opsi-materi');
 
-		//console.log(form.serialize());
+        var optMateri = $('#opt-materi');
+        var optTugas = $('#opt-tugas');
+
+		form = $('#formselect');
 
 		jQuery.datetimepicker.setLocale('id');
 		$('.tgl').datetimepicker({
@@ -150,7 +166,7 @@
 				horizontal: 'left',
 				vertical: 'bottom'
 			},
-			disabledWeekDays: [],
+			disabledWeekDays: [0],
 			onChangeDateTime: function(date, $input){
 				tgl = date.getDate();
 				var nb = date.getMonth() + 1;
@@ -168,10 +184,11 @@
 		selMapel.prepend("<option value='' selected='selected' disabled='disabled'>Pilih Mapel</option>");
 		selKelas.prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
 
-		function reload(mapel, kls) {
+		console.log('materi', arrMateri);
+		function reload(mapel, mtr, kls) {
 			console.log(tgl, bln, thn, kls);
-			var empty = tgl===''|| bln==='' || thn==='' || kls==='';
-			var newData = '&thn='+thn+'&bln='+bln+'&tgl='+tgl+'&hari='+hari+'&kelas='+kls+'&mapel='+mapel;
+			var empty = tgl===''|| bln==='' || thn==='' || kls==='' || mtr ==='' || kls== null || mtr ==null;
+			var newData = '&thn='+thn+'&bln='+bln+'&tgl='+tgl+'&hari='+hari+'&kelas='+kls+'&matei='+mtr+'&mapel='+mapel;
 			if (!empty && oldData !== newData) {
 				oldData = newData;
 
@@ -194,16 +211,99 @@
 			}
 		}
 
+        var arrKelasMateri = [];
+        var arrKelasTugas = [];
+
+        function setMateri(id) {
+            optMateri.html('');
+            optTugas.html('');
+            arrKelasMateri = [];
+            arrKelasTugas = [];
+            var mtrAda = arrMateri[id] !=null && arrMateri[id]['1'] != null;
+            var tgsAda = arrMateri[id] !=null && arrMateri[id]['2'] != null;
+
+            if (mtrAda) {
+                for (let i = 0; i < arrMateri[id]['1'].length; i++) {
+                    var materi = arrMateri[id]['1'][i];
+                    const date = stringToDate(materi.jadwal);
+                    const tgl = dateToString(date);
+                    optMateri.append('<option value="'+materi.id_kjm+'">'+materi.kode+' -' + tgl +'</option>');
+
+                    var item = {};
+                    item['id_materi'] = materi.id_materi;
+                    item['id_kjm'] = materi.id_kjm;
+                    item['id_kelas'] = materi.kelas;
+                    arrKelasMateri.push(item);
+                }
+            } else {
+                optMateri.append('<option value="">Belum ada materi</option>');
+            }
+
+            if (tgsAda) {
+                for (let i = 0; i < arrMateri[id]['2'].length; i++) {
+                    var tugas = arrMateri[id]['2'][i];
+                    const date = stringToDate(tugas.jadwal);
+                    const tgl = dateToString(date);
+                    optTugas.append('<option value="'+tugas.id_kjm+'">'+tugas.kode+' -' + tgl +'</option>');
+
+                    var itemt = {};
+                    itemt['id_materi'] = tugas.id_materi;
+                    itemt['id_kjm'] = tugas.id_kjm;
+                    itemt['id_kelas'] = tugas.kelas;
+                    arrKelasTugas.push(itemt);
+                }
+            } else {
+                optTugas.append('<option value="">Belum ada tugas</option>');
+            }
+
+            var jmlm = mtrAda ? arrMateri[id]['1'].length : 0;
+            var jmlt = tgsAda ? arrMateri[id]['2'].length : 0;
+
+            $('#lbl-materi').text('Materi '+jmlm+', Tugas '+jmlt);
+
+            var label = $('#opsi-materi :selected').parent().attr('label');
+            setKelas(selMateri.val(), label);
+        }
+
+        function setKelas(id, label) {
+            selKelas.html('');
+            if (label === 'Materi') {
+                for (let j = 0; j < arrKelasMateri.length; j++) {
+                    if (arrKelasMateri[j].id_kjm === id) {
+                        var idm = arrKelasMateri[j].id_kelas;
+                        for (let k = 0; k < idm.length; k++) {
+                            selKelas.append('<option value="'+idm[k]+'">'+kelas[idm[k]]+'</option>');
+                        }
+                    }
+                }
+            } else {
+                for (let j = 0; j < arrKelasTugas.length; j++) {
+                    if (arrKelasTugas[j].id_kjm === id) {
+                        var idt = arrKelasTugas[j].id_kelas;
+                        for (let k = 0; k < idt.length; k++) {
+                            selKelas.append('<option value="'+idt[k]+'">'+kelas[idt[k]]+'</option>');
+                        }
+                    }
+                }
+            }
+            if (selKelas.val() != '' && selMapel.val() != '') selKelas.change();
+        }
+
+        selMapel.on('change', function () {
+            setMateri($(this).val());
+        });
+
+        selMateri.change(function(){
+            var label = $('#opsi-materi :selected').parent().attr('label');
+            setKelas($(this).val(), label);
+        });
+
+        selKelas.change(function(){
+            reload(selMapel.val(), selMateri.val(), $(this).val());
+        });
+
 		$("#opsi-tgl").change(function(){
-			reload(selMapel.val(), selKelas.val());
-		});
-
-		selKelas.change(function(){
-			reload(selMapel.val(), $(this).val());
-		});
-
-		selMapel.on('change', function () {
-			reload($(this).val(), selKelas.val());
+			reload(selMapel.val(), selMateri.val(), selKelas.val());
 		});
 	});
 </script>

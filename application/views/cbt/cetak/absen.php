@@ -31,49 +31,49 @@
                             <div class="form-group">
                                 <label>Header 1</label>
                                 <input class="form-control" name="header_1" placeholder="Header 1"
-                                       value="<?= $kop->header_1 ?>" required>
+                                       value="<?= isset($kop->header_1) ? $kop->header_1 : '' ?>" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Header 2</label>
                                 <input class="form-control" name="header_2" placeholder="Header 2"
-                                       value="<?= $kop->header_2 ?>" required>
+                                       value="<?= isset($kop->header_2) ? $kop->header_2 : '' ?>" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Header 3</label>
                                 <input class="form-control" name="header_3" placeholder="Header 3"
-                                       value="<?= $kop->header_3 ?>" required>
+                                       value="<?= isset($kop->header_3) ? $kop->header_3 : '' ?>" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Header 4</label>
                                 <input class="form-control" name="header_4" placeholder="Header 4"
-                                       value="<?= $kop->header_4 ?>" required>
+                                       value="<?= isset($kop->header_4) ? $kop->header_4 : '' ?>" required>
                             </div>
                         </div>
                         <div class="col-md-4 d-none">
                             <div class="form-group">
                                 <label>Proktor</label>
                                 <input id="input-proktor" class="form-control" name="proktor" placeholder="Proktor"
-                                       value="<?= $kop->proktor ?>">
+                                       value="<?= isset($kop->proktor) ? $kop->proktor : '' ?>">
                             </div>
                         </div>
                         <div class="col-md-4 d-none">
                             <div class="form-group">
                                 <label>Pengawas</label>
                                 <input id="input-pengawas-1" class="form-control" name="pengawas_1"
-                                       placeholder="Pengawas 1" value="<?= $kop->pengawas_1 ?>">
+                                       placeholder="Pengawas 1" value="<?= isset($kop->pengawas_1) ? $kop->pengawas_1 : '' ?>">
                             </div>
                         </div>
                         <div class="col-md-4 d-none">
                             <div class="form-group">
                                 <label>Pengawas 2</label>
                                 <input id="input-pengawas-2" class="form-control" name="pengawas_2"
-                                       placeholder="Pengawas 2" value="<?= $kop->pengawas_2 ?>">
+                                       placeholder="Pengawas 2" value="<?= isset($kop->pengawas_2) ? $kop->pengawas_2 : '' ?>">
                             </div>
                         </div>
                     </div>
@@ -227,16 +227,16 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-    var oldVal1 = '<?=$kop->header_1?>';
-    var oldVal2 = '<?=$kop->header_2?>';
-    var oldVal3 = '<?=$kop->header_3?>';
-    var oldVal4 = '<?=$kop->header_4?>';
-    var logoKanan = '<?=base_url() . $kop->logo_kanan?>';
-    var logoKiri = '<?=base_url() . $kop->logo_kiri?>';
-    var tandatangan = '<?=base_url() . $kop->tanda_tangan?>';
-    var proktor = '<?=$kop->proktor?>';
-    //var pengawas1 = '<?=$kop->pengawas_1?>';
-    //var pengawas2 = '<?=$kop->pengawas_2?>';
+    var oldVal1 = '<?=isset($kop->header_1) ? $kop->header_1 : ""?>';
+    var oldVal2 = '<?=isset($kop->header_2) ? $kop->header_2 : ""?>';
+    var oldVal3 = '<?=isset($kop->header_3) ? $kop->header_3 : ""?>';
+    var oldVal4 = '<?=isset($kop->header_4) ? $kop->header_4 : ""?>';
+    var logoKanan = '<?=isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>';
+    var logoKiri = '<?=isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : ""?>';
+    var tandatangan = '<?= isset($kop->tanda_tangan) ? base_url() . $kop->tanda_tangan : ""?>';
+    var proktor = '<?=isset($kop->proktor) ? $kop->proktor : ""?>';
+    //var pengawas1 = '<?=isset($kop->pengawas_1) ? $kop->pengawas_1 : ""?>';
+    //var pengawas2 = '<?=isset($kop->pengawas_2) ? $kop->pengawas_2 : ""?>';
     var printBy = 1;
 
     function buatTanggal() {

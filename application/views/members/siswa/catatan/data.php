@@ -1,17 +1,12 @@
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <ul class="navbar-nav ml-2">
-        <li class="nav-item">
-            <a class="nav-link btn-outline-success" href="<?= base_url('dashboard') ?>" role="button"><i
-                        class="fas fa-arrow-left"></i> Beranda</a>
-        </li>
-    </ul>
+<?php
+/**
+ * Created by IntelliJ IDEA.
+ * User: multazam
+ * Date: 23/08/20
+ * Time: 23:18
+ */
+?>
 
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="margin-top: -1px;">
     <!-- Main content -->
@@ -19,17 +14,7 @@
     </div>
     <section class="content overlap p-4">
         <div class="container">
-            <div class="info-box bg-transparent shadow-none">
-                <img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" width="120" height="120">
-                <div class="info-box-content">
-                    <h5 class="info-box-text text-white text-wrap"><b><?= $siswa->nama ?></b></h5>
-                    <span class="info-box-text text-white"><?= $siswa->nis ?></span>
-                    <span class="info-box-text text-white mb-1"><?= $siswa->nama_kelas ?></span>
-                    <button onclick="logout()" class="btn btn-danger btn-outline-light" style="width: 200px">
-                        LOGOUT<i class="fas fa-sign-out-alt ml-2"></i>
-                    </button>
-                </div>
-            </div>
+            <?php $this->load->view('members/siswa/templates/top'); ?>
             <div class="row">
                 <div class="col-12">
                     <div class="card card-purple">
@@ -41,7 +26,7 @@
                         <div class="card-body">
                             <?php
                             //echo '<pre>';
-                            //var_dump($catatan[0]->reading);
+                            //var_dump($catatan);
                             //echo '</pre>';
                             ?>
                             <div class="row">
@@ -54,8 +39,9 @@
                                                     $for = $cat->type === '1' ? 'semua siswa kelas '. $siswa->nama_kelas : $siswa->nama;
                                                     $readed1 = $cat->type === '1' && ($cat->reading && in_array($cat->id_siswa, $cat->reading));
                                                 $readed2 = $cat->type === '2' && $cat->readed !== '0';
+                                                $bg_li = $readed1 ? '' : ($readed2 ? '' : ' alert-default-primary');
                                                 ?>
-                                                <li class="list-group-item list-group-item-action" data-table="<?=$cat->table?>" data-id="<?=$cat->id_catatan?>"
+                                                <li class="list-group-item list-group-item-action<?=$bg_li?>" data-table="<?=$cat->table?>" data-id="<?=$cat->id_catatan?>"
                                                     style="border-bottom: 1px solid rgba(0,0,0,.125);line-height: 1;padding: 10px 0;width: 100%;height: 100%;">
                                                     <a href="javascript:void(0)">
                                                         <div class="media pl-3 pr-3">
@@ -162,13 +148,14 @@
 </div>
 
 <script>
+    let itemsClicked = [];
     $(document).ready(function() {
         function screenSize() {
             var w = $(document).innerWidth();
             return (w < 768) ? 'xs' : ((w < 992) ? 'sm' : ((w < 1200) ? 'md' : 'lg'));
         }
 
-        function viewDetail(data, table) {
+        function viewDetail(data, table, id) {
             //console.log('size',screenSize());
             var detail = data.detail;
             var reading = data.reading;
@@ -194,9 +181,12 @@
             console.log('siswa', detail.id_siswa);
             console.log('readed', readed);
 
-            if (!readed) {
+            const clicked = $.inArray(table+'-'+detail.id_catatan, itemsClicked) > -1;
+
+            if (!readed && !clicked) {
+                itemsClicked.push(table+'-'+id);
                 $.ajax({
-                    url: base_url + 'siswaview/readed/'+table+'/'+detail.id_catatan,
+                    url: base_url + 'siswa/readed/'+table+'/'+detail.id_catatan,
                     type: 'GET',
                     success: function (response) {
                         console.log('read',response);
@@ -214,18 +204,19 @@
             var table = $(this).data('table');
 
             $.ajax({
-                url: base_url + 'siswaview/detailcatatan/'+ table + '/' + id,
+                url: base_url + 'siswa/detailcatatan/'+ table + '/' + id,
                 type: 'GET',
                 success: function (response) {
                     console.log('response',response);
-                    viewDetail(response, table);
+                    viewDetail(response, table, id);
                 },
                 error: function (xhr, error, status) {
                     console.log(xhr.responseText);
                 }
             });
-            $('ul li').removeClass('alert-default-primary');
-            $(this).addClass('alert-default-primary');
+            $('ul li').removeClass('alert-default-success');
+            $(this).removeClass('alert-default-primary');
+            $(this).addClass('alert-default-success');
             $('.overlay').removeClass('d-none');
             $(this).find('span.isreaded').html('<i>sudah dibaca</i>');
         });

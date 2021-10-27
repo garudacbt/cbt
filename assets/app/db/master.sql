@@ -1,54 +1,180 @@
-#
-# TABLE STRUCTURE FOR: api_token
-#
+-- phpMyAdmin SQL Dump
+-- version 5.0.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 20 Okt 2021 pada 06.27
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.3.23
 
-DROP TABLE IF EXISTS `api_token`;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `main_garuda`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `api_setting`
+--
+
+CREATE TABLE `api_setting` (
+  `id` int(11) NOT NULL,
+  `auto_sync` int(11) NOT NULL DEFAULT 0,
+  `edit_profile_siswa` int(11) NOT NULL DEFAULT 0,
+  `edit_profile_guru` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `api_token`
+--
 
 CREATE TABLE `api_token` (
-  `id_api` int(11) NOT NULL AUTO_INCREMENT,
+  `id_api` int(11) NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL,
   `address` text NOT NULL,
   `agent` text NOT NULL,
   `device` text NOT NULL,
-  `token` text NOT NULL,
-  PRIMARY KEY (`id_api`)
+  `token` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: bulan
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `bulan`;
+--
+-- Struktur dari tabel `buku_induk`
+--
+
+CREATE TABLE `buku_induk` (
+  `id_siswa` int(11) NOT NULL,
+  `uid` varchar(50) NOT NULL,
+  `rombel_awal` varchar(50) DEFAULT NULL,
+  `nama_panggilan` varchar(50) DEFAULT NULL,
+  `bahasa` varchar(50) DEFAULT NULL,
+  `jml_saudara_kandung` int(2) NOT NULL DEFAULT 0,
+  `jml_saudara_tiri` int(2) NOT NULL DEFAULT 0,
+  `jml_saudara_angkat` int(2) NOT NULL DEFAULT 0,
+  `yatim` int(1) NOT NULL DEFAULT 0 COMMENT '0=ada orang-tua, 1=yatim, 2=yatim piatu',
+  `tinggal_bersama` varchar(1) NOT NULL DEFAULT '1' COMMENT '1=orang-tua, 2=saudara, 3=wali, 4=asrama/pesantren, 5=kost, 6=lainnya',
+  `jarak` varchar(10) DEFAULT NULL,
+  `gol_darah` varchar(4) DEFAULT NULL,
+  `penyakit` mediumtext DEFAULT NULL,
+  `kelainan_fisik` varchar(100) DEFAULT NULL,
+  `kegemaran` longtext DEFAULT NULL,
+  `beasiswa` longtext DEFAULT NULL,
+  `no_ijazah_sebelumnya` varchar(50) DEFAULT NULL,
+  `tahun_lulus_sebelumnya` varchar(10) DEFAULT NULL,
+  `pindahan_dari` varchar(100) DEFAULT NULL,
+  `alasan_kepindahan` varchar(200) DEFAULT NULL,
+  `agama_ayah` varchar(20) DEFAULT NULL,
+  `tempat_lahir_ayah` varchar(50) DEFAULT NULL,
+  `wn_ayah` varchar(50) DEFAULT NULL,
+  `penghasilan_ayah` varchar(50) DEFAULT NULL,
+  `hidup_meninggal_ayah` varchar(50) DEFAULT NULL,
+  `agama_ibu` varchar(50) DEFAULT NULL,
+  `tempat_lahir_ibu` varchar(50) DEFAULT NULL,
+  `wn_ibu` varchar(50) DEFAULT NULL,
+  `penghasilan_ibu` varchar(50) DEFAULT NULL,
+  `hidup_meninggal_ibu` varchar(50) DEFAULT NULL,
+  `tempat_lahir_wali` varchar(50) DEFAULT NULL,
+  `agama_wali` varchar(20) DEFAULT NULL,
+  `wn_wali` varchar(50) DEFAULT NULL,
+  `penghasilan_wali` varchar(10) DEFAULT NULL,
+  `status` int(1) DEFAULT 1 COMMENT '1= aktif, 2=lulus, 3=pindah, 4=keluar',
+  `tahun_lulus` int(10) DEFAULT NULL,
+  `no_ijazah` varchar(50) DEFAULT NULL,
+  `kelas_akhir` varchar(50) DEFAULT NULL,
+  `lanjut_ke` varchar(50) DEFAULT NULL,
+  `pindah_ke` varchar(100) DEFAULT NULL,
+  `alasan_pindah` varchar(100) DEFAULT NULL,
+  `tgl_pindah` varchar(20) DEFAULT NULL,
+  `bekerja_di` varchar(100) DEFAULT NULL,
+  `catatan_penting` longtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `buku_nilai`
+--
+
+CREATE TABLE `buku_nilai` (
+  `id_nilai` bigint(20) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `uid` varchar(255) NOT NULL,
+  `tp` varchar(10) NOT NULL,
+  `smt` varchar(20) NOT NULL,
+  `kelas` varchar(100) NOT NULL,
+  `level` int(2) NOT NULL,
+  `jurusan` varchar(50) NOT NULL,
+  `wali_kelas` varchar(100) NOT NULL,
+  `hph` longtext NOT NULL COMMENT 'nilai harian',
+  `hpts` longtext NOT NULL COMMENT 'nilai PTS',
+  `hpas` longtext NOT NULL COMMENT 'nilai PAS',
+  `nilai_rapor` longtext NOT NULL,
+  `ekstra` longtext NOT NULL,
+  `spritual` longtext NOT NULL,
+  `sosial` longtext NOT NULL,
+  `rank` longtext NOT NULL,
+  `prestasi` longtext NOT NULL,
+  `absen` longtext NOT NULL,
+  `saran` longtext NOT NULL,
+  `fisik` longtext NOT NULL,
+  `naik` int(1) NOT NULL DEFAULT 1,
+  `setting_rapor` longtext NOT NULL,
+  `setting_mapel` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bulan`
+--
 
 CREATE TABLE `bulan` (
-  `id_bln` int(10) NOT NULL AUTO_INCREMENT,
-  `nama_bln` varchar(25) NOT NULL,
-  PRIMARY KEY (`id_bln`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id_bln` int(10) NOT NULL,
+  `nama_bln` varchar(25) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (1, 'Januari');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (2, 'Februari');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (3, 'Maret');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (4, 'April');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (5, 'Mei');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (6, 'Juni');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (7, 'Juli');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (8, 'Agustus');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (9, 'September');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (10, 'Oktober');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (11, 'November');
-INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES (12, 'Desember');
+--
+-- Dumping data untuk tabel `bulan`
+--
 
+INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES
+(1, 'Januari'),
+(2, 'Februari'),
+(3, 'Maret'),
+(4, 'April'),
+(5, 'Mei'),
+(6, 'Juni'),
+(7, 'Juli'),
+(8, 'Agustus'),
+(9, 'September'),
+(10, 'Oktober'),
+(11, 'November'),
+(12, 'Desember');
 
-#
-# TABLE STRUCTURE FOR: cbt_bank_soal
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `cbt_bank_soal`;
+--
+-- Struktur dari tabel `cbt_bank_soal`
+--
 
 CREATE TABLE `cbt_bank_soal` (
-  `id_bank` int(11) NOT NULL AUTO_INCREMENT,
+  `id_bank` int(11) NOT NULL,
+  `id_tp` int(11) NOT NULL,
+  `id_smt` int(11) NOT NULL,
   `bank_jenis_id` int(11) NOT NULL DEFAULT 0,
   `bank_kode` varchar(255) NOT NULL DEFAULT '0',
   `bank_level` varchar(225) NOT NULL,
@@ -58,47 +184,54 @@ CREATE TABLE `cbt_bank_soal` (
   `bank_guru_id` int(11) NOT NULL,
   `bank_nama` varchar(250) NOT NULL,
   `kkm` int(3) DEFAULT 0,
+  `deskripsi` longtext DEFAULT NULL,
   `jml_soal` int(5) NOT NULL DEFAULT 0,
-  `jml_esai` int(5) NOT NULL DEFAULT 0,
   `tampil_pg` int(5) NOT NULL DEFAULT 0,
-  `tampil_esai` int(5) NOT NULL DEFAULT 0,
   `bobot_pg` int(5) NOT NULL DEFAULT 0,
+  `jml_kompleks` int(3) NOT NULL DEFAULT 0,
+  `tampil_kompleks` int(3) NOT NULL DEFAULT 0,
+  `bobot_kompleks` int(2) NOT NULL DEFAULT 0,
+  `jml_jodohkan` int(3) NOT NULL DEFAULT 0,
+  `tampil_jodohkan` int(3) NOT NULL DEFAULT 0,
+  `bobot_jodohkan` int(2) NOT NULL DEFAULT 0,
+  `jml_isian` int(3) NOT NULL DEFAULT 0,
+  `tampil_isian` int(3) NOT NULL DEFAULT 0,
+  `bobot_isian` int(2) NOT NULL DEFAULT 0,
+  `jml_esai` int(5) NOT NULL DEFAULT 0,
+  `tampil_esai` int(5) NOT NULL DEFAULT 0,
   `bobot_esai` int(5) NOT NULL DEFAULT 0,
   `opsi` int(1) NOT NULL DEFAULT 0,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` int(2) NOT NULL DEFAULT 0,
-  `soal_agama` int(2) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_bank`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status_soal` int(11) NOT NULL DEFAULT 0 COMMENT '0=belum selesai, 1=sudah selesai',
+  `soal_agama` int(2) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_durasi_siswa
-#
-
-DROP TABLE IF EXISTS `cbt_durasi_siswa`;
+--
+-- Struktur dari tabel `cbt_durasi_siswa`
+--
 
 CREATE TABLE `cbt_durasi_siswa` (
   `id_durasi` varchar(50) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0 COMMENT '0=belum ujian, 1=sedang ujian, 2=sudah ujian',
-  `lama_ujian` int(10) NOT NULL,
+  `lama_ujian` time DEFAULT NULL,
   `mulai` varchar(22) DEFAULT NULL,
   `selesai` varchar(22) DEFAULT NULL,
-  `reset` int(1) NOT NULL DEFAULT 0 COMMENT '0=tidak, 1=reset dari 0, 2=reset dari sisa waktu, 3=ulangi semua',
-  PRIMARY KEY (`id_durasi`)
+  `reset` int(1) NOT NULL DEFAULT 0 COMMENT '0=tidak, 1=reset dari 0, 2=reset dari sisa waktu, 3=ulangi semua'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_jadwal
-#
-
-DROP TABLE IF EXISTS `cbt_jadwal`;
+--
+-- Struktur dari tabel `cbt_jadwal`
+--
 
 CREATE TABLE `cbt_jadwal` (
-  `id_jadwal` int(11) NOT NULL AUTO_INCREMENT,
+  `id_jadwal` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_bank` int(11) NOT NULL,
@@ -116,75 +249,39 @@ CREATE TABLE `cbt_jadwal` (
   `reset_login` int(1) NOT NULL,
   `rekap` int(1) NOT NULL DEFAULT 0,
   `jam_ke` int(2) NOT NULL DEFAULT 0,
-  `jarak` int(3) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_jadwal`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-#
-# TABLE STRUCTURE FOR: cbt_jadwal_ujian
-#
-
-DROP TABLE IF EXISTS `cbt_jadwal_ujian`;
-
-CREATE TABLE `cbt_jadwal_ujian` (
-  `id_jadwal` int(11) NOT NULL,
-  `id_tp` int(11) NOT NULL,
-  `id_smt` int(11) NOT NULL,
-  `level` longtext NOT NULL,
-  `id_jenis` int(11) NOT NULL,
-  `dari` varchar(20) NOT NULL,
-  `sampai` varchar(20) NOT NULL,
-  `jam_mulai` varchar(20) NOT NULL,
-  `jml_mapel` int(2) NOT NULL,
-  `jml_istirahat` int(2) NOT NULL,
-  `durasi_mapel` int(3) NOT NULL,
-  `durasi_istirahat` int(4) NOT NULL,
-  PRIMARY KEY (`id_jadwal`)
+  `jarak` int(3) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: cbt_jawaban
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `cbt_jawaban`;
-
-CREATE TABLE `cbt_jawaban` (
-  `id_jawaban` varchar(50) NOT NULL,
-  `jawaban` longtext NOT NULL,
-  `jawaban_benar` longtext NOT NULL,
-  `koreksi` int(1) NOT NULL COMMENT '0 = belum dikoreksi, else point essai',
-  PRIMARY KEY (`id_jawaban`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-#
-# TABLE STRUCTURE FOR: cbt_jenis
-#
-
-DROP TABLE IF EXISTS `cbt_jenis`;
+--
+-- Struktur dari tabel `cbt_jenis`
+--
 
 CREATE TABLE `cbt_jenis` (
-  `id_jenis` int(11) NOT NULL AUTO_INCREMENT,
+  `id_jenis` int(11) NOT NULL,
   `nama_jenis` varchar(50) NOT NULL,
-  `kode_jenis` varchar(10) NOT NULL,
-  PRIMARY KEY (`id_jenis`)
+  `kode_jenis` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES (1, 'Penilaian Harian', 'PH');
-INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES (2, 'Penilaian Tengah Semester', 'PTS');
-INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES (3, 'Penilaian Akhir Semester', 'PAS');
-INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES (4, 'Penilaian Akhir Tahun', 'PAT');
-INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES (5, 'Ujian Madrasah Berbasis Komputer', 'UMBK');
-INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES (9, 'Try Out', 'TO');
-INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES (10, 'Simulasi', 'SIML');
+--
+-- Dumping data untuk tabel `cbt_jenis`
+--
 
+INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES
+(1, 'Penilaian Harian', 'PH'),
+(2, 'Penilaian Tengah Semester', 'PTS'),
+(3, 'Penilaian Akhir Semester', 'PAS'),
+(4, 'Penilaian Akhir Tahun', 'PAT'),
+(5, 'Ujian Madrasah Berbasis Komputer', 'UMBK'),
+(9, 'Try Out', 'TO'),
+(10, 'Simulasi', 'SIML');
 
-#
-# TABLE STRUCTURE FOR: cbt_kelas_ruang
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `cbt_kelas_ruang`;
+--
+-- Struktur dari tabel `cbt_kelas_ruang`
+--
 
 CREATE TABLE `cbt_kelas_ruang` (
   `id_kelas_ruang` varchar(50) NOT NULL,
@@ -193,17 +290,14 @@ CREATE TABLE `cbt_kelas_ruang` (
   `id_sesi` int(11) NOT NULL DEFAULT 0,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
-  `set_siswa` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_kelas_ruang`)
+  `set_siswa` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-
-#
-# TABLE STRUCTURE FOR: cbt_kop_absensi
-#
-
-DROP TABLE IF EXISTS `cbt_kop_absensi`;
+--
+-- Struktur dari tabel `cbt_kop_absensi`
+--
 
 CREATE TABLE `cbt_kop_absensi` (
   `id_kop` int(11) NOT NULL,
@@ -213,36 +307,28 @@ CREATE TABLE `cbt_kop_absensi` (
   `header_4` varchar(100) DEFAULT NULL,
   `proktor` varchar(100) DEFAULT NULL,
   `pengawas_1` varchar(100) DEFAULT NULL,
-  `pengawas_2` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id_kop`)
+  `pengawas_2` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cbt_kop_absensi` (`id_kop`, `header_1`, `header_2`, `header_3`, `header_4`, `proktor`, `pengawas_1`, `pengawas_2`) VALUES (123456, 'MADRASAH TSANAWIYAH AL HASAN', 'DAFTAR KEHADIRAN', 'UJIAN AKHIR MADRASAH (UAMBK)', 'TP: 2020/2021', 'Abdullah Al Hasan', 'Abdullah Al Hasan', 'p');
+-- --------------------------------------------------------
 
-
-#
-# TABLE STRUCTURE FOR: cbt_kop_berita
-#
-
-DROP TABLE IF EXISTS `cbt_kop_berita`;
+--
+-- Struktur dari tabel `cbt_kop_berita`
+--
 
 CREATE TABLE `cbt_kop_berita` (
   `id_kop` int(11) NOT NULL,
   `header_1` varchar(100) DEFAULT NULL,
   `header_2` varchar(100) DEFAULT NULL,
   `header_3` varchar(100) DEFAULT NULL,
-  `header_4` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id_kop`)
+  `header_4` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cbt_kop_berita` (`id_kop`, `header_1`, `header_2`, `header_3`, `header_4`) VALUES (123456, 'MADRASAH TSANAWIYAH AL HASAN', 'BERITA ACARA PELAKSANAAN', 'UJIAN AKHIR MADRASAH (U M B K)', 'Tahun Pelajaran: 2020/2021');
+-- --------------------------------------------------------
 
-
-#
-# TABLE STRUCTURE FOR: cbt_kop_kartu
-#
-
-DROP TABLE IF EXISTS `cbt_kop_kartu`;
+--
+-- Struktur dari tabel `cbt_kop_kartu`
+--
 
 CREATE TABLE `cbt_kop_kartu` (
   `id_set_kartu` int(11) NOT NULL,
@@ -250,64 +336,61 @@ CREATE TABLE `cbt_kop_kartu` (
   `header_2` varchar(100) DEFAULT NULL,
   `header_3` varchar(100) DEFAULT NULL,
   `header_4` varchar(100) DEFAULT NULL,
-  `tanggal` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id_set_kartu`)
+  `tanggal` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cbt_kop_kartu` (`id_set_kartu`, `header_1`, `header_2`, `header_3`, `header_4`, `tanggal`) VALUES (123456, 'MADRASAH TSANAWIYAH', 'KARTU PESERTA', 'UJIAN AKHIR MADRASAH (UMBK)', 'TAHUN PELAJARAN: 2020/2021', '29 Maret 2021');
+-- --------------------------------------------------------
 
-
-#
-# TABLE STRUCTURE FOR: cbt_nilai
-#
-
-DROP TABLE IF EXISTS `cbt_nilai`;
+--
+-- Struktur dari tabel `cbt_nilai`
+--
 
 CREATE TABLE `cbt_nilai` (
   `id_nilai` varchar(50) NOT NULL,
-  `pg_benar` int(3) NOT NULL,
-  `pg_nilai` int(2) NOT NULL,
-  `essai_nilai` int(2) DEFAULT NULL,
-  PRIMARY KEY (`id_nilai`)
+  `id_siswa` varchar(50) DEFAULT NULL,
+  `id_jadwal` varchar(50) DEFAULT NULL,
+  `pg_benar` int(3) DEFAULT 0,
+  `pg_nilai` varchar(10) DEFAULT '0',
+  `kompleks_nilai` varchar(10) DEFAULT '0',
+  `jodohkan_nilai` varchar(10) DEFAULT '0',
+  `isian_nilai` varchar(10) DEFAULT '0',
+  `essai_nilai` varchar(10) DEFAULT '0',
+  `dikoreksi` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_nomor_peserta
-#
-
-DROP TABLE IF EXISTS `cbt_nomor_peserta`;
+--
+-- Struktur dari tabel `cbt_nomor_peserta`
+--
 
 CREATE TABLE `cbt_nomor_peserta` (
   `id_nomor` varchar(50) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL DEFAULT 1,
-  `nomor_peserta` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_nomor`)
+  `nomor_peserta` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_pengawas
-#
-
-DROP TABLE IF EXISTS `cbt_pengawas`;
+--
+-- Struktur dari tabel `cbt_pengawas`
+--
 
 CREATE TABLE `cbt_pengawas` (
-  `id_pengawas` int(11) NOT NULL AUTO_INCREMENT,
-  `id_jadwal` text NOT NULL,
-  PRIMARY KEY (`id_pengawas`)
+  `id_pengawas` int(11) NOT NULL,
+  `id_jadwal` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: cbt_rekap
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `cbt_rekap`;
+--
+-- Struktur dari tabel `cbt_rekap`
+--
 
 CREATE TABLE `cbt_rekap` (
-  `id_rekap` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rekap` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `tp` varchar(20) NOT NULL,
   `id_smt` int(11) NOT NULL,
@@ -317,6 +400,7 @@ CREATE TABLE `cbt_rekap` (
   `kode_jenis` varchar(20) NOT NULL,
   `id_bank` varchar(250) NOT NULL,
   `bank_kelas` mediumtext NOT NULL,
+  `nama_kelas` mediumtext DEFAULT NULL,
   `bank_kode` varchar(20) NOT NULL,
   `bank_level` int(11) NOT NULL,
   `id_mapel` varchar(250) NOT NULL,
@@ -326,24 +410,26 @@ CREATE TABLE `cbt_rekap` (
   `tgl_selesai` varchar(22) NOT NULL,
   `tampil_pg` int(3) NOT NULL,
   `jawaban_pg` longtext NOT NULL,
+  `bobot_pg` int(3) NOT NULL,
   `tampil_esai` int(3) NOT NULL,
   `jawaban_esai` longtext NOT NULL,
-  `bobot_pg` int(3) NOT NULL,
   `bobot_esai` int(3) NOT NULL,
+  `soal_kompleks` longtext DEFAULT NULL,
+  `soal_jodohkan` longtext DEFAULT NULL,
+  `soal_isian` longtext DEFAULT NULL,
+  `soal_essai` longtext DEFAULT NULL,
   `id_guru` varchar(250) NOT NULL,
-  `nama_guru` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_rekap`)
+  `nama_guru` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_rekap_nilai
-#
-
-DROP TABLE IF EXISTS `cbt_rekap_nilai`;
+--
+-- Struktur dari tabel `cbt_rekap_nilai`
+--
 
 CREATE TABLE `cbt_rekap_nilai` (
-  `id_rekap_nilai` int(100) NOT NULL AUTO_INCREMENT,
+  `id_rekap_nilai` int(100) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `tp` varchar(20) NOT NULL,
@@ -354,6 +440,8 @@ CREATE TABLE `cbt_rekap_nilai` (
   `id_bank` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
+  `nama_siswa` varchar(100) DEFAULT NULL,
+  `no_peserta` varchar(100) DEFAULT NULL,
   `id_kelas` int(11) NOT NULL DEFAULT 0,
   `kelas` varchar(20) NOT NULL,
   `mulai` varchar(20) NOT NULL,
@@ -365,84 +453,96 @@ CREATE TABLE `cbt_rekap_nilai` (
   `bobot_esai` int(11) NOT NULL,
   `jawaban_esai` longtext NOT NULL,
   `nilai_esai` varchar(10) NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  PRIMARY KEY (`id_rekap_nilai`)
+  `soal_kompleks` longtext DEFAULT NULL,
+  `soal_jodohkan` longtext DEFAULT NULL,
+  `soal_isian` longtext DEFAULT NULL,
+  `soal_essai` longtext DEFAULT NULL,
+  `id_guru` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_ruang
-#
-
-DROP TABLE IF EXISTS `cbt_ruang`;
+--
+-- Struktur dari tabel `cbt_ruang`
+--
 
 CREATE TABLE `cbt_ruang` (
-  `id_ruang` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ruang` int(11) NOT NULL,
   `nama_ruang` varchar(50) NOT NULL,
-  `kode_ruang` varchar(10) NOT NULL,
-  PRIMARY KEY (`id_ruang`)
+  `kode_ruang` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cbt_ruang` (`id_ruang`, `nama_ruang`, `kode_ruang`) VALUES (1, 'Ruang 1', 'LAB-KOM');
-INSERT INTO `cbt_ruang` (`id_ruang`, `nama_ruang`, `kode_ruang`) VALUES (2, 'Ruang 2', 'R2');
-INSERT INTO `cbt_ruang` (`id_ruang`, `nama_ruang`, `kode_ruang`) VALUES (3, 'Ruang 3', 'R3');
-INSERT INTO `cbt_ruang` (`id_ruang`, `nama_ruang`, `kode_ruang`) VALUES (7, 'Ruang 4', 'R4');
-INSERT INTO `cbt_ruang` (`id_ruang`, `nama_ruang`, `kode_ruang`) VALUES (8, 'Ruang 5', 'R5');
+--
+-- Dumping data untuk tabel `cbt_ruang`
+--
 
+INSERT INTO `cbt_ruang` (`id_ruang`, `nama_ruang`, `kode_ruang`) VALUES
+(1, 'Ruang 1', 'LAB-KOM'),
+(2, 'Ruang 2', 'R2'),
+(3, 'Ruang 3', 'R3'),
+(7, 'Ruang 4', 'R4'),
+(8, 'Ruang 5', 'R5'),
+(9, 'Ruang PAT 1', 'R-PAT-1'),
+(10, 'Ruang PAT 2', 'R-PAT-2'),
+(11, 'Ruang PAT 3', 'R-PAT-3'),
+(12, 'Ruang PAT 4', 'R-PAT-4');
 
-#
-# TABLE STRUCTURE FOR: cbt_sesi
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `cbt_sesi`;
+--
+-- Struktur dari tabel `cbt_sesi`
+--
 
 CREATE TABLE `cbt_sesi` (
-  `id_sesi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sesi` int(11) NOT NULL,
   `nama_sesi` varchar(50) NOT NULL,
   `kode_sesi` varchar(10) NOT NULL,
   `waktu_mulai` time NOT NULL,
   `waktu_akhir` time NOT NULL,
-  `aktif` int(1) NOT NULL,
-  PRIMARY KEY (`id_sesi`)
+  `aktif` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cbt_sesi` (`id_sesi`, `nama_sesi`, `kode_sesi`, `waktu_mulai`, `waktu_akhir`, `aktif`) VALUES (1, 'Sesi 1', 'S1', '08:00:00', '22:30:00', 1);
-INSERT INTO `cbt_sesi` (`id_sesi`, `nama_sesi`, `kode_sesi`, `waktu_mulai`, `waktu_akhir`, `aktif`) VALUES (2, 'Sesi 2', 'S2', '10:00:00', '13:00:00', 1);
-INSERT INTO `cbt_sesi` (`id_sesi`, `nama_sesi`, `kode_sesi`, `waktu_mulai`, `waktu_akhir`, `aktif`) VALUES (3, 'Sesi 3', 'S3', '08:00:00', '22:30:00', 1);
+--
+-- Dumping data untuk tabel `cbt_sesi`
+--
 
+INSERT INTO `cbt_sesi` (`id_sesi`, `nama_sesi`, `kode_sesi`, `waktu_mulai`, `waktu_akhir`, `aktif`) VALUES
+(1, 'Sesi 1', 'S1', '07:30:00', '09:30:00', 1),
+(2, 'Sesi 2', 'S2', '10:00:00', '12:00:00', 1),
+(3, 'Sesi 3', 'S3', '13:00:00', '15:00:00', 1);
 
-#
-# TABLE STRUCTURE FOR: cbt_sesi_siswa
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `cbt_sesi_siswa`;
+--
+-- Struktur dari tabel `cbt_sesi_siswa`
+--
 
 CREATE TABLE `cbt_sesi_siswa` (
-  `siswa_id` int(11) NOT NULL AUTO_INCREMENT,
+  `siswa_id` int(11) NOT NULL,
   `kelas_id` int(11) NOT NULL,
   `ruang_id` int(11) NOT NULL,
   `sesi_id` int(11) NOT NULL,
   `tp_id` int(11) NOT NULL,
-  `smt_id` int(11) NOT NULL,
-  PRIMARY KEY (`siswa_id`)
+  `smt_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_soal
-#
-
-DROP TABLE IF EXISTS `cbt_soal`;
+--
+-- Struktur dari tabel `cbt_soal`
+--
 
 CREATE TABLE `cbt_soal` (
-  `id_soal` int(11) NOT NULL AUTO_INCREMENT,
+  `id_soal` int(11) NOT NULL,
   `bank_id` int(11) NOT NULL,
   `mapel_id` int(11) NOT NULL DEFAULT 0,
-  `jenis` int(2) NOT NULL,
+  `jenis` int(1) NOT NULL COMMENT '1=ganda, 2=ganda kompleks, 3=menjodohkan, 4=isian singkat, 5=uraian',
+  `deskripsi` longtext NOT NULL,
+  `kesulitan` int(2) NOT NULL DEFAULT 1 COMMENT 'tingkat kesulitan 1-10',
+  `timer` int(1) NOT NULL DEFAULT 0 COMMENT '0=tidak, 1=ya',
+  `timer_menit` int(3) NOT NULL DEFAULT 0,
   `nomor_soal` int(11) NOT NULL DEFAULT 0,
   `file` varchar(255) DEFAULT NULL,
-  `file1` mediumtext DEFAULT NULL,
-  `tipe_file` varchar(50) DEFAULT NULL,
   `soal` longtext DEFAULT NULL,
   `opsi_a` longtext DEFAULT NULL,
   `opsi_b` longtext DEFAULT NULL,
@@ -454,19 +554,17 @@ CREATE TABLE `cbt_soal` (
   `file_c` varchar(255) DEFAULT NULL,
   `file_d` varchar(255) DEFAULT NULL,
   `file_e` varchar(255) DEFAULT NULL,
-  `jawaban` varchar(5) DEFAULT NULL,
+  `jawaban` longtext DEFAULT NULL,
   `created_on` int(11) DEFAULT NULL,
   `updated_on` int(11) DEFAULT NULL,
-  `tampilkan` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_soal`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `tampilkan` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_soal_siswa
-#
-
-DROP TABLE IF EXISTS `cbt_soal_siswa`;
+--
+-- Struktur dari tabel `cbt_soal_siswa`
+--
 
 CREATE TABLE `cbt_soal_siswa` (
   `id_soal_siswa` varchar(50) NOT NULL,
@@ -484,70 +582,83 @@ CREATE TABLE `cbt_soal_siswa` (
   `jawaban_alias` longtext DEFAULT NULL,
   `jawaban_siswa` longtext DEFAULT NULL,
   `jawaban_benar` longtext DEFAULT NULL,
-  `point_essai` int(3) DEFAULT 0,
   `soal_end` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_soal_siswa`)
+  `point_soal` varchar(5) NOT NULL DEFAULT '0',
+  `nilai_koreksi` varchar(5) NOT NULL DEFAULT '0',
+  `nilai_otomatis` int(1) NOT NULL DEFAULT 0 COMMENT '0=otomatis, 1=dari guru'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: cbt_token
-#
-
-DROP TABLE IF EXISTS `cbt_token`;
+--
+-- Struktur dari tabel `cbt_token`
+--
 
 CREATE TABLE `cbt_token` (
+  `id_token` int(11) NOT NULL,
   `token` varchar(6) NOT NULL,
-  `auto` int(1) NOT NULL
+  `auto` int(1) NOT NULL,
+  `jarak` int(2) NOT NULL DEFAULT 0,
+  `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cbt_token` (`token`, `auto`) VALUES ('BDEFLU', 0);
+--
+-- Dumping data untuk tabel `cbt_token`
+--
 
+INSERT INTO `cbt_token` (`id_token`, `token`, `auto`, `jarak`, `updated`) VALUES
+(1, 'JDRYDC', 0, 1, '2021-08-31 16:24:46');
 
-#
-# TABLE STRUCTURE FOR: groups
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `groups`;
+--
+-- Struktur dari tabel `groups`
+--
 
 CREATE TABLE `groups` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `id` mediumint(8) UNSIGNED NOT NULL,
   `name` varchar(20) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `groups` (`id`, `name`, `description`) VALUES (1, 'admin', 'Administrator');
-INSERT INTO `groups` (`id`, `name`, `description`) VALUES (2, 'guru', 'Pembuat Soal dan ujian');
-INSERT INTO `groups` (`id`, `name`, `description`) VALUES (3, 'siswa', 'Peserta Ujian');
+--
+-- Dumping data untuk tabel `groups`
+--
 
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(1, 'admin', 'Administrator'),
+(2, 'guru', 'Pembuat Soal dan ujian'),
+(3, 'siswa', 'Peserta Ujian');
 
-#
-# TABLE STRUCTURE FOR: hari
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `hari`;
+--
+-- Struktur dari tabel `hari`
+--
 
 CREATE TABLE `hari` (
-  `id_hri` int(10) NOT NULL AUTO_INCREMENT,
-  `nama_hri` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_hri`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id_hri` int(10) NOT NULL,
+  `nama_hri` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES (1, 'Senin');
-INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES (2, 'Selasa');
-INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES (3, 'Rabu');
-INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES (4, 'Kamis');
-INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES (5, 'Jum\'at');
-INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES (6, 'Sabtu');
-INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES (7, 'Minggu');
+--
+-- Dumping data untuk tabel `hari`
+--
 
+INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES
+(1, 'Senin'),
+(2, 'Selasa'),
+(3, 'Rabu'),
+(4, 'Kamis'),
+(5, 'Jum\'at'),
+(6, 'Sabtu'),
+(7, 'Minggu');
 
-#
-# TABLE STRUCTURE FOR: jabatan_guru
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `jabatan_guru`;
+--
+-- Struktur dari tabel `jabatan_guru`
+--
 
 CREATE TABLE `jabatan_guru` (
   `id_jabatan_guru` varchar(50) NOT NULL,
@@ -557,19 +668,17 @@ CREATE TABLE `jabatan_guru` (
   `mapel_kelas` longtext DEFAULT NULL,
   `ekstra_kelas` longtext DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
-  `id_smt` int(11) NOT NULL,
-  PRIMARY KEY (`id_jabatan_guru`)
+  `id_smt` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_catatan_mapel
-#
-
-DROP TABLE IF EXISTS `kelas_catatan_mapel`;
+--
+-- Struktur dari tabel `kelas_catatan_mapel`
+--
 
 CREATE TABLE `kelas_catatan_mapel` (
-  `id_catatan` int(11) NOT NULL AUTO_INCREMENT,
+  `id_catatan` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `type` int(11) NOT NULL,
@@ -578,59 +687,53 @@ CREATE TABLE `kelas_catatan_mapel` (
   `id_kelas` int(11) DEFAULT NULL,
   `id_guru` int(11) NOT NULL,
   `level` varchar(1) NOT NULL DEFAULT '0',
-  `tgl` date NOT NULL,
+  `tgl` datetime NOT NULL DEFAULT current_timestamp(),
   `text` text NOT NULL,
   `readed` varchar(22) NOT NULL DEFAULT '0',
   `reading` longtext DEFAULT NULL COMMENT 'array id_siswa yang membaca',
-  `jml` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_catatan`)
+  `jml` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_catatan_wali
-#
-
-DROP TABLE IF EXISTS `kelas_catatan_wali`;
+--
+-- Struktur dari tabel `kelas_catatan_wali`
+--
 
 CREATE TABLE `kelas_catatan_wali` (
-  `id_catatan` int(11) NOT NULL AUTO_INCREMENT,
+  `id_catatan` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `type` int(11) NOT NULL COMMENT '1=semua siswa, 2=per siswa',
   `level` varchar(1) NOT NULL COMMENT '1=saran, 2=teguran, 3=peringatan, 4=sangsi',
-  `tgl` datetime NOT NULL DEFAULT current_timestamp(),
+  `tgl` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_siswa` int(11) DEFAULT NULL,
   `id_kelas` int(11) DEFAULT NULL,
   `text` text NOT NULL,
   `readed` varchar(22) NOT NULL DEFAULT '0',
   `reading` longtext DEFAULT NULL,
-  `jml` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_catatan`)
+  `jml` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_ekstra
-#
-
-DROP TABLE IF EXISTS `kelas_ekstra`;
+--
+-- Struktur dari tabel `kelas_ekstra`
+--
 
 CREATE TABLE `kelas_ekstra` (
   `id_kelas_ekstra` varchar(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
-  `ekstra` longtext NOT NULL,
-  PRIMARY KEY (`id_kelas_ekstra`)
+  `ekstra` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_jadwal_kbm
-#
-
-DROP TABLE IF EXISTS `kelas_jadwal_kbm`;
+--
+-- Struktur dari tabel `kelas_jadwal_kbm`
+--
 
 CREATE TABLE `kelas_jadwal_kbm` (
   `id_kbm` int(11) NOT NULL,
@@ -640,16 +743,14 @@ CREATE TABLE `kelas_jadwal_kbm` (
   `kbm_jam_pel` int(11) NOT NULL,
   `kbm_jam_mulai` varchar(5) NOT NULL,
   `kbm_jml_mapel_hari` int(11) NOT NULL,
-  `istirahat` text NOT NULL,
-  PRIMARY KEY (`id_kbm`)
+  `istirahat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_jadwal_mapel
-#
-
-DROP TABLE IF EXISTS `kelas_jadwal_mapel`;
+--
+-- Struktur dari tabel `kelas_jadwal_mapel`
+--
 
 CREATE TABLE `kelas_jadwal_mapel` (
   `id_jadwal` int(11) NOT NULL,
@@ -658,54 +759,35 @@ CREATE TABLE `kelas_jadwal_mapel` (
   `id_kelas` int(11) NOT NULL,
   `id_hari` int(11) NOT NULL,
   `jam_ke` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  PRIMARY KEY (`id_jadwal`)
+  `id_mapel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: kelas_jadwal_materi
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `kelas_jadwal_materi`;
+--
+-- Struktur dari tabel `kelas_jadwal_materi`
+--
 
 CREATE TABLE `kelas_jadwal_materi` (
-  `id_kjm` int(11) NOT NULL,
+  `id_kjm` varchar(50) NOT NULL,
+  `jenis` int(1) DEFAULT NULL COMMENT '1=materi, 2=tugas',
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_materi` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
-  `jadwal_materi` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_kjm`)
+  `jadwal_materi` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_jadwal_tugas
-#
-
-DROP TABLE IF EXISTS `kelas_jadwal_tugas`;
-
-CREATE TABLE `kelas_jadwal_tugas` (
-  `id_kjt` int(11) NOT NULL,
-  `id_tp` int(11) NOT NULL,
-  `id_smt` int(11) NOT NULL,
-  `id_tugas` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `id_kelas` int(11) NOT NULL,
-  `jadwal_tugas` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_kjt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-#
-# TABLE STRUCTURE FOR: kelas_materi
-#
-
-DROP TABLE IF EXISTS `kelas_materi`;
+--
+-- Struktur dari tabel `kelas_materi`
+--
 
 CREATE TABLE `kelas_materi` (
-  `id_materi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_materi` int(11) NOT NULL,
+  `jenis` int(1) NOT NULL DEFAULT 1 COMMENT '1=materi, 2=tugas',
   `id_tp` int(11) NOT NULL DEFAULT 1,
   `id_smt` int(11) NOT NULL DEFAULT 1,
   `kode_materi` text NOT NULL,
@@ -721,34 +803,31 @@ CREATE TABLE `kelas_materi` (
   `created_on` datetime DEFAULT NULL,
   `updated_on` datetime DEFAULT current_timestamp(),
   `status` int(1) DEFAULT NULL,
-  `youtube` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_materi`)
+  `youtube` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: kelas_siswa
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `kelas_siswa`;
+--
+-- Struktur dari tabel `kelas_siswa`
+--
 
 CREATE TABLE `kelas_siswa` (
   `id_kelas_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
-  `id_kelas` int(11) NOT NULL,
-  PRIMARY KEY (`id_kelas_siswa`)
+  `id_kelas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_struktur
-#
-
-DROP TABLE IF EXISTS `kelas_struktur`;
+--
+-- Struktur dari tabel `kelas_struktur`
+--
 
 CREATE TABLE `kelas_struktur` (
-  `id_kelas` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kelas` int(11) NOT NULL,
   `ketua` int(11) NOT NULL,
   `wakil_ketua` int(11) NOT NULL,
   `sekretaris_1` int(11) NOT NULL,
@@ -765,92 +844,68 @@ CREATE TABLE `kelas_struktur` (
   `sie_keindahan` int(11) NOT NULL,
   `sie_kesehatan` int(11) NOT NULL,
   `sie_kekeluargaan` int(11) NOT NULL,
-  `sie_humas` int(11) NOT NULL,
-  PRIMARY KEY (`id_kelas`)
+  `sie_humas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: kelas_tugas
-#
-
-DROP TABLE IF EXISTS `kelas_tugas`;
-
-CREATE TABLE `kelas_tugas` (
-  `id_tugas` int(11) NOT NULL AUTO_INCREMENT,
-  `id_tp` int(11) NOT NULL DEFAULT 1,
-  `id_smt` int(11) NOT NULL DEFAULT 1,
-  `kode_tugas` text NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  `tugas_kelas` text NOT NULL,
-  `id_mapel` int(11) NOT NULL DEFAULT 0,
-  `kode_mapel` varchar(300) DEFAULT NULL,
-  `judul_tugas` text NOT NULL,
-  `isi_tugas` longtext NOT NULL,
-  `file` longtext DEFAULT NULL,
-  `link_file` varchar(255) DEFAULT NULL,
-  `tgl_mulai` datetime DEFAULT NULL,
-  `created_on` datetime DEFAULT NULL,
-  `updated_on` datetime DEFAULT current_timestamp(),
-  `status` int(1) DEFAULT NULL,
-  `youtube` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_tugas`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-#
-# TABLE STRUCTURE FOR: level_guru
-#
-
-DROP TABLE IF EXISTS `level_guru`;
+--
+-- Struktur dari tabel `level_guru`
+--
 
 CREATE TABLE `level_guru` (
-  `id_level` int(11) NOT NULL AUTO_INCREMENT,
-  `level` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id_level`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_level` int(11) NOT NULL,
+  `level` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `level_guru` (`id_level`, `level`) VALUES (1, 'Kepala Sekolah');
-INSERT INTO `level_guru` (`id_level`, `level`) VALUES (2, 'Wakil Kepala Sekolah');
-INSERT INTO `level_guru` (`id_level`, `level`) VALUES (3, 'Bimbingan Konseling');
-INSERT INTO `level_guru` (`id_level`, `level`) VALUES (4, 'Walikelas');
-INSERT INTO `level_guru` (`id_level`, `level`) VALUES (5, 'Guru');
+--
+-- Dumping data untuk tabel `level_guru`
+--
 
+INSERT INTO `level_guru` (`id_level`, `level`) VALUES
+(1, 'Kepala Sekolah'),
+(2, 'Wakil Kepala Sekolah'),
+(3, 'Bimbingan Konseling'),
+(4, 'Walikelas'),
+(5, 'Guru');
 
-#
-# TABLE STRUCTURE FOR: level_kelas
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `level_kelas`;
+--
+-- Struktur dari tabel `level_kelas`
+--
 
 CREATE TABLE `level_kelas` (
   `id_level` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
-  PRIMARY KEY (`id_level`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `level` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (1, 1);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (2, 2);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (3, 3);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (4, 4);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (5, 5);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (6, 6);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (7, 7);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (8, 8);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (9, 9);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (10, 10);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (11, 11);
-INSERT INTO `level_kelas` (`id_level`, `level`) VALUES (12, 12);
+--
+-- Dumping data untuk tabel `level_kelas`
+--
 
+INSERT INTO `level_kelas` (`id_level`, `level`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12);
 
-#
-# TABLE STRUCTURE FOR: log
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `log`;
+--
+-- Struktur dari tabel `log`
+--
 
 CREATE TABLE `log` (
-  `id_log` int(11) NOT NULL AUTO_INCREMENT,
+  `id_log` int(11) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL,
   `id_group` int(11) NOT NULL,
@@ -859,24 +914,35 @@ CREATE TABLE `log` (
   `log_desc` text NOT NULL,
   `address` text NOT NULL,
   `agent` text NOT NULL,
-  `device` text NOT NULL,
-  PRIMARY KEY (`id_log`)
+  `device` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: log_materi
-#
+--
+-- Struktur dari tabel `login_attempts`
+--
 
-DROP TABLE IF EXISTS `log_materi`;
+CREATE TABLE `login_attempts` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `time` int(11) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `log_materi`
+--
 
 CREATE TABLE `log_materi` (
   `id_log` varchar(50) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT current_timestamp(),
   `id_siswa` int(11) NOT NULL,
-  `jam_ke` int(11) NOT NULL,
-  `id_materi` int(11) NOT NULL,
+  `id_materi` varchar(50) NOT NULL,
   `id_mapel` int(11) NOT NULL,
+  `jam_ke` int(2) NOT NULL,
   `log_type` int(11) NOT NULL,
   `log_desc` text NOT NULL,
   `text` longtext DEFAULT NULL,
@@ -885,45 +951,17 @@ CREATE TABLE `log_materi` (
   `catatan` mediumtext DEFAULT NULL,
   `address` text NOT NULL,
   `agent` text NOT NULL,
-  `device` text NOT NULL,
-  PRIMARY KEY (`id_log`)
+  `device` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: log_tugas
-#
-
-DROP TABLE IF EXISTS `log_tugas`;
-
-CREATE TABLE `log_tugas` (
-  `id_log` varchar(50) NOT NULL,
-  `log_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `id_siswa` int(11) NOT NULL,
-  `jam_ke` int(11) NOT NULL,
-  `id_tugas` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `log_type` int(11) NOT NULL,
-  `log_desc` text NOT NULL,
-  `text` longtext DEFAULT NULL,
-  `file` text DEFAULT NULL,
-  `nilai` varchar(3) DEFAULT NULL,
-  `catatan` mediumtext DEFAULT NULL,
-  `address` text NOT NULL,
-  `agent` text NOT NULL,
-  `device` text NOT NULL,
-  PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-#
-# TABLE STRUCTURE FOR: log_ujian
-#
-
-DROP TABLE IF EXISTS `log_ujian`;
+--
+-- Struktur dari tabel `log_ujian`
+--
 
 CREATE TABLE `log_ujian` (
-  `id_log` int(11) NOT NULL AUTO_INCREMENT,
+  `id_log` int(11) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT current_timestamp(),
   `id_siswa` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
@@ -932,50 +970,39 @@ CREATE TABLE `log_ujian` (
   `address` text NOT NULL,
   `agent` text NOT NULL,
   `device` text NOT NULL,
-  PRIMARY KEY (`id_log`)
+  `reset` int(1) NOT NULL COMMENT '0=tidak reset, 1=reset'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: login_attempts
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `login_attempts`;
-
-CREATE TABLE `login_attempts` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ip_address` varchar(45) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `time` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# TABLE STRUCTURE FOR: master_ekstra
-#
-
-DROP TABLE IF EXISTS `master_ekstra`;
+--
+-- Struktur dari tabel `master_ekstra`
+--
 
 CREATE TABLE `master_ekstra` (
-  `id_ekstra` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ekstra` int(11) NOT NULL,
   `nama_ekstra` varchar(100) NOT NULL,
-  `kode_ekstra` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_ekstra`)
+  `kode_ekstra` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `master_ekstra` (`id_ekstra`, `nama_ekstra`, `kode_ekstra`) VALUES (5, 'Pramuka', 'PRAM');
-INSERT INTO `master_ekstra` (`id_ekstra`, `nama_ekstra`, `kode_ekstra`) VALUES (6, 'Baca Tulis Al Quran', 'BTQ');
+--
+-- Dumping data untuk tabel `master_ekstra`
+--
 
+INSERT INTO `master_ekstra` (`id_ekstra`, `nama_ekstra`, `kode_ekstra`) VALUES
+(5, 'Pramuka', 'PRAM'),
+(6, 'Baca Tulis Al Quran', 'BTQ');
 
-#
-# TABLE STRUCTURE FOR: master_guru
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `master_guru`;
+--
+-- Struktur dari tabel `master_guru`
+--
 
 CREATE TABLE `master_guru` (
-  `id_guru` int(11) NOT NULL AUTO_INCREMENT,
+  `id_guru` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `nip` char(17) NOT NULL,
+  `nip` char(30) NOT NULL,
   `nama_guru` varchar(50) NOT NULL,
   `email` varchar(254) DEFAULT NULL,
   `kode_guru` varchar(6) DEFAULT NULL,
@@ -1005,55 +1032,52 @@ CREATE TABLE `master_guru` (
   `tmt` date DEFAULT NULL,
   `keahlian_isyarat` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `npwp` varchar(16) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `foto` longtext CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id_guru`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-#
-# TABLE STRUCTURE FOR: master_hari_efektif
-#
-
-DROP TABLE IF EXISTS `master_hari_efektif`;
-
-CREATE TABLE `master_hari_efektif` (
-  `id_hari_efektif` int(11) NOT NULL AUTO_INCREMENT,
-  `jml_hari_efektif` int(3) NOT NULL,
-  PRIMARY KEY (`id_hari_efektif`)
+  `foto` longtext CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `master_hari_efektif` (`id_hari_efektif`, `jml_hari_efektif`) VALUES (11, 97);
+-- --------------------------------------------------------
 
+--
+-- Struktur dari tabel `master_hari_efektif`
+--
 
-#
-# TABLE STRUCTURE FOR: master_jurusan
-#
+CREATE TABLE `master_hari_efektif` (
+  `id_hari_efektif` int(11) NOT NULL,
+  `jml_hari_efektif` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `master_jurusan`;
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `master_jurusan`
+--
 
 CREATE TABLE `master_jurusan` (
-  `id_jurusan` int(11) NOT NULL AUTO_INCREMENT,
+  `id_jurusan` int(11) NOT NULL,
   `nama_jurusan` varchar(30) NOT NULL,
   `kode_jurusan` varchar(10) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
-  `deletable` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id_jurusan`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deletable` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `status`, `deletable`) VALUES (0, 'NON JURUSAN', 'NON', 1, 0);
-INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `status`, `deletable`) VALUES (1, 'IPA', 'IPA', 1, 0);
-INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `status`, `deletable`) VALUES (2, 'IPS', 'IPS', 1, 0);
-INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `status`, `deletable`) VALUES (3, 'BAHASA', 'BAHASA', 1, 0);
-INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `status`, `deletable`) VALUES (77, 'KEAGAMAAN', 'AGAMA', 0, 1);
+--
+-- Dumping data untuk tabel `master_jurusan`
+--
 
+INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `status`, `deletable`) VALUES
+(1, 'IPA', 'IPA', 1, 0),
+(2, 'IPS', 'IPS', 1, 0),
+(3, 'BAHASA', 'BAHASA', 1, 0),
+(77, 'KEAGAMAAN', 'AGAMA', 0, 1);
 
-#
-# TABLE STRUCTURE FOR: master_kelas
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `master_kelas`;
+--
+-- Struktur dari tabel `master_kelas`
+--
 
 CREATE TABLE `master_kelas` (
-  `id_kelas` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kelas` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `nama_kelas` varchar(30) NOT NULL,
@@ -1063,19 +1087,17 @@ CREATE TABLE `master_kelas` (
   `guru_id` int(11) NOT NULL,
   `siswa_id` int(11) NOT NULL,
   `jumlah_siswa` longtext DEFAULT NULL,
-  `set_siswa` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_kelas`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `set_siswa` enum('0','1') NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: master_mapel
-#
-
-DROP TABLE IF EXISTS `master_mapel`;
+--
+-- Struktur dari tabel `master_mapel`
+--
 
 CREATE TABLE `master_mapel` (
-  `id_mapel` int(11) NOT NULL AUTO_INCREMENT,
+  `id_mapel` int(11) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL,
   `kode` varchar(20) DEFAULT NULL,
   `kelompok` varchar(5) NOT NULL DEFAULT '-',
@@ -1083,65 +1105,70 @@ CREATE TABLE `master_mapel` (
   `bobot_k` int(11) NOT NULL DEFAULT 0,
   `jenjang` int(1) NOT NULL DEFAULT 0,
   `urutan` int(11) NOT NULL,
+  `urutan_tampil` int(3) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT 1,
-  `deletable` int(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id_mapel`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deletable` int(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (1, 'Al Quran-Hadis', 'QH', 'A', 0, 0, 1, 1, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (2, 'Fiqih', 'FQH', 'A', 0, 0, 1, 1, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (3, 'Akidah Akhlak', 'AA', 'A', 0, 0, 1, 1, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (4, 'Sejarah Kebudayaan Islam', 'SKI', 'A', 0, 0, 1, 1, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (5, 'Bahasa Arab', 'BAR', 'A', 0, 0, 1, 2, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (6, 'Bahasa Indonesia', 'BIND', 'A', 0, 0, 1, 2, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (7, 'Bahasa Inggris', 'BING', 'A', 0, 0, 1, 2, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (8, 'Matematika', 'MTK', 'A', 0, 0, 1, 2, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (9, 'Ilmu Pengetahuan Alam', 'IPA', 'A', 0, 0, 1, 2, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (10, 'Ilmu Pengetahuan Sosial', 'IPS', 'A', 0, 0, 1, 2, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (11, 'Pendidikan Pancasila dan Kewarganegaraan', 'PPKn', 'A', 0, 0, 1, 2, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (12, 'Pendidikan Jasmani Olah Raga dan Kesehatan', 'PJOK', 'B', 0, 0, 1, 3, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (13, 'Seni Budaya', 'SB', 'B', 0, 0, 2, 3, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (14, 'Prakarya', 'PRA', 'B', 0, 0, 2, 3, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (15, 'SBdP', 'SBDP', 'B', 0, 0, 0, 3, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (16, 'Akhlak', 'AK', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (17, 'Antropologi', 'ANT', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (18, 'Bahasa Arab', 'BAR', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (19, 'Bahasa dan Sastra Asing Lainnya', 'BSAL', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (20, 'Bahasa dan Sastra Indonesia', 'BSIN', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (21, 'Bahasa dan Sastra Inggris', 'BSING', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (22, 'Bahasa Jepang', 'JPN', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (23, 'Bahasa Jerman', 'JRM', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (24, 'Biologi', 'BIO', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (25, 'Ekonomi', 'EKN', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (26, 'Fikih', 'FQH', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (27, 'Fikih - Ushul Fikih', 'UFQH', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (28, 'Fisika', 'FIS', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (29, 'Geografi', 'GEO', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (30, 'Hadis - Ilmu Hadis', 'HA', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (31, 'Ilmu Kalam', 'IK', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (32, 'Informatika', 'INF', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (33, 'Keterampilan', 'KTR', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (34, 'Kimia', 'KIM', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (35, 'Prakarya dan Kewirausahaan', 'PK', 'B', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (36, 'Sejarah', 'SEJ', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (37, 'Sejarah Indonesia', 'SJI', 'A', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (38, 'Sosiologi', 'SOS', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (39, 'Tafsir - Ilmu Tafsir', 'TT', 'C', 0, 0, 3, 0, 1, 0);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (40, 'Bahasa Sunda', 'BSUND', 'MULOK', 0, 0, 1, 0, 1, 1);
-INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`) VALUES (41, 'Pendidikan Agama dan Budi Pekerti', 'PABP', 'A', 0, 0, 1, 1, 1, 0);
+--
+-- Dumping data untuk tabel `master_mapel`
+--
 
+INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `urutan_tampil`, `status`, `deletable`) VALUES
+(1, 'Al Quran-Hadis', 'QH', 'A', 0, 0, 1, 1, 1, 1, 0),
+(2, 'Fiqih', 'FQH', 'A', 0, 0, 1, 1, 3, 1, 0),
+(3, 'Akidah Akhlak', 'AA', 'A', 0, 0, 1, 1, 2, 1, 0),
+(4, 'Sejarah Kebudayaan Islam', 'SKI', 'A', 0, 0, 1, 1, 4, 1, 0),
+(5, 'Bahasa Arab', 'BAR', 'A', 0, 0, 1, 2, 6, 1, 0),
+(6, 'Bahasa Indonesia', 'BIND', 'A', 0, 0, 1, 2, 7, 1, 0),
+(7, 'Bahasa Inggris', 'BING', 'A', 0, 0, 1, 2, 8, 1, 0),
+(8, 'Matematika', 'MTK', 'A', 0, 0, 1, 2, 9, 1, 0),
+(9, 'Ilmu Pengetahuan Alam', 'IPA', 'A', 0, 0, 1, 2, 10, 1, 0),
+(10, 'Ilmu Pengetahuan Sosial', 'IPS', 'A', 0, 0, 1, 2, 11, 1, 0),
+(11, 'Pendidikan Pancasila dan Kewarganegaraan', 'PPKn', 'A', 0, 0, 1, 2, 5, 1, 0),
+(12, 'Pendidikan Jasmani Olah Raga dan Kesehatan', 'PJOK', 'B', 0, 0, 1, 3, 12, 1, 0),
+(13, 'Seni Budaya', 'SB', 'B', 0, 0, 2, 3, 13, 1, 0),
+(14, 'Prakarya', 'PRA', 'B', 0, 0, 2, 3, 14, 1, 0),
+(15, 'Seni Budaya dan Prakarya', 'SBdP', 'B', 0, 0, 0, 3, 13, 1, 0),
+(16, 'Akhlak', 'AK', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(17, 'Antropologi', 'ANT', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(18, 'Bahasa Arab', 'BAR', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(19, 'Bahasa dan Sastra Asing Lainnya', 'BSAL', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(20, 'Bahasa dan Sastra Indonesia', 'BSIN', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(21, 'Bahasa dan Sastra Inggris', 'BSING', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(22, 'Bahasa Jepang', 'JPN', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(23, 'Bahasa Jerman', 'JRM', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(24, 'Biologi', 'BIO', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(25, 'Ekonomi', 'EKN', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(26, 'Fikih', 'FQH', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(27, 'Fikih - Ushul Fikih', 'UFQH', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(28, 'Fisika', 'FIS', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(29, 'Geografi', 'GEO', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(30, 'Hadis - Ilmu Hadis', 'HA', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(31, 'Ilmu Kalam', 'IK', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(32, 'Informatika', 'INF', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(33, 'Keterampilan', 'KTR', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(34, 'Kimia', 'KIM', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(35, 'Prakarya dan Kewirausahaan', 'PK', 'B', 0, 0, 3, 0, NULL, 1, 0),
+(36, 'Sejarah', 'SEJ', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(37, 'Sejarah Indonesia', 'SJI', 'A', 0, 0, 3, 0, NULL, 1, 0),
+(38, 'Sosiologi', 'SOS', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(39, 'Tafsir - Ilmu Tafsir', 'TT', 'C', 0, 0, 3, 0, NULL, 1, 0),
+(40, 'Bahasa Sunda', 'BSUND', 'MULOK', 0, 0, 1, 0, 15, 1, 1),
+(41, 'Pendidikan Agama dan Budi Pekerti', 'PABP', 'A', 0, 0, 1, 1, 0, 0, 0);
 
-#
-# TABLE STRUCTURE FOR: master_siswa
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `master_siswa`;
+--
+-- Struktur dari tabel `master_siswa`
+--
 
 CREATE TABLE `master_siswa` (
-  `id_siswa` int(11) NOT NULL AUTO_INCREMENT,
-  `nisn` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `nisn` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `nis` char(20) NOT NULL,
   `nama` varchar(50) NOT NULL,
+  `nik` varchar(30) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
   `username` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `password` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -1182,106 +1209,111 @@ CREATE TABLE `master_siswa` (
   `pekerjaan_wali` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `nohp_wali` int(15) DEFAULT NULL,
   `alamat_wali` longtext DEFAULT NULL,
-  PRIMARY KEY (`id_siswa`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `warga_negara` varchar(20) NOT NULL,
+  `uid` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: master_smt
-#
-
-DROP TABLE IF EXISTS `master_smt`;
+--
+-- Struktur dari tabel `master_smt`
+--
 
 CREATE TABLE `master_smt` (
-  `id_smt` int(11) NOT NULL AUTO_INCREMENT,
+  `id_smt` int(11) NOT NULL,
   `smt` varchar(10) NOT NULL,
   `nama_smt` varchar(10) NOT NULL,
-  `active` int(1) NOT NULL,
-  PRIMARY KEY (`id_smt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `active` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `master_smt` (`id_smt`, `smt`, `nama_smt`, `active`) VALUES (1, 'Ganjil', 'I (satu)', 0);
-INSERT INTO `master_smt` (`id_smt`, `smt`, `nama_smt`, `active`) VALUES (2, 'Genap', 'II (dua)', 1);
+--
+-- Dumping data untuk tabel `master_smt`
+--
 
+INSERT INTO `master_smt` (`id_smt`, `smt`, `nama_smt`, `active`) VALUES
+(1, 'Ganjil', 'I (satu)', 1),
+(2, 'Genap', 'II (dua)', 0);
 
-#
-# TABLE STRUCTURE FOR: master_tp
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `master_tp`;
+--
+-- Struktur dari tabel `master_tp`
+--
 
 CREATE TABLE `master_tp` (
-  `id_tp` int(11) NOT NULL AUTO_INCREMENT,
+  `id_tp` int(11) NOT NULL,
   `tahun` varchar(20) NOT NULL,
-  `active` int(2) NOT NULL,
-  PRIMARY KEY (`id_tp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `active` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `master_tp` (`id_tp`, `tahun`, `active`) VALUES (1, '2020/2021', 1);
-INSERT INTO `master_tp` (`id_tp`, `tahun`, `active`) VALUES (2, '2021/2022', 0);
-INSERT INTO `master_tp` (`id_tp`, `tahun`, `active`) VALUES (3, '2022/2023', 0);
-INSERT INTO `master_tp` (`id_tp`, `tahun`, `active`) VALUES (4, '2023/2024', 0);
+--
+-- Dumping data untuk tabel `master_tp`
+--
 
+INSERT INTO `master_tp` (`id_tp`, `tahun`, `active`) VALUES
+(1, '2020/2021', 0),
+(2, '2021/2022', 1),
+(3, '2022/2023', 0),
+(4, '2023/2024', 0);
 
-#
-# TABLE STRUCTURE FOR: post
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `post`;
+--
+-- Struktur dari tabel `post`
+--
 
 CREATE TABLE `post` (
-  `id_post` int(11) NOT NULL AUTO_INCREMENT,
+  `id_post` int(11) NOT NULL,
   `dari` int(11) NOT NULL COMMENT 'user',
   `dari_group` int(11) NOT NULL,
   `kepada` varchar(50) NOT NULL COMMENT 'group',
   `text` longtext NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id_post`)
+  `updated` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: post_comments
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `post_comments`;
+--
+-- Struktur dari tabel `post_comments`
+--
 
 CREATE TABLE `post_comments` (
-  `id_comment` int(11) NOT NULL AUTO_INCREMENT,
+  `id_comment` int(11) NOT NULL,
+  `type` varchar(1) NOT NULL DEFAULT '1' COMMENT '1:pengumuman, 2:materi, 3:tugas',
   `id_post` int(11) NOT NULL,
   `dari` int(11) NOT NULL,
   `dari_group` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id_comment`)
+  `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: post_reply
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `post_reply`;
+--
+-- Struktur dari tabel `post_reply`
+--
 
 CREATE TABLE `post_reply` (
-  `id_reply` int(11) NOT NULL AUTO_INCREMENT,
+  `id_reply` int(11) NOT NULL,
+  `type` varchar(1) NOT NULL DEFAULT '1',
   `id_comment` int(11) NOT NULL,
   `dari` int(11) NOT NULL,
   `dari_group` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id_reply`)
+  `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: rapor_admin_setting
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `rapor_admin_setting`;
+--
+-- Struktur dari tabel `rapor_admin_setting`
+--
 
 CREATE TABLE `rapor_admin_setting` (
-  `id_setting` int(11) NOT NULL AUTO_INCREMENT,
+  `id_setting` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `kkm_tunggal` int(1) NOT NULL DEFAULT 0,
@@ -1290,125 +1322,115 @@ CREATE TABLE `rapor_admin_setting` (
   `bobot_pts` int(3) DEFAULT NULL,
   `bobot_pas` int(3) DEFAULT NULL,
   `bobot_absen` int(3) DEFAULT NULL,
-  `tgl_rapor_akhir` text NOT NULL DEFAULT 'tanggal rapor',
-  `tgl_rapor_pts` text NOT NULL DEFAULT 'tanggal rapor',
-  PRIMARY KEY (`id_setting`)
+  `tgl_rapor_akhir` text DEFAULT NULL,
+  `tgl_rapor_pts` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_catatan_wali
-#
-
-DROP TABLE IF EXISTS `rapor_catatan_wali`;
+--
+-- Struktur dari tabel `rapor_catatan_wali`
+--
 
 CREATE TABLE `rapor_catatan_wali` (
-  `id_catatan_wali` int(11) NOT NULL AUTO_INCREMENT,
+  `id_catatan_wali` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `nilai` longtext DEFAULT NULL,
-  `deskripsi` longtext DEFAULT NULL,
-  PRIMARY KEY (`id_catatan_wali`)
+  `deskripsi` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_data_catatan
-#
-
-DROP TABLE IF EXISTS `rapor_data_catatan`;
+--
+-- Struktur dari tabel `rapor_data_catatan`
+--
 
 CREATE TABLE `rapor_data_catatan` (
-  `id_catatan` int(11) NOT NULL AUTO_INCREMENT,
+  `id_catatan` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `id_kelas` int(11) NOT NULL,
   `jenis` int(1) NOT NULL COMMENT '1=desk absensi, 2=desk catatan, 3=desk ranking',
   `kode` int(2) NOT NULL,
   `deskripsi` varchar(150) NOT NULL,
-  `rank` varchar(7) DEFAULT NULL,
-  PRIMARY KEY (`id_catatan`)
+  `rank` varchar(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: rapor_data_fisik
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `rapor_data_fisik`;
+--
+-- Struktur dari tabel `rapor_data_fisik`
+--
 
 CREATE TABLE `rapor_data_fisik` (
-  `id_fisik` int(11) NOT NULL AUTO_INCREMENT,
+  `id_fisik` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `id_kelas` int(11) NOT NULL,
   `jenis` int(1) NOT NULL COMMENT '1=pendengaran, 2=penglihatan, 3=gigi, 4=lain-lain',
   `kode` int(11) NOT NULL,
-  `deskripsi` longtext NOT NULL,
-  PRIMARY KEY (`id_fisik`)
+  `deskripsi` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: rapor_data_sikap
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `rapor_data_sikap`;
+--
+-- Struktur dari tabel `rapor_data_sikap`
+--
 
 CREATE TABLE `rapor_data_sikap` (
-  `id_sikap` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sikap` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `id_kelas` int(11) NOT NULL,
   `jenis` int(1) NOT NULL COMMENT '1=spiritual, 2=sosial',
   `kode` int(2) NOT NULL,
-  `sikap` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_sikap`)
+  `sikap` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_fisik
-#
-
-DROP TABLE IF EXISTS `rapor_fisik`;
+--
+-- Struktur dari tabel `rapor_fisik`
+--
 
 CREATE TABLE `rapor_fisik` (
-  `id_fisik` int(11) NOT NULL AUTO_INCREMENT,
+  `id_fisik` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `kondisi` longtext NOT NULL,
   `tinggi` int(11) NOT NULL,
-  `berat` int(11) NOT NULL,
-  PRIMARY KEY (`id_fisik`)
+  `berat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: rapor_kikd
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `rapor_kikd`;
+--
+-- Struktur dari tabel `rapor_kikd`
+--
 
 CREATE TABLE `rapor_kikd` (
-  `id_kikd` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kikd` int(11) NOT NULL,
   `id_mapel_kelas` int(11) NOT NULL,
   `aspek` int(1) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
-  `materi_kikd` longtext NOT NULL,
-  PRIMARY KEY (`id_kikd`)
+  `materi_kikd` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: rapor_kkm
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `rapor_kkm`;
+--
+-- Struktur dari tabel `rapor_kkm`
+--
 
 CREATE TABLE `rapor_kkm` (
-  `id_kkm` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kkm` int(11) NOT NULL,
   `kkm` int(3) DEFAULT 0,
   `bobot_ph` int(3) DEFAULT 0,
   `bobot_pts` int(3) DEFAULT 0,
@@ -1417,33 +1439,33 @@ CREATE TABLE `rapor_kkm` (
   `beban_jam` int(2) DEFAULT 0,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_kkm`)
+  `jenis` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `id_mapel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: rapor_naik
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `rapor_naik`;
+--
+-- Struktur dari tabel `rapor_naik`
+--
 
 CREATE TABLE `rapor_naik` (
   `id_naik` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
-  `naik` int(11) NOT NULL,
-  PRIMARY KEY (`id_naik`)
+  `naik` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_nilai_akhir
-#
-
-DROP TABLE IF EXISTS `rapor_nilai_akhir`;
+--
+-- Struktur dari tabel `rapor_nilai_akhir`
+--
 
 CREATE TABLE `rapor_nilai_akhir` (
-  `id_nilai_akhir` int(11) NOT NULL AUTO_INCREMENT,
+  `id_nilai_akhir` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -1451,19 +1473,17 @@ CREATE TABLE `rapor_nilai_akhir` (
   `id_smt` int(11) NOT NULL,
   `nilai` int(3) NOT NULL,
   `akhir` int(3) DEFAULT NULL,
-  `predikat` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`id_nilai_akhir`)
+  `predikat` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_nilai_ekstra
-#
-
-DROP TABLE IF EXISTS `rapor_nilai_ekstra`;
+--
+-- Struktur dari tabel `rapor_nilai_ekstra`
+--
 
 CREATE TABLE `rapor_nilai_ekstra` (
-  `id_nilai_ekstra` int(11) NOT NULL AUTO_INCREMENT,
+  `id_nilai_ekstra` int(11) NOT NULL,
   `id_ekstra` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -1471,18 +1491,17 @@ CREATE TABLE `rapor_nilai_ekstra` (
   `id_smt` int(11) NOT NULL,
   `nilai` int(3) NOT NULL,
   `predikat` varchar(1) DEFAULT NULL,
-  `deskripsi` text DEFAULT NULL,
-  PRIMARY KEY (`id_nilai_ekstra`)
+  `deskripsi` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#
-# TABLE STRUCTURE FOR: rapor_nilai_harian
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `rapor_nilai_harian`;
+--
+-- Struktur dari tabel `rapor_nilai_harian`
+--
 
 CREATE TABLE `rapor_nilai_harian` (
-  `id_nilai_harian` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_nilai_harian` bigint(20) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
@@ -1510,57 +1529,51 @@ CREATE TABLE `rapor_nilai_harian` (
   `k_rata_rata` varchar(4) DEFAULT NULL,
   `k_predikat` enum('A','B','C','D') DEFAULT NULL,
   `k_deskripsi` longtext DEFAULT NULL,
-  `jml` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_nilai_harian`)
+  `jml` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_nilai_pts
-#
-
-DROP TABLE IF EXISTS `rapor_nilai_pts`;
+--
+-- Struktur dari tabel `rapor_nilai_pts`
+--
 
 CREATE TABLE `rapor_nilai_pts` (
-  `id_nilai_pts` int(11) NOT NULL AUTO_INCREMENT,
+  `id_nilai_pts` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `nilai` int(3) NOT NULL,
-  `predikat` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`id_nilai_pts`)
+  `predikat` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_nilai_sikap
-#
-
-DROP TABLE IF EXISTS `rapor_nilai_sikap`;
+--
+-- Struktur dari tabel `rapor_nilai_sikap`
+--
 
 CREATE TABLE `rapor_nilai_sikap` (
-  `id_nilai_sikap` int(11) NOT NULL AUTO_INCREMENT,
+  `id_nilai_sikap` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `jenis` int(1) DEFAULT NULL,
   `nilai` longtext NOT NULL,
-  `deskripsi` longtext DEFAULT NULL,
-  PRIMARY KEY (`id_nilai_sikap`)
+  `deskripsi` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: rapor_prestasi
-#
-
-DROP TABLE IF EXISTS `rapor_prestasi`;
+--
+-- Struktur dari tabel `rapor_prestasi`
+--
 
 CREATE TABLE `rapor_prestasi` (
-  `id_ranking` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ranking` int(11) NOT NULL,
   `id_kelas` int(100) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -1572,35 +1585,28 @@ CREATE TABLE `rapor_prestasi` (
   `p2` varchar(100) NOT NULL,
   `p2_desk` varchar(100) NOT NULL,
   `p3` varchar(100) NOT NULL,
-  `p3_desk` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_ranking`)
+  `p3_desk` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: running_text
-#
-
-DROP TABLE IF EXISTS `running_text`;
+--
+-- Struktur dari tabel `running_text`
+--
 
 CREATE TABLE `running_text` (
-  `id_text` int(11) NOT NULL AUTO_INCREMENT,
-  `text` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_text`)
+  `id_text` int(11) NOT NULL,
+  `text` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `running_text` (`id_text`, `text`) VALUES (9, 'Selamat melaksanakan Try Out UMBK tingkat MTs');
-INSERT INTO `running_text` (`id_text`, `text`) VALUES (21, 'Madrasah Aliyah Al Hasan menerima pendaftaran peserta didik baru tahun pelajaran 2021/2022, Informasi Pendaftaran: Telp/WA 081398485562');
+-- --------------------------------------------------------
 
-
-#
-# TABLE STRUCTURE FOR: setting
-#
-
-DROP TABLE IF EXISTS `setting`;
+--
+-- Struktur dari tabel `setting`
+--
 
 CREATE TABLE `setting` (
-  `id_setting` int(11) NOT NULL AUTO_INCREMENT,
+  `id_setting` int(11) NOT NULL,
   `kode_sekolah` varchar(10) DEFAULT NULL,
   `sekolah` varchar(50) DEFAULT NULL,
   `npsn` varchar(10) DEFAULT NULL,
@@ -1628,19 +1634,17 @@ CREATE TABLE `setting` (
   `server` varchar(50) DEFAULT NULL,
   `id_server` varchar(50) DEFAULT NULL,
   `sekolah_id` varchar(50) DEFAULT NULL,
-  `db_versi` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id_setting`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `db_versi` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: users
-#
-
-DROP TABLE IF EXISTS `users`;
+--
+-- Struktur dari tabel `users`
+--
 
 CREATE TABLE `users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL,
   `ip_address` varchar(45) NOT NULL,
   `username` varchar(100) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -1649,53 +1653,846 @@ CREATE TABLE `users` (
   `activation_code` varchar(255) DEFAULT NULL,
   `forgotten_password_selector` varchar(255) DEFAULT NULL,
   `forgotten_password_code` varchar(255) DEFAULT NULL,
-  `forgotten_password_time` int(11) unsigned DEFAULT NULL,
+  `forgotten_password_time` int(11) UNSIGNED DEFAULT NULL,
   `remember_selector` varchar(255) DEFAULT NULL,
   `remember_code` varchar(255) DEFAULT NULL,
-  `created_on` int(11) unsigned NOT NULL,
-  `last_login` int(11) unsigned DEFAULT NULL,
-  `active` tinyint(1) unsigned DEFAULT NULL,
+  `created_on` int(11) UNSIGNED NOT NULL,
+  `last_login` int(11) UNSIGNED DEFAULT NULL,
+  `active` tinyint(1) UNSIGNED DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uc_activation_selector` (`activation_selector`),
-  UNIQUE KEY `uc_forgotten_password_selector` (`forgotten_password_selector`),
-  UNIQUE KEY `uc_remember_selector` (`remember_selector`),
-  UNIQUE KEY `uc_email` (`email`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `phone` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
 
-#
-# TABLE STRUCTURE FOR: users_groups
-#
-
-DROP TABLE IF EXISTS `users_groups`;
+--
+-- Struktur dari tabel `users_groups`
+--
 
 CREATE TABLE `users_groups` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
-  `group_id` mediumint(8) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uc_users_groups` (`user_id`,`group_id`),
-  KEY `fk_users_groups_users1_idx` (`user_id`),
-  KEY `fk_users_groups_groups1_idx` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `group_id` mediumint(8) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-#
-# TABLE STRUCTURE FOR: users_profile
-#
-
-DROP TABLE IF EXISTS `users_profile`;
+--
+-- Struktur dari tabel `users_profile`
+--
 
 CREATE TABLE `users_profile` (
-  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
   `nama_lengkap` text NOT NULL,
   `jabatan` text DEFAULT NULL,
   `level_access` int(11) NOT NULL DEFAULT 0,
-  `foto` text DEFAULT NULL,
-  PRIMARY KEY (`id_user`)
+  `foto` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `api_setting`
+--
+ALTER TABLE `api_setting`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `api_token`
+--
+ALTER TABLE `api_token`
+  ADD PRIMARY KEY (`id_api`);
+
+--
+-- Indeks untuk tabel `buku_induk`
+--
+ALTER TABLE `buku_induk`
+  ADD PRIMARY KEY (`id_siswa`);
+
+--
+-- Indeks untuk tabel `buku_nilai`
+--
+ALTER TABLE `buku_nilai`
+  ADD PRIMARY KEY (`id_nilai`);
+
+--
+-- Indeks untuk tabel `bulan`
+--
+ALTER TABLE `bulan`
+  ADD PRIMARY KEY (`id_bln`);
+
+--
+-- Indeks untuk tabel `cbt_bank_soal`
+--
+ALTER TABLE `cbt_bank_soal`
+  ADD PRIMARY KEY (`id_bank`);
+
+--
+-- Indeks untuk tabel `cbt_durasi_siswa`
+--
+ALTER TABLE `cbt_durasi_siswa`
+  ADD PRIMARY KEY (`id_durasi`);
+
+--
+-- Indeks untuk tabel `cbt_jadwal`
+--
+ALTER TABLE `cbt_jadwal`
+  ADD PRIMARY KEY (`id_jadwal`);
+
+--
+-- Indeks untuk tabel `cbt_jenis`
+--
+ALTER TABLE `cbt_jenis`
+  ADD PRIMARY KEY (`id_jenis`);
+
+--
+-- Indeks untuk tabel `cbt_kelas_ruang`
+--
+ALTER TABLE `cbt_kelas_ruang`
+  ADD PRIMARY KEY (`id_kelas_ruang`);
+
+--
+-- Indeks untuk tabel `cbt_kop_absensi`
+--
+ALTER TABLE `cbt_kop_absensi`
+  ADD PRIMARY KEY (`id_kop`);
+
+--
+-- Indeks untuk tabel `cbt_kop_berita`
+--
+ALTER TABLE `cbt_kop_berita`
+  ADD PRIMARY KEY (`id_kop`);
+
+--
+-- Indeks untuk tabel `cbt_kop_kartu`
+--
+ALTER TABLE `cbt_kop_kartu`
+  ADD PRIMARY KEY (`id_set_kartu`);
+
+--
+-- Indeks untuk tabel `cbt_nilai`
+--
+ALTER TABLE `cbt_nilai`
+  ADD PRIMARY KEY (`id_nilai`);
+
+--
+-- Indeks untuk tabel `cbt_nomor_peserta`
+--
+ALTER TABLE `cbt_nomor_peserta`
+  ADD PRIMARY KEY (`id_nomor`);
+
+--
+-- Indeks untuk tabel `cbt_pengawas`
+--
+ALTER TABLE `cbt_pengawas`
+  ADD PRIMARY KEY (`id_pengawas`);
+
+--
+-- Indeks untuk tabel `cbt_rekap`
+--
+ALTER TABLE `cbt_rekap`
+  ADD PRIMARY KEY (`id_rekap`);
+
+--
+-- Indeks untuk tabel `cbt_rekap_nilai`
+--
+ALTER TABLE `cbt_rekap_nilai`
+  ADD PRIMARY KEY (`id_rekap_nilai`);
+
+--
+-- Indeks untuk tabel `cbt_ruang`
+--
+ALTER TABLE `cbt_ruang`
+  ADD PRIMARY KEY (`id_ruang`);
+
+--
+-- Indeks untuk tabel `cbt_sesi`
+--
+ALTER TABLE `cbt_sesi`
+  ADD PRIMARY KEY (`id_sesi`);
+
+--
+-- Indeks untuk tabel `cbt_sesi_siswa`
+--
+ALTER TABLE `cbt_sesi_siswa`
+  ADD PRIMARY KEY (`siswa_id`);
+
+--
+-- Indeks untuk tabel `cbt_soal`
+--
+ALTER TABLE `cbt_soal`
+  ADD PRIMARY KEY (`id_soal`);
+
+--
+-- Indeks untuk tabel `cbt_soal_siswa`
+--
+ALTER TABLE `cbt_soal_siswa`
+  ADD PRIMARY KEY (`id_soal_siswa`);
+
+--
+-- Indeks untuk tabel `cbt_token`
+--
+ALTER TABLE `cbt_token`
+  ADD PRIMARY KEY (`id_token`);
+
+--
+-- Indeks untuk tabel `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `hari`
+--
+ALTER TABLE `hari`
+  ADD PRIMARY KEY (`id_hri`);
+
+--
+-- Indeks untuk tabel `jabatan_guru`
+--
+ALTER TABLE `jabatan_guru`
+  ADD PRIMARY KEY (`id_jabatan_guru`);
+
+--
+-- Indeks untuk tabel `kelas_catatan_mapel`
+--
+ALTER TABLE `kelas_catatan_mapel`
+  ADD PRIMARY KEY (`id_catatan`);
+
+--
+-- Indeks untuk tabel `kelas_catatan_wali`
+--
+ALTER TABLE `kelas_catatan_wali`
+  ADD PRIMARY KEY (`id_catatan`);
+
+--
+-- Indeks untuk tabel `kelas_ekstra`
+--
+ALTER TABLE `kelas_ekstra`
+  ADD PRIMARY KEY (`id_kelas_ekstra`);
+
+--
+-- Indeks untuk tabel `kelas_jadwal_kbm`
+--
+ALTER TABLE `kelas_jadwal_kbm`
+  ADD PRIMARY KEY (`id_kbm`);
+
+--
+-- Indeks untuk tabel `kelas_jadwal_mapel`
+--
+ALTER TABLE `kelas_jadwal_mapel`
+  ADD PRIMARY KEY (`id_jadwal`);
+
+--
+-- Indeks untuk tabel `kelas_jadwal_materi`
+--
+ALTER TABLE `kelas_jadwal_materi`
+  ADD PRIMARY KEY (`id_kjm`);
+
+--
+-- Indeks untuk tabel `kelas_materi`
+--
+ALTER TABLE `kelas_materi`
+  ADD PRIMARY KEY (`id_materi`);
+
+--
+-- Indeks untuk tabel `kelas_siswa`
+--
+ALTER TABLE `kelas_siswa`
+  ADD PRIMARY KEY (`id_kelas_siswa`);
+
+--
+-- Indeks untuk tabel `kelas_struktur`
+--
+ALTER TABLE `kelas_struktur`
+  ADD PRIMARY KEY (`id_kelas`);
+
+--
+-- Indeks untuk tabel `level_guru`
+--
+ALTER TABLE `level_guru`
+  ADD PRIMARY KEY (`id_level`);
+
+--
+-- Indeks untuk tabel `level_kelas`
+--
+ALTER TABLE `level_kelas`
+  ADD PRIMARY KEY (`id_level`);
+
+--
+-- Indeks untuk tabel `log`
+--
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id_log`);
+
+--
+-- Indeks untuk tabel `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `log_materi`
+--
+ALTER TABLE `log_materi`
+  ADD PRIMARY KEY (`id_log`);
+
+--
+-- Indeks untuk tabel `log_ujian`
+--
+ALTER TABLE `log_ujian`
+  ADD PRIMARY KEY (`id_log`);
+
+--
+-- Indeks untuk tabel `master_ekstra`
+--
+ALTER TABLE `master_ekstra`
+  ADD PRIMARY KEY (`id_ekstra`);
+
+--
+-- Indeks untuk tabel `master_guru`
+--
+ALTER TABLE `master_guru`
+  ADD PRIMARY KEY (`id_guru`);
+
+--
+-- Indeks untuk tabel `master_hari_efektif`
+--
+ALTER TABLE `master_hari_efektif`
+  ADD PRIMARY KEY (`id_hari_efektif`);
+
+--
+-- Indeks untuk tabel `master_jurusan`
+--
+ALTER TABLE `master_jurusan`
+  ADD PRIMARY KEY (`id_jurusan`);
+
+--
+-- Indeks untuk tabel `master_kelas`
+--
+ALTER TABLE `master_kelas`
+  ADD PRIMARY KEY (`id_kelas`);
+
+--
+-- Indeks untuk tabel `master_mapel`
+--
+ALTER TABLE `master_mapel`
+  ADD PRIMARY KEY (`id_mapel`);
+
+--
+-- Indeks untuk tabel `master_siswa`
+--
+ALTER TABLE `master_siswa`
+  ADD PRIMARY KEY (`id_siswa`),
+  ADD UNIQUE KEY `uid` (`uid`);
+
+--
+-- Indeks untuk tabel `master_smt`
+--
+ALTER TABLE `master_smt`
+  ADD PRIMARY KEY (`id_smt`);
+
+--
+-- Indeks untuk tabel `master_tp`
+--
+ALTER TABLE `master_tp`
+  ADD PRIMARY KEY (`id_tp`);
+
+--
+-- Indeks untuk tabel `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`id_post`);
+
+--
+-- Indeks untuk tabel `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD PRIMARY KEY (`id_comment`);
+
+--
+-- Indeks untuk tabel `post_reply`
+--
+ALTER TABLE `post_reply`
+  ADD PRIMARY KEY (`id_reply`);
+
+--
+-- Indeks untuk tabel `rapor_admin_setting`
+--
+ALTER TABLE `rapor_admin_setting`
+  ADD PRIMARY KEY (`id_setting`);
+
+--
+-- Indeks untuk tabel `rapor_catatan_wali`
+--
+ALTER TABLE `rapor_catatan_wali`
+  ADD PRIMARY KEY (`id_catatan_wali`);
+
+--
+-- Indeks untuk tabel `rapor_data_catatan`
+--
+ALTER TABLE `rapor_data_catatan`
+  ADD PRIMARY KEY (`id_catatan`);
+
+--
+-- Indeks untuk tabel `rapor_data_fisik`
+--
+ALTER TABLE `rapor_data_fisik`
+  ADD PRIMARY KEY (`id_fisik`);
+
+--
+-- Indeks untuk tabel `rapor_data_sikap`
+--
+ALTER TABLE `rapor_data_sikap`
+  ADD PRIMARY KEY (`id_sikap`);
+
+--
+-- Indeks untuk tabel `rapor_fisik`
+--
+ALTER TABLE `rapor_fisik`
+  ADD PRIMARY KEY (`id_fisik`);
+
+--
+-- Indeks untuk tabel `rapor_kikd`
+--
+ALTER TABLE `rapor_kikd`
+  ADD PRIMARY KEY (`id_kikd`);
+
+--
+-- Indeks untuk tabel `rapor_kkm`
+--
+ALTER TABLE `rapor_kkm`
+  ADD PRIMARY KEY (`id_kkm`);
+
+--
+-- Indeks untuk tabel `rapor_naik`
+--
+ALTER TABLE `rapor_naik`
+  ADD PRIMARY KEY (`id_naik`);
+
+--
+-- Indeks untuk tabel `rapor_nilai_akhir`
+--
+ALTER TABLE `rapor_nilai_akhir`
+  ADD PRIMARY KEY (`id_nilai_akhir`);
+
+--
+-- Indeks untuk tabel `rapor_nilai_ekstra`
+--
+ALTER TABLE `rapor_nilai_ekstra`
+  ADD PRIMARY KEY (`id_nilai_ekstra`);
+
+--
+-- Indeks untuk tabel `rapor_nilai_harian`
+--
+ALTER TABLE `rapor_nilai_harian`
+  ADD PRIMARY KEY (`id_nilai_harian`);
+
+--
+-- Indeks untuk tabel `rapor_nilai_pts`
+--
+ALTER TABLE `rapor_nilai_pts`
+  ADD PRIMARY KEY (`id_nilai_pts`);
+
+--
+-- Indeks untuk tabel `rapor_nilai_sikap`
+--
+ALTER TABLE `rapor_nilai_sikap`
+  ADD PRIMARY KEY (`id_nilai_sikap`);
+
+--
+-- Indeks untuk tabel `rapor_prestasi`
+--
+ALTER TABLE `rapor_prestasi`
+  ADD PRIMARY KEY (`id_ranking`);
+
+--
+-- Indeks untuk tabel `running_text`
+--
+ALTER TABLE `running_text`
+  ADD PRIMARY KEY (`id_text`);
+
+--
+-- Indeks untuk tabel `setting`
+--
+ALTER TABLE `setting`
+  ADD PRIMARY KEY (`id_setting`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uc_activation_selector` (`activation_selector`),
+  ADD UNIQUE KEY `uc_forgotten_password_selector` (`forgotten_password_selector`),
+  ADD UNIQUE KEY `uc_remember_selector` (`remember_selector`),
+  ADD UNIQUE KEY `uc_email` (`email`) USING BTREE;
+
+--
+-- Indeks untuk tabel `users_groups`
+--
+ALTER TABLE `users_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uc_users_groups` (`user_id`,`group_id`),
+  ADD KEY `fk_users_groups_users1_idx` (`user_id`),
+  ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
+
+--
+-- Indeks untuk tabel `users_profile`
+--
+ALTER TABLE `users_profile`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `api_setting`
+--
+ALTER TABLE `api_setting`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `api_token`
+--
+ALTER TABLE `api_token`
+  MODIFY `id_api` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `buku_induk`
+--
+ALTER TABLE `buku_induk`
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `buku_nilai`
+--
+ALTER TABLE `buku_nilai`
+  MODIFY `id_nilai` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `bulan`
+--
+ALTER TABLE `bulan`
+  MODIFY `id_bln` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_bank_soal`
+--
+ALTER TABLE `cbt_bank_soal`
+  MODIFY `id_bank` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_jadwal`
+--
+ALTER TABLE `cbt_jadwal`
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_jenis`
+--
+ALTER TABLE `cbt_jenis`
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_pengawas`
+--
+ALTER TABLE `cbt_pengawas`
+  MODIFY `id_pengawas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_rekap`
+--
+ALTER TABLE `cbt_rekap`
+  MODIFY `id_rekap` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_rekap_nilai`
+--
+ALTER TABLE `cbt_rekap_nilai`
+  MODIFY `id_rekap_nilai` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_ruang`
+--
+ALTER TABLE `cbt_ruang`
+  MODIFY `id_ruang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_sesi`
+--
+ALTER TABLE `cbt_sesi`
+  MODIFY `id_sesi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_sesi_siswa`
+--
+ALTER TABLE `cbt_sesi_siswa`
+  MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_soal`
+--
+ALTER TABLE `cbt_soal`
+  MODIFY `id_soal` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_token`
+--
+ALTER TABLE `cbt_token`
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `hari`
+--
+ALTER TABLE `hari`
+  MODIFY `id_hri` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT untuk tabel `kelas_catatan_mapel`
+--
+ALTER TABLE `kelas_catatan_mapel`
+  MODIFY `id_catatan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `kelas_catatan_wali`
+--
+ALTER TABLE `kelas_catatan_wali`
+  MODIFY `id_catatan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `kelas_materi`
+--
+ALTER TABLE `kelas_materi`
+  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `kelas_struktur`
+--
+ALTER TABLE `kelas_struktur`
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `level_guru`
+--
+ALTER TABLE `level_guru`
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `log`
+--
+ALTER TABLE `log`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `log_ujian`
+--
+ALTER TABLE `log_ujian`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_ekstra`
+--
+ALTER TABLE `master_ekstra`
+  MODIFY `id_ekstra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_guru`
+--
+ALTER TABLE `master_guru`
+  MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_hari_efektif`
+--
+ALTER TABLE `master_hari_efektif`
+  MODIFY `id_hari_efektif` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_jurusan`
+--
+ALTER TABLE `master_jurusan`
+  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_kelas`
+--
+ALTER TABLE `master_kelas`
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_mapel`
+--
+ALTER TABLE `master_mapel`
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_siswa`
+--
+ALTER TABLE `master_siswa`
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_smt`
+--
+ALTER TABLE `master_smt`
+  MODIFY `id_smt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `master_tp`
+--
+ALTER TABLE `master_tp`
+  MODIFY `id_tp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `post`
+--
+ALTER TABLE `post`
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `post_comments`
+--
+ALTER TABLE `post_comments`
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `post_reply`
+--
+ALTER TABLE `post_reply`
+  MODIFY `id_reply` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_admin_setting`
+--
+ALTER TABLE `rapor_admin_setting`
+  MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_catatan_wali`
+--
+ALTER TABLE `rapor_catatan_wali`
+  MODIFY `id_catatan_wali` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_data_catatan`
+--
+ALTER TABLE `rapor_data_catatan`
+  MODIFY `id_catatan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_data_fisik`
+--
+ALTER TABLE `rapor_data_fisik`
+  MODIFY `id_fisik` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_data_sikap`
+--
+ALTER TABLE `rapor_data_sikap`
+  MODIFY `id_sikap` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_fisik`
+--
+ALTER TABLE `rapor_fisik`
+  MODIFY `id_fisik` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_kikd`
+--
+ALTER TABLE `rapor_kikd`
+  MODIFY `id_kikd` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_kkm`
+--
+ALTER TABLE `rapor_kkm`
+  MODIFY `id_kkm` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_nilai_akhir`
+--
+ALTER TABLE `rapor_nilai_akhir`
+  MODIFY `id_nilai_akhir` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_nilai_ekstra`
+--
+ALTER TABLE `rapor_nilai_ekstra`
+  MODIFY `id_nilai_ekstra` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_nilai_harian`
+--
+ALTER TABLE `rapor_nilai_harian`
+  MODIFY `id_nilai_harian` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_nilai_pts`
+--
+ALTER TABLE `rapor_nilai_pts`
+  MODIFY `id_nilai_pts` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_nilai_sikap`
+--
+ALTER TABLE `rapor_nilai_sikap`
+  MODIFY `id_nilai_sikap` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `rapor_prestasi`
+--
+ALTER TABLE `rapor_prestasi`
+  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `running_text`
+--
+ALTER TABLE `running_text`
+  MODIFY `id_text` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `setting`
+--
+ALTER TABLE `setting`
+  MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `users_groups`
+--
+ALTER TABLE `users_groups`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2675;
+
+--
+-- AUTO_INCREMENT untuk tabel `users_profile`
+--
+ALTER TABLE `users_profile`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -277,6 +277,7 @@
                 },
             format: 'Y-m-d',
             timepicker: false,
+            disabledWeekDays: [0],
             widgetPositioning: {
                 horizontal: 'left',
                 vertical: 'bottom'
@@ -482,7 +483,7 @@
         console.log(src);
         $.ajax({
             data: {src: src},
-            type: "POST",
+            type: "GET",
             url: base_url + "guruview/deletefile/"+idGuru,
             cache: false,
             success: function (response) {

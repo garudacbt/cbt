@@ -54,9 +54,11 @@ foreach ($tugas as $k=>$m) {
                     <div class="alert alert-default-info align-content-center" role="alert">
                         Untuk mengcopy tugas dari tahun atau semester sebelumnya <b>ke TP <?=$tp_active->tahun?> SMT <?=$smt_active->nama_smt?></b>,
                         <ul>
-                            <li>
-                                Pilih Nama Guru
-                            </li>
+                            <?php if ($this->ion_auth->is_admin()) : ?>
+                                <li>
+                                    Pilih Nama Guru
+                                </li>
+                            <?php endif; ?>
                             <li>
                                 Klik <b><i class="fa fa-copy"></i> Copy Tugas</b>
                             </li>
@@ -85,165 +87,77 @@ foreach ($tugas as $k=>$m) {
                         </div>
                     </div>
 					<div class="row">
+                        <div class="col-12">
+                            <table class="w-100 table table-sm table-bordered">
+                                <tr class="alert alert-success">
+                                    <th rowspan="2" class="text-center align-middle">No.</th>
+                                    <th rowspan="2" class="text-center align-middle">Guru</th>
+                                    <th rowspan="2" class="text-center align-middle">Mapel</th>
+                                    <th colspan="3" class="text-center align-middle">Tugas</th>
+                                    <th rowspan="2" class="text-center align-middle">Dibuat</th>
+                                    <th rowspan="2" class="text-center align-middle">Status</th>
+                                    <th rowspan="2" class="text-center align-middle" style="width: 100px">Aksi</th>
+                                </tr>
+                                <tr class="alert alert-success">
+                                    <th class="text-center align-middle">Kode</th>
+                                    <th class="text-center align-middle">Judul</th>
+                                    <th class="text-center align-middle">Kelas</th>
+                                </tr>
 						<?php
                         $arrIds = [];
                         if (count($tugas) > 0) :
+                            $no = 1;
 							foreach ($tugas as $key => $value) :
 								$arr = unserialize($value->tugas_kelas);
-                                array_push($arrIds, $value->id_tugas);
+                                array_push($arrIds, $value->id_materi);
 								?>
-								<div class="col-md-6 col-lg-4">
-									<div class="card border mb-4 border">
-                                        <div class="card-header border-bottom-0 bg-gradient-red">
-                                            <div class="card-title">
-                                                <h5><b><?= $value->kode ?></b></h5>
-                                                <small><?= $value->nama_guru ?></small>
-                                            </div>
-                                            <div class="card-tools">
-											<span data-toggle="tooltip" title="Edit Tugas">
-												<a type="button" class="btn btn-sm btn-warning"
-                                                   href="<?= base_url('kelastugas/add/' . $value->id_tugas) ?>">
-													<i class="fa fa-pencil-alt mr-1"></i> Edit
-												</a>
-											</span>
-                                            </div>
-                                        </div>
-										<div class="card-body pt-0">
-											<ul class="list-group list-group-unbordered">
-                                                <li class="list-group-item text-center">
-                                                    <b><?= $value->judul_tugas ?></b>
-                                                </li>
-												<li class="list-group-item">
-													<table class="w-100 table-sm">
-														<tr>
-															<th class="w-25">Kelas</th>
-															<th>Jadwal</th>
-															<th>Aksi</th>
-														</tr>
-														<?php
-														foreach ($arr as $k => $v) : ?>
-															<tr>
-																<td>
-																	<?= isset($kelas_tugas[$value->id_tugas][$v]) ? $kelas_tugas[$value->id_tugas][$v] : '-' ?>
-																</td>
-																<td>
-																	<?= isset($jadwal_tugas[$value->id_tugas][$v]) ? $jadwal_tugas[$value->id_tugas][$v] : 'Belum diatur' ?>
-																</td>
-																<td>
-																	<a class="btn btn-xs btn-warning"
-																	   data-toggle="modal"
-																	   data-target="#editJadwalModal"
-																	   data-idtugas="<?= $value->id_tugas ?>"
-                                                                       data-idmapel="<?= $value->id_mapel ?>"
-																	   data-judul="<?= $value->judul_tugas ?>"
-																	   data-tgl="<?= isset($jadwal_tugas[$value->id_tugas][$v]) ? $jadwal_tugas[$value->id_tugas][$v] : '' ?>"
-																	   data-kelas="<?= $v ?>"
-																	   data-namakelas="<?= isset($kelas_tugas[$value->id_tugas][$v]) ? $kelas_tugas[$value->id_tugas][$v] : '' ?>"
-																	   data-mapel="<?= $value->id_mapel ?>"
-																	   data-namamapel="<?= $value->nama_mapel ?>">
-																		Edit Jadwal
-																	</a>
-																</td>
-															</tr>
-														<?php endforeach; ?>
-													</table>
-												</li>
-												<li class="list-group-item"> Dibuat
-													<span class="float-right">
-													<small>
-														<?= date('d/m/Y H:i', strtotime($value->created_on)) ?>
-													</small>
-												</span>
-													<br>
-													Diupdate
-													<span class="float-right">
-													<small>
-													<?= date('d/m/Y H:i', strtotime($value->updated_on)) ?>
-													</small>
-												</span>
-												</li>
-												<li class="list-group-item">
-													<table class="w-100">
-														<tr>
-															<td>Status</td>
-															<td>
-																<b><?= ($value->status === '1') ? 'Aktif' : 'Non Aktif' ?></b>
-															</td>
-															<td class="text-right">
-																<button
-																	class="btn btn-xs <?= ($value->status === '1') ? 'bg-warning' : 'bg-success' ?>"
-																	onclick="aktifkanTugas(<?= $value->id_tugas ?>, <?= $value->status ?>)">
-																	<?= ($value->status === '1') ? 'Nonaktifkan' : 'Aktifkan' ?>
-																</button>
-															</td>
-														</tr>
-													</table>
-												</li>
-												<li class="list-group-item">File
-													<br>
-													<?php
-													//$dataFileAttach = unserialize($value->file);
-													$dataFileAttach = [];
-													$att = @unserialize($value->file);
-													if ($att !== false) {
-														$dataFileAttach = unserialize($value->file);
-													} else {
-														if ($value->file != null) {
-															$file = $value->file;
-															if (strpos($file, 'http') == false) {
-																$file = base_url('uploads/tugas/').$value->file;
-															}
-															$src_file = [
-																'src' => $file,
-																'size' => '',
-																'type' => mime_content_type(str_replace(base_url(), '', $file)),
-																'name' => $value->file
-															];
-															array_push($dataFileAttach, $src_file);
-														}
-													}
+                                <tr>
+                                    <td class="text-center align-middle"><?=$no?></td>
+                                    <td class="align-middle"><?= $value->nama_guru ?></td>
+                                    <td class="align-middle"><?= $value->kode ?></td>
+                                    <td class="align-middle"><?= $value->kode_tugas ?></td>
+                                    <td class="align-middle"><?= $value->judul_tugas ?></td>
+                                    <?php
+                                    $arrKls = '';
+                                    foreach ($arr as $k => $v) {
+                                        if (isset($kelas_tugas[$value->id_materi][$v])) {
+                                            $arrKls .= '<span class="badge badge-secondary mr-1">'.$kelas_tugas[$value->id_materi][$v].'</span>';
+                                        }
+                                    } ?>
 
-													//if ($dataFileAttach==null){
-													//	$dataFileAttach = [];
-													//}
-													foreach ($dataFileAttach as $f) :
-														$icon = 'fa-file';
-														$arrFile = ['jpg', 'jpeg', 'png', 'gif'];
+                                    <td class="text-center align-middle"><?=$arrKls?></td>
+                                    <td class="text-center align-middle">
+                                        <?= date('d-m-Y H:i', strtotime($value->updated_on)) ?>
 
-                                                        if (strpos(strtolower($f['src']), 'doc') || strpos(strtolower($f['src']), 'docx')) {
-                                                            $icon = 'fa-file-word-o text-primary';
-                                                        } elseif (strpos(strtolower($f['src']), 'xls') || strpos(strtolower($f['src']), 'xlsx')) {
-                                                            $icon = 'fa-file-excel-o text-success';
-                                                        } elseif (strpos(strtolower($f['src']), 'png') || strpos(strtolower($f['src']), 'jpg') || strpos(strtolower($f['src']), 'jpeg')) {
-                                                            $icon = 'fa-file-picture-o text-orange';
-                                                        } elseif (strpos(strtolower($f['src']), 'pdf')) {
-                                                            $icon = 'fa-file-pdf-o text-danger';
-                                                        } elseif (strpos(strtolower($f['src']), 'mp4')) {
-                                                            $icon = 'fa-file-video-o text-fuchsia';
-                                                        }
-														?>
-														<a class="btn btn-lg mr-1 mb-1 p-0" data-toggle="modal"
-														   data-target="#previewModal"
-														   data-src="<?= $f['src'] ?>" data-size="<?= $f['size'] ?>"
-														   data-type="<?= $f['type'] ?>">
-															<i class="fa <?= $icon ?>"></i>
-														</a>
-													<?php endforeach; ?>
-												</li>
-											</ul>
-										</div>
-										<div class="card-footer">
-											<button onclick="hapus(<?= $value->id_tugas ?>)" type="button"
-													class="btn btn-sm btn-danger float-right" data-toggle="tooltip"
-													title="Hapus Kelas">
-												<i class="fa fa-trash"></i> Hapus Tugas
-											</button>
-										</div>
-
-									</div>
-								</div>
-							<?php endforeach;
-						else:?>
+                                    </td>
+                                    <?php
+                                    $stt = $value->status == '1' ? 'Aktif' : 'Non Aktif';
+                                    $btn_bg = $value->status == '1' ? 'bg-success' : 'bg-warning';
+                                    //$btn_txt = $value->status == '1' ? 'Nonaktifkan' : 'Aktifkan';
+                                    ?>
+                                    <td class="text-center align-middle">
+                                        <button
+                                                class="btn btn-xs <?= $btn_bg ?>"
+                                                onclick="aktifkanTugas(<?= $value->id_materi ?>, <?= $value->status ?>)">
+                                            <?= $stt ?>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <a type="button" class="btn btn-sm btn-warning" title="Edit Tugas"
+                                           href="<?= base_url('kelastugas/add/' . $value->id_materi) ?>">
+                                            <i class="fa fa-pencil-alt"></i>
+                                        </a>
+                                        <button onclick="hapus(<?= $value->id_materi ?>)" type="button"
+                                                class="btn btn-sm btn-danger" data-toggle="tooltip"
+                                                title="Hapus Tugas">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <?php $no++; endforeach; ?>
+                            </table>
+                        </div>
+                        <?php else:?>
 							<div class="col-12 p-0">
 								<div class="alert alert-default-warning align-content-center" role="alert">
 									<?= $id_guru == '' ? "Pilih Guru" : "Belum ada tugas"; ?>
@@ -255,133 +169,6 @@ foreach ($tugas as $k=>$m) {
 			</div>
 		</div>
 	</section>
-</div>
-
-<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="previewLabel">Preview</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div id="media-preview" class="text-center"></div>
-			</div>
-			<div class="modal-footer">
-                <a id="download" href="#" type="button" class="btn btn-primary"><i class="fa fa-download mr-2"></i>
-                    Download
-                </a>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Tutup
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="editJadwalModal" tabindex="-1" role="dialog" aria-labelledby="editJadwalLabel"
-	 aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="previewLabel">Edit Jadwal</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<table>
-					<tbody>
-					<tr>
-						<td style="width: 80px;">Tugas</td>
-						<td colspan="3" id="judul">:</td>
-					</tr>
-					<tr>
-						<td>Mapel</td>
-						<td id="mapel">:</td>
-						<td class="pl-4">Kelas</td>
-						<td id="kelas">:</td>
-					</tr>
-					<tr>
-						<td>Jadwal</td>
-						<td colspan="3" id="jadwal">: Pilih tanggal di bawah</td>
-					</tr>
-					</tbody>
-				</table>
-				<hr>
-				<div class="row">
-					<div class="col-8">
-						<form class="form-inline">
-							<select class="form-control col-5 mr-2" name="month" id="month" onchange="jump()">
-								<option value=0>Jan</option>
-								<option value=1>Feb</option>
-								<option value=2>Mar</option>
-								<option value=3>Apr</option>
-								<option value=4>May</option>
-								<option value=5>Jun</option>
-								<option value=6>Jul</option>
-								<option value=7>Aug</option>
-								<option value=8>Sep</option>
-								<option value=9>Oct</option>
-								<option value=10>Nov</option>
-								<option value=11>Dec</option>
-							</select>
-							<select class="form-control col-5" name="year" id="year" onchange="jump()">
-								<option value=2020>2020</option>
-								<option value=2021>2021</option>
-								<option value=2022>2022</option>
-								<option value=2023>2023</option>
-								<option value=2024>2024</option>
-								<option value=2025>2025</option>
-								<option value=2026>2026</option>
-								<option value=2027>2027</option>
-								<option value=2028>2028</option>
-								<option value=2029>2029</option>
-								<option value=2030>2030</option>
-							</select>
-						</form>
-					</div>
-					<div class="col-4 text-right">
-						<button class="btn btn-outline-primary col-3" id="previous" onclick="previous()">
-							<i class="fa fa-angle-left"></i>
-						</button>
-						<button class="btn btn-outline-primary col-3" id="next" onclick="next()">
-							<i class="fa fa-angle-right"></i>
-						</button>
-					</div>
-				</div>
-				<br>
-				<table class="table table-bordered table-sm" id="kalendar">
-					<thead>
-					<tr>
-						<th class="text-center text-danger">Minggu</th>
-						<th class="text-center">Senin</th>
-						<th class="text-center">Selasa</th>
-						<th class="text-center">Rabu</th>
-						<th class="text-center">Kamis</th>
-						<th class="text-center">Jumat</th>
-						<th class="text-center">Sabtu</th>
-					</tr>
-					</thead>
-					<tbody id="kalendar-body">
-					</tbody>
-				</table>
-			</div>
-			<?= form_open('', array('id' => 'editjadwal')) ?>
-			<div class="modal-footer">
-				<input type="hidden" id="id_kelas" name="id_kelas" class="form-control">
-				<input type="hidden" id="id_tugas" name="id_tugas" class="form-control">
-                <input type="hidden" id="id_mapel" name="id_mapel" class="form-control">
-				<input type="hidden" id="jadwal_tugas" name="jadwal_tugas" class="form-control">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Tutup
-				</button>
-				<button type="submit" class="btn btn-primary"><i class="fa fa-save mr-2"></i> Simpan</button>
-			</div>
-			<?= form_close(); ?>
-		</div>
-	</div>
-	<script src="<?= base_url() ?>/assets/app/js/kelas/jadwal/kalender.js"></script>
 </div>
 
 <div class="modal fade" id="openAllTugas" tabindex="-1" role="dialog" aria-labelledby="openTugasLabel" aria-hidden="true">
@@ -426,7 +213,7 @@ foreach ($tugas as $k=>$m) {
                                 <td><?=$kelas?></td>
                                 <td><?=$am->tahun.' - '.$am->nama_smt?></td>
                                 <td>
-                                    <button onclick="copy(<?= $am->id_tugas ?>)" type="button"
+                                    <button onclick="copy(<?= $am->id_materi ?>)" type="button"
                                             class="btn btn-sm btn-success"><i class="fa fa-copy"></i> Copy
                                     </button>
                                 </td>
@@ -438,7 +225,7 @@ foreach ($tugas as $k=>$m) {
                     </table>
                 <?php else: ?>
                     <div class="alert alert-default-info align-content-center" role="alert">
-                        belum ada tugas
+                        tidak ada tugas sebelumnya
                     </div>
                 <?php endif; ?>
             </div>
@@ -461,6 +248,8 @@ foreach ($tugas as $k=>$m) {
             window.location.href = base_url + 'kelastugas?id=' + idGuru;
         }
 
+        $('#guru').append('<option value="0">SEMUA GURU</option>');
+
 		$('#guru').on('change', function () {
 			idGuru = $(this).val();
 			getTugasGuru()
@@ -482,7 +271,7 @@ foreach ($tugas as $k=>$m) {
 		});
 
 		$('#editJadwalModal').on('show.bs.modal', function (e) {
-			var id_tugas = $(e.relatedTarget).data('idtugas');
+			var id_materi = $(e.relatedTarget).data('idtugas');
             var id_mapel = $(e.relatedTarget).data('idmapel');
 			var judul = $(e.relatedTarget).data('judul');
 			var kelas = $(e.relatedTarget).data('kelas');
@@ -497,7 +286,7 @@ foreach ($tugas as $k=>$m) {
 			$('#kelas').text(':  ' + namakelas);
 			$('#jadwal').text(stgl[1] === undefined ? ': Pilih tanggal di bawah' : ':  ' + stgl[2] + '-' + stgl[1] + '-' + stgl[0]);
 
-			$('#id_tugas').val(id_tugas);
+			$('#id_materi').val(id_materi);
 			$('#jadwal_tugas').val(tgl);
             $('#id_mapel').val(mapel);
 			$('#id_kelas').val(kelas);
@@ -625,7 +414,7 @@ foreach ($tugas as $k=>$m) {
 		function aktifkan() {
 			$.ajax({
 				url: base_url + 'kelastugas/aktifkantugas',
-				data: {id_tugas: id, method: status},
+				data: {id_materi: id, method: status},
 				type: "POST",
 				success: function (respon) {
 					if (respon.status) {
@@ -634,13 +423,10 @@ foreach ($tugas as $k=>$m) {
 							text: status === '0' ? "data berhasil diaktifkan" : "data berhasil dinonaktifkan",
 							icon: "success"
 						}).then(result => {
-							if(result.value
-					)
-						{
+							if(result.value) {
 							window.location.href = base_url + 'kelastugas?id='+idGuru;
 						}
 					})
-						;
 					} else {
 						swal.fire({
 							title: "Gagal",
@@ -648,7 +434,7 @@ foreach ($tugas as $k=>$m) {
 							icon: "error"
 						});
 					}
-					reload_ajax();
+                    location.reload();
 				},
 				error: function () {
 					swal.fire({
@@ -689,12 +475,10 @@ foreach ($tugas as $k=>$m) {
 			cancelButtonColor: "#d33",
 			confirmButtonText: "Hapus!"
 		}).then(result => {
-			if(result.value
-	)
-		{
+			if(result.value) {
 			$.ajax({
 				url: base_url + 'kelastugas/hapustugas',
-				data: {id_tugas: id},
+				data: {id_materi: id},
 				type: "POST",
 				success: function (respon) {
 					if (respon.status) {
@@ -703,13 +487,10 @@ foreach ($tugas as $k=>$m) {
 							text: "Tugas berhasil dihapus",
 							icon: "success"
 						}).then(result => {
-							if(result.value
-					)
-						{
+							if(result.value) {
 							window.location.href = base_url + 'kelastugas?id='+idGuru;
 						}
 					})
-						;
 					} else {
 						swal.fire({
 							title: "Gagal",
@@ -717,7 +498,7 @@ foreach ($tugas as $k=>$m) {
 							icon: "error"
 						});
 					}
-					reload_ajax();
+					//reload_ajax();
 				},
 				error: function () {
 					swal.fire({
@@ -728,8 +509,53 @@ foreach ($tugas as $k=>$m) {
 				}
 			});
 		}
-	})
-		;
+	});
 	}
+
+    function copy(id) {
+        swal.fire({
+            title: "Copi Tugas?",
+            text: "Tugas ini akan dicopy",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Copy"
+        }).then(result => {
+            if (result.value) {
+                $.ajax({
+                    url: base_url + 'kelastugas/copytugas/' + id,
+                    type: "GET",
+                    success: function (respon) {
+                        if (respon) {
+                            swal.fire({
+                                title: "Berhasil",
+                                text: "Tugas berhasil dicopy",
+                                icon: "success"
+                            }).then(result => {
+                                if (result.value) {
+                                    window.location.href = base_url + 'kelastugas?id=' + idGuru;
+                                }
+                            })
+                        } else {
+                            swal.fire({
+                                title: "Gagal",
+                                text: "Tidak bisa mengcopy tugas",
+                                icon: "error"
+                            });
+                        }
+                        //reload_ajax();
+                    },
+                    error: function () {
+                        swal.fire({
+                            title: "Gagal",
+                            text: "Ada data yang sedang digunakan",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    }
 
 </script>

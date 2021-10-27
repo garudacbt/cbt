@@ -59,10 +59,11 @@
 
 	<!-- fonts -->
     <!--
-	<link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/fonts.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/poppins.css">
 	-->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/montserrat.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/scheherazade.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/fonts.css">
 	<link rel="stylesheet" href="<?= base_url() ?>/assets/app/css/show.toast.css">
 
 	<!-- Theme style -->
@@ -76,7 +77,12 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="<?= base_url() ?>/assets/app/css/mystyle.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/DualSelectList/css/bala.DualSelectList.css">
-	<!--
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/app/css/weekCalendar.css">
+
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/bootstrap-icon/bootstrap-icons.css">
+
+    <link href="<?= base_url() ?>/assets/plugins/ios-switch/component-custom-switch.min.css" rel="stylesheet">
+    <!--
 	<link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/file-uploader/src/image-uploader.css">
 	<!--
 	<link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/advanced-file-uploader/docs/assets/demo.css">
@@ -98,9 +104,31 @@
     <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/DualSelectList/js/bala.DualSelectList.jquery.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/app/css/stylised.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/contextmenu/jquery.contextmenu.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.css">
+
+    <style>
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+            box-shadow: none;
+        }
+        page[size="A4"][layout="potrait"] {
+            width: 21cm;
+            height: 29.7cm;
+        }
+        page[size="A4"] {
+            width: 29.7cm;
+            height: 21cm;
+        }
+    </style>
 </head>
 
+<script src="<?= base_url() ?>/assets/app/js/generate.js"></script>
 <script type="text/javascript">
+    let globalToken;
 	let base_url = '<?=base_url()?>';
 	let tp_active = '<?= $tp_active->tahun ?>';
 	let smt_active = '<?= $smt_active->smt ?>';
@@ -121,9 +149,14 @@
     }
 
     function checkTime(i) {
-        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-        return i;
+        if (i < 10) {i = "0" + i}return i;
     }
+
+    getToken(function (tokenResult) {
+        //console.log("getToken", tokenResult);
+        globalToken = tokenResult;
+        //globalToken.token = tokenResult.token;
+    });
 
     function buat_tanggal_indonesia(str) {
         str = str.replace("Jan", "Januari");
@@ -146,10 +179,26 @@
         str = str.replace("Sat", "Sabtu");
         str = str.replace("Sun", "Minggu");
         return str;
+    }
 
-        function sanitizeJSON(unsanitized){
-            return unsanitized.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t").replace(/\f/g, "\\f").replace(/"/g,"\\\"").replace(/'/g,"\\\'").replace(/\&/g, "\\&");
-        }
+    function sanitizeJSON(unsanitized){
+        return unsanitized.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t").replace(/\f/g, "\\f").replace(/"/g,"\\\"").replace(/'/g,"\\\'").replace(/\&/g, "\\&");
+    }
+
+    var bulans = ['Januari', 'Februari', 'Maret', 'April',
+        'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    function stringToDate(dateStr) {
+        var parts = dateStr.split("-");
+        return new Date(parts[0], parts[1] - 1, parts[2])
+    }
+
+    function dateToString(date) {
+        let year = date.getFullYear();
+        //let month = (1 + date.getMonth()).toString().padStart(2, '0');
+        const month = date.getMonth();
+        let day = date.getDate().toString().padStart(2, '0');
+        return day + ' ' + bulans[month] + ' ' + year;
     }
 </script>
 
@@ -186,7 +235,7 @@ function singkat_tanggal($str) {
 	$str = str_replace("May", "Mei", $str);
 	$str = str_replace("Jun", "Jun", $str);
 	$str = str_replace("Jul", "Jul", $str);
-	$str = str_replace("Aug", "Aug", $str);
+	$str = str_replace("Aug", "Agt", $str);
 	$str = str_replace("Sep", "Sep", $str);
 	$str = str_replace("Oct", "Okt", $str);
 	$str = str_replace("Nov", "Nov", $str);

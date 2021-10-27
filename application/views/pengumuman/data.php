@@ -33,6 +33,10 @@
                             Running Text
                         </div>
                         <div class="card-body">
+                            <div class="alert alert-default-info align-content-center" role="alert">
+                                RUNNING TEXT akan muncul di bagian bawah layar siswa.
+                            </div>
+
                             <table id="tb-text" class="table table-bordered table-sm mb-2">
                                 <?php
                                 for ($i=0;$i<5;$i++) :

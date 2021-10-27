@@ -88,99 +88,99 @@ if (isset($jadwal_kbm)) {
 						<?php endif;
 						?>
 						<hr>
-						<div class="table-responsive">
-							<table id="jadwal-pelajaran" class="w-100 table table-striped table-bordered">
-								<thead class="alert alert-primary">
-								<tr>
-									<th height="50" class="align-middle text-center p-0">WAKTU</th>
-									<th class="align-middle text-center p-0">SENIN</th>
-									<th class="align-middle text-center p-0">SELASA</th>
-									<th class="align-middle text-center p-0">RABU</th>
-									<th class="align-middle text-center p-0">KAMIS</th>
-									<th class="align-middle text-center p-0">JUM'AT</th>
-									<th class="align-middle text-center p-0">SABTU</th>
-								</tr>
-								</thead>
-								<tbody>
-								<?php
-								$jamMulai = new DateTime($jadwal_kbm->kbm_jam_mulai);
-								$jamSampai = new DateTime($jadwal_kbm->kbm_jam_mulai);
-								for ($i = 0; $i < $jadwal_kbm->kbm_jml_mapel_hari; $i++) :
-									$jamke = $i + 1;
-									if (in_array($jamke, $arrIst)) :
-										$jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
-										?>
-										<tr class="jam bg-gradient-fuchsia" data-jamke="<?= $jamke ?>">
-											<td class="align-middle text-center">
-												<?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
-											</td>
-											<td class="align-middle text-center p-0">ISTIRAHAT</td>
-											<td class="align-middle text-center p-0">ISTIRAHAT</td>
-											<td class="align-middle text-center p-0">ISTIRAHAT</td>
-											<td class="align-middle text-center p-0">ISTIRAHAT</td>
-											<td class="align-middle text-center p-0">ISTIRAHAT</td>
-											<td class="align-middle text-center p-0">ISTIRAHAT</td>
-										</tr>
-										<?php
-										$jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
-									else :
-										$jamSampai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M'));
-										?>
-										<tr class="jam" data-jamke="<?= $jamke ?>">
-											<td class="align-middle text-center bg-gradient-primary">
-												<?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
-											</td>
-											<?php
-											if (isset($arrRes[$jamke])) :
-												foreach ($arrRes[$jamke] as $value) :?>
-													<td class="text-center align-middle">
-														<div class="value-name"
-															 data-idmapel="<?= $value['id_mapel'] ?>"
-															 data-idhari="<?= $value['id_hari'] ?>"
-															 id="<?= $value['id_hari'] . $jamke ?>">
-															<?= $value['kode'] ?>
-														</div>
-													</td>
-												<?php
-												endforeach;
-											else:
-												for ($d = 0; $d < 6; $d++) :
-													?>
-													<td class="align-middle">
-														<div class="float-left value-name" data-idmapel="0"
-															 data-idhari="<?= $d + 1 ?>"
-															 id="<?= $d + 1 . $jamke ?>">
-														</div>
-														<i class="popr fa fa-book float-right text-gray"
-														   data-id="<?= $d + 1 . $jamke ?>"></i>
-													</td>
-													<div class="popr-box" data-box-id="<?= $d + 1 . $jamke ?>">
-														<div data-id="<?= $d + 1 . $jamke ?>" class="popr-item">
-															Tidak ada
-														</div>
-													</div>
+                        <?php
+                        if (isset($jadwal_kbm->ada)) : ?>
+                            <div class="col-lg-12 p-0">
+                                <div class="alert align-content-center" role="alert">
+                                    <strong>Jadwal belum dibuat.</strong> .
+                                </div>
+                            </div>
+                        <?php else:?>
+                            <div class="table-responsive">
+                                <table id="jadwal-pelajaran" class="w-100 table table-striped table-bordered">
+                                    <thead class="alert alert-primary">
+                                    <tr>
+                                        <th height="50" class="align-middle text-center p-0">WAKTU</th>
+                                        <th class="align-middle text-center p-0">SENIN</th>
+                                        <th class="align-middle text-center p-0">SELASA</th>
+                                        <th class="align-middle text-center p-0">RABU</th>
+                                        <th class="align-middle text-center p-0">KAMIS</th>
+                                        <th class="align-middle text-center p-0">JUM'AT</th>
+                                        <th class="align-middle text-center p-0">SABTU</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $jamMulai = new DateTime($jadwal_kbm->kbm_jam_mulai);
+                                    $jamSampai = new DateTime($jadwal_kbm->kbm_jam_mulai);
+                                    for ($i = 0; $i < $jadwal_kbm->kbm_jml_mapel_hari; $i++) :
+                                        $jamke = $i + 1;
+                                        if (in_array($jamke, $arrIst)) :
+                                            $jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
+                                            ?>
+                                            <tr class="jam bg-gradient-fuchsia" data-jamke="<?= $jamke ?>">
+                                                <td class="align-middle text-center">
+                                                    <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
+                                                </td>
+                                                <td class="align-middle text-center p-0">ISTIRAHAT</td>
+                                                <td class="align-middle text-center p-0">ISTIRAHAT</td>
+                                                <td class="align-middle text-center p-0">ISTIRAHAT</td>
+                                                <td class="align-middle text-center p-0">ISTIRAHAT</td>
+                                                <td class="align-middle text-center p-0">ISTIRAHAT</td>
+                                                <td class="align-middle text-center p-0">ISTIRAHAT</td>
+                                            </tr>
+                                            <?php
+                                            $jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
+                                        else :
+                                            $jamSampai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M'));
+                                            ?>
+                                            <tr class="jam" data-jamke="<?= $jamke ?>">
+                                                <td class="align-middle text-center bg-gradient-primary">
+                                                    <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
+                                                </td>
+                                                <?php
+                                                if (isset($arrRes[$jamke])) :
+                                                    foreach ($arrRes[$jamke] as $value) :?>
+                                                        <td class="text-center align-middle">
+                                                            <div class="value-name"
+                                                                 data-idmapel="<?= $value['id_mapel'] ?>"
+                                                                 data-idhari="<?= $value['id_hari'] ?>"
+                                                                 id="<?= $value['id_hari'] . $jamke ?>">
+                                                                <?= $value['kode'] ?>
+                                                            </div>
+                                                        </td>
+                                                    <?php
+                                                    endforeach;
+                                                else:
+                                                    for ($d = 0; $d < 6; $d++) :
+                                                        ?>
+                                                        <td class="align-middle">
+                                                            <div class="float-left value-name" data-idmapel="0"
+                                                                 data-idhari="<?= $d + 1 ?>"
+                                                                 id="<?= $d + 1 . $jamke ?>">
+                                                            </div>
+                                                            <i class="popr fa fa-book float-right text-gray"
+                                                               data-id="<?= $d + 1 . $jamke ?>"></i>
+                                                        </td>
+                                                        <div class="popr-box" data-box-id="<?= $d + 1 . $jamke ?>">
+                                                            <div data-id="<?= $d + 1 . $jamke ?>" class="popr-item">
+                                                                Tidak ada
+                                                            </div>
+                                                        </div>
 
-												<?php
-												endfor;
-											endif; ?>
-										</tr>
-
-										<?php
-										$jamMulai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M'));
-									endif;
-								endfor; ?>
-								</tbody>
-							</table>
-							<?php
-							if (isset($jadwal_kbm->ada)) : ?>
-								<div class="col-lg-12 p-0">
-									<div class="alert align-content-center" role="alert">
-										<strong>Jadwal belum di GENERATE.</strong> .
-									</div>
-								</div>
-							<?php endif;
-							?>
-						</div>
+                                                    <?php
+                                                    endfor;
+                                                endif; ?>
+                                            </tr>
+                                            <?php
+                                            $jamMulai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M'));
+                                        endif;
+                                    endfor; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif;
+                        ?>
 					<?php else: ?>
 						<div class="col-lg-12 p-0">
 							<div class="alert alert-default-info shadow align-content-center" role="alert">

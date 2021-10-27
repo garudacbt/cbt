@@ -1,10 +1,3 @@
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="margin-top: -1px;">
 	<!-- Main content -->
@@ -12,17 +5,7 @@
 	</div>
 	<section class="content overlap p-4">
 		<div class="container">
-			<div class="info-box bg-transparent shadow-none">
-				<img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" width="120" height="120">
-				<div class="info-box-content">
-					<h5 class="info-box-text text-white text-wrap"><b><?= $siswa->nama ?></b></h5>
-					<span class="info-box-text text-white"><?= $siswa->nis ?></span>
-					<span class="info-box-text text-white mb-1"><?= $siswa->nama_kelas ?></span>
-					<button onclick="logout()" class="btn btn-danger btn-outline-light" style="width: 200px">
-						LOGOUT<i class="fas fa-sign-out-alt ml-2"></i>
-					</button>
-				</div>
-			</div>
+            <?php $this->load->view('members/siswa/templates/top'); ?>
             <div class="row">
                 <div class="col-12">
                     <div class="card card-blue">
@@ -185,6 +168,7 @@
 	var jadwalKbm;
 	var arrIst = [];
 	var kelas = '<?=$siswa->id_kelas?>';
+    var kodeKelas = '<?=$siswa->kode_kelas?>';
 	var pengumuman;
 
     var halaman = 0;
@@ -282,6 +266,37 @@
             var list = $(this).find('.media').length;
             if (list === 0) $(`#loadmore-reply${id}`).click();
         });
+
+        $('#balasan').on('submit', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            console.log("data", $(this).serialize());
+            var id = $(this).find('input[name=id_comment]').val();
+
+            $.ajax({
+                url: base_url + "siswa/savebalasan",
+                data: $(this).serialize(),
+                method: 'POST',
+                dataType: "JSON",
+                success: function (response) {
+                    console.log("result", response);
+                    $('#balasanModal').modal('hide').data('bs.modal', null);
+                    $('#balasanModal').on('hidden', function () {
+                        $(this).data('modal', null);
+                    });
+                    //window.location.href = base_url + 'pengumuman';
+                    addReplies(id, response, false)
+                },
+                error: function (xhr, status, error) {
+                    $('#balasanModal').modal('hide').data('bs.modal', null);
+                    $('#balasanModal').on('hidden', function () {
+                        $(this).data('modal', null);
+                    });
+                    showDangerToast('Error, balasan tidak terkirim');
+                }
+            });
+        });
     }
 
     function addReplies(id, replies, append) {
@@ -332,7 +347,7 @@
 
         setTimeout(function () {
             $.ajax({
-                url: base_url + "siswaview/getcomment/" + id + "/" + page,
+                url: base_url + "siswa/getcomment/" + id + "/" + page,
                 type: "GET",
                 success: function (response) {
                     //console.log('page', page);
@@ -361,7 +376,7 @@
 
         setTimeout(function () {
             $.ajax({
-                url: base_url + "siswaview/getreplies/" + id + "/" + page,
+                url: base_url + "siswa/getreplies/" + id + "/" + page,
                 type: "GET",
                 success: function (response) {
                     //console.log('page', page);
@@ -475,7 +490,7 @@
             var id = $(this).find('input[name=id_post]').val();
 
             $.ajax({
-                url: base_url + "siswaview/savekomentar",
+                url: base_url + "siswa/savekomentar",
                 data: $(this).serialize(),
                 method: 'POST',
                 dataType: "JSON",
@@ -498,37 +513,6 @@
             });
         });
 
-        $('#balasan').on('submit', function (e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            console.log("data", $(this).serialize());
-            var id = $(this).find('input[name=id_comment]').val();
-
-            $.ajax({
-                url: base_url + "siswaview/savebalasan",
-                data: $(this).serialize(),
-                method: 'POST',
-                dataType: "JSON",
-                success: function (response) {
-                    console.log("result", response);
-                    $('#balasanModal').modal('hide').data('bs.modal', null);
-                    $('#balasanModal').on('hidden', function () {
-                        $(this).data('modal', null);
-                    });
-                    //window.location.href = base_url + 'pengumuman';
-                    addReplies(id, response, false)
-                },
-                error: function (xhr, status, error) {
-                    $('#balasanModal').modal('hide').data('bs.modal', null);
-                    $('#balasanModal').on('hidden', function () {
-                        $(this).data('modal', null);
-                    });
-                    showDangerToast('Error, balasan tidak terkirim');
-                }
-            });
-        });
-
     }
 
     function getPosts() {
@@ -537,8 +521,9 @@
 
         setTimeout(function () {
             $.ajax({
-                url: base_url + "siswaview/getpost/" + halaman,
+                url: base_url + "siswa/getpost?halaman="+halaman+"&kelas="+kodeKelas,
                 type: "GET",
+                //data: {halaman: halaman, kelas: kodeKelas},
                 success: function (response) {
                     console.log("result", response);
                     halaman += 1;

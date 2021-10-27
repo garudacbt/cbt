@@ -34,9 +34,8 @@ $(document).ready(function () {
 				searchable: false
 			},
 			{
-				data: "id_mapel",
+				data: "urutan_tampil",
 				className: "text-center",
-				orderable: false,
 				searchable: false
 			},
 			{
@@ -72,14 +71,15 @@ $(document).ready(function () {
 					kode: "kode",
                     kelompok: "kelompok",
                     deletable: "deletable",
-                    status: "status"
+                    status: "status",
+                    urutan_tampil: "urutan_tampil"
 				},
 				render: function (data, type, row, meta) {
                     var disabled = data.deletable === '0' ? 'disabled' : '';
 					return `<div class="text-center">
 									<a class="btn btn-xs btn-warning" data-toggle="modal" data-target="#editMapelModal"
 									 data-deletable="${data.deletable}" data-status="${data.status}" data-id="${data.id_mapel}"
-									  data-nama="${data.nama_mapel}" data-kode="${data.kode}" data-kelompok="${data.kelompok}">
+									  data-nama="${data.nama_mapel}" data-kode="${data.kode}" data-kelompok="${data.kelompok}" data-urutan="${data.urutan_tampil}">
 										<i class="fa fa-pencil-alt text-white"></i>
 									</a>
 									<!--
@@ -91,7 +91,7 @@ $(document).ready(function () {
 				}
 			}
 		],
-		order: [[2, "asc"]],
+		order: [[1, "asc"]],
 		rowId: function (a) {
 			return a;
 		},
@@ -100,7 +100,7 @@ $(document).ready(function () {
 			var page = info.iPage;
 			var length = info.iLength;
 			var index = page * length + (iDisplayIndex + 1);
-			$("td:eq(1)", row).html(index);
+			//$("td:eq(1)", row).html(index);
 
 			var st = data.status === '0' ? 'Nonaktif' : 'Aktif';
             $("td:eq(5)", row).html(st);
@@ -113,14 +113,18 @@ $(document).ready(function () {
 		.appendTo("#tableMapel_wrapper .col-md-6:eq(1)");
 
     $("div.toolbar").html(
-        '<button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-danger mr-3 d-none" data-toggle="tooltip" title="Hapus Terpilh"><i class="far fa-trash-alt"></i></button>' +
-        '<div class="btn-group">' +
+        '<button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-sm btn-danger mr-3 mb-2 d-none" data-toggle="tooltip" title="Hapus Terpilh"><i class="far fa-trash-alt"></i></button>' +
+        '<button type="button" data-toggle="modal" data-target="#createMapelModal" class="btn btn-sm btn-primary mr-1 mb-2"><i class="fa fa-plus"></i> Tambah Data</button>' +
+        '<a href="'+base_url+'datamapel/import" class="btn btn-sm btn-success mr-1 mb-2"><i class="fa fa-upload"></i> Import</a>'
+        /*'<button data-toggle="modal" data-target="#editDataMapelModal" class="btn btn-sm btn-warning" type="button"><i class="fas fa-cog"></i> Mapel Nonaktif</button>'
+		/*'<div class="btn-group">' +
         '<button type="button" class="btn btn-default" data-toggle="tooltip" title="Print"><i class="fas fa-print"></i></button>' +
         '<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As PDF"><i class="fas fa-file-pdf"></i></button>' +
         '<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As Word"><i class="fa fa-file-word"></i></button>' +
         '<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As Excel"><i class="fa fa-file-excel"></i></button>' +
         //'<button type="button" class="btn btn-default" data-toggle="modal" data-target="#mapelNonAktif">Lihat Mapel Nonaktif</button>' +
         '</div>'
+        */
     );
 
 
@@ -176,14 +180,14 @@ $(document).ready(function () {
 				$('#createMapelModal').on('hidden', function () {
 					$(this).data('modal', null);  // destroys modal
 				});
-				showToastSukses('Data berhasil disimpan.');
+				showSuccessToast('Data berhasil disimpan.');
 				table.ajax.reload();
 			}, error: function (xhr, status, error) {
 				$('#createMapelModal').modal('hide').data('bs.modal', null);
 				$('#createMapelModal').on('hidden', function () {
 					$(this).data('modal', null);  // destroys modal
 				});
-				showDangerToast();
+				showDangerToast("Gagal menyimpan data");
 			}
 		});
 		return false;
@@ -196,12 +200,14 @@ $(document).ready(function () {
         var kelompok = $(e.relatedTarget).data('kelompok');
         var status = $(e.relatedTarget).data('status');
         var deletable = $(e.relatedTarget).data('deletable');
+        var urut = $(e.relatedTarget).data('urutan');
 
         $('#namaEdit').val(nama);
         $('#kodeEdit').val(kode);
         $('#editIdMapel').val(id);
 		$('#kelompok').val(kelompok);
         $('#status').val(status);
+        $('#kodeUrut').val(urut);
 
         console.log(status);
         if (deletable == 0) {

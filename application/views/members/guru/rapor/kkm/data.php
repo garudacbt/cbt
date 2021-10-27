@@ -111,16 +111,20 @@
     var url = '';
 
     function createView(data) {
+        var setting = data.setting;
+        if (setting == null) {
+            $('#alert' + data.mapel).text("KKM belum diatur oleh admin");
+            return;
+        }
         var kkm = data.kkm;
-        var idkkm = '' + data.mapel + data.kelas + '1';
+        var idkkm = '' + data.mapel + data.kelas + data.tp + data.smt + '1';  // 1 = untuk mapel utama
         var isikkm = 0;
         var isibobotph = 0;
         var isibobotpts = 0;
         var isibobotpas = 0;
         var isibeban = 0;
 
-        var setting = data.setting;
-        var kkmTunggal = setting.kkm_tunggal == 1;
+        var kkmTunggal = setting.kkm_tunggal == "1";
         var disabled = kkmTunggal ? 'readonly' : '';
         if (kkmTunggal) {
             isikkm = setting.kkm;
@@ -146,11 +150,14 @@
         var total1 = (isibobotph + isibobotpts + isibobotpas);
         var html = '<form action="" id="editkkm' + idkkm + '" method="post" accept-charset="utf-8">' +
             '<input type="hidden" name="id_kkm" value="' + idkkm + '"> ' +
+            '<input type="hidden" name="id_mapel" value="' + data.mapel + '"> ' +
+            '<input type="hidden" name="id_kelas" value="' + data.kelas + '"> ' +
+            '<input type="hidden" name="jenis_kkm" value="1"> ' +
             '<input type="hidden" value="<?= $this->security->get_csrf_hash() ?>" name="<?= $this->security->get_csrf_token_name() ?>"> ' +
             '<div class="row" id="bobot1' + idkkm + '"> ' + //1
 
             '<div class="col-3 mb-3"> ' +
-            '<label>PH</label> ' +
+            '<label>BOBOT PH</label> ' +
             '<input id="ph' + idkkm + '" name="bobot_ph" value="' + isibobotph + '" type="number" class="form-control form-control-sm" required ' + disabled + '> ' +
             '</div> ' +
 
@@ -307,7 +314,7 @@
 
     function createViewEkstra(data) {
         var kkm = data.kkm;
-        var idkkm = '' + data.ekstra + data.kelas + '2';
+        var idkkm = '' + data.ekstra + data.kelas + data.tp + data.smt + '2'; //2 = untuk mapel ekstra
         var isikkm = 0;
 
         var setting = data.setting;
@@ -321,6 +328,9 @@
 
         var html = '<form action="" id="editkkmekstra' + idkkm + '" method="post" accept-charset="utf-8">' +
             '<input type="hidden" name="id_kkm" value="' + idkkm + '"> ' +
+            '<input type="hidden" name="jenis_kkm" value="2"> ' +
+            '<input type="hidden" name="id_mapel" value="' + data.ekstra + '"> ' +
+            '<input type="hidden" name="id_kelas" value="' + data.kelas + '"> ' +
             '<input type="hidden" value="<?= $this->security->get_csrf_hash() ?>" name="<?= $this->security->get_csrf_token_name() ?>"> ' +
 
             '<div class="row" id="kkmekstra' + idkkm + '"> ' + //3

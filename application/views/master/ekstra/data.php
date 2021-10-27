@@ -80,7 +80,7 @@
 </div>
 
 <?=form_open('create', array('id'=>'create'))?>
-<div class="modal fade" id="createEkstraModal" tabindex="-1" role="dialog" aria-labelledby="vcreateModalLabel" aria-hidden="true">
+<div class="modal fade" id="createEkstraModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">

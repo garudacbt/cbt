@@ -13,7 +13,7 @@
 		<!-- Sidebar user panel (optional) -->
 		<div class="user-panel mt-3 d-flex">
 			<div class="image">
-				<img src="<?= $guru->foto != null ? base_url().$guru->foto  : base_url('assets/img/siswa.png') ?>" class="img-circle elevation-2" alt="User Image">
+				<img src="<?= $guru->foto != null ? base_url().$guru->foto  : base_url('assets/img/user.jpg') ?>" class="img-circle elevation-2" alt="User Image" style="height: 40px; width: 40px">
 			</div>
 			<div class="info">
 				<a href="#" class="d-block text-wrap">
@@ -27,8 +27,8 @@
 			<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
 				<?php
 				$page = $this->uri->segment(1);
-				$elearning = ["kelasjadwal", "kelasmateri", "kelastugas", "kelasstatus", "kelasabsensiharian", "kelasabsensiharianmapel", "kelasabsensibulanan", "kelasnilai", "kelascatatan"];
-				$cbt = ["cbtbanksoal", "cbtjadwal", "cbttoken", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtrekap", "cbtanalisis"];
+				$elearning = ["kelasjadwal", "kelasmateri", "kelasmaterijadwal", "kelastugas", "kelasstatus", "kelasabsensiharian", "kelasabsensiharianmapel", "kelasabsensibulanan", "kelasnilai", "kelascatatan"];
+				$cbt = ["cbtbanksoal", "cbtjadwal", "cbttoken", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtanalisis", "cbtrekap"];
 				$wali = ["walisiswa", "walistruktur", "walicatatan"];
 				?>
 				<li class="nav-item">
@@ -64,46 +64,49 @@
 								<p>Jadwal Pelajaran</p>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="<?=base_url('kelasmateri')?>" class="nav-link <?=$page==='kelasmateri'?"active":""?>">
-                                <i class="fa fa-pencil-ruler nav-icon"></i>
-								<p>Materi</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?=base_url('kelastugas')?>" class="nav-link <?=$page==='kelastugas'?"active":""?>">
-                                <i class="fa fa-drafting-compass nav-icon"></i>
-								<p>Tugas</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?=base_url('kelasstatus')?>" class="nav-link <?=$page==='kelasstatus'?"active":""?>">
-                                <i class="far fa-clipboard nav-icon"></i>
-								<p>Hasil Siswa</p>
-							</a>
-						</li>
+                        <?php $pageact = $this->uri->segment(2); ?>
                         <li class="nav-item">
-                            <a href="<?=base_url('kelascatatan')?>" class="nav-link <?=$page==='kelascatatan'?"active":""?>">
-                                <i class="fa fa-pencil-alt nav-icon"></i>
-                                <p>Catatan Guru</p>
+                            <a href="<?=base_url('kelasmateri/materi')?>" class="nav-link <?=$pageact==='materi'?"active":""?>">
+                                <i class="fa fa-pencil-ruler nav-icon"></i>
+                                <p>Materi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('kelasmateri/tugas')?>" class="nav-link <?=$pageact==='tugas'?"active":""?>">
+                                <i class="fa fa-drafting-compass nav-icon"></i>
+                                <p>Tugas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('kelasmaterijadwal')?>" class="nav-link <?=$page==='kelasmaterijadwal'?"active":""?>">
+                                <i class="fa fa-calendar-alt nav-icon"></i>
+                                <p>Jadwal Materi/Tugas</p>
                             </a>
                         </li>
 						<li class="nav-item">
-							<a href="<?=base_url('kelasabsensiharian')?>" class="nav-link <?=$page==='kelasabsensiharian'?"active":""?>">
-                                <i class="fa fa-user-check nav-icon"></i>
-								<p>Absensi Harian</p>
+							<a href="<?=base_url('kelasstatus')?>" class="nav-link <?=$page==='kelasstatus'?"active":""?>">
+                                <i class="far fa-clipboard nav-icon"></i>
+								<p>Nilai Harian</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="<?=base_url('kelasabsensiharian')?>" class="nav-link <?=$page==='kelasabsensiharian'?"active":""?>">
+                                <i class="fa fa-user-check nav-icon"></i>
+								<p>Kehadiran Harian</p>
+							</a>
+						</li>
+                        <!--
 						<li class="nav-item">
 							<a href="<?=base_url('kelasabsensiharianmapel')?>" class="nav-link <?=$page==='kelasabsensiharianmapel'?"active":""?>">
                                 <i class="fa fa-tasks nav-icon"></i>
 								<p>Absensi Mapel Harian</p>
 							</a>
 						</li>
+						-->
 						<li class="nav-item">
 							<a href="<?=base_url('kelasabsensibulanan')?>" class="nav-link <?=$page==='kelasabsensibulanan'?"active":""?>">
                                 <i class="fa fa-tasks nav-icon"></i>
-								<p>Absensi Bulanan</p>
+								<p>Kehadiran Bulanan</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -112,6 +115,12 @@
 								<p>Rekap Nilai</p>
 							</a>
 						</li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('kelascatatan')?>" class="nav-link <?=$page==='kelascatatan'?"active":""?>">
+                                <i class="fa fa-pencil-alt nav-icon"></i>
+                                <p>Catatan Guru</p>
+                            </a>
+                        </li>
 					</ul>
 				</li>
 				<li class="nav-item has-treeview <?= in_array($page, $cbt)  ? "menu-open" : ""  ?>">
@@ -141,12 +150,14 @@
 								<p>Token</p>
 							</a>
 						</li>
+                        <!--
 						<li class="nav-item">
 							<a href="<?=base_url('cbtpeserta')?>" class="nav-link <?=$page==='cbtpeserta'?"active":""?>">
                                 <i class="fa fa-list-ol nav-icon"></i>
 								<p>Daftar Peserta</p>
 							</a>
 						</li>
+						-->
 						<li class="nav-item">
 							<a href="<?=base_url('cbtstatus')?>" class="nav-link <?=$page==='cbtstatus'?"active":""?>">
                                 <i class="fa fa-user-clock nav-icon"></i>
@@ -159,6 +170,12 @@
 								<p>Hasil Ujian</p>
 							</a>
 						</li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('cbtanalisis')?>" class="nav-link <?=$page==='cbtanalisis'?"active":""?>">
+                                <i class="fa fa-chart-line nav-icon"></i>
+                                <p>Analisis Soal</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="<?=base_url('cbtrekap')?>" class="nav-link <?=$page==='cbtrekap'?"active":""?>">
                                 <i class="nav-icon fas fa-trophy"></i>
@@ -211,7 +228,7 @@
                 $pageact = $this->uri->segment(2);
                 $data_rapor = ['raporkkm', 'raporkikd', 'raporsikap'];
                 $rapor_input = ['raporspiritual', 'raporsosial', 'raporprestasi', 'raporcatatan', 'raporfisik', 'rapornaik'];
-                $rapor_cetak = ['cetakpts', 'cetakakhir', 'cetakleger'];
+                $rapor_cetak = ['cetakpts', 'cetakakhir', 'cetakleger', 'dkn'];
                 ?>
                 <li class="nav-item has-treeview <?= in_array($pageact, $data_rapor)  ? "menu-open" : ""  ?>">
                     <a href="#" class="nav-link <?= in_array($pageact, $data_rapor) ?"active":""?>">
@@ -242,20 +259,14 @@
                         <p>INPUT NILAI</p>
                     </a>
                 </li>
-                <!--
+                <?php if ($guru->id_jabatan == '4') : ?>
                 <li class="nav-item">
                     <a href="<?=base_url('rapor/rapornilaiguru')?>" class="nav-link <?=$pageact==='rapornilaiguru'?"active":""?>">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>SEMUA NILAI</p>
-                    </a>
-                </li>
-                -->
-                <li class="nav-item">
-                    <a href="<?=base_url('rapor/raporceknilai')?>" class="nav-link <?=$pageact==='raporceknilai'?"active":""?>">
                         <i class="far fa-circle nav-icon"></i>
                         <p>PERIKSA NILAI</p>
                     </a>
                 </li>
+                <?php endif; ?>
                 <?php if ($guru->id_jabatan == '4') : ?>
                 <li class="nav-item has-treeview <?= in_array($pageact, $rapor_input)  ? "menu-open" : ""  ?>">
                     <a href="#" class="nav-link <?= in_array($pageact, $rapor_input) ?"active":""?>">
@@ -329,6 +340,12 @@
                             <a href="<?=base_url('rapor/cetakleger')?>" class="nav-link <?=$pageact==='cetakleger'?"active":""?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Ledger</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('rapor/dkn')?>" class="nav-link <?=$pageact==='dkn'?"active":""?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>DKN</p>
                             </a>
                         </li>
                     </ul>

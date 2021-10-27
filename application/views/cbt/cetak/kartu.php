@@ -31,27 +31,27 @@
 							<div class="form-group">
 								<label>Header 1</label>
 								<textarea id="header-1" class="form-control" name="header_1" rows="2"
-										  placeholder="Header baris 1" required><?= $kartu->header_1 ?></textarea>
+										  placeholder="Header baris 1" required><?= isset($kartu->header_1) ? $kartu->header_1 : '' ?></textarea>
 							</div>
 							<div class="form-group">
 								<label>Header 2</label>
 								<textarea id="header-2" class="form-control" name="header_2" rows="2"
-										  placeholder="Header baris 2" required><?= $kartu->header_2 ?></textarea>
+										  placeholder="Header baris 2" required><?= isset($kartu->header_2) ? $kartu->header_2 : '' ?></textarea>
 							</div>
 							<div class="form-group">
 								<label>Header 3</label>
 								<textarea id="header-3" class="form-control" name="header_3" rows="2"
-										  placeholder="Header baris 3" required><?= $kartu->header_3 ?></textarea>
+										  placeholder="Header baris 3" required><?= isset($kartu->header_3) ? $kartu->header_3 : '' ?></textarea>
 							</div>
 							<div class="form-group">
 								<label>Header 4</label>
 								<textarea id="header-4" class="form-control" name="header_4" rows="2"
-										  placeholder="Header baris 4" required><?= $kartu->header_4 ?></textarea>
+										  placeholder="Header baris 4" required><?= isset($kartu->header_4) ? $kartu->header_4 : '' ?></textarea>
 							</div>
 							<div class="form-group">
 								<label>Tanggal</label>
 								<input id="input-tanggal" class="form-control" name="tanggal" placeholder="Titimangsa"
-									   value="<?= $kartu->tanggal ?>" required>
+									   value="<?= isset($kartu->tanggal) ? $kartu->tanggal : '' ?>" required>
 							</div>
 							<?= form_close() ?>
 						</div>
@@ -84,22 +84,22 @@
 										   style="width: 100%; border-top: 1px solid black; border-bottom: 0;border-left: 1px solid black; border-right: 1px solid black">
 										<tr>
 											<td style="width:20%;">
-												<img id="prev-logo-kiri" src="<?= base_url().$setting->logo_kiri ?>"
+												<img alt="Logo kiri" id="prev-logo-kiri" src="<?= base_url().$setting->logo_kiri ?>"
 													 style="width:55px; height:55px; margin: 6px;">
 											</td>
 											<td style="width:60%;">
 												<div id="prev-header-1" class="text-center"
-													 style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 9pt"><?= $kartu->header_1 ?></div>
+													 style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 9pt"><?= isset($kartu->header_1) ? $kartu->header_1 : '' ?></div>
 												<div id="prev-header-2" class="text-center"
 													 style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 10pt">
-													<b><?= $kartu->header_2 ?></b></div>
+													<b><?= isset($kartu->header_2) ? $kartu->header_2 : '' ?></b></div>
 												<div id="prev-header-3" class="text-center"
-													 style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 8pt"><?= $kartu->header_3 ?></div>
+													 style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 8pt"><?= isset($kartu->header_3) ? $kartu->header_3 : '' ?></div>
 												<div id="prev-header-4" class="text-center"
-													 style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 8pt"><?= $kartu->header_4 ?></div>
+													 style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 8pt"><?= isset($kartu->header_4) ? $kartu->header_4 : '' ?></div>
 											</td>
 											<td style="width:20%;">
-												<img id="prev-logo-kanan" src="<?= base_url().$setting->logo_kanan ?>"
+												<img alt="Logo kanan" id="prev-logo-kanan" src="<?= base_url().$setting->logo_kanan ?>"
 													 style="width:55px; height:55px; margin: 6px; border-style: none">
 											</td>
 										</tr>
@@ -149,7 +149,7 @@
 											<td style="text-align: center;">
 												<div id="prev-tandatangan" style="font-family: 'Times New Roman'; font-size: 9pt; line-height: 1; background: url('<?= base_url().$setting->tanda_tangan ?>') no-repeat center; background-size: 100px 60px">
 													<span id="prev-kota"><?= $setting->kota ?></span>, <span
-														id="prev-tanggal"><?= $kartu->tanggal ?></span>
+														id="prev-tanggal"><?= isset($kartu->tanggal) ? $kartu->tanggal : '' ?></span>
 													<br>
                                                     Kepala Madrasah
 													<br>
@@ -244,11 +244,11 @@
 -->
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-	var oldVal1 = '<?=$kartu->header_1?>';
-	var oldVal2 = '<?=$kartu->header_2?>';
-	var oldVal3 = '<?=$kartu->header_3?>';
-	var oldVal4 = '<?=$kartu->header_4?>';
-    var oldTgl = '<?=$kartu->tanggal?>';
+	var oldVal1 = '<?= isset($kartu->header_1) ? $kartu->header_1 : "" ?>';
+	var oldVal2 = '<?= isset($kartu->header_2) ? $kartu->header_1 : "" ?>';
+	var oldVal3 = '<?= isset($kartu->header_3) ? $kartu->header_1 : "" ?>';
+	var oldVal4 = '<?= isset($kartu->header_4) ? $kartu->header_1 : "" ?>';
+    var oldTgl = '<?= isset($kartu->tanggal) ? $kartu->header_1 : "" ?>';
 	var oldKota = '<?=$setting->kota?>';
 	var logoKanan = '<?=base_url().$setting->logo_kanan?>';
 	var logoKiri = '<?=base_url().$setting->logo_kiri?>';

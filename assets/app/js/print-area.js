@@ -1,5 +1,5 @@
 // Create a jquery plugin that prints the given element.
-jQuery.fn.print = function(){
+jQuery.fn.print = function(docTitle){
 	// NOTE: We are trimming the jQuery collection down to the
 	// first element in the collection.
 	/*
@@ -51,13 +51,14 @@ jQuery.fn.print = function(){
 	objDoc.open();
 	objDoc.write( "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" );
 	objDoc.write( "<html>" );
-	objDoc.write( "<body>" );
 	objDoc.write( "<head>" );
 	objDoc.write( "<title>" );
-	objDoc.write( document.title );
-	objDoc.write( "</title>" );
-	objDoc.write( jStyleDiv.html() );
+	//objDoc.write( document.title );
+    objDoc.write( docTitle );
+    objDoc.write( "</title>" );
 	objDoc.write( "</head>" );
+    objDoc.write( "<body>" );
+    objDoc.write( jStyleDiv.html() );
 	objDoc.write( this.html() );
 	objDoc.write( "</body>" );
 	objDoc.write( "</html>" );

@@ -8,8 +8,8 @@
 ?>
 
 <div class="content-wrapper bg-white">
-	<section class="content-header">
-		<div class="container-fluid">
+    <section class="content-header">
+        <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-6">
                     <h1><?= $judul ?></h1>
@@ -20,19 +20,19 @@
                     </button>
                 </div>
             </div>
-		</div>
-	</section>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card card-default my-shadow mb-4">
-				<div class="card-header">
-					<h6 class="card-title">Catatan Untuk <b><?=$siswa->nama?></b></h6>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default my-shadow mb-4">
+                <div class="card-header">
+                    <h6 class="card-title">Catatan Untuk <b><?=$siswa->nama?></b></h6>
                     <button type="button" class="btn btn-sm btn-primary card-tools" data-toggle="modal" data-target="#daftarModal">
                         <i class="fa fa-plus"></i> <span class="ml-1">Buat Catatan</span>
                     </button>
-				</div>
-				<div class="card-body">
+                </div>
+                <div class="card-body">
                     <table class="table table-striped table-bordered table-hover table-sm">
                         <thead>
                         <tr>
@@ -76,16 +76,16 @@
                         <?php endif; ?>
                         </tbody>
                     </table>
-				</div>
-			</div>
-		</div>
-	</section>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 <div class="modal fade" id="daftarModal" tabindex="-1" role="dialog" aria-labelledby="daftarLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="daftarLabel"></h5>
+                <h5 class="modal-title" id="daftarLabel">Catatan Untuk <b><?=$siswa->nama?></b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="id_mapel" value="<?=$id_mapel?>">
+                <input type="hidden" name="id_mapel" value="<?=$mapel?>">
                 <input type="hidden" name="id_siswa" value="<?=$siswa->id_siswa?>">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary">
@@ -130,14 +130,7 @@
 </div>
 
 <script>
-    var idSiswa = <?=$siswa->id_siswa?>;
-    var idMapel = <?=$id_mapel?>;
-    var idKelas = <?=$id_kelas?>;
     $(document).ready(function() {
-
-        $('#daftarModal').on('show.bs.modal', function (e) {
-            $('#daftarLabel').text('Catatan Untuk Kelas ');
-        });
 
         $('#formcatatan').submit('click', function (e) {
             e.preventDefault();
@@ -164,7 +157,7 @@
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                window.location.href = base_url +'kelascatatan/siswa?id_siswa='+idSiswa+'&id_mapel='+ idMapel +'&id_kelas='+ idKelas;
+                                window.location.reload();
                             }
                         });
                     } else {
@@ -212,7 +205,8 @@
                     success: function (respon) {
                         console.log(respon);
                         if (respon) {
-                            window.location.href = base_url +'kelascatatan/siswa?id_siswa='+idSiswa+'&id_mapel='+ idMapel +'&id_kelas='+ idKelas;
+                            window.location.reload();
+                            //window.location.href = base_url +'kelascatatan/siswa?id_siswa='+idSiswa+'&id_mapel='+ idMapel +'&id_kelas='+ idKelas;
                         } else {
                             swal.fire({
                                 title: "Gagal",

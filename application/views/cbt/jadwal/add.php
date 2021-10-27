@@ -53,7 +53,7 @@ foreach ($jumlahPengawas as $p) {
 			<div class="card my-shadow">
 				<div class="card-header">
 					<div class="card-title">
-						<h6>Tambah Kelas</h6>
+						<h6>Edit Jadwal</h6>
 					</div>
 					<div class="card-tools">
 						<input type="hidden" id="id-jadwal" name='id_jadwal' value="<?=$jadwal->id_jadwal?>" class='form-control d-none'/>
@@ -63,6 +63,16 @@ foreach ($jumlahPengawas as $p) {
 				</div>
 				<div class="card-body">
 					<div class="row">
+                        <!--
+                        <div class='col-md-2 mb-3'>
+                            <div class='form-group'>
+                                <label>Kode</label>
+                                <input type='number' id="durasi-ujian" name='kode'
+                                       class='form-control form-control-sm' value="<?=$jadwal->kode?>"
+                                       required='true'/>
+                            </div>
+                        </div>
+                        -->
 						<div class="col-md-4 mb-3">
 							<label>Guru</label>
 							<?php
@@ -73,7 +83,7 @@ foreach ($jumlahPengawas as $p) {
 								'id="id-guru" class="form-control form-control-sm" required'
 							); ?>
 						</div>
-						<div class="col-md-4 mb-3">
+						<div class="col-md-3 mb-3">
 							<label>Bank Soal</label>
 							<select name="bank_id" id="bank-id" class="form-control form-control-sm" required=""></select>
 							<!--
@@ -86,7 +96,7 @@ foreach ($jumlahPengawas as $p) {
 							); ?>
 							-->
 						</div>
-						<div class="col-md-4 mb-3">
+						<div class="col-md-2 mb-3">
 							<label>Jenis</label>
 							<?php
 							echo form_dropdown(
@@ -184,10 +194,12 @@ foreach ($jumlahPengawas as $p) {
 </div>
 
 <script>
-	var idBank = '<?=$jadwal->id_bank?>'
+    var digunakan = <?= $disable_opsi ? '1' : '0' ?>;
+	var idBank = '<?=$jadwal->id_bank?>';
 	$(document).ready(function () {
-		var selBank = $('#bank-id')
-		ajaxcsrf();
+        ajaxcsrf();
+        console.log('used',digunakan);
+		var selBank = $('#bank-id');
 		$('.select2').select2();
 		$('.tgl').datetimepicker({
 			icons:
@@ -197,6 +209,7 @@ foreach ($jumlahPengawas as $p) {
 				},
 			timepicker: false,
 			format: 'Y-m-d',
+            disabledWeekDays: [0],
 			widgetPositioning: {
 				horizontal: 'left',
 				vertical: 'bottom'
@@ -238,47 +251,56 @@ foreach ($jumlahPengawas as $p) {
 			e.stopImmediatePropagation();
 			console.log("data:", $(this).serialize());
 
-			$.ajax({
-				url: base_url + "cbtjadwal/saveJadwal",
-				type: "POST",
-				dataType: "JSON",
-				data: $(this).serialize(),
-				success: function (data) {
-					console.log(data);
-					$('#tambahjadwal').modal('hide').data('bs.modal', null);
-					$('#tambahjadwal').on('hidden', function () {
-						$(this).data('modal', null);  // destroys modal
-					});
+			if (digunakan == 1) {
+                swal.fire({
+                    title: "SEDANG BERLANGSUNG",
+                    text: "Jadwal sedang digunakan",
+                    icon: "error",
+                    showCancelButton: false,
+                });
+            } else {
+                $.ajax({
+                    url: base_url + "cbtjadwal/saveJadwal",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        $('#tambahjadwal').modal('hide').data('bs.modal', null);
+                        $('#tambahjadwal').on('hidden', function () {
+                            $(this).data('modal', null);  // destroys modal
+                        });
 
-					if (data) {
-						swal.fire({
-							title: "Sukses",
-							text: "Jadwal berhasil disimpan",
-							icon: "success",
-							showCancelButton: false,
-						}).then(result => {
-							if(result.value){
-								window.location.href = base_url + 'cbtjadwal';
-							}
-						});
-					} else {
-						swal.fire({
-							title: "ERROR",
-							text: "Data Tidak Tersimpan",
-							icon: "error",
-							showCancelButton: false,
-						});
-					}
-				}, error: function (xhr, status, error) {
-					console.log("error", xhr.responseText);
-					swal.fire({
-						title: "ERROR",
-						text: "Data Tidak Tersimpan",
-						icon: "error",
-						showCancelButton: false,
-					});
-				}
-			});
+                        if (data.success) {
+                            swal.fire({
+                                title: "Sukses",
+                                text: "Jadwal berhasil disimpan",
+                                icon: "success",
+                                showCancelButton: false,
+                            }).then(result => {
+                                if (result.value) {
+                                    window.location.href = base_url + 'cbtjadwal';
+                                }
+                            });
+                        } else {
+                            swal.fire({
+                                title: "ERROR",
+                                text: data.message,
+                                icon: "error",
+                                showCancelButton: false,
+                            });
+                        }
+                    }, error: function (xhr, status, error) {
+                        console.log("error", xhr.responseText);
+                        swal.fire({
+                            title: "ERROR",
+                            text: "Data Tidak Tersimpan",
+                            icon: "error",
+                            showCancelButton: false,
+                        });
+                    }
+                });
+            }
 		});
 
 		function getBank(guru) {
@@ -286,9 +308,9 @@ foreach ($jumlahPengawas as $p) {
 				url: base_url + "cbtjadwal/getbankguru/"+guru,
 				type: "GET",
 				success: function (data) {
-					console.log(data);
 					selBank.html('');
 					$.each(data, function (i, v) {
+                        console.log(i);
 						var selected = i===idBank ? 'selected' : '';
 						if (i !== '') selBank.append('<option value="'+i+'" '+selected+'>'+v+'</option>');
 					});

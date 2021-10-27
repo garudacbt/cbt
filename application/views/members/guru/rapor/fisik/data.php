@@ -161,9 +161,11 @@
             if (berat1 === '0') berat1 = '';
             var berat2 = arrNilai[v.id_siswa].smt2.berat;
             if (berat2 === '0') berat2 = '';
+
+            var noInduk = v.nisn == null || v.nisn == '' ? v.nis : v.nisn;
             dataSiswa.push(
                 [
-                    v.nisn, v.nama,
+                    noInduk, v.nama,
                     tinggi1, tinggi2, berat1, berat2,
                     telinga,mata,gigi,lainnya,
                     v.id_siswa,
@@ -177,7 +179,7 @@
             var item = {};
             if (i === 0) {
                 item['title'] = 'N I S N';
-                item['width'] = 100;
+                item['width'] = 160;
             } else if (i === 1) {
                 item['title'] = 'NAMA SISWA';
                 item['width'] = 250;

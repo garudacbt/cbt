@@ -89,13 +89,14 @@ $(document).ready(function () {
 		.appendTo("#ruang_wrapper .col-md-6:eq(1)");
 
 	$("div.toolbar").html(
-		'<button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-danger mr-3 d-none" data-toggle="tooltip" title="Hapus Terpilh"><i class="far fa-trash-alt"></i></button>' +
-		'<div class="btn-group">' +
+		'<button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-danger" data-toggle="tooltip" title="Hapus Terpilh" disabled="disabled">' +
+		'<i class="far fa-trash-alt"></i></button>'
+		/*'<div class="btn-group">' +
 		'<button type="button" class="btn btn-default" data-toggle="tooltip" title="Print"><i class="fas fa-print"></i></button>' +
 		'<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As PDF"><i class="fas fa-file-pdf"></i></button>' +
 		'<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As Word"><i class="fa fa-file-word"></i></button>' +
 		'<button type="button" class="btn btn-default" data-toggle="tooltip" title="Export As Excel"><i class="fa fa-file-excel"></i></button>' +
-		'</div>'
+		'</div>'*/
 	);
 
 	$(".select_all").on("click", function () {
@@ -103,13 +104,13 @@ $(document).ready(function () {
 			$(".check").each(function () {
 				this.checked = true;
 				$(".select_all").prop("checked", true);
-				$('#hapusterpilih').removeClass('d-none');
+                $('#hapusterpilih').removeAttr('disabled');
 			});
 		} else {
 			$(".check").each(function () {
 				this.checked = false;
 				$(".select_all").prop("checked", false);
-				$('#hapusterpilih').addClass('d-none');
+                $('#hapusterpilih').attr('disabled','disabled');
 			});
 		}
 	});
@@ -123,11 +124,11 @@ $(document).ready(function () {
 			$(".select_all").prop("checked", false);
 		}
 
-		if (checked === 0) {
-			$('#hapusterpilih').addClass('d-none');
-		} else {
-			$('#hapusterpilih').removeClass('d-none');
-		}
+        if (checked === 0) {
+            $('#hapusterpilih').attr('disabled','disabled');
+        } else {
+            $('#hapusterpilih').removeAttr('disabled');
+        }
 	});
 
 	$('#create').submit('click', function (e) {

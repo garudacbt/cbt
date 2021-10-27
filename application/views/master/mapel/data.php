@@ -16,8 +16,6 @@
 					<h3 class="card-title">Master <?= $subjudul ?></h3>
 					<div class="card-tools">
 						<button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default"><i class="fa fa-sync"></i> Reload</button>
-						<button type="button" data-toggle="modal" data-target="#createMapelModal" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data</button>
-						<a href="<?= base_url('datamapel/import') ?>" class="btn btn-sm btn-success"><i class="fa fa-upload"></i> Import</a>
 						<!--
 						<div class="pull-right">
 							<button onclick="bulk_edit()" class="btn btn-sm btn-flat btn-warning" type="button"><i class="fa fa-edit"></i> Edit</button>
@@ -27,14 +25,20 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<?= form_open('', array('id' => 'bulk')) ?>
+                    <!--
+                    <button type="button" data-toggle="modal" data-target="#createMapelModal" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data</button>
+                    <a href="<?= base_url('datamapel/import') ?>" class="btn btn-sm btn-success"><i class="fa fa-upload"></i> Import</a>
+                    <button data-toggle="modal" data-target="#editDataMapelModal" class="btn btn-sm btn-flat btn-warning" type="button"><i class="fas fa-cog"></i> Edit</button>
+                    -->
+
+                    <?= form_open('', array('id' => 'bulk')) ?>
 					<table id="tableMapel" class="w-100 table table-striped table-bordered table-hover table-sm">
 						<thead>
 						<tr>
 							<th class="text-center align-middle p-0 w-auto">
 								<input type="checkbox" class="select_all">
 							</th>
-							<th class="text-center align-middle p-0 w-auto">No.</th>
+							<th class="text-center align-middle p-0 w-auto">No.Urut Rapor</th>
 							<th>Mata Pelajaran</th>
 							<th>Kode Mata Pelajaran</th>
                             <th>Kelompok</th>
@@ -155,7 +159,13 @@
                         ); ?>
                     </div>
                 </div>
-			</div>
+                <div class="form-group row" id="formkode">
+                    <label class="col-md-2 col-form-label">No. Urut Rapor*</label>
+                    <div class="col-md-10">
+                        <input type="number" id="kodeUrut" name="urutan_tampil" class="form-control" required>
+                    </div>
+                </div>
+            </div>
 			<div class="modal-footer">
 				<input type="hidden" id="editIdMapel" name="id_mapel" class="form-control">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -167,6 +177,27 @@
 	</div>
 </div>
 <?=form_close()?>
+
+<div class="modal fade" id="editDataMapelModal" tabindex="-1" role="dialog" aria-labelledby="editDataMapelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDataMapelModalLabel">Setting Mapel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i> Simpan Perubahan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--
 <div class="modal fade" id="mapelNonAktif" tabindex="-1" role="dialog" aria-labelledby="labelmapelNonAktif" aria-hidden="true">

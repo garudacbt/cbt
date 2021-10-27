@@ -76,7 +76,7 @@ if (empty($kelas_pilih)) {
 					</div>
 				</div>
 				<div class="card-body">
-					<input type="hidden" class="form-control" name="id_tugas" value="<?= $id_tugas ?>">
+					<input type="hidden" class="form-control" name="id_materi" value="<?= $id_materi ?>">
 					<div id="input-tugas" class="row">
 						<div class="col-md-3 mb-3">
 							<label>Kode</label>
@@ -327,7 +327,7 @@ if (empty($kelas_pilih)) {
 		console.log(selMapel.val(), kelas);
 		$.ajax({
 			method: 'GET',
-            url: base_url + 'kelasmateri/dataaddjadwal?mapel='+selMapel.val()+'&kelas='+kelas,
+            url: base_url + 'kelastugas/dataaddjadwal?mapel='+selMapel.val()+'&kelas='+kelas,
 			success: function (data) {
 				for (let i = 0; i < data.length; i++) {
 					arrJadwal.push(data[i].id_jadwal);

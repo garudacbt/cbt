@@ -48,4 +48,12 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#toggle-password').on('click', function (e) {
+        // toggle the type attribute
+        const type = $('#password').attr('type') === 'password' ? 'text' : 'password';
+        $('#password').attr('type', type);
+        // toggle the eye / eye slash icon
+        $(this).toggleClass('fa-eye-slash fa-eye');
+    });
 });

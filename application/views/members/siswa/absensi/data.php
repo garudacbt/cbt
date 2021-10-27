@@ -1,17 +1,11 @@
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <ul class="navbar-nav ml-2">
-        <li class="nav-item">
-            <a class="nav-link btn-outline-success" href="<?= base_url('dashboard') ?>" role="button"><i
-                        class="fas fa-arrow-left"></i> Beranda</a>
-        </li>
-    </ul>
-
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
+<?php
+/**
+ * Created by IntelliJ IDEA.
+ * User: multazam
+ * Date: 23/08/20
+ * Time: 23:18
+ */
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="margin-top: -1px;">
     <!-- Main content -->
@@ -19,17 +13,7 @@
     </div>
     <section class="content overlap p-4">
         <div class="container">
-            <div class="info-box bg-transparent shadow-none">
-                <img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" width="120" height="120">
-                <div class="info-box-content">
-                    <h5 class="info-box-text text-white text-wrap"><b><?= $siswa->nama ?></b></h5>
-                    <span class="info-box-text text-white"><?= $siswa->nis ?></span>
-                    <span class="info-box-text text-white mb-1"><?= $siswa->nama_kelas ?></span>
-                    <button onclick="logout()" class="btn btn-danger btn-outline-light" style="width: 200px">
-                        LOGOUT<i class="fas fa-sign-out-alt ml-2"></i>
-                    </button>
-                </div>
-            </div>
+            <?php $this->load->view('members/siswa/templates/top'); ?>
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="card card-primary">

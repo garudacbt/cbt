@@ -84,6 +84,7 @@
                     </div>
                     <div class="d-flex flex-wrap align-items-center justify-content-end">
                     <button type="button" id="next1" class="btn-primary btn">Selanjutnya</button></div>
+                    <!--
                     <div class="alert alert-default-info align-content-center mt-4" role="alert">
                     <i>INFO</i>
                     <br>Jika ingin mengganti <strong>localhost</strong> dan <strong>root</strong>, lakukan langkah dibawah ini:
@@ -101,7 +102,7 @@
                         Refresh halaman ini
                     </li>
                 </ul>
-                    </div>`;
+                    </div>-->`;
 
         var content2 = `<div class="text-center">
                     <p><b>LOGIN ADMINISTRATOR</b></p>
@@ -278,11 +279,11 @@
                 });
             } else {
                 var dbAda = dataInstall.hostname !== '' && dataInstall.hostuser !== '' && dataInstall.database !== '';
-                if (!dbAda && !dbSudah) {
-                    $('#installapp').submit();
-                } else {
+                if (dbSudah) {
                     currentPage ++;
                     $('.btn-next').click();
+                } else {
+                    $('#installapp').submit();
                 }
             }
         });

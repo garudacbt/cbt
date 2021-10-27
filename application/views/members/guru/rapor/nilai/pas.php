@@ -23,6 +23,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <?php if ($kkm_guru == null): ?>
+                        <div class="alert alert-default-danger align-content-center" role="alert">
+                            Download template tidak tersedia, Anda harus mengisi KKM terlebih dahulu di menu <b>DATA RAPOR > KKM DAN BOBOT</b>
+                        </div>
+                    <?php else: ?>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <a href="<?=base_url('rapor/downloadtemplatepas/'.$mapel['id_mapel'].'/'.$kelas['id_kelas'])?>" id="download" type="button" class="btn btn-primary w-100">
@@ -62,6 +67,8 @@
                         <i class="fa fa-save mr-1"></i>Simpan
                     </button>
                     <?= form_close() ?>
+
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -86,9 +93,9 @@
         bobotPAS = parseInt(kkmSetting.bobot_pas);
     } else {
         isi = parseInt(kkmGuru.kkm);
-        bobotPH = parseInt(kkmSetting.bobot_ph);
-        bobotPTS = parseInt(kkmSetting.bobot_pts);
-        bobotPAS = parseInt(kkmSetting.bobot_pas);
+        bobotPH = parseInt(kkmGuru.bobot_ph);
+        bobotPTS = parseInt(kkmGuru.bobot_pts);
+        bobotPAS = parseInt(kkmGuru.bobot_pas);
     }
     var pre_d = 0;
     var pre_dsd = isi - 1;
@@ -107,14 +114,16 @@
     });
 
     $(document).ready(function() {
-        //console.log('a' + pre_a + ' b' + pre_b + ' bd' + pre_bsd + ' c' + pre_c + ' cd' + pre_csd + ' dd' + pre_dsd);
+        console.log('a:' + pre_a + ' b:' + pre_b + ' bd:' + pre_bsd + ' c:' + pre_c + ' cd:' + pre_csd + ' dd:' + pre_dsd);
+        console.log('ph:' + bobotPH + ' PTS:' + bobotPTS + ' pas:' + bobotPAS);
         var dataSiswa = [];
         var row = 1;
         $.each(arrSiswa, function (i, v) {
+            var noInduk = v.nisn == null || v.nisn == '' ? v.nis : v.nisn;
             var nilai = arrNilai[v.id_siswa];
             dataSiswa.push(
                 [
-                    v.nisn, v.nama, nilai.nhar, nilai.npts, nilai.npas,
+                    noInduk, v.nama, nilai.nhar, nilai.npts, nilai.npas,
                     '=IFERROR(ROUND((((C'+row+'*'+bobotPH+')/100)+((D'+row+'*'+bobotPTS+')/100)+((E'+row+'*'+bobotPAS+')/100)),0),"")',
                     '=IF(F'+row+'>'+pre_bsd+',"A",IF(F'+row+'>'+pre_csd+',"B",IF(F'+row+'>'+pre_dsd+',"C",IF(F'+row+'<'+pre_c+',"D",""))))',
                     nilai.p_deskripsi, nilai.k_rata_rata, nilai.k_predikat, nilai.k_deskripsi, v.id_siswa
@@ -134,8 +143,8 @@
             var item = {};
 
             if (i === 0) {
-                item['title'] = 'N I S N\n'+char.charAt(i);
-                item['width'] = 100;
+                item['title'] = 'NIS/NISN\n'+char.charAt(i);
+                item['width'] = 160;
             } else if (i === 1) {
                 item['title'] = 'NAMA SISWA\n'+char.charAt(i);
                 item['width'] = 250;
@@ -210,7 +219,14 @@
                 ],
             ],
             updateTable:function(instance, cell, col, row, val, label, cellName) {
-                if (col === 0 || col === 1) {
+                if (col === 0) {
+                    cell.className = '';
+                    cell.style.backgroundColor = '#f8d7da';
+                    cell.style.textAlign = 'center';
+                    cell.classList.add('readonly');
+                }
+
+                if (col === 1) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
                     cell.style.textAlign = 'left';
@@ -241,25 +257,7 @@
             },
             onchange: function(instance, cell, col, row, value, label) {
                 //var cellName = jexcel.getColumnNameFromId([col,row]);
-                var d = [];
-                if (col === 10) {
-                    d = [];
-                    for (let i = 2; i < 10; i++) {
-                        var values1 = $(`td[data-x="${i}"][data-y="${row}"]`).text();
-                        d.push(values1);
-                    }
-                    $(`td[data-x="13"][data-y="${row}"]`).text(setDesk(d));
-                }
-
-                if (col === 22) {
-                    d = [];
-                    for (let i = 14; i < 22; i++) {
-                        var values2 = $(`td[data-x="${i}"][data-y="${row}"]`).text();
-                        d.push(values2);
-                    }
-                    //console.log(setDesk(d));
-                    $(`td[data-x="25"][data-y="${row}"]`).text(setDesk(d));
-                }
+                //console.log(col, cell);
             }
         });
 

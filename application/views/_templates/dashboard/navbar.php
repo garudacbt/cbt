@@ -7,7 +7,7 @@
 		</li>
 
 		<li class="nav-item">
-			<span class="nav-link text-dark">TP: <?= isset($tp_active) ? $tp_active->tahun : "Belum di set"?> Smt: <?= isset($smt_active) ? $smt_active->nama_smt : "Belum di set" ?></span>
+            <span class="nav-link text-dark"><b>TP: <?= isset($tp_active) ? $tp_active->tahun : "Belum di set"?> Smt: <?= isset($smt_active) ? $smt_active->nama_smt : "Belum di set" ?></b></span>
 		</li>
 
 		<!--

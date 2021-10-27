@@ -52,6 +52,8 @@
 	<!-- /texarea editor; -->
 
 	<!-- fonts -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/montserrat.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/scheherazade.css">
 	<link rel="stylesheet" href="<?=base_url()?>/assets/adminlte/dist/css/fonts.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="<?=base_url()?>/assets/adminlte/dist/css/adminlte.min.css">
@@ -59,6 +61,7 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="<?=base_url()?>/assets/app/css/mystyle.css">
 	<link rel="stylesheet" href="<?= base_url()?>/assets/app/css/show.toast.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -129,7 +132,34 @@ function singkat_tanggal($str) {
 	return $str;
 }
 
+$dash = $this->uri->segment(1);
+$cbt = $this->uri->segment(2);
+$exludes = ["dashboard", "soal"];
+
+$dnone = in_array($dash, $exludes) || in_array($cbt, $exludes) ? 'invisible' : '';
 ?>
 
 <body class="layout-top-nav layout-navbar-fixed">
 	<div class="wrapper">
+        <nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
+            <ul class="navbar-nav ml-2 <?=$dnone?>">
+                <li class="nav-item">
+                    <a href="<?=base_url('dashboard')?>" type="button" class="btn btn-success">
+                        <i class="fas fa-arrow-left mr-2"></i><span class="d-none d-sm-inline-block ml-1">Beranda</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="mx-auto text-white text-center" style="line-height: 1">
+                <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
+                <br>
+                <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <button onclick="logout()" class="btn btn-danger btn-outline-light">
+                        <span class="d-none d-sm-inline-block mr-2">Logout</span><i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+

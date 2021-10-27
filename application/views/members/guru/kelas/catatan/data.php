@@ -25,11 +25,6 @@
 					<h6 class="card-title"><?= $subjudul ?></h6>
 				</div>
 				<div class="card-body">
-					<?php
-					//echo '<pre>';
-					//var_dump($arrkelas);
-					//echo '</pre>';
-					?>
 					<div class='row'>
 						<div class='col-md-12'>
 							<?= form_open('', array('id' => 'formselect')) ?>
@@ -41,34 +36,77 @@
 									echo form_dropdown(
 										'mapel',
 										$mapel,
-										null,
+										$mapel_selected,
 										'id="opsi-mapel" class="form-control"'
 									); ?>
 								</div>
 								<div class="col-md-3 mb-2">
 									<label>Kelas</label>
-									<select id="opsi-kelas" class="form-control"></select>
+                                    <?php
+                                    echo form_dropdown(
+                                        'kelas',
+                                        isset($kelas[$mapel_selected]) ? $kelas[$mapel_selected] : [],
+                                        $kelas_selected,
+                                        'id="opsi-kelas" class="form-control"'
+                                    ); ?>
 								</div>
-                                <div class="col-md-3 mb-2">
-                                    <label>Tipe</label>
-                                    <select id="opsi-tipe" class="form-control">
-                                        <option value='' selected='selected' disabled='disabled'>Pilih Tipe</option>
-                                        <option value='1'>Per-Kelas</option>
-                                        <option value='2'>Per-Siswa</option>
-                                    </select>
-                                </div>
 							</div>
                             <hr>
                             <div class="card border border-primary shadow">
                                 <div class="card-header alert-default-primary">
                                     <h3 class="card-title">Catatan Perkelas</h3>
-                                    <button id="create-note" type="button" class="card-tools btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#daftarModal" disabled="">
+                                    <?php $disabled = isset($cat_kelas) ? '' : 'disabled="disabled"' ?>
+                                    <button id="create-note" type="button" class="card-tools btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#daftarModal" <?=$disabled?>>
                                         <i class="fa fa-plus"></i> <span class="ml-1">Buat Catatan Kelas</span>
                                     </button>
                                 </div>
                                 <div class="card-body p-0">
                                     <div id="konten-catatankelas">
-                                        <p class="p-4">Pilih mapel dan Kelas</p>
+                                        <?php if (isset($cat_kelas)) : ?>
+                                            <table class="table table-striped table-bordered table-hover table-sm">
+                                                <thead>
+                                                <tr>
+                                                    <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
+                                                    <th class="text-center p-0 align-middle p-0">Tanggal</th>
+                                                    <th class="text-center p-0 align-middle">Jenis</th>
+                                                    <th class="text-center p-0 align-middle">Catatan</th>
+                                                    <th class="text-center p-0 align-middle">Keterangan</th>
+                                                    <th class="text-center p-0 align-middle">Aksi</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                if (count($cat_kelas)>0) :
+                                                    $arrLvl = ['Tidak ada', 'Saran', 'Teguran', 'Peringatan', 'Sangsi'];
+                                                    $no = 1;
+                                                    foreach ($cat_kelas as $value) :?>
+                                                        <tr>
+                                                            <td class="text-center"><?= $no ?></td>
+                                                            <td class="text-center"><?= $value->tgl ?></td>
+                                                            <td class="text-center"><?= $arrLvl[$value->level] ?></td>
+                                                            <td><?= $value->text ?></td>
+                                                            <td class="text-center">
+                                                                <span class="badge badge-btn badge-info">
+                                                                    <?= count($value->reading) ?> siswa membaca
+                                                                </span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <button type="button" class="btn btn-sm btn-danger" data-id="<?= $value->id_catatan ?>" onclick="hapus(this)">
+                                                                    <i class="fa fa-trash"></i> <span class="ml-1">Hapus</span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        <?php $no++; endforeach;
+                                                else:?>
+                                                    <tr>
+                                                        <td colspan="6" class="text-center">Belum ada catatan</td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        <?php else: ?>
+                                            <p class="p-4">Pilih mapel dan Kelas</p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="overlay d-none">
@@ -81,7 +119,40 @@
                                 </div>
                                 <div class="card-body p-0">
                                     <div id="konten-catatansiswa">
+                                        <?php if (isset($cat_siswa)) : ?>
+                                        <table class="table table-striped table-bordered table-hover table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
+                                                <th class="text-center p-0 align-middle">NIS</th>
+                                                <th class="text-center p-0 align-middle p-0">Nama</th>
+                                                <th class="text-center p-0 align-middle">Catatan</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            if (count($cat_siswa)>0) :
+                                            $no = 1;
+                                            foreach ($cat_siswa as $value) :?>
+                                            <tr>
+                                                <td class="text-center"><?= $no ?></td>
+                                                <td class="text-center"><?= $value->nis ?></td>
+                                                <td><?= $value->nama ?></td>
+                                                <td class="text-center">
+                                                    <button onclick="loadCatatanSiswa(<?=$value->id_siswa?>)" class="btn btn-xs btn-success"><?=$value->jml_catatan?> catatan</button>
+                                                </td>
+                                            </tr>
+                                            <?php $no++; endforeach;
+                                            else:?>
+                                                <tr>
+                                                    <td colspan="6" class="text-center">Belum ada catatan</td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            </tbody>
+                                        </table>
+                                        <?php else: ?>
                                         <p class="p-4">Pilih mapel dan Kelas</p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="overlay d-none">
@@ -144,100 +215,15 @@
 </div>
 
 <script>
-	var kelas = JSON.parse('<?= json_encode($kelas)?>');
-	var arrMapel = JSON.parse('<?= json_encode($mapel)?>');
-	var arrKelas = JSON.parse('<?= json_encode($arrkelas)?>');
-	var form;
+    var arrKelas = JSON.parse('<?= json_encode($kelas)?>');
+    var mplSelected = '<?= isset($mapel_selected) ? $mapel_selected : ''?>';
+	var klsSelected = '<?= isset($kelas_selected) ? $kelas_selected : ''?>';
+
+    var form;
 	var oldData = '';
 
-	function createTabelCatatanKelas(data) {
-		console.log(data);
-		var table = '';
-        $('#konten-catatankelas').html(table);
-
-		table = '<table class="table table-striped table-bordered table-hover table-sm">' +
-            '<thead>' +
-            '<tr>' +
-            '<th width="50" height="50" class="text-center p-0 align-middle">No.</th>' +
-            '<th class="text-center p-0 align-middle p-0">Tanggal</th>' +
-            '<th class="text-center p-0 align-middle">Jenis</th>' +
-            '<th class="text-center p-0 align-middle">Catatan</th>' +
-            '<th class="text-center p-0 align-middle">Keterangan</th>' +
-            '<th class="text-center p-0 align-middle">Aksi</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody>';
-
-		if (data.kelas.length > 0) {
-            var no = 1;
-            var arrLvl = ['Tidak ada', 'Saran', 'Teguran', 'Peringatan', 'Sangsi'];
-            $.each(data.kelas, function(key, value) {
-                table += '<tr>' +
-                    '<td class="text-center">' + no + '</td>' +
-                    '<td class="text-center">' + value.tgl + '</td>' +
-                    '<td class="text-center">' + arrLvl[value.level] + '</td>' +
-                    '<td>' + value.text + '</td>' +
-                    '<td width="100" class="text-center">' +
-                    '<button type="button" class="btn btn-sm btn-success">' +
-                    value.jml + ' siswa membaca' +
-                    '</button>' +
-                    '</td>' +
-                    '<td width="100" class="text-center">' +
-                    '    <button type="button" class="btn btn-sm btn-danger" data-id="'+value.id_catatan+'" onclick="hapus(this)">' +
-                    '        <i class="fa fa-trash"></i> <span class="ml-1">Hapus</span>' +
-                    '    </button>' +
-                    '</td>' +
-                    '</tr>';
-                no++;
-            });
-        } else {
-		    table += '<tr>' +
-            '<td colspan="6" class="text-center">Belum ada catatan</td>' +
-            '</tr>';
-        }
-
-        table +='</tbody></table>';
-		$('#konten-catatankelas').html(table);
-		$('#create-note').removeAttr('disabled');
-	}
-
-    function createTabelCatatanSiswa(data) {
-        var selKelas = $('#opsi-kelas');
-        var selMapel = $('#opsi-mapel');
-        console.log(data);
-        var table = '';
-        $('#konten-catatansiswa').html(table);
-
-        table = '<table class="table table-striped table-bordered table-hover table-sm">' +
-            '    <thead>' +
-            '    <tr>' +
-            '        <th width="50" height="50" class="text-center p-0 align-middle">No.</th>' +
-            '        <th class="text-center p-0 align-middle">NIS</th>' +
-            '        <th class="text-center p-0 align-middle p-0">Nama</th>' +
-            '        <th class="text-center p-0 align-middle">Catatan</th>' +
-            '    </tr>' +
-            '    </thead>' +
-            '    <tbody>';
-
-        var no = 1;
-        $.each(data.siswa, function(key, value) {
-            table += '<tr>' +
-                '<td class="text-center">' + no + '</td>' +
-                '<td class="text-center">' + value.nis + '</td>' +
-                '<td>' + value.nama + '</td>' +
-                '<td class="text-center">' +
-                '<button onclick="loadCatatanSiswa('+value.id_siswa+')" class="btn btn-xs btn-success">' + value.jml_catatan + ' catatan</button>' +
-                '</td>' +
-                '</tr>';
-            no++;
-        });
-
-        table +='</tbody></table>';
-        $('#konten-catatansiswa').html(table);
-    }
-
     function loadCatatanSiswa(id) {
-	    window.location.href = base_url +'kelascatatan/siswa?id_siswa='+id+'&id_mapel='+ $('#opsi-mapel').val() +'&id_kelas='+ $('#opsi-kelas').val();
+	    window.location.href = base_url +'kelascatatan/siswa?id='+id+'&mapel='+ $('#opsi-mapel').val() +'&kelas='+ $('#opsi-kelas').val();
     }
 
     function hapus(data) {
@@ -282,9 +268,7 @@
         });
     }
 
-    function reload(mapel, kls, tipe, force) {
-        //var empty = mapel===''|| kls==='' || tipe==='' || mapel===null || kls===null || tipe===null;
-        //var newData = '&kelas='+kls+'&mapel='+mapel+'&tipe='+tipe;
+    function reload(mapel, kls, force) {
         var empty = mapel===''|| kls==='' || mapel===null || kls===null;
         var newData = '&kelas='+kls+'&mapel='+mapel;
         var sameData = oldData === newData;
@@ -293,63 +277,41 @@
         }
         console.log('reload',empty);
         if (!empty && !sameData) {
-            oldData = newData;
-            $('.overlay').removeClass('d-none');
-            $.ajax({
-                url: base_url + 'kelascatatan/loadcatatan',
-                type:"POST",
-                dataType:"json",
-                cache: false,
-                data: form.serialize()+newData,
-                success: function(data) {
-                    console.log(data);
-                    createTabelCatatanKelas(data);
-                    createTabelCatatanSiswa(data);
-                    $('.overlay').addClass('d-none');
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
+            window.location.href = base_url +'kelascatatan?mapel='+ mapel +'&kelas='+ kls;
         }
     }
+
 
     $(document).ready(function() {
 		var selKelas = $('#opsi-kelas');
 		var selMapel = $('#opsi-mapel');
-        var selTipe = $('#opsi-tipe');
 		form = $('#formselect');
 
-		console.log(arrKelas);
+		//console.log(arrKelas);
+		var defSelMapel = mplSelected == '' ? "selected='selected'" : "";
+		selMapel.prepend("<option value='' "+ defSelMapel +" disabled='disabled'>Pilih Mapel</option>");
+        var defSelKelas = klsSelected == '' ? "selected='selected'" : "";
+		selKelas.prepend("<option value='' "+ defSelKelas +" disabled='disabled'>Pilih Kelas</option>");
 
-		selMapel.prepend("<option value='' selected='selected' disabled='disabled'>Pilih Mapel</option>");
-		selKelas.prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
-
-		function selectKelas(idMapel) {
-			selKelas.html('');
-			selKelas.prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
-			console.log(arrKelas[idMapel]);
-
-			var arr = arrKelas[idMapel];
-			for (let k = 0; k < arr.length; k++) {
-				if (arr[k].id_kelas != null) {
-					selKelas.append('<option value="'+arr[k].id_kelas+'">'+arr[k].nama_kelas+'</option>');
-				}
-			}
-		}
+        function selectKelas(idMapel) {
+            selKelas.html('');
+            selKelas.prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
+            console.log(arrKelas[idMapel]);
+            $.each(arrKelas[idMapel], function (index, value) {
+                if (value != null) {
+                    selKelas.append('<option value="'+index+'">'+value+'</option>');
+                }
+            });
+        }
 
         selKelas.change(function(){
-            reload(selMapel.val(), $(this).val(), selTipe.val(), false);
+            reload(selMapel.val(), $(this).val(), false);
         });
 
         selMapel.on('change', function () {
-			selectKelas($(this).val());
-			reload($(this).val(), selKelas.val(), selTipe.val(), false);
+            selectKelas($(this).val());
+			//reload($(this).val(), selKelas.val(), false);
 		});
-
-        //selTipe.change(function(){
-        //    reload(selMapel.val(), selKelas.val(), $(this).val());
-        //});
 
         $('#daftarModal').on('show.bs.modal', function (e) {
             var kelas = $("#opsi-kelas option:selected").text();
@@ -383,7 +345,7 @@
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                reload(selMapel.val(), selKelas.val(), selTipe.val(), true);
+                                reload(selMapel.val(), selKelas.val(), true);
                             }
                         });
                     } else {

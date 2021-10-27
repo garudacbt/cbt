@@ -167,6 +167,7 @@
         var dataSiswa = [];
         var row = 1;
         $.each(arrSiswa, function (i, v) {
+            var noInduk = v.nisn == null || v.nisn == '' ? v.nis : v.nisn;
             var n1 = arrNilai[v.id_siswa].op1;
             var n2 = arrNilai[v.id_siswa].op2;
             var n3 = arrNilai[v.id_siswa].op3;
@@ -175,7 +176,7 @@
             var n6 = arrNilai[v.id_siswa].a;
             dataSiswa.push(
                 [
-                    v.nisn, v.nama,
+                    noInduk, v.nama,
                     n1,n2,n3,n4,n5,n6,
                     setDesk([n1, n2, n3], 1) + setDesk([n6], 2),
                     v.id_siswa,
@@ -189,7 +190,7 @@
             var item = {};
             if (i === 0) {
                 item['title'] = 'N I S N';
-                item['width'] = 100;
+                item['width'] = 160;
             } else if (i === 1) {
                 item['title'] = 'NAMA SISWA';
                 item['width'] = 250;

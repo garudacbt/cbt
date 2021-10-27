@@ -18,6 +18,7 @@
 
 	<section class="content">
 		<div class="container-fluid">
+            <!--
             <?= form_open('', array('id' => 'set-kop')) ?>
             <div class="card my-shadow">
                 <div class="card-header">
@@ -81,6 +82,7 @@
                 </div>
             </div>
             <?= form_close() ?>
+            -->
 			<div class="card my-shadow">
 				<div class="card-header">
 					<div class="card-title">

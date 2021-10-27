@@ -59,4 +59,4 @@
 		</div>
 	</section>
 
-<script src="<?= base_url() ?>/assets/app/js/master/guru/data.js"></script>
+<script src="<?= base_url() ?>/assets/app/js/master/guru/datacard.js"></script>

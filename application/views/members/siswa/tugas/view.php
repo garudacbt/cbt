@@ -8,21 +8,6 @@
 
 $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unserialize($log_selesai->file) : [];
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-    <ul class="navbar-nav ml-2">
-        <li class="nav-item">
-            <a class="nav-link btn-outline-success" href="<?= base_url('siswaview/tugas') ?>" role="button"><i
-                        class="fas fa-arrow-left"></i> Tugas Pelajaran</a>
-        </li>
-    </ul>
-
-    <div class="mx-auto text-white text-center" style="line-height: 1">
-        <span class="text-lg p-0"><?=$setting->nama_aplikasi?></span>
-        <br>
-        <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
-    </div>
-</nav>
-
 <div class="content-wrapper" style="margin-top: -1px;">
 	<div class="sticky">
 	</div>
@@ -47,8 +32,8 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 								</div>
 						</div>
 						<div class="card-body">
-							<h3 class="text-center"><?= $tugas->judul_tugas ?></h3>
-							<div class="text-justify"><?= $tugas->isi_tugas ?></div>
+							<h3 class="text-center"><?= $tugas->judul_materi ?></h3>
+							<div class="text-justify"><?= $tugas->isi_materi ?></div>
 						</div>
 					</div>
 				</div>
@@ -127,7 +112,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
     var logMulai = '<?= $log_mulai != null ? $log_mulai->log_time : '' ?>';
     var logSelesai = '<?= $log_selesai != null ? $log_selesai->log_time : '' ?>';
 	var idSiswa = '<?= $siswa->id_siswa ?>';
-	var idKjt = '<?= $tugas->id_kjt ?>';
+	var idKjt = '<?= $tugas->id_kjm ?>';
     var jamKe = '<?= $jamke ?>';
 
     var dataFiles = [];
@@ -171,7 +156,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
             setTimeout(function () {
                 $.ajax({
                     type: "GET",
-                    url: base_url + "siswaview/savelogtugas?id_siswa=" + idSiswa + '&id_kjt=' + idKjt + '&jamke=' + jamKe,
+                    url: base_url + "siswa/savelogtugas?id_siswa=" + idSiswa + '&id_kjm=' + idKjt + '&jamke=' + jamKe,
                     success: function (response) {
                         console.log(response);
                     }
@@ -186,11 +171,11 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
             e.preventDefault();
 
             var update = logSelesai === '' ? '0' : '1';
-            var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjt=' + idKjt + '&jamke=' + jamKe + '&attach='+JSON.stringify(dataFiles);
+            var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjm=' + idKjt + '&jamke=' + jamKe + '&attach='+JSON.stringify(dataFiles);
 
             $.ajax({
                 type: 'POST',
-                url: base_url + 'siswaview/savefiletugasselesai',
+                url: base_url + 'siswa/savefiletugasselesai',
                 data: dataUpload,
                 success: function (data) {
                     if (data.status === 'error') {
@@ -226,7 +211,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
         $("#picupload").on('change', function (e) {
             var form = new FormData($("#formfile")[0]);
             //console.log('nama file', names_files);
-            uploadAttach(base_url + 'siswaview/uploadfile', form);
+            uploadAttach(base_url + 'siswa/uploadfile', form);
             //createPreviewFile($(this), e)
         });
 
@@ -246,12 +231,12 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 
     function saveFileToDb() {
         var update = logSelesai === '' ? '0' : '1';
-        var dataUpload = $('#formhasil').serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&jamke=' + jamKe + '&id_kjt=' + idKjt + '&attach='+JSON.stringify(dataFiles);
+        var dataUpload = $('#formhasil').serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&jamke=' + jamKe + '&id_kjm=' + idKjt + '&attach='+JSON.stringify(dataFiles);
         console.log(dataUpload);
 
         $.ajax({
             type: 'POST',
-            url: base_url + 'siswaview/savefiletugasselesai',
+            url: base_url + 'siswa/savefiletugasselesai',
             data: dataUpload,
             success: function (data) {
                 showSuccessToast(data.status);
@@ -308,7 +293,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
         $.ajax({
             data: {src: src},
             type: "POST",
-            url: base_url + "siswaview/deletefile",
+            url: base_url + "siswa/deletefile",
             cache: false,
             success: function (response) {
                 console.log(response);

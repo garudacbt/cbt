@@ -28,8 +28,6 @@
 			</aside>
 			<!-- /.control-sidebar -->
 
-			</div>
-
 			<!-- Required JS -->
 			<!-- v3 -->
 			<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

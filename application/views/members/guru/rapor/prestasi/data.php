@@ -134,6 +134,7 @@
         var dataSiswa = [];
         var row = 1;
         $.each(arrSiswa, function (i, v) {
+            var noInduk = v.nisn == null || v.nisn == '' ? v.nis : v.nisn;
             var n1 = arrNilai[v.id_siswa].ranking;
             var n3 = arrNilai[v.id_siswa].p1;
             var n4 = arrNilai[v.id_siswa].p1_desk;
@@ -145,7 +146,7 @@
             calcNilai(v.id_siswa);
 
             var arrData = [
-                v.nisn, v.nama,
+                noInduk, v.nama,
                 '=SUM(M'+row+':AZ'+row+')',
                 '',//'=RANK_EQ(C'+row+',[C1:C'+arrSiswa.length+'])',
                 '',//setDesk(n1),
@@ -166,7 +167,7 @@
             var item = {};
             if (i === 0) {
                 item['title'] = 'N I S N';
-                item['width'] = 100;
+                item['width'] = 160;
             } else if (i === 1) {
                 item['title'] = 'NAMA SISWA';
                 item['width'] = 250;

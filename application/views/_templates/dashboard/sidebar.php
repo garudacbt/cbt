@@ -33,11 +33,12 @@
 				<?php
 				$page = $this->uri->segment(1);
 				$master = ["datatahun", "dataguru", "datajurusan", "datakelas", "datamapel", "dataekstra", "datasiswa"];
-				$elearning = ["kelasjadwal", "kelasmateri", "kelastugas"];
+				$elearning = ["kelasjadwal", "kelasmateri", "kelastugas", "kelasmaterijadwal"];
 				$infoelearning = ["kelascetak", "kelasstatus", "kelasabsensiharian", "kelasabsensiharianmapel", "kelasabsensibulanan", "kelasnilai", "kelascatatan"];
 				$cbt = ["cbtjenis", "cbtruang", "cbtsesi", "cbtsesisiswa", "cbtnomorpeserta", "cbtjadwal", "cbtbanksoal", "cbtalokasi", "cbtpengawas", "cbttoken"];
-				$infoujian = ["cbtcetak", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtanalisis"];
+				$infoujian = ["cbtcetak", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtanalisis", "cbtrekap"];
 				$usermanager = ["useradmin", "userguru", "usersiswa"];
+                $databases = ["dbmanager", "update"];
 				$users = ["users"];
 				?>
 				<li class="nav-item">
@@ -77,12 +78,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?=base_url('dataguru')?>" class="nav-link <?=$page==='dataguru'?"active":""?>">
-                                <i class="fa fa-chalkboard-teacher nav-icon"></i>
-                                <p>Guru</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?=base_url('datasiswa')?>" class="nav-link <?=$page==='datasiswa'?"active":""?>">
                                 <i class="fa fa-users nav-icon"></i>
                                 <p>Siswa</p>
@@ -92,6 +87,12 @@
                             <a href="<?=base_url('datakelas')?>" class="nav-link <?=$page==='datakelas'?"active":""?>">
                                 <i class="fa fa-school nav-icon"></i>
                                 <p>Kelas / Rombel</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('dataguru')?>" class="nav-link <?=$page==='dataguru'?"active":""?>">
+                                <i class="fa fa-chalkboard-teacher nav-icon"></i>
+                                <p>Guru</p>
                             </a>
                         </li>
                     </ul>
@@ -111,18 +112,25 @@
 								<p>Jadwal Pelajaran</p>
 							</a>
 						</li>
+                        <?php $pageact = $this->uri->segment(2); ?>
 						<li class="nav-item">
-							<a href="<?=base_url('kelasmateri')?>" class="nav-link <?=$page==='kelasmateri'?"active":""?>">
+							<a href="<?=base_url('kelasmateri/materi')?>" class="nav-link <?=$pageact==='materi'?"active":""?>">
 								<i class="fa fa-pencil-ruler nav-icon"></i>
 								<p>Materi</p>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="<?=base_url('kelastugas')?>" class="nav-link <?=$page==='kelastugas'?"active":""?>">
-								<i class="fa fa-drafting-compass nav-icon"></i>
-								<p>Tugas</p>
-							</a>
-						</li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('kelasmateri/tugas')?>" class="nav-link <?=$pageact==='tugas'?"active":""?>">
+                                <i class="fa fa-drafting-compass nav-icon"></i>
+                                <p>Tugas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('kelasmaterijadwal')?>" class="nav-link <?=$page==='kelasmaterijadwal'?"active":""?>">
+                                <i class="fa fa-calendar-alt nav-icon"></i>
+                                <p>Jadwal Materi/Tugas</p>
+                            </a>
+                        </li>
 					</ul>
 				</li>
 				<li class="nav-item has-treeview <?= in_array($page, $cbt)  ? "menu-open" : ""  ?>">
@@ -217,33 +225,27 @@
 						<li class="nav-item">
 							<a href="<?=base_url('kelasstatus')?>" class="nav-link <?=$page==='kelasstatus'?"active":""?>">
 								<i class="far fa-clipboard nav-icon"></i>
-								<p>Hasil Siswa</p>
+                                <p>Nilai Harian</p>
 							</a>
 						</li>
                         <!--
                         <li class="nav-item">
-                            <a href="<?=base_url('kelascatatan')?>" class="nav-link <?=$page==='kelascatatan'?"active":""?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Catatan Guru</p>
+                            <a href="<?=base_url('kelasabsensiharianmapel')?>" class="nav-link <?=$page==='kelasabsensiharianmapel'?"active":""?>">
+                                <i class="fa fa-tasks nav-icon"></i>
+                                <p>Kehadiran dan Nilai</p>
                             </a>
                         </li>
                         -->
 						<li class="nav-item">
 							<a href="<?=base_url('kelasabsensiharian')?>" class="nav-link <?=$page==='kelasabsensiharian'?"active":""?>">
 								<i class="fa fa-user-check nav-icon"></i>
-								<p>Absensi Harian</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?=base_url('kelasabsensiharianmapel')?>" class="nav-link <?=$page==='kelasabsensiharianmapel'?"active":""?>">
-								<i class="fa fa-tasks nav-icon"></i>
-								<p>Absensi Mapel Harian</p>
+								<p>Kehadiran Harian</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="<?=base_url('kelasabsensibulanan')?>" class="nav-link <?=$page==='kelasabsensibulanan'?"active":""?>">
 								<i class="fa fa-tasks nav-icon"></i>
-								<p>Absensi Bulanan</p>
+								<p>Kehadiran Bulanan</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -269,12 +271,14 @@
 								<p>Cetak</p>
 							</a>
 						</li>
+                        <!--
 						<li class="nav-item">
 							<a href="<?=base_url('cbtpeserta')?>" class="nav-link <?=$page==='cbtpeserta'?"active":""?>">
 								<i class="fa fa-list-ol nav-icon"></i>
 								<p>Daftar Peserta</p>
 							</a>
 						</li>
+						-->
 						<li class="nav-item">
 							<a href="<?=base_url('cbtstatus')?>" class="nav-link <?=$page==='cbtstatus'?"active":""?>">
 								<i class="fa fa-user-clock nav-icon"></i>
@@ -293,12 +297,37 @@
                                 <p>Analisis Soal</p>
                             </a>
                         </li>
-					</ul>
+                        <li class="nav-item">
+                            <a href="<?=base_url('cbtrekap')?>" class="nav-link <?=$page==='cbtrekap'?"active":""?>">
+                                <i class="nav-icon fas fa-trophy"></i>
+                                <p>Rekap Nilai Ujian</p>
+                            </a>
+                        </li>
+                    </ul>
 				</li>
+                <li class="nav-header">RAPOR</li>
                 <li class="nav-item">
-                    <a href="<?=base_url('cbtrekap')?>" class="nav-link <?=$page==='cbtrekap'?"active":""?>">
-                        <i class="nav-icon fas fa-trophy"></i>
-                        <p>Rekap Nilai Ujian</p>
+                    <a href="<?= base_url('rapor') ?>" class="nav-link <?= $page === 'rapor' ? "active" : "" ?>">
+                        <i class="fas fa-book nav-icon"></i>
+                        <p>Setting Rapor</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('bukurapor') ?>" class="nav-link <?= $page === 'bukurapor' ? "active" : "" ?>">
+                        <i class="fas fa-book nav-icon"></i>
+                        <p>Kumpulan Nilai Rapor</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('bukuinduk') ?>" class="nav-link <?= $page === 'bukuinduk' ? "active" : "" ?>">
+                        <i class="fas fa-book nav-icon"></i>
+                        <p>Buku Induk</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?=base_url('dataalumni')?>" class="nav-link <?=$page==='dataalumni'?"active":""?>">
+                        <i class="fa fa-users nav-icon"></i>
+                        <p>Alumni</p>
                     </a>
                 </li>
 				<li class="nav-header">PENGATURAN</li>
@@ -337,18 +366,29 @@
 						</li>
 					</ul>
 				</li>
-                <li class="nav-item">
-                    <a href="<?= base_url('rapor') ?>" class="nav-link <?= $page === 'rapor' ? "active" : "" ?>">
-                        <i class="fas fa-book nav-icon"></i>
-                        <p>Setting Rapor</p>
+                <li class="nav-item has-treeview <?= in_array($page, $databases)  ? "menu-open" : ""  ?>">
+                    <a href="#" class="nav-link <?= in_array($page, $databases) ?"active":""?>">
+                        <i class="nav-icon fa fa-users-cog"></i>
+                        <p>
+                            Database
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?=base_url('dbmanager')?>" class="nav-link <?=$page==='dbmanager'?"active":""?>">
+                                <i class="fas fa-database nav-icon"></i>
+                                <p>Backup/Restore</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('update')?>" class="nav-link <?=$page==='update'?"active":""?>">
+                                <i class="fas fa-upload nav-icon"></i>
+                                <p>Update</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-				<li class="nav-item">
-					<a href="<?= base_url('dbmanager') ?>" class="nav-link <?= $page === 'dbmanager' ? "active" : "" ?>">
-						<i class="fas fa-database nav-icon"></i>
-						<p>DB Manager</p>
-					</a>
-				</li>
                 <li class="nav-item">
                     <a href="#" onclick="logout()" class="nav-link">
                         <i class="fas fa-sign-out-alt nav-icon"></i>

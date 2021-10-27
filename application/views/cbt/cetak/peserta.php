@@ -143,6 +143,10 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
+    var logoKanan = '<?= isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : "" ?>';
+    var logoKiri = '<?= isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>';
+    var sklh = '<?= isset($kop->sekolah) ? $kop->sekolah : "" ?>';
+
     function createPreview(data) {
         console.log(data);
         var pages = Math.ceil(data.length / 10);
@@ -164,11 +168,11 @@
                     '           style="width: 100%; border: 0;">\n' +
                     '        <tr>\n' +
                     '            <td style="width:15%;">\n' +
-                    '                <img id="prev-logo-kanan-print" src="<?= base_url() . $kop->logo_kiri ?>"\n' +
+                    '                <img id="prev-logo-kanan-print" src="'+logoKanan+'"\n' +
                     '                     style="width:85px; height:85px; margin: 6px;">\n' +
                     '            </td>\n' +
                     '            <td style="width:70%; text-align: center;">\n' +
-                    '                <div style="line-height: 1.1;font-size: 13pt"><?= $kop->sekolah ?></div>\n' +
+                    '                <div style="line-height: 1.1;font-size: 13pt">'+sklh+'</div>\n' +
                     '                <div style="line-height: 1.1;font-size: 16pt"><b>DAFTAR PESERTA</b>\n' +
                     '                </div>\n' +
                     '                <div style="line-height: 1.1;font-size: 14pt" id="jenis-ujian">Jenis\n' +
@@ -179,7 +183,7 @@
                     //'                    Semester: <?= $smt_active->smt ?></div>\n' +
                     '            </td>\n' +
                     '            <td style="width:15%;">\n' +
-                    '                <img id="prev-logo-kiri-print" src="<?= base_url() . $kop->logo_kanan ?>"\n' +
+                    '                <img id="prev-logo-kiri-print" src="'+logoKiri+'"\n' +
                     '                     style="width:85px; height:85px; margin: 6px; border-style: none">\n' +
                     '            </td>\n' +
                     '        </tr>\n' +
