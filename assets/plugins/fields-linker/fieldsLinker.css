@@ -1,0 +1,42 @@
+.fieldsLinker div {
+    font-weight: bold;
+}
+
+.fieldsLinker ul {
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    font-weight: normal;
+}
+
+.fieldsLinker li {
+    border: solid 1px grey;
+    padding: 5px 2px 5px 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    color: black;
+    border-radius: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.fieldsLinker li[data-mandatory='true'] {
+    background-color: #D7504C;
+    background: linear-gradient(#D7504C, #C12F2B);
+    color: white;
+}
+
+.fieldsLinker li.inactive {
+    cursor: default;
+}
+
+.fieldsLinker li.linkOver {
+    border: solid 2px transparent; /*plus 1px*/
+    padding: 4px 1px 4px 7px; /* minus 1px*/
+}
+
