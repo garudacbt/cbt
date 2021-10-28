@@ -3,7 +3,10 @@
     <div class="col-md-10 col-lg-8">
         <div class="card">
             <div class="card-body">
-                <div class="text-center">Selamat Datang</div>
+                <div class="text-center">
+                    Selamat Datang
+                    <br> Install GarudaCBT
+                </div>
             </div>
         </div>
         <?=form_open('',array('id'=>'installapp'))?>
