@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,8 +41,8 @@
           <entry key="html" value="20" />
           <entry key="jpg" value="1" />
           <entry key="json" value="2" />
-          <entry key="md" value="6" />
-          <entry key="php" value="26" />
+          <entry key="md" value="7" />
+          <entry key="php" value="27" />
           <entry key="png" value="7" />
           <entry key="rst" value="1" />
           <entry key="sql" value="7" />
@@ -58,8 +58,8 @@
           <entry key="HTML" value="20" />
           <entry key="Image" value="8" />
           <entry key="JSON" value="2" />
-          <entry key="Markdown" value="6" />
-          <entry key="PHP" value="26" />
+          <entry key="Markdown" value="7" />
+          <entry key="PHP" value="27" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="SQL" value="7" />
           <entry key="SVG" value="8" />
@@ -69,9 +69,10 @@
         <counts>
           <entry key="css" value="5" />
           <entry key="gitignore" value="50" />
-          <entry key="html" value="441" />
+          <entry key="html" value="442" />
           <entry key="json" value="1" />
-          <entry key="php" value="391" />
+          <entry key="md" value="180" />
+          <entry key="php" value="396" />
           <entry key="svg" value="18" />
           <entry key="txt" value="130" />
         </counts>
@@ -80,9 +81,10 @@
         <counts>
           <entry key="CSS" value="5" />
           <entry key="Git file" value="22" />
-          <entry key="HTML" value="441" />
+          <entry key="HTML" value="442" />
           <entry key="JSON" value="1" />
-          <entry key="PHP" value="391" />
+          <entry key="Markdown" value="180" />
+          <entry key="PHP" value="396" />
           <entry key="PLAIN_TEXT" value="158" />
           <entry key="SVG" value="18" />
         </counts>
@@ -91,11 +93,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="92" selection-start-line="92" selection-end-line="92" />
+            <state relative-caret-position="409">
+              <caret line="97" selection-start-line="97" selection-end-line="97" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/config/database.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="340">
+                <caret line="50" column="4" lean-forward="true" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -130,9 +153,13 @@
       <find>gradient</find>
       <find>materi</find>
       <find>CREATE TABLE</find>
+      <find>o</find>
     </findStrings>
     <replaceStrings>
       <replace>tugas</replace>
+      <replace>*</replace>
+      <replace>*</replace>
+      <replace>*</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -154,11 +181,12 @@
         <option value="$PROJECT_DIR$/application/views/dashboard.php" />
         <option value="$PROJECT_DIR$/application/models/DAOFactory.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/options.json" />
         <option value="$PROJECT_DIR$/assets/app/db/master.sql" />
         <option value="$PROJECT_DIR$/application/views/install/setup.php" />
         <option value="$PROJECT_DIR$/docs/index.html" />
+        <option value="$PROJECT_DIR$/application/config/database.php" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -249,6 +277,17 @@
             <path>
               <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
               <item name="docs" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -318,7 +357,7 @@
       <workItem from="1620215578798" duration="489000" />
       <workItem from="1635349042325" duration="1574000" />
       <workItem from="1635395326622" duration="1627000" />
-      <workItem from="1635399351658" duration="818000" />
+      <workItem from="1635399351658" duration="2350000" />
     </task>
     <task id="LOCAL-00001" summary="#1">
       <created>1618404952657</created>
@@ -572,17 +611,24 @@
       <option name="project" value="LOCAL" />
       <updated>1635399952993</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="versi 1.2-beta">
+      <created>1635400284052</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1635400284052</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33820000" />
+    <option name="totallyTimeSpent" value="35352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31240544" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24810892" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -787,16 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="51">
-            <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/options.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -820,9 +856,6 @@
           <caret line="847" column="1" lean-forward="true" selection-start-line="847" selection-start-column="1" selection-end-line="847" selection-end-column="1" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/database.php">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/uploads/bank_soal/index.html">
       <provider selected="true" editor-type-id="text-editor" />
@@ -867,8 +900,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="92" selection-start-line="92" selection-end-line="92" />
+        <state relative-caret-position="409">
+          <caret line="97" selection-start-line="97" selection-end-line="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="340">
+            <caret line="50" column="4" lean-forward="true" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
