@@ -5,6 +5,7 @@ $(document).ready(function () {
     $('#formguru').on('submit', function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
+        console.log('klik submit');
         var btn = $('#submit');
 
         btn.attr('disabled', 'disabled').text('Wait...');
@@ -14,6 +15,7 @@ $(document).ready(function () {
             dataType: "JSON",
             type: 'POST',
             success: function (response) {
+                console.log('sukses');
                 btn.removeAttr('disabled').text('Simpan');
                 if (response.status) {
                     swal.fire('Sukses', 'Data Berhasil disimpan', 'success')
@@ -36,6 +38,17 @@ $(document).ready(function () {
                         }
                     });
                 }
+            },error: function (xhr, status, error) {
+                console.log("error", e.responseText);
+                $.toast({
+                    heading: "ERROR!!",
+                    text: "Gagal menyimpan data",
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 5000,
+                    position: 'top-right'
+                });
             }
         })
     });
@@ -130,7 +143,8 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function (data) {
                 window.history.back();
-            }, error: function (xhr, status, error) {
+            },
+            error: function (xhr, status, error) {
                 console.log("error", e.responseText);
                 $.toast({
                     heading: "ERROR!!",

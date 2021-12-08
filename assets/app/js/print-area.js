@@ -65,8 +65,10 @@ jQuery.fn.print = function(docTitle){
 	objDoc.close();
 
 	// Print the document.
-	objFrame.focus();
-	objFrame.print();
+    setTimeout(function() {
+        objFrame.focus();
+        objFrame.print();
+    }, 250);
 
 	// Have the frame remove itself in about a minute so that
 	// we don't build up too many of these frames.

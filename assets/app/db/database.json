@@ -2299,22 +2299,82 @@
     "columns": [
       {
         "name": "id_pengawas",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "id_tp",
         "col_type": "int(11)",
         "type": "int",
         "collation": null,
         "max_length": "10",
         "default": null,
         "comment": "",
-        "extra": "auto_increment",
+        "extra": "",
         "nullable": "NO",
-        "primary": "PRI"
+        "primary": ""
+      },
+      {
+        "name": "id_smt",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
       },
       {
         "name": "id_jadwal",
-        "col_type": "text",
-        "type": "text",
+        "col_type": "varchar(50)",
+        "type": "varchar",
         "collation": "utf8mb4_general_ci",
-        "max_length": "65535",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "id_ruang",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "id_sesi",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "id_guru",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "50",
         "default": null,
         "comment": "",
         "extra": "",
@@ -6685,7 +6745,7 @@
         "default": "'1'",
         "comment": "",
         "extra": "",
-        "nullable": "NO",
+        "nullable": "YES",
         "primary": ""
       },
       {

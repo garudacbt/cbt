@@ -160,6 +160,18 @@ function createDropdownKelasWali() {
 	}
 }
 
+function sortByLevel(a, b){
+    var aID = a.level_id.toLowerCase();
+    var bID = b.level_id.toLowerCase();
+    return ((aID < bID) ? -1 : ((aID > bID) ? 1 : 0));
+}
+
+function sortByKode(a, b){
+    var aID = a.nama_kelas.toLowerCase();
+    var bID = b.nama_kelas.toLowerCase();
+    return ((aID < bID) ? -1 : ((aID > bID) ? 1 : 0));
+}
+
 $(document).ready(function () {
 
 	$('#mapel').select2();
@@ -170,8 +182,12 @@ $(document).ready(function () {
         url: base_url + "dataguru/getDataKelas",
 		type: "GET",
 		success: function (data) {
-			kelas = JSON.parse(data);
-			createDropdownKelasMapel();
+            kelas = JSON.parse(data);
+            console.log('kelas', kelas);
+            kelas.sort(sortByKode);
+            kelas.sort(sortByLevel);
+
+            createDropdownKelasMapel();
             createDropdownKelasEkstra();
 			createDropdownKelasWali();
 		}, error: function (xhr, status, error) {

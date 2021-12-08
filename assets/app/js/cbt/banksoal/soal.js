@@ -1,5 +1,6 @@
 var nomor_soal = 1;
-
+var fieldLinks;
+var jenisSoal;
 function initTextArea() {
     $('.textjawaban2').summernote({
         placeholder: 'Tulis Jawaban disini',
@@ -7,6 +8,7 @@ function initTextArea() {
         minHeight: 50,
         toolbar: [
             ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontsize', ['fontsize']],
             //['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
@@ -175,7 +177,11 @@ function inArray(val, array) {
 
 var old_id = 11;
 function getSoalById(id_bank, number, id, jenis_soal) {
-	$('#btn-'+old_id).removeClass('active');
+    jenisSoal = jenis_soal;
+    $('#empty-soal').addClass('d-none');
+    $('#not-empty-soal').addClass('d-none');
+
+    $('#btn-'+old_id).removeClass('active');
 	$('#btn-'+id).addClass('active');
 	$('#jenis-id').val(jenis_soal);
 	if (jenis_soal === '1') {
@@ -359,6 +365,8 @@ function getSoalById(id_bank, number, id, jenis_soal) {
 				$('#loading').addClass('d-none');
 				console.log('soal', data);
 				if (data == null) {
+                    $('#empty-soal').removeClass('d-none');
+                    $('#not-empty-soal').addClass('d-none');
 					$('#soal-id').val('0');
 					$('#method').val('add');
 					$('#textsoal').summernote('code', '');
@@ -368,6 +376,8 @@ function getSoalById(id_bank, number, id, jenis_soal) {
 					$('#jawaban').prop('selectedIndex', 0).change();
 					$('#jawaban-essai').summernote('code', '');
 				} else {
+                    $('#empty-soal').addClass('d-none');
+                    $('#not-empty-soal').removeClass('d-none');
 					$('#soal-id').val(data.id_soal);
 					$('#method').val('edit');
 
@@ -375,6 +385,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                     var sSoal = $($.parseHTML(checkSoal));
                     sSoal.find(`img`).each(function () {
                         var curSrc = $(this).attr('src');
+                        curSrc.replaceAll(base_url, '');
                         if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
                             $(this).attr('src', base_url+curSrc);
                         } else if (curSrc.indexOf(base_url) === -1) {
@@ -386,6 +397,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
 
                     sSoal.find(`video`).each(function () {
                         var curSrc = $(this).attr('src');
+                        curSrc.replace(base_url, '');
                         if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
                             $(this).attr('src', base_url+curSrc);
                         } else if (curSrc.indexOf(base_url) === -1) {
@@ -397,6 +409,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
 
                     sSoal.find(`audio`).each(function () {
                         var curSrc = $(this).attr('src');
+                        curSrc.replace(base_url, '');
                         if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
                             $(this).attr('src', base_url+curSrc);
                         } else if (curSrc.indexOf(base_url) === -1) {
@@ -413,17 +426,29 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                         let arrAbjad = ['a', 'b', 'c', 'd', 'e'];
 
                         $.each(arrJawaban, function (i, item) {
-                            var chekJawaban = arrJawaban[i] == null ? '<div></div>' : arrJawaban[i];
+                            var chekJawaban = arrJawaban[i] == null ? '' : arrJawaban[i];
                             var sJawabPg = $($.parseHTML(chekJawaban));
                             sJawabPg.find(`img`).each(function () {
-                                var curSrc = $(this).attr('src');
+                                var curSrc = $(this).attr('src').replaceAll(base_url, '');
+                                console.log('img', curSrc);
                                 if (curSrc.indexOf("http") === -1 || curSrc.indexOf("data:image") === -1) {
+                                    console.log('no http',);
                                     $(this).attr('src', base_url + curSrc);
+                                    /*
+                                    if (curSrc.indexOf(base_url) === -1) {
+                                        $(this).attr('src', base_url + curSrc);
+                                    } else {
+                                        curSrc.replaceAll(base_url, '');
+                                        $(this).attr('src', base_url + curSrc);
+                                    }
+                                    */
                                 } else if (curSrc.indexOf(base_url) === -1) {
+                                    console.log('no base url',);
                                     var pathUpload = 'uploads';
                                     var forReplace = curSrc.split(pathUpload);
                                     $(this).attr('src', base_url + pathUpload + forReplace[1]);
                                 }
+                                console.log('img', curSrc.replaceAll(base_url, ''));
                             });
                             $('#textjawaban_' + arrAbjad[i]).summernote('code', sJawabPg);
 
@@ -937,7 +962,7 @@ function createTableJodohkan(data) {
         }
     });
 }
-var fieldLinks;
+
 function createListJodohkan(data) {
     var list = '<div class="bonds" id="original" style="display:block;"></div>' +
         //'<button type="button" class="btn fieldLinkerSave btn-sm btn-primary">Save links</button>\n' +
@@ -1054,6 +1079,7 @@ $(document).ready(function() {
         minHeight: 50,
         toolbar: [
             ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontsize', ['fontsize']],
             //['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
@@ -1117,14 +1143,18 @@ $(document).ready(function() {
         //console.log(inputKosong());
         //console.log("data:", $(this).serialize());
         //var isDisabled = $('#type-opsi').prop('disabled');
-        var dataJodohkan = '';
-        if ($('#table-jodohkan').length > 0) {
-            dataJodohkan = JSON.stringify(getTableData());
-        } else {
-            var datalist = convertListToTable(getListData());
-            dataJodohkan = JSON.stringify(datalist.jawaban);
+
+        var jwbJodohkan = '';
+        if (jenisSoal == '3') {
+            var dataJodohkan = '';
+            if ($('#table-jodohkan').length > 0) {
+                dataJodohkan = JSON.stringify(getTableData());
+            } else {
+                var datalist = convertListToTable(getListData());
+                dataJodohkan = JSON.stringify(datalist.jawaban);
+            }
+            jwbJodohkan = jenis == '3' ? '&jawaban_jodohkan=' + dataJodohkan + '&model=' + $('#model-opsi').val() + '&type=' + $('#type-opsi').val() : '';
         }
-        var jwbJodohkan = jenis == '3' ? '&jawaban_jodohkan=' + dataJodohkan + '&model=' + $('#model-opsi').val() + '&type=' + $('#type-opsi').val() : '';
         var dataPost = $(this).serialize()+"&nomor_soal="+nomor_soal + jwbJodohkan;
         console.log(dataPost);
 
@@ -1409,6 +1439,7 @@ function convertTableToList(array) {
 }
 
 function convertListToTable(array) {
+    if (jenisSoal != '3') return;
     var results = fieldLinks.fieldsLinker("getLinks");
     var links = results.links;
     console.log('linked', links);
@@ -1447,3 +1478,7 @@ function convertListToTable(array) {
     item['jawaban'] = arrayres;
     return item;
 }
+
+//function replaceAll(str, find, replace) {
+//    return str.replace(new RegExp(find, 'g'), replace);
+//}
