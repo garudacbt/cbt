@@ -26,7 +26,7 @@
 
             <div class="card my-shadow mb-4">
                 <div class="card-header">
-                    <h6 class="card-title"><b>Upload Soal <?= $bank->nama_mapel ?></b></h6>
+                    <h6 class="card-title"><b>Upload Soal <?= $bank->nama_mapel." kelas ".$bank->bank_level ?></b></h6>
                     <input type="hidden" name="bank_id" id="formInput" class="form-control">
                 </div>
                 <div class="card-body">

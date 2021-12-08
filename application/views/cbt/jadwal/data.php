@@ -22,109 +22,6 @@ if (isset($jadwal_ujian)) {
 
     <section class="content">
         <div class="container-fluid">
-            <!--
-            <div class="card card-default my-shadow mb-4">
-                <div class="card-header">
-                    <h6 class="card-title">Ujian Terjadwal</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            Pilih Kelas:
-                            <br>
-                            <?php
-            $arrKls = [];
-            foreach ($kelas as $kls) {
-                array_push($arrKls, $kls->level);
-            }
-            $arrKls = array_unique($arrKls);
-
-            if (count($arrKls) > 0) :
-                foreach ($arrKls as $v) :?>
-                                    <a href="<?= base_url('cbtjadwal?level=' . $v) ?>"
-                                       class="mt-1 btn <?= $level == $v ? 'btn-success' : 'btn-outline-success' ?>"
-                                       id="btn-<?= $v ?>">Kelas Level: <?= $v ?>
-                                    </a>
-                                <?php endforeach;
-            else: ?>
-                                <div class="col-12 p-0">
-                                    <div class="alert alert-default-warning shadow align-content-center" role="alert">
-                                        Belum ada data kelas untuk Tahun Pelajaran <b><?= $tp_active->tahun ?></b>
-                                        Semester:
-                                        <b><?= $smt_active->smt ?></b>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <hr>
-
-                    <?php
-            if ($level != '0') : ?>
-                        <?= form_open('setJadwal', array('id' => 'setjadwal')); ?>
-                        <div class="card">
-                            <div class="card-body bg-gray-light">
-                                <div class="row" id="inputs">
-                                    <div class="col-md-3 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Tgl Mulai</span>
-                                            </div>
-                                            <input id="tgl_mulai" type="text" name="tgl_mulai" class="form-control"
-                                                   value="<?= $jadwal_ujian->dari ?>" autocomplete="off"
-                                                   placeholder="Tanggal Mulai" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Tgl Selesai</span>
-                                            </div>
-                                            <input id="tgl_selesai" type="text" name="tgl_selesai" class="form-control"
-                                                   value="<?= $jadwal_ujian->sampai ?>" autocomplete="off"
-                                                   placeholder="Tanggal Selesai" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Jumlah Mapel</span>
-                                            </div>
-                                            <input id="jml-mapel" type="number" class="form-control" name="jml_mapel"
-                                                   value="<?= $jadwal_ujian->jml_mapel_hari == '' ? 0 : $jadwal_ujian->jml_mapel_hari ?>"
-                                                   placeholder="Jml Mapel"
-                                                   required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Istirahat</span>
-                                            </div>
-                                            <?php
-                $kali[''] = 'Jml Istirahat';
-                $kl = 1;
-                for ($k = 0; $k < 2; $k++) {
-                    $kali[$kl] = $kl . ' kali';
-                    $kl += 1;
-                }
-
-                echo form_dropdown('jum_ist', $kali, count($jmlIst), 'id="jum_ist" class="form-control" placeholder="Jml Istirahat" required'); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <input type="hidden" name="level" value="<?= $level ?>" class="form-control">
-                                <button class="btn btn-primary float-right">Generate Jadwal</button>
-                            </div>
-                        </div>
-                        <?= form_close() ?>
-                    <?php endif; ?>
-                </div>
-            </div>
-            -->
-
             <div class="card card-default my-shadow mb-4">
                 <div class="card-header">
                     <h6 class="card-title">Jadwal Ujian/Ulangan</h6>
@@ -141,28 +38,6 @@ if (isset($jadwal_ujian)) {
                 </div>
                 <div class="card-body">
                     Kode Background Jadwal:
-                    <!--
-                    <div class="row">
-                        <div class="col-6 col-md-4">
-                            <span class="mr-3"><i class="fas fa-square text-gray"></i> Tidak digunakan</span>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <span class="mr-3"><i class="fas fa-square text-maroon"></i> Belum dimulai</span>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <span class="mr-3"><i class="fas fa-square text-yellow"></i> Sedang dilaksanakan</span>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <span class="mr-3"><i class="fas fa-square text-fuchsia"></i> Selesai, belum rekap nilai</span>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <span><i class="fas fa-square text-success"></i> Selesai, sudah rekap nilai</span>
-                        </div>
-                        <div class="col-6 col-lg-4">
-                        </div>
-
-                    </div>
-                    -->
                     <table class="w-100">
                         <tr>
                             <td class="p-1" style="width: 20px"><i class="fas fa-square text-muted"></i></td>
@@ -185,6 +60,16 @@ if (isset($jadwal_ujian)) {
                     </table>
                 </div>
             </div>
+            <div class="alert alert-default-danger" id="bulk-delete">
+                <?= form_open('', array('id' => 'hapus_semua')) ?>
+                <input style="width: 28px; height: 28px" class="check-all m-1" id="check-all" type="checkbox">
+                <label for="check-all" class="align-middle">Pilih Semua</label>
+                <button id="submit-hapus" type="submit" class="btn btn-danger mb-3 ml-4 d-none">
+                    <i class="far fa-trash-alt"></i> Hapus Jadwal Terpilih
+                </button>
+                <?= form_close() ?>
+            </div>
+
             <?php
             if (count($jadwals) === 0) : ?>
                 <div class="card card-default my-shadow mb-4">
@@ -201,11 +86,13 @@ if (isset($jadwal_ujian)) {
                         <?php endif; ?>
                     </div>
                 </div>
-
             <?php else:
                 //echo '<pre>';
             //var_dump($jadwals);
                 //echo '</pre>';
+                ?>
+            <div id="konten-jadwal">
+                <?php
                 foreach ($jadwals as $title => $arrjadwal) : ?>
                     <div class="card card-default my-shadow mb-4">
                         <div class="card-header">
@@ -354,15 +241,18 @@ if (isset($jadwal_ujian)) {
                                                     </div>
                                                 </div>
                                                 <hr style="margin-top:0; margin-bottom: 0">
-                                                <div class="small-box-footer p-2 text-right">
-                                                    <a href="<?= $enableEdit ? base_url('cbtjadwal/add/' . $jadwal->id_jadwal . '?enable=' . $sedangdikerjakan) : '#' ?>"
-                                                       class="btn btn-warning <?= $enableEdit ? '' : 'btn-disabled' ?>">
-                                                        <i class="fas fa-pencil-alt"></i><span class="ml-2"> Edit</span>
-                                                    </a>
-                                                    <button class="btn btn-danger"
-                                                            onclick="hapus(<?= $jadwal->id_jadwal ?>)">
-                                                        <i class="fas fa-trash"></i><span class="ml-2"> Hapus</span>
-                                                    </button>
+                                                <div class="small-box-footer p-2">
+                                                    <input name="checked[]" value="<?=$jadwal->id_jadwal?>" class="check-jadwal float-left" type="checkbox" style="width: 28px;height: 28px">
+                                                    <div class="text-right">
+                                                        <a href="<?= $enableEdit ? base_url('cbtjadwal/add/' . $jadwal->id_jadwal . '?enable=' . $sedangdikerjakan) : '#' ?>"
+                                                           class="btn btn-warning <?= $enableEdit ? '' : 'btn-disabled' ?>">
+                                                            <i class="fas fa-pencil-alt"></i><span class="ml-2"> Edit</span>
+                                                        </a>
+                                                        <button class="btn btn-danger"
+                                                                onclick="hapus(<?= $jadwal->id_jadwal ?>)">
+                                                            <i class="fas fa-trash"></i><span class="ml-2"> Hapus</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -372,6 +262,7 @@ if (isset($jadwal_ujian)) {
                         <?php endforeach; ?>
                     </div>
                 <?php endforeach; endif; ?>
+            </div>
         </div>
     </section>
 </div>
@@ -425,4 +316,110 @@ if (isset($jadwal_ujian)) {
             }
         });
     }
+
+    $(document).ready(function () {
+        var count = $('#konten-jadwal .check-jadwal').length;
+        if (count == 0) {
+            $('#bulk-delete').addClass('d-none');
+        }
+
+        var unchecked = [];
+        var checked = [];
+
+        function findUnchecked() {
+            unchecked = [];
+            checked = [];
+            var count = $('#konten-jadwal .check-jadwal').length;
+
+            $("#konten-jadwal .check-jadwal:not(:checked)").each(function () {
+                unchecked.push($(this).val());
+            });
+            $("#konten-jadwal .check-jadwal:checked").each(function () {
+                checked.push($(this).val());
+            });
+            var countChecked = $("#konten-jadwal .check-jadwal:checked").length;
+            $("#check-all").prop("checked", countChecked == count);
+
+            if (countChecked > 0) {
+                $("#submit-hapus").removeClass('d-none');
+            } else {
+                $("#submit-hapus").addClass('d-none');
+            }
+        }
+
+        $("#konten-jadwal").on("change", ".check-jadwal", function () {
+            findUnchecked();
+        });
+
+        $("#check-all").on("click", function () {
+            if (count > 0) {
+                if (this.checked) {
+                    $(".check-jadwal").each(function () {
+                        this.checked = true;
+                        $("#check-all").prop("checked", true);
+                    });
+                } else {
+                    $(".check-jadwal").each(function () {
+                        this.checked = false;
+                        $("#check-all").prop("checked", false);
+                    });
+                }
+                findUnchecked()
+            }
+        });
+
+        $('#hapus_semua').on('submit', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            var dataPost = $(this).serialize() + '&checked=' + JSON.stringify(checked);
+            console.log(dataPost);
+
+            swal.fire({
+                title: "Anda yakin?",
+                text: "Semua Bank Soal yang dipilih akan dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Hapus!"
+            }).then(result => {
+                if (result.value) {
+                    $.ajax({
+                        url: base_url + 'cbtjadwal/deletealljadwal',
+                        type: "POST",
+                        data: dataPost,
+                        success: function (respon) {
+                            if (respon.status) {
+                                swal.fire({
+                                    title: "Berhasil",
+                                    text: "Jadwal berhasil dihapus",
+                                    icon: "success"
+                                }).then(result => {
+                                    if (result.value) {
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                swal.fire({
+                                    title: "Gagal",
+                                    text: "Tidak bisa menghapus, " + respon.message,
+                                    icon: "error"
+                                });
+                            }
+                        },
+                        error: function () {
+                            swal.fire({
+                                title: "Gagal",
+                                text: "Ada data yang sedang digunakan",
+                                icon: "error"
+                            });
+                        }
+                    });
+                }
+            });
+        })
+    })
+
 </script>

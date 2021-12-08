@@ -226,9 +226,11 @@ if ($att !== false) {
             $jodohkan_none  = $tab_active == '3' ? '' : 'd-none';
             $isian_none     = $tab_active == '4' ? '' : 'd-none';
             $essai_none     = $tab_active == '5' ? '' : 'd-none';
-
             ?>
-            <div class="card my-shadow">
+            <div class="alert alert-default-info" id="empty-soal">
+                <span>Belum ada soal</span>
+            </div>
+            <div class="card my-shadow d-none" id="not-empty-soal">
                 <div class="card-header">
                     <div class="card-title">
                         <h6 id="nomor-soal"><b>Soal Nomor: 1</b></h6>

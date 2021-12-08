@@ -45,15 +45,6 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                 <div class="card-body">
                     <div class="row">
                         <?php $dnone = $kelas_selected == null ? 'class="d-none"' : ''; ?>
-                        <div class="col-md-4 mb-3">
-                            <div class="input-group">
-                                <div class="input-group-prepend w-30">
-                                    <span class="input-group-text">Jadwal</span>
-                                </div>
-                                <?php
-                                echo form_dropdown('jadwal', $jadwal, $jadwal_selected, 'id="jadwal" class="form-control"'); ?>
-                            </div>
-                        </div>
                         <div class="col-md-3" id="by-kelas">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
@@ -61,6 +52,15 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                 </div>
                                 <?php
                                 echo form_dropdown('kelas', $kelas, $kelas_selected, 'id="kelas" class="form-control"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Jadwal</span>
+                                </div>
+                                <?php
+                                echo form_dropdown('jadwal', $jadwal, $jadwal_selected, 'id="jadwal" class="form-control"'); ?>
                             </div>
                         </div>
                     </div>
@@ -111,16 +111,20 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                         <div <?= $dnone ?>>
                             <table class="w-100 table-sm" id="table-status" data-cols-width="<?= $colWidth ?>">
                                 <tr>
-                                    <td colspan="2" style="width: 120px">Soal</td>
-                                    <td colspan="5"><?= $info->bank_kode ?></td>
-                                </tr>
-                                <tr>
                                     <td colspan="2">Mata Pelajaran</td>
                                     <td colspan="5"><?= $info->nama_mapel ?></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Kelas</td>
                                     <td colspan="5"><?= $kelas[$kelas_selected] ?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Guru</td>
+                                    <td colspan="5"><?= $info->nama_guru ?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="width: 120px">Soal</td>
+                                    <td colspan="5"><?= $info->bank_kode ?></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" height="60" class="align-top">Jumlah Soal</td>
@@ -452,6 +456,29 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
         });
     }
 
+    function getKelasJadwal(idKelas) {
+        $.ajax({
+            type: "GET",
+            url: base_url + "cbtstatus/getjadwalujianbykelas?id_kelas=" + idKelas,
+            cache: false,
+            success: function (response) {
+                console.log(response);
+
+                var selJadwal = $('#jadwal');
+                selJadwal.html('');
+                selJadwal.append('<option value="">Pilih Jadwal</option>');
+                $.each(response, function (k, v) {
+                    if (v != null) {
+                        selJadwal.append('<option value="' + k + '">' + v + '</option>');
+                    }
+                });
+
+            }
+        });
+    }
+
+
+
     $(document).ready(function () {
         ajaxcsrf();
 
@@ -478,12 +505,14 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
         });
 
         opsiKelas.change(function () {
-            loadSiswaKelas($(this).val(), opsiJadwal.val())
+            //loadSiswaKelas($(this).val(), opsiJadwal.val())
+            getKelasJadwal($(this).val());
         });
 
         opsiJadwal.change(function () {
             idJadwal = $(this).val();
-            getDetailJadwal(idJadwal);
+            //getDetailJadwal(idJadwal);
+            loadSiswaKelas(opsiKelas.val(), $(this).val())
         });
 
         $("#download-excel").click(function (event) {
@@ -491,7 +520,7 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
             if (table != null) {
                 //TableToExcel.convert(table);
                 TableToExcel.convert(table, {
-                    name: `Nilai ${jenisUjian} ${namaMapel} ${$("#kelas option:selected").text()}.xlsx`,
+                    name: `Nilai ${jenisUjian} ${$("#kelas option:selected").text()} ${namaMapel}.xlsx`,
                     sheet: {
                         name: "Sheet 1"
                     }

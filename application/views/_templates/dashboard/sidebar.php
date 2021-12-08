@@ -38,7 +38,7 @@
 				$cbt = ["cbtjenis", "cbtruang", "cbtsesi", "cbtsesisiswa", "cbtnomorpeserta", "cbtjadwal", "cbtbanksoal", "cbtalokasi", "cbtpengawas", "cbttoken"];
 				$infoujian = ["cbtcetak", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtanalisis", "cbtrekap"];
 				$usermanager = ["useradmin", "userguru", "usersiswa"];
-                $databases = ["dbmanager", "update"];
+                $databases = ["dbmanager", "dbclear", "update"];
 				$users = ["users"];
 				?>
 				<li class="nav-item">
@@ -185,19 +185,17 @@
 							</a>
 						</li>
                         <li class="nav-item">
+                            <a href="<?=base_url('cbtpengawas')?>" class="nav-link <?=$page==='cbtpengawas'?"active":""?>">
+                                <i class="fa fa-briefcase nav-icon"></i>
+                                <p>Pengawas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?=base_url('cbtalokasi')?>" class="nav-link <?=$page==='cbtalokasi'?"active":""?>">
                                 <i class="fa fa-clock-o nav-icon"></i>
                                 <p>Alokasi Waktu</p>
                             </a>
                         </li>
-						<!--
-						<li class="nav-item">
-							<a href="<?=base_url('cbtpengawas')?>" class="nav-link <?=$page==='cbtpengawas'?"active":""?>">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Pengawas</p>
-							</a>
-						</li>
-						-->
 						<li class="nav-item">
 							<a href="<?=base_url('cbttoken')?>" class="nav-link <?=$page==='cbttoken'?"active":""?>">
 								<i class="fa fa-key nav-icon"></i>
@@ -379,6 +377,12 @@
                             <a href="<?=base_url('dbmanager')?>" class="nav-link <?=$page==='dbmanager'?"active":""?>">
                                 <i class="fas fa-database nav-icon"></i>
                                 <p>Backup/Restore</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('dbclear')?>" class="nav-link <?=$page==='dbclear'?"active":""?>">
+                                <i class="fas fa-database nav-icon"></i>
+                                <p>Data Manager</p>
                             </a>
                         </li>
                         <li class="nav-item">

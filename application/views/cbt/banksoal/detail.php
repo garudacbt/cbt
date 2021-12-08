@@ -260,7 +260,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rTable">
+                                <div class="rTable" id="table-pg">
                                     <div class="rTableBody">
                                         <?php
                                         foreach ($soals_pg as $s) :
@@ -376,7 +376,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rTable">
+                                <div class="rTable" id="table-pg2">
                                     <div class="rTableBody">
                                         <?php
                                         foreach ($soals_pg2 as $s) :
@@ -495,7 +495,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rTable">
+                                <div class="rTable" id="table-jodohkan">
                                     <div class="rTableBody">
                                         <?php
                                         foreach ($soals_jodohkan as $s) :
@@ -626,7 +626,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rTable">
+                                <div class="rTable" id="table-isian">
                                     <div class="rTableBody">
                                         <?php
                                         foreach ($soals_isian as $s) :
@@ -730,7 +730,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rTable">
+                                <div class="rTable" id="table-essai">
                                     <div class="rTableBody">
                                         <?php
                                         foreach ($soals_essai as $s) :
@@ -1266,66 +1266,66 @@
             isianUnchecked = [];
             essaiUnchecked = [];
 
-            $("#table-pg tbody tr .check-pg:not(:checked)").each(function () {
+            $("#table-pg .check-pg:not(:checked)").each(function () {
                 pgUnchecked.push($(this).val());
             });
 
-            $("#table-pg2 tbody tr .check-pg2:not(:checked)").each(function () {
+            $("#table-pg2 .check-pg2:not(:checked)").each(function () {
                 pg2Unchecked.push($(this).val());
             });
 
-            $("#table-jodohkan tbody tr .check-jodohkan:not(:checked)").each(function () {
+            $("#table-jodohkan .check-jodohkan:not(:checked)").each(function () {
                 jodohkanUnchecked.push($(this).val());
             });
 
-            $("#table-isian tbody tr .check-isian:not(:checked)").each(function () {
+            $("#table-isian .check-isian:not(:checked)").each(function () {
                 isianUnchecked.push($(this).val());
             });
 
-            $("#table-essai tbody tr .check-essai:not(:checked)").each(function () {
+            $("#table-essai .check-essai:not(:checked)").each(function () {
                 essaiUnchecked.push($(this).val());
             });
 
-            var pgchecked = $("#table-pg tbody tr .check-pg:checked").length;
+            var pgchecked = $("#table-pg .check-pg:checked").length;
             $('#total-pg').html(`<b>${pgchecked}</b>`);
             $("#all-pg").prop("checked", pgchecked == pgCount);
 
-            var pg2checked = $("#table-pg2 tbody tr .check-pg2:checked").length;
+            var pg2checked = $("#table-pg2 .check-pg2:checked").length;
             $('#total-pg2').html(`<b>${pg2checked}</b>`);
             $("#all-pg2").prop("checked", pg2checked == pg2Count);
 
-            var jodohkanchecked = $("#table-jodohkan tbody tr .check-jodohkan:checked").length;
+            var jodohkanchecked = $("#table-jodohkan .check-jodohkan:checked").length;
             $('#total-jodohkan').html(`<b>${jodohkanchecked}</b>`);
             $("#all-jodohkan").prop("checked", jodohkanchecked == jodohkanCount);
 
-            var isianchecked = $("#table-isian tbody tr .check-isian:checked").length;
+            var isianchecked = $("#table-isian .check-isian:checked").length;
             $('#total-isian').html(`<b>${isianchecked}</b>`);
             $("#all-isian").prop("checked", isianchecked == isianCount);
 
-            var essaiChecked = $("#table-essai tbody tr .check-essai:checked").length;
+            var essaiChecked = $("#table-essai .check-essai:checked").length;
             $('#total-essai').html(`<b>${essaiChecked}</b>`);
             $("#all-essai").prop("checked", essaiChecked == essaiCount);
         }
 
         findUnchecked();
 
-        $("#table-pg tbody").on("change", "tr .check-pg", function () {
+        $("#table-pg").on("change", ".check-pg", function () {
             findUnchecked();
         });
 
-        $("#table-pg2 tbody").on("change", "tr .check-pg2", function () {
+        $("#table-pg2").on("change", ".check-pg2", function () {
             findUnchecked();
         });
 
-        $("#table-jodohkan tbody").on("change", "tr .check-jodohkan", function () {
+        $("#table-jodohkan").on("change", ".check-jodohkan", function () {
             findUnchecked();
         });
 
-        $("#table-isian tbody").on("change", "tr .check-isian", function () {
+        $("#table-isian").on("change", ".check-isian", function () {
             findUnchecked();
         });
 
-        $("#table-essai tbody").on("change", "tr .check-essai", function () {
+        $("#table-essai").on("change", ".check-essai", function () {
             findUnchecked();
         });
 
@@ -1408,7 +1408,7 @@
             var dataPost = $('#select-pg').serialize() + "&uncheck=" + JSON.stringify(pgUnchecked);
             console.log(dataPost);
 
-            var checked = $("#table-pg tbody tr .check-pg:checked").length;
+            var checked = $("#table-pg .check-pg:checked").length;
             if (checked !== parseInt(jmlPgTampil)) {
                 swal.fire({
                     title: "Info",
@@ -1424,7 +1424,7 @@
             var dataPost = $('#select-pg2').serialize() + "&uncheck=" + JSON.stringify(pg2Unchecked);
             console.log(dataPost);
 
-            var checked = $("#table-pg2 tbody tr .check-pg2:checked").length;
+            var checked = $("#table-pg2 .check-pg2:checked").length;
             if (checked !== parseInt(jmlPg2Tampil)) {
                 swal.fire({
                     title: "Info",
@@ -1440,7 +1440,7 @@
             var dataPost = $('#select-jodohkan').serialize() + "&uncheck=" + JSON.stringify(jodohkanUnchecked);
             console.log(dataPost);
 
-            var checked = $("#table-jodohkan tbody tr .check-jodohkan:checked").length;
+            var checked = $("#table-jodohkan .check-jodohkan:checked").length;
             if (checked !== parseInt(jmlJodohkanTampil)) {
                 swal.fire({
                     title: "Info",
@@ -1456,7 +1456,7 @@
             var dataPost = $('#select-isian').serialize() + "&uncheck=" + JSON.stringify(isianUnchecked);
             console.log(dataPost);
 
-            var checked = $("#table-isian tbody tr .check-isian:checked").length;
+            var checked = $("#table-isian .check-isian:checked").length;
             if (checked !== parseInt(jmlIsianTampil)) {
                 swal.fire({
                     title: "Info",
@@ -1472,7 +1472,7 @@
             var dataPost = $('#select-essai').serialize() + "&uncheck=" + JSON.stringify(essaiUnchecked);
             console.log(dataPost);
 
-            var checked = $("#table-essai tbody tr .check-essai:checked").length;
+            var checked = $("#table-essai .check-essai:checked").length;
             if (checked !== parseInt(jmlEssaiTampil)) {
                 swal.fire({
                     title: "Info",

@@ -70,6 +70,20 @@
 	var arrKelas = JSON.parse('<?=json_encode($kelas)?>');
 	var tahun = '<?=$tp_active->tahun?>';
 
+    function sortByName(a, b){
+        var aName = a.name.toLowerCase();
+        var bName = b.name.toLowerCase();
+        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+    }
+
+    function sortByNumber(a, b){
+        var aName = a.nomor;
+        var bName = b.nomor;
+        //return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+        return (aName==='')-(bName==='') || +(a>b)||-(a<b);
+    }
+    //array.sort(SortByName);
+
 	function pad(str, max) {
 		str = str.toString();
 		return str.length < max ? pad("0" + str, max) : str;
@@ -99,6 +113,7 @@
 
 							newArr.push(item);
 						});
+						newArr.sort(sortByNumber);
 						arrayNomor = newArr;
 						createPreview();
 					}
@@ -199,13 +214,15 @@
 				'<td class="text-center">' + arrayNomor[i].username + '</td>' +
 				'<td>' + arrayNomor[i].nama + '</td>' +
 				'<td class="text-center">' + arrayNomor[i].kelas + '</td>' +
-				'<td class="text-center">' + arrayNomor[i].nomor + '</td>' +
+				'<td class="text-center editable">' + arrayNomor[i].nomor + '</td>' +
 				'</tr>';
 		}
 
 		tbody += '</tbody>';
 		$('#table-nomor').html(tbody);
 		$('#loading').addClass('d-none');
+
+        $('.editable').attr('contentEditable',true);
 	}
 
 	$(document).ready(function () {

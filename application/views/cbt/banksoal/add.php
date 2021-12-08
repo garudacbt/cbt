@@ -337,6 +337,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';//new Option(v, k, false, selected);
                     });
                     selMapel.html(opts);
+                    getKelasLevel(selLevel.val(), selMapel.val());
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);
                 }

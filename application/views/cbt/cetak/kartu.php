@@ -245,10 +245,10 @@
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
 	var oldVal1 = '<?= isset($kartu->header_1) ? $kartu->header_1 : "" ?>';
-	var oldVal2 = '<?= isset($kartu->header_2) ? $kartu->header_1 : "" ?>';
-	var oldVal3 = '<?= isset($kartu->header_3) ? $kartu->header_1 : "" ?>';
-	var oldVal4 = '<?= isset($kartu->header_4) ? $kartu->header_1 : "" ?>';
-    var oldTgl = '<?= isset($kartu->tanggal) ? $kartu->header_1 : "" ?>';
+	var oldVal2 = '<?= isset($kartu->header_2) ? $kartu->header_2 : "" ?>';
+	var oldVal3 = '<?= isset($kartu->header_3) ? $kartu->header_3 : "" ?>';
+	var oldVal4 = '<?= isset($kartu->header_4) ? $kartu->header_4 : "" ?>';
+    var oldTgl = '<?= isset($kartu->tanggal) ? $kartu->tanggal : "" ?>';
 	var oldKota = '<?=$setting->kota?>';
 	var logoKanan = '<?=base_url().$setting->logo_kanan?>';
 	var logoKiri = '<?=base_url().$setting->logo_kiri?>';

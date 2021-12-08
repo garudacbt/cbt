@@ -37,7 +37,12 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<?= form_open('datasiswa/delete', array('id' => 'bulk')); ?>
+                    <?php
+                    //var_dump($count_siswa);
+                    //echo '<br>';
+                    //var_dump($count_induk);
+                    ?>
+                    <?= form_open('datasiswa/delete', array('id' => 'bulk')); ?>
 					<div class="table-responsive">
 						<table id="siswa" class="w-100 table table-striped table-bordered table-hover table-sm">
 							<thead>

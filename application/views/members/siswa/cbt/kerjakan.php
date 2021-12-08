@@ -44,7 +44,7 @@
                     <div class="card my-shadow">
                         <div class="card-header p-4">
                             <div class="card-title">
-                                SOAL NOMOR:
+                                NOMOR:
                                 <div id="nomor-soal" class="btn bg-primary no-hover ml-2 text-lg"></div>
                             </div>
                             <div class="card-tools">

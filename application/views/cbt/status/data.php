@@ -32,6 +32,19 @@
                     </div>
 				<div class="card-body">
 					<div class="row">
+                        <!--
+                        <div class="col-6 col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Hari</span>
+                                </div>
+                                <select name="hari" id="hari" class="form-control">
+                                    <option value="0">Hari ini</option>
+                                    <option value="1">Semua Jadwal</option>
+                                </select>
+                            </div>
+                        </div>
+                        -->
 						<div class="col-6 col-md-3">
 							<div class="input-group">
 								<div class="input-group-prepend w-30">
@@ -220,7 +233,7 @@
         var jmlUlang = item.ulang.length === 0 ? '' : '<b>' + item.ulang.length + '</b> siswa akan mengulang ujian';
 
         if (item.reset.length === 0 && item.force.length === 0 && item.ulang.length === 0) {
-            showWarningToast('Silahkan pilih siswa');
+            showWarningToast('Silahkan pilih AKSI');
             return;
         }
 
@@ -453,10 +466,10 @@
 		$('#loading').addClass('d-none');
 	}
 
-    function getDetailJadwal(idJadwal) {
+    function getDetailJadwal(idJadwal, hari) {
         $.ajax({
             type: "GET",
-            url: base_url + "cbtstatus/getjadwalujianbyjadwal?id_jadwal="+idJadwal,
+            url: base_url + "cbtstatus/getjadwalujianbyjadwal?id_jadwal="+idJadwal+"&hari="+hari,
             cache: false,
             success: function (response) {
                 console.log(response);
@@ -475,6 +488,7 @@
     $(document).ready(function () {
 		ajaxcsrf();
 
+        var opsiHari = $("#hari");
 		var opsiJadwal = $("#jadwal");
 		var opsiRuang = $("#ruang");
 		var opsiSesi = $("#sesi");
@@ -518,7 +532,7 @@
 		});
 
 		opsiJadwal.change(function () {
-		    getDetailJadwal($(this).val());
+		    getDetailJadwal($(this).val(), opsiHari.val());
 		    /*
 			if (printBy === 1) {
 				loadSiswaKelas(opsiKelas.val(), opsiSesi.val(), $(this).val())
