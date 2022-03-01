@@ -96,7 +96,8 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="datasiswa">
-                                    <?php foreach ($input_data as $data) : ?>
+                                    <?php foreach ($input_data as $data) :
+                                        $req = $data->name== 'nisn' ? '' : ' required'?>
                                         <?php if ($data->name == 'jenis_kelamin'): ?>
                                             <div class="form-group row">
                                                 <div class="col-md-4 col-6 mb-sm-0">
@@ -121,6 +122,29 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                    <?php elseif ($data->name == 'status'): ?>
+                                        <div class="form-group row">
+                                            <div class="col-md-4 col-6 mb-sm-0">
+                                                <label for="<?= $data->name ?>"
+                                                       class="control-label"><?= $data->label ?></label>
+                                            </div>
+                                            <div class="col-md-8 col-sm-offset-8">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                        class="<?= $data->icon ?>"></i></span>
+                                                    </div>
+                                                    <select class="form-control" data-placeholder="Status Siswa"
+                                                            name="status" required>
+                                                        <?php
+                                                        $arrSt = ["Pilih Status", "AKTIF", "LULUS", "PINDAH", "KELUAR"];
+                                                        foreach ($arrSt as $key => $jk) : ?>
+                                                            <option value="<?= $key ?>" <?= $key == $data->value ? 'selected' : '' ?>><?= $jk ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <?php elseif ($data->name == 'kelas_awal'): ?>
                                             <div class="form-group row">
                                                 <div class="col-md-4 col-6 mb-sm-0">
@@ -204,8 +228,7 @@
                                                                type="<?= $data->type ?>"
                                                                class="form-control <?= $data->class ?>"
                                                                name="<?= $data->name ?>"
-                                                               placeholder="<?= $data->label ?>" autocomplete="off"
-                                                               required>
+                                                               placeholder="<?= $data->label ?>" autocomplete="off"<?=$req?>>
                                                     </div>
                                                 </div>
                                             </div>

@@ -137,7 +137,10 @@
                                     title="Refresh">
                                 <i class="fa fa-sync ml-1 mr-1"></i> Refresh
                             </button>
-                            <button type="button" class="btn btn-success align-bottom mb-2 float-right"
+                            <?php
+                            $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
+                            ?>
+                            <button type="button" class="btn btn-success align-bottom mb-2 float-right <?=$dnone?>"
                                     onclick="terapkanAksi()"
                                     data-toggle="tooltip"
                                     title="Terapkan Aksi pada siswa terpilih">
@@ -190,6 +193,7 @@
 <?=form_close()?>
 
 <script>
+    var dnone = '<?= $this->ion_auth->is_admin() ? "" : "d-none" ?>';
 	var printBy = 1;
 	var url = '';
 
@@ -350,14 +354,14 @@
             '<th rowspan="2" class="text-center align-middle">Ruang</th>' +
             '<th rowspan="2" class="text-center align-middle">Sesi</th>' +
 			'<th colspan="2" class="text-center align-middle">Status</th>' +
-			'<th colspan="4" class="text-center align-middle">Aksi</th>' +
+			'<th colspan="4" class="text-center align-middle '+dnone+'">Aksi</th>' +
 			'</tr>' +
 			'<tr>' +
 			'<th class="text-center align-middle p-1">Mulai</th>' +
             '<th class="text-center align-middle">Durasi</th>' +
-			'<th class="text-center align-middle">Reset</th>' +
-            '<th class="text-center align-middle">Selesaikan</th>' +
-            '<th class="text-center align-middle">Ulangi</th>' +
+			'<th class="text-center align-middle '+dnone+'">Reset</th>' +
+            '<th class="text-center align-middle '+dnone+'">Selesaikan</th>' +
+            '<th class="text-center align-middle '+dnone+'">Ulangi</th>' +
 			'</tr></thead><tbody>';
 
 		for (let i = 0; i < data.siswa.length; i++) {
@@ -419,13 +423,13 @@
                 '<td class="text-center align-middle">' + sesi + '</td>' +
 				'<td class="text-center align-middle">' + mulai + '</td>' +
                 '<td class="text-center align-middle">' + loading + durasi + '</td>' +
-				'<td class="text-center text-success align-middle">' +
+				'<td class="text-center text-success align-middle '+dnone+'">' +
                 '<input class="check input-reset" type="checkbox" '+disabledReset+'>' +
                 '</td>' +
-				'<td class="text-center text-danger align-middle">' +
+				'<td class="text-center text-danger align-middle '+dnone+'">' +
                 '<input class="check input-force" type="checkbox" '+disabledSelesai+'>' +
                 '</td>' +
-                '<td class="text-center text-danger align-middle">' +
+                '<td class="text-center text-danger align-middle '+dnone+'">' +
                 '<input class="check input-ulang" type="checkbox" '+disabledUlang+'>' +
                 '</td>' +
                 //'<td class="text-center align-middle">' +

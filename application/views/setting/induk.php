@@ -13,23 +13,19 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="mb-3">
-                        <label>Pilih Kelas</label>
-                        <?php
-                        echo form_dropdown(
-                            'kelas',
-                            $kelases,
-                            isset($kelas_selected) ? $kelas_selected : null,
-                            'id="id-kelas" class="form-control form-control-sm"'
-                        ); ?>
-                    </div>
                     <div class="card">
                         <div class="card-header bg-light">
-                            <h3 class="card-title">Pilih Siswa</h3>
+                            <h3 class="card-title">Cari Siswa</h3>
+                            <div class="input-group input-group-sm pt-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="cari-siswa">
+                            </div>
                         </div>
                         <div class="card-body p-0"
-                             style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
-                            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
+                             style="height: 1000px;overflow-y:auto;-webkit-overflow-scrolling: touch">
+                            <ul id="list-siswa" class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
                                 <?php
                                 if (isset($siswas)) :
                                     $n = 1;
@@ -550,6 +546,8 @@
     }
 
     $(document).ready(function () {
+        $('input#cari-siswa').quicksearch('ul#list-siswa li');
+
         var opsiKelas = $('#id-kelas');
         console.log(klsSelected);
         var kslctd = klsSelected == '' ? "selected='selected'" : "";

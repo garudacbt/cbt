@@ -1,0 +1,37 @@
+[
+  {
+    "id_jenis": "1",
+    "nama_jenis": "Penilaian Harian",
+    "kode_jenis": "PH"
+  },
+  {
+    "id_jenis": "2",
+    "nama_jenis": "Penilaian Tengah Semester",
+    "kode_jenis": "PTS"
+  },
+  {
+    "id_jenis": "3",
+    "nama_jenis": "Penilaian Akhir Semester",
+    "kode_jenis": "PAS"
+  },
+  {
+    "id_jenis": "4",
+    "nama_jenis": "Penilaian Akhir Tahun",
+    "kode_jenis": "PAT"
+  },
+  {
+    "id_jenis": "5",
+    "nama_jenis": "Ujian Madrasah Berbasis Komputer",
+    "kode_jenis": "UMBK"
+  },
+  {
+    "id_jenis": "9",
+    "nama_jenis": "Try Out",
+    "kode_jenis": "TO"
+  },
+  {
+    "id_jenis": "10",
+    "nama_jenis": "Simulasi",
+    "kode_jenis": "SIML"
+  }
+]

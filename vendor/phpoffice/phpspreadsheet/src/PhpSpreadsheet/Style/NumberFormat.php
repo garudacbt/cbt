@@ -10,11 +10,13 @@ class NumberFormat extends Supervisor
     const FORMAT_TEXT = '@';
 
     const FORMAT_NUMBER = '0';
+    const FORMAT_NUMBER_0 = '0.0';
     const FORMAT_NUMBER_00 = '0.00';
     const FORMAT_NUMBER_COMMA_SEPARATED1 = '#,##0.00';
     const FORMAT_NUMBER_COMMA_SEPARATED2 = '#,##0.00_-';
 
     const FORMAT_PERCENTAGE = '0%';
+    const FORMAT_PERCENTAGE_0 = '0.0%';
     const FORMAT_PERCENTAGE_00 = '0.00%';
 
     const FORMAT_DATE_YYYYMMDD2 = 'yyyy-mm-dd';
@@ -104,7 +106,10 @@ class NumberFormat extends Supervisor
      */
     public function getSharedComponent()
     {
-        return $this->parent->getSharedComponent()->getNumberFormat();
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getSharedComponent()->getNumberFormat();
     }
 
     /**
@@ -130,17 +135,17 @@ class NumberFormat extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($pStyles['formatCode'])) {
-                $this->setFormatCode($pStyles['formatCode']);
+            if (isset($styleArray['formatCode'])) {
+                $this->setFormatCode($styleArray['formatCode']);
             }
         }
 
@@ -157,7 +162,7 @@ class NumberFormat extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getFormatCode();
         }
-        if ($this->builtInFormatCode !== false) {
+        if (is_int($this->builtInFormatCode)) {
             return self::builtInFormatCode($this->builtInFormatCode);
         }
 
@@ -167,21 +172,21 @@ class NumberFormat extends Supervisor
     /**
      * Set Format Code.
      *
-     * @param string $pValue see self::FORMAT_*
+     * @param string $formatCode see self::FORMAT_*
      *
      * @return $this
      */
-    public function setFormatCode($pValue)
+    public function setFormatCode($formatCode)
     {
-        if ($pValue == '') {
-            $pValue = self::FORMAT_GENERAL;
+        if ($formatCode == '') {
+            $formatCode = self::FORMAT_GENERAL;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['formatCode' => $pValue]);
+            $styleArray = $this->getStyleArray(['formatCode' => $formatCode]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->formatCode = $pValue;
-            $this->builtInFormatCode = self::builtInFormatCodeIndex($pValue);
+            $this->formatCode = $formatCode;
+            $this->builtInFormatCode = self::builtInFormatCodeIndex($formatCode);
         }
 
         return $this;
@@ -204,18 +209,18 @@ class NumberFormat extends Supervisor
     /**
      * Set Built-In Format Code.
      *
-     * @param int $pValue
+     * @param int $formatCodeIndex
      *
      * @return $this
      */
-    public function setBuiltInFormatCode($pValue)
+    public function setBuiltInFormatCode($formatCodeIndex)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['formatCode' => self::builtInFormatCode($pValue)]);
+            $styleArray = $this->getStyleArray(['formatCode' => self::builtInFormatCode($formatCodeIndex)]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->builtInFormatCode = $pValue;
-            $this->formatCode = self::builtInFormatCode($pValue);
+            $this->builtInFormatCode = $formatCodeIndex;
+            $this->formatCode = self::builtInFormatCode($formatCodeIndex);
         }
 
         return $this;
@@ -327,21 +332,21 @@ class NumberFormat extends Supervisor
     /**
      * Get built-in format code.
      *
-     * @param int $pIndex
+     * @param int $index
      *
      * @return string
      */
-    public static function builtInFormatCode($pIndex)
+    public static function builtInFormatCode($index)
     {
         // Clean parameter
-        $pIndex = (int) $pIndex;
+        $index = (int) $index;
 
         // Ensure built-in format codes are available
         self::fillBuiltInFormatCodes();
 
         // Lookup format code
-        if (isset(self::$builtInFormats[$pIndex])) {
-            return self::$builtInFormats[$pIndex];
+        if (isset(self::$builtInFormats[$index])) {
+            return self::$builtInFormats[$index];
         }
 
         return '';
@@ -350,18 +355,18 @@ class NumberFormat extends Supervisor
     /**
      * Get built-in format code index.
      *
-     * @param string $formatCode
+     * @param string $formatCodeIndex
      *
-     * @return bool|int
+     * @return false|int
      */
-    public static function builtInFormatCodeIndex($formatCode)
+    public static function builtInFormatCodeIndex($formatCodeIndex)
     {
         // Ensure built-in format codes are available
         self::fillBuiltInFormatCodes();
 
         // Lookup format code
-        if (array_key_exists($formatCode, self::$flippedBuiltInFormats)) {
-            return self::$flippedBuiltInFormats[$formatCode];
+        if (array_key_exists($formatCodeIndex, self::$flippedBuiltInFormats)) {
+            return self::$flippedBuiltInFormats[$formatCodeIndex];
         }
 
         return false;

@@ -1,0 +1,26 @@
+[
+  {
+    "id_sesi": "1",
+    "nama_sesi": "Sesi 1",
+    "kode_sesi": "S1",
+    "waktu_mulai": "07:00:00",
+    "waktu_akhir": "10:00:00",
+    "aktif": "1"
+  },
+  {
+    "id_sesi": "2",
+    "nama_sesi": "Sesi 2",
+    "kode_sesi": "S2",
+    "waktu_mulai": "08:00:00",
+    "waktu_akhir": "12:00:00",
+    "aktif": "1"
+  },
+  {
+    "id_sesi": "3",
+    "nama_sesi": "Sesi 3",
+    "kode_sesi": "S3",
+    "waktu_mulai": "07:00:00",
+    "waktu_akhir": "12:00:00",
+    "aktif": "1"
+  }
+]

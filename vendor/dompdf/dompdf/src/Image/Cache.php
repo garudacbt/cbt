@@ -30,6 +30,11 @@ class Cache
     protected static $_cache = [];
 
     /**
+     * @var array
+     */
+    protected static $tempImages = [];
+
+    /**
      * The url to the "broken image" used when images can't be loaded
      *
      * @var string
@@ -65,11 +70,12 @@ class Cache
         $parsed_url = Helpers::explode_url($url);
         $message = null;
 
-        $remote = ($protocol && $protocol !== "file://") || ($parsed_url['protocol'] != "");
+        $remote = ($protocol && $protocol !== "file://") || ($parsed_url['protocol'] !== "");
 
         $data_uri = strpos($parsed_url['protocol'], "data:") === 0;
         $full_url = null;
         $enable_remote = $dompdf->getOptions()->getIsRemoteEnabled();
+        $tempfile = false;
 
         try {
 
@@ -92,7 +98,8 @@ class Cache
                     if (($resolved_url = @tempnam($tmp_dir, "ca_dompdf_img_")) === false) {
                         throw new ImageException("Unable to create temporary image in " . $tmp_dir, E_WARNING);
                     }
-                    $image = "";
+                    $tempfile = $resolved_url;
+                    $image = null;
 
                     if ($data_uri) {
                         if ($parsed_data_uri = Helpers::parse_data_uri($url)) {
@@ -103,7 +110,7 @@ class Cache
                     }
 
                     // Image not found or invalid
-                    if (empty($image)) {
+                    if ($image === null) {
                         $msg = ($data_uri ? "Data-URI could not be parsed" : "Image not found");
                         throw new ImageException($msg, E_WARNING);
                     } // Image found, put in cache and process
@@ -122,14 +129,14 @@ class Cache
             else {
                 $resolved_url = Helpers::build_url($protocol, $host, $base_path, $url);
 
-                if ($protocol == "" || $protocol === "file://") {
+                if ($protocol === "" || $protocol === "file://") {
                     $realfile = realpath($resolved_url);
         
                     $rootDir = realpath($dompdf->getOptions()->getRootDir());
                     if (strpos($realfile, $rootDir) !== 0) {
                         $chroot = $dompdf->getOptions()->getChroot();
                         $chrootValid = false;
-                        foreach($chroot as $chrootPath) {
+                        foreach ($chroot as $chrootPath) {
                             $chrootPath = realpath($chrootPath);
                             if ($chrootPath !== false && strpos($realfile, $chrootPath) === 0) {
                                 $chrootValid = true;
@@ -157,7 +164,7 @@ class Cache
                 list($width, $height, $type) = Helpers::dompdf_getimagesize($resolved_url, $dompdf->getHttpContext());
 
                 // Known image type
-                if ($width && $height && in_array($type, ["gif", "png", "jpeg", "bmp", "svg"])) {
+                if ($width && $height && in_array($type, ["gif", "png", "jpeg", "bmp", "svg","webp"], true)) {
                     //Don't put replacement image into cache - otherwise it will be deleted on cache cleanup.
                     //Only execute on successful caching of remote image.
                     if ($enable_remote && $remote || $data_uri) {
@@ -169,6 +176,9 @@ class Cache
                 }
             }
         } catch (ImageException $e) {
+            if ($tempfile) {
+                unlink($tempfile);
+            }
             $resolved_url = self::$broken_image;
             $type = "png";
             $message = self::$error_message;
@@ -180,26 +190,64 @@ class Cache
     }
 
     /**
+     * Register a temp file for the given original image file.
+     *
+     * @param string $filePath The path of the original image.
+     * @param string $tempPath The path of the temp file to register.
+     * @param string $key      An optional key to register the temp file at.
+     */
+    static function addTempImage(string $filePath, string $tempPath, string $key = "default"): void
+    {
+        if (!isset(self::$tempImages[$filePath])) {
+            self::$tempImages[$filePath] = [];
+        }
+
+        self::$tempImages[$filePath][$key] = $tempPath;
+    }
+
+    /**
+     * Get the path of a temp file registered for the given original image file.
+     *
+     * @param string $filePath The path of the original image.
+     * @param string $key      The key the temp file is registered at.
+     */
+    static function getTempImage(string $filePath, string $key = "default"): ?string
+    {
+        return self::$tempImages[$filePath][$key] ?? null;
+    }
+
+    /**
      * Unlink all cached images (i.e. temporary images either downloaded
      * or converted) except for the bundled "broken image"
      */
-    static function clear()
+    static function clear(bool $debugPng = false)
     {
-        if (empty(self::$_cache) || self::$_dompdf->getOptions()->getDebugKeepTemp()) {
-            return;
-        }
-
         foreach (self::$_cache as $file) {
             if ($file === self::$broken_image) {
                 continue;
             }
-            if (self::$_dompdf->getOptions()->getDebugPng()) {
+            if ($debugPng) {
                 print "[clear unlink $file]";
             }
             unlink($file);
         }
 
+        foreach (self::$tempImages as $versions) {
+            foreach ($versions as $file) {
+                if ($file === self::$broken_image) {
+                    continue;
+                }
+                if ($debugPng) {
+                    print "[unlink temp image $file]";
+                }
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+            }
+        }
+
         self::$_cache = [];
+        self::$tempImages = [];
     }
 
     static function detect_type($file, $context = null)

@@ -94,7 +94,7 @@
                                                     $header_rapor = '';
                                                     if ($setting->jenjang == '1'){
                                                         $header_rapor = 'MADRASAH IBTIDAIYAH (MI)';
-                                                    } elseif ($setting->jenjang == '1') {
+                                                    } elseif ($setting->jenjang == '2') {
                                                         $header_rapor = 'MADRASAH TSANAWIYAH (MTS)';
                                                     } else {
                                                         $header_rapor = 'MADRASAH ALIYAH (MA)';
@@ -232,8 +232,23 @@
     }
 
     function handleNull(value) {
-        if (value == null || value == '0') return '-'
+        if (value == null || value == '0') return '-';
         else return value;
+    }
+
+    function handleJenisKelamin(value) {
+        if (value == null || value == '0') return '-'
+        else {
+            if (value.toUpperCase() == "L") return 'Laki-laki';
+            else if (value.toUpperCase() == "P") return 'Perempuan';
+            else return '-';
+        }
+    }
+
+    function handleStatusKeluarga(value) {
+        var list = ["", "Anak Kandung","Anak Tiri", "Anak Angkat"];
+        if (value == null || value == '-') return '-';
+        else return list[value];
     }
 
     function handleAlamat(almt, rt, rw, kelurahan, kecamatan, kabupaten, provinsi) {
@@ -376,8 +391,8 @@
             'h. Alamat', 'Wali', 'a. Nama Wali', 'b. Pekerjaan', 'c. Nomor Telpon/HP', 'd. Alamat'];
         var arrIdVal = [
             handleNull(siswa.nama), handleNisn(siswa.nis, siswa.nisn),
-            handleNull(siswa.tempat_lahir) + ', ' + handleTanggal(siswa.tanggal_lahir), handleNull(siswa.jenis_kelamin),
-            handleNull(siswa.agama), handleNull(siswa.status_keluarga), handleNull(siswa.anak_ke),
+            handleNull(siswa.tempat_lahir) + ', ' + handleTanggal(siswa.tanggal_lahir), handleJenisKelamin(siswa.jenis_kelamin),
+            handleNull(siswa.agama), handleStatusKeluarga(siswa.status_keluarga), handleNull(siswa.anak_ke),
             handleAlamat(siswa.alamat, siswa.rt, siswa.rw, siswa.kelurahan, siswa.kecamatan, siswa.kabupaten, siswa.provinsi),
             handleNull(siswa.hp), handleNull(siswa.sekolah_asal), '', handleNull(siswa.kelas_awal), handleTanggal(siswa.tahun_masuk),
             '', handleNull(siswa.nama_ayah), handleNull(siswa.pekerjaan_ayah), handleNull(siswa.nohp_ayah), handleNull(siswa.alamat_syah),
@@ -411,10 +426,37 @@
         }
 
         identitas += '</table></div></div>';
+        identitas += '<table style="width: 100%">' +
+            '<tr style="font-family: \'Tahoma\';font-size: 12pt;">' +
+            '<td style="width: 35%;padding-left: 100px;">' +
+            '<img src="'+base_url+'/assets/app/img/bg_frame_foto.jpg"></td>' +
+            '</td>' +
+            '<td style="width: 30%;">' +
+            '<td style="width: 35%">' +
+            setting.kota+',  ' + handleTanggal(siswa.tahun_masuk) +
+            '    <br>' +
+            '    Kepala Madrasah' +
+            '    <br>' +
+            '    <br>' +
+            '    <br>' +
+            '    <br>' +
+            '    <u>'+setting.kepsek+'</u>' +
+            '    <br>' +
+            '    Nip:' +
+            '</td>' +
+            '</tr>' +
+            '</table>' +
+            '</div>';
+
         return identitas;
     }
 
     function createPageSikap(idSiswa, siswa) {
+        var sSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].predikat.predikat : '';
+        var sSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].predikat.predikat : '';
+        var desSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].deskripsi : '';
+        var desSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].deskripsi : '';
+
         var tableSikap = '<div style="padding: 0.5cm;">' +
             '    <p style="font-family: \'Tahoma\';text-align: center;font-size: 12pt;"><b>PENCAPAIAN KOMPETENSI PESERTA DIDIK</b></p>' +
             '    <hr>' +
@@ -468,10 +510,10 @@
             '</tr>' +
             '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '    <td style="width: 30%;height:200px;border: 1px solid black; border-collapse: collapse;text-align: center"><b>'+
-            handlePredikat(sikap[idSiswa][1].predikat.predikat) +
+            handlePredikat(sSpiritual) +
             '</b></td>' +
             '    <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding: 6px">' +
-            sikap[idSiswa][1].deskripsi +
+                desSpiritual +
             '</td>' +
             '</tr>' +
             '</table></div>'+
@@ -486,10 +528,10 @@
             '</tr>' +
             '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '    <td style="width: 30%;height:200px;border: 1px solid black; border-collapse: collapse;text-align: center"><b>' +
-            handlePredikat(sikap[idSiswa][2].predikat.predikat) +
+            handlePredikat(sSosial) +
             '</b></td>' +
             '    <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding: 6px;vertical-align: center">' +
-            sikap[idSiswa][2].deskripsi +
+                desSosial +
             '</td>' +
             '</tr>' +
             '</table>' +

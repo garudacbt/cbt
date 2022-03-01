@@ -164,11 +164,6 @@
                             <hr>
                             <div id="tab-content">
                             </div>
-                            <?php
-                            //echo '<pre>';
-                            //var_dump($week);
-                            //echo '</pre>';
-                            ?>
                         </div>
                         <div class="overlay d-none" id="loading">
                             <div class="spinner-grow"></div>

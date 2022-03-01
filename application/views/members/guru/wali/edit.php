@@ -110,8 +110,8 @@
                                                                         class="<?= $data->icon ?>"></i></span>
                                                         </div>
                                                         <select class="form-control" data-placeholder="Jenis Kelamin"
-                                                                name="jenis_kelamin" required>
-                                                            <option value="" disabled>Pilih Jenis Kelamin</option>
+                                                                name="jenis_kelamin" <?=$data->req?>>
+                                                            <option value="0" disabled>Pilih Jenis Kelamin</option>
                                                             <?php
                                                             $arrJk = ["L" => "Laki-laki", "P" => "Perempuan"];
                                                             foreach ($arrJk as $key => $jk) : ?>
@@ -134,8 +134,8 @@
                                                                         class="<?= $data->icon ?>"></i></span>
                                                         </div>
                                                         <select class="form-control" data-placeholder="Kelas Awal"
-                                                                name="kelas_awal" required>
-                                                            <option value="" disabled>Kelas Awal</option>
+                                                                name="kelas_awal" <?=$data->req?>>
+                                                            <option value="0" disabled>Kelas Awal</option>
                                                             <?php
                                                             if ($setting->jenjang == 1) {
                                                                 $opsis ['1'] = '1';
@@ -160,34 +160,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        <?php elseif ($data->name == 'agama'): ?>
-                                            <div class="form-group row">
-                                                <div class="col-md-4 mb-sm-0">
-                                                    <label for="<?= $data->name ?>"
-                                                           class="control-label"><?= $data->label ?></label>
-                                                </div>
-                                                <div class="col-md-8 mb-sm-0">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                        class="<?= $data->icon ?>"></i></span>
-                                                        </div>
-                                                        <?php
-                                                        $arrAgama = ["Islam", "Kristen", "Katolik", "Kristen Protestan", "Hindu", "Budha", "Konghucu", "lainnya"];
-                                                        ?>
-                                                        <select class="form-control" id="agama"
-                                                                data-placeholder="Pilih Agama yang dianut" name="agama"
-                                                                required>
-                                                            <option value="Pilih Agama yang dianut">Pilih Agama yang
-                                                                dianut
-                                                            </option>
-                                                            <?php foreach ($arrAgama as $agama) : ?>
-                                                                <option value="<?= $agama ?>" <?= $agama == $data->value ? 'selected' : '' ?>><?= $agama ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         <?php else: ?>
                                             <div class="form-group row">
                                                 <div class="col-md-4 mb-sm-0">
@@ -205,7 +177,7 @@
                                                                class="form-control <?= $data->class ?>"
                                                                name="<?= $data->name ?>"
                                                                placeholder="<?= $data->label ?>" autocomplete="off"
-                                                               required>
+                                                            <?=$data->req?>>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,8 +201,7 @@
                                                         ?>
                                                         <select class="form-control" id="agama"
                                                                 data-placeholder="Pilih Agama yang dianut" name="agama">
-                                                            <option value="Pilih Agama yang dianut">Pilih Agama yang
-                                                                dianut
+                                                            <option value="0">Pilih Agama yang dianut
                                                             </option>
                                                             <?php foreach ($arrAgama as $agama) : ?>
                                                                 <option value="<?= $agama ?>" <?= $agama == $bio->value ? 'selected' : '' ?>><?= $agama ?></option>
@@ -250,9 +221,9 @@
                                                         <?php
                                                         $arrStatus = ["1"=>"Anak Kandung", "2"=>"Anak Tiri", "3"=>"Anak Angkat"];
                                                         ?>
-                                                        <select class="form-control" id="agama"
-                                                                data-placeholder="Pilih Agama yang dianut" name="agama">
-                                                            <option value="Pilih Status Anak">Pilih Status Anak
+                                                        <select class="form-control" id="status_keluarga"
+                                                                data-placeholder="Pilih Status Keluarga" name="status_keluarga">
+                                                            <option value="0">Pilih Status Anak
                                                             </option>
                                                             <?php foreach ($arrStatus as $k=>$status) : ?>
                                                                 <option value="<?= $k ?>" <?= $k == $bio->value ? 'selected' : '' ?>><?= $status ?></option>
@@ -268,11 +239,6 @@
                                                 </div>
                                                 <div class="col-md-8 mb-sm-0">
                                                     <div class="input-group">
-                                                        <!--
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="<?= $bio->icon ?>"></i></span>
-                                                        </div>
-                                                        -->
                                                         <input value="<?= trim($bio->value) ?>" id="<?= $bio->name ?>"
                                                                type="<?= $bio->type ?>"
                                                                class="form-control <?= $bio->class ?>"
@@ -417,12 +383,15 @@
 <?=form_close()?>
 
 <script>
+    var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($input_data)?>));
+    var arrBio = JSON.parse(JSON.stringify(<?= json_encode($input_bio)?>));
     var fotoProfile = '';
     var idSiswa = '<?=$siswa->id_siswa?>';
     var src = '<?=$siswa->foto?>';
     $(document).ready(function () {
         ajaxcsrf();
-
+        console.log(arrSiswa);
+        console.log(arrBio);
         $('.tahun').datetimepicker({
             icons:
                 {

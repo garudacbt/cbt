@@ -1,0 +1,1141 @@
+{
+  "bulan": {
+    "table_name": "bulan",
+    "columns": [
+      {
+        "name": "id_bln",
+        "col_type": "int(10)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_bln",
+        "col_type": "varchar(25)",
+        "type": "varchar",
+        "collation": "latin1_swedish_ci",
+        "max_length": "25",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "cbt_jenis": {
+    "table_name": "cbt_jenis",
+    "columns": [
+      {
+        "name": "id_jenis",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_jenis",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "kode_jenis",
+        "col_type": "varchar(10)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "cbt_ruang": {
+    "table_name": "cbt_ruang",
+    "columns": [
+      {
+        "name": "id_ruang",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_ruang",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "kode_ruang",
+        "col_type": "varchar(10)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "cbt_sesi": {
+    "table_name": "cbt_sesi",
+    "columns": [
+      {
+        "name": "id_sesi",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_sesi",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "kode_sesi",
+        "col_type": "varchar(10)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "waktu_mulai",
+        "col_type": "time",
+        "type": "time",
+        "collation": null,
+        "max_length": null,
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "waktu_akhir",
+        "col_type": "time",
+        "type": "time",
+        "collation": null,
+        "max_length": null,
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "aktif",
+        "col_type": "int(1)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "cbt_token": {
+    "table_name": "cbt_token",
+    "columns": [
+      {
+        "name": "token",
+        "col_type": "varchar(6)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "6",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "auto",
+        "col_type": "int(1)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "id_token",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "jarak",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "0",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "updated",
+        "col_type": "timestamp",
+        "type": "timestamp",
+        "collation": null,
+        "max_length": null,
+        "default": "CURRENT_TIMESTAMP",
+        "comment": "",
+        "extra": "ON UPDATE CURRENT_TIMESTAMP",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "hari": {
+    "table_name": "hari",
+    "columns": [
+      {
+        "name": "id_hri",
+        "col_type": "int(10)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_hri",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "latin1_swedish_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "level_guru": {
+    "table_name": "level_guru",
+    "columns": [
+      {
+        "name": "id_level",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "level",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      }
+    ]
+  },
+  "level_kelas": {
+    "table_name": "level_kelas",
+    "columns": [
+      {
+        "name": "id_level",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "level",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "master_ekstra": {
+    "table_name": "master_ekstra",
+    "columns": [
+      {
+        "name": "id_ekstra",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_ekstra",
+        "col_type": "varchar(100)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "100",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "kode_ekstra",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "20",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "master_jurusan": {
+    "table_name": "master_jurusan",
+    "columns": [
+      {
+        "name": "id_jurusan",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_jurusan",
+        "col_type": "varchar(30)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "30",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "kode_jurusan",
+        "col_type": "varchar(10)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "status",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "1",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "deletable",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "1",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "master_mapel": {
+    "table_name": "master_mapel",
+    "columns": [
+      {
+        "name": "id_mapel",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_mapel",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "kode",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "20",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "kelompok",
+        "col_type": "varchar(5)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "5",
+        "default": "-",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "bobot_p",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "0",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "bobot_k",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "0",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "jenjang",
+        "col_type": "int(1)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "0",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "urutan",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "status",
+        "col_type": "int(1)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "1",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "deletable",
+        "col_type": "int(1)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "1",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "urutan_tampil",
+        "col_type": "int(3)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      }
+    ]
+  },
+  "master_smt": {
+    "table_name": "master_smt",
+    "columns": [
+      {
+        "name": "id_smt",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "smt",
+        "col_type": "varchar(10)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "nama_smt",
+        "col_type": "varchar(10)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "active",
+        "col_type": "int(1)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "master_tp": {
+    "table_name": "master_tp",
+    "columns": [
+      {
+        "name": "id_tp",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "tahun",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "20",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "active",
+        "col_type": "int(2)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "running_text": {
+    "table_name": "running_text",
+    "columns": [
+      {
+        "name": "id_text",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "text",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "users": {
+    "table_name": "users",
+    "columns": [
+      {
+        "name": "id",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "auto_increment",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "ip_address",
+        "col_type": "varchar(45)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "45",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "username",
+        "col_type": "varchar(100)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "100",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "password",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "email",
+        "col_type": "varchar(254)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "254",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": "UNI"
+      },
+      {
+        "name": "activation_selector",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": "UNI"
+      },
+      {
+        "name": "activation_code",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "forgotten_password_selector",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": "UNI"
+      },
+      {
+        "name": "forgotten_password_code",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "forgotten_password_time",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "remember_selector",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": "UNI"
+      },
+      {
+        "name": "remember_code",
+        "col_type": "varchar(255)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "255",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "created_on",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "last_login",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "active",
+        "col_type": "tinyint(1) unsigned",
+        "type": "tinyint",
+        "collation": null,
+        "max_length": "3",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "first_name",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "last_name",
+        "col_type": "varchar(50)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "50",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "company",
+        "col_type": "varchar(100)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "100",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "phone",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "20",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      }
+    ]
+  },
+  "groups": {
+    "table_name": "groups",
+    "columns": [
+      {
+        "name": "id",
+        "col_type": "mediumint(8) unsigned",
+        "type": "mediumint",
+        "collation": null,
+        "max_length": "7",
+        "default": null,
+        "comment": "",
+        "extra": "auto_increment",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "name",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "20",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "description",
+        "col_type": "varchar(100)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "100",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "users_groups": {
+    "table_name": "users_groups",
+    "columns": [
+      {
+        "name": "id",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "auto_increment",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "user_id",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": "MUL"
+      },
+      {
+        "name": "group_id",
+        "col_type": "mediumint(8) unsigned",
+        "type": "mediumint",
+        "collation": null,
+        "max_length": "7",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": "MUL"
+      }
+    ]
+  },
+  "login_attempts": {
+    "table_name": "login_attempts",
+    "columns": [
+      {
+        "name": "id",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "auto_increment",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "ip_address",
+        "col_type": "varchar(45)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "45",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "login",
+        "col_type": "varchar(100)",
+        "type": "varchar",
+        "collation": "utf8_general_ci",
+        "max_length": "100",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "time",
+        "col_type": "int(11) unsigned",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      }
+    ]
+  },
+  "users_profile": {
+    "table_name": "users_profile",
+    "columns": [
+      {
+        "name": "id_user",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "AUTO_INCREMENT",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "nama_lengkap",
+        "col_type": "text",
+        "type": "text",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "65535",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "jabatan",
+        "col_type": "text",
+        "type": "text",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "65535",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "level_access",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": "0",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      },
+      {
+        "name": "foto",
+        "col_type": "text",
+        "type": "text",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "65535",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      }
+    ]
+  }
+}

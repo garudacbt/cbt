@@ -314,7 +314,7 @@
                         if (data) {
                             swal.fire({
                                 title: "Sukses",
-                                text: "Jadwal Pelajaran berhasil disimpan",
+                                text: "Data berhasil disimpan",
                                 icon: "success",
                                 showCancelButton: false,
                             }).then(result => {

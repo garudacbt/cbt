@@ -25,19 +25,23 @@
 				<div class="card-body">
 					<?= form_open('', array('id' => 'savesetting')) ?>
 					<div class="row">
-						<div class="col-md-3 mb-4">
+						<div class="col-md-6 mb-4">
 							<label>Nama Aplikasi *</label>
 							<input type="text" name="nama_aplikasi" class="form-control required" value="<?=$setting->nama_aplikasi?>">
 						</div>
-						<div class="col-md-4 mb-4">
+						<div class="col-md-6 mb-4">
 							<label>Nama Sekolah *</label>
 							<input type="text" name="nama_sekolah" class="form-control required" value="<?=$setting->sekolah?>" required>
 						</div>
-						<div class="col-md-3 mb-4">
-							<label>Nomor Statistik Sekolah</label>
+						<div class="col-md-4 mb-4">
+							<label>NSS/NSM</label>
 							<input type="number" name="nss" class="form-control" value="<?=$setting->nss?>">
 						</div>
-						<div class="col-md-2 mb-4">
+                        <div class="col-md-4 mb-4">
+                            <label>NPSN</label>
+                            <input type="number" name="npsn" class="form-control" value="<?=$setting->npsn?>">
+                        </div>
+						<div class="col-md-4 mb-4">
 							<label>Jenjang *</label>
 							<select class="form-control required" data-placeholder="Pilih Jenjang" name="jenjang" required>
 								<option value="" disabled>Pilih Jenjang</option>
@@ -58,28 +62,44 @@
 							<br>
 							<textarea class="w-100 p-2 required" name="alamat" required><?=$setting->alamat?></textarea>
 						</div>
-						<div class="col-md-4 mb-4">
+                        <div class="col-md-3 mb-4">
+                            <label>Kecamatan *</label>
+                            <input type="text" name="kec" class="form-control required" value="<?=$setting->kecamatan?>" required>
+                        </div>
+						<div class="col-md-3 mb-4">
 							<label>Kabupaten/Kota *</label>
 							<input type="text" name="kota" class="form-control required" value="<?=$setting->kota?>" required>
 						</div>
-						<div class="col-md-4 mb-4">
-							<label>Kecamatan *</label>
-							<input type="text" name="kec" class="form-control required" value="<?=$setting->kecamatan?>" required>
-						</div>
+                        <div class="col-md-2 mb-4">
+                            <label>Kode Pos</label>
+                            <input type="number" name="kode_pos" class="form-control" value="<?=$setting->kode_pos?>">
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label>Provinsi *</label>
+                            <input type="text" name="provinsi" class="form-control required" value="<?=$setting->provinsi?>" required>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label>Faksimili</label>
+                            <input type="text" name="fax" class="form-control" value="<?=$setting->fax?>">
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label>Website</label>
+                            <input type="text" name="web" class="form-control" value="<?=$setting->web?>">
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label>Email</label>
+                            <input type="text" name="email" class="form-control" value="<?=$setting->email?>">
+                        </div>
 						<div class="col-md-3 mb-4">
-							<label>Kode Pos</label>
-							<input type="number" name="kode_pos" class="form-control" value="<?=$setting->kode_pos?>">
-						</div>
-						<div class="col-md-3 mb-4">
-							<label>Nomor Telepon *</label>
+							<label>Nomor Telepon</label>
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">+62</span>
 								</div>
-								<input type="number" name="tlp" class="form-control required" value="<?=$setting->telp?>" required>
+								<input type="number" name="tlp" class="form-control" value="<?=$setting->telp?>">
 							</div>
 						</div>
-						<div class="col-md-3 mb-4">
+						<div class="col-md-5 mb-4">
 							<label>Kepala Sekolah *</label>
 							<input type="text" name="kepsek" class="form-control required" value="<?=$setting->kepsek?>" required>
 						</div>

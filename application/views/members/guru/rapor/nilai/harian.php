@@ -685,6 +685,8 @@
                 timeout: 600000,
                 success: function (data) {
                     console.log(data);
+                    window.location.href = base_url + 'rapor/inputharian/'+idMapel+'/'+idKelas
+                    /*
                     swal.fire({
                         title: "Sukses",
                         html: "<b>"+data+"<b> nilai berhasil diupdate",
@@ -697,6 +699,7 @@
                             window.location.href = base_url + 'rapor/inputharian/'+idMapel+'/'+idKelas
                         }
                     });
+                    */
                 },
                 error: function (e) {
                     console.log("error", e.responseText);

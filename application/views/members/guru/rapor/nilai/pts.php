@@ -60,6 +60,37 @@
                             KKM dan Bobot belum diatur
                         </div>
                     <?php endif; ?>
+                        <?php
+                        $multi = $setting_rapor->kkm_tunggal == "0" ? "MULTI" : "TUNGGAL";
+                        $isi = $kkm->kkm;
+                        $d = 0;
+                        $dsd = $isi - 1;
+                        $c = $isi;
+                        $csd = floor($isi + (100 - $isi) / 3);
+                        $b = $csd + 1;
+                        $bsd = floor($b + (100 - $b) / 2);
+                        $a = $bsd + 1;
+                        $asd = 100;
+                        ?>
+                        <table class="table w-100 table-bordered border-dark table-sm">
+                            <tr class="bg-light text-center">
+                                <td style="width: 20%">KKM</td>
+                                <td style="width: 20%">Jenis KKM</td>
+                                <td style="width: 40%">Interval Predikat Berdasarkan KKM</td>
+                                <td style="width: 20%">Bobot Nilai PTS</td>
+                            </tr>
+                            <tr class="text-center text-md text-dark">
+                                <td><?=$kkm->kkm?></td>
+                                <td><?=$multi?></td>
+                                <td>
+                                    <span class="bg-danger badge p-1">0 ~ <?= $dsd ?> : D</span>
+                                    <span class="bg-warning badge p-1"><?= $c . ' ~ ' . $csd ?> : C</span>
+                                    <span class="bg-blue badge p-1"><?= $b . ' ~ ' .  $bsd ?> : B</span>
+                                    <span class="bg-success badge p-1"><?= $a ?> ~ 100 : A</span>
+                                </td>
+                                <td><?=$kkm->bobot_pts?> %</td>
+                            </tr>
+                        </table>
                     <div id="t-siswa" class="w-100"></div>
                     <?= form_open('', array('id' => 'uploadnilai')) ?>
                     <button type="submit" class="btn btn-primary float-right mt-3 mb-3">
@@ -200,6 +231,8 @@
                 timeout: 600000,
                 success: function (data) {
                     console.log(data);
+                    window.location.href = base_url + 'rapor/inputpts/'+idMapel+'/'+idKelas
+                    /*
                     swal.fire({
                         title: "Sukses",
                         html: "<b>"+data+"<b> nilai berhasil diupdate",
@@ -212,6 +245,7 @@
                             window.location.href = base_url + 'rapor/inputpts/'+idMapel+'/'+idKelas
                         }
                     });
+                    */
                 },
                 error: function (e) {
                     console.log("error", e.responseText);

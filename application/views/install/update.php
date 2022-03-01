@@ -43,13 +43,15 @@
             <ol>
                 <li>Pastikan aplikasi sedang tidak digunakan</li>
                 <li>Backup database terlebih dahulu untuk berjaga-jaga</li>
-                <li>Abaikan tabel yang tidak bisa diupdate, terutama jika menggunakan Laragon</li>
             </ol>
         </div>
 
         <div class="row">
             <div class="col-md-3 col-6">
                 <button id="check" class="w-100 btn btn-primary" onclick="cekDb()">Cek Database</button>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="<?=base_url().'/update/make_base'?>" class="w-100 btn btn-primary">Make Migration</a>
             </div>
             <div id="update" class="col-md-3 col-6 d-none">
                 <button id="btn-update" class="w-100 btn btn-success" onclick="updateDb()">Update Database</button>

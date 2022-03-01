@@ -1,0 +1,47 @@
+[
+  {
+    "id_ruang": "1",
+    "nama_ruang": "Ruang 1",
+    "kode_ruang": "LAB-KOM"
+  },
+  {
+    "id_ruang": "2",
+    "nama_ruang": "Ruang 2",
+    "kode_ruang": "R2"
+  },
+  {
+    "id_ruang": "3",
+    "nama_ruang": "Ruang 3",
+    "kode_ruang": "R3"
+  },
+  {
+    "id_ruang": "7",
+    "nama_ruang": "Ruang 4",
+    "kode_ruang": "R4"
+  },
+  {
+    "id_ruang": "8",
+    "nama_ruang": "Ruang 5",
+    "kode_ruang": "R5"
+  },
+  {
+    "id_ruang": "9",
+    "nama_ruang": "Ruang PAT 1",
+    "kode_ruang": "R-PAT-1"
+  },
+  {
+    "id_ruang": "10",
+    "nama_ruang": "Ruang PAT 2",
+    "kode_ruang": "R-PAT-2"
+  },
+  {
+    "id_ruang": "11",
+    "nama_ruang": "Ruang PAT 3",
+    "kode_ruang": "R-PAT-3"
+  },
+  {
+    "id_ruang": "12",
+    "nama_ruang": "Ruang PAT 4",
+    "kode_ruang": "R-PAT-4"
+  }
+]

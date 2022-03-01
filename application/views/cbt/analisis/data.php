@@ -73,7 +73,7 @@
                         //var_dump($nilai);
 
                         //echo '<br>';
-                        //var_dump($soals[2][4]);
+                        //var_dump($soals);
                         //echo '</pre>';
                         if (isset($soals[1])) :?>
                             <div class="card card-success col-md-12 p-0">

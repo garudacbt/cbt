@@ -230,6 +230,12 @@
                 $rapor_input = ['raporspiritual', 'raporsosial', 'raporprestasi', 'raporcatatan', 'raporfisik', 'rapornaik'];
                 $rapor_cetak = ['cetakpts', 'cetakakhir', 'cetakleger', 'dkn'];
                 ?>
+                <li class="nav-item">
+                    <a href="<?= base_url('bukurapor') ?>" class="nav-link <?= $page === 'bukurapor' ? "active" : "" ?>">
+                        <i class="fas fa-book nav-icon"></i>
+                        <p>ARSIP RAPOR</p>
+                    </a>
+                </li>
                 <li class="nav-item has-treeview <?= in_array($pageact, $data_rapor)  ? "menu-open" : ""  ?>">
                     <a href="#" class="nav-link <?= in_array($pageact, $data_rapor) ?"active":""?>">
                         <i class="nav-icon fas fa-chart-pie"></i>

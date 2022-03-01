@@ -1,0 +1,30 @@
+[
+  {
+    "id_hri": "1",
+    "nama_hri": "Senin"
+  },
+  {
+    "id_hri": "2",
+    "nama_hri": "Selasa"
+  },
+  {
+    "id_hri": "3",
+    "nama_hri": "Rabu"
+  },
+  {
+    "id_hri": "4",
+    "nama_hri": "Kamis"
+  },
+  {
+    "id_hri": "5",
+    "nama_hri": "Jum'at"
+  },
+  {
+    "id_hri": "6",
+    "nama_hri": "Sabtu"
+  },
+  {
+    "id_hri": "7",
+    "nama_hri": "Minggu"
+  }
+]

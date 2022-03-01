@@ -1,0 +1,22 @@
+[
+  {
+    "id_level": "1",
+    "level": "Kepala Sekolah"
+  },
+  {
+    "id_level": "2",
+    "level": "Wakil Kepala Sekolah"
+  },
+  {
+    "id_level": "3",
+    "level": "Bimbingan Konseling"
+  },
+  {
+    "id_level": "4",
+    "level": "Walikelas"
+  },
+  {
+    "id_level": "5",
+    "level": "Guru"
+  }
+]

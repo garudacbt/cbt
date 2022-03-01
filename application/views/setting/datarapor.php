@@ -68,6 +68,20 @@
                             </ul>
                         </div>
                     </div>
+                    <!--
+                    <div class="row p-3">
+                        <?php $dis = isset($tahun_selected) && isset($smt_selected) &&isset($kelas_selected) ? '' : ' disabled' ?>
+                        <div class="col-md-12 col-4 p-2">
+                            <button class="btn btn-sm btn-warning btn-block"<?=$dis?>><i class="fa fa-pencil"></i> Edit</button>
+                        </div>
+                        <div class="col-md-12 col-4 p-2">
+                            <button class="btn btn-sm btn-primary btn-block"<?=$dis?>><i class="fa fa-book"></i> Ledger</button>
+                        </div>
+                        <div class="col-md-12 col-4 p-2">
+                            <button class="btn btn-sm btn-primary btn-block"<?=$dis?>><i class="fa fa-book"></i> D K N</button>
+                        </div>
+                    </div>
+                    -->
                 </div>
                 <div class="col-md-9">
                     <div class="alert alert-default-info align-content-center" role="alert">
@@ -141,12 +155,12 @@
                                                 <br>
                                                 <div class="judul"
                                                      style="text-align: center;font-family: 'Arial';font-size: 20pt;font-weight: bold">
-                                                    <p style="margin-bottom: 0">RAPOR</p>
+                                                    <p style="margin-bottom: 0">LAPORAN HASIL BELAJAR</p>
                                                     <?php
                                                     $header_rapor = '';
                                                     if ($setting->jenjang == '1'){
                                                         $header_rapor = 'MADRASAH IBTIDAIYAH (MI)';
-                                                    } elseif ($setting->jenjang == '1') {
+                                                    } elseif ($setting->jenjang == '2') {
                                                         $header_rapor = 'MADRASAH TSANAWIYAH (MTS)';
                                                     } else {
                                                         $header_rapor = 'MADRASAH ALIYAH (MA)';
@@ -240,6 +254,18 @@
     var tp = '<?= $tp_active->tahun ?>';
     var smt = '<?= $smt_active->smt ?>';
     var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
+    let header_rapor = '';
+    let subHeader = '';
+    if (setting.jenjang == '1'){
+        header_rapor = 'MADRASAH IBTIDAIYAH';
+        subHeader = '(MI)';
+    } else if (setting.jenjang == '2') {
+        header_rapor = 'MADRASAH TSANAWIYAH';
+        subHeader = '(MTS)';
+    } else {
+        header_rapor = 'MADRASAH ALIYAH';
+        subHeader = '(MA)';
+    }
 
     var arrMapel = null;
 
@@ -387,6 +413,26 @@
         return ttl;
     }
 
+    function handleStatusKeluarga(value) {
+        var list = ["", "Anak Kandung","Anak Tiri", "Anak Angkat"];
+        if (value == null || value == '-' || value =="") return '-';
+        else return list[value];
+    }
+
+    function handleTitiMangsa(tgl) {
+        var bulans = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+        var ttl = '';
+        if (handleNull(tgl) != '-') {
+            var splitted = tgl.split("-");
+            var tanggal = splitted[0];
+            var bulan = splitted[1] != null ? splitted[1] : '';
+            var tahun = splitted[2] != null ? splitted[2] : '';
+
+            ttl += tanggal + " " + bulans[Math.abs(bulan)] + " " + tahun;
+        }
+        return ttl;
+    }
+
     function ellipsisText(text) {
         //text = 'Menyusun, menanggapi, menyajikan teks pidato sesuai kaidah, Menelaah, menanggapi, ' +
         //    'menyajikan teks berita ilmu pengetahuan, teknologi dan seni, Menelaah, menanggapi, membicarakan ' +
@@ -446,9 +492,9 @@
 
         var infoSekolah = '<div style="padding: 0.5cm; margin-top: 100px">' +
             '    <div class="judul" style="text-align: center;font-family: \'Arial\';font-size: 20pt;font-weight: bold">' +
-            '        <p style="margin-bottom: 0">RAPOR</p>' +
-            '        <p style="margin-bottom: 0">MADRASAH TSANAWIYAH</p>' +
-            '        <p style="margin-bottom: 0">(MTS)</p>' +
+            '        <p style="margin-bottom: 0">LAPORAN HASIL BELAJAR</p>' +
+            '        <p style="margin-bottom: 0">'+header_rapor+'</p>' +
+            '        <p style="margin-bottom: 0">'+subHeader+'</p>' +
             '    </div>' +
             '    <br>' +
             '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 300px;font-family: \'Tahoma\';font-size: 14pt;">' +
@@ -487,7 +533,7 @@
         var arrIdVal = [
             handleNull(siswa.nama), handleNisn(siswa.nis, siswa.nisn),
             handleNull(siswa.tempat_lahir) + ', ' + handleTanggal(siswa.tanggal_lahir), handleGender(siswa.jenis_kelamin),
-            handleNull(siswa.agama), handleNull(siswa.status_keluarga), handleNull(siswa.anak_ke),
+            handleNull(siswa.agama), handleStatusKeluarga(siswa.status_keluarga), handleNull(siswa.anak_ke),
             handleAlamat(siswa.alamat, siswa.rt, siswa.rw, siswa.kelurahan, siswa.kecamatan, siswa.kabupaten, siswa.provinsi),
             handleNull(siswa.hp), handleNull(siswa.sekolah_asal), '', handleNull(siswa.kelas_awal), handleTanggal(siswa.tahun_masuk),
             '', handleNull(siswa.nama_ayah), handleNull(siswa.pekerjaan_ayah), handleNull(siswa.nohp_ayah), handleNull(siswa.alamat_syah),
@@ -521,6 +567,27 @@
         }
 
         identitas += '</table></div></div>';
+        identitas += '<table style="width: 100%">' +
+            '<tr style="font-family: \'Tahoma\';font-size: 12pt;">' +
+            '<td style="width: 35%;padding-left: 100px;">' +
+            '<img src="'+base_url+'/assets/app/img/bg_frame_foto.jpg"></td>' +
+            '</td>' +
+            '<td style="width: 30%;">' +
+            '<td style="width: 35%">' +
+            setting.kota+',  ' + handleTanggal(siswa.tahun_masuk) +
+            '    <br>' +
+            '    Kepala Madrasah' +
+            '    <br>' +
+            '    <br>' +
+            '    <br>' +
+            '    <br>' +
+            '    <u>'+setting.kepsek+'</u>' +
+            '    <br>' +
+            '    Nip:' +
+            '</td>' +
+            '</tr>' +
+            '</table>' +
+            '</div>';
         return identitas;
     }
 
@@ -676,7 +743,7 @@
             if (mapel.urutan == '1') {
                 tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 6px 2px 6px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kkm + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkm + '</b></td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
@@ -687,7 +754,7 @@
                 tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 6px 2px 6px">' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kkm + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkm + '</b></td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
@@ -722,7 +789,7 @@
                 tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 6px 2px 6px">' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kkm + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkm + '</b></td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
@@ -765,7 +832,7 @@
                 if (mapel.kelompok == 'MULOK') {
                     tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                         '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 6px 2px 6px">' + mapel.nama_mapel + '</td>' +
-                        '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kkm + '</td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkm + '</b></td>' +
                         '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                         '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
                         '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
@@ -1053,7 +1120,7 @@
             var nilaiDesk = v.desk;
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+no+'</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">'+v.mapel+'</td>' +
+                '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">'+v.nama_ekstra+'</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+nilaiEkstra+'</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">'+nilaiDesk+'</td>' +
                 '</tr>';
@@ -1246,7 +1313,7 @@
             '</td>' +
             '<td style="width: 30%;"></td>' +
             '<td style="width: 35%">' +
-            setting.kota + ',  ' + siswa.setting_rapor.tgl_rapor_akhir +
+            setting.kota + ',  ' + handleTitiMangsa(siswa.setting_rapor.tgl_rapor_akhir) +
             '    <br>' +
             'Wali Kelas' +
             '    <br>' +

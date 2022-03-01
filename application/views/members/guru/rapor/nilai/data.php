@@ -13,13 +13,16 @@
         <div class="container-fluid">
             <div class="card my-shadow mb-4">
                 <div class="card-body">
+                    <?php
+                    //echo '<pre>';
+                    //var_dump($siswas);
+                    //var_dump($pts[1]);
+                    //var_dump($mapel);
+                    //var_dump($kelas_mapel);
+                    //echo '</pre>';
+                    ?>
                     <div class="row">
                         <?php
-                        //echo '<pre>';
-                        //var_dump($level);
-                        //var_dump($mapel);
-                        //var_dump($kelas_mapel);
-                        //echo '</pre>';
                         sort($level);
 
                         $arrLevel = [];
@@ -63,7 +66,11 @@
                                             <tbody>
                                             <?php
                                             $no = 1;
-                                            foreach ($lv as $k => $kls) :?>
+                                            foreach ($lv as $k => $kls) :
+                                                $indich = $harian[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
+                                                $indicp = $pts[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
+                                                $indica = $pas[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
+                                                ?>
                                                 <tr>
                                                     <td class="text-center">
                                                         <?= $no ?>
@@ -74,14 +81,17 @@
                                                     <td class="text-center w-25">
                                                         <a href="<?= $kls['url_harian'] ?>" type="button"
                                                            class="btn btn-xs btn-primary">Input Nilai</a>
+                                                        <?= $indich ?>
                                                     </td>
                                                     <td class="text-center w-25">
                                                         <a href="<?= $kls['url_pts'] ?>" type="button"
                                                            class="btn btn-xs btn-primary">Input Nilai</a>
+                                                        <?= $indicp ?>
                                                     </td>
                                                     <td class="text-center w-25">
                                                         <a href="<?= $kls['url_pas'] ?>" type="button"
                                                            class="btn btn-xs btn-primary">Input Nilai</a>
+                                                        <?= $indica ?>
                                                     </td>
                                                 </tr>
                                                 <?php $no++; endforeach; ?>
@@ -94,8 +104,9 @@
                     </div>
 
                     <?php
-                    // echo '<pre>';
+                    //echo '<pre>';
                     //var_dump($ekstra);
+                    //var_dump($ekstras);
                     //var_dump($kelas_ekstra);
                     //echo '</pre>';
 
@@ -122,7 +133,9 @@
                                                 <tbody>
                                                 <?php
                                                 $no = 1;
-                                                foreach ($kelas_ekstra[$k] as $e => $kls) :?>
+                                                foreach ($kelas_ekstra[$k] as $e => $kls) :
+                                                    $indice = $ekstras[$k][$kls['nama_kelas']] == $siswae[$k][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
+                                                    ?>
                                                     <tr>
                                                         <td class="text-center">
                                                             <?= $no ?>
@@ -134,6 +147,7 @@
                                                             <a href="<?= base_url('rapor/inputekstra/' . $k . '/' . $kls['id_kelas']) ?>"
                                                                type="button"
                                                                class="btn btn-xs btn-primary">Input Nilai</a>
+                                                            <?= $indice ?>
                                                         </td>
                                                     </tr>
                                                     <?php $no++; endforeach; ?>

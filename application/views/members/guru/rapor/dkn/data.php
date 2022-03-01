@@ -145,8 +145,8 @@
                                     <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?=$siswa->jenis_kelamin?></td>
                                     <?php foreach ($arrMapel as $mpl) :
                                         $id = $mpl->id_mapel;
-                                        $jmlNilai += isset($nilai[$siswa->id_siswa][$id]['nilai']) ? $nilai[$siswa->id_siswa][$id]['nilai'] : 0;
-                                        $jmlNilai += isset($nilai[$siswa->id_siswa][$id]['k_rata_rata']) ? $nilai[$siswa->id_siswa][$id]['k_rata_rata'] : 0;
+                                        $jmlNilai += isset($nilai[$siswa->id_siswa][$id]['nilai']) ? floatval($nilai[$siswa->id_siswa][$id]['nilai']) : 0;
+                                        $jmlNilai += isset($nilai[$siswa->id_siswa][$id]['k_rata_rata']) ? floatval($nilai[$siswa->id_siswa][$id]['k_rata_rata']) : 0;
                                         ?>
                                         <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= isset($nilai[$siswa->id_siswa][$id]['nilai']) ? $nilai[$siswa->id_siswa][$id]['nilai'] : ''?></td>
                                         <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= isset($nilai[$siswa->id_siswa][$id]['k_rata_rata']) ? $nilai[$siswa->id_siswa][$id]['k_rata_rata'] : '' ?></td>

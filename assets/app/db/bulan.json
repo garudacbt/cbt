@@ -1,0 +1,50 @@
+[
+  {
+    "id_bln": "1",
+    "nama_bln": "Januari"
+  },
+  {
+    "id_bln": "2",
+    "nama_bln": "Februari"
+  },
+  {
+    "id_bln": "3",
+    "nama_bln": "Maret"
+  },
+  {
+    "id_bln": "4",
+    "nama_bln": "April"
+  },
+  {
+    "id_bln": "5",
+    "nama_bln": "Mei"
+  },
+  {
+    "id_bln": "6",
+    "nama_bln": "Juni"
+  },
+  {
+    "id_bln": "7",
+    "nama_bln": "Juli"
+  },
+  {
+    "id_bln": "8",
+    "nama_bln": "Agustus"
+  },
+  {
+    "id_bln": "9",
+    "nama_bln": "September"
+  },
+  {
+    "id_bln": "10",
+    "nama_bln": "Oktober"
+  },
+  {
+    "id_bln": "11",
+    "nama_bln": "November"
+  },
+  {
+    "id_bln": "12",
+    "nama_bln": "Desember"
+  }
+]
