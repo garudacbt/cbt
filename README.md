@@ -1,8 +1,5 @@
 # GarudaCBT
-- [HOME](https://garudacbt.github.io/cbt)
-- [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
-
-
+____
 
 ### MENU FITUR
 1. DATA MASTER
@@ -62,3 +59,19 @@
      * Update
      
 6. LOGOUT
+______
+### Install
+ * Download Aplikasi dari menu **Code => Download ZIP**
+ * Extract di folder **htdocs** jika menggunakan XAMPP, atau folder **www** jika mengonakan Laragon
+ * Lengkapnya sialhkan ke [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
+______
+### Update
+ * Download Aplikasi dari menu **Code => Download ZIP**
+ * Extract dan replace semua code di folder aplikasi
+ * sesuaikan nama database yang digunakan
+ * backup database untuk berjaga-jaga
+ * jalankan menu **update** di menu DATABASE => UPDATE
+______
+- [HOME](https://garudacbt.github.io/cbt)
+- [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
+
