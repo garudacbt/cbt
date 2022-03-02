@@ -132,6 +132,11 @@
                     <div class="card card-success my-shadow">
                         <div class="card-header">
                             <div class="card-title">Aktifitas</div>
+                            <div class="card-tools">
+                                <button type="button" onclick="hapusLogAktivitas()" class="btn btn-sm">
+                                    <i class="fa fa-trash text-white"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div id="log-list">

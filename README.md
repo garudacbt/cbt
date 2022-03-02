@@ -1,6 +1,8 @@
 # GarudaCBT
+______
+- [HOME](https://garudacbt.github.io/cbt)
+- [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
 ____
-
 ### MENU FITUR
 1. DATA MASTER
    * Beranda
@@ -71,7 +73,5 @@ ______
  * sesuaikan nama database yang digunakan
  * backup database untuk berjaga-jaga
  * jalankan menu **update** di menu DATABASE => UPDATE
-______
-- [HOME](https://garudacbt.github.io/cbt)
-- [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
+
 

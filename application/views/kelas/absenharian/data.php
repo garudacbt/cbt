@@ -88,7 +88,7 @@
 	var thn ='';
 	var oldData = '';
 
-    var arrhari = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    var arrhari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
     var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     var arrbulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 	var docTitle = 'Kehadiran Harian';
@@ -139,7 +139,8 @@
 			table += '<div class="alert alert-default-warning align-content-center" role="alert">Jadwal Pelajaran kelas '+ kelas +' belum diatur</div>';
 		} else {
 		    docTitle += ' Kls ' + kelas + ' ' + tgl +' '+ bulans[parseInt(bln)] +' '+ thn;
-		    var tglMateri = buatTanggal(thn+'-'+bln+'-'+tgl+'T00:00:00', true);
+		    var ctgl = tgl < 10 ? '0'+tgl : tgl;
+		    var tglMateri = buatTanggal(thn+'-'+bln+'-'+ctgl+' 00:00:00', true);
 			var totalMapel = data.info.kbm_jml_mapel_hari;
 			table = '<div style="width:100%;">' +
                 '    <p style="text-align:center;font-size:14pt; font-weight: bold">DAFTAR KEHADIRAN HARIAN SISWA</p>' +
@@ -337,7 +338,7 @@
         var curr_jam = d.getHours();
         var curr_mnt = d.getMinutes();
 
-        console.log(curr_month);
+        console.log("curr_month", curr_month);
 
         if (singkat) {
             return arrhari[curr_day] + ", " + curr_date + "  " + bulans[curr_month] + " " + curr_year;

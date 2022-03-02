@@ -277,7 +277,8 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                 } else {
                                                     $ada_mapel = false;
                                                 }
-                                                $disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
+                                                //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
+                                                $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
                                                 $tempId = $tempIdSelected . str_replace('-','', $jh) . '11';
 
                                                 echo form_dropdown(
@@ -301,7 +302,8 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                 } else {
                                                     $ada_mapel = false;
                                                 }
-                                                $disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
+                                                //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
+                                                $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
                                                 $tempId = $tempIdSelected . str_replace('-','', $jh) . '12';
 
                                                 echo form_dropdown(
