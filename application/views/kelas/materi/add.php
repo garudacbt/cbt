@@ -515,7 +515,7 @@ if (empty($kelas_pilih)) {
 			div.setAttribute("id", "f-" + file.name);
 			if (!$("#f-" + file.name).length) {
 				if (file.type.match('image')) {
-					div.innerHTML = "<img src='" + file.src + "'/>" +
+					div.innerHTML = "<img src='" + base_url + file.src + "'/>" +
 						"<div  class='post-thumb'>" +
 						"<div class='inner-post-thumb'>" +
 						"<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
@@ -524,7 +524,7 @@ if (empty($kelas_pilih)) {
 						"</div>";
 					$("#media-list").prepend(div);
 				} else if (file.type.match('video')) {
-					div.innerHTML = "<video src='" + file.src + "'></video>" +
+					div.innerHTML = "<video src='" + base_url + file.src + "'></video>" +
 						"<div class='post-thumb'>" +
 						"<div  class='inner-post-thumb'>" +
 						"<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +

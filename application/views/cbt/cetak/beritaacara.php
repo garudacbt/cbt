@@ -251,9 +251,9 @@
 									</tr>
 									<tr>
 										<td style="width: 30px;">1.</td>
-										<td>Proktor</td>
+										<td>Pengawas 1</td>
 										<td>:</td>
-										<td class="editable bg-lime"><?= isset($kop->proktor) ? $kop->proktor : '' ?></td>
+										<td class="editable bg-lime" id="edit-pengawas1"></td>
 										<td style="padding-left: 20px" rowspan="2">1. _________________________</td>
 									</tr>
 									<tr>
@@ -266,11 +266,9 @@
 									</tr>
 									<tr>
 										<td style="padding-top: 12px">2.</td>
-										<td style="padding-top: 12px">
-											Pengawas
-										</td>
+										<td style="padding-top: 12px">Pengawas 2</td>
 										<td style="padding-top: 12px">:</td>
-										<td style="padding-top: 12px" class="editable bg-lime" id="edit-pengawas"></td>
+										<td style="padding-top: 12px" class="editable bg-lime" id="edit-pengawas2"></td>
 										<td style="padding-left: 20px" rowspan="2">2. _________________________</td>
 									</tr>
 									<tr>
@@ -371,7 +369,8 @@
                         $('#edit-waktu-mulai').html('<b>'+response.info.sesi.waktu_mulai.substring(0, 5)+'</b>');
                         $('#edit-waktu-akhir').html('<b>'+response.info.sesi.waktu_akhir.substring(0, 5)+'</b>');
                         $('#edit-mapel').html('<b>'+response.info.jadwal.nama_mapel+'</b>');
-                        $('#edit-pengawas').text(response.info.pengawas[0].nama_guru);
+                        $('#edit-pengawas1').text(response.info.pengawas[0].nama_guru);
+                        $('#edit-pengawas2').text(response.info.pengawas[1].nama_guru);
                     }
                 });
             }
@@ -392,7 +391,8 @@
                         $('#edit-waktu-mulai').html('<b>' + response.info.sesi.waktu_mulai.substring(0, 5) + '</b>');
                         $('#edit-waktu-akhir').html('<b>' + response.info.sesi.waktu_akhir.substring(0, 5) + '</b>');
                         $('#edit-mapel').html('<b>' + response.info.jadwal.nama_mapel + '</b>');
-                        $('#edit-pengawas').text(+response.info.pengawas[0].nama_guru);
+                        $('#edit-pengawas1').text(+response.info.pengawas[0].nama_guru);
+                        $('#edit-pengawas2').text(response.info.pengawas[1].nama_guru);
                     }
                 });
             }

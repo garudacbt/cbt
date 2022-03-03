@@ -399,7 +399,7 @@ function hapusPost(idPost) {
                 type: "GET",
                 success: function (data) {
                     console.log("result", data);
-                    if (data) {
+                    if (data.status) {
                         swal.fire({
                             title: "Sukses",
                             text: "Pengumuman dihapus",
@@ -407,7 +407,7 @@ function hapusPost(idPost) {
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                getPosts()
+                                window.location.reload();
                             }
                         });
                     } else {
@@ -526,6 +526,52 @@ function hapusReply(idReply) {
     });
 }
 
+function hapusLogAktivitas() {
+    swal.fire({
+        title: "Hapus Log",
+        text: "Semua log aktifitas akan dihapus",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "HAPUS"
+    }).then(result => {
+        if (result.value) {
+            $.ajax({
+                url: base_url + "dashboard/hapuslog/",
+                type: "GET",
+                success: function (data) {
+                    console.log("result", data);
+                    if (data) {
+                        swal.fire({
+                            title: "Sukses",
+                            text: "Semua log dihapus",
+                            icon: "success",
+                            showCancelButton: false,
+                        }).then(result => {
+                            if (result.value) {
+                                getPosts()
+                            }
+                        });
+                    } else {
+                        swal.fire({
+                            title: "ERROR",
+                            text: "Gagal menghapus log",
+                            icon: "error",
+                            showCancelButton: false,
+                        });
+                    }
+                }, error: function (xhr, status, error) {
+                    console.log("error", xhr.responseText);
+                    swal.fire({
+                        title: "ERROR",
+                        text: "Gagal menghapus log",
+                        icon: "error",
+                        showCancelButton: false,
+                    });
+                }
+            });
+        }
+    });
+}
 
 /*
  * SEMUA

@@ -300,10 +300,7 @@ foreach ($guru as $g) {
             $('#jadwal-content').html(html);
         }
 
-        if (<?= count($cbt_setting)?> >
-        0
-    )
-        {
+        if (<?= count($cbt_setting)?> >0){
             var html = '<div class="col-12 alert alert-default-warning">' +
                 'RUANG atau SESI belum terdaftar.<br>Tidak bisa mengerjakan ulangan/ujian.<br>Hubungi Proktor/Admin' +
                 '</div>';

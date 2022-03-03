@@ -367,22 +367,22 @@
                     '</table>' +
                     '</td>' +
                     '<td style="width: 27%; padding-left: 10px">' +
-                    'Proktor' +
-                    '<br>' +
-                    '<br>' +
-                    '<br>' +
-                    '<br>' +
-                    '<u>' + proktor + '</u>' +
-                    '<br>' +
-                    'Nip:' +
-                    '</td>' +
-                    '<td style="width: 27%">' +
-                    'Pengawas' +
+                    'Pengawas 1' +
                     '<br>' +
                     '<br>' +
                     '<br>' +
                     '<br>' +
                     '<u>' + pengawas1 + '</u>' +
+                    '<br>' +
+                    'Nip:' +
+                    '</td>' +
+                    '<td style="width: 27%">' +
+                    'Pengawas 2' +
+                    '<br>' +
+                    '<br>' +
+                    '<br>' +
+                    '<br>' +
+                    '<u>' + pengawas2 + '</u>' +
                     '<br>' +
                     'Nip:' +
                     '</td>' +
@@ -428,6 +428,9 @@
                         url: base_url + "cbtcetak/getsiswaruang?ruang=" + ruang + '&sesi=' + sesi + '&jadwal=' + jadwal,
                         success: function (response) {
                             createPrintPreview(response);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("error", xhr.responseText);
                         }
                     });
                 }, 500);
@@ -447,6 +450,9 @@
                         url: base_url + "cbtcetak/getsiswakelas?kelas=" + kelas + '&sesi=' + sesi + '&jadwal=' + jadwal,
                         success: function (response) {
                             createPrintPreview(response);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("error", xhr.responseText);
                         }
                     });
                 }, 500);
