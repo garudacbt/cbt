@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" unselectable="on">
             <div class="row">
                 <div class="col-12">
                     <div class="card my-shadow">
@@ -150,6 +150,7 @@
 <script src="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/redirect.js"></script>
 <script>
+    var elem= document.documentElement;
     history.pushState(null, null, '<?php echo $_SERVER["REQUEST_URI"]; ?>');
     window.addEventListener('popstate', function(event) {
         loadSoalNomor(1);
@@ -169,6 +170,21 @@
     let soalTerjawab = 0, soalTotal =0;
 
     $(document).ready(function () {
+        document.onmousedown = rtclickcheck;
+        swal.fire({
+            title: 'Peraturan Ujian',
+            html: 'Kerjakan soal dengan benar dan jangan nyontek',
+            // showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Iya',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.value) {
+                openFullscreen();
+            }
+        });
+
         $('#jawab').on('submit', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -831,4 +847,43 @@
         //item['jawaban'] = arrayres;
         //return item;
     }
+
+    var message = "Dilarang Copy Paste";
+    function rtclickcheck(keyp){
+        if (navigator.appName == "Netscape" && keyp.which == 3){
+            alert(message); return false;
+        }
+
+        if (navigator.appVersion.indexOf("MSIE") != -1 && event.button ==2){
+            alert(message); return false;
+        }
+    }
+
+    function launchFullScreen(element) {
+        if(element.requestFullScreen) {
+            element.requestFullScreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullScreen) {
+            element.webkitRequestFullScreen();
+        }
+    }
+
+    /* Function to open fullscreen mode */
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Chrome, Safari & Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE/Edge */
+            elem = window.top.document.body; //To break out of frame in IE
+            elem.msRequestFullscreen();
+        }
+    }
+
 </script>
