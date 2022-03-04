@@ -15,6 +15,9 @@ class CashFlowValidations extends FinancialValidations
     public static function validateRate($rate): float
     {
         $rate = self::validateFloat($rate);
+        if ($rate < 0.0) {
+            throw new Exception(Functions::NAN());
+        }
 
         return $rate;
     }

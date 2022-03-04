@@ -113,10 +113,8 @@ class Properties
 
                         break;
                     case 'user-defined':
-                        if ($attributes) {
-                            [, $attrName] = explode(':', (string) $attributes['name']);
-                            $this->userDefinedProperties($attrName, $propertyValue);
-                        }
+                        [, $attrName] = explode(':', $attributes['name']);
+                        $this->userDefinedProperties($attrName, $propertyValue);
 
                         break;
                 }

@@ -17,7 +17,6 @@ use phpDocumentor\Reflection\DocBlock\Description;
 use phpDocumentor\Reflection\DocBlock\DescriptionFactory;
 use phpDocumentor\Reflection\Types\Context as TypeContext;
 use Webmozart\Assert\Assert;
-
 use function preg_match;
 
 /**
@@ -59,7 +58,7 @@ final class Version extends BaseTag implements Factory\StaticMethod
         ?string $body,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ): ?self {
+    ) : ?self {
         if (empty($body)) {
             return new static();
         }
@@ -83,7 +82,7 @@ final class Version extends BaseTag implements Factory\StaticMethod
     /**
      * Gets the version section of the tag.
      */
-    public function getVersion(): ?string
+    public function getVersion() : ?string
     {
         return $this->version;
     }
@@ -91,7 +90,7 @@ final class Version extends BaseTag implements Factory\StaticMethod
     /**
      * Returns a string representation for this tag.
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->description) {
             $description = $this->description->render();

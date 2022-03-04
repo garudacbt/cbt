@@ -32,13 +32,17 @@ class TableRowGroup extends AbstractFrameDecorator
     }
 
     /**
-     * Split the row group at the given child and remove all subsequent child
-     * rows and all subsequent row groups from the cellmap.
+     * Override split() to remove all child rows and this element from the cellmap
+     *
+     * @param Frame $child
+     * @param bool $force_pagebreak
+     *
+     * @return void
      */
-    public function split(?Frame $child = null, bool $page_break = false, bool $forced = false): void
+    function split(Frame $child = null, $force_pagebreak = false)
     {
         if (is_null($child)) {
-            parent::split($child, $page_break, $forced);
+            parent::split();
             return;
         }
 
@@ -51,23 +55,16 @@ class TableRowGroup extends AbstractFrameDecorator
             $iter = $iter->get_next_sibling();
         }
 
-        // Remove all subsequent row groups from the cellmap
-        $iter = $this->get_next_sibling();
-
-        while ($iter) {
-            $cellmap->remove_row_group($iter);
-            $iter = $iter->get_next_sibling();
-        }
-
         // If we are splitting at the first child remove the
         // table-row-group from the cellmap as well
         if ($child === $this->get_first_child()) {
             $cellmap->remove_row_group($this);
-            parent::split(null, $page_break, $forced);
+            parent::split();
             return;
         }
 
         $cellmap->update_row_group($this, $child->get_prev_sibling());
-        parent::split($child, $page_break, $forced);
+        parent::split($child);
     }
 }
+

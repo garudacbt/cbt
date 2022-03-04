@@ -2,14 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class BesselY
 {
-    use ArrayEnabled;
-
     /**
      * BESSELY.
      *
@@ -20,22 +17,17 @@ class BesselY
      *
      * @param mixed $x A float value at which to evaluate the function.
      *                   If x is nonnumeric, BESSELY returns the #VALUE! error value.
-     *                      Or can be an array of values
      * @param mixed $ord The integer order of the Bessel function.
      *                       If ord is not an integer, it is truncated.
      *                       If $ord is nonnumeric, BESSELY returns the #VALUE! error value.
      *                       If $ord < 0, BESSELY returns the #NUM! error value.
-     *                      Or can be an array of values
      *
-     * @return array|float|string Result, or a string containing an error
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string Result, or a string containing an error
      */
     public static function BESSELY($x, $ord)
     {
-        if (is_array($x) || is_array($ord)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $x, $ord);
-        }
+        $x = Functions::flattenSingleValue($x);
+        $ord = Functions::flattenSingleValue($ord);
 
         try {
             $x = EngineeringValidations::validateFloat($x);

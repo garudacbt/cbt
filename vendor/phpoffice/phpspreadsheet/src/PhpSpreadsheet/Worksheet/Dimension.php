@@ -125,10 +125,25 @@ abstract class Dimension
      *
      * @return $this
      */
-    public function setXfIndex(int $XfIndex)
+    public function setXfIndex(int $pValue)
     {
-        $this->xfIndex = $XfIndex;
+        $this->xfIndex = $pValue;
 
         return $this;
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $vars = get_object_vars($this);
+        foreach ($vars as $key => $value) {
+            if (is_object($value)) {
+                $this->$key = clone $value;
+            } else {
+                $this->$key = $value;
+            }
+        }
     }
 }

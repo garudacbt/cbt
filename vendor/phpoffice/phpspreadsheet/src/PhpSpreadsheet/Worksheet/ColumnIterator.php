@@ -7,9 +7,6 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
-/**
- * @implements Iterator<string, Column>
- */
 class ColumnIterator implements Iterator
 {
     /**
@@ -134,8 +131,10 @@ class ColumnIterator implements Iterator
 
     /**
      * Return the current column in this worksheet.
+     *
+     * @return Column
      */
-    public function current(): Column
+    public function current()
     {
         return new Column($this->worksheet, Coordinate::stringFromColumnIndex($this->currentColumnIndex));
     }

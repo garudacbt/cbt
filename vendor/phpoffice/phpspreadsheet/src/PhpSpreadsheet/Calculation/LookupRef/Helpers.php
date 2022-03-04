@@ -57,7 +57,7 @@ class Helpers
         return [$cellAddress1, $cellAddress2, $cellAddress];
     }
 
-    public static function extractWorksheet(string $cellAddress, Cell $cell): array
+    public static function extractWorksheet(string $cellAddress, Cell $pCell): array
     {
         $sheetName = '';
         if (strpos($cellAddress, '!') !== false) {
@@ -65,10 +65,10 @@ class Helpers
             $sheetName = trim($sheetName, "'");
         }
 
-        $worksheet = ($sheetName !== '')
-            ? $cell->getWorksheet()->getParent()->getSheetByName($sheetName)
-            : $cell->getWorksheet();
+        $pSheet = ($sheetName !== '')
+            ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
+            : $pCell->getWorksheet();
 
-        return [$cellAddress, $worksheet, $sheetName];
+        return [$cellAddress, $pSheet, $sheetName];
     }
 }

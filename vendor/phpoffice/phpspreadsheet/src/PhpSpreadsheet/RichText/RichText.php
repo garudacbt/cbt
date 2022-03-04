@@ -17,36 +17,38 @@ class RichText implements IComparable
 
     /**
      * Create a new RichText instance.
+     *
+     * @param Cell $pCell
      */
-    public function __construct(?Cell $cell = null)
+    public function __construct(?Cell $pCell = null)
     {
         // Initialise variables
         $this->richTextElements = [];
 
         // Rich-Text string attached to cell?
-        if ($cell !== null) {
+        if ($pCell !== null) {
             // Add cell text and style
-            if ($cell->getValue() != '') {
-                $objRun = new Run($cell->getValue());
-                $objRun->setFont(clone $cell->getWorksheet()->getStyle($cell->getCoordinate())->getFont());
+            if ($pCell->getValue() != '') {
+                $objRun = new Run($pCell->getValue());
+                $objRun->setFont(clone $pCell->getWorksheet()->getStyle($pCell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
 
             // Set parent value
-            $cell->setValueExplicit($this, DataType::TYPE_STRING);
+            $pCell->setValueExplicit($this, DataType::TYPE_STRING);
         }
     }
 
     /**
      * Add text.
      *
-     * @param ITextElement $text Rich text element
+     * @param ITextElement $pText Rich text element
      *
      * @return $this
      */
-    public function addText(ITextElement $text)
+    public function addText(ITextElement $pText)
     {
-        $this->richTextElements[] = $text;
+        $this->richTextElements[] = $pText;
 
         return $this;
     }
@@ -54,13 +56,13 @@ class RichText implements IComparable
     /**
      * Create text.
      *
-     * @param string $text Text
+     * @param string $pText Text
      *
      * @return TextElement
      */
-    public function createText($text)
+    public function createText($pText)
     {
-        $objText = new TextElement($text);
+        $objText = new TextElement($pText);
         $this->addText($objText);
 
         return $objText;
@@ -69,13 +71,13 @@ class RichText implements IComparable
     /**
      * Create text run.
      *
-     * @param string $text Text
+     * @param string $pText Text
      *
      * @return Run
      */
-    public function createTextRun($text)
+    public function createTextRun($pText)
     {
-        $objText = new Run($text);
+        $objText = new Run($pText);
         $this->addText($objText);
 
         return $objText;

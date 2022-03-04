@@ -18,7 +18,7 @@ abstract class Supervisor implements IComparable
     /**
      * Parent. Only used for supervisor.
      *
-     * @var Spreadsheet|Supervisor
+     * @var Spreadsheet|Style
      */
     protected $parent;
 
@@ -45,7 +45,7 @@ abstract class Supervisor implements IComparable
     /**
      * Bind parent. Only used for supervisor.
      *
-     * @param Spreadsheet|Supervisor $parent
+     * @param Spreadsheet|Style $parent
      * @param null|string $parentPropertyName
      *
      * @return $this
@@ -155,21 +155,4 @@ abstract class Supervisor implements IComparable
             $exportedArray[$index] = $objOrValue;
         }
     }
-
-    /**
-     * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor.
-     *
-     * @return mixed
-     */
-    abstract public function getSharedComponent();
-
-    /**
-     * Build style array from subcomponents.
-     *
-     * @param array $array
-     *
-     * @return array
-     */
-    abstract public function getStyleArray($array);
 }

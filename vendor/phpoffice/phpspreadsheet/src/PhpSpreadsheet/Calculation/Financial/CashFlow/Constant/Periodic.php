@@ -44,7 +44,7 @@ class Periodic
         $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
-            $rate = CashFlowValidations::validateRate($rate);
+            $rate = CashFlowValidations::validateFloat($rate);
             $numberOfPeriods = CashFlowValidations::validateInt($numberOfPeriods);
             $payment = CashFlowValidations::validateFloat($payment);
             $presentValue = CashFlowValidations::validatePresentValue($presentValue);

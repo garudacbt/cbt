@@ -4,13 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use Complex\Complex as ComplexObject;
 use Complex\Exception as ComplexException;
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ComplexFunctions
 {
-    use ArrayEnabled;
-
     /**
      * IMABS.
      *
@@ -19,18 +16,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMABS(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the absolute value
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the absolute value
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMABS($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -50,18 +42,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMARGUMENT(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the argument theta
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the argument theta
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMARGUMENT($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -84,18 +71,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMCONJUGATE(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the conjugate
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the conjugate
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return string
      */
     public static function IMCONJUGATE($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -114,18 +96,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMCOS(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the cosine
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the cosine
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMCOS($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -144,18 +121,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMCOSH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosine
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the hyperbolic cosine
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMCOSH($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -174,18 +146,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMCOT(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the cotangent
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the cotangent
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMCOT($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -204,18 +171,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMCSC(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the cosecant
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the cosecant
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMCSC($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -234,18 +196,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMCSCH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosecant
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the hyperbolic cosecant
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMCSCH($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -264,18 +221,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMSIN(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the sine
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the sine
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMSIN($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -294,18 +246,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMSINH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic sine
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the hyperbolic sine
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMSINH($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -324,18 +271,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMSEC(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the secant
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the secant
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMSEC($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -354,18 +296,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMSECH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic secant
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the hyperbolic secant
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMSECH($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -384,18 +321,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMTAN(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the tangent
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the tangent
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function IMTAN($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -414,18 +346,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMSQRT(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the square root
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the square root
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return string
      */
     public static function IMSQRT($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -449,18 +376,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMLN(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the natural logarithm
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the natural logarithm
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return string
      */
     public static function IMLN($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -483,18 +405,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMLOG10(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the common logarithm
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the common logarithm
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return string
      */
     public static function IMLOG10($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -517,18 +434,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMLOG2(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the base-2 logarithm
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the base-2 logarithm
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return string
      */
     public static function IMLOG2($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -551,18 +463,13 @@ class ComplexFunctions
      * Excel Function:
      *        IMEXP(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the exponential
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number for which you want the exponential
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return string
      */
     public static function IMEXP($complexNumber)
     {
-        if (is_array($complexNumber)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -581,20 +488,15 @@ class ComplexFunctions
      * Excel Function:
      *        IMPOWER(complexNumber,realNumber)
      *
-     * @param array|string $complexNumber the complex number you want to raise to a power
-     *                      Or can be an array of values
-     * @param array|float|int|string $realNumber the power to which you want to raise the complex number
-     *                      Or can be an array of values
+     * @param string $complexNumber the complex number you want to raise to a power
+     * @param float $realNumber the power to which you want to raise the complex number
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return string
      */
     public static function IMPOWER($complexNumber, $realNumber)
     {
-        if (is_array($complexNumber) || is_array($realNumber)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $complexNumber, $realNumber);
-        }
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
+        $realNumber = Functions::flattenSingleValue($realNumber);
 
         try {
             $complex = new ComplexObject($complexNumber);
@@ -606,6 +508,6 @@ class ComplexFunctions
             return Functions::VALUE();
         }
 
-        return (string) $complex->pow((float) $realNumber);
+        return (string) $complex->pow($realNumber);
     }
 }

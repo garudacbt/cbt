@@ -13,7 +13,7 @@ class Comments extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet)
+    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -27,7 +27,7 @@ class Comments extends WriterPart
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
         // Comments cache
-        $comments = $worksheet->getComments();
+        $comments = $pWorksheet->getComments();
 
         // Authors cache
         $authors = [];
@@ -65,20 +65,21 @@ class Comments extends WriterPart
     /**
      * Write comment to XML format.
      *
-     * @param string $cellReference Cell reference
-     * @param Comment $comment Comment
-     * @param array $authors Array of authors
+     * @param XMLWriter $objWriter XML Writer
+     * @param string $pCellReference Cell reference
+     * @param Comment $pComment Comment
+     * @param array $pAuthors Array of authors
      */
-    private function writeComment(XMLWriter $objWriter, $cellReference, Comment $comment, array $authors): void
+    private function writeComment(XMLWriter $objWriter, $pCellReference, Comment $pComment, array $pAuthors): void
     {
         // comment
         $objWriter->startElement('comment');
-        $objWriter->writeAttribute('ref', $cellReference);
-        $objWriter->writeAttribute('authorId', $authors[$comment->getAuthor()]);
+        $objWriter->writeAttribute('ref', $pCellReference);
+        $objWriter->writeAttribute('authorId', $pAuthors[$pComment->getAuthor()]);
 
         // text
         $objWriter->startElement('text');
-        $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $comment->getText());
+        $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $pComment->getText());
         $objWriter->endElement();
 
         $objWriter->endElement();
@@ -89,7 +90,7 @@ class Comments extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet)
+    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -103,7 +104,7 @@ class Comments extends WriterPart
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
         // Comments cache
-        $comments = $worksheet->getComments();
+        $comments = $pWorksheet->getComments();
 
         // xml
         $objWriter->startElement('xml');
@@ -157,13 +158,14 @@ class Comments extends WriterPart
     /**
      * Write VML comment to XML format.
      *
-     * @param string $cellReference Cell reference, eg: 'A1'
-     * @param Comment $comment Comment
+     * @param XMLWriter $objWriter XML Writer
+     * @param string $pCellReference Cell reference, eg: 'A1'
+     * @param Comment $pComment Comment
      */
-    private function writeVMLComment(XMLWriter $objWriter, $cellReference, Comment $comment): void
+    private function writeVMLComment(XMLWriter $objWriter, $pCellReference, Comment $pComment): void
     {
         // Metadata
-        [$column, $row] = Coordinate::indexesFromString($cellReference);
+        [$column, $row] = Coordinate::indexesFromString($pCellReference);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);
 
@@ -171,19 +173,13 @@ class Comments extends WriterPart
         $objWriter->startElement('v:shape');
         $objWriter->writeAttribute('id', '_x0000_s' . $id);
         $objWriter->writeAttribute('type', '#_x0000_t202');
-        $objWriter->writeAttribute('style', 'position:absolute;margin-left:' . $comment->getMarginLeft() . ';margin-top:' . $comment->getMarginTop() . ';width:' . $comment->getWidth() . ';height:' . $comment->getHeight() . ';z-index:1;visibility:' . ($comment->getVisible() ? 'visible' : 'hidden'));
-        $objWriter->writeAttribute('fillcolor', '#' . $comment->getFillColor()->getRGB());
+        $objWriter->writeAttribute('style', 'position:absolute;margin-left:' . $pComment->getMarginLeft() . ';margin-top:' . $pComment->getMarginTop() . ';width:' . $pComment->getWidth() . ';height:' . $pComment->getHeight() . ';z-index:1;visibility:' . ($pComment->getVisible() ? 'visible' : 'hidden'));
+        $objWriter->writeAttribute('fillcolor', '#' . $pComment->getFillColor()->getRGB());
         $objWriter->writeAttribute('o:insetmode', 'auto');
 
         // v:fill
         $objWriter->startElement('v:fill');
-        $objWriter->writeAttribute('color2', '#' . $comment->getFillColor()->getRGB());
-        if ($comment->hasBackgroundImage()) {
-            $bgImage = $comment->getBackgroundImage();
-            $objWriter->writeAttribute('o:relid', 'rId' . $bgImage->getImageIndex());
-            $objWriter->writeAttribute('o:title', $bgImage->getName());
-            $objWriter->writeAttribute('type', 'frame');
-        }
+        $objWriter->writeAttribute('color2', '#' . $pComment->getFillColor()->getRGB());
         $objWriter->endElement();
 
         // v:shadow

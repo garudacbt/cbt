@@ -66,13 +66,13 @@ class PageMargins
     /**
      * Set Left.
      *
-     * @param float $left
+     * @param float $pValue
      *
      * @return $this
      */
-    public function setLeft($left)
+    public function setLeft($pValue)
     {
-        $this->left = $left;
+        $this->left = $pValue;
 
         return $this;
     }
@@ -90,13 +90,13 @@ class PageMargins
     /**
      * Set Right.
      *
-     * @param float $right
+     * @param float $pValue
      *
      * @return $this
      */
-    public function setRight($right)
+    public function setRight($pValue)
     {
-        $this->right = $right;
+        $this->right = $pValue;
 
         return $this;
     }
@@ -114,13 +114,13 @@ class PageMargins
     /**
      * Set Top.
      *
-     * @param float $top
+     * @param float $pValue
      *
      * @return $this
      */
-    public function setTop($top)
+    public function setTop($pValue)
     {
-        $this->top = $top;
+        $this->top = $pValue;
 
         return $this;
     }
@@ -138,13 +138,13 @@ class PageMargins
     /**
      * Set Bottom.
      *
-     * @param float $bottom
+     * @param float $pValue
      *
      * @return $this
      */
-    public function setBottom($bottom)
+    public function setBottom($pValue)
     {
-        $this->bottom = $bottom;
+        $this->bottom = $pValue;
 
         return $this;
     }
@@ -162,13 +162,13 @@ class PageMargins
     /**
      * Set Header.
      *
-     * @param float $header
+     * @param float $pValue
      *
      * @return $this
      */
-    public function setHeader($header)
+    public function setHeader($pValue)
     {
-        $this->header = $header;
+        $this->header = $pValue;
 
         return $this;
     }
@@ -186,13 +186,13 @@ class PageMargins
     /**
      * Set Footer.
      *
-     * @param float $footer
+     * @param float $pValue
      *
      * @return $this
      */
-    public function setFooter($footer)
+    public function setFooter($pValue)
     {
-        $this->footer = $footer;
+        $this->footer = $pValue;
 
         return $this;
     }

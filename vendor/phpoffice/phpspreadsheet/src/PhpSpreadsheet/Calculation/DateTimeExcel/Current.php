@@ -27,9 +27,9 @@ class Current
     public static function today()
     {
         $dti = new DateTimeImmutable();
-        $dateArray = Helpers::dateParse($dti->format('c'));
+        $dateArray = date_parse($dti->format('c'));
 
-        return Helpers::dateParseSucceeded($dateArray) ? Helpers::returnIn3FormatsArray($dateArray, true) : Functions::VALUE();
+        return is_array($dateArray) ? Helpers::returnIn3FormatsArray($dateArray, true) : Functions::VALUE();
     }
 
     /**
@@ -52,8 +52,8 @@ class Current
     public static function now()
     {
         $dti = new DateTimeImmutable();
-        $dateArray = Helpers::dateParse($dti->format('c'));
+        $dateArray = date_parse($dti->format('c'));
 
-        return Helpers::dateParseSucceeded($dateArray) ? Helpers::returnIn3FormatsArray($dateArray) : Functions::VALUE();
+        return is_array($dateArray) ? Helpers::returnIn3FormatsArray($dateArray) : Functions::VALUE();
     }
 }

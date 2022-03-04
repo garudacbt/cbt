@@ -2,14 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ChiSquared
 {
-    use ArrayEnabled;
-
     private const MAX_ITERATIONS = 256;
 
     private const EPS = 2.22e-16;
@@ -20,19 +17,14 @@ class ChiSquared
      * Returns the one-tailed probability of the chi-squared distribution.
      *
      * @param mixed $value Float value for which we want the probability
-     *                      Or can be an array of values
      * @param mixed $degrees Integer degrees of freedom
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function distributionRightTail($value, $degrees)
     {
-        if (is_array($value) || is_array($degrees)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees);
-        }
+        $value = Functions::flattenSingleValue($value);
+        $degrees = Functions::flattenSingleValue($degrees);
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -61,21 +53,16 @@ class ChiSquared
      * Returns the one-tailed probability of the chi-squared distribution.
      *
      * @param mixed $value Float value for which we want the probability
-     *                      Or can be an array of values
      * @param mixed $degrees Integer degrees of freedom
-     *                      Or can be an array of values
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function distributionLeftTail($value, $degrees, $cumulative)
     {
-        if (is_array($value) || is_array($degrees) || is_array($cumulative)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees, $cumulative);
-        }
+        $value = Functions::flattenSingleValue($value);
+        $degrees = Functions::flattenSingleValue($degrees);
+        $cumulative = Functions::flattenSingleValue($cumulative);
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -110,19 +97,14 @@ class ChiSquared
      * Returns the inverse of the right-tailed probability of the chi-squared distribution.
      *
      * @param mixed $probability Float probability at which you want to evaluate the distribution
-     *                      Or can be an array of values
      * @param mixed $degrees Integer degrees of freedom
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function inverseRightTail($probability, $degrees)
     {
-        if (is_array($probability) || is_array($degrees)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
-        }
+        $probability = Functions::flattenSingleValue($probability);
+        $degrees = Functions::flattenSingleValue($degrees);
 
         try {
             $probability = DistributionValidations::validateProbability($probability);
@@ -151,19 +133,14 @@ class ChiSquared
      * Returns the inverse of the left-tailed probability of the chi-squared distribution.
      *
      * @param mixed $probability Float probability at which you want to evaluate the distribution
-     *                      Or can be an array of values
      * @param mixed $degrees Integer degrees of freedom
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function inverseLeftTail($probability, $degrees)
     {
-        if (is_array($probability) || is_array($degrees)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
-        }
+        $probability = Functions::flattenSingleValue($probability);
+        $degrees = Functions::flattenSingleValue($degrees);
 
         try {
             $probability = DistributionValidations::validateProbability($probability);
@@ -216,7 +193,7 @@ class ChiSquared
 
         $degrees = self::degrees($rows, $columns);
 
-        $result = Functions::scalar(self::distributionRightTail($result, $degrees));
+        $result = self::distributionRightTail($result, $degrees);
 
         return $result;
     }

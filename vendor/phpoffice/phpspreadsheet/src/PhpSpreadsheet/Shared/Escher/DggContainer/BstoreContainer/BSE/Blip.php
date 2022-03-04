@@ -2,14 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 
-use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
-
 class Blip
 {
     /**
      * The parent BSE.
      *
-     * @var BSE
+     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE
      */
     private $parent;
 
@@ -42,16 +40,20 @@ class Blip
 
     /**
      * Set parent BSE.
+     *
+     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
      */
-    public function setParent(BSE $parent): void
+    public function setParent($parent): void
     {
         $this->parent = $parent;
     }
 
     /**
      * Get parent BSE.
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
      */
-    public function getParent(): BSE
+    public function getParent()
     {
         return $this->parent;
     }

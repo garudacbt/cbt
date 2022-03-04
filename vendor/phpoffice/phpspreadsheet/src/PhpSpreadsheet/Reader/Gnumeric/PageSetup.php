@@ -24,10 +24,6 @@ class PageSetup
     {
         if (isset($sheet->PrintInformation)) {
             $printInformation = $sheet->PrintInformation[0];
-            if (!$printInformation) {
-                return $this;
-            }
-
             $scale = (string) $printInformation->Scale->attributes()['percentage'];
             $pageOrder = (string) $printInformation->order;
             $orientation = (string) $printInformation->orientation;

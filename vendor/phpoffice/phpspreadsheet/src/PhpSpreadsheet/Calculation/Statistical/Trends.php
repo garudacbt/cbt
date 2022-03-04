@@ -2,15 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
 class Trends
 {
-    use ArrayEnabled;
-
     private static function filterTrendValues(array &$array1, array &$array2): void
     {
         foreach ($array1 as $key => $value) {
@@ -111,19 +108,14 @@ class Trends
      * The predicted value is a y-value for a given x-value.
      *
      * @param mixed $xValue Float value of X for which we want to find Y
-     *                      Or can be an array of values
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
      *
-     * @return array|bool|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return bool|float|string
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
-        if (is_array($xValue)) {
-            return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $xValue, $yValues, $xValues);
-        }
+        $xValue = Functions::flattenSingleValue($xValue);
 
         try {
             $xValue = StatisticalValidations::validateFloat($xValue);

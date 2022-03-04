@@ -21,7 +21,8 @@
     "extra": {
     },
     "require": {
-        "php": "^7.3 || ~8.0.0 || ~8.1.0"
+        "php": "^7.3 || ~8.0.0",
+        "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "suggest": {
         "ext-iconv": "*",
@@ -54,7 +55,7 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "conflict": {
-        "zendframework/zend-escaper": "*"
+    "replace": {
+        "zendframework/zend-escaper": "^2.6.1"
     }
 }

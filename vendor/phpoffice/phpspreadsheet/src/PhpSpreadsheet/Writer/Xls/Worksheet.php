@@ -188,7 +188,7 @@ class Worksheet extends BIFFwriter
     /**
      * Escher object corresponding to MSODRAWING.
      *
-     * @var null|\PhpOffice\PhpSpreadsheet\Shared\Escher
+     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
     private $escher;
 
@@ -433,7 +433,6 @@ class Worksheet extends BIFFwriter
             } else {
                 switch ($cell->getDatatype()) {
                     case DataType::TYPE_STRING:
-                    case DataType::TYPE_INLINE:
                     case DataType::TYPE_NULL:
                         if ($cVal === '' || $cVal === null) {
                             $this->writeBlank($row, $column, $xfIndex);
@@ -1585,7 +1584,7 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane() ?? '');
+        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane());
         $x = $column - 1;
         $y = $row - 1;
 
@@ -2139,7 +2138,7 @@ class Worksheet extends BIFFwriter
     private function writePassword(): void
     {
         // Exit unless sheet protection and password have been specified
-        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword() || $this->phpSheet->getProtection()->getAlgorithm() !== '') {
+        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword()) {
             return;
         }
 
@@ -2389,7 +2388,7 @@ class Worksheet extends BIFFwriter
             for ($i = 0; $i < $width; ++$i) {
                 $color = imagecolorsforindex($image, imagecolorat($image, $i, $j));
                 foreach (['red', 'green', 'blue'] as $key) {
-                    $color[$key] = $color[$key] + (int) round((255 - $color[$key]) * $color['alpha'] / 127);
+                    $color[$key] = $color[$key] + round((255 - $color[$key]) * $color['alpha'] / 127);
                 }
                 $data .= chr($color['blue']) . chr($color['green']) . chr($color['red']);
             }
@@ -2508,18 +2507,22 @@ class Worksheet extends BIFFwriter
 
     /**
      * Get Escher object.
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
-    public function getEscher(): ?\PhpOffice\PhpSpreadsheet\Shared\Escher
+    public function getEscher()
     {
         return $this->escher;
     }
 
     /**
      * Set Escher object.
+     *
+     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $pValue
      */
-    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher): void
+    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $pValue = null): void
     {
-        $this->escher = $escher;
+        $this->escher = $pValue;
     }
 
     /**

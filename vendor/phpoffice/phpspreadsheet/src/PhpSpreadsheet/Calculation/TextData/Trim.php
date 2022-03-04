@@ -2,51 +2,57 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Trim
 {
-    use ArrayEnabled;
+    private static $invalidChars;
 
     /**
-     * CLEAN.
+     * TRIMNONPRINTABLE.
      *
      * @param mixed $stringValue String Value to check
-     *                              Or can be an array of values
      *
-     * @return null|array|string
-     *         If an array of values is passed as the argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return null|string
      */
     public static function nonPrintable($stringValue = '')
     {
-        if (is_array($stringValue)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $stringValue);
+        $stringValue = Functions::flattenSingleValue($stringValue);
+
+        if (is_bool($stringValue)) {
+            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        $stringValue = Helpers::extractString($stringValue);
+        if (self::$invalidChars === null) {
+            self::$invalidChars = range(chr(0), chr(31));
+        }
 
-        return preg_replace('/[\\x00-\\x1f]/', '', "$stringValue");
+        if (is_string($stringValue) || is_numeric($stringValue)) {
+            return str_replace(self::$invalidChars, '', trim($stringValue, "\x00..\x1F"));
+        }
+
+        return null;
     }
 
     /**
-     * TRIM.
+     * TRIMSPACES.
      *
      * @param mixed $stringValue String Value to check
-     *                              Or can be an array of values
      *
-     * @return array|string
-     *         If an array of values is passed as the argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return null|string
      */
     public static function spaces($stringValue = '')
     {
-        if (is_array($stringValue)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $stringValue);
+        $stringValue = Functions::flattenSingleValue($stringValue);
+        if (is_bool($stringValue)) {
+            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        $stringValue = Helpers::extractString($stringValue);
+        if (is_string($stringValue) || is_numeric($stringValue)) {
+            return trim(preg_replace('/ +/', ' ', trim($stringValue, ' ')), ' ');
+        }
 
-        return trim(preg_replace('/ +/', ' ', trim("$stringValue", ' ')) ?? '', ' ');
+        return null;
     }
 }

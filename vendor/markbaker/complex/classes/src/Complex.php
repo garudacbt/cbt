@@ -377,11 +377,13 @@ class Complex
 
         // Test for function calls
         if (in_array($functionName, self::$functions, true)) {
-            return Functions::$functionName($this, ...$arguments);
+            $functionName = "\\" . __NAMESPACE__ . "\\{$functionName}";
+            return $functionName($this, ...$arguments);
         }
         // Test for operation calls
         if (in_array($functionName, self::$operations, true)) {
-            return Operations::$functionName($this, ...$arguments);
+            $functionName = "\\" . __NAMESPACE__ . "\\{$functionName}";
+            return $functionName($this, ...$arguments);
         }
         throw new Exception('Complex Function or Operation does not exist');
     }

@@ -2,31 +2,23 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Gamma extends GammaBase
 {
-    use ArrayEnabled;
-
     /**
      * GAMMA.
      *
      * Return the gamma function value.
      *
      * @param mixed $value Float value for which we want the probability
-     *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string The result, or a string containing an error
      */
     public static function gamma($value)
     {
-        if (is_array($value)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
-        }
+        $value = Functions::flattenSingleValue($value);
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -47,23 +39,17 @@ class Gamma extends GammaBase
      * Returns the gamma distribution.
      *
      * @param mixed $value Float Value at which you want to evaluate the distribution
-     *                      Or can be an array of values
      * @param mixed $a Parameter to the distribution as a float
-     *                      Or can be an array of values
      * @param mixed $b Parameter to the distribution as a float
-     *                      Or can be an array of values
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function distribution($value, $a, $b, $cumulative)
     {
-        if (is_array($value) || is_array($a) || is_array($b) || is_array($cumulative)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $a, $b, $cumulative);
-        }
+        $value = Functions::flattenSingleValue($value);
+        $a = Functions::flattenSingleValue($a);
+        $b = Functions::flattenSingleValue($b);
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -87,21 +73,16 @@ class Gamma extends GammaBase
      * Returns the inverse of the Gamma distribution.
      *
      * @param mixed $probability Float probability at which you want to evaluate the distribution
-     *                      Or can be an array of values
      * @param mixed $alpha Parameter to the distribution as a float
-     *                      Or can be an array of values
      * @param mixed $beta Parameter to the distribution as a float
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function inverse($probability, $alpha, $beta)
     {
-        if (is_array($probability) || is_array($alpha) || is_array($beta)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $alpha, $beta);
-        }
+        $probability = Functions::flattenSingleValue($probability);
+        $alpha = Functions::flattenSingleValue($alpha);
+        $beta = Functions::flattenSingleValue($beta);
 
         try {
             $probability = DistributionValidations::validateProbability($probability);
@@ -124,17 +105,12 @@ class Gamma extends GammaBase
      * Returns the natural logarithm of the gamma function.
      *
      * @param mixed $value Float Value at which you want to evaluate the distribution
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function ln($value)
     {
-        if (is_array($value)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
-        }
+        $value = Functions::flattenSingleValue($value);
 
         try {
             $value = DistributionValidations::validateFloat($value);

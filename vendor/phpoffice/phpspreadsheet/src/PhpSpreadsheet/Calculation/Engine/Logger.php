@@ -48,11 +48,11 @@ class Logger
     /**
      * Enable/Disable Calculation engine logging.
      *
-     * @param bool $writeDebugLog
+     * @param bool $pValue
      */
-    public function setWriteDebugLog($writeDebugLog): void
+    public function setWriteDebugLog($pValue): void
     {
-        $this->writeDebugLog = $writeDebugLog;
+        $this->writeDebugLog = $pValue;
     }
 
     /**
@@ -68,11 +68,11 @@ class Logger
     /**
      * Enable/Disable echoing of debug log information.
      *
-     * @param bool $echoDebugLog
+     * @param bool $pValue
      */
-    public function setEchoDebugLog($echoDebugLog): void
+    public function setEchoDebugLog($pValue): void
     {
-        $this->echoDebugLog = $echoDebugLog;
+        $this->echoDebugLog = $pValue;
     }
 
     /**

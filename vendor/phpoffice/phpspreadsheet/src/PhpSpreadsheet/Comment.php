@@ -2,13 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Helper\Size;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Color;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class Comment implements IComparable
 {
@@ -64,7 +58,7 @@ class Comment implements IComparable
     /**
      * Comment fill color.
      *
-     * @var Color
+     * @var Style\Color
      */
     private $fillColor;
 
@@ -76,13 +70,6 @@ class Comment implements IComparable
     private $alignment;
 
     /**
-     * Background image in comment.
-     *
-     * @var Drawing
-     */
-    private $backgroundImage;
-
-    /**
      * Create a new Comment.
      */
     public function __construct()
@@ -90,23 +77,28 @@ class Comment implements IComparable
         // Initialise variables
         $this->author = 'Author';
         $this->text = new RichText();
-        $this->fillColor = new Color('FFFFFFE1');
-        $this->alignment = Alignment::HORIZONTAL_GENERAL;
-        $this->backgroundImage = new Drawing();
+        $this->fillColor = new Style\Color('FFFFFFE1');
+        $this->alignment = Style\Alignment::HORIZONTAL_GENERAL;
     }
 
     /**
      * Get Author.
+     *
+     * @return string
      */
-    public function getAuthor(): string
+    public function getAuthor()
     {
         return $this->author;
     }
 
     /**
      * Set Author.
+     *
+     * @param string $author
+     *
+     * @return $this
      */
-    public function setAuthor(string $author): self
+    public function setAuthor($author)
     {
         $this->author = $author;
 
@@ -115,146 +107,164 @@ class Comment implements IComparable
 
     /**
      * Get Rich text comment.
+     *
+     * @return RichText
      */
-    public function getText(): RichText
+    public function getText()
     {
         return $this->text;
     }
 
     /**
      * Set Rich text comment.
+     *
+     * @return $this
      */
-    public function setText(RichText $text): self
+    public function setText(RichText $pValue)
     {
-        $this->text = $text;
+        $this->text = $pValue;
 
         return $this;
     }
 
     /**
      * Get comment width (CSS style, i.e. XXpx or YYpt).
+     *
+     * @return string
      */
-    public function getWidth(): string
+    public function getWidth()
     {
         return $this->width;
     }
 
     /**
-     * Set comment width (CSS style, i.e. XXpx or YYpt). Default unit is pt.
+     * Set comment width (CSS style, i.e. XXpx or YYpt).
+     *
+     * @param string $width
+     *
+     * @return $this
      */
-    public function setWidth(string $width): self
+    public function setWidth($width)
     {
-        $width = new Size($width);
-        if ($width->valid()) {
-            $this->width = (string) $width;
-        }
+        $this->width = $width;
 
         return $this;
     }
 
     /**
      * Get comment height (CSS style, i.e. XXpx or YYpt).
+     *
+     * @return string
      */
-    public function getHeight(): string
+    public function getHeight()
     {
         return $this->height;
     }
 
     /**
-     * Set comment height (CSS style, i.e. XXpx or YYpt). Default unit is pt.
+     * Set comment height (CSS style, i.e. XXpx or YYpt).
+     *
+     * @param string $value
+     *
+     * @return $this
      */
-    public function setHeight(string $height): self
+    public function setHeight($value)
     {
-        $height = new Size($height);
-        if ($height->valid()) {
-            $this->height = (string) $height;
-        }
+        $this->height = $value;
 
         return $this;
     }
 
     /**
      * Get left margin (CSS style, i.e. XXpx or YYpt).
+     *
+     * @return string
      */
-    public function getMarginLeft(): string
+    public function getMarginLeft()
     {
         return $this->marginLeft;
     }
 
     /**
-     * Set left margin (CSS style, i.e. XXpx or YYpt). Default unit is pt.
+     * Set left margin (CSS style, i.e. XXpx or YYpt).
+     *
+     * @param string $value
+     *
+     * @return $this
      */
-    public function setMarginLeft(string $margin): self
+    public function setMarginLeft($value)
     {
-        $margin = new Size($margin);
-        if ($margin->valid()) {
-            $this->marginLeft = (string) $margin;
-        }
+        $this->marginLeft = $value;
 
         return $this;
     }
 
     /**
      * Get top margin (CSS style, i.e. XXpx or YYpt).
+     *
+     * @return string
      */
-    public function getMarginTop(): string
+    public function getMarginTop()
     {
         return $this->marginTop;
     }
 
     /**
-     * Set top margin (CSS style, i.e. XXpx or YYpt). Default unit is pt.
+     * Set top margin (CSS style, i.e. XXpx or YYpt).
+     *
+     * @param string $value
+     *
+     * @return $this
      */
-    public function setMarginTop(string $margin): self
+    public function setMarginTop($value)
     {
-        $margin = new Size($margin);
-        if ($margin->valid()) {
-            $this->marginTop = (string) $margin;
-        }
+        $this->marginTop = $value;
 
         return $this;
     }
 
     /**
      * Is the comment visible by default?
+     *
+     * @return bool
      */
-    public function getVisible(): bool
+    public function getVisible()
     {
         return $this->visible;
     }
 
     /**
      * Set comment default visibility.
+     *
+     * @param bool $value
+     *
+     * @return $this
      */
-    public function setVisible(bool $visibility): self
+    public function setVisible($value)
     {
-        $this->visible = $visibility;
-
-        return $this;
-    }
-
-    /**
-     * Set fill color.
-     */
-    public function setFillColor(Color $color): self
-    {
-        $this->fillColor = $color;
+        $this->visible = $value;
 
         return $this;
     }
 
     /**
      * Get fill color.
+     *
+     * @return Style\Color
      */
-    public function getFillColor(): Color
+    public function getFillColor()
     {
         return $this->fillColor;
     }
 
     /**
      * Set Alignment.
+     *
+     * @param string $alignment see Style\Alignment::HORIZONTAL_*
+     *
+     * @return $this
      */
-    public function setAlignment(string $alignment): self
+    public function setAlignment($alignment)
     {
         $this->alignment = $alignment;
 
@@ -263,16 +273,20 @@ class Comment implements IComparable
 
     /**
      * Get Alignment.
+     *
+     * @return string
      */
-    public function getAlignment(): string
+    public function getAlignment()
     {
         return $this->alignment;
     }
 
     /**
      * Get hash code.
+     *
+     * @return string Hash code
      */
-    public function getHashCode(): string
+    public function getHashCode()
     {
         return md5(
             $this->author .
@@ -284,7 +298,6 @@ class Comment implements IComparable
             ($this->visible ? 1 : 0) .
             $this->fillColor->getHashCode() .
             $this->alignment .
-            ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '') .
             __CLASS__
         );
     }
@@ -306,57 +319,11 @@ class Comment implements IComparable
 
     /**
      * Convert to string.
+     *
+     * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return $this->text->getPlainText();
-    }
-
-    /**
-     * Check is background image exists.
-     */
-    public function hasBackgroundImage(): bool
-    {
-        $path = $this->backgroundImage->getPath();
-
-        if (empty($path)) {
-            return false;
-        }
-
-        return getimagesize($path) !== false;
-    }
-
-    /**
-     * Returns background image.
-     */
-    public function getBackgroundImage(): Drawing
-    {
-        return $this->backgroundImage;
-    }
-
-    /**
-     * Sets background image.
-     */
-    public function setBackgroundImage(Drawing $objDrawing): self
-    {
-        if (!array_key_exists($objDrawing->getType(), Drawing::IMAGE_TYPES_CONVERTION_MAP)) {
-            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
-        }
-        $this->backgroundImage = $objDrawing;
-
-        return $this;
-    }
-
-    /**
-     * Sets size of comment as size of background image.
-     */
-    public function setSizeAsBackgroundImage(): self
-    {
-        if ($this->hasBackgroundImage()) {
-            $this->setWidth(SharedDrawing::pixelsToPoints($this->backgroundImage->getWidth()) . 'pt');
-            $this->setHeight(SharedDrawing::pixelsToPoints($this->backgroundImage->getHeight()) . 'pt');
-        }
-
-        return $this;
     }
 }

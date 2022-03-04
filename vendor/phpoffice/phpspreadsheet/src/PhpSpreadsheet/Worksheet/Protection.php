@@ -202,13 +202,13 @@ class Protection
     /**
      * Set Sheet.
      *
-     * @param bool $sheet
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setSheet($sheet)
+    public function setSheet($pValue)
     {
-        $this->sheet = $sheet;
+        $this->sheet = $pValue;
 
         return $this;
     }
@@ -226,13 +226,13 @@ class Protection
     /**
      * Set Objects.
      *
-     * @param bool $objects
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setObjects($objects)
+    public function setObjects($pValue)
     {
-        $this->objects = $objects;
+        $this->objects = $pValue;
 
         return $this;
     }
@@ -250,13 +250,13 @@ class Protection
     /**
      * Set Scenarios.
      *
-     * @param bool $scenarios
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setScenarios($scenarios)
+    public function setScenarios($pValue)
     {
-        $this->scenarios = $scenarios;
+        $this->scenarios = $pValue;
 
         return $this;
     }
@@ -274,13 +274,13 @@ class Protection
     /**
      * Set FormatCells.
      *
-     * @param bool $formatCells
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setFormatCells($formatCells)
+    public function setFormatCells($pValue)
     {
-        $this->formatCells = $formatCells;
+        $this->formatCells = $pValue;
 
         return $this;
     }
@@ -298,13 +298,13 @@ class Protection
     /**
      * Set FormatColumns.
      *
-     * @param bool $formatColumns
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setFormatColumns($formatColumns)
+    public function setFormatColumns($pValue)
     {
-        $this->formatColumns = $formatColumns;
+        $this->formatColumns = $pValue;
 
         return $this;
     }
@@ -322,13 +322,13 @@ class Protection
     /**
      * Set FormatRows.
      *
-     * @param bool $formatRows
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setFormatRows($formatRows)
+    public function setFormatRows($pValue)
     {
-        $this->formatRows = $formatRows;
+        $this->formatRows = $pValue;
 
         return $this;
     }
@@ -346,13 +346,13 @@ class Protection
     /**
      * Set InsertColumns.
      *
-     * @param bool $insertColumns
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setInsertColumns($insertColumns)
+    public function setInsertColumns($pValue)
     {
-        $this->insertColumns = $insertColumns;
+        $this->insertColumns = $pValue;
 
         return $this;
     }
@@ -370,13 +370,13 @@ class Protection
     /**
      * Set InsertRows.
      *
-     * @param bool $insertRows
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setInsertRows($insertRows)
+    public function setInsertRows($pValue)
     {
-        $this->insertRows = $insertRows;
+        $this->insertRows = $pValue;
 
         return $this;
     }
@@ -394,13 +394,13 @@ class Protection
     /**
      * Set InsertHyperlinks.
      *
-     * @param bool $insertHyperLinks
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setInsertHyperlinks($insertHyperLinks)
+    public function setInsertHyperlinks($pValue)
     {
-        $this->insertHyperlinks = $insertHyperLinks;
+        $this->insertHyperlinks = $pValue;
 
         return $this;
     }
@@ -418,13 +418,13 @@ class Protection
     /**
      * Set DeleteColumns.
      *
-     * @param bool $deleteColumns
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setDeleteColumns($deleteColumns)
+    public function setDeleteColumns($pValue)
     {
-        $this->deleteColumns = $deleteColumns;
+        $this->deleteColumns = $pValue;
 
         return $this;
     }
@@ -442,13 +442,13 @@ class Protection
     /**
      * Set DeleteRows.
      *
-     * @param bool $deleteRows
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setDeleteRows($deleteRows)
+    public function setDeleteRows($pValue)
     {
-        $this->deleteRows = $deleteRows;
+        $this->deleteRows = $pValue;
 
         return $this;
     }
@@ -466,13 +466,13 @@ class Protection
     /**
      * Set SelectLockedCells.
      *
-     * @param bool $selectLockedCells
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setSelectLockedCells($selectLockedCells)
+    public function setSelectLockedCells($pValue)
     {
-        $this->selectLockedCells = $selectLockedCells;
+        $this->selectLockedCells = $pValue;
 
         return $this;
     }
@@ -490,13 +490,13 @@ class Protection
     /**
      * Set Sort.
      *
-     * @param bool $sort
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setSort($sort)
+    public function setSort($pValue)
     {
-        $this->sort = $sort;
+        $this->sort = $pValue;
 
         return $this;
     }
@@ -514,13 +514,13 @@ class Protection
     /**
      * Set AutoFilter.
      *
-     * @param bool $autoFilter
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setAutoFilter($autoFilter)
+    public function setAutoFilter($pValue)
     {
-        $this->autoFilter = $autoFilter;
+        $this->autoFilter = $pValue;
 
         return $this;
     }
@@ -538,13 +538,13 @@ class Protection
     /**
      * Set PivotTables.
      *
-     * @param bool $pivotTables
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setPivotTables($pivotTables)
+    public function setPivotTables($pValue)
     {
-        $this->pivotTables = $pivotTables;
+        $this->pivotTables = $pValue;
 
         return $this;
     }
@@ -562,13 +562,13 @@ class Protection
     /**
      * Set SelectUnlockedCells.
      *
-     * @param bool $selectUnlockedCells
+     * @param bool $pValue
      *
      * @return $this
      */
-    public function setSelectUnlockedCells($selectUnlockedCells)
+    public function setSelectUnlockedCells($pValue)
     {
-        $this->selectUnlockedCells = $selectUnlockedCells;
+        $this->selectUnlockedCells = $pValue;
 
         return $this;
     }
@@ -586,20 +586,20 @@ class Protection
     /**
      * Set Password.
      *
-     * @param string $password
-     * @param bool $alreadyHashed If the password has already been hashed, set this to true
+     * @param string $pValue
+     * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
      */
-    public function setPassword($password, $alreadyHashed = false)
+    public function setPassword($pValue, $pAlreadyHashed = false)
     {
-        if (!$alreadyHashed) {
+        if (!$pAlreadyHashed) {
             $salt = $this->generateSalt();
             $this->setSalt($salt);
-            $password = PasswordHasher::hashPassword($password, $this->getAlgorithm(), $this->getSalt(), $this->getSpinCount());
+            $pValue = PasswordHasher::hashPassword($pValue, $this->getAlgorithm(), $this->getSalt(), $this->getSpinCount());
         }
 
-        $this->password = $password;
+        $this->password = $pValue;
 
         return $this;
     }

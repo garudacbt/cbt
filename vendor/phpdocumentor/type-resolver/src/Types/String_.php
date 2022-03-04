@@ -20,12 +20,12 @@ use phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-class String_ implements Type
+final class String_ implements Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         return 'string';
     }

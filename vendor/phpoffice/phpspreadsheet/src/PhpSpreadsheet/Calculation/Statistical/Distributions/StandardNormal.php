@@ -2,15 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 
 class StandardNormal
 {
-    use ArrayEnabled;
-
     /**
      * NORMSDIST.
      *
@@ -18,16 +15,9 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
-     *       handled by the logic in Normal::distribution()
-     *       All we need to do is pass the value through as scalar or as array.
-     *
      * @param mixed $value Float value for which we want the probability
-     *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string The result, or a string containing an error
      */
     public static function cumulative($value)
     {
@@ -41,18 +31,10 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
-     *       handled by the logic in Normal::distribution()
-     *       All we need to do is pass the value and cumulative through as scalar or as array.
-     *
      * @param mixed $value Float value for which we want the probability
-     *                      Or can be an array of values
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
-     *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string The result, or a string containing an error
      */
     public static function distribution($value, $cumulative)
     {
@@ -64,16 +46,9 @@ class StandardNormal
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @param mixed $value float probability for which we want the value
-     *                      Or can be an array of values
+     * @param mixed $value Float probability for which we want the value
      *
-     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
-     *       handled by the logic in Normal::inverse()
-     *       All we need to do is pass the value through as scalar or as array
-     *
-     * @return array|float|string The result, or a string containing an error
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string The result, or a string containing an error
      */
     public static function inverse($value)
     {
@@ -87,18 +62,12 @@ class StandardNormal
      *     the mean and z standard deviations from the mean.
      *
      * @param mixed $value
-     *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string The result, or a string containing an error
      */
     public static function gauss($value)
     {
-        if (is_array($value)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
-        }
-
+        $value = Functions::flattenSingleValue($value);
         if (!is_numeric($value)) {
             return Functions::VALUE();
         }

@@ -2,14 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Exponential
 {
-    use ArrayEnabled;
-
     /**
      * EXPONDIST.
      *
@@ -18,21 +15,16 @@ class Exponential
      *        use EXPONDIST to determine the probability that the process takes at most 1 minute.
      *
      * @param mixed $value Float value for which we want the probability
-     *                      Or can be an array of values
      * @param mixed $lambda The parameter value as a float
-     *                      Or can be an array of values
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function distribution($value, $lambda, $cumulative)
     {
-        if (is_array($value) || is_array($lambda) || is_array($cumulative)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $lambda, $cumulative);
-        }
+        $value = Functions::flattenSingleValue($value);
+        $lambda = Functions::flattenSingleValue($lambda);
+        $cumulative = Functions::flattenSingleValue($cumulative);
 
         try {
             $value = DistributionValidations::validateFloat($value);

@@ -31,9 +31,7 @@ class Chart
             } elseif ($format == 'integer') {
                 return (int) $attributes[$name];
             } elseif ($format == 'boolean') {
-                $value = (string) $attributes[$name];
-
-                return $value === 'true' || $value === '1';
+                return (bool) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
             }
 
             return (float) $attributes[$name];
@@ -484,7 +482,7 @@ class Chart
                 }
 
                 $fontSize = (self::getAttribute($titleDetailElement->rPr, 'sz', 'integer'));
-                if (is_int($fontSize)) {
+                if ($fontSize !== null) {
                     $objText->getFont()->setSize(floor($fontSize / 100));
                 }
 

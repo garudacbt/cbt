@@ -17,7 +17,6 @@ use phpDocumentor\Reflection\DocBlock\Description;
 use phpDocumentor\Reflection\DocBlock\DescriptionFactory;
 use phpDocumentor\Reflection\Types\Context as TypeContext;
 use Webmozart\Assert\Assert;
-
 use function preg_match;
 
 /**
@@ -52,7 +51,7 @@ final class Source extends BaseTag implements Factory\StaticMethod
         string $body,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ): self {
+    ) : self {
         Assert::stringNotEmpty($body);
         Assert::notNull($descriptionFactory);
 
@@ -70,7 +69,7 @@ final class Source extends BaseTag implements Factory\StaticMethod
             $description = $matches[3];
         }
 
-        return new static($startingLine, $lineCount, $descriptionFactory->create($description ?? '', $context));
+        return new static($startingLine, $lineCount, $descriptionFactory->create($description??'', $context));
     }
 
     /**
@@ -79,7 +78,7 @@ final class Source extends BaseTag implements Factory\StaticMethod
      * @return int The starting line, relative to the structural element's
      *     location.
      */
-    public function getStartingLine(): int
+    public function getStartingLine() : int
     {
         return $this->startingLine;
     }
@@ -90,12 +89,12 @@ final class Source extends BaseTag implements Factory\StaticMethod
      * @return int|null The number of lines, relative to the starting line. NULL
      *     means "to the end".
      */
-    public function getLineCount(): ?int
+    public function getLineCount() : ?int
     {
         return $this->lineCount;
     }
 
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->description) {
             $description = $this->description->render();
@@ -105,12 +104,14 @@ final class Source extends BaseTag implements Factory\StaticMethod
 
         $startingLine = (string) $this->startingLine;
 
-        $lineCount = $this->lineCount !== null ? ' ' . $this->lineCount : '';
+        $lineCount = $this->lineCount !== null ? '' . $this->lineCount : '';
 
         return $startingLine
-            . $lineCount
+            . ($lineCount !== ''
+                ? ($startingLine || $startingLine === '0' ? ' ' : '') . $lineCount
+                : '')
             . ($description !== ''
-                ? ' ' . $description
+                ? ($startingLine || $startingLine === '0' || $lineCount !== '' ? ' ' : '') . $description
                 : '');
     }
 }

@@ -92,20 +92,18 @@ class FontMetrics
     public function saveFontFamilies()
     {
         // replace the path to the DOMPDF font directories with the corresponding constants (allows for more portability)
-        $cacheData = sprintf("<?php return function (%s, %s) {%s", '$fontDir', '$rootDir', PHP_EOL);
-        $cacheData .= sprintf("return array (%s", PHP_EOL);
+        $cacheData = sprintf("<?php return array (%s", PHP_EOL);
         foreach ($this->fontLookup as $family => $variants) {
             $cacheData .= sprintf("  '%s' => array(%s", addslashes($family), PHP_EOL);
             foreach ($variants as $variant => $path) {
                 $path = sprintf("'%s'", $path);
-                $path = str_replace('\'' . $this->options->getFontDir(), '$fontDir . \'', $path);
-                $path = str_replace('\'' . $this->options->getRootDir(), '$rootDir . \'', $path);
+                $path = str_replace('\'' . $this->getOptions()->getFontDir() , '$fontDir . \'' , $path);
+                $path = str_replace('\'' . $this->getOptions()->getRootDir() , '$rootDir . \'' , $path);
                 $cacheData .= sprintf("    '%s' => %s,%s", $variant, $path, PHP_EOL);
             }
             $cacheData .= sprintf("  ),%s", PHP_EOL);
         }
-        $cacheData .= ");" . PHP_EOL;
-        $cacheData .= "}; ?>";
+        $cacheData .= ") ?>";
         file_put_contents($this->getCacheFile(), $cacheData);
     }
 
@@ -124,23 +122,22 @@ class FontMetrics
      */
     public function loadFontFamilies()
     {
-        $fontDir = $this->options->getFontDir();
-        $rootDir = $this->options->getRootDir();
+        $fontDir = $this->getOptions()->getFontDir();
+        $rootDir = $this->getOptions()->getRootDir();
 
         // FIXME: temporarily define constants for cache files <= v0.6.2
         if (!defined("DOMPDF_DIR")) { define("DOMPDF_DIR", $rootDir); }
         if (!defined("DOMPDF_FONT_DIR")) { define("DOMPDF_FONT_DIR", $fontDir); }
 
         $file = $rootDir . "/lib/fonts/dompdf_font_family_cache.dist.php";
-        $distFontsClosure = require $file;
-        $distFonts = is_array($distFontsClosure) ? $distFontsClosure : $distFontsClosure($rootDir);
+        $distFonts = require $file;
+
         if (!is_readable($this->getCacheFile())) {
             $this->fontLookup = $distFonts;
             return;
         }
 
-        $cacheDataClosure = require $this->getCacheFile();
-        $cacheData = is_array($cacheDataClosure) ? $cacheDataClosure : $cacheDataClosure($fontDir, $rootDir);
+        $cacheData = require $this->getCacheFile();
 
         $this->fontLookup = [];
         if (is_array($this->fontLookup)) {
@@ -183,7 +180,7 @@ class FontMetrics
 
         $styleString = $this->getType("{$style['weight']} {$style['style']}");
 
-        $fontDir = $this->options->getFontDir();
+        $fontDir = $this->getOptions()->getFontDir();
         $remoteHash = md5($remoteFile);
 
         $prefix = $fontname . "_" . $styleString;
@@ -198,7 +195,7 @@ class FontMetrics
         mb_substitute_character($substchar);
         $prefix = preg_replace("[\W]", "_", $prefix);
         $prefix = preg_replace("/[^-_\w]+/", "", $prefix);
-
+        
         $localFile = $fontDir . "/" . $prefix . "_" . $remoteHash;
 
         if (isset($entry[$styleString]) && $localFile == $entry[$styleString]) {
@@ -211,26 +208,26 @@ class FontMetrics
         $entry[$styleString] = $cacheEntry;
 
         // Download the remote file
-        [$protocol] = Helpers::explode_url($remoteFile);
-        if (!$this->options->isRemoteEnabled() && ($protocol !== "" && $protocol !== "file://")) {
+        [$protocol, $baseHost, $basePath] = Helpers::explode_url($remoteFile);
+        if (!$this->options->isRemoteEnabled() && ($protocol != "" && $protocol !== "file://")) {
             Helpers::record_warnings(E_USER_WARNING, "Remote font resource $remoteFile referenced, but remote file download is disabled.", __FILE__, __LINE__);
             return false;
         }
-        if ($protocol === "" || $protocol === "file://") {
+        if ($protocol == "" || $protocol === "file://") {
             $realfile = realpath($remoteFile);
 
             $rootDir = realpath($this->options->getRootDir());
             if (strpos($realfile, $rootDir) !== 0) {
                 $chroot = $this->options->getChroot();
                 $chrootValid = false;
-                foreach ($chroot as $chrootPath) {
+                foreach($chroot as $chrootPath) {
                     $chrootPath = realpath($chrootPath);
                     if ($chrootPath !== false && strpos($realfile, $chrootPath) === 0) {
                         $chrootValid = true;
                         break;
                     }
                 }
-                if ($chrootValid !== true) {
+                if ($chrootValid !== true) {    
                     Helpers::record_warnings(E_USER_WARNING, "Permission denied on $remoteFile. The file could not be found under the paths specified by Options::chroot.", __FILE__, __LINE__);
                     return false;
                 }
@@ -244,7 +241,7 @@ class FontMetrics
             $remoteFile = $realfile;
         }
         list($remoteFileContent, $http_response_header) = @Helpers::getFileContent($remoteFile, $context);
-        if ($remoteFileContent === null) {
+        if (empty($remoteFileContent)) {
             return false;
         }
 
@@ -321,16 +318,13 @@ class FontMetrics
         // Don't cache long strings
         $useCache = !isset($text[50]); // Faster than strlen
 
-        // Text-size calculations depend on the canvas used. Make sure to not
-        // return wrong values when switching canvas backends
-        $canvasClass = get_class($this->canvas);
-        $key = "$canvasClass/$font/$size/$wordSpacing/$charSpacing";
+        $key = "$font/$size/$wordSpacing/$charSpacing";
 
         if ($useCache && isset($cache[$key][$text])) {
-            return $cache[$key][$text];
+            return $cache[$key]["$text"];
         }
 
-        $width = $this->canvas->get_text_width($text, $font, $size, $wordSpacing, $charSpacing);
+        $width = $this->getCanvas()->get_text_width($text, $font, $size, $wordSpacing, $charSpacing);
 
         if ($useCache) {
             $cache[$key][$text] = $width;
@@ -351,7 +345,7 @@ class FontMetrics
     }
 
     /**
-     * Calculates font height, in points
+     * Calculates font height
      *
      * @param string $font
      * @param float $size
@@ -360,20 +354,7 @@ class FontMetrics
      */
     public function getFontHeight($font, $size)
     {
-        return $this->canvas->get_font_height($font, $size);
-    }
-
-    /**
-     * Calculates font baseline, in points
-     *
-     * @param string $font
-     * @param float $size
-     *
-     * @return float
-     */
-    public function getFontBaseline($font, $size)
-    {
-        return $this->canvas->get_font_baseline($font, $size);
+        return $this->getCanvas()->get_font_height($font, $size);
     }
 
     /**
@@ -567,7 +548,7 @@ class FontMetrics
      */
     public function getCacheFile()
     {
-        return $this->options->getFontDir() . '/' . self::CACHE_FILE;
+        return $this->getOptions()->getFontDir() . '/' . self::CACHE_FILE;
     }
 
     /**

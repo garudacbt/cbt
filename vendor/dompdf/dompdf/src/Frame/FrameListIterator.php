@@ -7,90 +7,85 @@ use Dompdf\Frame;
 /**
  * Linked-list Iterator
  *
- * Returns children in order and allows for the list to change during iteration,
- * provided the changes occur to or after the current element.
+ * Returns children in order and allows for list to change during iteration,
+ * provided the changes occur to or after the current element
  *
  * @access private
  * @package dompdf
  */
 class FrameListIterator implements Iterator
 {
+
     /**
      * @var Frame
      */
-    protected $parent;
+    protected $_parent;
 
     /**
-     * @var Frame|null
+     * @var Frame
      */
-    protected $cur;
-
-    /**
-     * @var Frame|null
-     */
-    protected $prev;
+    protected $_cur;
 
     /**
      * @var int
      */
-    protected $num;
+    protected $_num;
 
     /**
      * @param Frame $frame
      */
     public function __construct(Frame $frame)
     {
-        $this->parent = $frame;
-        $this->rewind();
+        $this->_parent = $frame;
+        $this->_cur = $frame->get_first_child();
+        $this->_num = 0;
     }
 
-    public function rewind(): void
+    /**
+     *
+     */
+    public function rewind()
     {
-        $this->cur = $this->parent->get_first_child();
-        $this->prev = null;
-        $this->num = 0;
+        $this->_cur = $this->_parent->get_first_child();
+        $this->_num = 0;
     }
 
     /**
      * @return bool
      */
-    public function valid(): bool
+    public function valid()
     {
-        return $this->cur !== null;
+        return isset($this->_cur); // && ($this->_cur->get_prev_sibling() === $this->_prev);
     }
 
     /**
      * @return int
      */
-    public function key(): int
+    public function key()
     {
-        return $this->num;
+        return $this->_num;
     }
 
     /**
-     * @return Frame|null
+     * @return Frame
      */
-    public function current(): ?Frame
+    public function current()
     {
-        return $this->cur;
+        return $this->_cur;
     }
 
-    public function next(): void
+    /**
+     * @return Frame
+     */
+    public function next()
     {
-        if ($this->cur === null) {
-            return;
+        $ret = $this->_cur;
+        if (!$ret) {
+            return null;
         }
 
-        if ($this->cur->get_parent() === $this->parent) {
-            $this->prev = $this->cur;
-            $this->cur = $this->cur->get_next_sibling();
-            $this->num++;
-        } else {
-            // Continue from the previous child if the current frame has been
-            // moved to another parent
-            $this->cur = $this->prev !== null
-                ? $this->prev->get_next_sibling()
-                : $this->parent->get_first_child();
-        }
+        $this->_cur = $this->_cur->get_next_sibling();
+        $this->_num++;
+        return $ret;
     }
 }

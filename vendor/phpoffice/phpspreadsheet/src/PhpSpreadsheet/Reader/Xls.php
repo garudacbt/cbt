@@ -17,7 +17,6 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLERead;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PhpOffice\PhpSpreadsheet\Shared\Xls as SharedXls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -419,19 +418,21 @@ class Xls extends BaseReader
 
     /**
      * Can the current IReader read the file?
+     *
+     * @param string $pFilename
+     *
+     * @return bool
      */
-    public function canRead(string $filename): bool
+    public function canRead($pFilename)
     {
-        if (!File::testFileNoThrow($filename)) {
-            return false;
-        }
+        File::assertFile($pFilename);
 
         try {
             // Use ParseXL for the hard work.
             $ole = new OLERead();
 
             // get excel data
-            $ole->read($filename);
+            $ole->read($pFilename);
 
             return true;
         } catch (PhpSpreadsheetException $e) {
@@ -451,18 +452,18 @@ class Xls extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param string $filename
+     * @param string $pFilename
      *
      * @return array
      */
-    public function listWorksheetNames($filename)
+    public function listWorksheetNames($pFilename)
     {
-        File::assertFile($filename);
+        File::assertFile($pFilename);
 
         $worksheetNames = [];
 
         // Read the OLE file
-        $this->loadOLE($filename);
+        $this->loadOLE($pFilename);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -509,18 +510,18 @@ class Xls extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $filename
+     * @param string $pFilename
      *
      * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo($pFilename)
     {
-        File::assertFile($filename);
+        File::assertFile($pFilename);
 
         $worksheetInfo = [];
 
         // Read the OLE file
-        $this->loadOLE($filename);
+        $this->loadOLE($pFilename);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -621,14 +622,14 @@ class Xls extends BaseReader
     /**
      * Loads PhpSpreadsheet from file.
      *
+     * @param string $pFilename
+     *
      * @return Spreadsheet
      */
-    public function load(string $filename, int $flags = 0)
+    public function load($pFilename)
     {
-        $this->processFlags($flags);
-
         // Read the OLE file
-        $this->loadOLE($filename);
+        $this->loadOLE($pFilename);
 
         // Initialisations
         $this->spreadsheet = new Spreadsheet();
@@ -1101,12 +1102,12 @@ class Xls extends BaseReader
                     $endOffsetX = $spContainer->getEndOffsetX();
                     $endOffsetY = $spContainer->getEndOffsetY();
 
-                    $width = SharedXls::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
-                    $height = SharedXls::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
+                    $width = \PhpOffice\PhpSpreadsheet\Shared\Xls::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
+                    $height = \PhpOffice\PhpSpreadsheet\Shared\Xls::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
 
                     // calculate offsetX and offsetY of the shape
-                    $offsetX = $startOffsetX * SharedXls::sizeCol($this->phpSheet, $startColumn) / 1024;
-                    $offsetY = $startOffsetY * SharedXls::sizeRow($this->phpSheet, $startRow) / 256;
+                    $offsetX = $startOffsetX * \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, $startColumn) / 1024;
+                    $offsetY = $startOffsetY * \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $startRow) / 256;
 
                     switch ($obj['otObjType']) {
                         case 0x19:
@@ -1142,35 +1143,31 @@ class Xls extends BaseReader
                                 // need check because some blip types are not supported by Escher reader such as EMF
                                 if ($blip = $BSE->getBlip()) {
                                     $ih = imagecreatefromstring($blip->getData());
-                                    if ($ih !== false) {
-                                        $drawing = new MemoryDrawing();
-                                        $drawing->setImageResource($ih);
+                                    $drawing = new MemoryDrawing();
+                                    $drawing->setImageResource($ih);
 
-                                        // width, height, offsetX, offsetY
-                                        $drawing->setResizeProportional(false);
-                                        $drawing->setWidth($width);
-                                        $drawing->setHeight($height);
-                                        $drawing->setOffsetX($offsetX);
-                                        $drawing->setOffsetY($offsetY);
+                                    // width, height, offsetX, offsetY
+                                    $drawing->setResizeProportional(false);
+                                    $drawing->setWidth($width);
+                                    $drawing->setHeight($height);
+                                    $drawing->setOffsetX($offsetX);
+                                    $drawing->setOffsetY($offsetY);
 
-                                        switch ($blipType) {
-                                            case BSE::BLIPTYPE_JPEG:
-                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
+                                    switch ($blipType) {
+                                        case BSE::BLIPTYPE_JPEG:
+                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
 
-                                                break;
-                                            case BSE::BLIPTYPE_PNG:
-                                                imagealphablending($ih, false);
-                                                imagesavealpha($ih, true);
-                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
-                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
+                                            break;
+                                        case BSE::BLIPTYPE_PNG:
+                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
+                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
-                                                break;
-                                        }
-
-                                        $drawing->setWorksheet($this->phpSheet);
-                                        $drawing->setCoordinates($spContainer->getStartCoordinates());
+                                            break;
                                     }
+
+                                    $drawing->setWorksheet($this->phpSheet);
+                                    $drawing->setCoordinates($spContainer->getStartCoordinates());
                                 }
                             }
 
@@ -1297,7 +1294,7 @@ class Xls extends BaseReader
                     }
                 }
                 //    Named Value
-                    //    TODO Provide support for named values
+                //    TODO Provide support for named values
             }
         }
         $this->data = '';
@@ -1364,14 +1361,14 @@ class Xls extends BaseReader
     /**
      * Use OLE reader to extract the relevant data streams from the OLE file.
      *
-     * @param string $filename
+     * @param string $pFilename
      */
-    private function loadOLE($filename): void
+    private function loadOLE($pFilename): void
     {
         // OLE reader
         $ole = new OLERead();
         // get excel data,
-        $ole->read($filename);
+        $ole->read($pFilename);
         // Get workbook data: workbook stream + sheet streams
         $this->data = $ole->getStream($ole->wrkbook);
         // Get summary information data
@@ -2125,10 +2122,6 @@ class Xls extends BaseReader
             }
 
             $formatString = $string['value'];
-            // Apache Open Office sets wrong case writing to xls - issue 2239
-            if ($formatString === 'GENERAL') {
-                $formatString = NumberFormat::FORMAT_GENERAL;
-            }
             $this->formats[$indexCode] = $formatString;
         }
     }
@@ -2178,7 +2171,7 @@ class Xls extends BaseReader
                 $numberFormat = ['formatCode' => $code];
             } else {
                 // we set the general format code
-                $numberFormat = ['formatCode' => NumberFormat::FORMAT_GENERAL];
+                $numberFormat = ['formatCode' => 'General'];
             }
             $objStyle->getNumberFormat()->setFormatCode($numberFormat['formatCode']);
 
@@ -3032,7 +3025,7 @@ class Xls extends BaseReader
                         $len = min($charsLeft, $limitpos - $pos);
                         for ($j = 0; $j < $len; ++$j) {
                             $retstr .= $recordData[$pos + $j]
-                            . chr(0);
+                                . chr(0);
                         }
                         $charsLeft -= $len;
                         $isCompressed = false;
@@ -3749,10 +3742,12 @@ class Xls extends BaseReader
                         } else {
                             $textRun = $richText->createTextRun($text);
                             if (isset($fmtRuns[$i - 1])) {
-                                $fontIndex = $fmtRuns[$i - 1]['fontIndex'];
-
-                                if (array_key_exists($fontIndex, $this->objFonts) === false) {
-                                    $fontIndex = count($this->objFonts) - 1;
+                                if ($fmtRuns[$i - 1]['fontIndex'] < 4) {
+                                    $fontIndex = $fmtRuns[$i - 1]['fontIndex'];
+                                } else {
+                                    // this has to do with that index 4 is omitted in all BIFF versions for some strange reason
+                                    // check the OpenOffice documentation of the FONT record
+                                    $fontIndex = $fmtRuns[$i - 1]['fontIndex'] - 1;
                                 }
                                 $textRun->setFont(clone $this->objFonts[$fontIndex]);
                             }
@@ -6941,7 +6936,7 @@ class Xls extends BaseReader
                 // offset: 1; size: 2; one-based index to definedname record
                 $definedNameIndex = self::getUInt2d($formulaData, 1) - 1;
                 // offset: 2; size: 2; not used
-                $data = $this->definedname[$definedNameIndex]['name'] ?? '';
+                $data = $this->definedname[$definedNameIndex]['name'];
 
                 break;
             case 0x24:    //    single cell reference e.g. A5
@@ -7017,7 +7012,7 @@ class Xls extends BaseReader
                 // offset: 3; size: 2; one-based index to DEFINEDNAME or EXTERNNAME record
                 $index = self::getUInt2d($formulaData, 3);
                 // assume index is to EXTERNNAME record
-                $data = $this->externalNames[$index - 1]['name'] ?? '';
+                $data = $this->externalNames[$index - 1]['name'];
                 // offset: 5; size: 2; not used
                 break;
             case 0x3A:    //    3d reference to cell
@@ -7911,18 +7906,5 @@ class Xls extends BaseReader
         $value->createText($is);
 
         return $value;
-    }
-
-    /**
-     * Phpstan 1.4.4 complains that this property is never read.
-     * So, we might be able to get rid of it altogether.
-     * For now, however, this function makes it readable,
-     * which satisfies Phpstan.
-     *
-     * @codeCoverageIgnore
-     */
-    public function getMapCellStyleXfIndex(): array
-    {
-        return $this->mapCellStyleXfIndex;
     }
 }

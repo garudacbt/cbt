@@ -14,12 +14,12 @@ class StringTable extends WriterPart
     /**
      * Create worksheet stringtable.
      *
-     * @param Worksheet $worksheet Worksheet
-     * @param string[] $existingTable Existing table to eventually merge with
+     * @param Worksheet $pSheet Worksheet
+     * @param string[] $pExistingTable Existing table to eventually merge with
      *
      * @return string[] String table for worksheet
      */
-    public function createStringTable(Worksheet $worksheet, $existingTable = null)
+    public function createStringTable(Worksheet $pSheet, $pExistingTable = null)
     {
         // Create string lookup table
         $aStringTable = [];
@@ -27,23 +27,23 @@ class StringTable extends WriterPart
         $aFlippedStringTable = null; // For faster lookup
 
         // Is an existing table given?
-        if (($existingTable !== null) && is_array($existingTable)) {
-            $aStringTable = $existingTable;
+        if (($pExistingTable !== null) && is_array($pExistingTable)) {
+            $aStringTable = $pExistingTable;
         }
 
         // Fill index array
         $aFlippedStringTable = $this->flipStringTable($aStringTable);
 
         // Loop through cells
-        foreach ($worksheet->getCoordinates() as $coordinate) {
-            $cell = $worksheet->getCell($coordinate);
+        foreach ($pSheet->getCoordinates() as $coordinate) {
+            $cell = $pSheet->getCell($coordinate);
             $cellValue = $cell->getValue();
             if (
                 !is_object($cellValue) &&
                 ($cellValue !== null) &&
                 $cellValue !== '' &&
-                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL) &&
-                !isset($aFlippedStringTable[$cellValue])
+                !isset($aFlippedStringTable[$cellValue]) &&
+                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL)
             ) {
                 $aStringTable[] = $cellValue;
                 $aFlippedStringTable[$cellValue] = true;
@@ -63,11 +63,11 @@ class StringTable extends WriterPart
     /**
      * Write string table to XML format.
      *
-     * @param string[] $stringTable
+     * @param string[] $pStringTable
      *
      * @return string XML Output
      */
-    public function writeStringTable(array $stringTable)
+    public function writeStringTable(array $pStringTable)
     {
         // Create XML writer
         $objWriter = null;
@@ -83,10 +83,10 @@ class StringTable extends WriterPart
         // String table
         $objWriter->startElement('sst');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-        $objWriter->writeAttribute('uniqueCount', count($stringTable));
+        $objWriter->writeAttribute('uniqueCount', count($pStringTable));
 
         // Loop through string table
-        foreach ($stringTable as $textElement) {
+        foreach ($pStringTable as $textElement) {
             $objWriter->startElement('si');
 
             if (!$textElement instanceof RichText) {
@@ -112,16 +112,18 @@ class StringTable extends WriterPart
     /**
      * Write Rich Text.
      *
+     * @param XMLWriter $objWriter XML Writer
+     * @param RichText $pRichText Rich text
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichText(XMLWriter $objWriter, RichText $richText, $prefix = null): void
+    public function writeRichText(XMLWriter $objWriter, RichText $pRichText, $prefix = null): void
     {
         if ($prefix !== null) {
             $prefix .= ':';
         }
 
         // Loop through rich text elements
-        $elements = $richText->getRichTextElements();
+        $elements = $pRichText->getRichTextElements();
         foreach ($elements as $element) {
             // r
             $objWriter->startElement($prefix . 'r');
@@ -193,15 +195,16 @@ class StringTable extends WriterPart
     /**
      * Write Rich Text.
      *
-     * @param RichText|string $richText text string or Rich text
+     * @param XMLWriter $objWriter XML Writer
+     * @param RichText|string $pRichText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichTextForCharts(XMLWriter $objWriter, $richText = null, $prefix = null): void
+    public function writeRichTextForCharts(XMLWriter $objWriter, $pRichText = null, $prefix = null): void
     {
-        if (!$richText instanceof RichText) {
-            $textRun = $richText;
-            $richText = new RichText();
-            $richText->createTextRun($textRun);
+        if (!$pRichText instanceof RichText) {
+            $textRun = $pRichText;
+            $pRichText = new RichText();
+            $pRichText->createTextRun($textRun);
         }
 
         if ($prefix !== null) {
@@ -209,7 +212,7 @@ class StringTable extends WriterPart
         }
 
         // Loop through rich text elements
-        $elements = $richText->getRichTextElements();
+        $elements = $pRichText->getRichTextElements();
         foreach ($elements as $element) {
             // r
             $objWriter->startElement($prefix . 'r');

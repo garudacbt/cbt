@@ -34,15 +34,6 @@ class Block extends AbstractFrameDecorator
     protected $_line_boxes;
 
     /**
-     * List of markers that have not found their line box to vertically align
-     * with yet. Markers are collected by nested block containers until an
-     * inline line box is found at the start of the block.
-     *
-     * @var ListBullet[]
-     */
-    protected $dangling_markers;
-
-    /**
      * Block constructor.
      * @param Frame $frame
      * @param Dompdf $dompdf
@@ -53,16 +44,17 @@ class Block extends AbstractFrameDecorator
 
         $this->_line_boxes = [new LineBox($this)];
         $this->_cl = 0;
-        $this->dangling_markers = [];
     }
 
+    /**
+     *
+     */
     function reset()
     {
         parent::reset();
 
         $this->_line_boxes = [new LineBox($this)];
         $this->_cl = 0;
-        $this->dangling_markers = [];
     }
 
     /**
@@ -74,7 +66,7 @@ class Block extends AbstractFrameDecorator
     }
 
     /**
-     * @return int
+     * @return integer
      */
     function get_current_line_number()
     {
@@ -90,8 +82,8 @@ class Block extends AbstractFrameDecorator
     }
 
     /**
-     * @param int $line_number
-     * @return int
+     * @param integer $line_number
+     * @return integer
      */
     function set_current_line_number($line_number)
     {
@@ -101,7 +93,7 @@ class Block extends AbstractFrameDecorator
     }
 
     /**
-     * @param int $i
+     * @param integer $i
      */
     function clear_line($i)
     {
@@ -112,92 +104,147 @@ class Block extends AbstractFrameDecorator
 
     /**
      * @param Frame $frame
-     * @return LineBox|null
      */
-    public function add_frame_to_line(Frame $frame)
+    function add_frame_to_line(Frame $frame)
     {
-        $current_line = $this->_line_boxes[$this->_cl];
-        $frame->set_containing_line($current_line);
-
-        // Inline frames are currently treated as wrappers, and are not actually
-        // added to the line
-        if ($frame instanceof Inline) {
-            return null;
+        if (!$frame->is_in_flow()) {
+            return;
         }
 
-        $current_line->add_frame($frame);
+        $style = $frame->get_style();
 
-        $this->increase_line_width($frame->get_margin_width());
-        $this->maximize_line_height($frame->get_margin_height(), $frame);
+        $frame->set_containing_line($this->_line_boxes[$this->_cl]);
 
-        // Add any dangling list markers to the first line box if it is inline
-        if ($this->_cl === 0 && $current_line->inline
-            && $this->dangling_markers !== []
-        ) {
-            foreach ($this->dangling_markers as $marker) {
-                $current_line->add_list_marker($marker);
-                $this->maximize_line_height($marker->get_margin_height(), $marker);
+        /*
+        // Adds a new line after a block, only if certain conditions are met
+        if ((($frame instanceof Inline && $frame->get_node()->nodeName !== "br") ||
+              $frame instanceof Text && trim($frame->get_text())) &&
+            ($frame->get_prev_sibling() && $frame->get_prev_sibling()->get_style()->display === "block" &&
+             $this->_line_boxes[$this->_cl]->w > 0 )) {
+
+               $this->maximize_line_height( $style->length_in_pt($style->line_height), $frame );
+               $this->add_line();
+
+               // Add each child of the inline frame to the line individually
+               foreach ($frame->get_children() as $child)
+                 $this->add_frame_to_line( $child );
+        }
+        else*/
+
+        // Handle inline frames (which are effectively wrappers)
+        if ($frame instanceof Inline) {
+            // Handle line breaks
+            if ($frame->get_node()->nodeName === "br") {
+                $this->maximize_line_height($style->line_height, $frame);
+                $this->add_line(true);
             }
 
-            $this->dangling_markers = [];
+            return;
         }
 
-        return $current_line;
+        // Trim leading text if this is an empty line.  Kinda a hack to put it here,
+        // but what can you do...
+        if ($this->get_current_line_box()->w == 0 &&
+            $frame->is_text_node() &&
+            !$frame->is_pre()
+        ) {
+            $frame->set_text(ltrim($frame->get_text()));
+            $frame->recalculate_width();
+        }
+
+        $w = $frame->get_margin_width();
+
+        // FIXME: Why? Doesn't quite seem to be the correct thing to do,
+        // but does appear to be necessary. Hack to handle wrapped white space?
+        if ($w == 0 && $frame->get_node()->nodeName !== "hr" && !$frame->is_pre()) {
+            return;
+        }
+
+        // Debugging code:
+        /*
+        Helpers::pre_r("\n<h3>Adding frame to line:</h3>");
+
+        //    Helpers::pre_r("Me: " . $this->get_node()->nodeName . " (" . spl_object_hash($this->get_node()) . ")");
+        //    Helpers::pre_r("Node: " . $frame->get_node()->nodeName . " (" . spl_object_hash($frame->get_node()) . ")");
+        if ( $frame->is_text_node() )
+          Helpers::pre_r('"'.$frame->get_node()->nodeValue.'"');
+
+        Helpers::pre_r("Line width: " . $this->_line_boxes[$this->_cl]->w);
+        Helpers::pre_r("Frame: " . get_class($frame));
+        Helpers::pre_r("Frame width: "  . $w);
+        Helpers::pre_r("Frame height: " . $frame->get_margin_height());
+        Helpers::pre_r("Containing block width: " . $this->get_containing_block("w"));
+        */
+        // End debugging
+
+        $line = $this->_line_boxes[$this->_cl];
+        if ($line->left + $line->w + $line->right + $w > $this->get_containing_block("w")) {
+            $this->add_line();
+        }
+
+        $frame->position();
+
+        $current_line = $this->_line_boxes[$this->_cl];
+        $current_line->add_frame($frame);
+
+        if ($frame->is_text_node()) {
+            // split the text into words (used to determine spacing between words on justified lines)
+            // The regex splits on everything that's a separator (^\S double negative), excluding nbsp (\xa0)
+            // This currently excludes the "narrow nbsp" character
+            $words = preg_split('/[^\S\xA0]+/u', trim($frame->get_text()));
+            $current_line->wc += count($words);
+        }
+
+        $this->increase_line_width($w);
+
+        $this->maximize_line_height($frame->get_margin_height(), $frame);
     }
 
     /**
-     * Remove the given frame and all following frames and lines from the block.
-     *
      * @param Frame $frame
      */
-    public function remove_frames_from_line(Frame $frame): void
+    function remove_frames_from_line(Frame $frame)
     {
-        // Inline frames are not added to line boxes themselves, only their
-        // text frame children
-        $actualFrame = $frame;
-        while ($actualFrame !== null && $actualFrame instanceof Inline) {
-            $actualFrame = $actualFrame->get_first_child();
-        }
-
-        if ($actualFrame === null) {
-            return;
-        }
-
         // Search backwards through the lines for $frame
-        $frame = $actualFrame;
         $i = $this->_cl;
         $j = null;
 
-        while ($i > 0) {
-            $line = $this->_line_boxes[$i];
-            foreach ($line->get_frames() as $index => $f) {
-                if ($frame === $f) {
-                    $j = $index;
-                    break 2;
-                }
+        while ($i >= 0) {
+            if (($j = in_array($frame, $this->_line_boxes[$i]->get_frames(), true)) !== false) {
+                break;
             }
+
             $i--;
         }
 
-        if ($j === null) {
+        if ($j === false) {
             return;
         }
 
+        // Remove $frame and all frames that follow
+        while ($j < count($this->_line_boxes[$i]->get_frames())) {
+            $frames = $this->_line_boxes[$i]->get_frames();
+            $f = $frames[$j];
+            $frames[$j] = null;
+            unset($frames[$j]);
+            $j++;
+            $this->_line_boxes[$i]->w -= $f->get_margin_width();
+        }
+
+        // Recalculate the height of the line
+        $h = 0;
+        foreach ($this->_line_boxes[$i]->get_frames() as $f) {
+            $h = max($h, $f->get_margin_height());
+        }
+
+        $this->_line_boxes[$i]->h = $h;
+
         // Remove all lines that follow
-        for ($k = $this->_cl; $k > $i; $k--) {
-            unset($this->_line_boxes[$k]);
+        while ($this->_cl > $i) {
+            $this->_line_boxes[$this->_cl] = null;
+            unset($this->_line_boxes[$this->_cl]);
+            $this->_cl--;
         }
-
-        // Remove the line, if it is empty
-        if ($j > 0) {
-            $line->remove_frames($j);
-        } else {
-            unset($this->_line_boxes[$i]);
-        }
-
-        // Reset array indices
-        $this->_line_boxes = array_values($this->_line_boxes);
-        $this->_cl = count($this->_line_boxes) - 1;
     }
 
     /**
@@ -209,7 +256,7 @@ class Block extends AbstractFrameDecorator
     }
 
     /**
-     * @param float $val
+     * @param $val
      * @param Frame $frame
      */
     function maximize_line_height($val, Frame $frame)
@@ -223,36 +270,15 @@ class Block extends AbstractFrameDecorator
     /**
      * @param bool $br
      */
-    function add_line(bool $br = false)
+    function add_line($br = false)
     {
-        $line = $this->_line_boxes[$this->_cl];
-
-        $line->br = $br;
-        $y = $line->y + $line->h;
+        $this->_line_boxes[$this->_cl]->br = $br;
+        $y = $this->_line_boxes[$this->_cl]->y + $this->_line_boxes[$this->_cl]->h;
 
         $new_line = new LineBox($this, $y);
 
         $this->_line_boxes[++$this->_cl] = $new_line;
     }
 
-    /**
-     * @param ListBullet $marker
-     */
-    public function add_dangling_marker(ListBullet $marker): void
-    {
-        $this->dangling_markers[] = $marker;
-    }
-
-    /**
-     * Inherit any dangling markers from the parent block.
-     *
-     * @param Block $block
-     */
-    public function inherit_dangling_markers(self $block): void
-    {
-        if ($block->dangling_markers !== []) {
-            $this->dangling_markers = $block->dangling_markers;
-            $block->dangling_markers = [];
-        }
-    }
+    //........................................................................
 }

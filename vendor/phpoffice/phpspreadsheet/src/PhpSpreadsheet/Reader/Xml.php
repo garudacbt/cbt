@@ -53,8 +53,12 @@ class Xml extends BaseReader
 
     /**
      * Can the current IReader read the file?
+     *
+     * @param string $pFilename
+     *
+     * @return bool
      */
-    public function canRead(string $filename): bool
+    public function canRead($pFilename)
     {
         //    Office                    xmlns:o="urn:schemas-microsoft-com:office:office"
         //    Excel                    xmlns:x="urn:schemas-microsoft-com:office:excel"
@@ -72,7 +76,7 @@ class Xml extends BaseReader
         ];
 
         // Open file
-        $data = file_get_contents($filename);
+        $data = file_get_contents($pFilename);
 
         // Why?
         //$data = str_replace("'", '"', $data); // fix headers with single quote
@@ -103,20 +107,20 @@ class Xml extends BaseReader
     /**
      * Check if the file is a valid SimpleXML.
      *
-     * @param string $filename
+     * @param string $pFilename
      *
      * @return false|SimpleXMLElement
      */
-    public function trySimpleXMLLoadString($filename)
+    public function trySimpleXMLLoadString($pFilename)
     {
         try {
             $xml = simplexml_load_string(
-                $this->securityScanner->scan($this->fileContents ?: file_get_contents($filename)),
+                $this->securityScanner->scan($this->fileContents ?: file_get_contents($pFilename)),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
         } catch (\Exception $e) {
-            throw new Exception('Cannot load invalid XML file: ' . $filename, 0, $e);
+            throw new Exception('Cannot load invalid XML file: ' . $pFilename, 0, $e);
         }
         $this->fileContents = '';
 
@@ -232,12 +236,12 @@ class Xml extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
+     * @param string $filename
+     *
      * @return Spreadsheet
      */
-    public function load(string $filename, int $flags = 0)
+    public function load($filename)
     {
-        $this->processFlags($flags);
-
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
@@ -361,7 +365,7 @@ class Xml extends BaseReader
                             $columnTo = $columnID;
                             if (isset($cell_ss['MergeAcross'])) {
                                 $additionalMergedCells += (int) $cell_ss['MergeAcross'];
-                                $columnTo = Coordinate::stringFromColumnIndex((int) (Coordinate::columnIndexFromString($columnID) + $cell_ss['MergeAcross']));
+                                $columnTo = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($columnID) + $cell_ss['MergeAcross']);
                             }
                             $rowTo = $rowID;
                             if (isset($cell_ss['MergeDown'])) {

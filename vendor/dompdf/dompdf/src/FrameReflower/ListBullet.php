@@ -8,7 +8,7 @@
 namespace Dompdf\FrameReflower;
 
 use Dompdf\FrameDecorator\Block as BlockFrameDecorator;
-use Dompdf\FrameDecorator\ListBullet as ListBulletFrameDecorator;
+use Dompdf\FrameDecorator\AbstractFrameDecorator;
 
 /**
  * Reflows list bullets
@@ -20,9 +20,9 @@ class ListBullet extends AbstractFrameReflower
 
     /**
      * ListBullet constructor.
-     * @param ListBulletFrameDecorator $frame
+     * @param AbstractFrameDecorator $frame
      */
-    function __construct(ListBulletFrameDecorator $frame)
+    function __construct(AbstractFrameDecorator $frame)
     {
         parent::__construct($frame);
     }
@@ -32,17 +32,14 @@ class ListBullet extends AbstractFrameReflower
      */
     function reflow(BlockFrameDecorator $block = null)
     {
-        /** @var ListBulletFrameDecorator */
-        $frame = $this->_frame;
-        $style = $frame->get_style();
+        $style = $this->_frame->get_style();
 
-        $style->width = $frame->get_width();
-        $frame->position();
+        $style->width = $this->_frame->get_width();
+        $this->_frame->position();
 
         if ($style->list_style_position === "inside") {
-            $block->add_frame_to_line($frame);
-        } else {
-            $block->add_dangling_marker($frame);
+            $p = $this->_frame->find_block_parent();
+            $p->add_frame_to_line($this->_frame);
         }
     }
 }

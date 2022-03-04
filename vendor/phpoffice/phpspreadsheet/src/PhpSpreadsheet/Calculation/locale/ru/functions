@@ -177,7 +177,6 @@ SYD = АСЧ
 TBILLEQ = РАВНОКЧЕК
 TBILLPRICE = ЦЕНАКЧЕК
 TBILLYIELD = ДОХОДКЧЕК
-USDOLLAR = ДОЛЛСША
 VDB = ПУО
 XIRR = ЧИСТВНДОХ
 XNPV = ЧИСТНЗ
@@ -232,7 +231,6 @@ AREAS = ОБЛАСТИ
 CHOOSE = ВЫБОР
 COLUMN = СТОЛБЕЦ
 COLUMNS = ЧИСЛСТОЛБ
-FILTER = ФИЛЬТР
 FORMULATEXT = Ф.ТЕКСТ
 GETPIVOTDATA = ПОЛУЧИТЬ.ДАННЫЕ.СВОДНОЙ.ТАБЛИЦЫ
 HLOOKUP = ГПР
@@ -245,13 +243,8 @@ OFFSET = СМЕЩ
 ROW = СТРОКА
 ROWS = ЧСТРОК
 RTD = ДРВ
-SORT = СОРТ
-SORTBY = СОРТПО
 TRANSPOSE = ТРАНСП
-UNIQUE = УНИК
 VLOOKUP = ВПР
-XLOOKUP = ПРОСМОТРX
-XMATCH = ПОИСКПОЗX
 
 ##
 ## Математические и тригонометрические функции (Math & Trig Functions)
@@ -309,7 +302,6 @@ PRODUCT = ПРОИЗВЕД
 QUOTIENT = ЧАСТНОЕ
 RADIANS = РАДИАНЫ
 RAND = СЛЧИС
-RANDARRAY = СЛУЧМАССИВ
 RANDBETWEEN = СЛУЧМЕЖДУ
 ROMAN = РИМСКОЕ
 ROUND = ОКРУГЛ
@@ -320,7 +312,6 @@ ROUNDUP = ОКРУГЛВВЕРХ
 SEC = SEC
 SECH = SECH
 SERIESSUM = РЯД.СУММ
-SEQUENCE = ПОСЛЕДОВ
 SIGN = ЗНАК
 SIN = SIN
 SINH = SINH
@@ -456,36 +447,27 @@ Z.TEST = Z.ТЕСТ
 ##
 ## Текстовые функции (Text Functions)
 ##
-ARRAYTOTEXT = МАССИВВТЕКСТ
 BAHTTEXT = БАТТЕКСТ
 CHAR = СИМВОЛ
 CLEAN = ПЕЧСИМВ
 CODE = КОДСИМВ
 CONCAT = СЦЕП
-DBCS = БДЦС
 DOLLAR = РУБЛЬ
 EXACT = СОВПАД
 FIND = НАЙТИ
-FINDB = НАЙТИБ
 FIXED = ФИКСИРОВАННЫЙ
-ISTHAIDIGIT = ЕТАЙЦИФРЫ
+ISTHAIDIGIT = TAYRAKAMIYSA
 LEFT = ЛЕВСИМВ
-LEFTB = ЛЕВБ
 LEN = ДЛСТР
-LENB = ДЛИНБ
 LOWER = СТРОЧН
 MID = ПСТР
-MIDB = ПСТРБ
 NUMBERSTRING = СТРОКАЧИСЕЛ
 NUMBERVALUE = ЧЗНАЧ
 PROPER = ПРОПНАЧ
 REPLACE = ЗАМЕНИТЬ
-REPLACEB = ЗАМЕНИТЬБ
 REPT = ПОВТОР
 RIGHT = ПРАВСИМВ
-RIGHTB = ПРАВБ
 SEARCH = ПОИСК
-SEARCHB = ПОИСКБ
 SUBSTITUTE = ПОДСТАВИТЬ
 T = Т
 TEXT = ТЕКСТ
@@ -499,7 +481,6 @@ UNICHAR = ЮНИСИМВ
 UNICODE = UNICODE
 UPPER = ПРОПИСН
 VALUE = ЗНАЧЕН
-VALUETOTEXT = ЗНАЧЕНИЕВТЕКСТ
 
 ##
 ## Веб-функции (Web Functions)

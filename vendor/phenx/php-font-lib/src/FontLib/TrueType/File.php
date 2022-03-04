@@ -124,7 +124,7 @@ class File extends BinaryStream {
   }
 
   function utf8toUnicode($str) {
-    $len = mb_strlen($str, '8bit');
+    $len = strlen($str);
     $out = array();
 
     for ($i = 0; $i < $len; $i++) {

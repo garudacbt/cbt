@@ -102,7 +102,7 @@ class MemoryDrawing extends BaseDrawing
             $transparent = imagecolortransparent($this->imageResource);
             if ($transparent >= 0) {
                 $rgb = imagecolorsforindex($this->imageResource, $transparent);
-                if (empty($rgb)) {
+                if ($rgb === false) {
                     throw new Exception('Could not get image colors');
                 }
 
@@ -202,8 +202,10 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get indexed filename (using image index).
+     *
+     * @return string
      */
-    public function getIndexedFilename(): string
+    public function getIndexedFilename()
     {
         $extension = strtolower($this->getMimeType());
         $extension = explode('/', $extension);

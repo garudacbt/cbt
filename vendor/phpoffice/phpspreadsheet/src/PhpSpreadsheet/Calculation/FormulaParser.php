@@ -61,17 +61,17 @@ class FormulaParser
     /**
      * Create a new FormulaParser.
      *
-     * @param string $formula Formula to parse
+     * @param string $pFormula Formula to parse
      */
-    public function __construct($formula = '')
+    public function __construct($pFormula = '')
     {
         // Check parameters
-        if ($formula === null) {
+        if ($pFormula === null) {
             throw new Exception('Invalid parameter passed: formula');
         }
 
         // Initialise values
-        $this->formula = trim($formula);
+        $this->formula = trim($pFormula);
         // Parse!
         $this->parseToTokens();
     }
@@ -89,15 +89,15 @@ class FormulaParser
     /**
      * Get Token.
      *
-     * @param int $id Token id
+     * @param int $pId Token id
      */
-    public function getToken(int $id = 0): FormulaToken
+    public function getToken(int $pId = 0): FormulaToken
     {
-        if (isset($this->tokens[$id])) {
-            return $this->tokens[$id];
+        if (isset($this->tokens[$pId])) {
+            return $this->tokens[$pId];
         }
 
-        throw new Exception("Token with id $id does not exist.");
+        throw new Exception("Token with id $pId does not exist.");
     }
 
     /**
@@ -490,7 +490,7 @@ class FormulaParser
 
             if (
                 !(
-                    (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
+                (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
                 (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
                 ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
                 )
@@ -504,7 +504,7 @@ class FormulaParser
 
             if (
                 !(
-                    (($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($nextToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_START)) ||
+                (($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($nextToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_START)) ||
                 (($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) && ($nextToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_START)) ||
                 ($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
                 )

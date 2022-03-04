@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c47cd67f5efbeb72943f2babe2e8138b66b37081',
+    'reference' => '09dc975277e685cfc72999edac80d5eed3210e0b',
     'name' => 'codeigniter/framework',
   ),
   'versions' => 
@@ -27,7 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c47cd67f5efbeb72943f2babe2e8138b66b37081',
+      'reference' => '09dc975277e685cfc72999edac80d5eed3210e0b',
     ),
     'doctrine/instantiator' => 
     array (
@@ -40,30 +40,39 @@
     ),
     'dompdf/dompdf' => 
     array (
-      'pretty_version' => 'v1.2.0',
-      'version' => '1.2.0.0',
+      'pretty_version' => 'v1.0.2',
+      'version' => '1.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '60b704331479a69e9bcdb3496da2315b5c4f94fd',
+      'reference' => '8768448244967a46d6e67b891d30878e0e15d25c',
     ),
     'ezyang/htmlpurifier' => 
     array (
-      'pretty_version' => 'v4.14.0',
-      'version' => '4.14.0.0',
+      'pretty_version' => 'v4.13.0',
+      'version' => '4.13.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '12ab42bd6e742c70c0a52f7b82477fcd44e64b75',
+      'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
     ),
     'laminas/laminas-escaper' => 
     array (
-      'pretty_version' => '2.9.0',
-      'version' => '2.9.0.0',
+      'pretty_version' => '2.8.0',
+      'version' => '2.8.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '891ad70986729e20ed2e86355fcf93c9dc238a5f',
+      'reference' => '2d6dce99668b413610e9544183fa10392437f542',
+    ),
+    'laminas/laminas-zendframework-bridge' => 
+    array (
+      'pretty_version' => '1.3.0',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '13af2502d9bb6f7d33be2de4b51fb68c6cdb476e',
     ),
     'maennchen/zipstream-php' => 
     array (
@@ -76,21 +85,21 @@
     ),
     'markbaker/complex' => 
     array (
-      'pretty_version' => '3.0.1',
-      'version' => '3.0.1.0',
+      'pretty_version' => '2.0.3',
+      'version' => '2.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ab8bc271e404909db09ff2d5ffa1e538085c0f22',
+      'reference' => '6f724d7e04606fd8adaa4e3bb381c3e9db09c946',
     ),
     'markbaker/matrix' => 
     array (
-      'pretty_version' => '3.0.0',
-      'version' => '3.0.0.0',
+      'pretty_version' => '2.1.3',
+      'version' => '2.1.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c66aefcafb4f6c269510e9ac46b82619a904c576',
+      'reference' => '174395a901b5ba0925f1d790fa91bab531074b61',
     ),
     'mikey179/vfsstream' => 
     array (
@@ -125,12 +134,12 @@
     ),
     'phenx/php-font-lib' => 
     array (
-      'pretty_version' => '0.5.4',
-      'version' => '0.5.4.0',
+      'pretty_version' => '0.5.2',
+      'version' => '0.5.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'dd448ad1ce34c63d09baccd05415e361300c35b4',
+      'reference' => 'ca6ad461f032145fff5971b5985e5af9e7fa88d8',
     ),
     'phenx/php-svg-lib' => 
     array (
@@ -152,39 +161,39 @@
     ),
     'phpdocumentor/reflection-docblock' => 
     array (
-      'pretty_version' => '5.3.0',
-      'version' => '5.3.0.0',
+      'pretty_version' => '5.2.2',
+      'version' => '5.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '622548b623e81ca6d78b721c5e029f4ce664f170',
+      'reference' => '069a785b2141f5bcf49f3e353548dc1cce6df556',
     ),
     'phpdocumentor/type-resolver' => 
     array (
-      'pretty_version' => '1.6.0',
-      'version' => '1.6.0.0',
+      'pretty_version' => '1.4.0',
+      'version' => '1.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '93ebd0014cab80c4ea9f5e297ea48672f1b87706',
+      'reference' => '6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0',
     ),
     'phpoffice/phpspreadsheet' => 
     array (
-      'pretty_version' => '1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => '1.18.0',
+      'version' => '1.18.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3a9e29b4f386a08a151a33578e80ef1747037a48',
+      'reference' => '418cd304e8e6b417ea79c3b29126a25dc4b1170c',
     ),
     'phpoffice/phpword' => 
     array (
-      'pretty_version' => '0.18.3',
-      'version' => '0.18.3.0',
+      'pretty_version' => '0.18.2',
+      'version' => '0.18.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'be0190cd5d8f95b4be08d5853b107aa4e352759a',
+      'reference' => 'aca10785cf68dc95d7f6fac4fe854979fef3f8db',
     ),
     'phpspec/prophecy' => 
     array (
@@ -296,12 +305,12 @@
     ),
     'sabberworm/php-css-parser' => 
     array (
-      'pretty_version' => '8.4.0',
-      'version' => '8.4.0.0',
+      'pretty_version' => '8.3.1',
+      'version' => '8.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e41d2140031d533348b2192a83f02d8dd8a71d30',
+      'reference' => 'd217848e1396ef962fb1997cf3e2421acba7f796',
     ),
     'sebastian/code-unit-reverse-lookup' => 
     array (
@@ -395,30 +404,30 @@
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.24.0',
-      'version' => '1.24.0.0',
+      'pretty_version' => 'v1.23.0',
+      'version' => '1.23.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '30885182c981ab175d4d034db0f6f469898070ab',
+      'reference' => '46cd95797e9df938fdd2b03693b5fca5e64b01ce',
     ),
     'symfony/polyfill-mbstring' => 
     array (
-      'pretty_version' => 'v1.24.0',
-      'version' => '1.24.0.0',
+      'pretty_version' => 'v1.23.1',
+      'version' => '1.23.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0abb51d2f102e00a4eefcf46ba7fec406d245825',
+      'reference' => '9174a3d80210dca8daa7f31fec659150bbeabfc6',
     ),
     'symfony/yaml' => 
     array (
-      'pretty_version' => 'v4.4.37',
-      'version' => '4.4.37.0',
+      'pretty_version' => 'v4.4.29',
+      'version' => '4.4.29.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd7f637cc0f0cc14beb0984f2bb50da560b271311',
+      'reference' => '3abcc4db06d4e776825eaa3ed8ad924d5bc7432a',
     ),
     'webmozart/assert' => 
     array (
@@ -428,6 +437,13 @@
       array (
       ),
       'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
+    ),
+    'zendframework/zend-escaper' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '^2.6.1',
+      ),
     ),
   ),
 );

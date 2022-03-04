@@ -39,7 +39,6 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Webmozart\Assert\Assert;
-
 use function array_merge;
 use function array_slice;
 use function call_user_func_array;
@@ -138,7 +137,7 @@ final class StandardTagFactory implements TagFactory
         $this->addService($fqsenResolver, FqsenResolver::class);
     }
 
-    public function create(string $tagLine, ?TypeContext $context = null): Tag
+    public function create(string $tagLine, ?TypeContext $context = null) : Tag
     {
         if (!$context) {
             $context = new TypeContext('');
@@ -152,17 +151,17 @@ final class StandardTagFactory implements TagFactory
     /**
      * @param mixed $value
      */
-    public function addParameter(string $name, $value): void
+    public function addParameter(string $name, $value) : void
     {
         $this->serviceLocator[$name] = $value;
     }
 
-    public function addService(object $service, ?string $alias = null): void
+    public function addService(object $service, ?string $alias = null) : void
     {
         $this->serviceLocator[$alias ?: get_class($service)] = $service;
     }
 
-    public function registerTagHandler(string $tagName, string $handler): void
+    public function registerTagHandler(string $tagName, string $handler) : void
     {
         Assert::stringNotEmpty($tagName);
         Assert::classExists($handler);
@@ -182,7 +181,7 @@ final class StandardTagFactory implements TagFactory
      *
      * @return string[]
      */
-    private function extractTagParts(string $tagLine): array
+    private function extractTagParts(string $tagLine) : array
     {
         $matches = [];
         if (!preg_match('/^@(' . self::REGEX_TAGNAME . ')((?:[\s\(\{])\s*([^\s].*)|$)/us', $tagLine, $matches)) {
@@ -202,7 +201,7 @@ final class StandardTagFactory implements TagFactory
      * Creates a new tag object with the given name and body or returns null if the tag name was recognized but the
      * body was invalid.
      */
-    private function createTag(string $body, string $name, TypeContext $context): Tag
+    private function createTag(string $body, string $name, TypeContext $context) : Tag
     {
         $handlerClassName = $this->findHandlerClassName($name, $context);
         $arguments        = $this->getArgumentsForParametersFromWiring(
@@ -227,7 +226,7 @@ final class StandardTagFactory implements TagFactory
      *
      * @return class-string<Tag>
      */
-    private function findHandlerClassName(string $tagName, TypeContext $context): string
+    private function findHandlerClassName(string $tagName, TypeContext $context) : string
     {
         $handlerClassName = Generic::class;
         if (isset($this->tagHandlerMappings[$tagName])) {
@@ -252,7 +251,7 @@ final class StandardTagFactory implements TagFactory
      * @return mixed[] A series of values that can be passed to the Factory Method of the tag whose parameters
      *     is provided with this method.
      */
-    private function getArgumentsForParametersFromWiring(array $parameters, array $locator): array
+    private function getArgumentsForParametersFromWiring(array $parameters, array $locator) : array
     {
         $arguments = [];
         foreach ($parameters as $parameter) {
@@ -293,7 +292,7 @@ final class StandardTagFactory implements TagFactory
      *
      * @return ReflectionParameter[]
      */
-    private function fetchParametersForHandlerFactoryMethod(string $handlerClassName): array
+    private function fetchParametersForHandlerFactoryMethod(string $handlerClassName) : array
     {
         if (!isset($this->tagHandlerParameterCache[$handlerClassName])) {
             $methodReflection                                  = new ReflectionMethod($handlerClassName, 'create');
@@ -320,7 +319,7 @@ final class StandardTagFactory implements TagFactory
         TypeContext $context,
         string $tagName,
         string $tagBody
-    ): array {
+    ) : array {
         return array_merge(
             $this->serviceLocator,
             [
@@ -336,7 +335,7 @@ final class StandardTagFactory implements TagFactory
      *
      * @todo this method should be populated once we implement Annotation notation support.
      */
-    private function isAnnotation(string $tagContent): bool
+    private function isAnnotation(string $tagContent) : bool
     {
         // 1. Contains a namespace separator
         // 2. Contains parenthesis

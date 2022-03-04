@@ -2,14 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Fisher
 {
-    use ArrayEnabled;
-
     /**
      * FISHER.
      *
@@ -18,17 +15,12 @@ class Fisher
      *        testing on the correlation coefficient.
      *
      * @param mixed $value Float value for which we want the probability
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function distribution($value)
     {
-        if (is_array($value)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
-        }
+        $value = Functions::flattenSingleValue($value);
 
         try {
             DistributionValidations::validateFloat($value);
@@ -51,17 +43,12 @@ class Fisher
      *        FISHERINV(y) = x.
      *
      * @param mixed $probability Float probability at which you want to evaluate the distribution
-     *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return float|string
      */
     public static function inverse($probability)
     {
-        if (is_array($probability)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $probability);
-        }
+        $probability = Functions::flattenSingleValue($probability);
 
         try {
             DistributionValidations::validateFloat($probability);

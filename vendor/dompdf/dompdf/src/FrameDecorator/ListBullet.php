@@ -18,40 +18,13 @@ use Dompdf\Frame;
  */
 class ListBullet extends AbstractFrameDecorator
 {
-    /**
-     * Bullet diameter as fraction of font size.
-     */
-    public const BULLET_SIZE = 0.35;
 
-    /**
-     * Bullet offset from font baseline as fraction of font size.
-     */
-    public const BULLET_OFFSET = 0.1;
+    const BULLET_PADDING = 1; // Distance from bullet to text in pt
+    // As fraction of font size (including descent). See also DECO_THICKNESS.
+    const BULLET_THICKNESS = 0.04; // Thickness of bullet outline. Screen: 0.08, print: better less, e.g. 0.04
+    const BULLET_DESCENT = 0.3; //descent of font below baseline. Todo: Guessed for now.
+    const BULLET_SIZE = 0.35; // bullet diameter. For now 0.5 of font_size without descent.
 
-    /**
-     * Thickness of bullet outline as fraction of font size.
-     * See also `DECO_THICKNESS`. Screen: 0.08, print: better less, e.g. 0.04.
-     */
-    public const BULLET_THICKNESS = 0.04;
-
-    /**
-     * Indentation from the start of the line as fraction of font size.
-     */
-    public const MARKER_INDENT = 0.52;
-
-    /**
-     * @deprecated
-     */
-    const BULLET_PADDING = 1;
-
-    /**
-     * @deprecated
-     */
-    const BULLET_DESCENT = 0.3;
-
-    /**
-     * @deprecated
-     */
     static $BULLET_TYPES = ["disc", "circle", "square"];
 
     /**
@@ -65,70 +38,50 @@ class ListBullet extends AbstractFrameDecorator
     }
 
     /**
-     * Get the width of the bullet symbol.
-     *
-     * @return float
+     * @return float|int
      */
-    public function get_width(): float
+    function get_margin_width()
     {
         $style = $this->_frame->get_style();
 
         if ($style->list_style_type === "none") {
-            return 0.0;
+            return 0;
         }
 
-        return $style->font_size * self::BULLET_SIZE;
+        return $style->font_size * self::BULLET_SIZE + 2 * self::BULLET_PADDING;
     }
 
     /**
-     * Get the height of the bullet symbol.
+     * hits only on "inset" lists items, to increase height of box
      *
-     * @return float
+     * @return float|int
      */
-    public function get_height(): float
+    function get_margin_height()
     {
         $style = $this->_frame->get_style();
 
         if ($style->list_style_type === "none") {
-            return 0.0;
+            return 0;
         }
 
-        return $style->font_size * self::BULLET_SIZE;
+        return $style->font_size * self::BULLET_SIZE + 2 * self::BULLET_PADDING;
     }
 
     /**
-     * Get the width of the bullet, including indentation.
+     * @return float|int
      */
-    public function get_margin_width(): float
+    function get_width()
     {
-        $style = $this->get_style();
-
-        if ($style->list_style_type === "none") {
-            return 0.0;
-        }
-
-        return $style->font_size * (self::BULLET_SIZE + self::MARKER_INDENT);
+        return $this->get_margin_width();
     }
 
     /**
-     * Get the line height for the bullet.
-     *
-     * This increases the height of the corresponding line box when necessary.
+     * @return float|int
      */
-    public function get_margin_height(): float
+    function get_height()
     {
-        $style = $this->get_style();
-
-        if ($style->list_style_type === "none") {
-            return 0.0;
-        }
-
-        // TODO: This is a copy of `FrameDecorator\Text::get_margin_height()`
-        // Would be nice to properly refactor that at some point
-        $font = $style->font_family;
-        $size = $style->font_size;
-        $fontHeight = $this->_dompdf->getFontMetrics()->getFontHeight($font, $size);
-
-        return ($style->line_height / ($size > 0 ? $size : 1)) * $fontHeight;
+        return $this->get_margin_height();
     }
+
+    //........................................................................
 }

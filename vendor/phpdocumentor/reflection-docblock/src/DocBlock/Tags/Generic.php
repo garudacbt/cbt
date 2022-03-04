@@ -19,7 +19,6 @@ use phpDocumentor\Reflection\DocBlock\DescriptionFactory;
 use phpDocumentor\Reflection\DocBlock\StandardTagFactory;
 use phpDocumentor\Reflection\Types\Context as TypeContext;
 use Webmozart\Assert\Assert;
-
 use function preg_match;
 
 /**
@@ -51,7 +50,7 @@ final class Generic extends BaseTag implements Factory\StaticMethod
         string $name = '',
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ): self {
+    ) : self {
         Assert::stringNotEmpty($name);
         Assert::notNull($descriptionFactory);
 
@@ -63,7 +62,7 @@ final class Generic extends BaseTag implements Factory\StaticMethod
     /**
      * Returns the tag as a serialized string
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->description) {
             $description = $this->description->render();
@@ -77,7 +76,7 @@ final class Generic extends BaseTag implements Factory\StaticMethod
     /**
      * Validates if the tag name matches the expected format, otherwise throws an exception.
      */
-    private function validateTagName(string $name): void
+    private function validateTagName(string $name) : void
     {
         if (!preg_match('/^' . StandardTagFactory::REGEX_TAGNAME . '$/u', $name)) {
             throw new InvalidArgumentException(

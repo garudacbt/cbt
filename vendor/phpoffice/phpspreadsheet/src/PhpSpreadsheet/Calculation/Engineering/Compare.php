@@ -2,13 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Compare
 {
-    use ArrayEnabled;
-
     /**
      * DELTA.
      *
@@ -20,20 +18,15 @@ class Compare
      *        functions you calculate the count of equal pairs. This function is also known as the
      *        Kronecker Delta function.
      *
-     * @param array|float $a the first number
-     *                      Or can be an array of values
-     * @param array|float $b The second number. If omitted, b is assumed to be zero.
-     *                      Or can be an array of values
+     * @param float $a the first number
+     * @param float $b The second number. If omitted, b is assumed to be zero.
      *
-     * @return array|int|string (string in the event of an error)
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return int|string (string in the event of an error)
      */
-    public static function DELTA($a, $b = 0.0)
+    public static function DELTA($a, $b = 0)
     {
-        if (is_array($a) || is_array($b)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $a, $b);
-        }
+        $a = Functions::flattenSingleValue($a);
+        $b = Functions::flattenSingleValue($b);
 
         try {
             $a = EngineeringValidations::validateFloat($a);
@@ -42,7 +35,7 @@ class Compare
             return $e->getMessage();
         }
 
-        return (int) (abs($a - $b) < 1.0e-15);
+        return (int) ($a == $b);
     }
 
     /**
@@ -55,20 +48,15 @@ class Compare
      *    Use this function to filter a set of values. For example, by summing several GESTEP
      *        functions you calculate the count of values that exceed a threshold.
      *
-     * @param array|float $number the value to test against step
-     *                      Or can be an array of values
-     * @param array|float $step The threshold value. If you omit a value for step, GESTEP uses zero.
-     *                      Or can be an array of values
+     * @param float $number the value to test against step
+     * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *
-     * @return array|int|string (string in the event of an error)
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
+     * @return int|string (string in the event of an error)
      */
-    public static function GESTEP($number, $step = 0.0)
+    public static function GESTEP($number, $step = 0)
     {
-        if (is_array($number) || is_array($step)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $step);
-        }
+        $number = Functions::flattenSingleValue($number);
+        $step = Functions::flattenSingleValue($step);
 
         try {
             $number = EngineeringValidations::validateFloat($number);
