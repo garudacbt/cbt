@@ -1,0 +1,5548 @@
+{
+  "api_setting": [
+    {
+      "name": "id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "auto_sync",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "edit_profile_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "edit_profile_guru",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "api_token": [
+    {
+      "name": "id_api",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "timestamp",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "id_user",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "address",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agent",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "device",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "token",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "buku_induk": [
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "uid",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "rombel_awal",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_panggilan",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bahasa",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jml_saudara_kandung",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jml_saudara_tiri",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jml_saudara_angkat",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "yatim",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "tinggal_bersama",
+      "type": "varchar",
+      "max_length": 1,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "jarak",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "gol_darah",
+      "type": "varchar",
+      "max_length": 4,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "penyakit",
+      "type": "mediumtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kelainan_fisik",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kegemaran",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "beasiswa",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "no_ijazah_sebelumnya",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tahun_lulus_sebelumnya",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pindahan_dari",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alasan_kepindahan",
+      "type": "varchar",
+      "max_length": 200,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agama_ayah",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tempat_lahir_ayah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "wn_ayah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "penghasilan_ayah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "hidup_meninggal_ayah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agama_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tempat_lahir_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "wn_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "penghasilan_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "hidup_meninggal_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tempat_lahir_wali",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agama_wali",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "wn_wali",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "penghasilan_wali",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "max_length": 11,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "tahun_lulus",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "no_ijazah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kelas_akhir",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "lanjut_ke",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pindah_ke",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alasan_pindah",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_pindah",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bekerja_di",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "catatan_penting",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "bulan": [
+    {
+      "name": "id_bln",
+      "type": "int",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_bln",
+      "type": "varchar",
+      "max_length": 25,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_bank_soal": [
+    {
+      "name": "id_bank",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "bank_jenis_id",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bank_kode",
+      "type": "varchar",
+      "max_length": 255,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bank_level",
+      "type": "varchar",
+      "max_length": 225,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bank_kelas",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bank_mapel_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bank_jurusan_id",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bank_guru_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bank_nama",
+      "type": "varchar",
+      "max_length": 250,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kkm",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jml_soal",
+      "type": "int",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jml_esai",
+      "type": "int",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "tampil_pg",
+      "type": "int",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "tampil_esai",
+      "type": "int",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_pg",
+      "type": "int",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_esai",
+      "type": "int",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "opsi",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "date",
+      "type": "timestamp",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "max_length": 2,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "soal_agama",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jml_kompleks",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "tampil_kompleks",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_kompleks",
+      "type": "int",
+      "max_length": 2,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jml_jodohkan",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "tampil_jodohkan",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_jodohkan",
+      "type": "int",
+      "max_length": 2,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jml_isian",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "tampil_isian",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_isian",
+      "type": "int",
+      "max_length": 2,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "status_soal",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "cbt_durasi_siswa": [
+    {
+      "name": "id_durasi",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jadwal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "lama_ujian",
+      "type": "time",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "mulai",
+      "type": "varchar",
+      "max_length": 22,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "selesai",
+      "type": "varchar",
+      "max_length": 22,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "reset",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "cbt_jadwal": [
+    {
+      "name": "id_jadwal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_bank",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jenis",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_mulai",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_selesai",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "durasi_ujian",
+      "type": "int",
+      "max_length": 5,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pengawas",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "acak_soal",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "acak_opsi",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "hasil_tampil",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "token",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "ulang",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "reset_login",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "rekap",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jam_ke",
+      "type": "int",
+      "max_length": 2,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jarak",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "cbt_jenis": [
+    {
+      "name": "id_jenis",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_jenis",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_jenis",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_kelas_ruang": [
+    {
+      "name": "id_kelas_ruang",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_ruang",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_sesi",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "set_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "cbt_kop_absensi": [
+    {
+      "name": "id_kop",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "header_1",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_2",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_3",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_4",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "proktor",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pengawas_1",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pengawas_2",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_kop_berita": [
+    {
+      "name": "id_kop",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "header_1",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_2",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_3",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_4",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_kop_kartu": [
+    {
+      "name": "id_set_kartu",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "header_1",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_2",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_3",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "header_4",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tanggal",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_nilai": [
+    {
+      "name": "id_nilai",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "pg_benar",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "pg_nilai",
+      "type": "varchar",
+      "max_length": 10,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "essai_nilai",
+      "type": "varchar",
+      "max_length": 10,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jadwal",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kompleks_nilai",
+      "type": "varchar",
+      "max_length": 10,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jodohkan_nilai",
+      "type": "varchar",
+      "max_length": 10,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "isian_nilai",
+      "type": "varchar",
+      "max_length": 10,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "dikoreksi",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "cbt_nomor_peserta": [
+    {
+      "name": "id_nomor",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "nomor_peserta",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_pengawas": [
+    {
+      "name": "id_pengawas",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_jadwal",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_ruang",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_sesi",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_guru",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_rekap": [
+    {
+      "name": "id_rekap",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tp",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "smt",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jadwal",
+      "type": "varchar",
+      "max_length": 250,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jenis",
+      "type": "varchar",
+      "max_length": 250,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_jenis",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_bank",
+      "type": "varchar",
+      "max_length": 250,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bank_kelas",
+      "type": "mediumtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bank_kode",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bank_level",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "varchar",
+      "max_length": 250,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_mapel",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_mulai",
+      "type": "varchar",
+      "max_length": 22,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_selesai",
+      "type": "varchar",
+      "max_length": 22,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tampil_pg",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban_pg",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tampil_esai",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban_esai",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_pg",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_esai",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_guru",
+      "type": "varchar",
+      "max_length": 250,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_guru",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_kelas",
+      "type": "mediumtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_kompleks",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_jodohkan",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_isian",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_essai",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_rekap_nilai": [
+    {
+      "name": "id_rekap_nilai",
+      "type": "int",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_jadwal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tp",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "smt",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jenis",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_jenis",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_bank",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "kelas",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "mulai",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "selesai",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "durasi",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_pg",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban_pg",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai_pg",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_esai",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban_esai",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai_esai",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_guru",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_siswa",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "no_peserta",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_kompleks",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_jodohkan",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_isian",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal_essai",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_ruang": [
+    {
+      "name": "id_ruang",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_ruang",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_ruang",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_sesi": [
+    {
+      "name": "id_sesi",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_sesi",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_sesi",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "waktu_mulai",
+      "type": "time",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "waktu_akhir",
+      "type": "time",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "aktif",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_sesi_siswa": [
+    {
+      "name": "siswa_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "kelas_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "ruang_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sesi_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tp_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "smt_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "cbt_soal": [
+    {
+      "name": "id_soal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "bank_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "mapel_id",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nomor_soal",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "file",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "soal",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_a",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_b",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_c",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_d",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_e",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "file_a",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "file_b",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "file_c",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "file_d",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "file_e",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "created_on",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "updated_on",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tampilkan",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kesulitan",
+      "type": "int",
+      "max_length": 2,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "timer",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "timer_menit",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "cbt_soal_siswa": [
+    {
+      "name": "id_soal_siswa",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_bank",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jadwal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_soal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis_soal",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "no_soal_alias",
+      "type": "int",
+      "max_length": 4,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_alias_a",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_alias_b",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_alias_c",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_alias_d",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "opsi_alias_e",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban_alias",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban_siswa",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jawaban_benar",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "point_essai",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "soal_end",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "point_soal",
+      "type": "varchar",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "nilai_koreksi",
+      "type": "varchar",
+      "max_length": 5,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "nilai_otomatis",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "cbt_token": [
+    {
+      "name": "token",
+      "type": "varchar",
+      "max_length": 6,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "auto",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_token",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "jarak",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "updated",
+      "type": "timestamp",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    }
+  ],
+  "groups": [
+    {
+      "name": "id",
+      "type": "mediumint",
+      "max_length": 8,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "name",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "description",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "hari": [
+    {
+      "name": "id_hri",
+      "type": "int",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_hri",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "jabatan_guru": [
+    {
+      "name": "id_jabatan_guru",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_guru",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jabatan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "mapel_kelas",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "ekstra_kelas",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "kelas_catatan_mapel": [
+    {
+      "name": "id_catatan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "type",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_guru",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "level",
+      "type": "varchar",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "tgl",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "text",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "readed",
+      "type": "varchar",
+      "max_length": 22,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "reading",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jml",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "kelas_catatan_wali": [
+    {
+      "name": "id_catatan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "type",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "level",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "text",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "readed",
+      "type": "varchar",
+      "max_length": 22,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "reading",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jml",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "kelas_ekstra": [
+    {
+      "name": "id_kelas_ekstra",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "ekstra",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "kelas_jadwal_kbm": [
+    {
+      "name": "id_kbm",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kbm_jam_pel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kbm_jam_mulai",
+      "type": "varchar",
+      "max_length": 5,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kbm_jml_mapel_hari",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "istirahat",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "kelas_jadwal_mapel": [
+    {
+      "name": "id_jadwal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_hari",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jam_ke",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "kelas_jadwal_materi": [
+    {
+      "name": "id_kjm",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_materi",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jadwal_materi",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "kelas_materi": [
+    {
+      "name": "id_materi",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "kode_materi",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_guru",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "materi_kelas",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "kode_mapel",
+      "type": "varchar",
+      "max_length": 300,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "judul_materi",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "isi_materi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "file",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "link_file",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_mulai",
+      "type": "datetime",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "created_on",
+      "type": "datetime",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "updated_on",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "youtube",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 1,
+      "default": "1",
+      "primary_key": 0
+    }
+  ],
+  "kelas_siswa": [
+    {
+      "name": "id_kelas_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "kelas_struktur": [
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "ketua",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "wakil_ketua",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sekretaris_1",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sekretaris_2",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bendahara_1",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bendahara_2",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_ekstrakurikuler",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_upacara",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_olahraga",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_keagamaan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_keamanan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_ketertiban",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_kebersihan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_keindahan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_kesehatan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_kekeluargaan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sie_humas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "level_guru": [
+    {
+      "name": "id_level",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "level",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "level_kelas": [
+    {
+      "name": "id_level",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "level",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "log": [
+    {
+      "name": "id_log",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "log_time",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "id_user",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_group",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "name_group",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "log_type",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "log_desc",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "address",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agent",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "device",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "log_materi": [
+    {
+      "name": "id_log",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "log_time",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "finish_time",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jam_ke",
+      "type": "int",
+      "max_length": 2,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_materi",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "log_desc",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "text",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "file",
+      "type": "mediumtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "catatan",
+      "type": "mediumtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "address",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agent",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "device",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "log_ujian": [
+    {
+      "name": "id_log",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "log_time",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "finish_time",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_jadwal",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "log_type",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "log_desc",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "address",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agent",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "device",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "reset",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_ekstra": [
+    {
+      "name": "id_ekstra",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_ekstra",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_ekstra",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_guru": [
+    {
+      "name": "id_guru",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_user",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nip",
+      "type": "char",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_guru",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "email",
+      "type": "varchar",
+      "max_length": 254,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_guru",
+      "type": "varchar",
+      "max_length": 6,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "username",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "password",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "no_ktp",
+      "type": "varchar",
+      "max_length": 16,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tempat_lahir",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_lahir",
+      "type": "date",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis_kelamin",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agama",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "no_hp",
+      "type": "varchar",
+      "max_length": 13,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alamat_jalan",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "rt_rw",
+      "type": "varchar",
+      "max_length": 8,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "dusun",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kelurahan",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kecamatan",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kabupaten",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "provinsi",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_pos",
+      "type": "int",
+      "max_length": 6,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kewarganegaraan",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nuptk",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis_ptk",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgs_tambahan",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status_pegawai",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status_aktif",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status_nikah",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tmt",
+      "type": "date",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "keahlian_isyarat",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "npwp",
+      "type": "varchar",
+      "max_length": 16,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "foto",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_hari_efektif": [
+    {
+      "name": "id_hari_efektif",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "jml_hari_efektif",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_jurusan": [
+    {
+      "name": "id_jurusan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_jurusan",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_jurusan",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "mapel_peminatan",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "max_length": 11,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "deletable",
+      "type": "int",
+      "max_length": 11,
+      "default": "1",
+      "primary_key": 0
+    }
+  ],
+  "master_kelas": [
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_kelas",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_kelas",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jurusan_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "level_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "guru_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "siswa_id",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jumlah_siswa",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "set_siswa",
+      "type": "varchar",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "master_kelompok_mapel": [
+    {
+      "name": "id_kel_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "kode_kel_mapel",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_kel_mapel",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kategori",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_parent",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_mapel": [
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_mapel",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kelompok",
+      "type": "varchar",
+      "max_length": 5,
+      "default": "-",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_p",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_k",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jenjang",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "max_length": 1,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "deletable",
+      "type": "int",
+      "max_length": 1,
+      "default": "1",
+      "primary_key": 0
+    },
+    {
+      "name": "urutan_tampil",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "urutan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_siswa": [
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nisn",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nis",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis_kelamin",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "username",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "password",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kelas_awal",
+      "type": "int",
+      "max_length": 5,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tahun_masuk",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sekolah_asal",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tempat_lahir",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tanggal_lahir",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "agama",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "hp",
+      "type": "varchar",
+      "max_length": 15,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "email",
+      "type": "varchar",
+      "max_length": 254,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "foto",
+      "type": "varchar",
+      "max_length": 255,
+      "default": "siswa.png",
+      "primary_key": 0
+    },
+    {
+      "name": "anak_ke",
+      "type": "int",
+      "max_length": 2,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "status_keluarga",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alamat",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "rt",
+      "type": "varchar",
+      "max_length": 5,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "rw",
+      "type": "varchar",
+      "max_length": 5,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kelurahan",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kecamatan",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kabupaten",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "provinsi",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_pos",
+      "type": "int",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_ayah",
+      "type": "varchar",
+      "max_length": 150,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_lahir_ayah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pendidikan_ayah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pekerjaan_ayah",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nohp_ayah",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alamat_ayah",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_lahir_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pendidikan_ibu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pekerjaan_ibu",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nohp_ibu",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alamat_ibu",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_wali",
+      "type": "varchar",
+      "max_length": 150,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_lahir_wali",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pendidikan_wali",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "pekerjaan_wali",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nohp_wali",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alamat_wali",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nik",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "warga_negara",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "uid",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_smt": [
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "smt",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_smt",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "active",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "master_tp": [
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "tahun",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "active",
+      "type": "int",
+      "max_length": 2,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "post": [
+    {
+      "name": "id_post",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "dari",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "dari_group",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kepada",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "text",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tanggal",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "updated",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    }
+  ],
+  "post_comments": [
+    {
+      "name": "id_comment",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_post",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "dari",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "dari_group",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "text",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tanggal",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "updated",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "type",
+      "type": "varchar",
+      "max_length": 1,
+      "default": "1",
+      "primary_key": 0
+    }
+  ],
+  "post_reply": [
+    {
+      "name": "id_reply",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_comment",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "dari",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "dari_group",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "text",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tanggal",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "updated",
+      "type": "datetime",
+      "max_length": null,
+      "default": "CURRENT_TIMESTAMP",
+      "primary_key": 0
+    },
+    {
+      "name": "type",
+      "type": "varchar",
+      "max_length": 1,
+      "default": "1",
+      "primary_key": 0
+    }
+  ],
+  "rapor_admin_setting": [
+    {
+      "name": "id_setting",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "kkm_tunggal",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "kkm",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_ph",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_pts",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_pas",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_absen",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_rapor_akhir",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tgl_rapor_pts",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_catatan_wali": [
+    {
+      "name": "id_catatan_wali",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_data_catatan": [
+    {
+      "name": "id_catatan",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode",
+      "type": "int",
+      "max_length": 2,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "varchar",
+      "max_length": 150,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "rank",
+      "type": "varchar",
+      "max_length": 7,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_data_fisik": [
+    {
+      "name": "id_fisik",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_data_sikap": [
+    {
+      "name": "id_sikap",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode",
+      "type": "int",
+      "max_length": 2,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sikap",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_fisik": [
+    {
+      "name": "id_fisik",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kondisi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tinggi",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "berat",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_kikd": [
+    {
+      "name": "id_kikd",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_mapel_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "aspek",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "materi_kikd",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_kkm": [
+    {
+      "name": "id_kkm",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "kkm",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_ph",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_pts",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_pas",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "bobot_absen",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "beban_jam",
+      "type": "int",
+      "max_length": 2,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_naik": [
+    {
+      "name": "id_naik",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "naik",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_nilai_akhir": [
+    {
+      "name": "id_nilai_akhir",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "akhir",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "predikat",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_nilai_ekstra": [
+    {
+      "name": "id_nilai_ekstra",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_ekstra",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "predikat",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_nilai_harian": [
+    {
+      "name": "id_nilai_harian",
+      "type": "bigint",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p1",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p2",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p3",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p4",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p5",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p6",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p7",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p8",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p_rata_rata",
+      "type": "varchar",
+      "max_length": 4,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p_predikat",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p_deskripsi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k1",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k2",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k3",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k4",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k5",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k6",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k7",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k8",
+      "type": "varchar",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k_rata_rata",
+      "type": "varchar",
+      "max_length": 4,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k_predikat",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "k_deskripsi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jml",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    }
+  ],
+  "rapor_nilai_pts": [
+    {
+      "name": "id_nilai_pts",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_mapel",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai",
+      "type": "int",
+      "max_length": 3,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "predikat",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_nilai_sikap": [
+    {
+      "name": "id_nilai_sikap",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "jenis",
+      "type": "int",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nilai",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "longtext",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "rapor_prestasi": [
+    {
+      "name": "id_ranking",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "id_kelas",
+      "type": "int",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_siswa",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_tp",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_smt",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "ranking",
+      "type": "int",
+      "max_length": 3,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "deskripsi",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p1",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p1_desk",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p2",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p2_desk",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p3",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "p3_desk",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "running_text": [
+    {
+      "name": "id_text",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "text",
+      "type": "varchar",
+      "max_length": 255,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "setting": [
+    {
+      "name": "id_setting",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "kode_sekolah",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sekolah",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "npsn",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nss",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jenjang",
+      "type": "int",
+      "max_length": 5,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "satuan_pendidikan",
+      "type": "varchar",
+      "max_length": 1,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kepsek",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nip",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "tanda_tangan",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "alamat",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "desa",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kecamatan",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kota",
+      "type": "varchar",
+      "max_length": 30,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "provinsi",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "kode_pos",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "telp",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "fax",
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "web",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "email",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "nama_aplikasi",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "logo_kanan",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "logo_kiri",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "versi",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "ip_server",
+      "type": "varchar",
+      "max_length": 100,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "waktu",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "server",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "id_server",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "sekolah_id",
+      "type": "varchar",
+      "max_length": 50,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "db_versi",
+      "type": "varchar",
+      "max_length": 10,
+      "default": null,
+      "primary_key": 0
+    }
+  ],
+  "users_profile": [
+    {
+      "name": "id_user",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
+      "name": "nama_lengkap",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "jabatan",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    },
+    {
+      "name": "level_access",
+      "type": "int",
+      "max_length": 11,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "foto",
+      "type": "text",
+      "max_length": null,
+      "default": null,
+      "primary_key": 0
+    }
+  ]
+}

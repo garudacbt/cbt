@@ -144,6 +144,7 @@
     var today = new Date();
     today.setHours(0,0,0,0);
 
+    var catatan = '';
 	function createTable(data) {
         docTitle = '';
         var selmapel = $('#opsi-mapel option:selected').text();
@@ -260,11 +261,10 @@
 
                             bg = !adaMateri[jj] && !adaTugas[jj] ? 'lightgrey' : 'white';
                             style = !adaMateri[jj] && !adaTugas[jj] ? styleEmpty : styleNormal;
-                            if (value.nilai_materi[nbln] != null && value.nilai_materi[nbln][tgl] !=null && value.nilai_materi[nbln][tgl][jj] != null) {
+                            if (value.nilai_materi[nbln] != null && value.nilai_materi[nbln][tgl] !=null && value.nilai_materi[nbln][tgl][jj] != null && value.nilai_materi[nbln][tgl][jj].nilai != null) {
                                 if (adaMateri[jj]) nilaiMateri += parseInt(value.nilai_materi[nbln][tgl][jj].nilai);
                             }
-
-                            if (value.nilai_tugas[nbln] != null && value.nilai_tugas[nbln][tgl] !=null && value.nilai_tugas[nbln][tgl][jj] != null) {
+                            if (value.nilai_tugas[nbln] != null && value.nilai_tugas[nbln][tgl] !=null && value.nilai_tugas[nbln][tgl][jj] != null && value.nilai_tugas[nbln][tgl][jj].nilai != null) {
                                 if (adaTugas[jj]) nilaiTugas += parseInt(value.nilai_tugas[nbln][tgl][jj].nilai);
                             }
                         });
@@ -288,7 +288,11 @@
                 '</tr>';
 			no +=1;
 		});
-		konten += '</tbody></table>';
+		catatan = '<span><b>Catatan:</b></span><ul>' +
+            '<li> Jumlah penilaian dihitung dari jumlah hari tiap mapel dalam 1 bulan</li>' +
+            '<li> Nilai harian dihitung rata-rata dari jumlah jam perhari</li>' +
+            '</ul>';
+		konten += '</tbody></table>' + catatan;
 		$('#konten-absensi').html(konten);
 
         $.each($('table#log-nilai').find('th'), function () {
@@ -314,10 +318,15 @@
         var trsHead = $('table#log-nilai thead').html();
         var trsBody = $('table#log-nilai tbody').html();
         var copy = '<table id="excel" style="font-size: 11pt;" data-cols-width="'+colWidth+'"><tbody>' +
-            '<tr><td colspan="'+ (numCol+9) +'" data-a-v="middle" data-a-h="center" data-f-bold="true">' + title + '</td></tr>' +
+            '<tr>' +
+            '<td colspan="'+ (numCol+9) +'" data-a-v="middle" data-a-h="center" data-f-bold="true">' + title + '</td>' +
+            '</tr>' +
             trsAtas +
             trsHead +
             trsBody +
+            '<tr>' +
+            '<td colspan="'+ (numCol+9) +'" data-a-v="middle"">' + catatan + '</td>' +
+            '</tr>' +
             '</tbody>';
 
         $('#konten-copy').html(copy);

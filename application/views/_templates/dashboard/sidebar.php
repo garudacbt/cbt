@@ -60,21 +60,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?=base_url('datajurusan')?>" class="nav-link <?=$page==='datajurusan'?"active":""?>">
-                                <i class="fa fa-flask nav-icon"></i>
-                                <p>Jurusan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?=base_url('datamapel')?>" class="nav-link <?=$page==='datamapel'?"active":""?>">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>Mata Pelajaran</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?=base_url('dataekstra')?>" class="nav-link <?=$page==='dataekstra'?"active":""?>">
-                                <i class="fa fa-chess nav-icon"></i>
-                                <p>Ekstrakurikuler</p>
+                            <a href="<?=base_url('datajurusan')?>" class="nav-link <?=$page==='datajurusan'?"active":""?>">
+                                <i class="fa fa-flask nav-icon"></i>
+                                <p>Jurusan</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -87,6 +81,12 @@
                             <a href="<?=base_url('datakelas')?>" class="nav-link <?=$page==='datakelas'?"active":""?>">
                                 <i class="fa fa-school nav-icon"></i>
                                 <p>Kelas / Rombel</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=base_url('dataekstra')?>" class="nav-link <?=$page==='dataekstra'?"active":""?>">
+                                <i class="fa fa-chess nav-icon"></i>
+                                <p>Ekstrakurikuler</p>
                             </a>
                         </li>
                         <li class="nav-item">

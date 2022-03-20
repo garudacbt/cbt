@@ -1,3 +1,6 @@
+<?php
+$satuan = ["1" => ["SD","MI"], "2"=>["SMP","MTS"], "3"=>["SMA","MA","SMK"]];
+?>
 <div class="content-wrapper bg-white pt-4">
 	<section class="content-header">
 		<div class="container-fluid">
@@ -33,17 +36,17 @@
 							<label>Nama Sekolah *</label>
 							<input type="text" name="nama_sekolah" class="form-control required" value="<?=$setting->sekolah?>" required>
 						</div>
-						<div class="col-md-4 mb-4">
+						<div class="col-md-3 mb-4">
 							<label>NSS/NSM</label>
 							<input type="number" name="nss" class="form-control" value="<?=$setting->nss?>">
 						</div>
-                        <div class="col-md-4 mb-4">
+                        <div class="col-md-3 mb-4">
                             <label>NPSN</label>
                             <input type="number" name="npsn" class="form-control" value="<?=$setting->npsn?>">
                         </div>
-						<div class="col-md-4 mb-4">
+						<div class="col-md-3 mb-4">
 							<label>Jenjang *</label>
-							<select class="form-control required" data-placeholder="Pilih Jenjang" name="jenjang" required>
+							<select id="jenjang" class="form-control required" data-placeholder="Pilih Jenjang" name="jenjang" required>
 								<option value="" disabled>Pilih Jenjang</option>
 								<?php
 								$jenjang = ["SD/MI","SMP/MTS","SMA/MA/SMK"];
@@ -57,6 +60,22 @@
 								<?php endforeach; ?>
 							</select>
 						</div>
+                        <div class="col-md-3 mb-4">
+                            <label>Satuan Pend. *</label>
+                            <select id="satuan-pend" class="form-control required" data-placeholder="Satuan Pendidikan" name="satuan_pendidikan" required>
+                                <option value="0" disabled>Satuan Pendidikan</option>
+                                <?php
+                                $satuan_selected = $satuan[$setting->jenjang];
+                                for ($i=0;$i<count($satuan_selected);$i++) {
+                                    $arrSatuan[$i+1] = $satuan_selected[$i];
+                                }
+                                foreach ($arrSatuan as $keys=>$vals) :
+                                    $selecteds = $setting->satuan_pendidikan == $keys ? 'selected' : '';
+                                    ?>
+                                    <option value="<?=$keys?>" <?=$selecteds?>><?=$vals?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 						<div class="col-md-4 mb-4">
 							<label>Alamat *</label>
 							<br>
@@ -121,17 +140,6 @@
 							<?= form_close() ?>
 						</div>
 						<div class="col-md-4">
-							<?= form_open_multipart('', array('id' => 'set-logo-kanan')) ?>
-							<div class="form-group pb-2">
-								<label for="logo-kanan">Logo Kanan</label>
-								<input type="file" id="logo-kanan" name="logo" class="dropify"
-									   data-max-file-size-preview="2M"
-									   data-allowed-file-extensions="jpg jpeg png"
-									   data-default-file="<?= base_url().$setting->logo_kanan ?>"/>
-							</div>
-							<?= form_close() ?>
-						</div>
-						<div class="col-md-4">
 							<?= form_open_multipart('', array('id' => 'set-logo-kiri')) ?>
 							<div class="form-group pb-2">
 								<label for="logo-kiri">Logo Kiri / Logo Aplikasi</label>
@@ -142,6 +150,17 @@
 							</div>
 							<?= form_close() ?>
 						</div>
+                        <div class="col-md-4">
+                            <?= form_open_multipart('', array('id' => 'set-logo-kanan')) ?>
+                            <div class="form-group pb-2">
+                                <label for="logo-kanan">Logo Kanan</label>
+                                <input type="file" id="logo-kanan" name="logo" class="dropify"
+                                       data-max-file-size-preview="2M"
+                                       data-allowed-file-extensions="jpg jpeg png"
+                                       data-default-file="<?= base_url().$setting->logo_kanan ?>"/>
+                            </div>
+                            <?= form_close() ?>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -153,6 +172,7 @@
 	var logoKanan = '<?=base_url().$setting->logo_kanan?>';
 	var logoKiri = '<?=base_url().$setting->logo_kiri?>';
 	var tandatangan = '<?=base_url().$setting->tanda_tangan?>';
+    var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
 
 	function submitSetting() {
 		$('#savesetting').submit();
@@ -215,7 +235,16 @@
 			});
 		});
 
-		$('#savesetting').on('submit', function (e) {
+        $('#jenjang').change(function () {
+            var htmlOptions = '<option value="0" disabled="">Satuan Pendidikan</option>\n';
+            var satSelected = satuanPend[$(this).val()];
+            for (let i = 0; i < satSelected.length; i++) {
+                htmlOptions += '<option value="'+(i+1)+'">'+satSelected[i]+'</option>';
+            }
+            $('#satuan-pend').html(htmlOptions);
+        });
+
+        $('#savesetting').on('submit', function (e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
 

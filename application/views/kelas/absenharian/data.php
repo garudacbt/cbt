@@ -132,7 +132,7 @@
     }
 
 	function createTabelKehadiran(data) {
-		console.log(data);
+		console.log('respon',data);
 		var kelas = $("#opsi-kelas option:selected").text();
 		var table = '';
 		if (data.info == null) {
@@ -187,7 +187,6 @@
 				$.each(data.jadwal, function (k, v) {
 					if (v.jam_ke == jam) {
 					    idsMapel[v.jam_ke] = v.id_mapel;
-					    //idsMapel.push(it);
                         trJenis += '<th '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">Materi</p></th>' +
                             '<th '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">Tugas</p></th>';
 						if (v.nama_mapel != null) {
@@ -202,7 +201,6 @@
 			table += '<tr style="background-color:lightgrey">'+trJenis+'</tr>' +
                 '</tr></thead>';
 
-			console.log(idsMapel);
 			var no = 1;
 			$.each(data.log, function(key, value) {
 				table += '<tr>' +
@@ -214,13 +212,13 @@
 				$.each(idsMapel, function (jamke, idm) {
 				    //var jamke = i;
 				    var adaMateri = data.materi[idm] != null && data.materi[idm][jamke] != null && data.materi[idm][jamke][1] != null;
-                    var adaTugas = data.materi[idm] != null && data.materi[idm][jamke] != null && data.materi[idm][jamke][2] != null;
-
                     if (adaMateri) {
-                        if (value.status[jamke] != null && value.status[jamke][idm] != null && value.status[jamke][idm][1] != null && value.status[jamke][idm][1][2] != null){
-                            var sls = value.status[jamke][idm][1][2].log_time;
+                        if (value.status[jamke] != null && value.status[jamke][idm] != null && value.status[jamke][idm][1] != null){
+                            var mli = value.status[jamke][idm][1].log_time;
+                            var sls = value.status[jamke][idm][1].finish_time;
                             var tglSelesai = buatTanggal(sls, false);
-                            table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">'+ tglSelesai +'</p></td>';
+                            var durasi = calculateTime(mli, sls);
+                            table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">'+ tglSelesai + '<br><i class="fa fa-clock-o"></i> ' +durasi+'</p></td>';
                         } else {
                             table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;"> - - </p></td>';
                         }
@@ -228,11 +226,14 @@
                         table += '<td '+styleKosong+'></td>';
                     }
 
+                    var adaTugas = data.materi[idm] != null && data.materi[idm][jamke] != null && data.materi[idm][jamke][2] != null;
                     if (adaTugas) {
-                        if (value.status[jamke] != null && value.status[jamke][idm] != null && value.status[jamke][idm][2] != null && value.status[jamke][idm][2][2] != null){
-                            var slst = value.status[jamke][idm][2][2].log_time;
+                        if (value.status[jamke] != null && value.status[jamke][idm] != null && value.status[jamke][idm][2] != null){
+                            var mlit = value.status[jamke][idm][1].log_time;
+                            var slst = value.status[jamke][idm][1].finish_time;
                             var tglSelesait = buatTanggal(slst, false);
-                            table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">'+ tglSelesait +'</p></td>';
+                            var durasit = calculateTime(mlit, slst);
+                            table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">'+ tglSelesait + '<br><i class="fa fa-clock-o"></i> ' +durasit+'</p></td>';
                         } else {
                             table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;"> - - </p></td>';
                         }
@@ -245,7 +246,8 @@
 				no++;
 			});
 
-			table += '</table>';
+			table += '</table>' +
+                '<p><b>Catatan:</b> Kehadiran siswa dihitung ketika siswa menyelesaikan materi/tugas serta durasi pengerjaan.</p>';
 		}
 		$('#konten-absensi').html(table);
 		$('#loading').addClass('d-none');
@@ -345,6 +347,33 @@
         } else {
             return curr_date + "  " + arrbulan[curr_month] + " " + curr_year + " <br><b>" + curr_jam + ":" + curr_mnt + "</b>";
         }
+    }
+
+    function calculateTime(mulai, selesai) {
+        var ONE_DAY = 1000 * 60 * 60 * 24;
+        var ONE_HOUR = 1000 * 60 * 60;
+        var ONE_MINUTE = 1000 * 60;
+
+        var old_date = mulai.replace(" ", "T");//"2010-11-10T07:30:40";
+        var new_date = selesai.replace(" ", "T");//"2010-11-15T08:03:22";
+
+        // Convert both dates to milliseconds
+        var old_date_obj = new Date(old_date).getTime();
+        var new_date_obj = new Date(new_date).getTime();
+
+        // Calculate the difference in milliseconds
+        var difference_ms = Math.abs(new_date_obj - old_date_obj)
+
+        // Convert back to days, hours, and minutes
+        var days = Math.round(difference_ms / ONE_DAY);
+        var hours = Math.round(difference_ms / ONE_HOUR) - (days * 24) - 1;
+        var minutes = Math.round(difference_ms / ONE_MINUTE) - (days * 24 * 60) - (hours * 60);
+
+        if (minutes > 60) {
+            hours += 1;
+            minutes -= 60;
+        }
+        return (days > 0 ? days + ' hari, ' : '') + (hours > 0 ? hours + ' jam, ' : '') + (minutes > 0 ? minutes + ' menit' : '');
     }
 
     function getStyles() {

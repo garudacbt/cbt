@@ -84,7 +84,7 @@
                     -->
                 </div>
                 <div class="col-md-9">
-                    <div class="alert alert-default-info align-content-center" role="alert">
+                    <div class="alert alert-default-danger align-content-center" role="alert">
                         <div class="row">
                             <div class="col-md-9">
                                 <ul>
@@ -102,7 +102,7 @@
                                 </ul>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-info" onclick="backupNilai()">Pindahkan Semua Nilai ke Kumpulan Nilai</button>
+                                <button class="btn btn-info" onclick="restoreNilai()">Pindahkan Semua Nilai ke Kumpulan Nilai</button>
                             </div>
                         </div>
                     </div>
@@ -293,6 +293,59 @@
             prev.css({'transform': 'scale(' + z + ')', 'transform-origin': 'top center'});
         }
         //cell.style.fontSize = 'small';
+    }
+
+    function restoreNilai() {
+        swal.fire({
+            title: "Mengumpulkan Nilai",
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
+        $.ajax({
+            url: base_url + "bukurapor/restorenilai",
+            type: "GET",
+            success: function (data) {
+                console.log("result", data);
+                swal.close();
+                /*
+                if (data) {
+                    swal.fire({
+                        title: "Sukses",
+                        text: "Data Rapor berhasil dipindahkan",
+                        icon: "success",
+                        showCancelButton: false,
+                    }).then(result => {
+                        if (result.value) {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    swal.fire({
+                        title: "ERROR",
+                        text: "Data Rapor gagal dipindahkan",
+                        icon: "error",
+                        showCancelButton: false,
+                    });
+                }
+                */
+            }, error: function (xhr, status, error) {
+                console.log("error", xhr.responseText);
+                swal.fire({
+                    title: "ERROR",
+                    text: "Data Rapor gagal dipindahkan",
+                    icon: "error",
+                    showCancelButton: false,
+                });
+            }
+        });
+
     }
 
     function backupNilai() {

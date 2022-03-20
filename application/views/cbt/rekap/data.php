@@ -144,7 +144,8 @@ function sortir($a, $b) {
                                 <td class="text-center">
                                     <?php if (isset($jadwal->rekap)) :
                                         if (!$jadwal->dikoreksi) : ?>
-                                            <button class="btn btn-danger btn-sm disabled">Belum Dikoreksi</button>
+                                            <button class="btn btn-primary btn-sm" onclick="backup(<?= $jadwal->id_jadwal ?>)">REKAP NILAI</button>
+                                            <span class="badge badge-btn badge-danger">Belum Dikoreksi</span>
                                         <?php else :
                                             if ($jadwal->rekap == '0') :?>
                                             <button class="btn btn-primary btn-sm" onclick="backup(<?= $jadwal->id_jadwal ?>)">REKAP NILAI</button>

@@ -1,6 +1,12 @@
 var nomor_soal = 1;
 var fieldLinks;
 var jenisSoal;
+
+function inArray(val, array) {
+    var found = $.inArray(val, array);
+    return found >= 0;
+}
+
 function initTextArea() {
     $('.textjawaban2').summernote({
         placeholder: 'Tulis Jawaban disini',
@@ -98,7 +104,7 @@ function progressHandlingFunction(e) {
     }
 }
 
-function uploadImage(image, idtextarea) {
+function uploadImage(image, editor, editable) {
     var name = $('#textsoal').attr('data-name');
     var hash = $('#textsoal').attr('data-id');
 
@@ -1086,13 +1092,9 @@ $(document).ready(function() {
             ['insert', ['picture']],
         ],
         callbacks: {
-            onFileUpload: function(file) {
+            onImageUpload: function(images) {
                 var idtextarea = $(this);
-                myOwnCallBack(file[0], idtextarea);
-            },
-            onImageUpload: function(image) {
-                var idtextarea = $(this);
-                uploadImage(image[0], idtextarea);
+                myOwnCallBack(images[0], idtextarea);
             },
             onMediaDelete : function(target) {
                 deleteImage(target[0].src);
@@ -1231,8 +1233,6 @@ $(document).ready(function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var tab = $(e.target);
         var target = tab.attr("href");
-        //console.log(target);
-
         var id, jenis;
         if (target == '#ganda') {
             id = '11';
@@ -1315,6 +1315,11 @@ $(document).ready(function() {
 
     });
 
+    if (inArray(1, adaPg)) {
+
+    }
+    //var num = inArray('1', adaPg) ? 1 : 0;
+    //console.log('num',num);
     getSoalById(idBank, 1, jenis+''+1, jenis);
 });
 

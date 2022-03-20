@@ -129,7 +129,7 @@
                     previous: 'fa fa-angle-left'
                 },
             timepicker: false,
-            format: 'd-m-Y',
+            format: 'Y-m-d',
             disabledWeekDays: [0],
             widgetPositioning: {
                 horizontal: 'left',

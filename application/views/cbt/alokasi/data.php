@@ -46,7 +46,7 @@ $allowedDates = [];
                                 Mengatur berapa menit jadwal ujian akan aktif setelah sesi dimulai
                             </li>
                             <li>
-                                Contoh <b>Menit ke</b> 90, maka jadwal mapel akan aktif 90 menit setelah sesi dimulai
+                                Contoh <b>Menit ke</b> 90, maka jadwal mapel akan aktif 90 menit setelah Mapel pertama dimulai
                             </li>
                             <li>
                                 Jika semua <b>Menit ke</b> diatur ke 0 maka semua jadwal akan bisa dikerjakan oleh siswa
@@ -218,7 +218,7 @@ $allowedDates = [];
             timepicker: false,
             format: 'Y-m-d',
             disabledWeekDays: [0],
-            allowDates: allowed,
+            //allowDates: allowed,
             formatDate: 'Y-m-d',
             widgetPositioning: {
                 horizontal: 'left',

@@ -136,9 +136,9 @@
 					</div>
 					<hr>
 					<br>
-					<div id="print-preview" class="p-4">
+					<div class="p-4">
 						<div style="display: flex; justify-content: center; align-items: center;">
-							<div style="width: 21cm; height: 30cm; padding: 1cm" class="border my-shadow">
+							<div id="print-preview" style="width: 21cm; min-height: 29cm;" class="border my-shadow p-5">
 								<table id="table-header-print"
 									   style="width: 100%; border: 0;">
 									<tr>
@@ -315,31 +315,31 @@
 	var oldVal2 = '<?=isset($kop->header_2) ? $kop->header_2 : ""?>';
 	var oldVal3 = '<?=isset($kop->header_3) ? $kop->header_3 : ""?>';
 	var oldVal4 = '<?=isset($kop->header_4) ? $kop->header_4 : ""?>';
+    var printBy = 1;
 
-	var kepsek = '<?=isset($kop->kepsek) ? $kop->kepsek : ""?>';
-	var logoKanan = '<?=isset($kop->logo_kanan) ? base_url().$kop->logo_kanan : ""?>';
-	var logoKiri = '<?=isset($kop->logo_kiri) ? base_url().$kop->logo_kiri : ""?>';
-	var tandatangan = '<?=isset($kop->tanda_tangan) ? base_url().$kop->tanda_tangan : ""?>';
+    var HARI, TANGGAL, BULAN, TAHUN;
+    function handleNull(value) {
+        if (value == null || value == '0' || value == '') return '-';
+        else return value;
+    }
 
-	var printBy = 1;
-	var infoData = {};
-	var infoSiswa = [];
-	var allInfo = '';
-	var oldInfo = '';
+    function handleTanggal(tgl) {
+        var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+        var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+        if (handleNull(tgl) != '-') {
+            var d = new Date(tgl);
+            var curr_day = d.getDay();
+            var curr_date = d.getDate();
 
-	var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
-	var bulan = ['Jan', 'Feb', 'Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
+            var curr_month = d.getMonth();
+            var curr_year = d.getFullYear();
 
-	var d = new Date();
-	var curr_day = d.getDay();
-	var curr_date = d.getDate();
-
-	var curr_month = d.getMonth();
-	var curr_year = d.getFullYear();
-
-	function buatTanggal() {
-		return  hari[curr_day] + ", " + curr_date + "  " + bulan[curr_month] + " " + curr_year;
-	}
+            HARI = hari[curr_day];
+            TANGGAL = curr_date;
+            BULAN = bulans[curr_month];
+            TAHUN = curr_year;
+        }
+    }
 
 	function submitKop() {
 		$('#set-kop').submit();
@@ -362,6 +362,11 @@
                     url: base_url + "cbtcetak/getsiswaruang?ruang=" + ruang + '&sesi=' +sesi + '&jadwal=' + jadwal,
                     success: function (response) {
                         console.log('respon', response);
+                        handleTanggal(response.info.jadwal.tgl_mulai);
+                        $('#edit-hari').html('<b>'+HARI+'</b>');
+                        $('#edit-tanggal').html('<b>'+TANGGAL+'</b>');
+                        $('#edit-bulan').html('<b>'+BULAN+'</b>');
+                        $('#edit-tahun').html('<b>'+TAHUN+'</b>');
                         $('#edit-jml-peserta').html('<b>'+response.siswa.length+'</b>');
 
                         $('#edit-jenis-ujian').html('<b>'+response.info.jadwal.nama_jenis+'</b>');
@@ -369,8 +374,11 @@
                         $('#edit-waktu-mulai').html('<b>'+response.info.sesi.waktu_mulai.substring(0, 5)+'</b>');
                         $('#edit-waktu-akhir').html('<b>'+response.info.sesi.waktu_akhir.substring(0, 5)+'</b>');
                         $('#edit-mapel').html('<b>'+response.info.jadwal.nama_mapel+'</b>');
-                        $('#edit-pengawas1').text(response.info.pengawas[0].nama_guru);
-                        $('#edit-pengawas2').text(response.info.pengawas[1].nama_guru);
+                        var p1 = response.info.pengawas.length > 0 ? response.info.pengawas[0].nama_guru : '';
+                        $('#edit-pengawas1').text(p1);
+                        var p2 = response.info.pengawas.length > 1 ? response.info.pengawas[1].nama_guru : '';
+                        $('#edit-pengawas2').text(p2);
+                        document.title = 'Berita Acara '+ response.info.jadwal.kode + ' ' + $('#edit-ruang').text() + ' ' + $('#edit-sesi').text();
                     }
                 });
             }
@@ -384,6 +392,12 @@
                     url: base_url + "cbtcetak/getsiswakelas?kelas=" + kelas + '&sesi=' + sesi + '&jadwal=' + jadwal,
                     success: function (response) {
                         console.log('respon', response);
+                        handleTanggal(response.info.jadwal.tgl_mulai);
+                        $('#edit-hari').html('<b>'+HARI+'</b>');
+                        $('#edit-tanggal').html('<b>'+TANGGAL+'</b>');
+                        $('#edit-bulan').html('<b>'+BULAN+'</b>');
+                        $('#edit-tahun').html('<b>'+TAHUN+'</b>');
+                        $('#edit-jml-peserta').html('<b>'+response.siswa.length+'</b>');
                         $('#edit-jml-peserta').html('<b>' + response.siswa.length + '</b>');
 
                         $('#edit-jenis-ujian').html('<b>' + response.info.jadwal.nama_jenis + '</b>');
@@ -391,8 +405,12 @@
                         $('#edit-waktu-mulai').html('<b>' + response.info.sesi.waktu_mulai.substring(0, 5) + '</b>');
                         $('#edit-waktu-akhir').html('<b>' + response.info.sesi.waktu_akhir.substring(0, 5) + '</b>');
                         $('#edit-mapel').html('<b>' + response.info.jadwal.nama_mapel + '</b>');
-                        $('#edit-pengawas1').text(+response.info.pengawas[0].nama_guru);
-                        $('#edit-pengawas2').text(response.info.pengawas[1].nama_guru);
+
+                        var p1 = response.info.pengawas.length > 0 && response.info.pengawas[0].length > 0 ? response.info.pengawas[0][0].nama_guru : '';
+                        $('#edit-pengawas1').text(p1);
+                        var p2 = response.info.pengawas.length > 0 && response.info.pengawas[0].length > 1 ? response.info.pengawas[0][1].nama_guru : '';
+                        $('#edit-pengawas2').text(p2);
+                        document.title = 'Berita Acara '+ response.info.jadwal.kode + ' ' + $('#edit-ruang').text() + ' ' + $('#edit-sesi').text();
                     }
                 });
             }
@@ -441,28 +459,6 @@
 				})
 			} else {
                 $('#print-preview').print();
-			    /*
-				var header = '<style>' +
-					'@media print {' +
-					'    body{' +
-					'        width: 21cm;' +
-					'        height: 29.7cm;' +
-					'        margin: auto;' +
-					'   }' +
-					'}' +
-					//'* { margin:auto; padding:0; line-height:100%; }' +
-					'</style>' +
-					'</head>' +
-					'<body onload="window.print()">';
-				var divToPrint = document.getElementById('print-preview');
-				var newWin = window.open('', 'Print-Window');
-				newWin.document.open();
-				newWin.document.write(header + divToPrint.innerHTML + '</body>');
-				newWin.document.close();
-
-				//setTimeout(function(){newWin.close();
-				//},10);
-				*/
 			}
 		});
 

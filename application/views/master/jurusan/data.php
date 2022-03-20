@@ -36,12 +36,50 @@
 								<input type="checkbox" id="select_all">
 							</th>
 							<th style="width: 40px" class="text-center align-middle p-0">No.</th>
+                            <th>Kode</th>
 							<th>Jurusan</th>
-							<th>Kode</th>
-                            <th>Status</th>
+                            <th>Mapel Peminatan</th>
 							<th class="text-center align-middle p-0" style="width: 100px"><span>Aksi</span></th>
 						</tr>
 						</thead>
+                        <tbody>
+                        <?php
+                        $no = 1;
+                        foreach ($jurusans as $row) :
+                            $badges = '';
+                            foreach (explode(',', $row->mapel_peminatan) as $mid) {
+                                if ($mid != '')
+                                    $badges .= '<div class="badge badge-btn badge-success mr-1">'.$jurusan_mapels[$row->id_jurusan][$mid].'</div>';
+                            }
+                        ?>
+                        <tr>
+                            <td>
+                                <div class="text-center">
+                                    <input id="check<?=$row->id_jurusan?>" name="checked[]" class="check" value="<?=$row->id_jurusan?>" type="checkbox">
+                                </div>
+                            </td>
+                            <td class="text-center"><?=$no?></td>
+                            <td><?=$row->kode_jurusan?></td>
+                            <td><?=$row->nama_jurusan?></td>
+                            <td><?=$badges?></td>
+                            <td>
+                                <div class="text-center">
+                                    <a class="btn btn-xs btn-warning editRecord" data-toggle="modal"
+                                       data-target="#editJurusanModal" data-deletable="<?=$row->deletable?>"
+                                       data-mapel="<?=$row->mapel_peminatan?>" data-id='<?=$row->id_jurusan?>'
+                                       data-nama='<?=$row->nama_jurusan?>' data-kode='<?=$row->kode_jurusan?>'>
+                                        <i class="fa fa-pencil-alt text-white"></i>
+                                    </a>
+                                    <!--
+                                    <button onclick="deleteItem(${data.id_jurusan})" class="btn btn-xs btn-danger deleteRecord" data-id="${data.id_jurusan}" ${disabled}>
+                                <i class="fa fa-trash text-white"></i>
+                            </button>
+                                    -->
+                                </div>
+                            </td>
+                        </tr>
+                        <?php $no++; endforeach; ?>
+                        </tbody>
 					</table>
 					<?=form_close()?>
 				</div>
@@ -62,27 +100,22 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label">Jurusan*</label>
-                    <div class="col-md-10">
+                    <label class="col-md-3 col-form-label">Jurusan*</label>
+                    <div class="col-md-9">
                         <input type="text" id="createnama" name="nama_jurusan" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label">Kode*</label>
-                    <div class="col-md-10">
+                    <label class="col-md-3 col-form-label">Kode*</label>
+                    <div class="col-md-9">
                         <input type="text" id="createkode" name="kode_jurusan" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label">Status*</label>
-                    <div class="col-md-10">
-                        <?php
-                        echo form_dropdown(
-                            'status',
-                            $status,
-                            '1',
-                            'class="form-control" required'
-                        ); ?>
+                    <label class="col-md-3 col-form-label">Mapel Peminatan*</label>
+                    <div class="col-md-9">
+                        <select name="mapel_peminatan" class="form-control mapel_peminatan select2" multiple="multiple">
+                        </select>
                     </div>
                 </div>
             </div>
@@ -109,27 +142,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row" id="formnama">
-                        <label class="col-md-2 col-form-label">Jurusan*</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 col-form-label">Jurusan*</label>
+                        <div class="col-md-9">
                             <input type="text" id="namaEdit" name="nama_jurusan" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row" id="formkode">
-                        <label class="col-md-2 col-form-label">Kode*</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 col-form-label">Kode*</label>
+                        <div class="col-md-9">
                             <input type="text" id="kodeEdit" name="kode_jurusan" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row" id="formstatus">
-                        <label class="col-md-2 col-form-label">Status*</label>
-                        <div class="col-md-10">
-                            <?php
-                            echo form_dropdown(
-                                'status',
-                                $status,
-                                '1',
-                                'id="status" class="form-control" required'
-                            ); ?>
+                        <label class="col-md-3 col-form-label">Mapel Peminatan*</label>
+                        <div class="col-md-9">
+                            <select name="mapel[]" id="mapel_peminatan" class="form-control mapel_peminatan select2" multiple="">
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -153,4 +181,7 @@
     <button type="button" class="btn btn-danger btn-fw" onclick="showDangerToast()">Danger</button>
 </div>
 -->
+<script>
+    var mapels = JSON.parse('<?= json_encode($mapel_peminatan) ?>');
+</script>
 <script src="<?=base_url()?>/assets/app/js/master/jurusan/crud.js"></script>

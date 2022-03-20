@@ -239,6 +239,28 @@
     //var pengawas2 = '<?=isset($kop->pengawas_2) ? $kop->pengawas_2 : ""?>';
     var printBy = 1;
 
+    function handleNull(value) {
+        if (value == null || value == '0' || value == '') return '-';
+        else return value;
+    }
+
+    function handleTanggal(tgl) {
+        var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+        var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+        var ttl = '';
+        if (handleNull(tgl) != '-') {
+            var d = new Date(tgl);
+            var curr_day = d.getDay();
+            var curr_date = d.getDate();
+
+            var curr_month = d.getMonth();
+            var curr_year = d.getFullYear();
+
+            ttl += hari[curr_day] + ', ' + curr_date + " " + bulans[curr_month] + " " + curr_year;
+        }
+        return ttl;
+    }
+
     function buatTanggal() {
         var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
         var bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
@@ -255,7 +277,7 @@
 
     function createPrintPreview(data) {
         console.log(data);
-        var bagi = 23;
+        var bagi = 25;
         var pages = Math.ceil(data.siswa.length / bagi);
         console.log('page', pages);
         var kelasTitle = printBy === 2 ? 'Kelas' : 'Ruang';
@@ -264,15 +286,17 @@
         //var kelasVal = printBy === 2 ? $("#kelas option:selected").text() + '/' + sesiSelected : $("#ruang option:selected").text() + '/' + sesiSelected;
         //var sesi = data.info.sesi.nama_sesi;
         var kelasVal = printBy === 2 ? data.info.kelas.nama_kelas : data.info.ruang.nama_ruang + ' (' + data.info.ruang.kode_ruang + ')';
-
+        document.title = 'Daftar Hadir '+ data.info.jadwal.kode + ' ' + kelasVal + ' ' + sesi;
         var pengawas1 = '';
         var pengawas2 = '';
-        for (let i = 0; i < data.info.pengawas.length; i++) {
-            pengawas1 = data.info.pengawas[0].nama_guru;
-            if (i === 1) {
-                pengawas2 = data.info.pengawas[1].nama_guru;
-            }
+        if ($.isArray(data.info.pengawas[0])) {
+            pengawas1 = data.info.pengawas.length > 0 && data.info.pengawas[0].length > 0 ? data.info.pengawas[0][0].nama_guru : '';
+            pengawas2 = data.info.pengawas.length > 0 && data.info.pengawas[0].length > 1 ? data.info.pengawas[0][1].nama_guru : '';
+        } else {
+            pengawas1 = data.info.pengawas.length > 0 ? data.info.pengawas[0].nama_guru : '';
+            pengawas2 = data.info.pengawas.length > 1 ? data.info.pengawas[1].nama_guru : '';
         }
+
         var card = '';
         for (let a = 0; a < pages; a++) {
             let t = a * bagi;
@@ -298,6 +322,36 @@
                 '</tr>' +
                 '</table>' +
                 '<hr style="border: 1px solid; margin-bottom: 6px">' +
+                '<div style="display: flex;align-items: stretch;">' +
+                '<div style="flex: 50%">' +
+                '<table style="width: 100%; border: 0;">' +
+                '<tbody>' +
+                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
+                '<td>'+ kelasTitle +'</td><td>:</td><td>'+ kelasVal +'</td>' +
+                '</tr>' +
+                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
+                '<td>Sesi</td><td>:</td><td>'+ sesi +'</td>' +
+                '</tr>' +
+                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
+                '<td>Waktu</td><td>:</td><td>'+ data.info.sesi.waktu_mulai + ' s/d ' + data.info.sesi.waktu_akhir +'</td>' +
+                '</tr>' +
+                '</tbody>' +
+                '</table>' +
+                '</div>' +
+                '  <div style="flex: 50%">' +
+                '<table style="width: 100%; border: 0;">' +
+                '<tbody>' +
+                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
+                '<td>Hari/Tanggal</td><td>:</td><td>'+ handleTanggal(data.info.jadwal.tgl_mulai) +'</td>' +
+                '</tr>' +
+                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
+                '<td>Mata Pelajaran</td><td>:</td><td>' + data.info.jadwal.nama_mapel + '</td>' +
+                '</tr>' +
+                '</tbody>' +
+                '</table>' +
+                '</div>' +
+                '</div>' +
+                    /*
                 '<table style="width: 100%; border: 0;">' +
                 '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
                 '<td style="width:15%;">' + kelasTitle + '</td>' +
@@ -305,7 +359,7 @@
                 '<td style="width:35%;">' + kelasVal + '</td>' +
                 '<td style="width:15%;">Hari/Tanggal</td>' +
                 '<td>:</td>' +
-                '<td>' + buatTanggal() + '</td>' +
+                '<td>' + handleTanggal(data.info.jadwal.tgl_mulai) + '</td>' +
                 '</tr>' +
                 '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
                 '<td style="width:15%;">Sesi</td>' + '<td>:</td>' + '<td style="width:35%;">' + sesi + '</td>' +
@@ -315,6 +369,7 @@
                 '<td>Waktu</td>' + '<td>:</td>' + '<td>' + data.info.sesi.waktu_mulai + ' s/d ' + data.info.sesi.waktu_akhir + '</td>' +
                 '</tr>' +
                 '</table>' +
+                */
                 '<br>' +
                 '<table style="width: 100%; border-collapse: collapse">' +
                 '<tr style="font-family: \'Times New Roman\';">' +
@@ -330,7 +385,7 @@
                 var genap = (i + 1) % 2 === 0;
                 var forGenap = genap ? (i + 1) + '.' : '';
                 var forGanjil = genap ? '' : (i + 1) + '.';
-                card += '<tr style="font-family: \'Times New Roman\';">' +
+                card += '<tr style="font-family: \'Times New Roman\'; font-size: 10pt">' +
                     '<td class="ts" style="line-height: 1.1;border: 1px solid black; text-align: center">' + (i + 1) + '</td>' +
                     '<td class="ts" style="line-height: 1.1;border: 1px solid black; text-align: center; padding-left: 5px">' + data.siswa[i].nomor_peserta + '</td>' +
                     '<td class="ts" style="line-height: 1.1;border: 1px solid black; padding-left: 5px">' + data.siswa[i].nama + '</td>' +
@@ -346,8 +401,8 @@
                     '<br>' +
                     '<br>' +
                     '<table style="width: 100%">' +
-                    '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                    '<td style="width: 45%; text-align: left">' +
+                    '<tr style="line-height: 1.1;font-family: \'Times New Roman\';font-size: 10pt">' +
+                    '<td style="width: 40%; text-align: left">' +
                     '<table style="border: 1px solid black; border-collapse: collapse">' +
                     '<tr>' +
                     '<td style="padding-left: 5px;">Jumlah peserta yang seharusnya hadir</td>' +
@@ -366,7 +421,7 @@
                     '</tr>' +
                     '</table>' +
                     '</td>' +
-                    '<td style="width: 27%; padding-left: 10px">' +
+                    '<td style="width: 30%; padding-left: 10px">' +
                     'Pengawas 1' +
                     '<br>' +
                     '<br>' +
@@ -376,7 +431,7 @@
                     '<br>' +
                     'Nip:' +
                     '</td>' +
-                    '<td style="width: 27%">' +
+                    '<td style="width: 30%">' +
                     'Pengawas 2' +
                     '<br>' +
                     '<br>' +
@@ -400,10 +455,9 @@
         $('#loading').addClass('d-none');
 
         if (pages > 1) {
-            $('.ts').height('28px');
-            //$('.ts').css('background-color', 'black');
+            $('.ts').height('23px');
         } else {
-            $('.ts').height('25px');
+            $('.ts').height('20px');
         }
     }
 
@@ -439,7 +493,6 @@
 
         function loadSiswaKelas(kelas, sesi, jadwal) {
             //$('#print-preview').addClass('d-none');
-
             var notempty = kelas && sesi && jadwal;
             console.log('url', base_url + "cbtcetak/getsiswakelas?kelas=" + kelas + '&sesi=' + sesi + '&jadwal=' + jadwal);
             if (notempty) {
@@ -542,8 +595,7 @@
                 data: $(this).serialize(),
                 success: function (response) {
                     console.log(response);
-                    //history.back();
-                    //window.location.href = base_url + 'cbtcetak/absenpeserta'
+                    window.location.href = base_url + 'cbtcetak/absenpeserta'
                 },
                 error: function (xhr, error, status) {
                     console.log(xhr.responseText);

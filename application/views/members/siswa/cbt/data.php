@@ -10,6 +10,8 @@ $arrGuru = [];
 foreach ($guru as $g) {
     $arrGuru[$g->id_guru] = $g->nama_guru;
 }
+
+$jam_pertama = null;
 ?>
 <div class="content-wrapper" style="margin-top: -1px;">
     <div class="sticky">
@@ -100,6 +102,9 @@ foreach ($guru as $g) {
                         <div class="card-body">
                             <div class="row" id="jadwal-content">
                                 <?php
+                                //echo '<pre>';
+                                //var_dump($elapsed);
+                                //echo '</pre>';
                                 if ($cbt_info == null || count($cbt_setting) > 0) : ?>
                                     <div class="col-12 alert alert-default-warning">
                                         <div class="text-center">Tidak ada jadwal penilaian.<b>Tidak bisa mengerjakan
@@ -108,18 +113,13 @@ foreach ($guru as $g) {
                                 <?php else:
                                     $jamSesi = $cbt_info == null ? '0' : (isset($cbt_info->sesi_id) ? $cbt_info->sesi_id : $cbt_info->id_sesi);
                                     foreach ($cbt_jadwal as $key => $jadwal)  :
+                                        if ($jadwal->jarak == 0) {
+                                            $jam_pertama = isset($elapsed[$jadwal->id_jadwal]) ? $elapsed[$jadwal->id_jadwal]->mulai : null;
+                                        }
                                         $kk = unserialize($jadwal->bank_kelas);
                                         $arrKelasCbt = [];
                                         foreach ($kk as $k) {
                                             array_push($arrKelasCbt, $k['kelas_id']);
-                                        }
-
-                                        $pp = unserialize($jadwal->pengawas);
-                                        $arrPengawasCbt = [];
-                                        foreach ($pp as $p) {
-                                            if ($p['guru'] != null) {
-                                                array_push($arrPengawasCbt, $arrGuru[$p['guru']]);
-                                            }
                                         }
 
                                         $startDay = strtotime($jadwal->tgl_mulai);
@@ -131,7 +131,6 @@ foreach ($guru as $g) {
                                         $hariMulai = new DateTime($jadwal->tgl_mulai);
                                         $hariSampai = new DateTime($jadwal->tgl_selesai);
 
-
                                         $sesiMulai = new DateTime($sesi[$jamSesi]['mulai']);
                                         $sesiSampai = new DateTime($sesi[$jamSesi]['akhir']);
                                         $now = strtotime(date('H:i'));
@@ -142,19 +141,30 @@ foreach ($guru as $g) {
                                             $selesai = $durasi->selesai != null;
                                             $lanjutkan = $durasi->lama_ujian != null;
                                             $reset = $durasi->reset;
-                                            if ($lanjutkan != null && !$selesai) $bg = 'bg-gradient-warning'; elseif ($selesai) $bg = 'bg-gradient-success';
-                                            else $bg = 'bg-gradient-danger';
+                                            if ($lanjutkan != null && !$selesai) $bg = 'bg-gradient-warning';
+                                            elseif ($selesai) $bg = 'bg-gradient-success';
+                                            else {
+                                                if ($jadwal->jarak != 0) {
+                                                    $bg = 'bg-gradient-secondary';
+                                                } else {
+                                                    $bg = 'bg-gradient-danger';
+                                                }
+                                            }
                                         } else {
                                             $selesai = false;
                                             $lanjutkan = false;
                                             $reset = 0;
-                                            $bg = 'bg-gradient-danger';
+                                            if ($jadwal->jarak != 0) {
+                                                $bg = 'bg-gradient-secondary';
+                                            } else {
+                                                $bg = 'bg-gradient-danger';
+                                            }
                                         }
 
-                                        $durasiMulai = new DateTime($sesi[$jamSesi]['mulai']);
-                                        $durasiSampai = new DateTime($sesi[$jamSesi]['mulai']);
-                                        $durasiMulai->add(new DateInterval('PT' . $jadwal->jarak . 'M'));
-                                        $durasiSampai->add(new DateInterval('PT' . ($jadwal->jarak + $jadwal->durasi_ujian) . 'M'));
+                                        //$durasiMulai = new DateTime($sesi[$jamSesi]['mulai']);
+                                        //$durasiSampai = new DateTime($sesi[$jamSesi]['mulai']);
+                                        //$durasiMulai->add(new DateInterval('PT' . $jadwal->jarak . 'M'));
+                                        //$durasiSampai->add(new DateInterval('PT' . ($jadwal->jarak + $jadwal->durasi_ujian) . 'M'));
                                         //echo '<pre>';
                                         //var_dump($now);
                                         //var_dump(strtotime($durasiMulai->format('H:i')));
@@ -168,8 +178,11 @@ foreach ($guru as $g) {
                                                             <?= $jadwal->durasi_ujian ?> mnt</b>
                                                     </div>
                                                     <div class="card-tools">
-                                                        <?= $durasiMulai->format('H:i') ?>
-                                                        ~ <?= $durasiSampai->format('H:i') ?>
+                                                        <?=$jadwal->soal_agama?>
+                                                        <!--
+                                                        <?= $sesiMulai->format('H:i') ?>
+                                                        ~ <?= $sesiSampai->format('H:i') ?>
+                                                    -->
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-0">
@@ -177,25 +190,6 @@ foreach ($guru as $g) {
                                                         <div class="inner">
                                                             <h4><b><?= $jadwal->kode ?></b></h4>
                                                             <h5><?= $jadwal->nama_jenis ?></h5>
-                                                            <!--
-																<hr style="margin-top:0; margin-bottom: 0">
-																<span class="float-left">Tanggal</span>
-																<span
-																	class="float-right"><?= $hariMulai->format('d M Y') ?>
-																	s/d <?= $hariSampai->format('d M Y') ?></span>
-																<br>
-																<hr style="margin-top:0; margin-bottom: 0">
-																<span class="float-left">Durasi Waktu</span>
-																<span
-																	class="float-right"><?= $jadwal->durasi_ujian ?>
-																	menit</span>
-																<br>
-																<hr style="margin-top:0; margin-bottom: 0">
-																<span class="float-left">Pengawas</span>
-																<span
-																	class="float-right"><?= implode(', ', $arrPengawasCbt) ?></span>
-																<br>
-																-->
                                                         </div>
                                                         <div class="icon">
                                                             <i class="fas fa-book-open"></i>
@@ -204,45 +198,41 @@ foreach ($guru as $g) {
                                                         <?php
                                                         if (!$lanjutkan && $reset == 0 && !$selesai) : ?>
                                                             <?php if ($today < $startDay) : ?>
-                                                                <div id="status" class="small-box-footer p-2">
+                                                                <div id="status<?=$jadwal->id_jadwal?>" class="small-box-footer p-2">
                                                                     <b>BELUM DIMULAI</b>
                                                                 </div>
                                                             <?php elseif ($today > $endDay) : ?>
-                                                                <div id="status" class="small-box-footer p-2">
+                                                                <div id="status<?=$jadwal->id_jadwal?>" class="small-box-footer p-2">
                                                                     <b>SUDAH BERAKHIR</b>
                                                                 </div>
                                                             <?php else: ?>
                                                                 <?php if ($now < strtotime($sesiMulai->format('H:i'))) : ?>
-                                                                    <div id="status" class="small-box-footer p-2">
-                                                                        <b><?= strtoupper($cbt_info->nama_sesi) ?> BELUM
-                                                                            DIMULAI</b>
+                                                                    <div id="status<?=$jadwal->id_jadwal?>" class="small-box-footer p-2">
+                                                                        <b><?= strtoupper($cbt_info->nama_sesi) ?> BELUM DIMULAI</b>
                                                                     </div>
                                                                 <?php elseif ($now > strtotime($sesiSampai->format('H:i'))) : ?>
-                                                                    <div id="status" class="small-box-footer p-2">
-                                                                        <b><?= strtoupper($cbt_info->nama_sesi) ?> SUDAH
-                                                                            BERAKHIR</b>
+                                                                    <div id="status<?=$jadwal->id_jadwal?>" class="small-box-footer p-2">
+                                                                        <b><?= strtoupper($cbt_info->nama_sesi) ?> SUDAH BERAKHIR</b>
                                                                     </div>
                                                                 <?php else : ?>
-                                                                    <?php if ($now < strtotime($durasiMulai->format('H:i'))) : ?>
-                                                                        <div id="status" class="small-box-footer p-2">
-                                                                            <b>BELUM DIMULAI</b>
-                                                                        </div>
-                                                                    <?php else : ?>
-                                                                        <a id="status"
-                                                                           href="<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>"
-                                                                           class="text-white small-box-footer p-2">
-                                                                            <b>KERJAKAN</b><i
-                                                                                    class="fas fa-arrow-circle-right ml-3"></i>
-                                                                        </a>
-                                                                    <?php endif; endif; endif; ?>
+                                                                    <?php
+                                                                    $hide = $jadwal->jarak != 0 ? 'd-none' : '';
+                                                                    $show = $jadwal->jarak != 0 ? '' : 'd-none';
+                                                                    ?>
+                                                                    <div id="timer<?=$jadwal->id_jadwal?>" data-jarak="<?=$jadwal->jarak?>" data-id="<?=$jadwal->id_jadwal?>" class="timer small-box-footer p-2 <?=$show?>"></div>
+                                                                    <a id="<?=$jadwal->id_jadwal?>"
+                                                                       href="<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>"
+                                                                       class="text-white small-box-footer p-2 <?=$hide?>">
+                                                                        <b>KERJAKAN</b><i class="fas fa-arrow-circle-right ml-3"></i>
+                                                                    </a>
+                                                                    <?php endif; endif; ?>
                                                         <?php elseif ($lanjutkan && !$selesai) : ?>
-                                                            <a id="status" class="small-box-footer p-2 text-white"
+                                                            <a id="status<?=$jadwal->id_jadwal?>" class="small-box-footer p-2 text-white"
                                                                href="<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>">
-                                                                <b>LANJUTKAN</b><i
-                                                                        class="fas fa-arrow-circle-right ml-3"></i>
+                                                                <b>LANJUTKAN</b><i class="fas fa-arrow-circle-right ml-3"></i>
                                                             </a>
                                                         <?php else : ?>
-                                                            <div id="status" class="small-box-footer p-2">
+                                                            <div id="status<?=$jadwal->id_jadwal?>" class="small-box-footer p-2">
                                                                 <b>SUDAH SELESAI</b>
                                                             </div>
                                                         <?php endif; ?>
@@ -263,6 +253,7 @@ foreach ($guru as $g) {
     </section>
 </div>
 
+<script src="<?=base_url()?>/assets/app/js/jquery.countdown.js"></script>
 <script>
     $(document).ready(function () {
         /*
@@ -292,6 +283,33 @@ foreach ($guru as $g) {
         }
         */
 
+        var siswaMulai = '<?=$jam_pertama == null ? 0 : $jam_pertama?>';
+        if (siswaMulai == 0) {
+            $('.timer').html('<b>Belum dimulai</b>');
+        } else {
+            $('.timer').each(function() {
+                var idTimer = $(this).data('id');
+                var target = new Date(siswaMulai);
+                target.setMinutes(target.getMinutes() + $(this).data('jarak'));
+                $('#timer'+idTimer).countdown(target, function(event) {
+                    $(this).html(event.strftime('<span class="text-bold">%H:%M</span><small>:%S</small>'));
+                }).on('finish.countdown', function() {
+                    $(this).hide();
+                    $('#'+idTimer).removeClass('d-none');
+                    var parent = $(this).closest('.bg-gradient-secondary');
+                    console.log('parent', parent);
+                    parent.removeClass('bg-gradient-secondary').addClass('bg-gradient-danger');
+                });
+            });
+        }
+
+        var $boxs = $('.small-box');
+        $.each($boxs, function (i, child) {
+            var idTimer = $(child).find('.timer').attr('id');
+            if (idTimer != null) {
+            }
+        });
+
         if (!$('.jadwal-cbt').length) {
             var html = '<div class="col-12 alert alert-default-warning">' +
                 'Tidak ada jadwal penilaian.' +
@@ -308,4 +326,21 @@ foreach ($guru as $g) {
             $('#jadwal-content').html(html);
         }
     });
+
+    function startTime(idTimer) {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+
+        timer.html('<span class="text-lg">' + h + ':' + m + '</span>:' + s);
+        var t = setTimeout(startTime, 500);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {i = "0" + i}return i;
+    }
+
 </script>

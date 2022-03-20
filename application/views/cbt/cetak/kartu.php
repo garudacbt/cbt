@@ -262,24 +262,128 @@
 
 	function createPrintPreview(data) {
 		console.log(data);
-        var bagi2 = Math.round(data.length / 2);
-        var pages = Math.round(bagi2 / 4);
-        //console.log('data', data.length);
-        //console.log('pages', pages);
+        console.log('data', data.length);
         var konten = '';
-        for (let a = 0; a < pages; a++) {
+		if (data.length > 8) {
+            var bagi2 = Math.round(data.length / 2);
+            var pages = Math.round(bagi2 / 4);
+            //console.log('pages', pages);
+            for (let a = 0; a < pages; a++) {
+                var card = '<div class="border my-shadow mb-3 pt-4 bg-white"><div class="pt-4" ' +
+                    'style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm;padding: 1mm">';
+
+                var tds = [];
+                var kelas = printBy === 1 ? 'Kelas/Sesi' : 'Ruang/Sesi';
+
+                let t = a*8;
+                let end = (a+1)<pages ? t+8 : data.length;
+                //console.log('t', t);
+                //console.log('end', end);
+
+                for (let i = t; i < end; i++) {
+                    var setSiswa = data[i].set_siswa === '1';
+                    var ruang = setSiswa ? data[i].ruang_kelas : data[i].kode_ruang;
+                    var sesi = setSiswa ? data[i].sesi_kelas : data[i].kode_sesi;
+                    //var kelasVal = printBy === 1 ? data[i].nama_kelas : ruang;
+
+                    //var foto = data[i].foto == null || data[i].foto === '' ? 'siswa.png' : data[i].foto;
+                    //var foto = getFoto(data[i].foto);
+                    var td = '<div style="display: flex; justify-content: center; align-items: center;">' +
+                        '<div style="width: 10cm">' +
+                        '<table id="table-header-print" style="width: 100%; border-top: 1px solid black; border-bottom: 0;border-left: 1px solid black; border-right: 1px solid black">' +
+                        '<tr>' +
+                        '<td style="width:20%;">' +
+                        '<img id="prev-logo-kiri-print" src="' + logoKiri + '" style="width:55px; height:55px; margin-left: 6px; margin-right: 6px; margin-top:4px;">' +
+                        '</td>' +
+                        '<td style="width:60%; text-align: center;">' +
+                        '<div style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 9pt">' + oldVal1 + '</div>' +
+                        '<div class="text-center" style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 10pt"><b>' + oldVal2 + '</b></div>' +
+                        '<div class="text-center" style="line-height: 1.2; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal3 + '</div>' +
+                        '<div class="text-center" style="line-height: 1.2; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal4 + '</div>' +
+                        '</td>' +
+                        '<td style="width:20%;">' +
+                        '<img id="prev-logo-kanan-print" src="' + logoKanan + '" style="width:55px; height:55px; margin-left: 6px; margin-right: 6px; margin-top:4px; border-style: none">' +
+                        '</td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '<table id="table-body-print" style="width:100%;border: 1px solid black">' +
+                        '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 10pt">' +
+                        '<td style="padding-top:4px;padding-left:22px;width: 30%">No. Peserta</td>' +
+                        '<td style="padding-top:4px;">:</td>' +
+                        '<td style="padding-top:4px;width: 65%">' + data[i].nomor_peserta + '</td>' +
+                        '</tr>' +
+                        '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
+                        '<td style="padding-left:22px;width: 30%">Nama</td>' +
+                        '<td>:</td>' +
+                        '<td>' + data[i].nama + '</td>' +
+                        '</tr>' +
+                        '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
+                        '<td style="padding-left:22px;width: 30%">NIS / NISN</td>' +
+                        '<td>:</td>' +
+                        '<td>' + data[i].nis + '/' + data[i].nisn + '</td>' +
+                        '</tr>' +
+                        '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
+                        '<td style="padding-left:22px;width: 30%">Kelas</td>' +
+                        '<td>:</td>' +
+                        '<td>' + data[i].nama_kelas + '</td>' +
+                        '</tr>' +
+                        '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
+                        '<td style="padding-left:22px;width: 30%">Ruang/Sesi</td>' +
+                        '<td>:</td>' +
+                        '<td>' + ruang + '/' + sesi + '</td>' +
+                        '</tr>' +
+                        '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
+                        '<td style="padding-left:22px;width: 30%">Username</td>' +
+                        '<td>:</td>' +
+                        '<td>' + data[i].username + '</td>' +
+                        '</tr>' +
+                        '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
+                        '<td style="padding-left:22px;width: 30%">Password</td>' +
+                        '<td>:</td>' +
+                        '<td>' + data[i].password + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td colspan="2" style="padding-top: 6px; padding-bottom: 6px; padding-left:22px;width: 35%">' +
+                        '<img class="avatar" style="width: 60px; height: 70px; object-fit: cover;object-position: center; ' +
+                        'outline: 1px solid;" ' +
+                        'src= "' + base_url + data[i].foto + '"' +
+                        '/>' +
+                        '</td>' +
+                        '<td style="text-align: center;">' +
+                        '<div id="prev-tandatangan-print" style="font-family: \'Times New Roman\'; font-size: 9pt; line-height: 1; background: url('+tandatangan+') no-repeat center; background-size: 100px 60px">' +
+                        '<span>' + oldKota + '</span>, <span>' + oldTgl + '</span>' +
+                        '<br>Kepala Madrasah' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<span>' + kepsek + '</span>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '</div>' +
+                        '</div>';
+
+                    tds.push(td);
+                }
+                var table = '<table>';
+                for (let j = 0; j < tds.length; j++) {
+                    if ((j + 1) % 2 === 0) {
+                        table += '<td style="padding: 5px;">' + tds[j] + '</td></tr>';
+                    } else {
+                        table += '<tr><td style="padding: 5px;">' + tds[j] + '</td>';
+                    }
+                }
+                table += '</table>';
+                card += table + '</div></div>';
+                konten += card + '<div style="page-break-after: always"></div>';
+            }
+        } else {
             var card = '<div class="border my-shadow mb-3 pt-4 bg-white"><div class="pt-4" ' +
-                'style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm;padding: 1mm">';
-
+                'style="display: flex;-webkit-justify-content: flex-start;justify-content: flex-start; align-items: start;background: white;width: 210mm; height: 297mm;padding: 1mm">';
             var tds = [];
-            var kelas = printBy === 1 ? 'Kelas/Sesi' : 'Ruang/Sesi';
-
-            let t = a*8;
-            let end = (a+1)<pages ? t+8 : data.length;
-            //console.log('t', t);
-            //console.log('end', end);
-
-            for (let i = t; i < end; i++) {
+            for (let i = 0; i < data.length; i++) {
                 var setSiswa = data[i].set_siswa === '1';
                 var ruang = setSiswa ? data[i].ruang_kelas : data[i].kode_ruang;
                 var sesi = setSiswa ? data[i].sesi_kelas : data[i].kode_sesi;
@@ -376,7 +480,7 @@
             }
             table += '</table>';
             card += table + '</div></div>';
-            konten += card + '<div style="page-break-after: always"></div>';
+            konten += card;
         }
 
 		$("#print-preview").html(konten);

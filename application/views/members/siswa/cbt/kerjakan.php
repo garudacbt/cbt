@@ -155,7 +155,6 @@
     window.addEventListener('popstate', function(event) {
         loadSoalNomor(1);
     });
-
     const infoJadwal = JSON.parse(JSON.stringify(<?= json_encode($jadwal) ?>));
     let elapsed = '0';
     var timer = '0';
@@ -170,6 +169,7 @@
     let soalTerjawab = 0, soalTotal =0;
 
     $(document).ready(function () {
+        startTime();
         document.onmousedown = rtclickcheck;
         swal.fire({
             title: 'Peraturan Ujian',
@@ -228,6 +228,7 @@
         });
 
         loadSoalNomor(1)
+
     });
 
     function loadSoal(datas) {
@@ -431,18 +432,27 @@
 
         var $imgs = $('.konten-soal-jawab').find('img');
         $.each($imgs, function () {
-            $(this).addClass('img-zoom');
+            //$(this).addClass('img-zoom');
             var curSrc = $(this).attr('src');
+            var newSrc = '';
             if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                $(this).attr('src', base_url + curSrc);
+                newSrc = base_url + curSrc;
+                $(this).attr('src', newSrc);
             } else if (curSrc.indexOf(base_url) === -1) {
                 var pathUpload = 'uploads';
                 var forReplace = curSrc.split(pathUpload);
-                $(this).attr('src', base_url + pathUpload + forReplace[1]);
+                newSrc = base_url + pathUpload + forReplace[1];
+                $(this).attr('src', newSrc);
             }
+            //$(this).removeAttr('style');
+            $(this).on('load', function() {
+                console.log('size', $(this).height() + 'x' + $(this).width());
+                if ($(this).height() > 50) {
+                    $(this).addClass('img-fluid');
+                }
+            });
             //$(this).wrap('<span style="display:inline-block"></span>').css('display', 'block').parent().zoom();
         });
-
 
         var next = $('#next');
         next.removeAttr('disabled');
@@ -886,4 +896,20 @@
         }
     }
 
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+
+        //document.getElementById('live-clock').innerHTML = h + ":" + m + ":" + s;
+        $('#live-clock').html('<span class="text-lg">' + h + ':' + m + '</span>:' + s);
+        var t = setTimeout(startTime, 500);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {i = "0" + i}return i;
+    }
 </script>

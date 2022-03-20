@@ -42,9 +42,6 @@ $allBanksIds = [];
                     </div>
                 </div>
                 <div class="card-body">
-                    <?php
-                    $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
-                    ?>
                     <div class="row" id="row-filter">
                         <div class="col-12 col-md-6">
                             <div class="alert alert-default-info">
@@ -98,20 +95,12 @@ $allBanksIds = [];
                             </div>
                         </div>
                     </div>
-                    <!--
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend" style="flex:0;">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input type="text" id="filter-by" class="form-control" onkeyup="filterBy()" placeholder="Cari soal berdasarkan nama Guru/Mapel/Level kelas">
-                    </div>
-                    -->
-
                     <div class="row" id="konten">
-                        <?php if ($mode == '1') :
+                        <?php
+                        //var_dump($banks);
+                        if ($mode == '1') :
                             if (isset($banks[$tp_active->id_tp]) && isset($banks[$tp_active->id_tp][$smt_active->id_smt]) && count($banks[$tp_active->id_tp][$smt_active->id_smt]) > 0) :?>
-                                <table class="w-100 table table-striped table-bordered table-sm"
-                                       style="height: 300px">
+                                <table class="w-100 table table-striped table-bordered table-sm">
                                     <thead>
                                     <tr>
                                         <th class="text-center align-middle p-0" style="width: 50px"></th>
@@ -126,6 +115,20 @@ $allBanksIds = [];
                                     <?php
                                     $no = 1;
                                     foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank): ?>
+                                        <?php
+                                        $jk = json_decode(json_encode($bank->bank_kelas));
+                                        $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                        $jks = [];
+
+                                        $kelasbank = '';
+                                        foreach ($jumlahKelas as $j) {
+                                            foreach ($kelas as $k) {
+                                                if ((isset($j->kelas_id) && isset($k->id_kelas)) && $j->kelas_id === $k->id_kelas) {
+                                                    $kelasbank .= '<span class="badge badge-btn badge-primary">'.$k->nama_kelas .'</span> ';
+                                                }
+                                            }
+                                        }
+                                        ?>
                                         <tr>
                                             <td class="text-center align-middle">
                                                 <input name="checked[]" value="<?= $bank->id_bank ?>"
@@ -136,8 +139,8 @@ $allBanksIds = [];
                                             <td class="text-center align-middle"><?= $no ?></td>
                                             <td class="align-middle"><?= $bank->bank_kode ?></td>
                                             <td class="align-middle"><?= $bank->nama_mapel ?></td>
-                                            <td class="align-middle"><?= $bank->bank_level ?></td>
-                                            <td>
+                                            <td class="align-middle"><?= $kelasbank ?></td>
+                                            <td class="text-center">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"
                                                        href="<?= base_url('cbtbanksoal/editBank?id_bank=' . $bank->id_bank . '&id_guru=' . $bank->id_guru) ?>"
@@ -148,7 +151,7 @@ $allBanksIds = [];
 											<a href="javascript:void(0)" data-total="<?= $bank->total_soal ?>"
                                                data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
                                                type="button" class="btn btn-warning">
-												<i class="fas fa-upload"></i> Import Soal
+												<i class="fas fa-upload"></i> Import
 											</a>
 										</span>
                                                 <span data-toggle="tooltip" title="Buat Soal">
@@ -157,7 +160,7 @@ $allBanksIds = [];
                                             <?php if ($bank->total_soal == 0) : ?>
                                                 <i class="fas fa-plus"></i> Buat Soal
                                             <?php else: ?>
-                                                <i class="fas fa-eye"></i> Detail Soal
+                                                <i class="fas fa-eye"></i> Detail
                                             <?php endif; ?>
                                         </a>
                                     </span>
@@ -167,7 +170,7 @@ $allBanksIds = [];
                                                         data-essai="<?= $bank->tampil_esai ?>"
                                                         onclick="getSoal(this)" type="button"
                                                         class="btn btn-primary">
-                                                    <i class="fas fa-download mr-1"></i> Download Soal<br>
+                                                    <i class="fas fa-download mr-1"></i> Download <br>
                                                 </button>
                                             </td>
                                         </tr>
@@ -193,6 +196,20 @@ $allBanksIds = [];
                                     <?php
                                     $no = 1;
                                     foreach ($banks[0][0] as $bank) : ?>
+                                        <?php
+                                        $jk = json_decode(json_encode($bank->bank_kelas));
+                                        $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                        $jks = [];
+
+                                        $kelasbank = '';
+                                        foreach ($jumlahKelas as $j) {
+                                            foreach ($kelas as $k) {
+                                                if ((isset($j->kelas_id) && isset($k->id_kelas)) && $j->kelas_id === $k->id_kelas) {
+                                                    $kelasbank .= '<span class="badge badge-btn badge-primary">'.$k->nama_kelas .'</span> ';
+                                                }
+                                            }
+                                        }
+                                        ?>
                                         <tr>
                                             <td class="text-center align-middle">
                                                 <input name="checked[]" value="<?= $bank->id_bank ?>"
@@ -203,7 +220,7 @@ $allBanksIds = [];
                                             <td class="text-center align-middle"><?= $no ?></td>
                                             <td class="align-middle"><?= $bank->bank_kode ?></td>
                                             <td class="align-middle"><?= $bank->nama_mapel ?></td>
-                                            <td class="align-middle"><?= $bank->bank_level ?></td>
+                                            <td class="align-middle"><?= $kelasbank ?></td>
                                             <td class="align-middle">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"
@@ -245,7 +262,12 @@ $allBanksIds = [];
                                     endforeach; ?>
                                     </tbody>
                                 </table>
-
+                            <?php else: ?>
+                                <div class="col-12 p-0">
+                                    <div class="alert alert-default-warning align-content-center" role="alert">
+                                        Belum ada BANK SOAL
+                                    </div>
+                                </div>
                             <?php endif;
                         else:
                             if (isset($banks[$tp_active->id_tp]) && isset($banks[$tp_active->id_tp][$smt_active->id_smt]) && count($banks[$tp_active->id_tp][$smt_active->id_smt]) > 0) :
@@ -267,13 +289,6 @@ $allBanksIds = [];
                                                                class="check-bank float-left" type="checkbox"
                                                                style="width: 20px;height: 20px">
                                                     </button>
-                                                    <!--
-                                                <button onclick="hapus(<?= $bank->id_bank ?>)" type="button"
-                                                        class="btn-sm btn btn-danger" data-toggle="tooltip"
-                                                        title="Hapus Bank Soal">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </button>
-                                                -->
                                                 </div>
                                             </div>
                                             <div class="card-body pt-0">
@@ -662,10 +677,10 @@ $allBanksIds = [];
     $(document).ready(function () {
         ajaxcsrf();
 
-        var count = $('#konten .check-bank').length;
-        if (count == 0) {
-            $('#row-filter').addClass('d-none');
-        }
+        //var count = $('#konten .check-bank').length;
+        //if (count == 0) {
+            //$('#row-filter').addClass('d-none');
+        //}
 
         var selectedF = idFilter == '' ? 'selected' : '';
         var selectedM = idMapel == '' ? 'selected' : '';

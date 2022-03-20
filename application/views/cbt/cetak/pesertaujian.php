@@ -45,21 +45,52 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="col-9 col-md-4 mb-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend w-30">
-                                <span class="input-group-text">Jenis Ujian</span>
+                    <div class="row">
+                        <!--
+                        <div class="col-md-3 mb-4">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Level Kelas</span>
+                                </div>
+                                <?php
+                                $arrLevel[0] = 'Pilih Level Kelas';
+                                if ($setting->jenjang == "1") {
+                                    for ($i = 1; $i < 7; $i++) {
+                                        $arrLevel[$i] = $i;
+                                    }
+                                } else if ($setting->jenjang == "2") {
+                                    for ($j = 7; $j < 10; $j++) {
+                                        $arrLevel[$j] = $j;
+                                    }
+                                } else {
+                                    for ($k = 10; $k < 13; $k++) {
+                                        $arrLevel[$k] = $k;
+                                    }
+                                }
+                                echo form_dropdown(
+                                    'level',
+                                    $arrLevel,
+                                    null,
+                                    'id="level" class="form-control"'
+                                ); ?>
                             </div>
-                            <?php
-                            echo form_dropdown(
-                                'jenis',
-                                $ujian,
-                                null,
-                                'id="jenis" class="form-control"'
-                            ); ?>
+                        </div>
+                        -->
+                        <div class="col-md-6 mb-4">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Jenis Ujian</span>
+                                </div>
+                                <?php
+                                echo form_dropdown(
+                                    'jenis',
+                                    $ujian,
+                                    null,
+                                    'id="jenis" class="form-control"'
+                                ); ?>
+                            </div>
                         </div>
                     </div>
-
                     <div class="d-flex justify-content-center bg-gray-light" style="min-height: 300mm">
                         <div id="print-preview" class="m-2">
                             <?php
@@ -68,7 +99,7 @@
                                     foreach ($sesi as $ses => $sis):?>
                                         <div class="border my-shadow mb-3 p-4 bg-white">
                                             <div class="pt-4"
-                                                 style="-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm;padding: 1mm">
+                                                 style="-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; min-height: 297mm;padding: 1mm">
                                                 <div style="display: flex; justify-content: center; align-items: center;">
                                                     <table style="width: 100%; border: 0;">
                                                         <tr>
@@ -159,7 +190,7 @@
                                 foreach ($siswa as $kelas => $sis): ?>
                                     <div class="border my-shadow mb-3 p-4 bg-white">
                                         <div class="pt-4"
-                                             style="-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm;padding: 1mm">
+                                             style="-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; min-height: 297mm;padding: 1mm">
                                             <div style="display: flex; justify-content: center; align-items: center;">
                                                 <table style="width: 100%; border: 0;">
                                                     <tr>

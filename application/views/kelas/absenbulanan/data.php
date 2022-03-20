@@ -140,7 +140,7 @@
 
     function createTable(data) {
         docTitle = '';
-        console.log(data);
+        console.log('response',data);
         if (data.jadwal == null) {
             $('#konten-absensi').html('<p>tidak ada jadwal pelajaran</p>');
             $('#loading').addClass('d-none');
@@ -280,8 +280,6 @@
                     if (adaJadwal) {
                         $.each(data.mapels[tglm], function (jamKe, tgl) {
                             var adaMateri = data.materi[tglm][idmapel] != null && data.materi[tglm][idmapel][jamKe] != null && data.materi[tglm][idmapel][jamKe][1] != null;
-                            var adaTugas = data.materi[tglm][idmapel] != null && data.materi[tglm][idmapel][jamKe] != null && data.materi[tglm][idmapel][jamKe][2] != null;
-
                             if (adaMateri) {
                                 if (value.materi[i] != null && value.materi[i][jamKe] != null && value.materi[i][jamKe].jam != null) {
                                     if (terlambat(value.materi[i][jamKe], data.jadwal)) {
@@ -299,6 +297,7 @@
                                 table += '<td '+styleKosong+'">&ensp;</td>';
                             }
 
+                            var adaTugas = data.materi[tglm][idmapel] != null && data.materi[tglm][idmapel][jamKe] != null && data.materi[tglm][idmapel][jamKe][2] != null;
                             if (adaTugas) {
                                 if (value.tugas[i] != null && value.tugas[i][jamKe] != null && value.tugas[i][jamKe].jam != null) {
                                     //var jt = value.tugas[i] != null ? value.tugas[i].jam : '-';

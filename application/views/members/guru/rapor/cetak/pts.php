@@ -1,3 +1,20 @@
+<?php
+$satuan = [
+    "1" => ["",
+        "SEKOLAH DASAR (SD)",
+        "MADRASAH IBTIDAIYAH (MI)"
+    ],
+    "2" => ["",
+        "SEKOLAH MENENGAH PERTAMA (SMP)",
+        "MADRASAH TSANAWIYAH (MTS)"
+    ],
+    "3" => ["",
+        "SEKOLAH MENENGAH ATAS (SMA)",
+        "MADRASAH ALIYAH (MA)",
+        "SEKOLAH MENENGAH KEJURUAN (SMK)"
+    ]
+];
+?>
 <div class="content-wrapper bg-white pt-4">
     <section class="content-header">
         <div class="container-fluid">
@@ -102,13 +119,18 @@
     var kelas = '<?= $kelas ?>';
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswas)?>));
     var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
+    var arrKelompokMapel = JSON.parse(JSON.stringify(<?= json_encode($kelompoks)?>));
     var nilaiHarian = JSON.parse(JSON.stringify(<?= json_encode($nilai_harian)?>));
     var nilaiPts = JSON.parse(JSON.stringify(<?= json_encode($nilai_pts)?>));
     var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
     var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($rapor) ?>));
     var tp = '<?= $tp_active->tahun ?>';
-    var smt = '<?= $smt_active->smt ?>';
+    var smt = '<?= $smt_active->nama_smt ?>';
     var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
+
+    var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
+    var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
+    var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
     console.log('KKM', kkm);
 
     function inRange(n, start, end) {
@@ -152,8 +174,8 @@
             jumlah += parseInt(arrN[i]);
         }
         var rata = Math.ceil(jumlah/arrN.length);
-        console.log('kkm:'+isi +', rata', rata);
-        console.log('bsd:'+ pre_bsd +', b', pre_b);
+        //console.log('kkm:'+isi +', rata', rata);
+        //console.log('bsd:'+ pre_bsd +', b', pre_b);
 
         if (inRange(rata, pre_a, pre_asd)) {
             return 'A';
@@ -173,6 +195,31 @@
         return found >= 0;
     }
 
+    function handleTitiMangsa(tgl) {
+        var bulans = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+        var ttl = '';
+        if (handleNull(tgl) != '-') {
+            if (tgl.indexOf("-") >= 0) {
+                var splitted = tgl.split("-");
+                var tanggal, tahun;
+                if (splitted[2] != null && splitted[0].length == 4) {
+                    tanggal = splitted[2];
+                    tahun = splitted[0];
+                } else {
+                    tanggal = splitted[0];
+                    tahun = splitted[2];
+                }
+                var bulan = splitted[1];
+
+                ttl += tanggal + " " + bulans[Math.abs(bulan)] + " " + tahun;
+            } else {
+                ttl = tgl;
+            }
+            ttl += tanggal + " " + bulans[Math.abs(bulan)] + " " + tahun;
+        }
+        return ttl;
+    }
+
     function preview(idSiswa) {
         var siswa = null;
         for (let i = 0; i < arrSiswa.length; i++) {
@@ -183,9 +230,11 @@
 
         //console.log(siswa);
         $('#loading').removeClass('d-none');
+        var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
+        var collSpan = raporSetting.kkm_tunggal == '1' ? 15 : 16;
 
-        var tableNilai = '<div style="padding-left: 1cm; padding-right: 1cm; padding-top: 0.3cm; padding-bottom: 0">' +
-            '    <p style="font-family: \'Arial\';text-align: center;font-size: 12pt;"><b>RAPOR PENILAIAN TENGAH SEMESTER</b></p>' +
+        var tableNilai = '<div style="padding: 0.3cm;">' +
+            '    <p style="font-family: \'Arial\';text-align: center;font-size: 12pt;"><b>LAPORAN HASIL BELAJAR TENGAH SEMESTER</b></p>' +
             '    <br>' +
             '    <table id="table-info-print" style="width: 100%; border: 0;">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
@@ -205,7 +254,7 @@
             '            <td><b>' + smt + '</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
-            '            <td>Nama Madrasah</td>' +
+            '            <td>Nama '+namaSatuanPend+'</td>' +
             '            <td>:</td>' +
             '            <td><b>' + setting.sekolah + '</b></td>' +
             '            <td>Tahun Pelajaran</td>' +
@@ -227,7 +276,7 @@
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center">' +
             '            <td rowspan="3" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td rowspan="3" style="width:30%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
-            '            <td rowspan="3" style="width:7%;border: 1px solid black; border-collapse: collapse"><b>KKM</b></td>' +
+            '            <td rowspan="3" style="width:7%;border: 1px solid black; border-collapse: collapse; '+display+'"><b>KKM</b></td>' +
             '            <td colspan="10" style="width:38%;border: 1px solid black; border-collapse: collapse">' +
             '                <b>Hasil Penilaian Harian (HPH)</b></td>' +
             '            <td rowspan="3" style="width:7%;border: 1px solid black; border-collapse: collapse"><b>HPTS</b></td>' +
@@ -248,49 +297,35 @@
             tableNilai += '<td style="border: 1px solid black; border-collapse: collapse;width: 20px">' +
                 '<b>' + (i + 1) + '</b></td>';
         }
-
-        tableNilai += '</tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
-            '            <td colspan="16"' +
-            '                style="border: 1px solid black; border-collapse: collapse; padding-left: 8px"><b>Kelompok' +
-            '                    A (Umum)</b></td>' +
-            '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-            '            <td rowspan="5"' +
-            '                style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top;">' +
-            '                1' +
-            '            </td>' +
-            '            <td style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding-left: 6px">' +
-            '                Pendidikan Agama Islam' +
-            '            </td>' +
-            '            <td style="border: 1px solid black; border-collapse: collapse"></td>' +
-            '            <td style="border: 1px solid black; border-collapse: collapse"></td>';
-        for (let i = 0; i < 12; i++) {
-            tableNilai += '<td style="border: 1px solid black; border-collapse: collapse"></td>';
-        }
         tableNilai += '</tr>';
 
-        var no = 2;
-        var abjad = ['a', 'b', 'c', 'd'];
+        var htmlPai = '';
+        var tablePai = '';
+        var abjad = ['', 'a', 'b', 'c', 'd', 'e', 'f'];
         var pos = 0;
 
+        var arr = Object.keys(arrKelompokMapel).map(function (key) { return arrKelompokMapel[key]; });
+        var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
+        var pai = arr[indexPAI];
+
         $.each(arrMapel, function (k, mapel) {
-            var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : nilaiPts[idSiswa][mapel.id_mapel];
-            var arrN = [];
-            const kkmMapel = kkm[mapel.id_mapel] == null ? "" :kkm[mapel.id_mapel].kkm;
-            if (mapel.urutan == '1') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            if (mapel.kelompok == pai.kode_kel_mapel) {
+                const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
+                var arrN = [];
+                var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+
+                pos ++;
+                htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>'+ kkmMapel +'</b></td>';
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>'+ kkmMapel +'</b></td>';
 
                 $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                    //arrN = [];
-                    tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
+                    if (nilai != '') nilai = parseInt(nilai);
+                    htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
                     arrN.push(nilai);
                 });
                 arrN.push(pts);
-                //console.log('nilai_pai', arrN);
-                tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
                     pts +
                     '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
@@ -298,102 +333,81 @@
                     '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"></td>' +
                     '</tr>';
-                pos++;
-            } else if (mapel.urutan == '2') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>'+ kkmMapel +'</b></td>';
-                $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                    //arrN = [];
-                    tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
-                    arrN.push(nilai);
-                });
-                arrN.push(pts);
-                //console.log('nilai_a_umum', arrN);
-                tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    pts +
-                    '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    createPredikat(arrN, mapel.id_mapel) +
-                    '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"></td>' +
-                    '</tr>';
-                no++;
             }
         });
 
-        tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-            '            <td colspan="16"' +
-            '                style="border: 1px solid black; border-collapse: collapse; padding-left: 8px"><b>Kelompok B (Umum)</b></td>' +
-            '        </tr>';
-
-        $.each(arrMapel, function (k, mapel) {
-            const kkmMapel = kkm[mapel.id_mapel] == null ? "" :kkm[mapel.id_mapel].kkm;
-            var arrN = [];
-            var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : nilaiPts[idSiswa][mapel.id_mapel];
-            if (mapel.urutan == '3') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>'+ kkmMapel +'</b></td>';
-                $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                    //arrN = [];
-                    tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
-                    arrN.push(nilai);
-                });
-                arrN.push(pts);
-                //console.log('nilai_b_umum', arrN);
-                tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    pts +
-                    '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    createPredikat(arrN, mapel.id_mapel) +
-                    '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"></td>' +
-                    '</tr>';
-                no++;
-            }
-        });
-
-        tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<td rowspan="2" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top;">' + no + '</td>' +
-            '<td style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding-left: 6px">' +
-            '<b>Muatan Lokal *)</b>' +
-            '</td>' +
-            '<td style="border: 1px solid black; border-collapse: collapse"></td>'+
-            '<td style="border: 1px solid black; border-collapse: collapse"></td>';
-
-        for (let i = 0; i < 12; i++) {
-            tableNilai += '<td style="border: 1px solid black; border-collapse: collapse"></td>';
+        if (pos > 0) {
+            tablePai = '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                '            <td rowspan="'+(pos+1)+'" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
+                '            <td colspan="'+(collSpan-1)+'" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
+                '                Pendidikan Agama Islam' +
+                '            </td>' +
+                '</tr>' + htmlPai;
         }
-        tableNilai += '</tr>';
 
-        $.each(arrMapel, function (k, mapel) {
-            const kkmMapel = kkm[mapel.id_mapel] == null ? "" :kkm[mapel.id_mapel].kkm;
-            var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : nilaiPts[idSiswa][mapel.id_mapel];
-            var arrN = [];
-            if (mapel.kelompok == 'MULOK') {
-                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>'+ kkmMapel +'</b></td>';
-                $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                    //arrN = [];
-                    tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
-                    arrN.push(nilai);
+        var index = 0;
+        $.each(arrKelompokMapel, function (kel, val) {
+            var no = pos > 0 && index == 0 ? 1 : 0;
+            var htmlTr = '';
+            var hasSub = false;
+
+            if (val.kategori != 'PAI (Kemenag)') {
+                $.each(arrMapel, function (k, mapel) {
+                    if (mapel.kelompok == kel) {
+                        hasSub = val.id_parent != '0';
+                        no++;
+                        var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+                        var arrN = [];
+                        const kkmMapel = kkm[mapel.id_mapel] == null ? "" :kkm[mapel.id_mapel].kkm;
+                        htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + mapel.nama_mapel + '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center; '+display+'"><b>'+ kkmMapel +'</b></td>';
+                        $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
+                            if (nilai != '') nilai = parseInt(nilai);
+                            htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
+                            arrN.push(nilai);
+                        });
+                        arrN.push(pts);
+                        htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                            pts +
+                            '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                            createPredikat(arrN, mapel.id_mapel) +
+                            '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"></td>' +
+                            '</tr>';
+                    }
                 });
-                arrN.push(pts);
-                tableNilai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    pts +
-                    '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    createPredikat(arrN, mapel.id_mapel) +
-                    '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"></td>' +
-                    '</tr>';
-                no++;
             }
+
+            if (hasSub && no > 0) {
+                var parent;
+                $.each(arrKelompokMapel, function (kels, vals) {
+                    if (vals.id_kel_mapel == val.id_parent) {
+                        parent = vals.nama_kel_mapel;
+                    }
+                });
+                tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                    '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+parent+'</b></td>' +
+                    '        </tr>';
+            }
+
+            if (no > 0) {
+                if (index == 0) {
+                    tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
+                        '        </tr>' + tablePai + htmlTr;
+                } else {
+                    tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
+                        '        </tr>' + htmlTr;
+                }
+            }
+            index ++;
         });
+
+        tableNilai += '</table>' ;
 
         let arrKKM = [];
         if (raporSetting.kkm_tunggal == "1") {
@@ -464,12 +478,9 @@
 
         tableNilai += '    <br>' +
             '    <br>' +
-            '    <br>' +
-            '    <br>' +
-            '    <br>' +
             '<table style="width: 100%">' +
             '<tr style="font-family: \'Tahoma\';font-size: 10pt;">' +
-            '<td style="width: 35%;">' +
+            '<td style="width: 33%;vertical-align: top;">' +
             '    Mengetahui:' +
             '    <br>' +
             '    Orang Tua/Wali' +
@@ -477,20 +488,29 @@
             '    <br>' +
             '    <br>' +
             '    <br>' +
-            '    <br>' +
             '    <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>' +
             '</td>' +
-            '<td style="width: 30%;"></td>' +
-            '<td style="width: 35%">' +
-            setting.kota+',  ' + raporSetting.tgl_rapor_pts +
+            '<td style="width: 34%;">' +
+            '    Mengetahui:' +
             '    <br>' +
-            '    Kepala Madrasah' +
-            '    <br>' +
+            '    Kepala ' + namaSatuanPend +
             '    <br>' +
             '    <br>' +
             '    <br>' +
             '    <br>' +
             '    <u>'+setting.kepsek+'</u>' +
+            '    <br>' +
+            '    Nip:' +
+            '</td>' +
+            '<td style="width: 33%">' +
+            setting.kota + ',  ' + handleTitiMangsa(raporSetting.tgl_rapor_pts) +
+            '    <br>' +
+            'Wali Kelas' +
+            '    <br>' +
+            '    <br>' +
+            '    <br>' +
+            '    <br>' +
+            '    <u>' + guru.nama_guru + '</u>' +
             '    <br>' +
             '    Nip:' +
             '</td>' +
@@ -509,6 +529,10 @@
     }
 
     $(document).ready(function () {
+        console.log('kelMapel', arrKelompokMapel);
+        console.log('mapel',arrMapel);
+        console.log('nilai',nilaiHarian);
+        console.log('setting', raporSetting);
         $('.siswa').click(function (e) {
             e.stopPropagation();
             e.preventDefault();

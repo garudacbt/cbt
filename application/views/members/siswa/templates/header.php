@@ -134,9 +134,11 @@ function singkat_tanggal($str) {
 
 $dash = $this->uri->segment(1);
 $cbt = $this->uri->segment(2);
-$exludes = ["dashboard", "soal"];
-
+$exludes = ["dashboard", "penilaian"];
 $dnone = in_array($dash, $exludes) || in_array($cbt, $exludes) ? 'invisible' : '';
+
+$display_clock = $this->uri->segment(2) == "penilaian" ? '' : 'd-none';
+$display_logout = $this->uri->segment(2) == "penilaian" ? 'd-none' : '';
 ?>
 
 <body class="layout-top-nav layout-navbar-fixed">
@@ -154,7 +156,12 @@ $dnone = in_array($dash, $exludes) || in_array($cbt, $exludes) ? 'invisible' : '
                 <br>
                 <small>Tahun Pelajaran: <?= $tp_active->tahun ?> Smt:<?= $smt_active->smt ?></small>
             </div>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav <?=$display_clock?>">
+                <li class="nav-item">
+                    <div id="live-clock" class="text-right text-white"></div>
+                </li>
+            </ul>
+            <ul class="navbar-nav <?=$display_logout?>">
                 <li class="nav-item">
                     <button onclick="logout()" class="btn btn-danger btn-outline-light">
                         <span class="d-none d-sm-inline-block mr-2">Logout</span><i class="fas fa-sign-out-alt"></i>

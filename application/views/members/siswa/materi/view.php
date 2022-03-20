@@ -6,7 +6,7 @@
  * Time: 23:18
  */
 
-$dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unserialize($log_selesai->file) : [];
+$dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file) : [];
 ?>
 
 <div class="content-wrapper" style="margin-top: -1px;">
@@ -37,7 +37,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
                                 Nilai
                                 <br>
                                 <span style="font-size: 28pt">
-                                <?= $log_selesai != null && $log_selesai->nilai != null ? $log_selesai->nilai : '' ?>
+                                <?= $logs != null && $logs->nilai != null ? $logs->nilai : '' ?>
                                 </span>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
                                               data-id="<?= $this->security->get_csrf_hash() ?>"
                                               data-name="<?= $this->security->get_csrf_token_name() ?>"
                                               rows='10' cols='80'
-                                              style='width:100%;'><?= $log_selesai != null ? $log_selesai->text : '' ?></textarea>
+                                              style='width:100%;'><?= $logs != null ? $logs->text : '' ?></textarea>
                                     <button type="submit" class="btn btn-primary float-right ml-1"><i
                                                 class="fa fa-upload"></i> KIRIM
                                     </button>
@@ -218,8 +218,9 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 </div>
 
 <script>
-    var logMulai = '<?= $log_mulai != null ? $log_mulai->log_time : '' ?>';
-    var logSelesai = '<?= $log_selesai != null ? $log_selesai->log_time : '' ?>';
+    var logMateri = JSON.parse('<?= json_encode($logs) ?>');
+    var logMulai = '<?= $logs != null && $logs->log_time != null ? $logs->log_time : '' ?>';
+    var logSelesai = '<?= $logs != null && $logs->finish_time != null ? $logs->finish_time : '' ?>';
     var idSiswa = '<?= $siswa->id_siswa ?>';
     var idKjm = '<?= $materi->id_kjm ?>';
     var jamKe = '<?= $jamke ?>';
@@ -230,7 +231,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
     dataFiles = $.merge(dataFiles, arrFileAttach);
 
     $(document).ready(function () {
-        //console.log(logSelesai);
+        console.log('logMateri',logMateri);
         $('.editor').summernote({
             toolbar: [
                 ['style', ['style']],

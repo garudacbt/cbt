@@ -50,9 +50,11 @@
             <div class="col-md-3 col-6">
                 <button id="check" class="w-100 btn btn-primary" onclick="cekDb()">Cek Database</button>
             </div>
+            <!--
             <div class="col-md-3 col-6">
                 <a href="<?=base_url().'/update/make_base'?>" class="w-100 btn btn-primary">Make Migration</a>
             </div>
+            -->
             <div id="update" class="col-md-3 col-6 d-none">
                 <button id="btn-update" class="w-100 btn btn-success" onclick="updateDb()">Update Database</button>
             </div>
@@ -170,7 +172,6 @@
         html += '</table></div>';
         $('#info-table').append(html);
     }
-
 
     function cekDb() {
         $('#check').attr('disabled', 'disabled');

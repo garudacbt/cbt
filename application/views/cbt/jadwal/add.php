@@ -20,14 +20,13 @@ $jsesi = [];
 foreach ($jumlahSesi as $s) {
 	array_push($jsesi, $s->sesi);
 }
-*/
 $jp = json_decode(json_encode($jadwal->pengawas));
 $jumlahPengawas = json_decode(json_encode(unserialize($jp)));
 $jPengawas = [];
 foreach ($jumlahPengawas as $p) {
 	array_push($jPengawas, $p->guru);
 }
-
+*/
 ?>
 
 <div class="content-wrapper bg-white pt-4">
@@ -76,21 +75,21 @@ foreach ($jumlahPengawas as $p) {
                             </div>
                         </div>
                         -->
-						<div class="col-md-4 mb-3">
+						<div class="col-md-5 mb-3">
 							<label>Guru</label>
 							<?php
 							echo form_dropdown(
 								'guru',
-								$guru,
+								is_array($guru) ? $guru : [$guru->id_guru => $guru->nama_guru],
 								isset($jadwal->bank_guru_id) ? $jadwal->bank_guru_id : '',
 								$disabled_option.' id="id-guru" class="form-control form-control-sm" required'
 							); ?>
 						</div>
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-3">
 							<label>Bank Soal</label>
 							<select <?=$disabled_option?> name="bank_id" id="bank-id" class="form-control form-control-sm" required=""></select>
 						</div>
-						<div class="col-md-2 mb-3">
+						<div class="col-md-3 mb-3">
 							<label>Jenis</label>
 							<?php
 							echo form_dropdown(
@@ -98,20 +97,6 @@ foreach ($jumlahPengawas as $p) {
 								$jenis,
 								$jadwal->id_jenis,
 								$disabled_option.' id="jenis-id" class="form-control form-control-sm" required'
-							); ?>
-						</div>
-						<div class='col-md-4 mb-3'>
-							<label>Pengawas</label>
-							<?php
-							$sesi['Semua'] = 'Semua Sesi';
-							foreach ($sesis as $key => $row) {
-								$sesi[$key] = $row;
-							}
-							echo form_dropdown(
-								'pengawas[]',
-								$pengawas,
-								$jPengawas,
-								'id="pengawas-ujian" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Pengawas" required'
 							); ?>
 						</div>
 						<div class='col-md-3 mb-3'>

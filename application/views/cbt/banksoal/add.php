@@ -265,6 +265,13 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         </div>
                         <div class="col-md-4 col-6">
                             <div class="form-group">
+                                <label>Mapel Agama</label>
+                                <?php
+                                echo form_dropdown('soal_agama', $mapel_agama, $bank->soal_agama, 'class="form-control form-control-sm" required'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="form-group">
                                 <label>Status Bank Soal</label>
                                 <?php
                                 $aktifs [''] = 'Pilih Status :';
@@ -334,7 +341,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                     selMapel.html(opts);
                     $.each(data, function (k, v) {
                         var selected = idMapel == k ? 'selected=selected' : '';
-                        opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';//new Option(v, k, false, selected);
+                        opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';
                     });
                     selMapel.html(opts);
                     getKelasLevel(selLevel.val(), selMapel.val());
@@ -344,8 +351,30 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
             });
         }
 
+        /*
+        function getGuruMapel(mapel) {
+            $.ajax({
+                url: base_url + "cbtbanksoal/getgurumapel?id_mapel=" + mapel,
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    var opts = '';
+                    selGuru.html(opts);
+                    $.each(data, function (k, v) {
+                        var selected = idGuru == k ? 'selected=selected' : '';
+                        opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';
+                    });
+                    selGuru.html(opts);
+                    getKelasLevel(selLevel.val(), selMapel.val());
+                }, error: function (xhr, status, error) {
+                    console.log("error", xhr.responseText);
+                }
+            });
+        }
+        */
+
         function getKelasLevel(param, mapel) {
-            console.log(idGuru);
+            console.log('id_guru',idGuru);
             if (idGuru === '' || mapel == null) {
 
             } else {

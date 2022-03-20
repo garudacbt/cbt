@@ -190,7 +190,7 @@
                 url: base_url + 'siswa/seminggu?id_siswa='+idSiswa+'&id_kelas='+idKelas+'&tgl='+tgl+'&jenis=1',
                 type:"GET",
                 success: function(data) {
-                    console.log(data);
+                    console.log('respon', data);
 
                     var html = '<table class="table table-sm">' +
                         '    <tr class="alert alert-default-secondary">' +
@@ -209,14 +209,15 @@
                         '    </tr>';
 
                     $.each(data.materi, function (i, mtr) {
+                        console.log('mtr', mtr);
                         html += '<tr><td class="text-center">'+i+'</td>';
                         if (mtr.id_kjm != null) {
                             var status = '';
                             if (data.logs != null && Object.keys(data.logs).length > 0) {
-                                if (data.logs[mtr.id_kjm][2] == null) {
-                                    status = '<a href="'+base_url+'siswa/bukamateri/'+ mtr.id_kjm + '/' +i+'" class="btn btn-warning">Belum Selesai</a>';
-                                } else {
+                                if (data.logs[mtr.id_kjm] != null && data.logs[mtr.id_kjm].finish_time != null) {
                                     status = '<a href="'+base_url+'siswa/bukamateri/'+ mtr.id_kjm + '/' +i+'" class="btn btn-success">Selesai</a>';
+                                } else {
+                                    status = '<a href="'+base_url+'siswa/bukamateri/'+ mtr.id_kjm + '/' +i+'" class="btn btn-warning">Belum Selesai</a>';
                                 }
                             } else {
                                 status = '<a href="'+base_url+'siswa/bukamateri/'+ mtr.id_kjm + '/' +i+'" class="btn btn-danger">Belum Dikerjakan</a>';

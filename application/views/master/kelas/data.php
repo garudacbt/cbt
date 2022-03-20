@@ -93,6 +93,7 @@
                             <?php if ($setting->jenjang == '3') : ?>
                                 <td>Jurusan</td>
                             <?php endif; ?>
+                            <th>Wali Kelas</th>
                             <th class="align-middle text-center">Jumlah Siswa</th>
                             <th class="text-center align-middle p-0" style="width: 180px"><span>Aksi</span></th>
                         </tr>
@@ -106,6 +107,7 @@
                                 <?php if ($setting->jenjang == '3') : ?>
                                     <td class="align-middle text-center"><?= $kls->nama_jurusan ?></td>
                                 <?php endif; ?>
+                                <td class="align-middle"><?= $kls->nama_guru ?></td>
                                 <td class="align-middle text-center"><?= $kls->jml_siswa ?></td>
                                 <td class="align-middle text-center">
                                 <span data-toggle="tooltip" title="Lihat Detail Kelas">

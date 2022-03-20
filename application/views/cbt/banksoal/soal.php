@@ -12,6 +12,45 @@ if ($att !== false) {
     $dataFileAttach = unserialize($soal->file);
 }
 
+$pg_belum_komplit = [];
+$pg2_belum_komplit = [];
+$jodohkan_belum_komplit = [];
+$isian_belum_komplit = [];
+$essai_belum_komplit = [];
+
+foreach ($soal_belum_komplit as $key => $value) {
+    if ($value->jenis == '1') {
+        array_push($pg_belum_komplit, $value->nomor_soal);
+    } elseif ($value->jenis == '2') {
+        array_push($pg2_belum_komplit, $value->nomor_soal);
+    } elseif ($value->jenis == '3') {
+        array_push($jodohkan_belum_komplit, $value->nomor_soal);
+    } elseif ($value->jenis == '4') {
+        array_push($isian_belum_komplit, $value->nomor_soal);
+    } else {
+        array_push($essai_belum_komplit, $value->nomor_soal);
+    }
+}
+
+$soal_pg_ada = [];
+$soal_pg2_ada = [];
+$soal_jodohkan_ada = [];
+$soal_isian_ada = [];
+$soal_esai_ada = [];
+
+foreach ($soal_ada as $key => $value) {
+    if ($value->jenis == '1') {
+        array_push($soal_pg_ada, $value->nomor_soal);
+    } elseif ($value->jenis == '2') {
+        array_push($soal_pg2_ada, $value->nomor_soal);
+    } elseif ($value->jenis == '3') {
+        array_push($soal_jodohkan_ada, $value->nomor_soal);
+    } elseif ($value->jenis == '4') {
+        array_push($soal_isian_ada, $value->nomor_soal);
+    } else {
+        array_push($soal_esai_ada, $value->nomor_soal);
+    }
+}
 ?>
 
 <div class="content-wrapper bg-white">
@@ -80,46 +119,6 @@ if ($att !== false) {
                             </div>
                             <span><b>PG NOMOR: </b></span><br>
                             <?php
-                            $pg_belum_komplit = [];
-                            $pg2_belum_komplit = [];
-                            $jodohkan_belum_komplit = [];
-                            $isian_belum_komplit = [];
-                            $essai_belum_komplit = [];
-
-                            foreach ($soal_belum_komplit as $key => $value) {
-                                if ($value->jenis == '1') {
-                                    array_push($pg_belum_komplit, $value->nomor_soal);
-                                } elseif ($value->jenis == '2') {
-                                    array_push($pg2_belum_komplit, $value->nomor_soal);
-                                } elseif ($value->jenis == '3') {
-                                    array_push($jodohkan_belum_komplit, $value->nomor_soal);
-                                } elseif ($value->jenis == '4') {
-                                    array_push($isian_belum_komplit, $value->nomor_soal);
-                                } else {
-                                    array_push($essai_belum_komplit, $value->nomor_soal);
-                                }
-                            }
-
-                            $soal_pg_ada = [];
-                            $soal_pg2_ada = [];
-                            $soal_jodohkan_ada = [];
-                            $soal_isian_ada = [];
-                            $soal_esai_ada = [];
-
-                            foreach ($soal_ada as $key => $value) {
-                                if ($value->jenis == '1') {
-                                    array_push($soal_pg_ada, $value->nomor_soal);
-                                } elseif ($value->jenis == '2') {
-                                    array_push($soal_pg2_ada, $value->nomor_soal);
-                                } elseif ($value->jenis == '3') {
-                                    array_push($soal_jodohkan_ada, $value->nomor_soal);
-                                } elseif ($value->jenis == '4') {
-                                    array_push($soal_isian_ada, $value->nomor_soal);
-                                } else {
-                                    array_push($soal_esai_ada, $value->nomor_soal);
-                                }
-                            }
-
                             $no = 1;
                             $tpg = $jml_pg == null || $jml_pg->nomor_soal == null ? 0 : $jml_pg->nomor_soal;
                             for ($i = 0; $i < $tpg; $i++) : ?>
@@ -365,6 +364,7 @@ if ($att !== false) {
                 </div>
             </div>
             <?= form_close() ?>
+
             <!--
             <div class="card my-shadow">
                 <div class="card-header">
@@ -474,6 +474,13 @@ if ($att !== false) {
     var dataFiles = [];
     var arrFileAttach = JSON.parse('<?= json_encode($dataFileAttach)?>');
     dataFiles = $.merge(dataFiles, arrFileAttach);
+
+    var adaPg = JSON.parse('<?= json_encode($soal_pg_ada)?>');
+    var adaPg2 = JSON.parse('<?= json_encode($soal_pg2_ada)?>');
+    var adaJodohkan = JSON.parse('<?= json_encode($soal_jodohkan_ada)?>');
+    var adaIsian = JSON.parse('<?= json_encode($soal_isian_ada)?>');
+    var adaEssai = JSON.parse('<?= json_encode($soal_esai_ada)?>');
+    console.log('adaPg',adaIsian);
 
     $(function () {
         bsCustomFileInput.init();

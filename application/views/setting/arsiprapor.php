@@ -30,15 +30,43 @@ $satuan = [
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
+                    <div class="mb-3">
+                        <label>Pilih Tahun Pelajaran</label>
+                        <select name="tahun" id="id-tahun" class="form-control form-control-sm">
+                            <?php foreach ($tp as $tahun) :
+                                $selected = isset($tp_selected) && $tahun->id_tp == $tp_selected ? 'selected="selected"' : ''; ?>
+                                <option value="<?= $tahun->id_tp ?>" <?= $selected ?>><?=$tahun->tahun?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pilih Semester</label>
+                        <select name="semester" id="id-smt" class="form-control form-control-sm">
+                            <?php foreach ($smt as $sm) :
+                                $selected = isset($smt_selected) && $sm->id_smt == $smt_selected ? 'selected="selected"' : ''; ?>
+                                <option value="<?= $sm->id_smt ?>" <?= $selected ?>><?=$sm->smt?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pilih Kelas</label>
+                        <?php
+                        echo form_dropdown(
+                            'kelas',
+                            $kelases,
+                            isset($kls_selected) ? $kls_selected : null,
+                            'id="id-kelas" class="form-control form-control-sm"'
+                        ); ?>
+                    </div>
                     <div class="card">
                         <div class="card-header bg-light">
-                            <h3 class="card-title">Siswa</h3>
+                            <h3 class="card-title">Pilih Siswa</h3>
                         </div>
-                        <div class="card-body p-0"
-                             style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
+                        <div class="card-body p-0" style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
                             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
                                 <?php
-                                $n = 1;
+                                if (isset($siswas)) :
+                                    $n = 1;
                                 foreach ($siswas as $siswa): ?>
                                     <li class="nav-item">
                                         <a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
@@ -46,7 +74,7 @@ $satuan = [
                                             <?= $n . '. ' . $siswa->nama ?>
                                         </a>
                                     </li>
-                                    <?php $n++; endforeach; ?>
+                                    <?php $n++; endforeach; endif;?>
                             </ul>
                         </div>
                     </div>
@@ -187,11 +215,15 @@ $satuan = [
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
+    var isAdmin = '<?= $this->ion_auth->is_admin() ?>';
     var siswaSelected = null;
-    var kelas = '<?= $kelas ?>';
-    var level = '<?= $lvl_kelas ?>';
+    var thnSelected = '<?= isset($tp_selected) ? $tp_selected : '';?>';
+    var smtSelected = '<?= isset($smt_selected) ? $smt_selected : '';?>';
+    var klsSelected = '<?= isset($kls_selected) ? $kls_selected : '';?>';
+
+    var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($rapor) ?>));
     var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
-    var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswas)?>));
+    var jabatanGuru = JSON.parse(JSON.stringify(<?= json_encode($jabatan)?>));
     var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
     var arrKelompokMapel = JSON.parse(JSON.stringify(<?= json_encode($kelompoks)?>));
     var arrekstra = JSON.parse(JSON.stringify(<?= json_encode($mapel_ekstra)?>));
@@ -203,15 +235,13 @@ $satuan = [
     var fisik = JSON.parse(JSON.stringify(<?= json_encode($fisik)?>));
     var ekstra = JSON.parse(JSON.stringify(<?= json_encode($nilai_ekstra)?>));
     var naik = JSON.parse(JSON.stringify(<?= json_encode($naik)?>));
-    var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
+
+    var arrSiswa = JSON.parse(JSON.stringify(<?=isset($siswas) ? json_encode($siswas) : "[]"?>));
+    var tp = '<?= $tp_name != null ? $tp_name->tahun : "" ?>';
+    var smt = '<?= $smt_name != null ? $smt_name->nama_smt : "" ?>';
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
-    var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($rapor) ?>));
-    var tp = '<?= $tp_active->tahun ?>';
-    var smt = '<?= $smt_active->nama_smt ?>';
-    var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
-
+    var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
-
     var z = 0.9;
 
     function inArray(val, array) {
@@ -639,11 +669,11 @@ $satuan = [
 
     function createPagePengetahuan(idSiswa, siswa) {
         var tableNilai = '<div style="padding: 0.3cm;">' +
-                headerPage(siswa) +
+            headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PENGETAHUAN</b></span>';
         if (raporSetting.kkm_tunggal == '1') {
             tableNilai += '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+raporSetting.kkm+'</b></span>';
+                '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+raporSetting.kkm+'</b></span>';
         }
         posAlpha ++;
         var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
@@ -775,7 +805,7 @@ $satuan = [
 
     function createPageKeterampilan(idSiswa, siswa) {
         var tableNilai = '<div style="padding: 0.3cm;">' +
-                headerPage(siswa) +
+            headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETERAMPILAN</b></span>';
         if (raporSetting.kkm_tunggal == '1') {
             tableNilai += '<br>' +
@@ -1217,6 +1247,12 @@ $satuan = [
             }
         }
 
+        if (raporSetting == null) {
+            $('#empty').html('<div class="text-center">Tidak ada arsip rapor untuk<br><b>' +
+                siswaSelected.nama.toUpperCase() + '</b><br>Tahun Pelajaran ' + tp + ' Semester ' + smt + '</div>');
+            return;
+        }
+
         $('#loading').removeClass('d-none');
 
         $('#nama-siswa').html('<b>' + siswaSelected.nama.toUpperCase() + '</b>');
@@ -1307,19 +1343,61 @@ $satuan = [
     }
 
     $(document).ready(function () {
-        console.log('mapels', arrMapel);
-        console.log('raporSetting', raporSetting);
-        console.log('kelompok', arrKelompokMapel);
-        console.log('nilai_rapor', nilaiRapor);
-        console.log('sikap', sikap);
-        console.log('nilai', nilai);
-        console.log('desk', deskripsi);
-        console.log('absensi', absensi);
-        console.log('fisik', fisik);
-        console.log('m_ekstra', ekstra);
-        console.log('arr_ekstra', arrekstra);
-        console.log('kelas', kelas);
-        console.log('naik', naik);
+        var opsiTahun = $('#id-tahun');
+        var tslctd = thnSelected == '' ? "selected='selected'" : "";
+        opsiTahun.prepend("<option value='0' " + tslctd + " disabled='disabled'>Pilih Tahun Pelajaran</option>");
+        opsiTahun.change(function () {
+            getDataKelas($(this).val(), opsiSmt.val());
+        });
+
+        var opsiSmt = $('#id-smt');
+        var sslctd = smtSelected == '' ? "selected='selected'" : "";
+        opsiSmt.prepend("<option value='0' " + sslctd + " disabled='disabled'>Pilih Semester</option>");
+        opsiSmt.change(function () {
+            getDataKelas(opsiTahun.val(), $(this).val());
+        });
+
+        var opsiKelas = $('#id-kelas');
+        console.log(klsSelected);
+        var kslctd = klsSelected == '' ? "selected='selected'" : "";
+        opsiKelas.prepend("<option value='0' " + kslctd + " disabled='disabled'>Pilih Kelas</option>");
+        opsiKelas.change(function () {
+            getDataSiswa(opsiTahun.val(), opsiSmt.val(), $(this).val());
+        });
+
+        function getDataSiswa(tahun, smt, kelas) {
+            console.log(tahun, smt, kelas);
+            if (tahun != null && smt != null) {
+                window.location.href = base_url + 'bukurapor?tp=' + tahun + '&smt=' + smt + '&kls=' + kelas;
+            }
+        }
+
+        function getDataKelas(tahun, smt) {
+            if (tahun != null && smt != null) {
+                console.log('jabatan', isAdmin == '1' ? 'admin' : jabatanGuru[tahun][smt]);
+                var idKelas = isAdmin == '1' ? '' : '&kls='+jabatanGuru[tahun][smt];
+                var url = base_url + "bukurapor/getdatakelas?tp="+tahun+"&smt="+smt+idKelas;
+                //console.log('url', url);
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function (data) {
+                        console.log("result", data);
+                        jabatanGuru = data.jabatan;
+                        console.log('jabatan', isAdmin == '1' ? 'admin' : jabatanGuru[tahun][smt]);
+                        var opts = '<option value="0" selected="selected" disabled="disabled">Pilih Kelas</option>';
+                        $.each(data.kelas, function (i, v) {
+                            opts += '<option value="'+i+'">'+v+'</option>';
+                        });
+                        opsiKelas.html(opts);
+                    }, error: function (xhr, status, error) {
+                        console.log("error", xhr.responseText);
+                        showDangerToast('ERROR');
+                    }
+                });
+            }
+        }
+
         $('.siswa').click(function (e) {
             e.stopPropagation();
             e.preventDefault();

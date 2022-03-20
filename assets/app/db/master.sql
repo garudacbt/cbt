@@ -106,39 +106,6 @@ CREATE TABLE `buku_induk` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `buku_nilai`
---
-
-CREATE TABLE `buku_nilai` (
-  `id_nilai` bigint(19) NOT NULL,
-  `id_siswa` int(11) NOT NULL,
-  `uid` varchar(255) NOT NULL,
-  `tp` varchar(10) NOT NULL,
-  `smt` varchar(20) NOT NULL,
-  `kelas` varchar(100) NOT NULL,
-  `level` int(11) NOT NULL,
-  `jurusan` varchar(50) NOT NULL,
-  `wali_kelas` varchar(100) NOT NULL,
-  `hph` longtext NOT NULL COMMENT 'nilai harian',
-  `hpts` longtext NOT NULL COMMENT 'nilai PTS',
-  `hpas` longtext NOT NULL COMMENT 'nilai PAS',
-  `nilai_rapor` longtext NOT NULL,
-  `ekstra` longtext NOT NULL,
-  `spritual` longtext NOT NULL,
-  `sosial` longtext NOT NULL,
-  `rank` longtext NOT NULL,
-  `prestasi` longtext NOT NULL,
-  `absen` longtext NOT NULL,
-  `saran` longtext NOT NULL,
-  `fisik` longtext NOT NULL,
-  `naik` int(11) NOT NULL DEFAULT '1',
-  `setting_rapor` longtext NOT NULL,
-  `setting_mapel` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `bulan`
 --
 
@@ -202,7 +169,7 @@ CREATE TABLE `cbt_bank_soal` (
   `opsi` int(1) NOT NULL DEFAULT '0',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` int(2) NOT NULL DEFAULT '0',
-  `soal_agama` int(2) NOT NULL DEFAULT '0',
+  `soal_agama` varchar(20) DEFAULT NULL,
   `deskripsi` longtext,
   `status_soal` int(11) NOT NULL DEFAULT '0' COMMENT '0=belum selesai, 1=sudah selesai'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -239,7 +206,7 @@ CREATE TABLE `cbt_jadwal` (
   `tgl_mulai` varchar(20) NOT NULL,
   `tgl_selesai` varchar(20) NOT NULL,
   `durasi_ujian` int(5) NOT NULL,
-  `pengawas` longtext,
+  `jawaban` longtext,
   `acak_soal` int(1) NOT NULL,
   `acak_opsi` int(1) NOT NULL,
   `hasil_tampil` int(1) NOT NULL,
@@ -254,26 +221,6 @@ CREATE TABLE `cbt_jadwal` (
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `cbt_jadwal_ujian`
---
-
-CREATE TABLE `cbt_jadwal_ujian` (
-  `id_jadwal` int(11) NOT NULL,
-  `id_tp` int(11) NOT NULL,
-  `id_smt` int(11) NOT NULL,
-  `level` longtext NOT NULL,
-  `id_jenis` int(11) NOT NULL,
-  `dari` varchar(20) NOT NULL,
-  `sampai` varchar(20) NOT NULL,
-  `jam_mulai` varchar(20) NOT NULL,
-  `jml_mapel` int(2) NOT NULL,
-  `jml_istirahat` int(2) NOT NULL,
-  `durasi_mapel` int(3) NOT NULL,
-  `durasi_istirahat` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `cbt_jawaban`
@@ -698,7 +645,7 @@ INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES
 
 -- --------------------------------------------------------
 
---
+-- '
 -- Table structure for table `jabatan_guru`
 --
 
@@ -824,22 +771,6 @@ CREATE TABLE `kelas_jadwal_materi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas_jadwal_tugas`
---
-
-CREATE TABLE `kelas_jadwal_tugas` (
-  `id_kjt` int(11) NOT NULL,
-  `id_tp` int(11) NOT NULL,
-  `id_smt` int(11) NOT NULL,
-  `id_tugas` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `id_kelas` int(11) NOT NULL,
-  `jadwal_tugas` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `kelas_materi`
 --
 
@@ -903,32 +834,6 @@ CREATE TABLE `kelas_struktur` (
   `sie_kesehatan` int(11) NOT NULL,
   `sie_kekeluargaan` int(11) NOT NULL,
   `sie_humas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kelas_tugas`
---
-
-CREATE TABLE `kelas_tugas` (
-  `id_tugas` int(11) NOT NULL,
-  `id_tp` int(11) NOT NULL DEFAULT '1',
-  `id_smt` int(11) NOT NULL DEFAULT '1',
-  `kode_tugas` text NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  `tugas_kelas` text NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `nama_mapel` varchar(100) NOT NULL,
-  `judul_tugas` text NOT NULL,
-  `isi_tugas` longtext NOT NULL,
-  `file` longtext,
-  `link_file` varchar(255) DEFAULT NULL,
-  `tgl_mulai` datetime DEFAULT NULL,
-  `created_on` datetime DEFAULT NULL,
-  `updated_on` datetime DEFAULT CURRENT_TIMESTAMP,
-  `status` int(1) DEFAULT NULL,
-  `tgl_selesai` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1023,38 +928,14 @@ CREATE TABLE `login_attempts` (
 CREATE TABLE `log_materi` (
   `id_log` varchar(50) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `finish_time` varchar(20) DEFAULT NULL,
   `id_siswa` int(11) NOT NULL,
   `jam_ke` int(2) NOT NULL,
   `id_materi` varchar(50) NOT NULL,
   `id_mapel` int(11) NOT NULL,
-  `log_type` int(11) NOT NULL,
   `log_desc` text NOT NULL,
   `text` longtext,
   `file` mediumtext,
-  `nilai` varchar(3) DEFAULT NULL,
-  `catatan` mediumtext,
-  `address` text NOT NULL,
-  `agent` text NOT NULL,
-  `device` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `log_tugas`
---
-
-CREATE TABLE `log_tugas` (
-  `id_log` varchar(50) NOT NULL,
-  `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_siswa` int(11) NOT NULL,
-  `jam_ke` int(11) NOT NULL,
-  `id_tugas` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `log_type` int(11) NOT NULL,
-  `log_desc` text NOT NULL,
-  `text` longtext,
-  `file` text,
   `nilai` varchar(3) DEFAULT NULL,
   `catatan` mediumtext,
   `address` text NOT NULL,
@@ -1071,6 +952,7 @@ CREATE TABLE `log_tugas` (
 CREATE TABLE `log_ujian` (
   `id_log` int(11) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `finish_time` varchar(20) DEFAULT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `log_type` int(11) NOT NULL,
@@ -1165,6 +1047,7 @@ CREATE TABLE `master_jurusan` (
   `id_jurusan` int(11) NOT NULL,
   `nama_jurusan` varchar(30) NOT NULL,
   `kode_jurusan` varchar(10) DEFAULT NULL,
+  `mapel_peminatan` longtext,
   `status` int(11) NOT NULL DEFAULT '1',
   `deletable` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1173,12 +1056,12 @@ CREATE TABLE `master_jurusan` (
 -- Dumping data for table `master_jurusan`
 --
 
-INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `status`, `deletable`) VALUES
-(0, 'NON JURUSAN', 'NON', 1, 0),
-(1, 'IPA', 'IPA', 1, 0),
-(2, 'IPS', 'IPS', 1, 0),
-(3, 'BAHASA', 'BAHASA', 1, 0),
-(77, 'KEAGAMAAN', 'AGAMA', 0, 1);
+INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `mapel_peminatan`, `status`, `deletable`) VALUES
+(0, 'NON JURUSAN', 'NON', NULL, 1, 0),
+(1, 'IPA', 'IPA', '28,34,', 1, 0),
+(2, 'IPS', 'IPS', '17,25,', 1, 0),
+(3, 'BAHASA', 'BAHASA', '19,22,23,', 1, 0),
+(4, 'KEAGAMAAN', 'AGAMA', '27,39,', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1197,11 +1080,37 @@ CREATE TABLE `master_kelas` (
   `guru_id` int(11) NOT NULL,
   `siswa_id` int(11) NOT NULL,
   `jumlah_siswa` longtext,
-  `set_siswa` enum('0','1') NOT NULL DEFAULT '0'
+  `set_siswa` varchar(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `master_kelompok_mapel`
+--
+
+CREATE TABLE `master_kelompok_mapel` (
+  `id_kel_mapel` int(11) NOT NULL,
+  `kode_kel_mapel` varchar(10) DEFAULT NULL,
+  `nama_kel_mapel` varchar(100) DEFAULT NULL,
+  `kategori` varchar(20) DEFAULT NULL,
+  `id_parent` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `master_kelompok_mapel`
+--
+
+INSERT INTO `master_kelompok_mapel` (`id_kel_mapel`, `kode_kel_mapel`, `nama_kel_mapel`, `kategori`, `id_parent`) VALUES
+(1, 'A', 'Kelompok A (Wajib)', 'WAJIB', 0),
+(2, 'B', 'Kelompok B', 'WAJIB', 0),
+(3, 'C', 'Peminatan Akademik', 'PEMINATAN AKADEMIK', 0),
+(4, 'MULOK', 'Muatan Lokal', 'MULOK', 0),
+(5, 'C1', 'Kelompok C1', 'PEMINATAN AKADEMIK', 3),
+(6, 'PAI', 'PAI', 'PAI (Kemenag)', 0),
+(7, 'D', 'Lintas Minat', 'LINTAS MINAT', 0);
+
+-- ---------------------------------
 --
 -- Table structure for table `master_mapel`
 --
@@ -1225,47 +1134,48 @@ CREATE TABLE `master_mapel` (
 --
 
 INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot_p`, `bobot_k`, `jenjang`, `urutan`, `status`, `deletable`, `urutan_tampil`) VALUES
-(1, 'Al Quran-Hadis', 'QH', 'A', 0, 0, 1, 1, 1, 0, NULL),
-(2, 'Fiqih', 'FQH', 'A', 0, 0, 1, 1, 1, 0, NULL),
-(3, 'Akidah Akhlak', 'AA', 'A', 0, 0, 1, 1, 1, 0, NULL),
-(4, 'Sejarah Kebudayaan Islam', 'SKI', 'A', 0, 0, 1, 1, 1, 0, NULL),
-(5, 'Bahasa Arab', 'BAR', 'A', 0, 0, 1, 2, 1, 0, NULL),
-(6, 'Bahasa Indonesia', 'BIND', 'A', 0, 0, 1, 2, 1, 0, NULL),
-(7, 'Bahasa Inggris', 'BING', 'A', 0, 0, 1, 2, 1, 0, NULL),
-(8, 'Matematika', 'MTK', 'A', 0, 0, 1, 2, 1, 0, NULL),
-(9, 'Ilmu Pengetahuan Alam', 'IPA', 'A', 0, 0, 1, 2, 1, 0, NULL),
-(10, 'Ilmu Pengetahuan Sosial', 'IPS', 'A', 0, 0, 1, 2, 1, 0, NULL),
-(11, 'Pendidikan Pancasila dan Kewarganegaraan', 'PPKn', 'A', 0, 0, 1, 2, 1, 0, NULL),
-(12, 'Pendidikan Jasmani Olah Raga dan Kesehatan', 'PJOK', 'B', 0, 0, 1, 3, 1, 0, NULL),
-(13, 'Seni Budaya', 'SB', 'B', 0, 0, 2, 3, 1, 0, NULL),
-(14, 'Prakarya', 'PRA', 'B', 0, 0, 2, 3, 1, 0, NULL),
-(15, 'SBdP', 'SBDP', 'B', 0, 0, 0, 3, 1, 0, NULL),
-(16, 'Akhlak', 'AK', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(17, 'Antropologi', 'ANT', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(18, 'Bahasa Arab', 'BAR', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(19, 'Bahasa dan Sastra Asing Lainnya', 'BSAL', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(20, 'Bahasa dan Sastra Indonesia', 'BSIN', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(21, 'Bahasa dan Sastra Inggris', 'BSING', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(22, 'Bahasa Jepang', 'JPN', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(23, 'Bahasa Jerman', 'JRM', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(24, 'Biologi', 'BIO', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(25, 'Ekonomi', 'EKN', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(26, 'Fikih', 'FQH', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(27, 'Fikih - Ushul Fikih', 'UFQH', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(28, 'Fisika', 'FIS', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(29, 'Geografi', 'GEO', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(30, 'Hadis - Ilmu Hadis', 'HA', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(31, 'Ilmu Kalam', 'IK', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(32, 'Informatika', 'INF', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(33, 'Keterampilan', 'KTR', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(34, 'Kimia', 'KIM', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(35, 'Prakarya dan Kewirausahaan', 'PK', 'B', 0, 0, 3, 0, 1, 0, NULL),
-(36, 'Sejarah', 'SEJ', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(37, 'Sejarah Indonesia', 'SJI', 'A', 0, 0, 3, 0, 1, 0, NULL),
-(38, 'Sosiologi', 'SOS', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(39, 'Tafsir - Ilmu Tafsir', 'TT', 'C', 0, 0, 3, 0, 1, 0, NULL),
-(40, 'Bahasa Sunda', 'BSUND', 'MULOK', 0, 0, 1, 0, 1, 1, NULL),
-(41, 'Pendidikan Agama dan Budi Pekerti', 'PABP', 'A', 0, 0, 1, 1, 0, 0, 0);
+(1, 'Al Quran-Hadis', 'QH', 'PAI', 0, 0, 1, 1, 1, 0, 1),
+(2, 'Fiqih', 'FQH', 'PAI', 0, 0, 1, 1, 1, 0, 3),
+(3, 'Akidah Akhlak', 'AA', 'PAI', 0, 0, 1, 1, 1, 0, 2),
+(4, 'Sejarah Kebudayaan Islam', 'SKI', 'PAI', 0, 0, 1, 1, 1, 0, 4),
+(5, 'Bahasa Arab', 'BAR', 'A', 0, 0, 1, 2, 1, 0, 3),
+(6, 'Bahasa Indonesia', 'BIND', 'A', 0, 0, 1, 2, 1, 0, 5),
+(7, 'Bahasa Inggris', 'BING', 'A', 0, 0, 1, 2, 1, 0, 6),
+(8, 'Matematika', 'MTK', 'A', 0, 0, 1, 2, 1, 0, 4),
+(9, 'Ilmu Pengetahuan Alam', 'IPA', 'A', 0, 0, 1, 2, 1, 0, 9),
+(10, 'Ilmu Pengetahuan Sosial', 'IPS', 'A', 0, 0, 1, 2, 1, 0, 8),
+(11, 'Pendidikan Pancasila dan Kewarganegaraan', 'PPKn', 'A', 0, 0, 1, 2, 1, 0, 2),
+(12, 'Pendidikan Jasmani Olah Raga dan Kesehatan', 'PJOK', 'B', 0, 0, 1, 3, 1, 0, 2),
+(13, 'Seni Budaya', 'SB', 'B', 0, 0, 2, 3, 1, 0, 1),
+(14, 'Prakarya', 'PRA', 'B', 0, 0, 2, 3, 1, 0, 3),
+(15, 'SBdP', 'SBDP', 'B', 0, 0, 0, 3, 0, 0, 1),
+(16, 'Akhlak', 'AK', 'C', 0, 0, 3, 0, 0, 0, 19),
+(17, 'Antropologi', 'ANT', 'C1', 0, 0, 3, 0, 1, 0, 4),
+(18, 'Bahasa Arab (Peminatan)', 'BAR-P', 'C', 0, 0, 3, 0, 1, 0, 3),
+(19, 'Bahasa dan Sastra Asing Lainnya', 'BSAL', 'C', 0, 0, 3, 0, 1, 0, 16),
+(20, 'Bahasa dan Sastra Indonesia', 'BSIN', 'C', 0, 0, 3, 0, 1, 0, 15),
+(21, 'Bahasa dan Sastra Inggris', 'BSING', 'C', 0, 0, 3, 0, 1, 0, 14),
+(22, 'Bahasa Jepang', 'JPN', 'C', 0, 0, 3, 0, 1, 0, 18),
+(23, 'Bahasa Jerman', 'JRM', 'C', 0, 0, 3, 0, 1, 0, 12),
+(24, 'Biologi', 'BIO', 'C', 0, 0, 3, 0, 1, 0, 2),
+(25, 'Ekonomi', 'EKN', 'C', 0, 0, 3, 0, 1, 0, 11),
+(26, 'Fikih (Peminatan)', 'FQH-P', 'C', 0, 0, 3, 0, 1, 0, 4),
+(27, 'Fikih - Ushul Fikih', 'UFQH', 'C', 0, 0, 3, 0, 1, 0, 5),
+(28, 'Fisika', 'FIS', 'C1', 0, 0, 3, 0, 1, 0, 3),
+(29, 'Geografi', 'GEO', 'C', 0, 0, 3, 0, 1, 0, 10),
+(30, 'Hadis - Ilmu Hadis', 'HA', 'C', 0, 0, 3, 0, 1, 0, 6),
+(31, 'Ilmu Kalam', 'IK', 'C', 0, 0, 3, 0, 1, 0, 7),
+(32, 'Informatika', 'INF', 'C', 0, 0, 3, 0, 0, 0, 13),
+(33, 'Keterampilan', 'KTR', 'C', 0, 0, 3, 0, 0, 0, 17),
+(34, 'Kimia', 'KIM', 'C1', 0, 0, 3, 0, 1, 0, 2),
+(35, 'Prakarya dan Kewirausahaan', 'PK', 'B', 0, 0, 3, 0, 0, 0, 3),
+(36, 'Sejarah', 'SEJ', 'C', 0, 0, 3, 0, 1, 0, 8),
+(37, 'Sejarah Indonesia', 'SJI', 'A', 0, 0, 3, 0, 1, 0, 5),
+(38, 'Sosiologi', 'SOS', 'C', 0, 0, 3, 0, 1, 0, 9),
+(39, 'Tafsir - Ilmu Tafsir', 'TT', 'C1', 0, 0, 3, 0, 1, 0, 1),
+(40, 'Bahasa Sunda', 'BSUND', 'MULOK', 0, 0, 1, 0, 1, 1, 1),
+(41, 'Pendidikan Agama dan Budi Pekerti', 'PABP', 'A', 0, 0, 1, 1, 1, 0, 1),
+(42, 'Matematika (Peminatan)', 'MTK-P', 'C', 0, 0, 3, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1276,9 +1186,9 @@ INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot
 CREATE TABLE `master_siswa` (
   `id_siswa` int(11) NOT NULL,
   `nisn` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `nis` char(20) NOT NULL,
+  `nis` varchar(20) DEFAULT NULL,
   `nama` varchar(50) NOT NULL,
-  `jenis_kelamin` enum('L','P') NOT NULL,
+  `jenis_kelamin` varchar(1) NOT NULL DEFAULT '0',
   `username` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `password` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `kelas_awal` int(5) NOT NULL,
@@ -1291,7 +1201,7 @@ CREATE TABLE `master_siswa` (
   `email` varchar(254) DEFAULT NULL,
   `foto` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'siswa.png',
   `anak_ke` int(2) DEFAULT NULL,
-  `status_keluarga` enum('1','2','3') NOT NULL DEFAULT '1',
+  `status_keluarga` varchar(1) NOT NULL DEFAULT '1',
   `alamat` text CHARACTER SET latin1 COLLATE latin1_general_ci,
   `rt` varchar(5) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `rw` varchar(5) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
@@ -1341,8 +1251,8 @@ CREATE TABLE `master_smt` (
 --
 
 INSERT INTO `master_smt` (`id_smt`, `smt`, `nama_smt`, `active`) VALUES
-(1, 'Ganjil', 'I (satu)', 1),
-(2, 'Genap', 'II (dua)', 0);
+(1, 'Ganjil', 'I (satu)', 0),
+(2, 'Genap', 'II (dua)', 1);
 
 -- --------------------------------------------------------
 
@@ -1626,7 +1536,7 @@ CREATE TABLE `rapor_nilai_harian` (
   `p7` varchar(3) DEFAULT NULL,
   `p8` varchar(3) DEFAULT NULL,
   `p_rata_rata` varchar(4) DEFAULT NULL,
-  `p_predikat` enum('A','B','C','D') DEFAULT NULL,
+  `p_predikat` varchar(1) DEFAULT NULL,
   `p_deskripsi` longtext,
   `k1` varchar(3) DEFAULT NULL,
   `k2` varchar(3) DEFAULT NULL,
@@ -1637,7 +1547,7 @@ CREATE TABLE `rapor_nilai_harian` (
   `k7` varchar(3) DEFAULT NULL,
   `k8` varchar(3) DEFAULT NULL,
   `k_rata_rata` varchar(4) DEFAULT NULL,
-  `k_predikat` enum('A','B','C','D') DEFAULT NULL,
+  `k_predikat` varchar(1) DEFAULT NULL,
   `k_deskripsi` longtext,
   `jml` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -1718,9 +1628,7 @@ INSERT INTO `running_text` (`id_text`, `text`) VALUES
 (2, 'Madrasah Aliyah menerima pendaftaran peserta didik baru tahun pelajaran 2021/2022, Informasi Pendaftaran: Telp/WA 081xxxxxxxxx'),
 (3, ''),
 (4, ''),
-(5, ''),
-(9, 'Selamat melaksanakan Try Out UMBK tingkat MTs'),
-(21, 'Madrasah Aliyah menerima pendaftaran peserta didik baru tahun pelajaran 2021/2022, Informasi Pendaftaran: Telp/WA 081xxxxxxxx');
+(5, '');
 
 -- --------------------------------------------------------
 
@@ -1735,6 +1643,7 @@ CREATE TABLE `setting` (
   `npsn` varchar(10) DEFAULT NULL,
   `nss` varchar(20) DEFAULT NULL,
   `jenjang` int(5) DEFAULT NULL,
+  `satuan_pendidikan` varchar(1) DEFAULT NULL,
   `kepsek` varchar(50) DEFAULT NULL,
   `nip` varchar(30) DEFAULT NULL,
   `tanda_tangan` text,
@@ -1837,12 +1746,6 @@ ALTER TABLE `buku_induk`
   ADD PRIMARY KEY (`id_siswa`);
 
 --
--- Indexes for table `buku_nilai`
---
-ALTER TABLE `buku_nilai`
-  ADD PRIMARY KEY (`id_nilai`);
-
---
 -- Indexes for table `bulan`
 --
 ALTER TABLE `bulan`
@@ -1864,12 +1767,6 @@ ALTER TABLE `cbt_durasi_siswa`
 -- Indexes for table `cbt_jadwal`
 --
 ALTER TABLE `cbt_jadwal`
-  ADD PRIMARY KEY (`id_jadwal`);
-
---
--- Indexes for table `cbt_jadwal_ujian`
---
-ALTER TABLE `cbt_jadwal_ujian`
   ADD PRIMARY KEY (`id_jadwal`);
 
 --
@@ -2029,12 +1926,6 @@ ALTER TABLE `kelas_jadwal_materi`
   ADD PRIMARY KEY (`id_kjm`);
 
 --
--- Indexes for table `kelas_jadwal_tugas`
---
-ALTER TABLE `kelas_jadwal_tugas`
-  ADD PRIMARY KEY (`id_kjt`);
-
---
 -- Indexes for table `kelas_materi`
 --
 ALTER TABLE `kelas_materi`
@@ -2051,12 +1942,6 @@ ALTER TABLE `kelas_siswa`
 --
 ALTER TABLE `kelas_struktur`
   ADD PRIMARY KEY (`id_kelas`);
-
---
--- Indexes for table `kelas_tugas`
---
-ALTER TABLE `kelas_tugas`
-  ADD PRIMARY KEY (`id_tugas`);
 
 --
 -- Indexes for table `level_guru`
@@ -2086,12 +1971,6 @@ ALTER TABLE `login_attempts`
 -- Indexes for table `log_materi`
 --
 ALTER TABLE `log_materi`
-  ADD PRIMARY KEY (`id_log`);
-
---
--- Indexes for table `log_tugas`
---
-ALTER TABLE `log_tugas`
   ADD PRIMARY KEY (`id_log`);
 
 --
@@ -2129,6 +2008,12 @@ ALTER TABLE `master_jurusan`
 --
 ALTER TABLE `master_kelas`
   ADD PRIMARY KEY (`id_kelas`);
+
+--
+-- Indexes for table `master_kelompok_mapel`
+--
+ALTER TABLE `master_kelompok_mapel`
+  ADD PRIMARY KEY (`id_kel_mapel`);
 
 --
 -- Indexes for table `master_mapel`
@@ -2322,16 +2207,10 @@ ALTER TABLE `buku_induk`
   MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `buku_nilai`
---
-ALTER TABLE `buku_nilai`
-  MODIFY `id_nilai` bigint(19) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `bulan`
 --
 ALTER TABLE `bulan`
-  MODIFY `id_bln` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_bln` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_bank_soal`
@@ -2349,7 +2228,7 @@ ALTER TABLE `cbt_jadwal`
 -- AUTO_INCREMENT for table `cbt_jenis`
 --
 ALTER TABLE `cbt_jenis`
-  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_rekap`
@@ -2367,13 +2246,13 @@ ALTER TABLE `cbt_rekap_nilai`
 -- AUTO_INCREMENT for table `cbt_ruang`
 --
 ALTER TABLE `cbt_ruang`
-  MODIFY `id_ruang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_ruang` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_sesi`
 --
 ALTER TABLE `cbt_sesi`
-  MODIFY `id_sesi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_sesi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_sesi_siswa`
@@ -2391,19 +2270,19 @@ ALTER TABLE `cbt_soal`
 -- AUTO_INCREMENT for table `cbt_token`
 --
 ALTER TABLE `cbt_token`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hari`
 --
 ALTER TABLE `hari`
-  MODIFY `id_hri` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_hri` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kelas_catatan_mapel`
@@ -2430,16 +2309,10 @@ ALTER TABLE `kelas_struktur`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kelas_tugas`
---
-ALTER TABLE `kelas_tugas`
-  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `level_guru`
 --
 ALTER TABLE `level_guru`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `log`
@@ -2463,7 +2336,7 @@ ALTER TABLE `log_ujian`
 -- AUTO_INCREMENT for table `master_ekstra`
 --
 ALTER TABLE `master_ekstra`
-  MODIFY `id_ekstra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_ekstra` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_guru`
@@ -2481,7 +2354,7 @@ ALTER TABLE `master_hari_efektif`
 -- AUTO_INCREMENT for table `master_jurusan`
 --
 ALTER TABLE `master_jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_kelas`
@@ -2490,10 +2363,16 @@ ALTER TABLE `master_kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `master_kelompok_mapel`
+--
+ALTER TABLE `master_kelompok_mapel`
+  MODIFY `id_kel_mapel` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `master_mapel`
 --
 ALTER TABLE `master_mapel`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_siswa`
@@ -2505,13 +2384,13 @@ ALTER TABLE `master_siswa`
 -- AUTO_INCREMENT for table `master_smt`
 --
 ALTER TABLE `master_smt`
-  MODIFY `id_smt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_smt` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_tp`
 --
 ALTER TABLE `master_tp`
-  MODIFY `id_tp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tp` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -2619,7 +2498,7 @@ ALTER TABLE `rapor_prestasi`
 -- AUTO_INCREMENT for table `running_text`
 --
 ALTER TABLE `running_text`
-  MODIFY `id_text` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_text` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `setting`

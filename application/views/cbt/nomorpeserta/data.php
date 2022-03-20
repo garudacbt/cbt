@@ -214,7 +214,7 @@
 				'<td class="text-center">' + arrayNomor[i].username + '</td>' +
 				'<td>' + arrayNomor[i].nama + '</td>' +
 				'<td class="text-center">' + arrayNomor[i].kelas + '</td>' +
-				'<td class="text-center editable">' + arrayNomor[i].nomor + '</td>' +
+				'<td class="text-center editable" id="'+arrayNomor[i].id+'">' + arrayNomor[i].nomor + '</td>' +
 				'</tr>';
 		}
 
@@ -246,7 +246,20 @@
 			e.preventDefault();
 			e.stopImmediatePropagation();
 			if (arrayNomor.length > 0) {
-				//console.log($(this).serialize() + "&siswa=" + JSON.stringify(arrayNomor));
+
+                const $rows1 = $('#table-nomor').find('tr'), headers1 = $rows1.splice(0, 1);
+                $rows1.each((i, row) => {
+                    const id = $(row).find('td.editable').attr('id');
+                    const nomor = $(row).find('td.editable').text().trim();
+                    for (let j = 0; j < arrayNomor.length; j++) {
+                        //if (arrayNomor[j])
+                        if (arrayNomor[j].id == id) {
+                            arrayNomor[j].nomor = nomor;
+                        }
+                    }
+                });
+
+                //console.log($(this).serialize() + "&siswa=" + JSON.stringify(arrayNomor));
 				$.ajax({
 					url: base_url + "cbtnomorpeserta/savenomor",
 					type: "POST",
@@ -265,7 +278,7 @@
 						} else {
 							swal.fire({
 								title: "ERROR",
-								text: "Data Tidak Tersimpan",
+								html: "Data Tidak Tersimpan<br>Nomor tidak boleh sama",
 								icon: "error",
 								showCancelButton: false,
 							});

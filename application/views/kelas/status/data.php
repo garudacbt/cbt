@@ -149,7 +149,7 @@
                                 <div class="col-4 mb-3">
                                     <label>Beri Nilai</label>
                                     <input class="form-control" name="nilai" id="nilai" type="text" required>
-                                    <input type="hidden" name="id_log_file" id="id-log">
+                                    <input type="hidden" name="id_log" id="id-log">
                                     <input type="hidden" name="method" id="method">
                                 </div>
                                 <div class="col-4 mb-3">
@@ -318,7 +318,7 @@
         $('#daftarModal').on('show.bs.modal', function (e) {
             var key = $(e.relatedTarget).data('key');
             var konten = $('#konten-hasil');
-            //console.log(resultAll[key]);
+            console.log(resultAll[key]);
             var val = resultAll[key];
             var html = '';
             $('#daftarLabel').text('Hasil Siswa ' + val.nama);
@@ -330,14 +330,8 @@
                 konten.append(html);
                 $('#method').val('add');
 
-                var idMateri = $('#dropdown-materi').val();
-                $('#id-log').val(key + '' + idMateri + '2');
-
-                $('#nilai-hasil').text('');
-                $('#nilai').val('');
-                $('#catatan').val('');
             } else {
-                var catatan = val.selesai.text === '' || val.selesai.text == null ? 'Siswa tidak mencantumkan catatan' : val.selesai.text;
+                var catatan = val.text === '' ? 'Siswa tidak mencantumkan catatan' : val.text;
                 html = '<div class="col-12 mb-3 mt-3">' +
                     '<div class="border p-2">' + catatan + '</div></div>';
                 konten.append(html);
@@ -384,17 +378,18 @@
                         }
                     });
                 });
-
-                var nilaiHasil = val.selesai.nilai === '' ? '' : val.selesai.nilai;
-                var idLog = val.selesai.id_log === '' ? '' : val.selesai.id_log;
-                var catatanGuru = val.selesai.catatan === '' ? '' : val.selesai.catatan;
-
                 $('#method').val('update');
-                $('#nilai-hasil').text(nilaiHasil);
-                $('#nilai').val(nilaiHasil);
-                $('#id-log').val(idLog);
-                $('#catatan').val(catatanGuru);
             }
+            var nilaiHasil = val.nilai === '' ? '' : val.nilai;
+            var catatanGuru = val.catatan === '' ? '' : val.catatan;
+
+            var idMateri = $('#dropdown-materi').val();
+            $('#id-log').val(key + '' + idMateri);
+            console.log('id', key + '' + idMateri);
+
+            $('#nilai-hasil').text(nilaiHasil);
+            $('#nilai').val(nilaiHasil);
+            $('#catatan').val(catatanGuru);
 
         });
 
@@ -473,7 +468,7 @@
                 url: base_url + 'kelasstatus/loadstatus',
                 data: form.serialize() + '&id_kjm=' + selMateri + '&id_kelas=' + selKelas + '&label=' + label,  //{id_materi: selMateri, id_kelas: selKelas},
                 success: function (data) {
-                    //console.log('result', data);
+                    console.log('result', data);
 
                     resultAll = data.log;
                     var table = $('#log');
@@ -501,22 +496,23 @@
                         var mulai = '- -  :  - -';
                         var selesai = '- -  :  - -';
                         var nilai = '';
-                        var ket = 'Belum mengerjakan';
+                        var ketMulai = 'Belum mengerjakan';
 
                         if (value.login != null) {
                             login = createTime(value.login);
                         }
 
                         if (value.mulai != null) {
-                            mulai = buatTanggal(value.mulai.log_time);
+                            mulai = buatTanggal(value.mulai);
+                            if (value.selesai == null) ketMulai = '<i class="fa fa-spinner fa-spin mr-2"></i> Mengerjakan';
                         }
 
                         if (value.mulai != null && value.selesai != null) {
-                            nilai = value.selesai.nilai == null ? '' : value.selesai.nilai;
-                            selesai = buatTanggal(value.selesai.log_time);
+                            nilai = value.nilai == null ? '' : value.nilai;
+                            selesai = buatTanggal(value.selesai);
 
                             //calculate jam pelajaran
-                            var tgl = value.mulai.jadwal_materi;
+                            var tgl = value.jadwal_materi;
                             var mulaiKbm = data.jadwal.kbm_jam_mulai;
                             var dateMulai = new Date(tgl + "T" + mulaiKbm);
                             var perMapel = data.jadwal.kbm_jam_pel;
@@ -538,11 +534,12 @@
                                     }
                                 }
                             }
+                            console.log('jamke', items);
 
-                            var jamke = value.mulai.jam_ke;
+                            var jamke = value.jam_ke;
                             var tglJadwal = formatDate(items[jamke]);
-                            var diff = calculateTime(tglJadwal, value.selesai.log_time);
-                            ket = diff == '' ? '' : 'Terlambat <br>' + diff;
+                            var diff = calculateTime(tglJadwal, value.selesai);
+                            ketMulai = diff == '' ? '' : 'Selesai, Terlambat <br>' + diff;
                             //console.log('jadwal:' + tglJadwal + ' selesai:' + value.selesai.log_time + ' diff:' + calculateTime(tglJadwal, value.selesai.log_time));
                         }
 
@@ -555,7 +552,7 @@
                             //'<td class="align-middle text-center">' + login + '</td>' +
                             '<td class="align-middle text-center center">' + mulai + '</td>' +
                             '<td class="align-middle text-center center">' + selesai + '</td>' +
-                            '<td class="align-middle text-center center">' + ket + '</td>' +
+                            '<td class="align-middle text-center center">' + ketMulai + '</td>' +
                             '<td class="align-middle text-center hidden">' +
                             '<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#daftarModal" data-key="' + key + '">LIHAT</button>' +
                             '</td>' +

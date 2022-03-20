@@ -23,7 +23,7 @@
                         <div class="card my-shadow">
                             <div class="card-body">
                                 <?php
-                                //var_dump($log);
+                                //var_dump($pengawas);
                                 if ($support && $valid) : ?>
                                     <h3 class="text-center">KONFIRMASI</h3>
                                     <h5 class="text-center">
@@ -53,12 +53,11 @@
                                         <li class="list-group-item p-1"> Mata Pelajaran
                                             <span class="float-right"><b><?= $bank->nama_mapel ?></b></span>
                                         </li>
+                                        <!--
                                         <li class="list-group-item p-1"> Guru
                                             <span class="float-right"><b><?= $bank->nama_guru ?></b></span>
                                         </li>
-                                        <li class="list-group-item p-1"> Pengawas
-                                            <span class="float-right"><b><?= implode(', ', $pengawas) ?></b></span>
-                                        </li>
+                                        -->
                                         <li class="list-group-item p-1"> Kelas
                                             <span class="float-right"><b><?= $kelasbank ?></b></span>
                                         </li>
@@ -78,7 +77,8 @@
 										</span>
                                         </li>
                                         <?php if ($bank->token === '1') : ?>
-                                            <li class="list-group-item p-1"><span class="text-danger"><b>Token</b></span>
+                                            <li class="list-group-item p-1"><span
+                                                        class="text-danger"><b>Token</b></span>
                                                 <div class="float-right">
                                                     <input type='text' id="input-token" class="text-center" name='token'
                                                            placeholder="Masukkan Token"/>
@@ -86,10 +86,20 @@
                                             </li>
                                         <?php endif; ?>
                                     </ul>
+
+                                    <div class="alert alert-default-info">
+                                        <h5>Pengawas Ujian:</h5>
+                                        <ul>
+                                            <?php
+                                            foreach ($pengawas as $pws) :?>
+                                                <li><?=$pws->nama_guru?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
                                     <br>
                                     <span class="float-right" data-toggle="tooltip" title="MULAI">
                                         <button id="load-soal" onclick="loadSoal()"
-                                                type="button" class="btn btn-success">KERJAKAN
+                                                type="button" class="btn btn-success">MULAI
                                         </button>
                                     </span>
 
@@ -99,7 +109,7 @@
                                     <input type="hidden" name="bank" value="<?= $bank->id_bank ?>">
                                     <?= form_close(); ?>
 
-                                <?php elseif (!$valid) :?>
+                                <?php elseif (!$valid) : ?>
                                     <div class="alert alert-default-danger text-center p-5">
                                         <h2><i class="icon fas fa-ban"></i> WARNING..!!</h2>
                                         <div class="text-lg">

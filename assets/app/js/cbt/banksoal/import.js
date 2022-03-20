@@ -410,6 +410,7 @@ function getData() {
             var nomor = $(this).find("td:eq(0)").text().trim();
             var soal = $(this).find("td:eq(1)").text().trim();
             var jenis = $(this).find("td:eq(2)").text().trim();
+            if (jenis != '') jj = jenis;
 
             var soalGambar = $(this).find("td:eq(1)").find("img").length;
 
@@ -491,7 +492,6 @@ function getData() {
             }
         });
         tbls[jj] = myRows;
-        jj++;
     });
 
     var datapost = $('#grouping').serialize() + "&id_bank=" + bank_id + "&data=" + JSON.stringify(tbls);

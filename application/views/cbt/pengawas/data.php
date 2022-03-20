@@ -26,16 +26,16 @@
                         </div>
                         <div class="col-md-3 col-6">
                             <div class="form-group">
-                                <label for="jenis">Ruang</label>
+                                <label for="jenis">Sesi</label>
                                 <?php
-                                echo form_dropdown('ruang', $ruang, $ruang_selected, 'id="ruang" class="form-control"'); ?>
+                                echo form_dropdown('sesi', $sesi, $sesi_selected, 'id="sesi" class="form-control"'); ?>
                             </div>
                         </div>
                         <div class="col-md-3 col-6">
                             <div class="form-group">
-                                <label for="jenis">Sesi</label>
+                                <label for="jenis">Ruang</label>
                                 <?php
-                                echo form_dropdown('sesi', $sesi, $sesi_selected, 'id="sesi" class="form-control"'); ?>
+                                echo form_dropdown('ruang', $ruang, $ruang_selected, 'id="ruang" class="form-control"'); ?>
                             </div>
                         </div>
                     </div>
@@ -53,8 +53,8 @@
                             <th class="text-center align-middle">Hari / Tanggal</th>
                             <th class="text-center align-middle">Mata Pelajaran</th>
                             <th class="text-center align-middle">Kelas</th>
-                            <th class="text-center align-middle">Ruang</th>
                             <th class="text-center align-middle">Sesi</th>
+                            <th class="text-center align-middle">Ruang</th>
                             <th class="text-center align-middle">Pengawas</th>
                         </tr>
                         </thead>
@@ -79,8 +79,8 @@
                             <td class="text-center align-middle"><?= buat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?></td>
                             <td class="text-center align-middle"><?= $jadwal->nama_mapel ?></td>
                             <td class="text-center align-middle"><?=$kkl?></td>
-                            <td class="text-center align-middle"><?=$ruang[$ruang_selected]?></td>
                             <td class="text-center align-middle"><?=$sesi[$sesi_selected]?></td>
+                            <td class="text-center align-middle"><?=$ruang[$ruang_selected]?></td>
                             <td class="text-center align-middle">
                                 <?php
                                 $sel = isset($pengawas[$jadwal->id_jadwal]) &&

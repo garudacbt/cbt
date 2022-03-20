@@ -295,10 +295,23 @@
     function addComments(id, comments, append) {
         var comm = '';
         $.each(comments, function (i, v) {
-            var dari = v.dari_group == '1' ? 'Admin' : (v.dari_group == '2' ? v.nama_guru : v.nama_siswa);
-            var foto = v.dari_group == '2' ? (v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png') :
-                (v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png');
-            var avatar = v.dari == '0' ? '<div class="btn-circle-sm btn-success media-left pt-1" style="width: 43px; height: 40px">A</div>' : '<img class="img-circle border" src="' + foto + '" alt="Img" width="40px" height="40px">';
+            var dari, foto, avatar;
+            if (v.dari == '0') {
+                dari = 'Admin';
+                avatar = v.foto != null ? '<img class="img-circle border" src="' + v.foto + '" alt="Img" width="40px" height="40px">' :
+                    '<div class="btn-circle-sm btn-success media-left pt-1" style="width: 43px; height: 40px">A</div>'
+            } else {
+                if (v.dari_group == '2') {
+                    dari = v.nama_guru;
+                    foto = v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png';
+                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="40px" height="40px">';
+                } else {
+                    dari = v.nama_siswa;
+                    foto = v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png';
+                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="40px" height="40px">';
+                }
+            }
+
             comm += '<div class="media mt-1" id="parent-reply' + v.id_comment + '">'
                 + avatar +
                 '    <div class="w-100 ml-2">' +
@@ -355,10 +368,23 @@
         $.each(replies, function (i, v) {
             var sudahAda = $(`.media${v.id_reply}`).length;
             if (!sudahAda) {
-                var dari = v.dari_group == '1' ? 'Admin' : (v.dari_group == '2' ? v.nama_guru : v.nama_siswa);
-                var foto = v.dari_group == '2' ? (v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png') :
-                    (v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png');
-                var avatar = v.dari == '0' ? '<div class="btn-circle-sm btn-success media-left pt-1 mr-2" style="width: 37px">A</div>' : '<img class="img-circle mr-2 border" src="' + foto + '" alt="Img" width="35px" height="35px">';
+                var dari, foto, avatar;
+                if (v.dari == '0') {
+                    dari = 'Admin';
+                    avatar = v.foto != null ? '<img class="img-circle border" src="' + v.foto + '" alt="Img" width="35px" height="35px">' :
+                        '<div class="btn-circle-sm btn-success media-left pt-1 mr-2" style="width: 37px">A</div>';
+                } else {
+                    if (v.dari_group == '2') {
+                        dari = v.nama_guru;
+                        foto = v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png';
+                        avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="35px" height="35px">';
+                    } else {
+                        dari = v.nama_siswa;
+                        foto = v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png';
+                        avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="35px" height="35px">';
+                    }
+                }
+
                 repl +=
                     '<div class="media mt-1 media'+v.id_reply+'">'
                     + avatar +
@@ -452,12 +478,23 @@
         var card = '';
 
         $.each(response, function (i, v) {
-            var dari = v.dari_group == '1' ? 'Admin' : (v.dari_group == '2' ? v.nama_guru : v.nama_siswa);
-            var foto = v.dari_group == '2' ? (v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png') :
-                (v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png');
+            var dari, foto, avatar;
+            if (v.dari == '0') {
+                dari = 'Admin';
+                avatar = v.foto != null ? '<img class="img-circle border" src="' + v.foto + '" alt="Img" width="50px" height="50px">' :
+                    '<div class="btn-circle btn-success media-left pt-1">A</div>';
+            } else {
+                if (v.dari_group == '2') {
+                    dari = v.nama_guru;
+                    foto = v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png';
+                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                } else {
+                    dari = v.nama_siswa;
+                    foto = v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png';
+                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                }
+            }
 
-            var avatar = v.dari == '0' ? '<div class="btn-circle btn-success media-left pt-1">A</div>' :
-                '<img class="img-circle media-left" src="' + foto + '" alt="Img" width="50px" height="50px">';
             card += '<div class="card">' +
                 '    <div class="card-body" id="parent'+v.id_post+'">' +
                 '        <div class="media">' +

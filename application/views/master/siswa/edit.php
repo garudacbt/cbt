@@ -74,14 +74,10 @@
                         <div class="card-header p-1">
                             <div class="card-title">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#datasiswa" data-toggle="tab">Siswa</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="#biosiswa"
-                                                            data-toggle="tab">Detail</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#ortusiswa" data-toggle="tab">Orang
-                                            Tua</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#walisiswa"
-                                                            data-toggle="tab">Wali</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="#datasiswa" data-toggle="tab">Siswa</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#biosiswa" data-toggle="tab">Detail</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#ortusiswa" data-toggle="tab">Keluarga</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#walisiswa" data-toggle="tab">Wali</a></li>
                                 </ul>
                             </div>
                             <div class="card-tools mr-2 mt-1">
@@ -200,10 +196,8 @@
                                                         $arrAgama = ["Islam", "Kristen", "Katolik", "Kristen Protestan", "Hindu", "Budha", "Konghucu", "lainnya"];
                                                         ?>
                                                         <select class="form-control" id="agama"
-                                                                data-placeholder="Pilih Agama yang dianut" name="agama"
-                                                                required>
-                                                            <option value="Pilih Agama yang dianut">Pilih Agama yang
-                                                                dianut
+                                                                data-placeholder="Pilih Agama yang dianut" name="agama" required>
+                                                            <option value="0">Pilih Agama yang dianut
                                                             </option>
                                                             <?php foreach ($arrAgama as $agama) : ?>
                                                                 <option value="<?= $agama ?>" <?= $agama == $data->value ? 'selected' : '' ?>><?= $agama ?></option>
@@ -290,7 +284,27 @@
                                     <?php endforeach; ?>
                                 </div>
                                 <div class="tab-pane" id="ortusiswa">
-                                    <?php foreach ($input_ortu as $ortu) : ?>
+                                    <?php
+                                    foreach ($input_ortu as $ortu) :
+                                        if ($ortu->name == 'status_keluarga'):
+                                            $list = ["Pilih Status Kelurga", "Anak Kandung","Anak Tiri", "Anak Angkat"];
+                                            ?>
+                                    <div class="form-group row">
+                                        <div class="col-md-4 mb-sm-0">
+                                            <label for="<?= $ortu->name ?>"
+                                                   class="control-label"><?= $ortu->label ?></label>
+                                        </div>
+                                        <div class="col-md-8 mb-sm-0">
+                                            <div class="input-group">
+                                                <select class="form-control" id="<?= $ortu->name ?>" data-placeholder="Pilih Agama yang dianut" name="<?= $ortu->name ?>">
+                                                    <?php foreach ($list as $ks=>$stt) : ?>
+                                                        <option value="<?= $ks ?>" <?= $ks == $ortu->value ? 'selected' : '' ?>><?= $stt ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php else: ?>
                                         <div class="form-group row">
                                             <div class="col-md-4 mb-sm-0">
                                                 <label for="<?= $ortu->name ?>"
@@ -298,12 +312,6 @@
                                             </div>
                                             <div class="col-md-8 mb-sm-0">
                                                 <div class="input-group">
-                                                    <!--
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i
-                                                                    class="<?= $ortu->icon ?>"></i></span>
-                                                    </div>
-                                                    -->
                                                     <input value="<?= trim($ortu->value) ?>" id="<?= $ortu->name ?>"
                                                            type="<?= $ortu->type ?>"
                                                            class="form-control" name="<?= $ortu->name ?>"
@@ -311,7 +319,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php endforeach; ?>
+                                    <?php endif; endforeach; ?>
                                 </div>
                                 <div class="tab-pane" id="walisiswa">
                                     <?php foreach ($input_wali as $wali) : ?>

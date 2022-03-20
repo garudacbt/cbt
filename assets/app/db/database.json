@@ -1385,14 +1385,14 @@
       },
       {
         "name": "soal_agama",
-        "col_type": "int(2)",
-        "type": "int",
-        "collation": null,
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
         "max_length": "10",
-        "default": "0",
+        "default": null,
         "comment": "",
         "extra": "",
-        "nullable": "NO",
+        "nullable": "YES",
         "primary": ""
       }
     ]
@@ -1595,18 +1595,6 @@
         "comment": "",
         "extra": "",
         "nullable": "NO",
-        "primary": ""
-      },
-      {
-        "name": "pengawas",
-        "col_type": "longtext",
-        "type": "longtext",
-        "collation": "latin1_swedish_ci",
-        "max_length": "4294967295",
-        "default": null,
-        "comment": "",
-        "extra": "",
-        "nullable": "YES",
         "primary": ""
       },
       {
@@ -5437,6 +5425,18 @@
         "primary": ""
       },
       {
+        "name": "finish_time",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "20",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
         "name": "id_siswa",
         "col_type": "int(11)",
         "type": "int",
@@ -5478,18 +5478,6 @@
         "type": "int",
         "collation": null,
         "max_length": "2",
-        "default": null,
-        "comment": "",
-        "extra": "",
-        "nullable": "NO",
-        "primary": ""
-      },
-      {
-        "name": "log_type",
-        "col_type": "int(11)",
-        "type": "int",
-        "collation": null,
-        "max_length": "10",
         "default": null,
         "comment": "",
         "extra": "",
@@ -6230,6 +6218,18 @@
         "primary": ""
       },
       {
+        "name": "mapel_peminatan",
+        "col_type": "longtext",
+        "type": "longtext",
+        "collation": "utf8_general_ci",
+        "max_length": "4294967295",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
         "name": "status",
         "col_type": "int(11)",
         "type": "int",
@@ -6384,6 +6384,71 @@
         "type": "enum",
         "collation": "utf8_general_ci",
         "max_length": "1",
+        "default": "0",
+        "comment": "",
+        "extra": "",
+        "nullable": "NO",
+        "primary": ""
+      }
+    ]
+  },
+  "master_kelompok_mapel": {
+    "table_name": "master_kelompok_mapel",
+    "columns": [
+      {
+        "name": "id_kel_mapel",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "auto_increment",
+        "nullable": "NO",
+        "primary": "PRI"
+      },
+      {
+        "name": "kode_kel_mapel",
+        "col_type": "varchar(10)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "nama_kel_mapel",
+        "col_type": "varchar(100)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "100",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "kategori",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "utf8mb4_general_ci",
+        "max_length": "20",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "id_parent",
+        "col_type": "int(11)",
+        "type": "int",
+        "collation": null,
+        "max_length": "10",
         "default": "0",
         "comment": "",
         "extra": "",
@@ -6558,14 +6623,14 @@
       },
       {
         "name": "nis",
-        "col_type": "char(20)",
-        "type": "char",
+        "col_type": "varchar(20)",
+        "type": "varchar",
         "collation": "latin1_swedish_ci",
         "max_length": "20",
         "default": null,
         "comment": "",
         "extra": "",
-        "nullable": "NO",
+        "nullable": "YES",
         "primary": ""
       },
       {
@@ -6594,14 +6659,14 @@
       },
       {
         "name": "jenis_kelamin",
-        "col_type": "enum('L','P')",
-        "type": "enum",
+        "col_type": "varchar(1)",
+        "type": "varchar",
         "collation": "latin1_swedish_ci",
         "max_length": "1",
         "default": null,
         "comment": "",
         "extra": "",
-        "nullable": "NO",
+        "nullable": "YES",
         "primary": ""
       },
       {
@@ -6678,10 +6743,10 @@
       },
       {
         "name": "tanggal_lahir",
-        "col_type": "date",
-        "type": "date",
-        "collation": null,
-        "max_length": null,
+        "col_type": "varchar(30)",
+        "type": "varchar",
+        "collation": "latin1_general_ci",
+        "max_length": "30",
         "default": null,
         "comment": "",
         "extra": "",
@@ -6750,11 +6815,11 @@
       },
       {
         "name": "status_keluarga",
-        "col_type": "enum('1','2','3')",
-        "type": "enum",
+        "col_type": "varchar(1)",
+        "type": "varchar",
         "collation": "latin1_swedish_ci",
         "max_length": "1",
-        "default": "1",
+        "default": null,
         "comment": "",
         "extra": "",
         "nullable": "YES",
@@ -6906,10 +6971,10 @@
       },
       {
         "name": "nohp_ayah",
-        "col_type": "varchar(15)",
+        "col_type": "varchar(20)",
         "type": "varchar",
         "collation": "latin1_general_ci",
-        "max_length": "15",
+        "max_length": "20",
         "default": null,
         "comment": "",
         "extra": "",
@@ -6930,10 +6995,10 @@
       },
       {
         "name": "nama_ibu",
-        "col_type": "varchar(150)",
+        "col_type": "varchar(50)",
         "type": "varchar",
         "collation": "latin1_general_ci",
-        "max_length": "150",
+        "max_length": "50",
         "default": null,
         "comment": "",
         "extra": "",
@@ -6978,10 +7043,10 @@
       },
       {
         "name": "nohp_ibu",
-        "col_type": "int(15)",
-        "type": "int",
-        "collation": null,
-        "max_length": "10",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "latin1_general_ci",
+        "max_length": "20",
         "default": null,
         "comment": "",
         "extra": "",
@@ -7050,10 +7115,10 @@
       },
       {
         "name": "nohp_wali",
-        "col_type": "int(15)",
-        "type": "int",
-        "collation": null,
-        "max_length": "10",
+        "col_type": "varchar(20)",
+        "type": "varchar",
+        "collation": "latin1_general_ci",
+        "max_length": "20",
         "default": null,
         "comment": "",
         "extra": "",
@@ -7093,8 +7158,8 @@
         "default": null,
         "comment": "",
         "extra": "",
-        "nullable": "NO",
-        "primary": "UNI"
+        "nullable": "YES",
+        "primary": ""
       }
     ]
   },
@@ -7596,10 +7661,10 @@
       },
       {
         "name": "tgl_rapor_akhir",
-        "col_type": "text",
-        "type": "text",
+        "col_type": "varchar(100)",
+        "type": "varchar",
         "collation": "utf8mb4_general_ci",
-        "max_length": "65535",
+        "max_length": "100",
         "default": null,
         "comment": "",
         "extra": "",
@@ -7608,10 +7673,10 @@
       },
       {
         "name": "tgl_rapor_pts",
-        "col_type": "text",
-        "type": "text",
+        "col_type": "varchar(100)",
+        "type": "varchar",
         "collation": "utf8mb4_general_ci",
-        "max_length": "65535",
+        "max_length": "100",
         "default": null,
         "comment": "",
         "extra": "",
@@ -8460,11 +8525,11 @@
         "col_type": "int(3)",
         "type": "int",
         "collation": null,
-        "max_length": "10",
-        "default": null,
+        "max_length": "3",
+        "default": "0",
         "comment": "",
         "extra": "",
-        "nullable": "NO",
+        "nullable": "YES",
         "primary": ""
       },
       {
@@ -8791,8 +8856,8 @@
       },
       {
         "name": "p_predikat",
-        "col_type": "enum('A','B','C','D')",
-        "type": "enum",
+        "col_type": "varchar(1)",
+        "type": "varchar",
         "collation": "utf8mb4_general_ci",
         "max_length": "1",
         "default": null,
@@ -8923,8 +8988,8 @@
       },
       {
         "name": "k_predikat",
-        "col_type": "enum('A','B','C','D')",
-        "type": "enum",
+        "col_type": "varchar(1)",
+        "type": "varchar",
         "collation": "utf8mb4_general_ci",
         "max_length": "1",
         "default": null,
@@ -9039,11 +9104,11 @@
         "col_type": "int(3)",
         "type": "int",
         "collation": null,
-        "max_length": "10",
-        "default": null,
+        "max_length": "3",
+        "default": "0",
         "comment": "",
         "extra": "",
-        "nullable": "NO",
+        "nullable": "YES",
         "primary": ""
       },
       {
@@ -9420,6 +9485,18 @@
         "type": "int",
         "collation": null,
         "max_length": "10",
+        "default": null,
+        "comment": "",
+        "extra": "",
+        "nullable": "YES",
+        "primary": ""
+      },
+      {
+        "name": "satuan_pendidikan",
+        "col_type": "varchar(1)",
+        "type": "varchar",
+        "collation": "latin1_swedish_ci",
+        "max_length": "1",
         "default": null,
         "comment": "",
         "extra": "",
