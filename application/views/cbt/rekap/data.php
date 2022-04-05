@@ -6,24 +6,48 @@
  * Time: 17:20
  */
 
-function sortir($a, $b) {
+function sortir($a, $b)
+{
     return strcmp($a->tgl_mulai, $b->tgl_mulai) * -1;
 }
+
+function my_array_unique($array, $keep_key_assoc = false)
+{
+    $duplicate_keys = array();
+    $tmp = array();
+
+    foreach ($array as $key => $val) {
+        // convert objects to arrays, in_array() does not support objects
+        if (is_object($val))
+            $val = (array)$val;
+
+        if (!in_array($val['id_jadwal'], $tmp))
+            $tmp[] = $val['id_jadwal'];
+        else
+            $duplicate_keys[] = $key;
+    }
+
+    foreach ($duplicate_keys as $key)
+        unset($array[$key]);
+
+    return $keep_key_assoc ? $array : array_values($array);
+}
+
 ?>
 
 <div class="content-wrapper bg-white pt-4">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
+    <section class="content">
+        <div class="container-fluid">
             <div class="card card-default my-shadow mb-4">
                 <div class="card-header">
                     <h6 class="card-title"><?= $subjudul ?></h6>
@@ -31,8 +55,9 @@ function sortir($a, $b) {
                 <div class="card-body">
                     <div class="row" id="konten">
                         <?php
+                        $rekaps = my_array_unique($rekaps);
                         //echo '<pre>';
-                        //echo var_export($data_rekap);
+                        //echo var_export($koreksi[51]);
                         //echo '<br>';
                         //echo '</pre>';
 
@@ -68,37 +93,46 @@ function sortir($a, $b) {
                                     <b>REKAP NILAI</b> hanya untuk jadwal penilaian yang sudah dilaksanakan
                                 </li>
                                 <li>
-                                    Jadwal Penilaian yang sudah direkap bisa dihapus di menu <b>Jadwal Ujian</b> atau <b>Bank Soal</b>
+                                    Jadwal Penilaian yang sudah direkap bisa dihapus di menu <b>Jadwal Ujian</b> atau
+                                    <b>Bank Soal</b>
                                 </li>
                             </ul>
                         </div>
 
-                        <?=$this->session->flashdata('rekapnilai')?>
+                        <?= $this->session->flashdata('rekapnilai') ?>
 
                         <div class="col-12 mb-3">
-                            <button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-outline-danger mr-1" data-toggle="tooltip" title="Hapus Terpilh" disabled="disabled"><i class="far fa-trash-alt"></i> Hapus Terpilih</button>
-                            <button id="rekapterpilih" onclick="bulk_rekap()" type="button" class="btn btn-outline-success mr-1" data-toggle="tooltip" title="Rekap Terpilh" disabled="disabled"><i class="fa fa-database"></i> Rekap Terpilih</button>
-                            <a href="<?=base_url('cbtrekap/export')?>" type="button" class="btn btn-success mr-1 float-right"><i class="fa fa-download"></i> <span class="d-none d-sm-inline-block ml-1">Ekspor Semua</a>
+                            <button id="hapusterpilih" onclick="bulk_delete()" type="button"
+                                    class="btn btn-outline-danger mr-1" data-toggle="tooltip" title="Hapus Terpilh"
+                                    disabled="disabled"><i class="far fa-trash-alt"></i> Hapus Terpilih
+                            </button>
+                            <button id="rekapterpilih" onclick="bulk_rekap()" type="button"
+                                    class="btn btn-outline-success mr-1" data-toggle="tooltip" title="Rekap Terpilh"
+                                    disabled="disabled"><i class="fa fa-database"></i> Rekap Terpilih
+                            </button>
+                            <a href="<?= base_url('cbtrekap/export') ?>" type="button"
+                               class="btn btn-success mr-1 float-right"><i class="fa fa-download"></i> <span
+                                        class="d-none d-sm-inline-block ml-1">Ekspor Semua</a>
                         </div>
 
                         <table id="jadwal-bank" class="w-100 table table-sm table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <div class="text-center">
-                                            <input id="check-all" class="check-all" type="checkbox">
-                                        </div>
-                                    </th>
-                                    <th class="text-center align-middle p-0">No.</th>
-                                    <th>Bank Soal</th>
-                                    <th>Jenis</th>
-                                    <th>Mapel</th>
-                                    <th>Kelas</th>
-                                    <th>Pelaksanaan</th>
-                                    <th class="text-center align-middle p-0"><span>Nilai</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div class="text-center">
+                                        <input id="check-all" class="check-all" type="checkbox">
+                                    </div>
+                                </th>
+                                <th class="text-center align-middle p-0">No.</th>
+                                <th>Bank Soal</th>
+                                <th>Jenis</th>
+                                <th>Mapel</th>
+                                <th>Kelas</th>
+                                <th>Pelaksanaan</th>
+                                <th class="text-center align-middle p-0"><span>Nilai</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
                             <?php
                             $urut = 1;
@@ -120,7 +154,7 @@ function sortir($a, $b) {
                                                     $kelasbank .= ', ';
                                                 }
                                                 $kelasbank .= $k->nama_kelas;
-                                                array_push($id_kelases, ['id'=>$k->id_kelas, 'nama'=>$k->nama_kelas]);
+                                                array_push($id_kelases, ['id' => $k->id_kelas, 'nama' => $k->nama_kelas]);
                                                 $no++;
                                             }
                                         }
@@ -129,53 +163,68 @@ function sortir($a, $b) {
                                     array_push($id_kelases, ['id' => 0, 'nama' => '']);
                                 }
                                 ?>
-                            <tr>
-                                <td class="align-middle">
-                                    <div class="text-center">
-                                        <input class="check" value="<?= $jadwal->id_jadwal ?>" type="checkbox">
-                                    </div>
-                                </td>
-                                <td class="text-center align-middle"><?=$urut?></td>
-                                <td class="align-middle"><?= $jadwal->bank_kode ?></td>
-                                <td class="align-middle"><?= $jadwal->kode_jenis ?></td>
-                                <td class="align-middle"><?= $jadwal->kode ?></td>
-                                <td class="align-middle"><?= $kelasbank ?></td>
-                                <td class="align-middle"><?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_mulai))) ?> sd <?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_selesai))) ?></td>
-                                <td class="text-center">
-                                    <?php if (isset($jadwal->rekap)) :
-                                        if (!$jadwal->dikoreksi) : ?>
-                                            <button class="btn btn-primary btn-sm" onclick="backup(<?= $jadwal->id_jadwal ?>)">REKAP NILAI</button>
-                                            <span class="badge badge-btn badge-danger">Belum Dikoreksi</span>
-                                        <?php else :
-                                            if ($jadwal->rekap == '0') :?>
-                                            <button class="btn btn-primary btn-sm" onclick="backup(<?= $jadwal->id_jadwal ?>)">REKAP NILAI</button>
+                                <tr>
+                                    <td class="align-middle">
+                                        <div class="text-center">
+                                            <input class="check" value="<?= $jadwal->id_jadwal ?>" type="checkbox">
+                                        </div>
+                                    </td>
+                                    <td class="text-center align-middle"><?= $urut ?></td>
+                                    <td class="align-middle"><?= $jadwal->bank_kode ?></td>
+                                    <td class="align-middle"><?= $jadwal->kode_jenis ?></td>
+                                    <td class="align-middle"><?= $jadwal->kode ?></td>
+                                    <td class="align-middle"><?= $kelasbank ?></td>
+                                    <td class="align-middle"><?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_mulai))) ?>
+                                        sd <?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_selesai))) ?></td>
+                                    <td class="text-center">
+                                        <?php if (isset($jadwal->rekap)) :
+                                            $sudah_rekap = isset($ada_rekap[$jadwal->id_jadwal]);
+                                            if ($sudah_rekap) :?>
+                                                <button class="btn btn-primary btn-sm"
+                                                        onclick="backup(<?= $jadwal->id_jadwal ?>)">ULANGI REKAP
+                                                </button>
+                                                <a type="button" class="btn btn-success btn-sm"
+                                                   href="<?= base_url() . 'cbtrekap/olahnilai?jadwal=' . $jadwal->id_jadwal ?>">DETAIL</a>
+                                            <?php else : ?>
+                                                <button class="btn btn-primary btn-sm"
+                                                        onclick="backup(<?= $jadwal->id_jadwal ?>)">REKAP NILAI
+                                                </button>
+                                            <?php endif; ?>
+                                            <?php if (!$jadwal->hanya_pg) : ?>
+                                            <br>
+                                            <?php
+                                            $badge_jenis = $jadwal->mengerjakan == count($koreksi[$jadwal->id_jadwal][1]) ? 'badge-success' : 'badge-danger';
+                                            ?>
+                                            <span class="badge badge-btn <?= $badge_jenis ?>">
+                                                <?= $jadwal->mengerjakan ?> mengerjakan,
+                                                <?= count($koreksi[$jadwal->id_jadwal][1]) ?> dikoreksi
+                                            </span>
+                                        <?php endif; ?>
                                         <?php else : ?>
-                                            <button class="btn btn-primary btn-sm" onclick="backup(<?= $jadwal->id_jadwal ?>)">ULANGI REKAP</button>
-                                            <a type="button" class="btn btn-success btn-sm" href="<?= base_url(). 'cbtrekap/olahnilai?jadwal=' .$jadwal->id_jadwal?>">DETAIL</a>
-                                    <?php endif; endif;
-                                    else : ?>
-                                        <a type="button" class="btn btn-success btn-sm" href="<?= base_url(). 'cbtrekap/olahnilai?jadwal=' .$jadwal->id_jadwal?>">DETAIL</a>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                            <?php $urut++; endforeach; endif; ?>
-                                </tbody>
-                            </table>
+                                            <a type="button" class="btn btn-success btn-sm"
+                                               href="<?= base_url() . 'cbtrekap/olahnilai?jadwal=' . $jadwal->id_jadwal ?>">DETAIL</a>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <?php $urut++; endforeach;
+                            endif; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="overlay d-none" id="loading-atas">
                     <div class="spinner-grow"></div>
                 </div>
             </div>
-		</div>
-	</section>
+        </div>
+    </section>
 </div>
 
 <?= form_open('', array('id' => 'bulk')) ?>
 <?= form_close(); ?>
 
 <script>
-    function sortById(a, b){
+    function sortById(a, b) {
         var aID = a.id_mapel.toLowerCase();
         var bID = b.id_mapel.toLowerCase();
         return ((aID < bID) ? -1 : ((aID > bID) ? 1 : 0));
@@ -201,7 +250,7 @@ function sortir($a, $b) {
         } else {
             swal.fire({
                 title: "Semua jadwal CBT terpilih akan dihapus!",
-                html : "Semua nilai siswa dari jadwal yang terpilih juga akan dihapus!<br><span class='text-danger'><b>Pastikan anda telah mendownload semua nilai siswa</b></span>",
+                html: "Semua nilai siswa dari jadwal yang terpilih juga akan dihapus!<br><span class='text-danger'><b>Pastikan anda telah mendownload semua nilai siswa</b></span>",
                 //text: "Semua nilai siswa akan dihapus!",
                 icon: "warning",
                 showCancelButton: true,
@@ -311,7 +360,7 @@ function sortir($a, $b) {
                     } else {
                         swal.fire({
                             title: "Gagal",
-                            text: "Tidak ada data yang direkap",
+                            text: respon.message,
                             icon: "error"
                         });
                     }
@@ -329,15 +378,17 @@ function sortir($a, $b) {
 
     function backup(id) {
         $('#loading-atas').removeClass('d-none');
-        setTimeout(function() {
+        setTimeout(function () {
             $.ajax({
-                url: base_url + "cbtrekap/backupnilai/"+id,
+                url: base_url + "cbtrekap/backupnilai/" + id,
+                //url: base_url + "cbtrekap/generatenilaiujian/" + id,
                 success: function (data) {
                     //$('#loading-atas').addClass('d-none');
-                    //console.log(data);
+                    console.log(data);
                     if (data.rekap && data.nilai > 0) {
                         window.location.href = base_url + 'cbtrekap'
                     } else {
+                        $('#loading-atas').addClass('d-none');
                         showDangerToast(data.message);
                     }
                 }, error: function (xhr, status, error) {
@@ -350,9 +401,9 @@ function sortir($a, $b) {
     }
 
     $(document).ready(function () {
-		ajaxcsrf();
+        ajaxcsrf();
 
-        $("#flashdata").fadeTo(5000, 500).slideUp(500, function(){
+        $("#flashdata").fadeTo(5000, 500).slideUp(500, function () {
             $("#flashdata").slideUp(500);
         });
 

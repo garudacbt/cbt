@@ -5,28 +5,6 @@
  * Date: 14/07/20
  * Time: 17:46
  */
-
-/*
-$jr = json_decode(json_encode($jadwal->ruang));
-$jumlahRuang = json_decode(json_encode(unserialize($jr)));
-$jruangSele = [];
-foreach ($jumlahRuang as $r) {
-	array_push($jruangSele, $r->ruang);
-}
-
-$js = json_decode(json_encode($jadwal->sesi));
-$jumlahSesi = json_decode(json_encode(unserialize($js)));
-$jsesi = [];
-foreach ($jumlahSesi as $s) {
-	array_push($jsesi, $s->sesi);
-}
-$jp = json_decode(json_encode($jadwal->pengawas));
-$jumlahPengawas = json_decode(json_encode(unserialize($jp)));
-$jPengawas = [];
-foreach ($jumlahPengawas as $p) {
-	array_push($jPengawas, $p->guru);
-}
-*/
 ?>
 
 <div class="content-wrapper bg-white pt-4">
@@ -62,20 +40,21 @@ foreach ($jumlahPengawas as $p) {
 				</div>
 				<div class="card-body">
                     <?php
+                    //var_dump($jadwal->id_mapel);
                     $disabled_option = $disable_opsi ? 'disabled="disabled"' : '';
                     ?>
 					<div class="row">
-                        <!--
-                        <div class='col-md-2 mb-3'>
-                            <div class='form-group'>
-                                <label>Kode</label>
-                                <input type='number' id="durasi-ujian" name='kode'
-                                       class='form-control form-control-sm' value="<?=$jadwal->kode?>"
-                                       required='true'/>
-                            </div>
+                        <div class="col-md-5 mb-3">
+                            <label>Mata Pelajaran</label>
+                            <?php
+                            echo form_dropdown(
+                                'mapel',
+                                $mapel,
+                                isset($jadwal->id_mapel) ? $jadwal->id_mapel : '',
+                                $disabled_option.' id="id-mapel" class="form-control form-control-sm" required'
+                            ); ?>
                         </div>
-                        -->
-						<div class="col-md-5 mb-3">
+						<div class="col-md-5 mb-3 d-none">
 							<label>Guru</label>
 							<?php
 							echo form_dropdown(
@@ -178,7 +157,12 @@ foreach ($jumlahPengawas as $p) {
 	$(document).ready(function () {
         ajaxcsrf();
         console.log('used',digunakan);
-		var selBank = $('#bank-id');
+
+        var selMapel = $('#id-mapel');
+        var selec = idBank == '' ? 'selected' : '';
+        selMapel.prepend('<option value="0" '+selec+'>Pilih Mata Pelajaran</option>');
+        var selBank = $('#bank-id');
+
 		$('.select2').select2();
 		$('.tgl').datetimepicker({
 			icons:
@@ -194,36 +178,6 @@ foreach ($jumlahPengawas as $p) {
 				vertical: 'bottom'
 			}
 		});
-
-		/*
-        $('#tambahjadwal').on('show.bs.modal', function (e) {
-            var id_jadwal = $(e.relatedTarget).data('id');
-            var kode = $(e.relatedTarget).data('kode');
-            var id_bank = $(e.relatedTarget).data('bank');
-            var id_jenis = $(e.relatedTarget).data('jenis');
-            var durasi = $(e.relatedTarget).data('durasi');
-            var mulai = $(e.relatedTarget).data('mulai');
-            var selesai = $(e.relatedTarget).data('selesai');
-
-            var ruang = $(e.relatedTarget).data('ruang');
-            var arrayRuang = ruang.split(',');
-            var sesi = $(e.relatedTarget).data('sesi');
-            var arraySesi = sesi.split(',');
-
-            $(e.currentTarget).find('input[id="id-jadwal"]').val(id_jadwal);
-            $(e.currentTarget).find('input[id="kode-jadwal"]').val(kode);
-            $(e.currentTarget).find('input[id="durasi-ujian"]').val(durasi);
-            $(e.currentTarget).find('input[id="tgl-mulai"]').val(mulai);
-            $(e.currentTarget).find('input[id="tgl-selesai"]').val(selesai);
-
-            $('#bank-id').val(id_bank);
-            $('#jenis-id').val(id_jenis);
-            $('#ruang-ujian').select2().val(arrayRuang).trigger('change');
-            $('#sesi-ujian').select2().val(arraySesi).trigger('change');
-
-            console.log(sesi);
-        });
-        */
 
 		function reEnable(disable) {
             if (digunakan == '1') {
@@ -311,5 +265,26 @@ foreach ($jumlahPengawas as $p) {
 		});
 
 		getBank($('#id-guru').val());
+
+        function getBankMapel(mapel) {
+            $.ajax({
+                url: base_url + "cbtjadwal/getbankmapel/"+mapel,
+                type: "GET",
+                success: function (data) {
+                    selBank.html('');
+                    $.each(data, function (i, v) {
+                        console.log(i);
+                        var selected = i===idBank ? 'selected' : '';
+                        if (i !== '') selBank.append('<option value="'+i+'" '+selected+'>'+v+'</option>');
+                    });
+                }, error: function (xhr, status, error) {
+                    console.log("error", xhr.responseText);
+                }
+            });
+        }
+
+        selMapel.on('change', function () {
+            getBankMapel($(this).val());
+        });
 	});
 </script>

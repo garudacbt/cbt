@@ -1,8 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="readme">
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="fix guru">
+      <change afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/add_bak.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/import_bak.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/cbt/cetak/pengawas.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/master/guru/detail.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/members/guru/rapor/cetak/akhir_bak.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/app/js/jquery.backstretch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/app/js/jquery.rowspanizer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/app/js/mammoth.browser.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Bukuinduk.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Bukuinduk.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Bukurapor.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Bukurapor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtbanksoal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtbanksoal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtcetak.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtcetak.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtjadwal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtjadwal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtnomorpeserta.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtnomorpeserta.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtrekap.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtrekap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Dataekstra.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dataekstra.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Dataguru.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dataguru.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Datakelas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Datakelas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Dbclear.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dbclear.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasmateri.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasmateri.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Rapor.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Rapor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Cbt_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Cbt_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Dropdown_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Dropdown_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Kelas_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Kelas_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Master_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Master_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Rapor_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Rapor_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/_templates/dashboard/_header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/_templates/dashboard/_header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/_templates/dashboard/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/_templates/dashboard/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/auth/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/auth/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/analisis/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/analisis/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/banksoal/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/banksoal/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/banksoal/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/banksoal/import.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/import.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/cetak/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/cetak/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/jadwal/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/jadwal/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/jadwal/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/jadwal/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/nilai/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/nilai/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/nomorpeserta/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/nomorpeserta/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/pengawas/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/pengawas/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/rekap/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/rekap/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/rekap/ekspor.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/rekap/ekspor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/sesisiswa/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/sesisiswa/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/kelas/materi/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/kelas/materi/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/master/ekstra/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/master/ekstra/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/master/guru/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/master/guru/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/master/siswa/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/master/siswa/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/members/guru/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/members/guru/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/members/guru/rapor/cetak/akhir.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/members/guru/rapor/cetak/akhir.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/members/guru/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/members/guru/templates/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/members/guru/templates/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/members/guru/templates/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/members/siswa/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/members/siswa/templates/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/setting/arsiprapor.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/setting/arsiprapor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/setting/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/setting/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/setting/induk.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/setting/induk.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/setting/manage.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/setting/manage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app/js/cbt/banksoal/soal.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/js/cbt/banksoal/soal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app/js/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/js/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app/js/dashboard_guru.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/js/dashboard_guru.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/auraplus_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/auraplus_logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/auraplus_logo_gradient.svg" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -96,27 +158,31 @@
     <session id="1698047499">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.1" value="2" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="html" value="3" />
+          <entry key="js" value="1" />
           <entry key="md" value="1" />
-          <entry key="php" value="11" />
+          <entry key="php" value="13" />
           <entry key="sql" value="1" />
-          <entry key="sql___jb_old___" value="1" />
+          <entry key="sql___jb_old___" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="3" />
+          <entry key="JavaScript" value="1" />
           <entry key="Markdown" value="1" />
-          <entry key="PHP" value="11" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PHP" value="13" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -124,20 +190,35 @@
         <counts>
           <entry key="md" value="571" />
           <entry key="php" value="4" />
-          <entry key="txt" value="32" />
+          <entry key="txt" value="55" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="571" />
           <entry key="PHP" value="4" />
-          <entry key="PLAIN_TEXT" value="32" />
+          <entry key="PLAIN_TEXT" value="55" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/adminlte/dist/js/pages/dashboard.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/dashboard.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="528">
+              <caret line="244" selection-start-line="244" selection-end-line="244" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -258,7 +339,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -266,21 +346,12 @@
               <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -288,7 +359,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/backups/garuda.sql" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1646115290491" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1649151794645" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -298,15 +369,15 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\xampp73\htdocs\garudacbt" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\garudacbt\application\views" />
+      <recent name="C:\laragon\www\garudacbt\assets" />
       <recent name="D:\xampp73\htdocs\garudacbt\assets\app\db" />
       <recent name="D:\xampp73\htdocs\garudacbt\application\models" />
       <recent name="D:\xampp73\htdocs\garudacbt\application\controllers" />
-      <recent name="D:\xampp73\htdocs\garudacbt\backups" />
-      <recent name="D:\xampp73\htdocs\garudacbt\uploads\profiles" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\xampp73\htdocs\garudacbt" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -354,20 +425,9 @@
       <workItem from="1646109155551" duration="5604000" />
       <workItem from="1646199617614" duration="836000" />
       <workItem from="1646283080152" duration="895000" />
-    </task>
-    <task id="LOCAL-00001" summary="#1">
-      <created>1618404952657</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1618404952658</updated>
-    </task>
-    <task id="LOCAL-00002" summary="#2">
-      <created>1618408006990</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1618408006990</updated>
+      <workItem from="1646362378983" duration="368000" />
+      <workItem from="1647782639972" duration="813000" />
+      <workItem from="1649151620748" duration="311000" />
     </task>
     <task id="LOCAL-00003" summary="#3">
       <created>1618417387050</created>
@@ -691,16 +751,37 @@
       <option name="project" value="LOCAL" />
       <updated>1646283143835</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="readme">
+      <created>1646362477100</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1646362477100</updated>
+    </task>
+    <task id="LOCAL-00050" summary="fix guru">
+      <created>1646362734622</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1646362734622</updated>
+    </task>
+    <task id="LOCAL-00051" summary="update 20220320">
+      <created>1647783315713</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1647783315713</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48595000" />
+    <option name="totallyTimeSpent" value="50087000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27458397" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2881997" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -785,29 +866,14 @@
     <MESSAGE value="new db" />
     <MESSAGE value="versi 1.1-beta" />
     <MESSAGE value="versi 1.2-beta" />
-    <MESSAGE value="readme" />
     <MESSAGE value="fix minor bug" />
     <MESSAGE value="fix minor bug cetak" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix minor bug cetak" />
+    <MESSAGE value="readme" />
+    <MESSAGE value="fix guru" />
+    <MESSAGE value="update 20220320" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 20220320" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/controllers/Cbtcetak.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/dashboard.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="244" selection-start-line="244" selection-end-line="244" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/Cbt_model.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -946,7 +1012,6 @@
     <entry file="file://$PROJECT_DIR$/application/views/install/setup.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql___jb_old___" />
     <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
@@ -1000,8 +1065,22 @@
     <entry file="file://$PROJECT_DIR$/application/controllers/Auth.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/add.php">
+    <entry file="file://$PROJECT_DIR$/application/models/add.php" />
+    <entry file="file://$PROJECT_DIR$/assets/adminlte/dist/js/pages/dashboard.js">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Dashboard_model.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/db/master.sql___jb_old___">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/dashboard.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="244" selection-start-line="244" selection-end-line="244" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

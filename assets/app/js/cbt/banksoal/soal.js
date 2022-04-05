@@ -391,9 +391,9 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                     var sSoal = $($.parseHTML(checkSoal));
                     sSoal.find(`img`).each(function () {
                         var curSrc = $(this).attr('src');
-                        curSrc.replaceAll(base_url, '');
-                        if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                            $(this).attr('src', base_url+curSrc);
+                        curSrc.replace(base_url, '');
+                        if (curSrc.indexOf("http") === -1) {// && curSrc.indexOf("base64") === -1) {
+                            //$(this).attr('src', base_url+curSrc);
                         } else if (curSrc.indexOf(base_url) === -1) {
                             var pathUpload = 'uploads';
                             var forReplace = curSrc.split(pathUpload);
@@ -663,6 +663,23 @@ function getSoalById(id_bank, number, id, jenis_soal) {
 					});
 				}
                 $('[data-toggle="tooltip"]').tooltip();
+
+				/*
+                $('.note-editable').find('p').each(function () {
+                    if(HasArabicCharacters($(this))){
+                        $(this).removeAttr('style');
+                        $(this).attr('style', '"font-family: "uthmanic"; font-size: 22pt;"');
+                    }
+
+                    $(this).find('span').each(function () {
+                        console.log(HasArabicCharacters($(this)));
+                        if(HasArabicCharacters($(this))){
+                            $(this).removeAttr('style');
+                            $(this).attr('style', '"font-family: "uthmanic"; font-size: 22pt;"');
+                        }
+                    });
+                });
+                */
             },
 			error: function (e) {
 				$('#loading').addClass('d-none');
@@ -1053,7 +1070,7 @@ $(document).ready(function() {
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
-            ['insert', ['link', 'video', 'file']],
+            ['insert', ['link', 'picture', 'video', 'file']],
             ['view', ['fullscreen', 'codeview', 'help']],
             ['cleaner',['cleaner']],
         ],
@@ -1061,6 +1078,10 @@ $(document).ready(function() {
             onFileUpload: function(file) {
                 var idtextarea = $(this);
                 myOwnCallBack(file[0], idtextarea);
+            },
+            onImageUpload: function(images) {
+                var idtextarea = $(this);
+                myOwnCallBack(images[0], idtextarea);
             },
             onMediaDelete : function(target) {
                 deleteImage(target[0].src);
@@ -1089,6 +1110,7 @@ $(document).ready(function() {
             //['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
+            ['view', ['fullscreen', 'codeview', 'help']],
             ['insert', ['picture']],
         ],
         callbacks: {
@@ -1487,3 +1509,8 @@ function convertListToTable(array) {
 //function replaceAll(str, find, replace) {
 //    return str.replace(new RegExp(find, 'g'), replace);
 //}
+
+function HasArabicCharacters(text){
+    var arregex = /[\u0600-\u06FF]/;
+    return arregex.test(text);
+}

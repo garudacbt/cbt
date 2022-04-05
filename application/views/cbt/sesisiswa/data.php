@@ -104,6 +104,7 @@ $jenjang = $setting->jenjang;
 					//echo '<pre>';
 					//var_dump($ruang);
 					//echo '</pre>';
+                    if (count($kelas) > 0) :
 					?>
 					<div id="atur-by-kelas">
 						<?= form_open('cbtsesisiswa/editsesikelas', array('id' => 'editsesikelas')) ?>
@@ -269,6 +270,9 @@ $jenjang = $setting->jenjang;
 						</div>
 						<?= form_close() ?>
 					</div>
+                    <?php else: ?>
+                        <div class="alert alert-default-warning align-content-center" role="alert">Belum ada data siswa dan kelas</div>
+                    <?php endif; ?>
 				</div>
 				<div class="overlay d-none" id="loading">
 					<div class="spinner-grow"></div>

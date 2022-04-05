@@ -140,23 +140,23 @@ $allBanksIds = [];
                                             <td class="align-middle"><?= $bank->bank_kode ?></td>
                                             <td class="align-middle"><?= $bank->nama_mapel ?></td>
                                             <td class="align-middle"><?= $kelasbank ?></td>
-                                            <td class="text-center">
+                                            <td class="text-center w-auto">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"
                                                        href="<?= base_url('cbtbanksoal/editBank?id_bank=' . $bank->id_bank . '&id_guru=' . $bank->id_guru) ?>"
-                                                       class="btn btn-warning btn-sm mr-1"><i
+                                                       class="btn btn-warning btn-sm mb-1"><i
                                                                 class="fa fa-pencil-alt"></i></a>
                                                 </span>
                                                 <span data-toggle="tooltip" title="Import Soal">
 											<a href="javascript:void(0)" data-total="<?= $bank->total_soal ?>"
                                                data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                               type="button" class="btn btn-warning">
+                                               type="button" class="btn btn-warning btn-sm mb-1">
 												<i class="fas fa-upload"></i> Import
 											</a>
 										</span>
-                                                <span data-toggle="tooltip" title="Buat Soal">
+                                                <span data-toggle="tooltip" title="Detail/Buat Soal">
                                         <a href="<?= base_url('cbtbanksoal/detail/' . $bank->id_bank) ?>"
-                                           type="button" class="btn btn-success">
+                                           type="button" class="btn btn-success btn-sm mb-1">
                                             <?php if ($bank->total_soal == 0) : ?>
                                                 <i class="fas fa-plus"></i> Buat Soal
                                             <?php else: ?>
@@ -169,8 +169,8 @@ $allBanksIds = [];
                                                         data-level="<?= $bank->bank_level ?>"
                                                         data-essai="<?= $bank->tampil_esai ?>"
                                                         onclick="getSoal(this)" type="button"
-                                                        class="btn btn-primary">
-                                                    <i class="fas fa-download mr-1"></i> Download <br>
+                                                        class="btn btn-primary btn-sm mb-1">
+                                                    <i class="fas fa-download"></i>
                                                 </button>
                                             </td>
                                         </tr>

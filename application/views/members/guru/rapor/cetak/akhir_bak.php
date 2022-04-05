@@ -34,7 +34,8 @@ $satuan = [
                         <div class="card-header bg-light">
                             <h3 class="card-title">Siswa</h3>
                         </div>
-                        <div class="card-body p-0" style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
+                        <div class="card-body p-0"
+                             style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
                             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
                                 <?php
                                 $n = 1;
@@ -57,42 +58,37 @@ $satuan = [
                                 <h6>Preview</h6>
                             </div>
                             <div class="card-tools">
-                                <button class="btn btn-success btn-sm" onclick="perbesar()" disabled>
+                                <button class="btn btn-primary btn-sm" onclick="perbesar()" disabled>
                                     <i class="fa fa-search-plus mr-1"></i>Perbesar
                                 </button>
-                                <button class="btn btn-success btn-sm" onclick="perkecil()" disabled>
+                                <button class="btn btn-primary btn-sm" onclick="perkecil()" disabled>
                                     <i class="fa fa-search-minus mr-1"></i>Perkecil
                                 </button>
                             </div>
                         </div>
                         <div class="card-body bg-gray-light p-1">
-                            <div class="row mb-1 ml-1 mr-1 d-flex flex-wrap">
-                                <button id="cetak-sampul" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakSampul()"
+                            <div class="row mb-3 ml-1">
+                                <button id="cetak-sampul" class="btn btn-primary btn-sm ml-1" onclick="cetakSampul()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Sampul
                                 </button>
-                                <button id="cetak-info" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakInfo()"
+                                <button id="cetak-info" class="btn btn-primary btn-sm ml-1" onclick="cetakInfo()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Info
                                 </button>
-                                <button id="cetak-data" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakData()"
+                                <button id="cetak-data" class="btn btn-primary btn-sm ml-1" onclick="cetakData()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Data Siswa
                                 </button>
-                                <button id="cetak-nilai" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakRapor()"
+                                <button id="cetak-nilai" class="btn btn-primary btn-sm ml-1" onclick="cetakRapor()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Nilai
                                 </button>
-                                <button id="cetak-semua" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakSemua()"
+                                <button id="cetak-semua" class="btn btn-primary btn-sm ml-1" onclick="cetakSemua()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Semua Halaman
                                 </button>
-                                <div class="text-right mb-1 ml-auto">
-                                    <span>Hal. dari</span>
-                                    <input type="number" id="page-start" style="width: 100px;" disabled="disabled">
-                                </div>
                             </div>
-                            <hr>
                             <div class="d-flex justify-content-center bg-gray-light" style="min-height: 300mm">
                                 <div id="zoom" style="transform: scale(0.9); transform-origin: top center">
                                     <div id="print-preview">
@@ -100,7 +96,7 @@ $satuan = [
                                              style="display: flex;-webkit-justify-content: center;justify-content: center;width: 210mm; height: 297mm;padding: 10mm">
                                             Silahkan pilih siswa
                                         </div>
-                                        <div id="print-sampul" class="border my-shadow mb-3 d-none p-5"
+                                        <div id="print-sampul" class="border my-shadow mb-3 d-none"
                                              style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm; padding: 5mm 10mm 5mm 10mm">
                                             <div style="margin-top: 80px;text-align: center">
                                                 <div class="image">
@@ -110,7 +106,7 @@ $satuan = [
                                                 <br>
                                                 <div class="judul"
                                                      style="text-align: center;font-family: 'Arial';font-size: 20pt;font-weight: bold">
-                                                    <p style="margin-bottom: 0">LAPORAN HASIL BELAJAR</p>
+                                                    <p style="margin-bottom: 0">RAPOR</p>
                                                     <?php
                                                     $header_rapor = $satuan[$setting->jenjang][$setting->satuan_pendidikan];
                                                     ?>
@@ -157,23 +153,23 @@ $satuan = [
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="print-info" class="border my-shadow mb-3 d-none p-5"
-                                             style="background: white;width: 210mm; min-height: 297mm;">
+                                        <div id="print-info" class="border my-shadow mb-3 d-none"
+                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
                                         </div>
-                                        <div id="print-data" class="border my-shadow mb-3 d-none p-5"
-                                             style="background: white;width: 210mm; min-height: 297mm;">
+                                        <div id="print-data" class="border my-shadow mb-3 d-none"
+                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
                                         </div>
-                                        <div id="print-sikap" class="border my-shadow mb-3 d-none p-5"
-                                             style="background: white;width: 210mm; min-height: 297mm;">
+                                        <div id="print-sikap" class="border my-shadow mb-3 d-none"
+                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
                                         </div>
-                                        <div id="print-nilai" class="border my-shadow mb-3 d-none p-5"
-                                             style="background: white;width: 210mm; min-height: 297mm;">
+                                        <div id="print-nilai" class="border my-shadow mb-3 d-none"
+                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
                                         </div>
-                                        <div id="print-deskripsi1" class="border my-shadow mb-3 d-none p-5"
-                                             style="background: white;width: 210mm; min-height: 297mm;">
+                                        <div id="print-deskripsi1" class="border my-shadow mb-3 d-none"
+                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
                                         </div>
-                                        <div id="print-deskripsi2" class="border my-shadow mb-3 d-none p-5"
-                                             style="background: white;width: 210mm; min-height: 297mm;">
+                                        <div id="print-deskripsi2" class="border my-shadow mb-3 d-none"
+                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
                                         </div>
                                     </div>
                                 </div>
@@ -194,12 +190,9 @@ $satuan = [
     var siswaSelected = null;
     var kelas = '<?= $kelas ?>';
     var level = '<?= $lvl_kelas ?>';
-    var tp = JSON.parse(JSON.stringify(<?= json_encode($tp_name != null ? $tp_name : "") ?>));
-    var smt = JSON.parse(JSON.stringify(<?= json_encode($smt_name != null ? $smt_name : "") ?>));
     var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswas)?>));
     var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
-    var arrKelompokMapel = JSON.parse(JSON.stringify(<?= json_encode($kelompoks)?>));
     var arrekstra = JSON.parse(JSON.stringify(<?= json_encode($mapel_ekstra)?>));
     var sikap = JSON.parse(JSON.stringify(<?= json_encode($sikap)?>));
     var nilai = JSON.parse(JSON.stringify(<?= json_encode($nilai)?>));
@@ -212,15 +205,13 @@ $satuan = [
     var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
     var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($rapor) ?>));
-
+    var tp = '<?= $tp_active->tahun ?>';
+    var smt = '<?= $smt_active->smt ?>';
     var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
+
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
 
     var z = 0.9;
-
-    var halamanAwal = 1;
-    var perSmt = 4;
-    var perTp = perSmt * 2;
 
     function inArray(val, array) {
         var found = $.inArray(val, array);
@@ -235,15 +226,18 @@ $satuan = [
             z += 0.1;
             prev.css('transform', 'scale(' + z + ')');
         }
+        //cell.style.fontSize = 'small';
     }
 
     function perkecil() {
         var prev = $('#zoom');
         console.log(z);
+        //if (z === 10)
         if (z > 0.2) {
             z -= 0.1;
             prev.css({'transform': 'scale(' + z + ')', 'transform-origin': 'top center'});
         }
+        //cell.style.fontSize = 'small';
     }
 
     function inRange(n, start, end) {
@@ -251,7 +245,7 @@ $satuan = [
     }
 
     function handleNull(value) {
-        if (value == null || value == '0' || value == '') return '-';
+        if (value == null || value == '0') return '-';
         else return value;
     }
 
@@ -315,27 +309,27 @@ $satuan = [
         var bulans = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         var ttl = '';
         if (handleNull(tgl) != '-') {
-            if (tgl.indexOf("-") >= 0) {
-                var splitted = tgl.split("-");
-                var tanggal, tahun;
-                if (splitted[2] != null && splitted[0].length == 4) {
-                    tanggal = splitted[2];
-                    tahun = splitted[0];
-                } else {
-                    tanggal = splitted[0];
-                    tahun = splitted[2];
-                }
-                var bulan = splitted[1];
+            var tanggal = tgl.split("-")[2];
+            var bulan = tgl.split("-")[1];
+            var tahun = tgl.split("-")[0];
 
-                ttl += tanggal + " " + bulans[Math.abs(bulan)] + " " + tahun;
-            } else {
-                ttl = tgl;
-            }
+            ttl += tanggal + " " + bulans[Math.abs(bulan)] + " " + tahun;
         }
         return ttl;
     }
 
     function ellipsisText(text) {
+        //text = 'Menyusun, menanggapi, menyajikan teks pidato sesuai kaidah, Menelaah, menanggapi, ' +
+        //    'menyajikan teks berita ilmu pengetahuan, teknologi dan seni, Menelaah, menanggapi, membicarakan ' +
+        //    'karangan argumentasi sesuai kaidah, Menelaah, menanggapi dan memparafasekan isi teks guritan';
+        /*
+        var limit = 135;
+        var len = text.length;
+        if (len >= limit) {
+            text = text.substring(0, limit) + '...';
+        }
+        return text;
+        */
         if (text == null) {
             return '';
         } else {
@@ -343,6 +337,7 @@ $satuan = [
             if (splitted.length > 2) {
                 var s1 = splitted[0];
                 var s2 = splitted[1];
+                //return s1.split('dan')[0] + ',' + s2.split('dan')[0];
 
                 var limit = 30;
                 var len = s2.length;
@@ -351,6 +346,7 @@ $satuan = [
                 }
                 return s1 + ',' + s2;
             } else {
+                //return text.split('dan')[0];
                 return text;
             }
         }
@@ -362,16 +358,16 @@ $satuan = [
             'Kelurahan/Desa', 'Kecamatan', 'Kota/Kabupaten', 'Provinsi',
             'Kode Pos', 'No. Telepon', 'Faksimili', 'Websita', 'Email'];
         var arrInfoVal = [
-            handleNull(setting.sekolah).toUpperCase(), handleNull(setting.npsn), handleNull(setting.nss), handleNull(setting.alamat),
+            handleNull(setting.sekolah), handleNull(setting.npsn), handleNull(setting.nss), handleNull(setting.alamat),
             handleNull(setting.desa), handleNull(setting.kecamatan), handleNull(setting.kota), handleNull(setting.provinsi),
             handleNull(setting.kode_pos), handleNull(setting.telp), handleNull(setting.fax), handleNull(setting.web),
             handleNull(setting.email)];
 
+        console.log('setting', satuanPend[setting.jenjang][setting.satuan_pendidikan]);
         var splited = satuanPend[setting.jenjang][setting.satuan_pendidikan].split('(');
         var title1 = splited[0];
         var title2 = '('+splited[1];
-        var infoSekolah = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
-            '<div style="padding: 0; margin-top: 100px">' +
+        var infoSekolah = '<div style="padding: 0.5cm; margin-top: 100px">' +
             '    <div class="judul" style="text-align: center;font-family: \'Arial\';font-size: 20pt;font-weight: bold">' +
             '        <p style="margin-bottom: 0">RAPOR</p>' +
             '        <p style="margin-bottom: 0">'+title1+'</p>' +
@@ -396,16 +392,6 @@ $satuan = [
             }
         }
         infoSekolah += '</table></div></div>';
-        infoSekolah += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
-            '<table style="width: 100%;">' +
-            '<tr>' +
-            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;"></td>' +
-            '<td style="text-align: end;">ii</td>' +
-            '</tr>' +
-            '</table>' +
-            '</div></div>';
 
         return infoSekolah;
     }
@@ -421,17 +407,16 @@ $satuan = [
             'b. Pekerjaan', 'c. Nomor Telepon/HP', 'd. Alamat', 'e. Nama Ibu', 'f. Pekerjaan', 'g. Nomor Telepon/HP',
             'h. Alamat', 'Wali', 'a. Nama Wali', 'b. Pekerjaan', 'c. Nomor Telpon/HP', 'd. Alamat'];
         var arrIdVal = [
-            handleNull(siswa.nama).toUpperCase(), handleNisn(siswa.nis, siswa.nisn),
+            handleNull(siswa.nama), handleNisn(siswa.nis, siswa.nisn),
             handleNull(siswa.tempat_lahir) + ', ' + handleTanggal(siswa.tanggal_lahir), handleJenisKelamin(siswa.jenis_kelamin),
             handleNull(siswa.agama), handleStatusKeluarga(siswa.status_keluarga), handleNull(siswa.anak_ke),
             handleAlamat(siswa.alamat, siswa.rt, siswa.rw, siswa.kelurahan, siswa.kecamatan, siswa.kabupaten, siswa.provinsi),
             handleNull(siswa.hp), handleNull(siswa.sekolah_asal), '', handleNull(siswa.kelas_awal), handleTanggal(siswa.tahun_masuk),
-            '', handleNull(siswa.nama_ayah), handleNull(siswa.pekerjaan_ayah), handleNull(siswa.nohp_ayah), handleNull(siswa.alamat_ayah),
+            '', handleNull(siswa.nama_ayah), handleNull(siswa.pekerjaan_ayah), handleNull(siswa.nohp_ayah), handleNull(siswa.alamat_syah),
             handleNull(siswa.nama_ibu), handleNull(siswa.pekerjaan_ibu), handleNull(siswa.nohp_ibu), handleNull(siswa.alamat_ibu),
             '', handleNull(siswa.nama_wali), handleNull(siswa.pekerjaan_wali), handleNull(siswa.nohp_wali), handleNull(siswa.alamat_wali),
         ];
-        var identitas = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
-            '<div style="padding: 0; margin-top: 0">' +
+        var identitas = '<div style="padding: 0.5cm; margin-top: 0">' +
             '    <div class="judul"' +
             '         style="text-align: center;font-family: \'Arial\';font-size: 16pt;font-weight: bold">' +
             '        <p>IDENTITAS PESERTA DIDIK</p>' +
@@ -477,28 +462,26 @@ $satuan = [
             '    Nip:' +
             '</td>' +
             '</tr>' +
-            '</table>';
-        //footer
-        identitas += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
-            '<table style="width: 100%;">' +
-            '<tr>' +
-            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
-            '<td style="text-align: end;">iii</td>' +
-            '</tr>' +
             '</table>' +
-            '</div></div>';
+            '</div>';
 
         return identitas;
     }
 
-    function headerPage(siswa) {
-        var header = '    <table id="table-info-print" style="width: 100%; border: 0;">' +
+    function createPageSikap(idSiswa, siswa) {
+        var sSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].predikat.predikat : '';
+        var sSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].predikat.predikat : '';
+        var desSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].deskripsi : '';
+        var desSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].deskripsi : '';
+
+        var tableSikap = '<div style="padding: 0.5cm;">' +
+            '    <p style="font-family: \'Tahoma\';text-align: center;font-size: 12pt;"><b>PENCAPAIAN KOMPETENSI PESERTA DIDIK</b></p>' +
+            '    <hr>' +
+            '    <table id="table-info-print" style="width: 100%; border: 0;">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td style="width:20%;">Nama</td>' +
             '            <td>:</td>' +
-            '            <td style="width:40%;"><b>' + siswa.nama.toUpperCase() + '</b></td>' +
+            '            <td style="width:40%;"><b>' + siswa.nama + '</b></td>' +
             '            <td style="width:20%;">Kelas</td>' +
             '            <td>:</td>' +
             '            <td style="width:20%;"><b>' + siswa.nama_kelas + '</b></td>' +
@@ -509,7 +492,7 @@ $satuan = [
             '            <td><b>' + handleNisn(siswa.nis, siswa.nisn) + '</b></td>' +
             '            <td>Semester</td>' +
             '            <td>:</td>' +
-            '            <td><b>' + smt.nama_smt + '</b></td>' +
+            '            <td><b>' + smt + '</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td>Nama '+ namaSatuanPend +'</td>' +
@@ -517,7 +500,7 @@ $satuan = [
             '            <td><b>' + setting.sekolah + '</b></td>' +
             '            <td>Tahun Pelajaran</td>' +
             '            <td>:</td>' +
-            '            <td><b>' + tp.tahun + '</b></td>' +
+            '            <td><b>' + tp + '</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td>Alamat</td>' +
@@ -529,28 +512,10 @@ $satuan = [
             '            <td></td>' +
             '        </tr>' +
             '    </table>' +
-            '<hr>';
-        return header;
-    }
-
-    const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-    const alphabet = alpha.map((x) => String.fromCharCode(x));
-    let posAlpha = 0;
-    //console.log(alphabet[0]);
-
-    function createPageSikap(idSiswa, siswa) {
-        var sSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].predikat.predikat : '';
-        var sSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].predikat.predikat : '';
-        var desSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].deskripsi : '';
-        var desSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].deskripsi : '';
-
-        var tableSikap = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;"> ' +
-            '<div style="padding: 0;">' +
-            '    <p style="font-family: \'Tahoma\';text-align: center;font-size: 12pt;"><b>PENCAPAIAN KOMPETENSI PESERTA DIDIK</b></p>' +
-            '    <hr>' + headerPage(siswa) +
+            '<hr>' +
             '<br>' +
             '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. SIKAP</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>A. SIKAP</b></span>' +
             '<br>' +
             '<br>' +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>1. Sikap Spiritual</b></span>' +
@@ -589,23 +554,144 @@ $satuan = [
             '</table>' +
             '</div>' +
             '</div>';
-        posAlpha ++;
 
-        //footer
-        tableSikap += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
-            '<table style="width: 100%;">' +
+        tableSikap += '<div class="d-none" style="width: 100%; position: fixed; bottom: 0;color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<hr style="border-top: 1px solid #000000">' +
+            '<table>' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
-            '<td class="hal" style="text-align: end;"></td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + ' | ' + setting.sekolah + '</td>' +
             '</tr>' +
             '</table>' +
-            '</div></div>';
+            '</div>';
+
         return tableSikap;
     }
 
-    function tableKkm() {
+    function createPageNilai(idSiswa) {
+        var tableNilai = '<div style="padding: 0.5cm;margin-top: 20px">' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>B. PENGETAHUAN DAN KETERAMPILAN</b></span>' +
+            //'<br>' +
+            //'    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+isi+'</b></span>' +
+            //'<br>' +
+            '<br>' +
+            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
+            '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
+            '            <td rowspan="2" style="width:40%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
+            '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse"><b>KKM</b></td>' +
+            '            <td colspan="2" style="width:24%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
+            '            <td colspan="2" style="width:24%;border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
+            '        </tr>' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
+            '            <td style="width:10%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
+            '            <td style="width:15%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
+            '            <td style="width:10%;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
+            '            <td style="width:15%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
+            '        </tr>' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td colspan="7" style="border: 1px solid black; border-collapse: collapse; padding: 8px"><b>Kelompok A (Umum)</b></td>' +
+            '        </tr>' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td rowspan="5" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
+            '                Pendidikan Agama Islam' +
+            '            </td>';
+        for (let i = 0; i < 5; i++) {
+            tableNilai += '<td style="border: 1px solid black; border-collapse: collapse"></td>';
+        }
+        tableNilai += '</tr>';
+
+        var no = 2;
+        var abjad = ['a', 'b', 'c', 'd'];
+        var pos = 0;
+
+        $.each(arrMapel, function (k, mapel) {
+            const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
+            var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
+            var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
+            var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
+            var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
+            if (mapel.urutan == '1') {
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkmMapel + '</b></td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
+                    '</tr>';
+                pos++;
+            } else if (mapel.urutan == '2') {
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + mapel.nama_mapel + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkmMapel + '</b></td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
+                    '</tr>';
+                no++;
+            }
+        });
+
+        tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<td colspan="7" style="border: 1px solid black; border-collapse: collapse; padding: 8px"><b>Kelompok B (Umum)</b></td>' +
+            '</tr>';
+
+        $.each(arrMapel, function (k, mapel) {
+            const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
+            var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
+            var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
+            var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
+            var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
+            if (mapel.urutan == '3') {
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + mapel.nama_mapel + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkmMapel + '</b></td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
+                    '</tr>';
+                no++;
+            }
+        });
+
+        var totalMulok = 0;
+        $.each(arrMapel, function (k, mapel) {
+            if (mapel.kelompok == 'MULOK') {
+                totalMulok += 1;
+            }
+        });
+
+        if (totalMulok > 0) {
+            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                '<td rowspan="2" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top;padding: 6px">' + no + '</td>' +
+                '<td colspan="6" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px"><b>Muatan Lokal *)</b></td>' +
+                '</tr>';
+
+            $.each(arrMapel, function (k, mapel) {
+                const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
+                var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
+                var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
+                var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
+                var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
+                if (mapel.kelompok == 'MULOK') {
+                    tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; padding: 6px">' + mapel.nama_mapel + '</td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"><b>' + kkmMapel + '</b></td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
+                        '</tr>';
+                }
+            });
+        }
+
         let arrKKM = [];
         if (raporSetting.kkm_tunggal == "1") {
             arrKKM.push(raporSetting.kkm);
@@ -616,6 +702,7 @@ $satuan = [
                 }
             });
         }
+        //console.log('arrKKM', arrKKM);
         let kkmTable = [];
         if (arrKKM.length <= 3) {
             arrKKM.sort();
@@ -626,25 +713,28 @@ $satuan = [
             let halfwayThrough = Math.floor(arrKKM.length / 2);
             let arrayFirstHalf = arrKKM.slice(0, halfwayThrough);
             let arraySecondHalf = arrKKM.slice(halfwayThrough, arrKKM.length);
+            //console.log('first', arrayFirstHalf);
+            //console.log('second', arraySecondHalf);
 
             kkmTable.push(arrayFirstHalf[0]);
             kkmTable.push(arraySecondHalf[0]);
             kkmTable.push(arraySecondHalf[arraySecondHalf.length - 1]);
         }
 
-        var tableNilai = '</table>' +
+        tableNilai += '</table>' +
+            '<br>' +
             '<br>' +
             '<span style="font-family: \'Tahoma\';font-size: 10pt">Table Interval Predikat Berdasarkan KKM</span>' +
             '<table id="table-kkm-print" style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
             '    <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9">' +
-            '        <td rowspan="2" style="width: 20%;border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px"><b>KKM</b></td>' +
-            '        <td colspan="4" style="width:80%;border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px"><b>PREDIKAT</b></td>' +
+            '        <td rowspan="2" style="width: 20%;border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>KKM</b></td>' +
+            '        <td colspan="4" style="width:80%;border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>PREDIKAT</b></td>' +
             '    </tr>' +
             '    <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9">' +
-            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px"><b>D (kurang)</b></td>' +
-            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px"><b>C (cukup)</b></td>' +
-            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px"><b>B (baik)</b></td>' +
-            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px"><b>A (sangat baik)</b></td>' +
+            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>D (kurang)</b></td>' +
+            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>C (cukup)</b></td>' +
+            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>B (baik)</b></td>' +
+            '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>A (sangat baik)</b></td>' +
             '    </tr>';
 
         $.each(kkmTable, function (p, kkm) {
@@ -660,296 +750,125 @@ $satuan = [
 
             tableNilai +=
                 '    <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
-                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px"><b>' + isi + '</b></td>' +
-                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px">< ' + isi + '</td>' +
-                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px">' + pre_c + ' ~ ' + pre_csd + '</td>' +
-                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px">' + pre_b + ' ~ ' + pre_bsd + '</td>' +
-                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 2px 4px 2px 4px">' + pre_a + ' ~ ' + pre_asd + '</td>' +
+                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px"><b>' + isi + '</b></td>' +
+                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px">< ' + isi + '</td>' +
+                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px">' + pre_c + ' ~ ' + pre_csd + '</td>' +
+                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px">' + pre_b + ' ~ ' + pre_bsd + '</td>' +
+                '        <td style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 6px">' + pre_a + ' ~ ' + pre_asd + '</td>' +
                 '    </tr>';
         });
-        tableNilai += '</table>';
+
+        tableNilai += '</table></div>';
+
         return tableNilai;
     }
 
-    function createPagePengetahuan(idSiswa, siswa) {
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
-            '<div style="padding: 0;">' +
-            headerPage(siswa) +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PENGETAHUAN</b></span>';
-        if (raporSetting.kkm_tunggal == '1') {
-            tableNilai += '<br>' +
-                '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+raporSetting.kkm+'</b></span>';
-        }
-        posAlpha ++;
-        var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
-        var collSpan = raporSetting.kkm_tunggal == '1' ? 5 : 6;
-        tableNilai += '<br>' +
-            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
+    function createPageDeskripsi(idSiswa) {
+        var tableNilai = '<div style="padding: 0.5cm;margin-top: 20px">' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>C. DESKRIPSI PENGETAHUAN DAN KETERAMPILAN</b></span>' +
+            '<br>' +
+            '    <table id="table-nilai-print" style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px;">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
-            '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
-            '            <td rowspan="2" style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
-            '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;'+display+'"><b>KKM</b></td>' +
-            '            <td colspan="3" style="height:25px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
-            //'            <td style="width:9%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
-            //'            <td style="height:35px;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
+            '            <td style="width:5%;height:35px;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
+            '            <td style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
+            '            <td style="width:37%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
+            '            <td style="width:38%;border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
             '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
-            '            <td style="width:7%;height:25px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
-            '            <td style="width:9%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
-            '            <td style="border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
-            '        </tr>';
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td colspan="4" style="border: 1px solid black; border-collapse: collapse; padding: 6px"><b>Kelompok A (Umum)</b></td>' +
+            '        </tr>' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td rowspan="5" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 4px">1</td>' +
+            '            <td colspan="3" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 4px">' +
+            '                Pendidikan Agama Islam' +
+            '            </td>'
+            + '</tr>';
 
-        // mapel pai
-        var htmlPai = '';
-        var tablePai = '';
-        var abjad = ['', 'a', 'b', 'c', 'd'];
+        var no = 2;
+        var abjad = ['a', 'b', 'c', 'd'];
         var pos = 0;
 
-        var arr = Object.keys(arrKelompokMapel).map(function (key) { return arrKelompokMapel[key]; });
-        var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
-        var pai = arr[indexPAI];
-
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
-                //hasSub = val.id_parent != '0';
-                const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
-                var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
-                var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
-                var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
-                //var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                //var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
-                pos ++;
-                htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+            var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
+            var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
+            if (mapel.urutan == '1') {
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                     ellipsisText(pdesk) +
                     '</td>' +
-                    //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                    //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
-                    '</tr>';
-            }
-        });
-
-        if (pos > 0) {
-            tablePai = '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '            <td rowspan="'+(pos+1)+'" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
-                '            <td colspan="'+(collSpan-1)+'" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
-                '                Pendidikan Agama Islam' +
-                '            </td>' +
-                '</tr>' + htmlPai;
-        }
-
-        // mapel non pai
-        var index = 0;
-        $.each(arrKelompokMapel, function (kel, val) {
-            var no = pos > 0 && index == 0 ? 1 : 0;
-            var htmlTr = '';
-            var hasSub = false;
-
-            if (val.kategori != 'PAI (Kemenag)') {
-                $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
-                        hasSub = val.id_parent != '0';
-                        const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
-                        var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
-                        var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
-                        var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
-                        //var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                        //var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
-                        no++;
-                        htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + mapel.nama_mapel + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
-                            ellipsisText(pdesk) +
-                            '</td>' +
-                            //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                            //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
-                            '</tr>';
-                    }
-                });
-            }
-
-            if (hasSub && no > 0) {
-                var parent;
-                $.each(arrKelompokMapel, function (kels, vals) {
-                    if (vals.id_kel_mapel == val.id_parent) {
-                        parent = vals.nama_kel_mapel;
-                    }
-                });
-                tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+parent+'</b></td>' +
-                    '        </tr>';
-            }
-
-            if (no > 0) {
-                if (index == 0) {
-                    tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
-                        '        </tr>' + tablePai +htmlTr;
-                } else {
-                    tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
-                        '        </tr>' + htmlTr;
-                }
-            }
-
-            index ++;
-        });
-        tableNilai += '</table>' ;
-        tableNilai += tableKkm() + '</div>';
-
-        tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
-            '<table style="width: 100%;">' +
-            '<tr>' +
-            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
-            '<td class="hal" style="text-align: end;"></td>' +
-            '</tr>' +
-            '</table>' +
-            '</div></div>';
-
-        return tableNilai;
-    }
-
-    function createPageKeterampilan(idSiswa, siswa) {
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
-            '<div style="padding: 0;">' +
-            headerPage(siswa) +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETERAMPILAN</b></span>';
-        if (raporSetting.kkm_tunggal == '1') {
-            tableNilai += '<br>' +
-                '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+raporSetting.kkm+'</b></span>';
-        }
-        posAlpha ++;
-        var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
-        var collSpan = raporSetting.kkm_tunggal == '1' ? 5 : 6;
-        tableNilai += '<br>' +
-            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
-            '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
-            '            <td rowspan="2" style="width:25%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
-            '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;'+display+'"><b>KKM</b></td>' +
-            '            <td colspan="3" style="height:25px;border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
-            '        </tr>' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
-            '            <td style="width:7%;height:25px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
-            '            <td style="width:9%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
-            '            <td style="border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
-            '        </tr>';
-
-        // mapel pai
-        var htmlPai = '';
-        var tablePai = '';
-        var abjad = ['', 'a', 'b', 'c', 'd'];
-        var pos = 0;
-
-        var arr = Object.keys(arrKelompokMapel).map(function (key) { return arrKelompokMapel[key]; });
-        var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
-        var pai = arr[indexPAI];
-        $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
-                const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
-                var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
-                var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
-                pos ++;
-                htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                     ellipsisText(kdesk) +
                     '</td>' +
                     '</tr>';
+                pos++;
+            } else if (mapel.urutan == '2') {
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;padding: 4px">' + no + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + mapel.nama_mapel + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+                    ellipsisText(pdesk) +
+                    '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+                    ellipsisText(kdesk) +
+                    '</td>' +
+                    '</tr>';
+                no++;
             }
         });
 
-        if (pos > 0) {
-            tablePai = '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '            <td rowspan="'+(pos+1)+'" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
-                '            <td colspan="'+(collSpan-1)+'" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
-                '                Pendidikan Agama Islam' +
-                '            </td>' +
-                '</tr>' + htmlPai;
+        tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<td colspan="4" style="border: 1px solid black; border-collapse: collapse; padding: 6px"><b>Kelompok B (Umum)</b></td>' +
+            '</tr>';
+
+        $.each(arrMapel, function (k, mapel) {
+            var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
+            var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
+            if (mapel.urutan == '3') {
+                tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + mapel.nama_mapel + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+                    ellipsisText(pdesk) +
+                    '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+                    ellipsisText(kdesk) +
+                    '</td>' +
+                    '</tr>';
+                no++;
+            }
+        });
+        var totalMulok = 0;
+        $.each(arrMapel, function (k, mapel) {
+            if (mapel.kelompok == 'MULOK') {
+                totalMulok += 1;
+            }
+        });
+
+        if (totalMulok > 0) {
+            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                '<td rowspan="2" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top;padding: 4px">' + no + '</td>' +
+                '<td colspan="3" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 4px"><b>Muatan Lokal *)</b></td>' +
+                '</tr>';
+
+            $.each(arrMapel, function (k, mapel) {
+                var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
+                var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
+                if (mapel.kelompok == 'MULOK') {
+                    tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px">' + mapel.nama_mapel + '</td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+                        ellipsisText(pdesk) +
+                        '</td>' +
+                        '<td style="border: 1px solid black; border-collapse: collapse; padding: 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
+                        ellipsisText(kdesk) +
+                        '</td>' +
+                        '</tr>';
+                }
+            });
         }
 
-        // mapel non pai
-        var index = 0;
-        $.each(arrKelompokMapel, function (kel, val) {
-            var no = pos > 0 && index == 0 ? 1 : 0;
-            var htmlTr = '';
-            var hasSub = false;
-
-            if (val.kategori != 'PAI (Kemenag)') {
-                $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
-                        hasSub = val.id_parent != '0';
-                        const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
-                        var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                        var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
-                        var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
-                        no++;
-                        htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + mapel.nama_mapel + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
-                            ellipsisText(kdesk) +
-                            '</td>' +
-                            '</tr>';
-                    }
-                });
-            }
-
-            if (hasSub && no > 0) {
-                var parent;
-                $.each(arrKelompokMapel, function (kels, vals) {
-                    if (vals.id_kel_mapel == val.id_parent) {
-                        parent = vals.nama_kel_mapel;
-                    }
-                });
-                tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+parent+'</b></td>' +
-                    '        </tr>';
-            }
-
-            if (no > 0) {
-                if (index == 0) {
-                    tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
-                        '        </tr>' + tablePai +htmlTr;
-                } else {
-                    tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
-                        '        </tr>' + htmlTr;
-                }
-            }
-
-            index ++;
-        });
         tableNilai += '</table></div>';
-
-        tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
-            '<table style="width: 100%;">' +
-            '<tr>' +
-            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
-            '<td class="hal" style="text-align: end;"></td>' +
-            '</tr>' +
-            '</table>' +
-            '</div></div>';
 
         return tableNilai;
     }
@@ -1019,11 +938,10 @@ $satuan = [
         return text;
     }
 
-    function createPageekstra(idSiswa, siswa) {
+    function createPageekstra(idSiswa) {
         console.log('ekstra', ekstra);
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
-            '<div style="padding: 0cm;">' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. EKSTRAKURIKULER</b></span>' +
+        var tableNilai = '<div style="padding: 0.5cm;margin-top: 20px">' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>D. EKSTRAKURIKULER</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
@@ -1032,7 +950,6 @@ $satuan = [
             '            <td style="width:15%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
             '            <td style="width:45%;border: 1px solid black; border-collapse: collapse"><b>Keterangan</b></td>' +
             '        </tr>';
-        posAlpha ++;
         var no = 1;
         $.each(arrekstra, function (k, v) {
             if (k != '') {
@@ -1060,8 +977,7 @@ $satuan = [
         }
         tableNilai += '</table><br>';
 
-        //prestasi
-        tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PRESTASI</b></span>' +
+        tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>E. PRESTASI</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
@@ -1069,7 +985,6 @@ $satuan = [
             '            <td style="width:35%;border: 1px solid black; border-collapse: collapse"><b>Jenis Kegiatan</b></td>' +
             '            <td style="width:60%;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
             '        </tr>';
-        posAlpha ++;
 
         no = 1;
         for (let i = 0; i < 3; i++) {
@@ -1080,21 +995,18 @@ $satuan = [
                 '</tr>';
             no++;
         }
-        tableNilai += '</table>';
+        tableNilai += '</table><br>';
 
-        //fisik
         if (setting.jenjang == '1') {
             var sehat = ['Pendengaran', 'Penglihatan', 'Gigi', 'Lain-lain'];
             var kondisi = [fisik[idSiswa].kondisi.telinga, fisik[idSiswa].kondisi.mata, fisik[idSiswa].kondisi.gigi, fisik[idSiswa].kondisi.lain];
-            tableNilai += '<br>' +
-                '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KONDISI KESEHATAN DAN FISIK</b></span>' +
+            tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>F. KONDISI KESEHATAN DAN FISIK</b></span>' +
                 '<div style="display: flex">' +
                 '<table style="width: 58%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
                 '        <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9;text-align: center">' +
                 '            <td style="border: 1px solid black; border-collapse: collapse;height:35px"><b>Aspek yang Dinilai</b></td>' +
                 '            <td style="border: 1px solid black; border-collapse: collapse"><b>Keterangan</b></td>' +
                 '        </tr>';
-            posAlpha ++;
 
             for (let i = 0; i < sehat.length; i++) {
                 tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
@@ -1131,16 +1043,45 @@ $satuan = [
                 }
                 tableNilai += '</tr>';
             }
-            tableNilai += '</table></div>';
+            tableNilai += '</table></div><br>';
         }
 
-        // absensi
+        var sRank = parseInt(deskripsi[idSiswa].ranking) > 5 ? '--' : deskripsi[idSiswa].ranking;
+
+        tableNilai += '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>F. CATATAN WALI KELAS</b></span>' +
+            '<br>' +
+            '    <table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td style="width:100%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
+            '               <table>' +
+            '                   <tr>' +
+            '                       <td style="vertical-align: top; width:12%;">Ranking ke: </td>' +
+            '                       <td style="vertical-align: top; width:88%;">' + sRank + '. ' + deskripsi[idSiswa].rank_deskripsi + '</td>' +
+            '                   </tr>' +
+            '                   <tr>' +
+            '                       <td style="vertical-align: top">Saran-saran: </td>' +
+            '                       <td>' + absensi[idSiswa].saran + '</td>' +
+            '                   </tr>' +
+            '               </table>' +
+            '           </td>' +
+            '       </tr>' +
+            '   </table>';
+
+        tableNilai += '<br>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>G. TANGGAPAN ORANG TUA/WALI</b></span>' +
+            '<table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '<tr>' +
+            '    <td style="width:100%;height: 40px;border: 1px solid black; border-collapse: collapse"></td>' +
+            '</tr>' +
+            '</table>';
+
         var ssakit = absensi[idSiswa].nilai.s == '' ? '0' : absensi[idSiswa].nilai.s;
         var sizin = absensi[idSiswa].nilai.i == '' ? '0' : absensi[idSiswa].nilai.i;
         var salpa = absensi[idSiswa].nilai.a == '' ? '0' : absensi[idSiswa].nilai.a;
         tableNilai += '<br>' +
-            '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETIDAKHADIRAN</b></span>' +
-            '    <table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>H. KETIDAKHADIRAN</b></span>' +
+            '<div style="display: flex; align-items: flex-start;">' +
+            '    <table style="width: 45%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">Sakit</td>' +
             '            <td style="width:30%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
@@ -1159,62 +1100,24 @@ $satuan = [
             salpa + ' hari' +
             '</td>' +
             '        </tr>' +
-            '</table>';
-        posAlpha ++;
+            '</table>' +
+            '<div style="width:7%"></div>';
 
-        //catatan walikelas
-        var sRank = parseInt(deskripsi[idSiswa].ranking) > 5 ? '--' : deskripsi[idSiswa].ranking;
-        tableNilai += '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. CATATAN WALI KELAS</b></span>' +
-            '<br>' +
-            '    <table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-            '            <td style="width:100%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
-            '               <table>' +
-            '                   <tr>' +
-            '                       <td style="vertical-align: top; width:12%;">Ranking ke: </td>' +
-            '                       <td style="vertical-align: top; width:88%;">' + sRank + '. ' + deskripsi[idSiswa].rank_deskripsi + '</td>' +
-            '                   </tr>' +
-            '                   <tr>' +
-            '                       <td style="vertical-align: top">Saran-saran: </td>' +
-            '                       <td>' + absensi[idSiswa].saran + '</td>' +
-            '                   </tr>' +
-            '               </table>' +
-            '           </td>' +
-            '       </tr>' +
-            '   </table>';
-        posAlpha ++;
-
-        tableNilai += '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. TANGGAPAN ORANG TUA/WALI</b></span>' +
-            '<table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
-            '<tr>' +
-            '    <td style="width:100%;height: 40px;border: 1px solid black; border-collapse: collapse"></td>' +
-            '</tr>' +
-            '</table>';
-        posAlpha ++;
-
-        tableNilai += '<br>' +
-            '<div style="display: flex; align-items: flex-start;">' +
-            '<div style="width:50%"></div>';
-
-        //kenaikan
-        if (smt.smt == 'Genap') {
+        if (smt == 'Genap') {
             var naikKe = parseInt(level) + 1;
-            var kompetensi = level === '6' || level === '9' || level === '12' ? 'pada seluruh kompetensi' : 'kompetensi pada semester ke-1 dan ke-2';
             var txtNaik = buatTeksKenaikan(naik[idSiswa]);
-            tableNilai += '<table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+            tableNilai += '<table style="width: 48%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
                 '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '            <td style="width:100%;height: 55px;border: 1px solid black; border-collapse: collapse; padding-left: 6px">' +
                 '<b>Keputusan:</b><br>' +
-                'Berdasarkan pencapaian '+kompetensi+', peserta didik ditetapkan: <br>' +
-                '<b>' + txtNaik + '</b>' +
+                'Berdasarkan pencapaian kompetensi pada semester ke-1 dan ke-2, peserta didik ditetapkan: <br>' +
+                txtNaik +
                 '<small>*) Coret yang tidak perlu.</small>' +
                 '</td>' +
                 '        </tr>' +
                 '</table>';
         } else {
-            tableNilai += '<div style="width:50%"></div>';
+            tableNilai += '<div style="width:48%"></div>';
         }
         tableNilai += '</div>';
 
@@ -1233,7 +1136,7 @@ $satuan = [
             '</td>' +
             '<td style="width: 30%;"></td>' +
             '<td style="width: 35%">' +
-            setting.kota + ',  ' + handleTanggal(raporSetting.tgl_rapor_akhir) +
+            setting.kota + ',  ' + raporSetting.tgl_rapor_akhir +
             '    <br>' +
             'Wali Kelas' +
             '    <br>' +
@@ -1266,17 +1169,6 @@ $satuan = [
             '</div>' +
             '</div>';
 
-        tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
-            '<table style="width: 100%;">' +
-            '<tr>' +
-            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
-            '<td class="hal" style="text-align: end;"></td>' +
-            '</tr>' +
-            '</table>' +
-            '</div></div>';
-
         return tableNilai;
     }
 
@@ -1290,7 +1182,7 @@ $satuan = [
 
         $('#loading').removeClass('d-none');
 
-        $('#nama-siswa').html('<b>' + siswaSelected.nama.toUpperCase() + '</b>');
+        $('#nama-siswa').html('<b>' + siswaSelected.nama + '</b>');
         $('#nis-siswa').html(handleNisn(siswaSelected.nis, siswaSelected.nisn));
 
         //INFO SEKOLAH
@@ -1304,12 +1196,12 @@ $satuan = [
         $('#print-sikap').html(createPageSikap(idSiswa, siswaSelected));
 
         //NILAI
-        $('#print-nilai').html(createPagePengetahuan(idSiswa, siswaSelected));
+        $('#print-nilai').html(createPageNilai(idSiswa));
 
         //DESKRIPSI
-        $('#print-deskripsi1').html(createPageKeterampilan(idSiswa, siswaSelected));
+        $('#print-deskripsi1').html(createPageDeskripsi(idSiswa));
 
-        $('#print-deskripsi2').html(createPageekstra(idSiswa, siswaSelected));
+        $('#print-deskripsi2').html(createPageekstra(idSiswa));
 
         setTimeout(function () {
             $('#loading').addClass('d-none');
@@ -1322,9 +1214,6 @@ $satuan = [
             $('#print-deskripsi1').removeClass('d-none');
             $('#print-deskripsi2').removeClass('d-none');
             $('.btn').removeAttr('disabled');
-            $('#page-start').removeAttr('disabled');
-
-            buatHalaman();
         }, 500);
     }
 
@@ -1380,30 +1269,7 @@ $satuan = [
         }, 500);
     }
 
-    function buatHalaman() {
-        halamanAwal = 1;
-        var tLevel = parseInt(level);
-        if (setting.jenjang == '1') {
-            tLevel = tLevel - 1;
-        } else if (setting.jenjang == '2') {
-            tLevel = tLevel - 7;
-        } else if (setting.jenjang == '3') {
-            tLevel = tLevel - 10;
-        }
-
-        if (smt.smt == 'Genap') {
-            halamanAwal += (perTp * tLevel) + perSmt;
-        } else {
-            halamanAwal += perTp * tLevel;
-        }
-
-        $('#page-start').val(halamanAwal).trigger('change');
-    }
-
     $(document).ready(function () {
-        console.log('mapels', arrMapel);
-        console.log('raporSetting', raporSetting);
-        console.log('kelompok', arrKelompokMapel);
         console.log('nilai_rapor', nilaiRapor);
         console.log('sikap', sikap);
         console.log('nilai', nilai);
@@ -1414,16 +1280,6 @@ $satuan = [
         console.log('arr_ekstra', arrekstra);
         console.log('kelas', kelas);
         console.log('naik', naik);
-
-        $('#page-start').on('change keyup', function () {
-            var n = 0;
-            halamanAwal = parseInt($(this).val());
-            $.each($('.hal'), function () {
-                $(this).text((halamanAwal+n));
-                n++;
-            })
-        });
-
         $('.siswa').click(function (e) {
             e.stopPropagation();
             e.preventDefault();

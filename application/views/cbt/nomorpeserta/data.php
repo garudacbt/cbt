@@ -109,7 +109,7 @@
 							item['nama'] = value.nama;
 							item['level'] = value.level;
 							item['kelas'] = value.nama_kelas;
-							item['nomor'] = response.nomor[value.id_siswa].nomor_peserta;
+							item['nomor'] = response.nomor[value.id_siswa] != null ? response.nomor[value.id_siswa].nomor_peserta : '';
 
 							newArr.push(item);
 						});
@@ -208,7 +208,6 @@
 			'</tr></thead><tbody>';
 
 		for (let i = 0; i < arrayNomor.length; i++) {
-			//var nomorPes = data.nomor[data.siswa[i].id_siswa].nomor_peserta;
 			tbody += '<tr>' +
 				'<td class="text-center">' + (i + 1) + '</td>' +
 				'<td class="text-center">' + arrayNomor[i].username + '</td>' +
@@ -284,6 +283,7 @@
 							});
 						}
 					}, error: function (xhr, status, error) {
+					    console.log(xhr.responseText);
 						swal.fire({
 							title: "ERROR",
 							text: "Data Tidak Tersimpan",

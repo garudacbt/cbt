@@ -53,14 +53,14 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Mata Pelajaran</label>
-                                <?php echo form_dropdown('mapel', $mapel, $bank->bank_mapel_id, 'id="select-mapel" class="form-control form-control-sm" required'); ?>
+                                <label>Guru Pengampu</label>
+                                <?php echo form_dropdown('guru', $gurus, $bank->bank_guru_id, 'id="select-guru" class="select2 form-control form-control-sm" required'); ?>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Guru Pengampu</label>
-                                <?php echo form_dropdown('guru', $gurus, $bank->bank_guru_id, 'id="select-guru" class="select2 form-control form-control-sm" required'); ?>
+                                <label>Mata Pelajaran</label>
+                                <?php echo form_dropdown('mapel', $mapel, $bank->bank_mapel_id, 'id="select-mapel" class="form-control form-control-sm" required'); ?>
                             </div>
                         </div>
                         <div class="col-md-1 col-3">
@@ -92,12 +92,26 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                                         required=""></select>
                             </div>
                         </div>
+                        <!--
+                        <div class="col-md-2 col-4">
+                            <div class="form-group">
+                                <label>Jml Soal PG</label>
+                                <input type='number' id='soalpg' name='jml_soal' class='form-control form-control-sm'
+                                       value="<?= $bank->jml_soal ?>" required/>
+                            </div>
+                        </div>
+                        -->
                     </div>
 
                     <div class="row">
                         <div class="col-12 col-md-7">
                             <div class="card alert-default-primary">
                                 <div class="card-body p-2">
+                                    <!--
+                                    <div class='hr'>
+                                        <span class='hr-title'>Pilihan Ganda</span>
+                                    </div>
+                                    -->
                                     <span><b>Soal Pilihan Ganda</b></span>
                                     <div class="row">
                                         <div class="col-4">
@@ -276,7 +290,6 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
 </div>
 
 <script>
-    var isAdmin = '<?= $this->ion_auth->is_admin() ?>';
     let kelasSelect = JSON.parse('<?= $kelasSelected ?>');
     var idGuru = '<?=$id_guru?>';
     var idMapel = '<?=$bank->bank_mapel_id?>';
@@ -296,8 +309,9 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
             as.push(kelasSelect[i].kelas_id);
         }
 
-        getGuruMapel(selMapel.val());
         getKelasLevel(selLevel.val(), selMapel.val());
+
+        //console.log(kelasSelect);
 
         $('#create').submit('click', function (e) {
             e.preventDefault();
@@ -317,38 +331,60 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
             });
         });
 
-        function getGuruMapel(mapel) {
-            if (isAdmin) {
-                $.ajax({
-                    url: base_url + "cbtbanksoal/getgurumapel?id_mapel=" + mapel,
-                    type: "GET",
-                    success: function (data) {
-                        console.log('mapel',data);
-                        var opts = '';
-                        selGuru.html(opts);
-                        $.each(data, function (k, v) {
-                            var selected = idGuru == k ? 'selected=selected' : '';
-                            opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';
-                        });
-                        selGuru.html(opts);
-                        getKelasLevel(selLevel.val(), selMapel.val());
-                    }, error: function (xhr, status, error) {
-                        console.log("error", xhr.responseText);
-                    }
-                });
-            }
+        function getMateriGuru(guru) {
+            $.ajax({
+                url: base_url + "cbtbanksoal/getmapelguru?id_guru=" + guru,
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    var opts = '';
+                    selMapel.html(opts);
+                    $.each(data, function (k, v) {
+                        var selected = idMapel == k ? 'selected=selected' : '';
+                        opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';
+                    });
+                    selMapel.html(opts);
+                    getKelasLevel(selLevel.val(), selMapel.val());
+                }, error: function (xhr, status, error) {
+                    console.log("error", xhr.responseText);
+                }
+            });
         }
 
+        /*
+        function getGuruMapel(mapel) {
+            $.ajax({
+                url: base_url + "cbtbanksoal/getgurumapel?id_mapel=" + mapel,
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    var opts = '';
+                    selGuru.html(opts);
+                    $.each(data, function (k, v) {
+                        var selected = idGuru == k ? 'selected=selected' : '';
+                        opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';
+                    });
+                    selGuru.html(opts);
+                    getKelasLevel(selLevel.val(), selMapel.val());
+                }, error: function (xhr, status, error) {
+                    console.log("error", xhr.responseText);
+                }
+            });
+        }
+        */
+
         function getKelasLevel(param, mapel) {
+            console.log('id_guru',idGuru);
             if (idGuru === '' || mapel == null) {
-                console.log('id_guru', 'empty');
+
             } else {
                 $.ajax({
                     url: base_url + "cbtbanksoal/getkelaslevel?level=" + param + "&id_guru=" + idGuru + '&mapel=' + mapel,
                     type: "GET",
                     success: function (data) {
-                        console.log('kelas', data);
+                        console.log(data);
                         selKelas.html('').select2({data: null}).trigger('change');
+                        //var options = '';
                         var kelas = data.kelas;
                         for (let i = 0; i < kelas.length; i++) {
                             var selected = jQuery.inArray(kelas[i].id_kelas, as) > -1;
@@ -364,8 +400,8 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
 
         selGuru.on('change', function () {
             idGuru = $(this).val();
-            getKelasLevel(selLevel.val(), selMapel.val());
-            //getMateriGuru(idGuru);
+            //getKelasLevel(selLevel.val(), selMapel.val());
+            getMateriGuru(idGuru);
         });
 
         selLevel.on('change', function () {
@@ -373,7 +409,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
         });
 
         selMapel.on('change', function () {
-            getGuruMapel($(this).val());
+            getKelasLevel(selLevel.val(), $(this).val());
         });
 
         var valBobotPg = $('#bobot-pg');
@@ -428,6 +464,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
             onChangeValueBobot();
         });
 
+
         valSoalPg.on('change keyup', function () {
             onChangeValueJumlah();
         });
@@ -443,6 +480,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
         valSoalEssai.on('change keyup', function () {
             onChangeValueJumlah();
         });
+
     });
 
 </script>

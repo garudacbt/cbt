@@ -269,14 +269,6 @@
 								<p>Cetak</p>
 							</a>
 						</li>
-                        <!--
-						<li class="nav-item">
-							<a href="<?=base_url('cbtpeserta')?>" class="nav-link <?=$page==='cbtpeserta'?"active":""?>">
-								<i class="fa fa-list-ol nav-icon"></i>
-								<p>Daftar Peserta</p>
-							</a>
-						</li>
-						-->
 						<li class="nav-item">
 							<a href="<?=base_url('cbtstatus')?>" class="nav-link <?=$page==='cbtstatus'?"active":""?>">
 								<i class="fa fa-user-clock nav-icon"></i>
@@ -316,12 +308,14 @@
                         <p>Kumpulan Nilai Rapor</p>
                     </a>
                 </li>
+                <!--
                 <li class="nav-item">
                     <a href="<?= base_url('bukuinduk') ?>" class="nav-link <?= $page === 'bukuinduk' ? "active" : "" ?>">
                         <i class="fas fa-book nav-icon"></i>
                         <p>Buku Induk</p>
                     </a>
                 </li>
+                -->
                 <li class="nav-item">
                     <a href="<?=base_url('dataalumni')?>" class="nav-link <?=$page==='dataalumni'?"active":""?>">
                         <i class="fa fa-users nav-icon"></i>
@@ -393,12 +387,14 @@
                         </li>
                     </ul>
                 </li>
+                <hr>
                 <li class="nav-item">
                     <a href="#" onclick="logout()" class="nav-link">
                         <i class="fas fa-sign-out-alt nav-icon"></i>
                         <p>LOGOUT</p>
                     </a>
                 </li>
+                <hr>
                 <!--
                 <li class="nav-item">
                     <a href="<?= base_url('daotest') ?>" class="nav-link <?= $page === 'daotest' ? "active" : "" ?>">

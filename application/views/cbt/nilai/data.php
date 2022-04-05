@@ -309,17 +309,19 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                                 $bg = 'data-fill-color="FF7043"';
                                                 $salah_pg++;
                                             }
+                                            //if ($jwb['jawaban'] != '') {
+                                            //}
                                             ?>
                                             <td class="d-none" <?= $bg ?> data-a-v="middle" data-a-h="center"
                                                 data-b-a-s="thin"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $jwb['jawaban'] ?></td>
                                         <?php endforeach; ?>
-                                        <td data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $disable ? '' : $benar_pg ?></td>
-                                        <td data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $disable ? '' : $salah_pg ?></td>
+                                        <td class="text-success" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b><?= $disable ? '' : $benar_pg ?></b></td>
+                                        <td class="text-danger" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b><?= $disable ? '' : $salah_pg ?></b></td>
                                         <?php if ($info->tampil_pg > 0) : ?>
-                                            <td class="text-center text-success align-middle" data-a-v="middle"
+                                            <td class="text-center text-info align-middle" data-a-v="middle"
                                                 data-a-h="center" data-b-a-s="thin"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                                 <b> <?= $disable ? '' : $siswa->skor_pg ?> </b></td>

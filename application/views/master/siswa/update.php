@@ -25,13 +25,18 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <?php foreach ($kelas as $id=>$kls) : ?>
+                        <?php
+                        if (count($kelas) > 0) :
+                        foreach ($kelas as $id=>$kls) : ?>
                             <div class="col-md-3 text-center mb-3">
                                 <a href="<?= base_url().'datasiswa/downloaddata/'.$id ?>" class="card-tools btn-success btn btn-sm">
                                     <i class="fas fa-download"></i><span class="ml-2">Download Data Siswa<br />Kelas <?=$kls?></span>
                                 </a>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach;
+                        else: ?>
+                            <div class="alert alert-default-warning align-content-center" role="alert">Belum ada data siswa dan kelas</div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

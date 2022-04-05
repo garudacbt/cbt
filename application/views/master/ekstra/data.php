@@ -1,21 +1,25 @@
 <div class="content-wrapper bg-white pt-4">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card my-shadow mb-4">
-				<div class="card-body">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card my-shadow mb-4">
+                <div class="card-body">
                     <div class="mb-3">
-                        <button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default"><i class="fa fa-sync"></i> Reload</button>
-                        <button type="button" data-toggle="modal" data-target="#createEkstraModal" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Ekskul</button>
+                        <button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default"><i
+                                    class="fa fa-sync"></i> Reload
+                        </button>
+                        <button type="button" data-toggle="modal" data-target="#createEkstraModal"
+                                class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Ekskul
+                        </button>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -31,7 +35,7 @@
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <?=form_open('save', array('id'=>'save'))?>
+                            <?= form_open('save', array('id' => 'save')) ?>
                             <div class="card border mt-1">
                                 <div class="card-header">
                                     <div class="card-title">
@@ -45,14 +49,15 @@
                                 </div>
                                 <div class="card-body">
                                     <?php
-                                    foreach ($kelas as $key=>$kls) :
+                                    if (count($kelas) > 0) :
+                                    foreach ($kelas as $key => $kls) :
                                         $ids_selected = [];
-                                    if ($ekskul_kelas[$key] != null) {
-                                        $ids = unserialize($ekskul_kelas[$key][0]->ekstra);
-                                        foreach ($ids as $id) {
-                                            array_push($ids_selected, $id['ekstra']);
+                                        if ($ekskul_kelas[$key] != null) {
+                                            $ids = unserialize($ekskul_kelas[$key][0]->ekstra);
+                                            foreach ($ids as $id) {
+                                                array_push($ids_selected, $id['ekstra']);
+                                            }
                                         }
-                                    }
 
                                         ?>
                                         <div class="input-group input-group-sm mb-3">
@@ -61,94 +66,99 @@
                                             </div>
                                             <?php
                                             echo form_dropdown(
-                                                'ekskul'.$key.'[]',
+                                                'ekskul' . $key . '[]',
                                                 $ekskul,
                                                 $ids_selected,
-                                                'id="ekskul'.$key.'" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Ekskul"'
+                                                'id="ekskul' . $key . '" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Ekskul"'
                                             ); ?>
                                         </div>
-                                    <?php endforeach; ?>
+                                    <?php endforeach;
+                                    else: ?>
+                                        <div class="alert alert-default-warning" role="alert">Belum ada data kelas</div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
-                            <?=form_close()?>
+                            <?= form_close() ?>
                         </div>
                     </div>
-				</div>
-			</div>
-		</div>
-	</section>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
-<?=form_open('create', array('id'=>'create'))?>
-<div class="modal fade" id="createEkstraModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="createModalLabel">Tambah Ekstrakurikuler</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="form-group row">
-					<label class="col-md-3 col-form-label">Ekstrakurikuler*</label>
-					<div class="col-md-9">
-						<input type="text" id="createnama" name="nama_ekstra" class="form-control" required>
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-md-3 col-form-label">Kode*</label>
-					<div class="col-md-9">
-						<input type="text" id="createkode" name="kode_ekstra" class="form-control" required>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button type="submit" class="btn btn-primary">
-					<i class="fa fa-plus"></i> Simpan
-				</button>
-			</div>
-		</div>
-	</div>
+<?= form_open('create', array('id' => 'create')) ?>
+<div class="modal fade" id="createEkstraModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Tambah Ekstrakurikuler</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Ekstrakurikuler*</label>
+                    <div class="col-md-9">
+                        <input type="text" id="createnama" name="nama_ekstra" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Kode*</label>
+                    <div class="col-md-9">
+                        <input type="text" id="createkode" name="kode_ekstra" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Simpan
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
-<?=form_open('update', array('id'=>'update'))?>
-<div class="modal fade" id="editEkstraModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="editModalLabel">Edit Ekstrakurikuler</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="form-group row">
-					<label class="col-md-3 col-form-label">Ekstrakurikuler*</label>
-					<div class="col-md-9">
-						<input type="text" id="namaEdit" class="form-control" required>
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-md-3 col-form-label">Kode*</label>
-					<div class="col-md-9">
-						<input type="text" id="kodeEdit" class="form-control" required>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<input type="hidden" id="editIdEkstra" class="form-control">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button type="submit" class="btn btn-primary">
-					<i class="fa fa-save"></i> Simpan Perubahan
-				</button>
-			</div>
-		</div>
-	</div>
+<?= form_open('update', array('id' => 'update')) ?>
+<div class="modal fade" id="editEkstraModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Ekstrakurikuler</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Ekstrakurikuler*</label>
+                    <div class="col-md-9">
+                        <input type="text" id="namaEdit" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Kode*</label>
+                    <div class="col-md-9">
+                        <input type="text" id="kodeEdit" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="editIdEkstra" class="form-control">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i> Simpan Perubahan
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
 
 <script>
@@ -168,13 +178,19 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "dataekstra/delete/"+id,
+                    url: base_url + "dataekstra/delete/" + id,
                     success: function (data) {
+                        console.log(data);
                         if (data.status) {
-                            console.log(data);
+                            showSuccessToast(data.message);
                             reload_ajax()
                         } else {
-                            showDangerToast(data.message);
+                            //showDangerToast(data.message);
+                            swal.fire({
+                                title: "Gagal",
+                                html: data.total,
+                                icon: "error"
+                            });
                         }
                     }, error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -292,12 +308,12 @@
         $('#save').submit(function (e) {
             e.preventDefault();
 
-            console.log("data:", $(this).serialize() + '&kelas='+JSON.stringify(arrKelas));
+            console.log("data:", $(this).serialize() + '&kelas=' + JSON.stringify(arrKelas));
             $.ajax({
                 url: base_url + "dataekstra/save",
                 type: "POST",
                 dataType: "JSON",
-                data: $(this).serialize() + '&kelas='+JSON.stringify(arrKelas),
+                data: $(this).serialize() + '&kelas=' + JSON.stringify(arrKelas),
                 success: function (data) {
                     if (data.status) {
                         console.log(data);
@@ -325,7 +341,7 @@
                 data: $(this).serialize(),
                 success: function (data) {
                     console.log("result", data);
-                    window.location.href = base_url+'dataekstra';
+                    window.location.href = base_url + 'dataekstra';
                     /*
                     $('#createEkstraModal').modal('hide').data('bs.modal', null);
                     $('#createEkstraModal').on('hidden', function () {
@@ -403,12 +419,12 @@
 
     function dismissEdit() {
         var count = $('#tableEkstra tr').length;
-        console.log("size", "-->"+count);
-        for (var i = 0; i<count; i++) {
-            var inputs = document.getElementById('check'+i);
-            if (inputs!=null) {
+        console.log("size", "-->" + count);
+        for (var i = 0; i < count; i++) {
+            var inputs = document.getElementById('check' + i);
+            if (inputs != null) {
                 inputs.checked = false;
-                console.log("id", "-->"+'check'+i);
+                console.log("id", "-->" + 'check' + i);
             }
         }
     }

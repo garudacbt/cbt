@@ -81,42 +81,47 @@ $satuan = [
                 </div>
                 <div class="col-md-9">
                     <div class="card">
-                        <div class="card-header bg-light">
+                        <div class="card-header bg-gray-light">
                             <div class="card-title">
                                 <h6>Preview</h6>
                             </div>
                             <div class="card-tools">
-                                <button class="btn btn-primary btn-sm" onclick="perbesar()" disabled>
+                                <button class="btn btn-success btn-sm" onclick="perbesar()" disabled>
                                     <i class="fa fa-search-plus mr-1"></i>Perbesar
                                 </button>
-                                <button class="btn btn-primary btn-sm" onclick="perkecil()" disabled>
+                                <button class="btn btn-success btn-sm" onclick="perkecil()" disabled>
                                     <i class="fa fa-search-minus mr-1"></i>Perkecil
                                 </button>
                             </div>
                         </div>
                         <div class="card-body bg-gray-light p-1">
-                            <div class="row mb-3 ml-1">
-                                <button id="cetak-sampul" class="btn btn-primary btn-sm ml-1" onclick="cetakSampul()"
+                            <div class="row mb-1 ml-1 mr-1 d-flex flex-wrap">
+                                <button id="cetak-sampul" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakSampul()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Sampul
                                 </button>
-                                <button id="cetak-info" class="btn btn-primary btn-sm ml-1" onclick="cetakInfo()"
+                                <button id="cetak-info" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakInfo()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Info
                                 </button>
-                                <button id="cetak-data" class="btn btn-primary btn-sm ml-1" onclick="cetakData()"
+                                <button id="cetak-data" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakData()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Data Siswa
                                 </button>
-                                <button id="cetak-nilai" class="btn btn-primary btn-sm ml-1" onclick="cetakRapor()"
+                                <button id="cetak-nilai" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakRapor()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Nilai
                                 </button>
-                                <button id="cetak-semua" class="btn btn-primary btn-sm ml-1" onclick="cetakSemua()"
+                                <button id="cetak-semua" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakSemua()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Semua Halaman
                                 </button>
+                                <div class="text-right mb-1 ml-auto">
+                                    <span>Hal. dari</span>
+                                    <input type="number" id="page-start" style="width: 100px;" disabled="disabled">
+                                </div>
                             </div>
+                            <hr>
                             <div class="d-flex justify-content-center bg-gray-light" style="min-height: 300mm">
                                 <div id="zoom" style="transform: scale(0.9); transform-origin: top center">
                                     <div id="print-preview">
@@ -124,7 +129,7 @@ $satuan = [
                                              style="display: flex;-webkit-justify-content: center;justify-content: center;width: 210mm; height: 297mm;padding: 10mm">
                                             Silahkan pilih siswa
                                         </div>
-                                        <div id="print-sampul" class="border my-shadow mb-3 d-none"
+                                        <div id="print-sampul" class="border my-shadow mb-3 d-none p-5"
                                              style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm; padding: 5mm 10mm 5mm 10mm">
                                             <div style="margin-top: 80px;text-align: center">
                                                 <div class="image">
@@ -181,23 +186,23 @@ $satuan = [
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="print-info" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-info" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-data" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-data" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-sikap" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-sikap" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-nilai" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-nilai" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-deskripsi1" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-deskripsi1" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-deskripsi2" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-deskripsi2" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
                                     </div>
                                 </div>
@@ -221,6 +226,11 @@ $satuan = [
     var smtSelected = '<?= isset($smt_selected) ? $smt_selected : '';?>';
     var klsSelected = '<?= isset($kls_selected) ? $kls_selected : '';?>';
 
+    var kelas = '<?= $kelas ?>';
+    var level = '<?= $lvl_kelas ?>';
+    var tp = JSON.parse(JSON.stringify(<?= json_encode($tp_name != null ? $tp_name : "") ?>));
+    var smt = JSON.parse(JSON.stringify(<?= json_encode($smt_name != null ? $smt_name : "") ?>));
+
     var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($rapor) ?>));
     var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
     var jabatanGuru = JSON.parse(JSON.stringify(<?= json_encode($jabatan)?>));
@@ -237,12 +247,14 @@ $satuan = [
     var naik = JSON.parse(JSON.stringify(<?= json_encode($naik)?>));
 
     var arrSiswa = JSON.parse(JSON.stringify(<?=isset($siswas) ? json_encode($siswas) : "[]"?>));
-    var tp = '<?= $tp_name != null ? $tp_name->tahun : "" ?>';
-    var smt = '<?= $smt_name != null ? $smt_name->nama_smt : "" ?>';
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
     var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
     var z = 0.9;
+
+    var halamanAwal = 1;
+    var perSmt = 4;
+    var perTp = perSmt * 2;
 
     function inArray(val, array) {
         var found = $.inArray(val, array);
@@ -392,7 +404,8 @@ $satuan = [
         var splited = satuanPend[setting.jenjang][setting.satuan_pendidikan].split('(');
         var title1 = splited[0];
         var title2 = '('+splited[1];
-        var infoSekolah = '<div style="padding: 0.3cm; margin-top: 100px">' +
+        var infoSekolah = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+            '<div style="padding: 0; margin-top: 100px">' +
             '    <div class="judul" style="text-align: center;font-family: \'Arial\';font-size: 20pt;font-weight: bold">' +
             '        <p style="margin-bottom: 0">RAPOR</p>' +
             '        <p style="margin-bottom: 0">'+title1+'</p>' +
@@ -417,6 +430,16 @@ $satuan = [
             }
         }
         infoSekolah += '</table></div></div>';
+        infoSekolah += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
+            '<table style="width: 100%;">' +
+            '<tr>' +
+            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
+            '<td style="padding-left: 6px;"></td>' +
+            '<td style="text-align: end;">ii</td>' +
+            '</tr>' +
+            '</table>' +
+            '</div></div>';
 
         return infoSekolah;
     }
@@ -441,7 +464,8 @@ $satuan = [
             handleNull(siswa.nama_ibu), handleNull(siswa.pekerjaan_ibu), handleNull(siswa.nohp_ibu), handleNull(siswa.alamat_ibu),
             '', handleNull(siswa.nama_wali), handleNull(siswa.pekerjaan_wali), handleNull(siswa.nohp_wali), handleNull(siswa.alamat_wali),
         ];
-        var identitas = '<div style="padding: 0.3cm; margin-top: 0">' +
+        var identitas = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+            '<div style="padding: 0; margin-top: 0">' +
             '    <div class="judul"' +
             '         style="text-align: center;font-family: \'Arial\';font-size: 16pt;font-weight: bold">' +
             '        <p>IDENTITAS PESERTA DIDIK</p>' +
@@ -487,8 +511,19 @@ $satuan = [
             '    Nip:' +
             '</td>' +
             '</tr>' +
+            '</table>';
+        //footer
+        identitas += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
+            '<table style="width: 100%;">' +
+            '<tr>' +
+            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td style="text-align: end;">iii</td>' +
+            '</tr>' +
             '</table>' +
-            '</div>';
+            '</div></div>';
+
         return identitas;
     }
 
@@ -508,7 +543,7 @@ $satuan = [
             '            <td><b>' + handleNisn(siswa.nis, siswa.nisn) + '</b></td>' +
             '            <td>Semester</td>' +
             '            <td>:</td>' +
-            '            <td><b>' + smt + '</b></td>' +
+            '            <td><b>' + smt.nama_smt + '</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td>Nama '+ namaSatuanPend +'</td>' +
@@ -516,7 +551,7 @@ $satuan = [
             '            <td><b>' + setting.sekolah + '</b></td>' +
             '            <td>Tahun Pelajaran</td>' +
             '            <td>:</td>' +
-            '            <td><b>' + tp + '</b></td>' +
+            '            <td><b>' + tp.tahun + '</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
             '            <td>Alamat</td>' +
@@ -543,7 +578,8 @@ $satuan = [
         var desSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].deskripsi : '';
         var desSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].deskripsi : '';
 
-        var tableSikap = '<div style="padding: 0.3cm;">' +
+        var tableSikap = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;"> ' +
+            '<div style="padding: 0;">' +
             '    <p style="font-family: \'Tahoma\';text-align: center;font-size: 12pt;"><b>PENCAPAIAN KOMPETENSI PESERTA DIDIK</b></p>' +
             '    <hr>' + headerPage(siswa) +
             '<br>' +
@@ -589,15 +625,17 @@ $satuan = [
             '</div>';
         posAlpha ++;
 
-        tableSikap += '<div class="d-none" style="width: 100%; position: fixed; bottom: 0;color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
-            '<hr style="border-top: 1px solid #000000">' +
-            '<table>' +
+        //footer
+        tableSikap += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
+            '<table style="width: 100%;">' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + ' | ' + setting.sekolah + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td class="hal" style="text-align: end;"></td>' +
             '</tr>' +
             '</table>' +
-            '</div>';
+            '</div></div>';
         return tableSikap;
     }
 
@@ -668,7 +706,8 @@ $satuan = [
     }
 
     function createPagePengetahuan(idSiswa, siswa) {
-        var tableNilai = '<div style="padding: 0.3cm;">' +
+        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+            '<div style="padding: 0;">' +
             headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PENGETAHUAN</b></span>';
         if (raporSetting.kkm_tunggal == '1') {
@@ -685,8 +724,6 @@ $satuan = [
             '            <td rowspan="2" style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
             '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;'+display+'"><b>KKM</b></td>' +
             '            <td colspan="3" style="height:25px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
-            //'            <td style="width:9%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
-            //'            <td style="height:35px;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:7%;height:25px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
@@ -705,14 +742,11 @@ $satuan = [
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
-                //hasSub = val.id_parent != '0';
+            if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
                 var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
                 var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
-                //var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                //var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
                 pos ++;
                 htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
@@ -722,8 +756,6 @@ $satuan = [
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                     ellipsisText(pdesk) +
                     '</td>' +
-                    //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                    //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
                     '</tr>';
             }
         });
@@ -737,6 +769,7 @@ $satuan = [
                 '</tr>' + htmlPai;
         }
 
+        var trCount = pos;
         // mapel non pai
         var index = 0;
         $.each(arrKelompokMapel, function (kel, val) {
@@ -746,14 +779,12 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                         var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
                         var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
                         var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
-                        //var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                        //var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
                         no++;
                         htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
@@ -764,9 +795,8 @@ $satuan = [
                             '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                             ellipsisText(pdesk) +
                             '</td>' +
-                            //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                            //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
                             '</tr>';
+                        trCount++;
                     }
                 });
             }
@@ -797,14 +827,33 @@ $satuan = [
 
             index ++;
         });
+
+        if (trCount == 0) {
+            tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                '            <td colspan="5" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;"><b>Tidak ada arsip nilai</b></td>' +
+                '        </tr>';
+        }
+
         tableNilai += '</table>' ;
         tableNilai += tableKkm() + '</div>';
+
+        tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
+            '<table style="width: 100%;">' +
+            '<tr>' +
+            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td class="hal" style="text-align: end;"></td>' +
+            '</tr>' +
+            '</table>' +
+            '</div></div>';
 
         return tableNilai;
     }
 
     function createPageKeterampilan(idSiswa, siswa) {
-        var tableNilai = '<div style="padding: 0.3cm;">' +
+        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+            '<div style="padding: 0;">' +
             headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETERAMPILAN</b></span>';
         if (raporSetting.kkm_tunggal == '1') {
@@ -838,7 +887,7 @@ $satuan = [
         var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
         var pai = arr[indexPAI];
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
+            if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
                 var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
@@ -865,6 +914,7 @@ $satuan = [
                 '</tr>' + htmlPai;
         }
 
+        var trCount = pos;
         // mapel non pai
         var index = 0;
         $.each(arrKelompokMapel, function (kel, val) {
@@ -874,7 +924,7 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                         var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
@@ -891,6 +941,7 @@ $satuan = [
                             ellipsisText(kdesk) +
                             '</td>' +
                             '</tr>';
+                        trCount++;
                     }
                 });
             }
@@ -921,7 +972,25 @@ $satuan = [
 
             index ++;
         });
+
+        if (trCount == 0) {
+            tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                '            <td colspan="5" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;"><b>Tidak ada arsip nilai</b></td>' +
+                '        </tr>';
+        }
+
         tableNilai += '</table></div>';
+
+        tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
+            '<table style="width: 100%;">' +
+            '<tr>' +
+            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td class="hal" style="text-align: end;"></td>' +
+            '</tr>' +
+            '</table>' +
+            '</div></div>';
 
         return tableNilai;
     }
@@ -993,7 +1062,8 @@ $satuan = [
 
     function createPageekstra(idSiswa, siswa) {
         console.log('ekstra', ekstra);
-        var tableNilai = '<div style="padding: 0.3cm;">' +
+        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+            '<div style="padding: 0cm;">' +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. EKSTRAKURIKULER</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
@@ -1170,7 +1240,7 @@ $satuan = [
             '<div style="width:50%"></div>';
 
         //kenaikan
-        if (smt == 'Genap') {
+        if (smt.smt == 'Genap') {
             var naikKe = parseInt(level) + 1;
             var txtNaik = buatTeksKenaikan(naik[idSiswa]);
             tableNilai += '<table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
@@ -1236,6 +1306,17 @@ $satuan = [
             '</div>' +
             '</div>';
 
+        tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
+            '<hr style="border-top: 1px solid #000000;margin-bottom: 2px">' +
+            '<table style="width: 100%;">' +
+            '<tr>' +
+            '<td style="width:20px;background: #BEBFC1">' + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td class="hal" style="text-align: end;"></td>' +
+            '</tr>' +
+            '</table>' +
+            '</div></div>';
+
         return tableNilai;
     }
 
@@ -1249,7 +1330,7 @@ $satuan = [
 
         if (raporSetting == null) {
             $('#empty').html('<div class="text-center">Tidak ada arsip rapor untuk<br><b>' +
-                siswaSelected.nama.toUpperCase() + '</b><br>Tahun Pelajaran ' + tp + ' Semester ' + smt + '</div>');
+                siswaSelected.nama.toUpperCase() + '</b><br>Tahun Pelajaran ' + tp.tahun + ' Semester ' + smt.nama_smt + '</div>');
             return;
         }
 
@@ -1287,6 +1368,9 @@ $satuan = [
             $('#print-deskripsi1').removeClass('d-none');
             $('#print-deskripsi2').removeClass('d-none');
             $('.btn').removeAttr('disabled');
+            $('#page-start').removeAttr('disabled');
+
+            buatHalaman();
         }, 500);
     }
 
@@ -1340,6 +1424,26 @@ $satuan = [
         setTimeout(function () {
             $(div).print(siswaSelected.nama);
         }, 500);
+    }
+
+    function buatHalaman() {
+        halamanAwal = 1;
+        var tLevel = parseInt(level);
+        if (setting.jenjang == '1') {
+            tLevel = tLevel - 1;
+        } else if (setting.jenjang == '2') {
+            tLevel = tLevel - 7;
+        } else if (setting.jenjang == '3') {
+            tLevel = tLevel - 10;
+        }
+
+        if (smt.smt == 'Genap') {
+            halamanAwal += (perTp * tLevel) + perSmt;
+        } else {
+            halamanAwal += perTp * tLevel;
+        }
+
+        $('#page-start').val(halamanAwal).trigger('change');
     }
 
     $(document).ready(function () {
@@ -1397,6 +1501,15 @@ $satuan = [
                 });
             }
         }
+
+        $('#page-start').on('change keyup', function () {
+            var n = 0;
+            halamanAwal = parseInt($(this).val());
+            $.each($('.hal'), function () {
+                $(this).text((halamanAwal+n));
+                n++;
+            })
+        });
 
         $('.siswa').click(function (e) {
             e.stopPropagation();

@@ -5,6 +5,13 @@
  * Date: 14/06/2020
  * Time: 01.31
  */
+
+function sortByPosition($a, $b) {
+    if ($a->id_jabatan == $b->id_jabatan) return 0;
+    if ($a->id_jabatan == 0) return 1;
+    if ($b->id_jabatan == 0) return -1;
+    return $a->id_jabatan > $b->id_jabatan ? 1 : -1;
+}
 ?>
 
 <div class="content-wrapper bg-white pt-4">
@@ -32,7 +39,48 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<?=form_open('',array('id'=>'bulk'))?>
+                    <?php if ($mode == null || $mode == '1') :?>
+                        <div class="row">
+                            <?php
+                            if (count($gurus) > 0) :
+                            usort($gurus, 'sortByPosition');
+                            foreach ($gurus as $guru): ?>
+                            <div class="col-md-6 col-xl-4 d-flex align-items-stretch">
+                                <div class="card flex-fill">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="media mb-3">
+                                            <img class="d-flex mr-3 rounded-circle img-thumbnail thumb-lg" src="<?=$guru->foto !=null ? base_url($guru->foto) : base_url('assets/img/siswa.png')?>" alt="foto" />
+                                            <div class="media-body overflow-hidden">
+                                                <p class="card-text mb-0 text-xs"><?=$guru->nip?></p>
+                                                <h6 class="card-text mb-0"><?=$guru->nama_guru?></h6>
+                                                <p class="card-text"><?=$guru->level .' '. $guru->nama_kelas?></p>
+                                                <?php
+                                                $stts = '';
+                                                $badge = '';
+                                                if ($guru->status) {
+                                                    $stts = 'Aktif';
+                                                    $badge = 'badge-success';
+                                                } else {
+                                                    $stts = 'Nonaktif';
+                                                    $badge = 'badge-danger';
+                                                }?>
+                                                <span class="badge badge-btn <?=$badge?>"><?=$stts?></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-auto">
+                                            <a href="<?=base_url('dataguru/edit/'.$guru->id_guru)?>" class="btn btn-sm btn-outline-primary"><i class="fa fa-pencil"></i> Profile</a>
+                                            <a href="<?=base_url('dataguru/editJabatan/'.$guru->id_guru)?>" class="btn btn-sm btn-outline-primary ml-1"><i class="fa fa-pencil"></i> Jabatan</a>
+                                            <button onclick="hapus('<?=$guru->id_guru?>')" class="btn btn-sm btn-outline-danger ml-auto"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach;
+                            else: ?>
+                                <div class="alert alert-default-warning align-content-center" role="alert">Belum ada data GURU</div>
+                            <?php endif; ?>
+                        </div>
+                    <?php else: ?>
 					<div class="table-responsive">
 						<table id="guru" class="table w-100">
 							<thead class="alert alert-primary">
@@ -53,10 +101,70 @@
 							</thead>
 						</table>
 					</div>
-					<?=form_close()?>
+                    <?php endif; ?>
 				</div>
 			</div>
 		</div>
 	</section>
+</div>
+<?=form_open('',array('id'=>'hapus-guru'))?>
+<?=form_close()?>
 
-<script src="<?= base_url() ?>/assets/app/js/master/guru/datacard.js"></script>
+<script>
+    $('.thumb-lg').css({'width': '6rem', 'height': '6rem'});
+
+    function hapus(idGuru) {
+        swal.fire({
+            title: "Anda yakin?",
+            text: "Data guru akan dihapus!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Hapus!"
+        }).then(result => {
+            if (result.value) {
+                $.ajax({
+                    url: base_url + 'dataguru/deleteguru',
+                    data: $('#hapus-guru').serialize() + '&id_guru=' + idGuru,
+                    type: "POST",
+                    success: function (respon) {
+                        console.log(respon);
+                        if (respon.status) {
+                            swal.fire({
+                                title: "Berhasil",
+                                text: "Data guru berhasil dihapus",
+                                icon: "success"
+                            }).then(result => {
+                                if (result.value) {
+                                    window.location.reload(true);
+                                }
+                            });
+                        } else {
+                            if (respon.count > 0) {
+                                window.location.href = base_url + 'dataguru/detail/' + idGuru
+                            } else {
+                                swal.fire({
+                                    title: "Gagal",
+                                    html: respon.message,
+                                    icon: "error"
+                                });
+                            }
+                        }
+                    },
+                    error: function () {
+                        swal.fire({
+                            title: "Gagal",
+                            text: "Ada data yang sedang digunakan",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+    });
+</script>
