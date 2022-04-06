@@ -216,6 +216,9 @@ $satuan = [
     var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
 
+    var nipKepsek = raporSetting.nip_kepsek === '1' ? setting.nip : '';
+    var nipWalas = raporSetting.nip_walikelas === '1' ? guru.nip : '';
+
     var z = 0.9;
 
     var halamanAwal = 1;
@@ -474,7 +477,7 @@ $satuan = [
             '    <br>' +
             '    <u>' + setting.kepsek + '</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipKepsek +
             '</td>' +
             '</tr>' +
             '</table>';
@@ -1242,7 +1245,7 @@ $satuan = [
             '    <br>' +
             '    <u>' + guru.nama_guru + '</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipWalas +
             '</td>' +
             '</tr>' +
             '</table>' +
@@ -1259,7 +1262,7 @@ $satuan = [
             '    <br>' +
             '    <u>' + setting.kepsek + '</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipKepsek +
             '</td>' +
             '        </tr>' +
             '    </table>' +
@@ -1401,6 +1404,8 @@ $satuan = [
     }
 
     $(document).ready(function () {
+        console.log('raporSetting', raporSetting);
+        /*
         console.log('mapels', arrMapel);
         console.log('raporSetting', raporSetting);
         console.log('kelompok', arrKelompokMapel);
@@ -1414,6 +1419,7 @@ $satuan = [
         console.log('arr_ekstra', arrekstra);
         console.log('kelas', kelas);
         console.log('naik', naik);
+        */
 
         $('#page-start').on('change keyup', function () {
             var n = 0;

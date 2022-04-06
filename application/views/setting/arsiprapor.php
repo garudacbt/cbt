@@ -256,6 +256,9 @@ $satuan = [
     var perSmt = 4;
     var perTp = perSmt * 2;
 
+    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? setting.nip : '';
+    var nipWalas = raporSetting != null && raporSetting.nip_walikelas === '1' ? guru.nip : '';
+
     function inArray(val, array) {
         var found = $.inArray(val, array);
         return found >= 0;
@@ -508,7 +511,7 @@ $satuan = [
             '    <br>' +
             '    <u>' + setting.kepsek + '</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipKepsek +
             '</td>' +
             '</tr>' +
             '</table>';
@@ -1282,7 +1285,7 @@ $satuan = [
             '    <br>' +
             '    <u>' + guru.nama_guru + '</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipWalas +
             '</td>' +
             '</tr>' +
             '</table>' +
@@ -1299,7 +1302,7 @@ $satuan = [
             '    <br>' +
             '    <u>' + setting.kepsek + '</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipKepsek +
             '</td>' +
             '        </tr>' +
             '    </table>' +
