@@ -1,0 +1,28 @@
+/* scheherazade-regular - arabic */
+@font-face {
+    font-family: 'uthmanic';
+    font-style: normal;
+    font-size: larger;
+    font-weight: 400;
+    src: url('../fonts/uthmanic/uthmanic-hafs.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('../fonts/uthmanic/uthmanic-hafs.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/uthmanic/uthmanic-hafs.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/uthmanic/uthmanic-hafs.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/uthmanic/uthmanic-hafs.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/uthmanic/uthmanic-hafs.svg#uthmanic') format('svg'); /* Legacy iOS */
+}
+/* scheherazade-700 - arabic */
+@font-face {
+    font-family: 'uthmanic';
+    font-style: normal;
+    font-size: larger;
+    font-weight: 700;
+    src: url('../fonts/uthmanic/uthmanic-hafs.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('../fonts/uthmanic/uthmanic-hafs.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/uthmanic/uthmanic-hafs.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/uthmanic/uthmanic-hafs.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/uthmanic/uthmanic-hafs.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/uthmanic/uthmanic-hafs.svg#uthmanic') format('svg'); /* Legacy iOS */
+}

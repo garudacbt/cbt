@@ -1,6 +1,3 @@
-<div id="background-carousel">
-	<div class="item" style="background-image: url('https://images.unsplash.com/photo-1489403290543-f9908e831043');"></div>
-</div>
 <div class="container">
 	<div class="info-box bg-transparent shadow-none">
         <?php
@@ -77,46 +74,18 @@
 	</div>
 </div>
 
+<script src="<?= base_url() ?>/assets/app/js/jquery.backstretch.js"></script>
 <script type="text/javascript">
-	let base_url = '<?=base_url();?>';
+    let base_url = '<?=base_url();?>';
+    var img = ["wall1.jpg", "wall2.png", "wall3.jpg"];
 
-	var i = 0;
-
-	var img = ["wall1.jpg", "wall2.png", "wall3.jpg"];
-    //var img = ["ma1.jpg", "ma2.jpg", "ma3.jpg"];
-
-	var opacity = 0;
-	var incOpacity = 1;
-	var delay = 50;
-
-	function changeBg() {
-		opacity = 0;
-		incOpacity = 1;
-
-		$('.item').css("opacity", opacity);
-		$('.item').css("background-image", "url("+base_url+"/assets/img/" + img[i] + " )");
-
-		i++;
-		// cek if i = max
-		if(i === img.length) {
-			i = 0;
-		}
-
-		fadeIn();
-
-		setTimeout(changeBg, 10000);
-	}
-
-	// fungsi effek fade
-	function fadeIn() {
-		opacity = incOpacity / delay;
-		if(incOpacity <= delay) {
-			$('.item').css("opacity", opacity);
-			setTimeout(fadeIn, 10);
-			incOpacity++;
-		}
-	}
-	// inisialisai fungsi gambar
-	changeBg();
+    $.backstretch([
+        base_url + 'assets/img/' + img[0],
+        base_url + 'assets/img/' + img[1],
+        base_url + 'assets/img/' + img[2]
+    ], {
+        fade: 1000,
+        duration: 10000
+    });
 </script>
 <script src="<?= base_url() ?>/assets/app/js/auth/login.js"></script>

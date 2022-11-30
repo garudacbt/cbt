@@ -133,6 +133,9 @@ $satuan = [
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
     console.log('KKM', kkm);
 
+    var nipKepsek = raporSetting.nip_kepsek === '1' ? setting.nip : '';
+    var nipWalas = raporSetting.nip_walikelas === '1' ? guru.nip : '';
+
     function inRange(n, start, end) {
         return n >= start && n <= end;
     }
@@ -215,7 +218,6 @@ $satuan = [
             } else {
                 ttl = tgl;
             }
-            ttl += tanggal + " " + bulans[Math.abs(bulan)] + " " + tahun;
         }
         return ttl;
     }
@@ -500,7 +502,7 @@ $satuan = [
             '    <br>' +
             '    <u>'+setting.kepsek+'</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipKepsek +
             '</td>' +
             '<td style="width: 33%">' +
             setting.kota + ',  ' + handleTitiMangsa(raporSetting.tgl_rapor_pts) +
@@ -512,7 +514,7 @@ $satuan = [
             '    <br>' +
             '    <u>' + guru.nama_guru + '</u>' +
             '    <br>' +
-            '    Nip:' +
+            '    Nip:' + nipWalas +
             '</td>' +
             '</tr>' +
             '</table>' +

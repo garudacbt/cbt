@@ -97,8 +97,10 @@
     var siswaSelected = null;
     var klsSelected = '<?= isset($kelas_selected) ? $kelas_selected : '';?>';
 
+    var siswas = JSON.parse(JSON.stringify(<?=isset($siswas) ? json_encode($siswas) : "[]"?>));
     var arrSiswa = JSON.parse(JSON.stringify(<?=isset($detail) ? json_encode($detail) : "[]"?>));
     var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
+    var test = JSON.parse(JSON.stringify(<?=isset($arr_test) ? json_encode($arr_test) : "[]"?>));
 
     var arrMapel = null;
 
@@ -235,7 +237,7 @@
         var siswa = arrSiswa[idSiswa];
         var arrIdNo = [
             '1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '', '', '12.',
-            '', '', '', '', '', '', '', '', '13.', '', '', '', '',];
+            '', '', '', '', '', '', '', '', '13.', '', '', '', ''];
 
         var identitas = '<p class="text-center text-dark mt-4"' +
             '   style="text-align: center;font-family: \'Arial\';font-size: 16pt;font-weight: bold">' +
@@ -271,52 +273,41 @@
 
             var tableFisik = '';
             if (header.table != null) {
-                tableFisik = '<td colspan="5"><table style="width: 100%;border: 1px solid black; border-collapse: collapse;font-size: 10pt;">\n' +
-                    '    <tr>\n' +
-                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Tahun</td>\n';
+                tableFisik = '<td colspan="5"><table style="width: 100%;border: 1px solid black; border-collapse: collapse;font-size: 10pt;">' +
+                    '    <tr>' +
+                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Tahun</td>';
 
+                var cols = 0;
                 $.each(header.table.tahun, function (k, tahun) {
+                    cols ++;
                     tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center">'+tahun+'</td>';
                 });
-                tableFisik +=
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Berat Badan</td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Tinggi Badan</td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Penyakit</td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Kelainan Jasmani</td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '        <td></td>\n' +
-                    '    </tr>\n' +
-                    '</table></td>\n';
+                tableFisik += '    </tr>' +
+                    '    <tr>' +
+                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Berat Badan</td>';
+                for (let i = 0; i < cols; i++) {
+                    tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center"></td>';
+                }
+                    tableFisik += '    </tr>' +
+                    '    <tr>' +
+                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Tinggi Badan</td>';
+                for (let i = 0; i < cols; i++) {
+                    tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center"></td>';
+                }
+                tableFisik += '    </tr>' +
+                    '    <tr>' +
+                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Penyakit</td>';
+                for (let i = 0; i < cols; i++) {
+                    tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center"></td>';
+                }
+                tableFisik += '    </tr>' +
+                    '    <tr>' +
+                    '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Kelainan Jasmani</td>';
+                for (let i = 0; i < cols; i++) {
+                    tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center"></td>';
+                }
+                tableFisik += '    </tr>' +
+                    '</table></td></tr>';
             }
 
             $.each(header.value, function (judul, isi) {
@@ -510,7 +501,7 @@
     function preview(idSiswa) {
         siswaSelected = arrSiswa[idSiswa];
         arrMapel = siswaSelected.setting_mapel;
-        console.log('mapel', arrMapel);
+        console.log('siswa', siswaSelected);
 
         $('#loading').removeClass('d-none');
 
@@ -546,6 +537,7 @@
     }
 
     $(document).ready(function () {
+        console.log('test', test);
         $('input#cari-siswa').quicksearch('ul#list-siswa li');
 
         var opsiKelas = $('#id-kelas');

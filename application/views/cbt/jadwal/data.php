@@ -520,6 +520,7 @@ if (isset($jadwal_ujian)) {
                     url: base_url + 'cbtjadwal/deletejadwal?id_jadwal=' + id,
                     type: "GET",
                     success: function (respon) {
+                        console.log(respon);
                         if (respon.status) {
                             swal.fire({
                                 title: "Berhasil",
@@ -659,6 +660,7 @@ if (isset($jadwal_ujian)) {
                         type: "POST",
                         data: dataPost,
                         success: function (respon) {
+                            console.log(respon);
                             if (respon.status) {
                                 swal.fire({
                                     title: "Berhasil",
@@ -677,7 +679,8 @@ if (isset($jadwal_ujian)) {
                                 });
                             }
                         },
-                        error: function () {
+                        error: function (xhr) {
+                            console.log(xhr.responseText)
                             swal.fire({
                                 title: "Gagal",
                                 text: "Ada data yang sedang digunakan",

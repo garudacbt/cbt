@@ -1187,18 +1187,17 @@
     var jmlEssaiTampil = '<?=$bank->tampil_esai?>';
 
     $(document).ready(function () {
-        //const totalSeharusnyaTampil = <?=$total_soal_seharusnya_tampil?>
-
         var $tableSoal = $('.table-soal');
         $.each($tableSoal, function () {
             var $imgs = $(this).find('tr img');
             $.each($imgs, function () {
                 var curSrc = $(this).attr('src');
-                if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                    $(this).attr('src', base_url + curSrc);
+                console.log('asli', curSrc);
+                if (curSrc.indexOf("base64") > 0) {
                 } else if (curSrc.indexOf(base_url) === -1) {
                     var pathUpload = 'uploads';
                     var forReplace = curSrc.split(pathUpload);
+                    console.log('replaced', pathUpload, forReplace[1]);
                     $(this).attr('src', base_url + pathUpload + forReplace[1]);
                 }
             })

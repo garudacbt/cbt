@@ -635,7 +635,7 @@ $(document).ready(function(){
 	Pace.restart();
     ajaxcsrf();
 
-	var colorBg = ['', 'success', 'secondary', 'primary', 'warning', 'danger',
+	var colorBg = ['success', 'success', 'secondary', 'primary', 'warning', 'danger',
 		'primary', "warning", "primary", "success", "primary", "success", "warning"
 	];
 
@@ -643,10 +643,8 @@ $(document).ready(function(){
 		$.ajax({
 			url: base_url + "dashboard/getlog/10",
 			method:"GET",
-			//data:{view:view},
-			//dataType:"json",
 			success:function(data) {
-				//console.log(data);
+				console.log(data);
 				var ul = '<ul class="products-list product-list-in-card pl-2 pr-2">';
 				$.each(data, function (key, value) {
 					var nama = value.id_group === '1' ? value.first_name : value.first_name +' '+ value.last_name; //value.id_group === '1' ? value.name : (value.id_group === '2' ? value.nama_guru : value.nama);

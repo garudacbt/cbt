@@ -259,6 +259,7 @@ foreach ($materi as $k => $m) {
 <?= form_close() ?>
 
 <script>
+    var jmlGuru = <?=count($gurus)?>;
     var idGuru = '<?=$id_guru?>';
     var subjudul = '<?=$subjudul?>';
     var urlJenis = '<?=$jenis == "1" ? "materi" : "tugas"?>';
@@ -270,7 +271,7 @@ foreach ($materi as $k => $m) {
             window.location.href = base_url + 'kelasmateri/'+ urlJenis +'?id=' + idGuru;
         }
 
-        $('#guru').append('<option value="0">SEMUA GURU</option>');
+        if (jmlGuru > 1) $('#guru').append('<option value="0">SEMUA GURU</option>');
 
         $('#guru').on('change', function () {
             idGuru = $(this).val();

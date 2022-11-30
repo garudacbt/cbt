@@ -4286,6 +4286,20 @@
       "primary_key": 0
     },
     {
+      "name": "nip_kepsek",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
+      "name": "nip_walikelas",
+      "type": "int",
+      "max_length": 1,
+      "default": "0",
+      "primary_key": 0
+    },
+    {
       "name": "tgl_rapor_akhir",
       "type": "varchar",
       "max_length": 100,

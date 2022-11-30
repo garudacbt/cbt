@@ -115,11 +115,13 @@
         </div>
     </section>
 </div>
+<script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script>
     var rSelected = <?= $ruang_selected == null ? 0 : 1?>;
     var sSelected = <?= $sesi_selected == null ? 0 : 1?>;
     $(document).ready(function () {
         ajaxcsrf();
+        $("#tbl").rowspanizer({columns: [0,1,2]});
         $('.select2').select2();
         var opsiJenis = $("#jenis");
         var opsiRuang = $("#ruang");

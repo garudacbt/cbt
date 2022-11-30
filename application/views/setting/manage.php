@@ -27,17 +27,32 @@
 					</div>
 				</div>
 				<div class="card-body">
+                    <div class="alert alert-danger shadow align-content-center" role="alert">
+                        <strong>Catatan !</strong> <br>BACKUP terlebih dahulu di menu Backup/Restore.
+                    </div>
+
                     <?php
                     //echo '<pre>';
                     //var_dump($tables);
                     //echo '</pre>';
+                    foreach ($tables as $ket=>$table) :
+                        $keterangan = $ket == '1' ?
+                            '<li>Tabel berisi data yang bisa digunakan sepanjang tahun/semester</li>'.
+                            '<li>Sebaiknya tidak dihapus, kecuali data sudah tidak diperlukan</li>'.
+                            '<li>Tabel otomatis dibackup ketika dihapus, lihat di menu Backup/Restore untuk melihat backup table yang dihapus</li>' :
+                            '<li>Tabel berisi data yang hanya digunakan satu tahun/semester</li>'.
+                            '<li>Tabel otomatis dibackup ketika dihapus, lihat di menu Backup/Restore untuk melihat backup table yang dihapus</li>';
                     ?>
-					<table id="database" class="table table-striped table-bordered table-hover table-sm">
+                        <div class="alert alert-default-success border-success">
+                            <ul class="mb-1">
+                                <?=$keterangan?>
+                            </ul>
+                        </div>
+					<table id="database" class="table table-striped table-bordered table-hover mb-5">
 						<thead>
 						<tr>
 							<th width="50" height="50" class="text-center p-0 align-middle">No.</th>
 							<th class="text-center p-0 align-middle">Tabel</th>
-                            <th class="text-center p-0 align-middle">Keterangan</th>
 							<th class="text-center p-0 align-middle">Total Data</th>
 							<th class="text-center p-0 align-middle">Aksi</th>
 						</tr>
@@ -45,49 +60,36 @@
 						<tbody>
                         <?php
                         $no = 1;
-                        foreach ($tables as $table=>$info) :?>
+                        foreach ($table as $info) :?>
                         <tr>
                             <td class="text-center align-middle"><?=$no?></td>
-                            <td class="align-middle"><?=$table?></td>
-                            <td class="align-middle"><?=$info['ket']?></td>
+                            <td class="align-middle"><?=$info['name']?></td>
                             <td class="align-middle text-center"><?=$info['size']?></td>
-                            <td class="text-center p-0 align-middle">Aksi</td>
+                            <td class="text-center p-0 align-middle">
+                                <?php
+                                $disable = $info['size'] == 0 ? 'disabled="disabled"' : '';
+                                ?>
+                                <button class="btn btn-sm btn-warning" onclick="hapus('<?=$info['table']?>')" <?=$disable?>><i class="fa fa-trash"> Kosongkan</i></button>
+                            </td>
                         </tr>
                         <?php $no++; endforeach; ?>
 						</tbody>
 					</table>
+                    <?php endforeach; ?>
 				</div>
 			</div>
 		</div>
 	</section>
 </div>
 
+<?= form_open('', array('id' => 'delete-table')) ?>
+<?= form_close() ?>
+
 <script>
-	function backupData() {
-		$.ajax({
-			type: "GET",
-			url: base_url+'dbmanager/backupdata',
-			success: function (response) {
-				console.log(response);
-				updateProgress(100, response.message);
-
-				swal.fire({
-					title: "Berhasil",
-					text: "Semua file data berhasil dibackup",
-					icon: "success"
-				}).then(result => {
-					if(result.value){
-						window.location.href = base_url+'dbmanager';
-					}
-				})
-			}
-		});
-	}
-
 	function hapus(src) {
 		swal.fire({
 			title: "Anda yakin?",
-			html: "File <b>" + src + "</b> akan dihapus!",
+			html: "Tabel akan dihapus!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#3085d6",
@@ -96,27 +98,20 @@
 		}).then(result => {
 			if (result.value) {
 			$.ajax({
-				url: base_url + 'dbmanager/hapusbackup/'+ src,
-				type: "GET",
+				url: base_url + 'dbclear/hapustable',
+				type: "POST",
+                data: $('#delete-table').serialize() + '&table='+src,
 				success: function (respon) {
 					console.log(respon);
-					if (respon.status) {
-						swal.fire({
-							title: "Berhasil",
-							text: respon.message,
-							icon: "success"
-						}).then(result => {
-							if(result.value){
-							window.location.href = base_url + 'dbmanager';
-						}
-					})
-					} else {
-						swal.fire({
-							title: "Gagal",
-							text: respon.message,
-							icon: "error"
-						});
-					}
+                    swal.fire({
+                        title: "Berhasil",
+                        text: respon.message,
+                        icon: "success"
+                    }).then(result => {
+                        if(result.value){
+                            window.location.href = base_url + 'dbclear';
+                        }
+					});
 				},
 				error: function (xhr) {
 					console.log(xhr.responseText);
@@ -130,8 +125,4 @@
 		}
 	})
 	}
-
-    $(document).ready(function(){
-    });
-
 </script>

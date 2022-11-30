@@ -259,7 +259,8 @@
             '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Nama</th>' +
             '<th colspan="'+arrMapel.length+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Skor</th>' +
             '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Jumlah</th>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">NILAI</th>' +
+            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Rata-rata</th>' +
+            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Rank</th>' +
             '</tr>';
 
         if (arrMapel.length > 1) {
@@ -298,7 +299,8 @@
             });
 
             tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">'+decimalFixed(jumlahNilai)+'</td>';
-            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"><b>'+decimalFixed(jumlahNilai / arrMapel.length)+'</b></td>';
+            tbody += '<td class="total" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"><b>'+decimalFixed(jumlahNilai / arrMapel.length)+'</b></td>';
+            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"></td>';
             tbody += '</tr>';
             nos +=1;
         });
@@ -307,6 +309,15 @@
         $('#table-status').html(tbody);
         $('#info').removeClass('d-none');
         $('#loading').addClass('d-none');
+
+        $(".total")
+            .map(function(){return $(this).text()})
+            .get()
+            .sort(function(a,b){return a - b })
+            .reduce(function(a, b){ if (b != a[0]) a.unshift(b); return a }, [])
+            .forEach((v,i)=>{
+                $('.total').filter(function() {return $(this).text() == v;}).next().text(i + 1);
+            });
 
         console.log(nilai_max, nilai_min);
     }

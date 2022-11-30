@@ -1342,8 +1342,10 @@ CREATE TABLE `rapor_admin_setting` (
   `bobot_pts` int(3) DEFAULT NULL,
   `bobot_pas` int(3) DEFAULT NULL,
   `bobot_absen` int(3) DEFAULT NULL,
-  `tgl_rapor_akhir` text NOT NULL,
-  `tgl_rapor_pts` text NOT NULL
+  `nip_kepsek` int(1) NOT NULL DEFAULT '0',
+  `nip_walikelas` int(1) NOT NULL DEFAULT '0',
+  `tgl_rapor_akhir` varchar(100) DEFAULT NULL,
+  `tgl_rapor_pts` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

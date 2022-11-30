@@ -52,7 +52,10 @@
 						<tbody>
 						<?php
 						//sort($list);
-						foreach ($list as $key => $value) :?>
+                        usort($list, function($a, $b) {
+                            return $b['tgl'] <=> $a['tgl'];
+                        });
+                        foreach ($list as $key => $value) :?>
 							<tr>
 								<td class="text-center">
 									<?= ($key+1) ?>
@@ -121,7 +124,21 @@
 		progress.attr('style','width:'+Number(count)+'%');
 		progress.text(count + '%  ' + message);
 	}
+
 	function processBackup() {
+        swal.fire({
+            title: "Backup database dan file sedang berjalan",
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
+
 		updateProgress(5, ' ');
 		$.ajax({
 			type: "GET",
@@ -141,7 +158,6 @@
 			success: function (response) {
 				console.log(response);
 				updateProgress(100, response.message);
-
 				swal.fire({
 					title: "Berhasil",
 					text: "Semua file data berhasil dibackup",
@@ -203,39 +219,6 @@
 	}
 
     $(document).ready(function(){
-
-        $('#truncate').on('click', function(e){
-            e.preventDefault();
-
-            Swal({
-                text: "Kosongkan Table",
-                title: "Anda yakin?",
-                type: "question",
-                showCancelButton: true,
-                cancelButtonColor: '#dd4b39'
-            }).then((result) => {
-                if(result.value){
-                    $(this).attr('disabled', 'disabled').text('Proses...');
-                    var jqxhr = $.getJSON('<?=base_url()?>settings/truncate', function(response){
-                        if(response.status){
-                            Swal({
-                                title: "Berhasil",
-                                text: "Semua table sudah dikosongkan, kecuali akun Admin pada table user.",
-                                type: "success",
-                            });
-                        }
-                    });
-
-                    jqxhr.done(function() {
-                        console.log( "ajax complete" );
-                        $('#truncate').removeAttr('disabled').html('<i class="fa fa-trash"></i> Kosongkan Table');
-                    });
-
-                }
-            });
-
-        });
-
     });
 
 </script>
