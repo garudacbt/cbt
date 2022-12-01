@@ -39,12 +39,19 @@ function sortByPosition($a, $b) {
 					</div>
 				</div>
 				<div class="card-body">
-                    <?php if ($mode == null || $mode == '1') :?>
+                    <?php
+                    //echo "<pre>";
+                    //var_dump($gurus);
+                    //echo "</pre>";
+                    if ($mode == null || $mode == '1') :?>
                         <div class="row">
                             <?php
                             if (count($gurus) > 0) :
                             usort($gurus, 'sortByPosition');
-                            foreach ($gurus as $guru): ?>
+                            foreach ($gurus as $guru):
+                                $mapels_guru = json_decode(json_encode(unserialize($guru->mapel_kelas)));
+                                $ekstras_guru = json_decode(json_encode(unserialize($guru->ekstra_kelas)));
+                                ?>
                             <div class="col-md-6 col-xl-4 d-flex align-items-stretch">
                                 <div class="card flex-fill">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -67,6 +74,51 @@ function sortByPosition($a, $b) {
                                                 <span class="badge badge-btn <?=$badge?>"><?=$stts?></span>
                                             </div>
                                         </div>
+                                        <?php if ($mapels_guru != null || $ekstras_guru != null):?>
+                                        <div>
+                                            <span>Pengampu:</span>
+                                            <table class="table table-bordered table-bordered table-sm">
+                                                <tr>
+                                                    <th class="text-center">No.</th>
+                                                    <th class="text-center">Mata Pelajaran</th>
+                                                    <th class="text-center">Kelas</th>
+                                                </tr>
+                                                <?php
+                                                $nn = 1;
+                                                 foreach ($mapels_guru as $mapel) :
+                                                    $all_kelas_mapel = $mapel->kelas_mapel;
+                                                $kls_guru_mapel = '';
+                                                foreach ($all_kelas_mapel as $kls_mpl) {
+                                                    if (isset($kelass[$kls_mpl->kelas])) $kls_guru_mapel .= '<span class="badge badge-light border">'.$kelass[$kls_mpl->kelas]->nama_kelas.'</span> ';
+                                                }
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?= $nn ?></td>
+                                                    <td><?= $mapel->nama_mapel ?></td>
+                                                    <td class="text-center">
+                                                        <?= $kls_guru_mapel ?>
+                                                    </td>
+                                                </tr>
+                                                <?php $nn++; endforeach; ?>
+                                                <?php
+                                                foreach ($ekstras_guru as $ekstra) :
+                                                $all_kelas_ekstra = $ekstra->kelas_ekstra;
+                                                $kls_guru_ekstra = '';
+                                                foreach ($all_kelas_ekstra as $kls_eks) {
+                                                if (isset($kelass[$kls_eks->kelas])) $kls_guru_ekstra .= '<span class="badge badge-light border">'.$kelass[$kls_eks->kelas]->nama_kelas.'</span> ';
+                                                }
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?= $nn ?></td>
+                                                    <td><?= $ekstra->nama_ekstra ?></td>
+                                                    <td class="text-center">
+                                                        <?= $kls_guru_ekstra ?>
+                                                    </td>
+                                                </tr>
+                                                <?php $nn++; endforeach; ?>
+                                            </table>
+                                        </div>
+                                        <?php  endif; ?>
                                         <div class="row mt-auto">
                                             <a href="<?=base_url('dataguru/edit/'.$guru->id_guru)?>" class="btn btn-sm btn-outline-primary"><i class="fa fa-pencil"></i> Profile</a>
                                             <a href="<?=base_url('dataguru/editJabatan/'.$guru->id_guru)?>" class="btn btn-sm btn-outline-primary ml-1"><i class="fa fa-pencil"></i> Jabatan</a>

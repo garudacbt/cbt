@@ -14,6 +14,7 @@ $satuan = [
         "SEKOLAH MENENGAH KEJURUAN (SMK)"
     ]
 ];
+
 ?>
 <div class="content-wrapper bg-white pt-4">
     <section class="content-header">
@@ -224,6 +225,10 @@ $satuan = [
     var halamanAwal = 1;
     var perSmt = 4;
     var perTp = perSmt * 2;
+
+    var levelAkhir = ["6", "9", "12"];
+    var klsAkhir = inArray(level, levelAkhir);
+    //console.log("kelasAkhir", klsAkhir);
 
     function inArray(val, array) {
         var found = $.inArray(val, array);
@@ -1026,6 +1031,7 @@ $satuan = [
         console.log('ekstra', ekstra);
         var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0cm;">' +
+            headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. EKSTRAKURIKULER</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
@@ -1052,7 +1058,7 @@ $satuan = [
             }
         });
 
-        for (let i = no; i < 4; i++) {
+        for (let i = no; i < 3; i++) {
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;"></td>' +
@@ -1075,7 +1081,7 @@ $satuan = [
         posAlpha ++;
 
         no = 1;
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1 + '</td>' +
@@ -1086,6 +1092,7 @@ $satuan = [
         tableNilai += '</table>';
 
         //fisik
+        /*
         if (setting.jenjang == '1') {
             var sehat = ['Pendengaran', 'Penglihatan', 'Gigi', 'Lain-lain'];
             var kondisi = [fisik[idSiswa].kondisi.telinga, fisik[idSiswa].kondisi.mata, fisik[idSiswa].kondisi.gigi, fisik[idSiswa].kondisi.lain];
@@ -1136,6 +1143,7 @@ $satuan = [
             }
             tableNilai += '</table></div>';
         }
+        */
 
         // absensi
         var ssakit = absensi[idSiswa].nilai.s == '' ? '0' : absensi[idSiswa].nilai.s;
@@ -1236,7 +1244,7 @@ $satuan = [
             '</td>' +
             '<td style="width: 30%;"></td>' +
             '<td style="width: 35%">' +
-            setting.kota + ',  ' + handleTanggal(raporSetting.tgl_rapor_akhir) +
+            setting.kota + ',  ' + handleTanggal(klsAkhir ? raporSetting.tgl_rapor_kelas_akhir : raporSetting.tgl_rapor_akhir) +
             '    <br>' +
             'Wali Kelas' +
             '    <br>' +
@@ -1290,6 +1298,7 @@ $satuan = [
                 siswaSelected = arrSiswa[i];
             }
         }
+        posAlpha = 0;
 
         $('#loading').removeClass('d-none');
 

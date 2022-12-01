@@ -261,8 +261,16 @@
 	}
 
 	function createPrintPreview(data) {
-		console.log(data);
+		//console.log(data);
         console.log('data', data.length);
+        if (data.length > 150) {
+            swal.fire({
+                title: "",
+                text: "Data siswa melebihi 150 dikhawatirkan akan membuat lag aplikasi, gunakan print kartu perkelas",
+                icon: "warning"
+            });
+            return;
+        }
         var konten = '';
 		if (data.length > 8) {
             var bagi2 = Math.round(data.length / 2);
@@ -715,8 +723,8 @@
 		}
 
 		//loadSiswaKelas($('#kelas').val());
-		$("#kelas").prepend("<option value='' selected='selected'>Pilih Kelas</option>");
-		$("#ruang").prepend("<option value='' selected='selected'>Pilih Ruang</option>");
+		$("#kelas").prepend("<option value='' selected='selected' disabled>Pilih Kelas</option>");
+		$("#ruang").prepend("<option value='' selected='selected' disabled>Pilih Ruang</option>");
 		$("#kelas").change(function () {
 			loadSiswaKelas($(this).val());
 		});

@@ -193,11 +193,11 @@ function my_array_unique($array, $keep_key_assoc = false)
                                             <?php if (!$jadwal->hanya_pg) : ?>
                                             <br>
                                             <?php
-                                            $badge_jenis = $jadwal->mengerjakan == count($koreksi[$jadwal->id_jadwal][1]) ? 'badge-success' : 'badge-danger';
+                                            $badge_jenis = isset($koreksi[$jadwal->id_jadwal][1]) && $jadwal->mengerjakan == count($koreksi[$jadwal->id_jadwal][1]) ? 'badge-success' : 'badge-danger';
                                             ?>
                                             <span class="badge badge-btn <?= $badge_jenis ?>">
                                                 <?= $jadwal->mengerjakan ?> mengerjakan,
-                                                <?= count($koreksi[$jadwal->id_jadwal][1]) ?> dikoreksi
+                                                <?= isset($koreksi[$jadwal->id_jadwal][1]) ? count($koreksi[$jadwal->id_jadwal][1]) : '0' ?> dikoreksi
                                             </span>
                                         <?php endif; ?>
                                         <?php else : ?>

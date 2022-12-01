@@ -74,7 +74,7 @@
                     </div>
 
                     <?php
-                    //var_dump($jml);
+                    //var_dump($kelas);
                     if (count($kelas) === 0) : ?>
                         <div class="col-12">
                             <div class="alert alert-default-warning shadow align-content-center" role="alert">
