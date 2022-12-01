@@ -14,7 +14,6 @@ $satuan = [
         "SEKOLAH MENENGAH KEJURUAN (SMK)"
     ]
 ];
-
 ?>
 <div class="content-wrapper bg-white pt-4">
     <section class="content-header">
@@ -31,14 +30,43 @@ $satuan = [
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
+                    <div class="mb-3">
+                        <label>Pilih Tahun Pelajaran</label>
+                        <select name="tahun" id="id-tahun" class="form-control form-control-sm">
+                            <?php foreach ($tp as $tahun) :
+                                $selected = isset($tp_selected) && $tahun->id_tp == $tp_selected ? 'selected="selected"' : ''; ?>
+                                <option value="<?= $tahun->id_tp ?>" <?= $selected ?>><?=$tahun->tahun?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pilih Semester</label>
+                        <select name="semester" id="id-smt" class="form-control form-control-sm">
+                            <?php foreach ($smt as $sm) :
+                                $selected = isset($smt_selected) && $sm->id_smt == $smt_selected ? 'selected="selected"' : ''; ?>
+                                <option value="<?= $sm->id_smt ?>" <?= $selected ?>><?=$sm->smt?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pilih Kelas</label>
+                        <?php
+                        echo form_dropdown(
+                            'kelas',
+                            $kelases,
+                            isset($kls_selected) ? $kls_selected : null,
+                            'id="id-kelas" class="form-control form-control-sm"'
+                        ); ?>
+                    </div>
                     <div class="card">
                         <div class="card-header bg-light">
-                            <h3 class="card-title">Siswa</h3>
+                            <h3 class="card-title">Pilih Siswa</h3>
                         </div>
                         <div class="card-body p-0" style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
                             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
                                 <?php
-                                $n = 1;
+                                if (isset($siswas)) :
+                                    $n = 1;
                                 foreach ($siswas as $siswa): ?>
                                     <li class="nav-item">
                                         <a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
@@ -46,14 +74,14 @@ $satuan = [
                                             <?= $n . '. ' . $siswa->nama ?>
                                         </a>
                                     </li>
-                                    <?php $n++; endforeach; ?>
+                                    <?php $n++; endforeach; endif;?>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="card">
-                        <div class="card-header bg-light">
+                        <div class="card-header bg-gray-light">
                             <div class="card-title">
                                 <h6>Preview</h6>
                             </div>
@@ -63,6 +91,9 @@ $satuan = [
                                 </button>
                                 <button class="btn btn-success btn-sm" onclick="perkecil()" disabled>
                                     <i class="fa fa-search-minus mr-1"></i>Perkecil
+                                </button>
+                                <button class="btn btn-warning btn-sm d-none" onclick="editNilai()" disabled>
+                                    <i class="fa fa-pencil mr-1"></i>Edit Rapor
                                 </button>
                             </div>
                         </div>
@@ -98,11 +129,11 @@ $satuan = [
                                 <div id="zoom" style="transform: scale(0.9); transform-origin: top center">
                                     <div id="print-preview">
                                         <div id="empty"
-                                             style="display: flex;-webkit-justify-content: center;justify-content: center;width: 210mm; height: 297mm;padding: 10mm">
+                                             style="display: flex;-webkit-justify-content: center;justify-content: center;width: 210mm; min-height: 297mm;padding: 10mm">
                                             Silahkan pilih siswa
                                         </div>
                                         <div id="print-sampul" class="border my-shadow mb-3 d-none p-5"
-                                             style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm; padding: 5mm 10mm 5mm 10mm">
+                                             style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; min-height: 297mm; padding: 5mm 10mm 5mm 10mm">
                                             <div style="margin-top: 80px;text-align: center">
                                                 <div class="image">
                                                     <img src="<?= base_url('assets/img/garuda_bw.png') ?>"
@@ -192,13 +223,20 @@ $satuan = [
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
+    var isAdmin = '<?= $this->ion_auth->is_admin() ?>';
     var siswaSelected = null;
+    var thnSelected = '<?= isset($tp_selected) ? $tp_selected : '';?>';
+    var smtSelected = '<?= isset($smt_selected) ? $smt_selected : '';?>';
+    var klsSelected = '<?= isset($kls_selected) ? $kls_selected : '';?>';
+
     var kelas = '<?= $kelas ?>';
     var level = '<?= $lvl_kelas ?>';
     var tp = JSON.parse(JSON.stringify(<?= json_encode($tp_name != null ? $tp_name : "") ?>));
     var smt = JSON.parse(JSON.stringify(<?= json_encode($smt_name != null ? $smt_name : "") ?>));
+
+    var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($rapor) ?>));
     var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
-    var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswas)?>));
+    var jabatanGuru = JSON.parse(JSON.stringify(<?= json_encode($jabatan)?>));
     var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
     var arrKelompokMapel = JSON.parse(JSON.stringify(<?= json_encode($kelompoks)?>));
     var arrekstra = JSON.parse(JSON.stringify(<?= json_encode($mapel_ekstra)?>));
@@ -210,15 +248,12 @@ $satuan = [
     var fisik = JSON.parse(JSON.stringify(<?= json_encode($fisik)?>));
     var ekstra = JSON.parse(JSON.stringify(<?= json_encode($nilai_ekstra)?>));
     var naik = JSON.parse(JSON.stringify(<?= json_encode($naik)?>));
-    var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
+
+    var arrSiswa = JSON.parse(JSON.stringify(<?=isset($siswas) ? json_encode($siswas) : "[]"?>));
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
-    var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($rapor) ?>));
-
-    var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
+    var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
-
-    var nipKepsek = raporSetting.nip_kepsek === '1' ? setting.nip : '';
-    var nipWalas = raporSetting.nip_walikelas === '1' ? guru.nip : '';
+    console.log("SAT", namaSatuanPend);
 
     var z = 0.9;
 
@@ -228,7 +263,9 @@ $satuan = [
 
     var levelAkhir = ["6", "9", "12"];
     var klsAkhir = inArray(level, levelAkhir);
-    //console.log("kelasAkhir", klsAkhir);
+
+    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? setting.nip : '';
+    var nipWalas = raporSetting != null && raporSetting.nip_walikelas === '1' ? guru.nip : '';
 
     function inArray(val, array) {
         var found = $.inArray(val, array);
@@ -552,7 +589,7 @@ $satuan = [
         var desSpiritual = sikap[idSiswa] != null && sikap[idSiswa][1] != null ? sikap[idSiswa][1].deskripsi : '';
         var desSosial = sikap[idSiswa] != null && sikap[idSiswa][2] != null ? sikap[idSiswa][2].deskripsi : '';
 
-        var tableSikap = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;"> ' +
+        var tableSikap = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;"> ' +
             '<div style="padding: 0;">' +
             '    <p style="font-family: \'Tahoma\';text-align: center;font-size: 12pt;"><b>PENCAPAIAN KOMPETENSI PESERTA DIDIK</b></p>' +
             '    <hr>' + headerPage(siswa) +
@@ -680,7 +717,7 @@ $satuan = [
     }
 
     function createPagePengetahuan(idSiswa, siswa) {
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+        var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0;">' +
             headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PENGETAHUAN</b></span>';
@@ -698,8 +735,6 @@ $satuan = [
             '            <td rowspan="2" style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
             '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;'+display+'"><b>KKM</b></td>' +
             '            <td colspan="3" style="height:25px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
-            //'            <td style="width:9%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
-            //'            <td style="height:35px;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:7%;height:25px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
@@ -718,14 +753,11 @@ $satuan = [
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
-                //hasSub = val.id_parent != '0';
+            if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
                 var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
                 var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
-                //var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                //var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
                 pos ++;
                 htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
@@ -735,8 +767,6 @@ $satuan = [
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                     ellipsisText(pdesk) +
                     '</td>' +
-                    //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                    //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
                     '</tr>';
             }
         });
@@ -750,6 +780,7 @@ $satuan = [
                 '</tr>' + htmlPai;
         }
 
+        var trCount = pos;
         // mapel non pai
         var index = 0;
         $.each(arrKelompokMapel, function (kel, val) {
@@ -759,14 +790,12 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                         var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
                         var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
                         var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
-                        //var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
-                        //var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
                         no++;
                         htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
@@ -777,9 +806,8 @@ $satuan = [
                             '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
                             ellipsisText(pdesk) +
                             '</td>' +
-                            //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
-                            //'<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
                             '</tr>';
+                        trCount++;
                     }
                 });
             }
@@ -810,6 +838,13 @@ $satuan = [
 
             index ++;
         });
+
+        if (trCount == 0) {
+            tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                '            <td colspan="5" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;"><b>Tidak ada arsip nilai</b></td>' +
+                '        </tr>';
+        }
+
         tableNilai += '</table>' ;
         tableNilai += tableKkm() + '</div>';
 
@@ -828,7 +863,7 @@ $satuan = [
     }
 
     function createPageKeterampilan(idSiswa, siswa) {
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+        var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0;">' +
             headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETERAMPILAN</b></span>';
@@ -863,7 +898,7 @@ $satuan = [
         var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
         var pai = arr[indexPAI];
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
+            if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
                 var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
@@ -890,6 +925,7 @@ $satuan = [
                 '</tr>' + htmlPai;
         }
 
+        var trCount = pos;
         // mapel non pai
         var index = 0;
         $.each(arrKelompokMapel, function (kel, val) {
@@ -899,7 +935,7 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                         var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
@@ -916,6 +952,7 @@ $satuan = [
                             ellipsisText(kdesk) +
                             '</td>' +
                             '</tr>';
+                        trCount++;
                     }
                 });
             }
@@ -946,6 +983,13 @@ $satuan = [
 
             index ++;
         });
+
+        if (trCount == 0) {
+            tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+                '            <td colspan="5" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;"><b>Tidak ada arsip nilai</b></td>' +
+                '        </tr>';
+        }
+
         tableNilai += '</table></div>';
 
         tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
@@ -1029,9 +1073,8 @@ $satuan = [
 
     function createPageekstra(idSiswa, siswa) {
         console.log('ekstra', ekstra);
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+        var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0cm;">' +
-            headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. EKSTRAKURIKULER</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
@@ -1058,7 +1101,7 @@ $satuan = [
             }
         });
 
-        for (let i = no; i < 3; i++) {
+        for (let i = no; i < 4; i++) {
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;"></td>' +
@@ -1081,7 +1124,7 @@ $satuan = [
         posAlpha ++;
 
         no = 1;
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1 + '</td>' +
@@ -1092,7 +1135,6 @@ $satuan = [
         tableNilai += '</table>';
 
         //fisik
-        /*
         if (setting.jenjang == '1') {
             var sehat = ['Pendengaran', 'Penglihatan', 'Gigi', 'Lain-lain'];
             var kondisi = [fisik[idSiswa].kondisi.telinga, fisik[idSiswa].kondisi.mata, fisik[idSiswa].kondisi.gigi, fisik[idSiswa].kondisi.lain];
@@ -1143,7 +1185,6 @@ $satuan = [
             }
             tableNilai += '</table></div>';
         }
-        */
 
         // absensi
         var ssakit = absensi[idSiswa].nilai.s == '' ? '0' : absensi[idSiswa].nilai.s;
@@ -1212,14 +1253,13 @@ $satuan = [
         //kenaikan
         if (smt.smt == 'Genap') {
             var naikKe = parseInt(level) + 1;
-            var kompetensi = level === '6' || level === '9' || level === '12' ? 'pada seluruh kompetensi' : 'kompetensi pada semester ke-1 dan ke-2';
             var txtNaik = buatTeksKenaikan(naik[idSiswa]);
             tableNilai += '<table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
                 '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '            <td style="width:100%;height: 55px;border: 1px solid black; border-collapse: collapse; padding-left: 6px">' +
                 '<b>Keputusan:</b><br>' +
-                'Berdasarkan pencapaian '+kompetensi+', peserta didik ditetapkan: <br>' +
-                '<b>' + txtNaik + '</b>' +
+                'Berdasarkan pencapaian kompetensi pada semester ke-1 dan ke-2, peserta didik ditetapkan: <br>' +
+                txtNaik +
                 '<small>*) Coret yang tidak perlu.</small>' +
                 '</td>' +
                 '        </tr>' +
@@ -1298,7 +1338,13 @@ $satuan = [
                 siswaSelected = arrSiswa[i];
             }
         }
+
         posAlpha = 0;
+        if (raporSetting == null) {
+            $('#empty').html('<div class="text-center">Tidak ada arsip rapor untuk<br><b>' +
+                siswaSelected.nama.toUpperCase() + '</b><br>Tahun Pelajaran ' + tp.tahun + ' Semester ' + smt.nama_smt + '</div>');
+            return;
+        }
 
         $('#loading').removeClass('d-none');
 
@@ -1412,23 +1458,68 @@ $satuan = [
         $('#page-start').val(halamanAwal).trigger('change');
     }
 
+    function editNilai() {
+        window.location.href = base_url + "bukurapor/editnilairapor?siswa=" + siswaSelected.id_siswa +
+            '&tp=' + thnSelected +
+            '&smt=' + smtSelected +
+            "&mode=1";
+    }
+
     $(document).ready(function () {
-        console.log('raporSetting', raporSetting);
-        /*
-        console.log('mapels', arrMapel);
-        console.log('raporSetting', raporSetting);
-        console.log('kelompok', arrKelompokMapel);
-        console.log('nilai_rapor', nilaiRapor);
-        console.log('sikap', sikap);
-        console.log('nilai', nilai);
-        console.log('desk', deskripsi);
-        console.log('absensi', absensi);
-        console.log('fisik', fisik);
-        console.log('m_ekstra', ekstra);
-        console.log('arr_ekstra', arrekstra);
-        console.log('kelas', kelas);
-        console.log('naik', naik);
-        */
+        var opsiTahun = $('#id-tahun');
+        var tslctd = thnSelected == '' ? "selected='selected'" : "";
+        opsiTahun.prepend("<option value='0' " + tslctd + " disabled='disabled'>Pilih Tahun Pelajaran</option>");
+        opsiTahun.change(function () {
+            getDataKelas($(this).val(), opsiSmt.val());
+        });
+
+        var opsiSmt = $('#id-smt');
+        var sslctd = smtSelected == '' ? "selected='selected'" : "";
+        opsiSmt.prepend("<option value='0' " + sslctd + " disabled='disabled'>Pilih Semester</option>");
+        opsiSmt.change(function () {
+            getDataKelas(opsiTahun.val(), $(this).val());
+        });
+
+        var opsiKelas = $('#id-kelas');
+        console.log(klsSelected);
+        var kslctd = klsSelected == '' ? "selected='selected'" : "";
+        opsiKelas.prepend("<option value='0' " + kslctd + " disabled='disabled'>Pilih Kelas</option>");
+        opsiKelas.change(function () {
+            getDataSiswa(opsiTahun.val(), opsiSmt.val(), $(this).val());
+        });
+
+        function getDataSiswa(tahun, smt, kelas) {
+            console.log(tahun, smt, kelas);
+            if (tahun != null && smt != null) {
+                window.location.href = base_url + 'bukurapor?tp=' + tahun + '&smt=' + smt + '&kls=' + kelas;
+            }
+        }
+
+        function getDataKelas(tahun, smt) {
+            if (tahun != null && smt != null) {
+                console.log('jabatan', isAdmin == '1' ? 'admin' : jabatanGuru[tahun][smt]);
+                var idKelas = isAdmin == '1' ? '' : '&kls='+jabatanGuru[tahun][smt];
+                var url = base_url + "bukurapor/getdatakelas?tp="+tahun+"&smt="+smt+idKelas;
+                //console.log('url', url);
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function (data) {
+                        console.log("result", data);
+                        jabatanGuru = data.jabatan;
+                        console.log('jabatan', isAdmin == '1' ? 'admin' : jabatanGuru[tahun][smt]);
+                        var opts = '<option value="0" selected="selected" disabled="disabled">Pilih Kelas</option>';
+                        $.each(data.kelas, function (i, v) {
+                            opts += '<option value="'+i+'">'+v+'</option>';
+                        });
+                        opsiKelas.html(opts);
+                    }, error: function (xhr, status, error) {
+                        console.log("error", xhr.responseText);
+                        showDangerToast('ERROR');
+                    }
+                });
+            }
+        }
 
         $('#page-start').on('change keyup', function () {
             var n = 0;

@@ -264,12 +264,12 @@
                 });
             });
             tbl.shift();
-            console.log($(this).serialize() + '&nilai='+JSON.stringify(tbl));
+            console.log($(this).serialize() + '&id_mapel='+ idMapel +'&id_kelas='+idKelas+'&nilai='+JSON.stringify(tbl));
 
             $.ajax({
                 type: "POST",
-                url: base_url + 'rapor/importpts/'+idMapel+'/'+idKelas,
-                data: $(this).serialize() + '&nilai='+JSON.stringify(tbl),
+                url: base_url + 'rapor/importpts',
+                data: $(this).serialize() + '&id_mapel='+ idMapel +'&id_kelas='+ idKelas + '&nilai='+ JSON.stringify(tbl),
                 cache: false,
                 success: function (data) {
                     console.log(data);

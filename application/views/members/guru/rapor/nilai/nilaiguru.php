@@ -113,30 +113,30 @@
                                         <td class="text-center"><?=$s->nis?></td>
                                         <td><?=$s->nama?></td>
                                         <?php if ($extraNone) : ?>
-                                        <td class="text-center"><?=$ns->p1?></td>
-                                        <td class="text-center"><?=$ns->p2?></td>
-                                        <td class="text-center"><?=$ns->p3?></td>
-                                        <td class="text-center"><?=$ns->p4?></td>
-                                        <td class="text-center"><?=$ns->p5?></td>
-                                        <td class="text-center"><?=$ns->p6?></td>
-                                        <td class="text-center"><?=$ns->p7?></td>
-                                        <td class="text-center"><?=$ns->p8?></td>
-                                        <td class="text-center text-bold"><?=$ns->p_rata_rata?></td>
+                                        <td class="text-center nilai"><?=$ns->p1?></td>
+                                        <td class="text-center nilai"><?=$ns->p2?></td>
+                                        <td class="text-center nilai"><?=$ns->p3?></td>
+                                        <td class="text-center nilai"><?=$ns->p4?></td>
+                                        <td class="text-center nilai"><?=$ns->p5?></td>
+                                        <td class="text-center nilai"><?=$ns->p6?></td>
+                                        <td class="text-center nilai"><?=$ns->p7?></td>
+                                        <td class="text-center nilai"><?=$ns->p8?></td>
+                                        <td class="text-center nilai text-bold"><?=$ns->p_rata_rata?></td>
                                         <td class="text-center text-bold"><?=$ns->p_predikat?></td>
                                         <td style="font-size: 8pt"><?=$ns->p_deskripsi?></td>
-                                        <td class="text-center"><?=$ns->k1?></td>
-                                        <td class="text-center"><?=$ns->k2?></td>
-                                        <td class="text-center"><?=$ns->k3?></td>
-                                        <td class="text-center"><?=$ns->k4?></td>
-                                        <td class="text-center"><?=$ns->k5?></td>
-                                        <td class="text-center"><?=$ns->k6?></td>
-                                        <td class="text-center"><?=$ns->k7?></td>
-                                        <td class="text-center"><?=$ns->k8?></td>
-                                        <td class="text-center text-bold"><?=$ns->k_rata_rata?></td>
+                                        <td class="text-center nilai"><?=$ns->k1?></td>
+                                        <td class="text-center nilai"><?=$ns->k2?></td>
+                                        <td class="text-center nilai"><?=$ns->k3?></td>
+                                        <td class="text-center nilai"><?=$ns->k4?></td>
+                                        <td class="text-center nilai"><?=$ns->k5?></td>
+                                        <td class="text-center nilai"><?=$ns->k6?></td>
+                                        <td class="text-center nilai"><?=$ns->k7?></td>
+                                        <td class="text-center nilai"><?=$ns->k8?></td>
+                                        <td class="text-center nilai text-bold"><?=$ns->k_rata_rata?></td>
                                         <td class="text-center text-bold"><?=$ns->k_predikat?></td>
                                         <td style="font-size: 8pt"><?=$ns->k_deskripsi?></td>
                                         <?php else: ?>
-                                            <td class="text-center"><?=$ns->nilai?></td>
+                                            <td class="text-center nilai"><?=$ns->nilai?></td>
                                             <td class="text-center"><?=$ns->predikat?></td>
                                             <td class="text-center"><?=$ns->deskripsi?></td>
                                         <?php endif; ?>
@@ -199,6 +199,19 @@
             loadSiswaKelas(opsiFilter.val(), $(this).val())
         });
 
+        $.each($('.nilai'), function () {
+            var nn = parseInt($(this).text());
+            if (!isNaN(nn)) {
+                console.log('nilai', nn);
+                if (nn < 70) {
+                    $(this).attr('style', 'background: #dc3545;');
+                } else if (nn < 80) {
+                    $(this).attr('style', 'background: #ffc107;');
+                } else if (nn >= 80) {
+                    $(this).attr('style', 'background: #20c997;');
+                }
+            }
+        });
     })
 
 </script>

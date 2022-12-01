@@ -365,7 +365,7 @@
                 });
             });
             tbl.shift();
-            var dataPost = $(this).serialize() + "&fisik=" + JSON.stringify(tbl);
+            var dataPost = $(this).serialize() + "&kelas=" + idKelas + "&fisik=" + JSON.stringify(tbl);
             console.log(dataPost);
 
             $.ajax({

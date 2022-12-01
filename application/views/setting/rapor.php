@@ -6,6 +6,13 @@
  * Time: 11:45
  */
 
+$satuan = [
+    "1" => ["I ~ V", "VI"],
+    "2" => ["VII-VIII", "IX"],
+    "3" => ["X-XI", "XII"
+    ]
+];
+
 ?>
 
 <div class="content-wrapper bg-white pt-4">
@@ -51,20 +58,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-4 col-form-label">Tgl Rapor PTS</label>
-                                <div class="col-8">
+                                <label class="col-5 col-form-label">Tgl Rapor PTS</label>
+                                <div class="col-7">
                                     <input type="text" name="tgl_rapor_pts" value="<?=$rapor !=null ? $rapor->tgl_rapor_pts : ''?>" class="form-control tgl" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-4 col-form-label">Tgl Rapor Akhir</label>
-                                <div class="col-8">
+                                <label class="col-5 col-form-label">Tgl Rapor Akhir Kls <?=$satuan[$setting->jenjang][0]?></label>
+                                <div class="col-7">
                                     <input type="text" name="tgl_rapor_akhir" value="<?=$rapor !=null ? $rapor->tgl_rapor_akhir : ''?>" class="form-control tgl" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-4 col-form-label">Tampilkan NIP Kepala Sekolah</label>
-                                <div class="col-8">
+                                <label class="col-5 col-form-label">Tgl Rapor Akhir Kls <?=$satuan[$setting->jenjang][1]?></label>
+                                <div class="col-7">
+                                    <input type="text" name="tgl_rapor_kelas_akhir" value="<?=$rapor !=null ? $rapor->tgl_rapor_kelas_akhir : ''?>" class="form-control tgl" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-5 col-form-label">Tampilkan NIP Kepala Sekolah</label>
+                                <div class="col-7">
                                     <?php
                                     echo form_dropdown(
                                         'nip_kepsek',
@@ -75,8 +88,8 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-4 col-form-label">Tampilkan NIP Walikelas</label>
-                                <div class="col-8">
+                                <label class="col-5 col-form-label">Tampilkan NIP Walikelas</label>
+                                <div class="col-7">
                                     <?php
                                     echo form_dropdown(
                                         'nip_walikelas',

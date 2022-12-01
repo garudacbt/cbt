@@ -3,86 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Bukuinduk.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Bukuinduk.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Bukurapor.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Bukurapor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtalokasi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtalokasi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtanalisis.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtanalisis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtbanksoal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtbanksoal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtcetak.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtcetak.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtjadwal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtjadwal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtjenis.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtjenis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtnilai.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtnilai.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtnomorpeserta.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtnomorpeserta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtpengawas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtpengawas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtpeserta.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtpeserta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtrekap.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtrekap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtruang.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtruang.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtsesi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtsesi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtsesisiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtsesisiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbtstatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbtstatus.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cbttoken.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cbttoken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Compare.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Compare.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Daotest.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Daotest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Dataalumni.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dataalumni.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Dataekstra.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dataekstra.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Dataguru.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dataguru.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Datajurusan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Datajurusan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Datakelas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Datakelas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Datamapel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Datamapel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Datasiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Datasiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Datatahun.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Datatahun.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Dbclear.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dbclear.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Dbmanager.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Dbmanager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Guruview.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Guruview.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Hasilujian.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Hasilujian.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Install.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Install.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Jurusanmapel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Jurusanmapel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasabsensibulanan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasabsensibulanan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasabsensiharian.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasabsensiharian.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasabsensiharianmapel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasabsensiharianmapel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelascatatan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelascatatan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasguru.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasguru.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasjadwal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasjadwal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasmateri.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasmateri.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasmaterijadwal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasmaterijadwal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasnilai.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasnilai.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Kelasstatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Kelasstatus.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Loginnew.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Loginnew.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Luckysheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Luckysheet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Migrate.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Migrate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Ormtest.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Ormtest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Pengumuman.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Pengumuman.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Rapor.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Rapor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Settings.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Siswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Siswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Soal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Soal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Ujian.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Ujian.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Update.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Useradmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Useradmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Userguru.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Userguru.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Usersiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Usersiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Walicatatan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Walicatatan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Walisiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Walisiswa.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Walistruktur.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Walistruktur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Welcome.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Welcome.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Cbt_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Cbt_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Dashboard_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Dashboard_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Dropdown_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Dropdown_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Install_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Install_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Ion_auth_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Ion_auth_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Kelas_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Kelas_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Log_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Log_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Master_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Master_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Menu_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Menu_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Post_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Post_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Rapor_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Rapor_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Settings_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Settings_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Soal_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Soal_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Ujian_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Ujian_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Users_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Users_model.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -176,7 +96,7 @@
     <session id="1698047499">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.opened" value="4" />
@@ -454,14 +374,7 @@
       <workItem from="1646199617614" duration="836000" />
       <workItem from="1646283080152" duration="895000" />
       <workItem from="1647785216939" duration="487000" />
-      <workItem from="1669792435329" duration="308000" />
-    </task>
-    <task id="LOCAL-00001" summary="#1">
-      <created>1618404952657</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1618404952658</updated>
+      <workItem from="1669792435329" duration="1071000" />
     </task>
     <task id="LOCAL-00002" summary="#2">
       <created>1618408006990</created>
@@ -799,11 +712,18 @@
       <option name="project" value="LOCAL" />
       <updated>1647785313976</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="patch kelas error db">
+      <created>1669792769701</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1669792769701</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49390000" />
+    <option name="totallyTimeSpent" value="50153000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />

@@ -93,7 +93,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="datasiswa">
                                     <?php foreach ($input_data as $data) :
-                                        $req = $data->name== 'nisn' ? '' : ' required'?>
+                                        $req = $data->name== 'nisn' || $data->name== 'sekolah_asal' ? '' : ' required' ?>
                                         <?php if ($data->name == 'jenis_kelamin'): ?>
                                             <div class="form-group row">
                                                 <div class="col-md-4 col-6 mb-sm-0">
@@ -222,7 +222,7 @@
                                                                type="<?= $data->type ?>"
                                                                class="form-control <?= $data->class ?>"
                                                                name="<?= $data->name ?>"
-                                                               placeholder="<?= $data->label ?>" autocomplete="off"<?=$req?>>
+                                                               placeholder="<?= $data->label ?>" autocomplete="off" <?=$req?>>
                                                     </div>
                                                 </div>
                                             </div>

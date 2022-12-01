@@ -91,6 +91,11 @@
     var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
 
     var arrNilaiHarian = JSON.parse(JSON.stringify(<?= json_encode($nilaiHarian)?>));
+    var arrNilaiRataP = JSON.parse(JSON.stringify(<?= json_encode($nilaiRata_p)?>));
+    var arrNilaiRataK = JSON.parse(JSON.stringify(<?= json_encode($nilaiRata_k)?>));
+
+    var arrNilaiRata = JSON.parse(JSON.stringify(<?= json_encode($nilaiRata)?>));
+
     var arrNilaiPts = JSON.parse(JSON.stringify(<?= json_encode($nilaiPts)?>));
     var arrNilaiPas = JSON.parse(JSON.stringify(<?= json_encode($nilaiPas)?>));
     var jmlNilai = [];
@@ -115,19 +120,26 @@
 
     function calcNilai(id_siswa) {
         jmlNilai = [];
+        jmlNilaik = [];
         $.each(arrMapel, function (k, val) {
-            jmlNilai.push(arrNilaiPas[id_siswa][val.id_mapel]);
+            jmlNilai.push(parseInt(arrNilaiPas[id_siswa][val.id_mapel]) + parseInt(arrNilaiRataK[id_siswa][val.id_mapel]));
+            //jmlNilai.push(arrNilaiRata[id_siswa]);
         });
     }
 
     $(document).ready(function() {
         //console.log('siswa',arrSiswa);
         //console.log('nilai',arrNilai);
-        console.log('ranking',arrRanking);
+        //console.log('ranking',arrRanking);
         //console.log('mapel',arrMapel);
         //console.log('harian',arrNilaiHarian);
         //console.log('pts',arrNilaiPts);
         console.log('pas',arrNilaiPas);
+        console.log("rata_harian", arrNilaiRataK);
+
+
+        var totalR = 0;
+        var totalK = 0;
 
         $('.editable').attr('contentEditable',true);
         var tableSize = $('#t-siswa');

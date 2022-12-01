@@ -94,6 +94,9 @@
                     <div class="d-flex justify-content-center bg-gray-light" style="min-height: 300mm">
                         <div id="print-preview" class="m-2">
                             <?php
+                            //echo '<pre>';
+                            //var_dump($siswa['LAB-KOM']);
+                            //echo '</pre>';
                             if ($mode == null || $mode == '1'):
                                 foreach ($siswa as $ruang => $sesi):
                                     foreach ($sesi as $ses => $sis):?>
@@ -127,25 +130,32 @@
                                                     </table>
                                                 </div>
                                                 <hr class="m-0">
+                                                <?php
+                                                $se = $sesis[$sis[0]->kode_sesi];
+                                                $nama_sesi = $se->nama_sesi;
+                                                $mulai_sesi = $se->waktu_mulai;
+                                                $akhir_sesi = $se->waktu_akhir;
+                                                ?>
                                                 <table>
                                                     <tr>
                                                         <td style="width: 100px">RUANG</td>
                                                         <td> : </td>
                                                         <td> <?= $sis[0]->nama_ruang ?></td>
                                                     </tr>
-                                                    <?php foreach ($sesis as $sss) :?>
-                                                        <tr>
-                                                            <td><?=$sss->nama_sesi?></td>
-                                                            <td> : </td>
-                                                            <td>
-                                                                <?php
-                                                                //var_dump($sss);
-                                                                ?>
-                                                                <?= date('H:i', strtotime($sss->waktu_mulai)) ?>
-                                                                sampai
-                                                                <?= date('H:i', strtotime($sss->waktu_akhir)) ?>
-                                                        </tr>
-                                                    <?php endforeach; ?>
+                                                    <tr>
+                                                        <td>SESI</td>
+                                                        <td> : </td>
+                                                        <td><?=$nama_sesi?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>WAKTU</td>
+                                                        <td> : </td>
+                                                        <td>
+                                                            <?= date('H:i', strtotime($mulai_sesi)) ?>
+                                                            sampai
+                                                            <?= date('H:i', strtotime($akhir_sesi)) ?>
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                                 <table style="width: 100%; border: 1px solid black;border-collapse: collapse; font-size: 10pt">
                                                     <thead>

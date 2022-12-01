@@ -153,8 +153,9 @@
                                     <?php endforeach; ?>
                                     <?php foreach ($arrMulok as $mpl) :
                                         $id = $mpl->id_mapel;
+                                        $rata_k = isset($nilai[$siswa->id_siswa]) && isset($nilai[$siswa->id_siswa][$id]) && isset($nilai[$siswa->id_siswa][$id]['k_rata_rata']) ? $nilai[$siswa->id_siswa][$id]['k_rata_rata'] : 0;
                                         $jmlNilai += isset($nilai[$siswa->id_siswa][$id]['nilai']) ? $nilai[$siswa->id_siswa][$id]['nilai'] : 0;
-                                        $jmlNilai += isset($nilai[$siswa->id_siswa][$id]['k_rata_rata']) ? $nilai[$siswa->id_siswa][$id]['k_rata_rata'] : 0;
+                                        $jmlNilai += is_numeric($rata_k) ? $rata_k : 0;
                                         ?>
                                         <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= isset($nilai[$siswa->id_siswa][$id]['nilai']) ? $nilai[$siswa->id_siswa][$id]['nilai'] : ''?></td>
                                         <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= isset($nilai[$siswa->id_siswa][$id]['k_rata_rata']) ? $nilai[$siswa->id_siswa][$id]['k_rata_rata'] : '' ?></td>
@@ -200,7 +201,7 @@
     var smt = '<?=$smt_active->smt?>';
     $(document).ready(function() {
         $("#table-leger").freezeTable({
-            'columnNum' : 3,
+            'columnNum' : 4,
         });
 
         $('#download').on('click', function (e) {

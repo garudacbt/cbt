@@ -323,7 +323,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                     url: base_url + "cbtbanksoal/getgurumapel?id_mapel=" + mapel,
                     type: "GET",
                     success: function (data) {
-                        console.log('mapel',data);
+                        console.log('guru',data);
                         var opts = '';
                         selGuru.html(opts);
                         $.each(data, function (k, v) {
@@ -331,6 +331,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                             opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';
                         });
                         selGuru.html(opts);
+                        idGuru = selGuru.val();
                         getKelasLevel(selLevel.val(), selMapel.val());
                     }, error: function (xhr, status, error) {
                         console.log("error", xhr.responseText);
@@ -339,12 +340,15 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
             }
         }
 
-        function getKelasLevel(param, mapel) {
+        function getKelasLevel(level, mapel) {
+            console.log('id_guru', idGuru);
+            console.log('id_level', level);
+            console.log('id_mapel', mapel);
             if (idGuru === '' || mapel == null) {
                 console.log('id_guru', 'empty');
             } else {
                 $.ajax({
-                    url: base_url + "cbtbanksoal/getkelaslevel?level=" + param + "&id_guru=" + idGuru + '&mapel=' + mapel,
+                    url: base_url + "cbtbanksoal/getkelaslevel?level=" + level + "&id_guru=" + idGuru + '&mapel=' + mapel,
                     type: "GET",
                     success: function (data) {
                         console.log('kelas', data);
@@ -364,8 +368,8 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
 
         selGuru.on('change', function () {
             idGuru = $(this).val();
+            console.log('id_guru_change', idGuru);
             getKelasLevel(selLevel.val(), selMapel.val());
-            //getMateriGuru(idGuru);
         });
 
         selLevel.on('change', function () {
