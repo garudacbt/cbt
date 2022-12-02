@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +94,7 @@
     <session id="1698047499">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.2" value="1" />
@@ -109,7 +107,7 @@
           <entry key="html" value="4" />
           <entry key="js" value="1" />
           <entry key="md" value="1" />
-          <entry key="php" value="19" />
+          <entry key="php" value="20" />
           <entry key="sql" value="1" />
           <entry key="sql___jb_old___" value="2" />
         </counts>
@@ -119,7 +117,7 @@
           <entry key="HTML" value="4" />
           <entry key="JavaScript" value="1" />
           <entry key="Markdown" value="1" />
-          <entry key="PHP" value="19" />
+          <entry key="PHP" value="20" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="SQL" value="1" />
         </counts>
@@ -145,8 +143,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="953">
-              <caret line="87" column="37" selection-start-line="87" selection-start-column="37" selection-end-line="87" selection-end-column="37" />
+            <state relative-caret-position="263">
+              <caret line="57" column="46" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -280,17 +278,6 @@
               <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -373,14 +360,7 @@
       <workItem from="1647782639972" duration="813000" />
       <workItem from="1649151620748" duration="767000" />
       <workItem from="1649245615544" duration="70000" />
-      <workItem from="1669894717125" duration="296000" />
-    </task>
-    <task id="LOCAL-00008" summary="#8">
-      <created>1619092960870</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1619092960870</updated>
+      <workItem from="1669894717125" duration="1405000" />
     </task>
     <task id="LOCAL-00009" summary="#9">
       <created>1619093489349</created>
@@ -718,11 +698,18 @@
       <option name="project" value="LOCAL" />
       <updated>1669894956519</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="version 1.3.20221201">
+      <created>1669895092146</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1669895092146</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50909000" />
+    <option name="totallyTimeSpent" value="52018000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -825,7 +812,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="version 1.3.20221201" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/readme.rst" />
     <entry file="file://$PROJECT_DIR$/table2excel.md" />
     <entry file="file://$PROJECT_DIR$/application/models/DAOFactory.php" />
     <entry file="file://$PROJECT_DIR$/contributing.md">
@@ -1030,10 +1016,13 @@
     <entry file="file://$PROJECT_DIR$/application/modules/mobile/models/Adminmodel.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/main/views/data.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="953">
-          <caret line="87" column="37" selection-start-line="87" selection-start-column="37" selection-end-line="87" selection-end-column="37" />
+        <state relative-caret-position="263">
+          <caret line="57" column="46" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="46" />
         </state>
       </provider>
     </entry>

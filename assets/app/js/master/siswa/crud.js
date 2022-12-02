@@ -43,9 +43,10 @@ $(document).ready(function () {
 			{data: "nis"},
 			{data: "nama"},
 			{data: "jenis_kelamin", className: "text-center",},
-            //{data: "status"}
+            {data: "nama_kelas"}
 		],
 		columnDefs: [
+			/*
             {
                 searchable: false,
                 targets: 6,
@@ -58,6 +59,7 @@ $(document).ready(function () {
                     return stat[data.status];
                 }
             },
+            */
 			{
 				searchable: false,
 				targets: 7,

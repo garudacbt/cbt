@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `api_setting` (
-  `id` int(11) NOT NULL,
+  `id` bigint(50) NOT NULL,
   `auto_sync` int(11) NOT NULL DEFAULT '0',
   `edit_profile_siswa` int(11) NOT NULL DEFAULT '0',
   `edit_profile_guru` int(11) NOT NULL DEFAULT '0'
@@ -41,7 +41,7 @@ CREATE TABLE `api_setting` (
 --
 
 CREATE TABLE `api_token` (
-  `id_api` int(11) NOT NULL,
+  `id_api` bigint(50) NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_user` int(11) NOT NULL,
   `address` text NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `api_token` (
 --
 
 CREATE TABLE `buku_induk` (
-  `id_siswa` int(11) NOT NULL,
+  `id_siswa` bigint(50) NOT NULL,
   `uid` varchar(50) NOT NULL,
   `rombel_awal` varchar(50) DEFAULT NULL,
   `nama_panggilan` varchar(50) DEFAULT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE `buku_induk` (
 --
 
 CREATE TABLE `bulan` (
-  `id_bln` int(10) NOT NULL,
+  `id_bln` bigint(50) NOT NULL,
   `nama_bln` varchar(25) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -139,7 +139,7 @@ INSERT INTO `bulan` (`id_bln`, `nama_bln`) VALUES
 --
 
 CREATE TABLE `cbt_bank_soal` (
-  `id_bank` int(11) NOT NULL,
+  `id_bank` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `bank_jenis_id` int(11) NOT NULL DEFAULT '0',
@@ -181,7 +181,7 @@ CREATE TABLE `cbt_bank_soal` (
 --
 
 CREATE TABLE `cbt_durasi_siswa` (
-  `id_durasi` varchar(50) NOT NULL,
+  `id_durasi` varchar(100) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '0=belum ujian, 1=sedang ujian, 2=sudah ujian',
@@ -198,7 +198,7 @@ CREATE TABLE `cbt_durasi_siswa` (
 --
 
 CREATE TABLE `cbt_jadwal` (
-  `id_jadwal` int(11) NOT NULL,
+  `id_jadwal` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_bank` int(11) NOT NULL,
@@ -227,7 +227,7 @@ CREATE TABLE `cbt_jadwal` (
 --
 
 CREATE TABLE `cbt_jawaban` (
-  `id_jawaban` varchar(50) NOT NULL,
+  `id_jawaban` varchar(100) NOT NULL,
   `jawaban` longtext NOT NULL,
   `jawaban_benar` longtext NOT NULL,
   `koreksi` int(1) NOT NULL COMMENT '0 = belum dikoreksi, else point essai'
@@ -240,7 +240,7 @@ CREATE TABLE `cbt_jawaban` (
 --
 
 CREATE TABLE `cbt_jenis` (
-  `id_jenis` int(11) NOT NULL,
+  `id_jenis` bigint(50) NOT NULL,
   `nama_jenis` varchar(50) NOT NULL,
   `kode_jenis` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -265,7 +265,7 @@ INSERT INTO `cbt_jenis` (`id_jenis`, `nama_jenis`, `kode_jenis`) VALUES
 --
 
 CREATE TABLE `cbt_kelas_ruang` (
-  `id_kelas_ruang` varchar(50) NOT NULL,
+  `id_kelas_ruang` varchar(100) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_ruang` int(11) NOT NULL,
   `id_sesi` int(11) NOT NULL DEFAULT '0',
@@ -281,7 +281,7 @@ CREATE TABLE `cbt_kelas_ruang` (
 --
 
 CREATE TABLE `cbt_kop_absensi` (
-  `id_kop` int(11) NOT NULL,
+  `id_kop` bigint(50) NOT NULL,
   `header_1` varchar(100) DEFAULT NULL,
   `header_2` varchar(100) DEFAULT NULL,
   `header_3` varchar(100) DEFAULT NULL,
@@ -298,7 +298,7 @@ CREATE TABLE `cbt_kop_absensi` (
 --
 
 CREATE TABLE `cbt_kop_berita` (
-  `id_kop` int(11) NOT NULL,
+  `id_kop` bigint(50) NOT NULL,
   `header_1` varchar(100) DEFAULT NULL,
   `header_2` varchar(100) DEFAULT NULL,
   `header_3` varchar(100) DEFAULT NULL,
@@ -312,7 +312,7 @@ CREATE TABLE `cbt_kop_berita` (
 --
 
 CREATE TABLE `cbt_kop_kartu` (
-  `id_set_kartu` int(11) NOT NULL,
+  `id_set_kartu` bigint(50) NOT NULL,
   `header_1` varchar(100) DEFAULT NULL,
   `header_2` varchar(100) DEFAULT NULL,
   `header_3` varchar(100) DEFAULT NULL,
@@ -346,7 +346,7 @@ CREATE TABLE `cbt_nilai` (
 --
 
 CREATE TABLE `cbt_nomor_peserta` (
-  `id_nomor` varchar(50) NOT NULL,
+  `id_nomor` varchar(100) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL DEFAULT '1',
@@ -360,8 +360,8 @@ CREATE TABLE `cbt_nomor_peserta` (
 --
 
 CREATE TABLE `cbt_pengawas` (
-  `id_pengawas` varchar(50) NOT NULL,
-  `id_jadwal` varchar(50) NOT NULL,
+  `id_pengawas` varchar(100) NOT NULL,
+  `id_jadwal` varchar(100) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_ruang` varchar(50) NOT NULL,
@@ -376,7 +376,7 @@ CREATE TABLE `cbt_pengawas` (
 --
 
 CREATE TABLE `cbt_rekap` (
-  `id_rekap` int(11) NOT NULL,
+  `id_rekap` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `tp` varchar(20) NOT NULL,
   `id_smt` int(11) NOT NULL,
@@ -415,7 +415,7 @@ CREATE TABLE `cbt_rekap` (
 --
 
 CREATE TABLE `cbt_rekap_nilai` (
-  `id_rekap_nilai` int(100) NOT NULL,
+  `id_rekap_nilai` bigint(100) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `tp` varchar(20) NOT NULL,
@@ -453,7 +453,7 @@ CREATE TABLE `cbt_rekap_nilai` (
 --
 
 CREATE TABLE `cbt_ruang` (
-  `id_ruang` int(11) NOT NULL,
+  `id_ruang` bigint(50) NOT NULL,
   `nama_ruang` varchar(50) NOT NULL,
   `kode_ruang` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -480,7 +480,7 @@ INSERT INTO `cbt_ruang` (`id_ruang`, `nama_ruang`, `kode_ruang`) VALUES
 --
 
 CREATE TABLE `cbt_sesi` (
-  `id_sesi` int(11) NOT NULL,
+  `id_sesi` bigint(50) NOT NULL,
   `nama_sesi` varchar(50) NOT NULL,
   `kode_sesi` varchar(10) NOT NULL,
   `waktu_mulai` time NOT NULL,
@@ -504,7 +504,7 @@ INSERT INTO `cbt_sesi` (`id_sesi`, `nama_sesi`, `kode_sesi`, `waktu_mulai`, `wak
 --
 
 CREATE TABLE `cbt_sesi_siswa` (
-  `siswa_id` int(11) NOT NULL,
+  `siswa_id` bigint(50) NOT NULL,
   `kelas_id` int(11) NOT NULL,
   `ruang_id` int(11) NOT NULL,
   `sesi_id` int(11) NOT NULL,
@@ -519,7 +519,7 @@ CREATE TABLE `cbt_sesi_siswa` (
 --
 
 CREATE TABLE `cbt_soal` (
-  `id_soal` int(11) NOT NULL,
+  `id_soal` bigint(50) NOT NULL,
   `bank_id` int(11) NOT NULL,
   `mapel_id` int(11) NOT NULL DEFAULT '0',
   `jenis` int(1) NOT NULL COMMENT '1=ganda, 2=ganda kompleks, 3=menjodohkan, 4=isian singkat, 5=uraian',
@@ -555,7 +555,7 @@ CREATE TABLE `cbt_soal` (
 --
 
 CREATE TABLE `cbt_soal_siswa` (
-  `id_soal_siswa` varchar(50) NOT NULL,
+  `id_soal_siswa` varchar(100) NOT NULL,
   `id_bank` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `id_soal` int(11) DEFAULT NULL,
@@ -586,7 +586,7 @@ CREATE TABLE `cbt_soal_siswa` (
 CREATE TABLE `cbt_token` (
   `token` varchar(6) NOT NULL,
   `auto` int(1) NOT NULL,
-  `id_token` int(11) NOT NULL,
+  `id_token` bigint(50) NOT NULL,
   `jarak` int(11) NOT NULL DEFAULT '0',
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -650,7 +650,7 @@ INSERT INTO `hari` (`id_hri`, `nama_hri`) VALUES
 --
 
 CREATE TABLE `jabatan_guru` (
-  `id_jabatan_guru` varchar(50) NOT NULL,
+  `id_jabatan_guru` varchar(100) NOT NULL,
   `id_guru` int(11) NOT NULL,
   `id_jabatan` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL DEFAULT '0',
@@ -667,7 +667,7 @@ CREATE TABLE `jabatan_guru` (
 --
 
 CREATE TABLE `kelas_catatan_mapel` (
-  `id_catatan` int(11) NOT NULL,
+  `id_catatan` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `type` int(11) NOT NULL,
@@ -690,7 +690,7 @@ CREATE TABLE `kelas_catatan_mapel` (
 --
 
 CREATE TABLE `kelas_catatan_wali` (
-  `id_catatan` int(11) NOT NULL,
+  `id_catatan` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `type` int(11) NOT NULL COMMENT '1=semua siswa, 2=per siswa',
@@ -711,7 +711,7 @@ CREATE TABLE `kelas_catatan_wali` (
 --
 
 CREATE TABLE `kelas_ekstra` (
-  `id_kelas_ekstra` varchar(50) NOT NULL,
+  `id_kelas_ekstra` varchar(100) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
@@ -725,7 +725,7 @@ CREATE TABLE `kelas_ekstra` (
 --
 
 CREATE TABLE `kelas_jadwal_kbm` (
-  `id_kbm` int(11) NOT NULL,
+  `id_kbm` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
@@ -742,7 +742,7 @@ CREATE TABLE `kelas_jadwal_kbm` (
 --
 
 CREATE TABLE `kelas_jadwal_mapel` (
-  `id_jadwal` int(11) NOT NULL,
+  `id_jadwal` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
@@ -758,7 +758,7 @@ CREATE TABLE `kelas_jadwal_mapel` (
 --
 
 CREATE TABLE `kelas_jadwal_materi` (
-  `id_kjm` varchar(50) NOT NULL,
+  `id_kjm` varchar(100) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_materi` int(11) NOT NULL,
@@ -775,7 +775,7 @@ CREATE TABLE `kelas_jadwal_materi` (
 --
 
 CREATE TABLE `kelas_materi` (
-  `id_materi` int(11) NOT NULL,
+  `id_materi` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT '1',
   `id_smt` int(11) NOT NULL DEFAULT '1',
   `kode_materi` text NOT NULL,
@@ -802,7 +802,7 @@ CREATE TABLE `kelas_materi` (
 --
 
 CREATE TABLE `kelas_siswa` (
-  `id_kelas_siswa` int(11) NOT NULL,
+  `id_kelas_siswa` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -816,7 +816,7 @@ CREATE TABLE `kelas_siswa` (
 --
 
 CREATE TABLE `kelas_struktur` (
-  `id_kelas` int(11) NOT NULL,
+  `id_kelas` bigint(50) NOT NULL,
   `ketua` int(11) NOT NULL,
   `wakil_ketua` int(11) NOT NULL,
   `sekretaris_1` int(11) NOT NULL,
@@ -843,7 +843,7 @@ CREATE TABLE `kelas_struktur` (
 --
 
 CREATE TABLE `level_guru` (
-  `id_level` int(11) NOT NULL,
+  `id_level` bigint(50) NOT NULL,
   `level` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -865,7 +865,7 @@ INSERT INTO `level_guru` (`id_level`, `level`) VALUES
 --
 
 CREATE TABLE `level_kelas` (
-  `id_level` int(11) NOT NULL,
+  `id_level` bigint(50) NOT NULL,
   `level` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -894,7 +894,7 @@ INSERT INTO `level_kelas` (`id_level`, `level`) VALUES
 --
 
 CREATE TABLE `log` (
-  `id_log` int(11) NOT NULL,
+  `id_log` bigint(50) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_user` int(11) NOT NULL,
   `id_group` int(11) NOT NULL,
@@ -926,7 +926,7 @@ CREATE TABLE `login_attempts` (
 --
 
 CREATE TABLE `log_materi` (
-  `id_log` varchar(50) NOT NULL,
+  `id_log` varchar(100) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `finish_time` varchar(20) DEFAULT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -950,7 +950,7 @@ CREATE TABLE `log_materi` (
 --
 
 CREATE TABLE `log_ujian` (
-  `id_log` int(11) NOT NULL,
+  `id_log` bigint(50) NOT NULL,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `finish_time` varchar(20) DEFAULT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -970,7 +970,7 @@ CREATE TABLE `log_ujian` (
 --
 
 CREATE TABLE `master_ekstra` (
-  `id_ekstra` int(11) NOT NULL,
+  `id_ekstra` bigint(50) NOT NULL,
   `nama_ekstra` varchar(100) NOT NULL,
   `kode_ekstra` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -991,7 +991,7 @@ INSERT INTO `master_ekstra` (`id_ekstra`, `nama_ekstra`, `kode_ekstra`) VALUES
 --
 
 CREATE TABLE `master_guru` (
-  `id_guru` int(11) NOT NULL,
+  `id_guru` bigint(50) NOT NULL,
   `id_user` int(11) NOT NULL,
   `nip` char(30) NOT NULL,
   `nama_guru` varchar(50) NOT NULL,
@@ -1033,7 +1033,7 @@ CREATE TABLE `master_guru` (
 --
 
 CREATE TABLE `master_hari_efektif` (
-  `id_hari_efektif` int(11) NOT NULL,
+  `id_hari_efektif` bigint(50) NOT NULL,
   `jml_hari_efektif` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -1044,7 +1044,7 @@ CREATE TABLE `master_hari_efektif` (
 --
 
 CREATE TABLE `master_jurusan` (
-  `id_jurusan` int(11) NOT NULL,
+  `id_jurusan` bigint(50) NOT NULL,
   `nama_jurusan` varchar(30) NOT NULL,
   `kode_jurusan` varchar(10) DEFAULT NULL,
   `mapel_peminatan` longtext,
@@ -1070,7 +1070,7 @@ INSERT INTO `master_jurusan` (`id_jurusan`, `nama_jurusan`, `kode_jurusan`, `map
 --
 
 CREATE TABLE `master_kelas` (
-  `id_kelas` int(11) NOT NULL,
+  `id_kelas` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `nama_kelas` varchar(30) NOT NULL,
@@ -1090,7 +1090,7 @@ CREATE TABLE `master_kelas` (
 --
 
 CREATE TABLE `master_kelompok_mapel` (
-  `id_kel_mapel` int(11) NOT NULL,
+  `id_kel_mapel` bigint(50) NOT NULL,
   `kode_kel_mapel` varchar(10) DEFAULT NULL,
   `nama_kel_mapel` varchar(100) DEFAULT NULL,
   `kategori` varchar(20) DEFAULT NULL,
@@ -1116,7 +1116,7 @@ INSERT INTO `master_kelompok_mapel` (`id_kel_mapel`, `kode_kel_mapel`, `nama_kel
 --
 
 CREATE TABLE `master_mapel` (
-  `id_mapel` int(11) NOT NULL,
+  `id_mapel` bigint(50) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL,
   `kode` varchar(20) DEFAULT NULL,
   `kelompok` varchar(5) NOT NULL DEFAULT '-',
@@ -1184,7 +1184,7 @@ INSERT INTO `master_mapel` (`id_mapel`, `nama_mapel`, `kode`, `kelompok`, `bobot
 --
 
 CREATE TABLE `master_siswa` (
-  `id_siswa` int(11) NOT NULL,
+  `id_siswa` bigint(50) NOT NULL,
   `nisn` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `nis` varchar(20) DEFAULT NULL,
   `nama` varchar(50) NOT NULL,
@@ -1240,7 +1240,7 @@ CREATE TABLE `master_siswa` (
 --
 
 CREATE TABLE `master_smt` (
-  `id_smt` int(11) NOT NULL,
+  `id_smt` bigint(50) NOT NULL,
   `smt` varchar(10) NOT NULL,
   `nama_smt` varchar(10) NOT NULL,
   `active` int(1) NOT NULL
@@ -1261,7 +1261,7 @@ INSERT INTO `master_smt` (`id_smt`, `smt`, `nama_smt`, `active`) VALUES
 --
 
 CREATE TABLE `master_tp` (
-  `id_tp` int(11) NOT NULL,
+  `id_tp` bigint(50) NOT NULL,
   `tahun` varchar(20) NOT NULL,
   `active` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1283,7 +1283,7 @@ INSERT INTO `master_tp` (`id_tp`, `tahun`, `active`) VALUES
 --
 
 CREATE TABLE `post` (
-  `id_post` int(11) NOT NULL,
+  `id_post` bigint(50) NOT NULL,
   `dari` int(11) NOT NULL COMMENT 'user',
   `dari_group` int(11) NOT NULL,
   `kepada` varchar(50) NOT NULL COMMENT 'group',
@@ -1299,7 +1299,7 @@ CREATE TABLE `post` (
 --
 
 CREATE TABLE `post_comments` (
-  `id_comment` int(11) NOT NULL,
+  `id_comment` bigint(50) NOT NULL,
   `id_post` int(11) NOT NULL,
   `dari` int(11) NOT NULL,
   `dari_group` int(11) NOT NULL,
@@ -1316,7 +1316,7 @@ CREATE TABLE `post_comments` (
 --
 
 CREATE TABLE `post_reply` (
-  `id_reply` int(11) NOT NULL,
+  `id_reply` bigint(50) NOT NULL,
   `id_comment` int(11) NOT NULL,
   `dari` int(11) NOT NULL,
   `dari_group` int(11) NOT NULL,
@@ -1333,7 +1333,7 @@ CREATE TABLE `post_reply` (
 --
 
 CREATE TABLE `rapor_admin_setting` (
-  `id_setting` int(11) NOT NULL,
+  `id_setting` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT '0',
   `id_smt` int(11) NOT NULL DEFAULT '0',
   `kkm_tunggal` int(1) NOT NULL DEFAULT '0',
@@ -1345,6 +1345,7 @@ CREATE TABLE `rapor_admin_setting` (
   `nip_kepsek` int(1) NOT NULL DEFAULT '0',
   `nip_walikelas` int(1) NOT NULL DEFAULT '0',
   `tgl_rapor_akhir` varchar(100) DEFAULT NULL,
+  `tgl_rapor_kelas_akhir` varchar(100) DEFAULT NULL,
   `tgl_rapor_pts` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -1355,7 +1356,7 @@ CREATE TABLE `rapor_admin_setting` (
 --
 
 CREATE TABLE `rapor_catatan_wali` (
-  `id_catatan_wali` int(11) NOT NULL,
+  `id_catatan_wali` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT '0',
   `id_smt` int(11) NOT NULL DEFAULT '0',
   `id_kelas` int(11) NOT NULL,
@@ -1371,7 +1372,7 @@ CREATE TABLE `rapor_catatan_wali` (
 --
 
 CREATE TABLE `rapor_data_catatan` (
-  `id_catatan` int(11) NOT NULL,
+  `id_catatan` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT '0',
   `id_smt` int(11) NOT NULL DEFAULT '0',
   `id_kelas` int(11) NOT NULL,
@@ -1388,7 +1389,7 @@ CREATE TABLE `rapor_data_catatan` (
 --
 
 CREATE TABLE `rapor_data_fisik` (
-  `id_fisik` int(11) NOT NULL,
+  `id_fisik` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT '0',
   `id_smt` int(11) NOT NULL DEFAULT '0',
   `id_kelas` int(11) NOT NULL,
@@ -1404,7 +1405,7 @@ CREATE TABLE `rapor_data_fisik` (
 --
 
 CREATE TABLE `rapor_data_sikap` (
-  `id_sikap` int(11) NOT NULL,
+  `id_sikap` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT '0',
   `id_smt` int(11) NOT NULL DEFAULT '0',
   `id_kelas` int(11) NOT NULL,
@@ -1420,7 +1421,7 @@ CREATE TABLE `rapor_data_sikap` (
 --
 
 CREATE TABLE `rapor_fisik` (
-  `id_fisik` int(11) NOT NULL,
+  `id_fisik` bigint(50) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -1437,7 +1438,7 @@ CREATE TABLE `rapor_fisik` (
 --
 
 CREATE TABLE `rapor_kikd` (
-  `id_kikd` int(11) NOT NULL,
+  `id_kikd` bigint(50) NOT NULL,
   `id_mapel_kelas` int(11) NOT NULL,
   `aspek` int(1) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -1452,7 +1453,7 @@ CREATE TABLE `rapor_kikd` (
 --
 
 CREATE TABLE `rapor_kkm` (
-  `id_kkm` int(11) NOT NULL,
+  `id_kkm` bigint(50) NOT NULL,
   `kkm` int(3) DEFAULT '0',
   `bobot_ph` int(3) DEFAULT '0',
   `bobot_pts` int(3) DEFAULT '0',
@@ -1473,7 +1474,7 @@ CREATE TABLE `rapor_kkm` (
 --
 
 CREATE TABLE `rapor_naik` (
-  `id_naik` int(11) NOT NULL,
+  `id_naik` bigint(50) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -1487,7 +1488,7 @@ CREATE TABLE `rapor_naik` (
 --
 
 CREATE TABLE `rapor_nilai_akhir` (
-  `id_nilai_akhir` int(11) NOT NULL,
+  `id_nilai_akhir` bigint(50) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -1505,7 +1506,7 @@ CREATE TABLE `rapor_nilai_akhir` (
 --
 
 CREATE TABLE `rapor_nilai_ekstra` (
-  `id_nilai_ekstra` int(11) NOT NULL,
+  `id_nilai_ekstra` bigint(50) NOT NULL,
   `id_ekstra` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -1523,7 +1524,7 @@ CREATE TABLE `rapor_nilai_ekstra` (
 --
 
 CREATE TABLE `rapor_nilai_harian` (
-  `id_nilai_harian` bigint(20) NOT NULL,
+  `id_nilai_harian` bigint(50) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
@@ -1561,7 +1562,7 @@ CREATE TABLE `rapor_nilai_harian` (
 --
 
 CREATE TABLE `rapor_nilai_pts` (
-  `id_nilai_pts` int(11) NOT NULL,
+  `id_nilai_pts` bigint(50) NOT NULL,
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
@@ -1578,7 +1579,7 @@ CREATE TABLE `rapor_nilai_pts` (
 --
 
 CREATE TABLE `rapor_nilai_sikap` (
-  `id_nilai_sikap` int(11) NOT NULL,
+  `id_nilai_sikap` bigint(50) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL DEFAULT '0',
@@ -1595,7 +1596,7 @@ CREATE TABLE `rapor_nilai_sikap` (
 --
 
 CREATE TABLE `rapor_prestasi` (
-  `id_ranking` int(11) NOT NULL,
+  `id_ranking` bigint(50) NOT NULL,
   `id_kelas` int(100) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -1617,7 +1618,7 @@ CREATE TABLE `rapor_prestasi` (
 --
 
 CREATE TABLE `running_text` (
-  `id_text` int(11) NOT NULL,
+  `id_text` bigint(50) NOT NULL,
   `text` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -1639,7 +1640,7 @@ INSERT INTO `running_text` (`id_text`, `text`) VALUES
 --
 
 CREATE TABLE `setting` (
-  `id_setting` int(11) NOT NULL,
+  `id_setting` bigint(50) NOT NULL,
   `kode_sekolah` varchar(10) DEFAULT NULL,
   `sekolah` varchar(50) DEFAULT NULL,
   `npsn` varchar(10) DEFAULT NULL,
@@ -1718,7 +1719,7 @@ CREATE TABLE `users_groups` (
 --
 
 CREATE TABLE `users_profile` (
-  `id_user` int(11) NOT NULL,
+  `id_user` bigint(50) NOT NULL,
   `nama_lengkap` text NOT NULL,
   `jabatan` text,
   `level_access` int(11) NOT NULL DEFAULT '0',
@@ -2194,19 +2195,19 @@ ALTER TABLE `users_profile`
 -- AUTO_INCREMENT for table `api_setting`
 --
 ALTER TABLE `api_setting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `api_token`
 --
 ALTER TABLE `api_token`
-  MODIFY `id_api` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_api` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `buku_induk`
 --
 ALTER TABLE `buku_induk`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_siswa` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bulan`
@@ -2218,61 +2219,61 @@ ALTER TABLE `bulan`
 -- AUTO_INCREMENT for table `cbt_bank_soal`
 --
 ALTER TABLE `cbt_bank_soal`
-  MODIFY `id_bank` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bank` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_jadwal`
 --
 ALTER TABLE `cbt_jadwal`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_jenis`
 --
 ALTER TABLE `cbt_jenis`
-  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jenis` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_rekap`
 --
 ALTER TABLE `cbt_rekap`
-  MODIFY `id_rekap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rekap` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_rekap_nilai`
 --
 ALTER TABLE `cbt_rekap_nilai`
-  MODIFY `id_rekap_nilai` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rekap_nilai` bigint(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_ruang`
 --
 ALTER TABLE `cbt_ruang`
-  MODIFY `id_ruang` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ruang` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_sesi`
 --
 ALTER TABLE `cbt_sesi`
-  MODIFY `id_sesi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sesi` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_sesi_siswa`
 --
 ALTER TABLE `cbt_sesi_siswa`
-  MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `siswa_id` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_soal`
 --
 ALTER TABLE `cbt_soal`
-  MODIFY `id_soal` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_soal` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cbt_token`
 --
 ALTER TABLE `cbt_token`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_token` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -2290,37 +2291,37 @@ ALTER TABLE `hari`
 -- AUTO_INCREMENT for table `kelas_catatan_mapel`
 --
 ALTER TABLE `kelas_catatan_mapel`
-  MODIFY `id_catatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_catatan` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kelas_catatan_wali`
 --
 ALTER TABLE `kelas_catatan_wali`
-  MODIFY `id_catatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_catatan` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kelas_materi`
 --
 ALTER TABLE `kelas_materi`
-  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_materi` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kelas_struktur`
 --
 ALTER TABLE `kelas_struktur`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kelas` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `level_guru`
 --
 ALTER TABLE `level_guru`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_level` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `login_attempts`
@@ -2332,181 +2333,181 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT for table `log_ujian`
 --
 ALTER TABLE `log_ujian`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_ekstra`
 --
 ALTER TABLE `master_ekstra`
-  MODIFY `id_ekstra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ekstra` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_guru`
 --
 ALTER TABLE `master_guru`
-  MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_guru` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_hari_efektif`
 --
 ALTER TABLE `master_hari_efektif`
-  MODIFY `id_hari_efektif` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hari_efektif` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_jurusan`
 --
 ALTER TABLE `master_jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jurusan` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_kelas`
 --
 ALTER TABLE `master_kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kelas` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_kelompok_mapel`
 --
 ALTER TABLE `master_kelompok_mapel`
-  MODIFY `id_kel_mapel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kel_mapel` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_mapel`
 --
 ALTER TABLE `master_mapel`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mapel` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_siswa`
 --
 ALTER TABLE `master_siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_siswa` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_smt`
 --
 ALTER TABLE `master_smt`
-  MODIFY `id_smt` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_smt` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `master_tp`
 --
 ALTER TABLE `master_tp`
-  MODIFY `id_tp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tp` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_post` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post_comments`
 --
 ALTER TABLE `post_comments`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_comment` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post_reply`
 --
 ALTER TABLE `post_reply`
-  MODIFY `id_reply` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reply` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_admin_setting`
 --
 ALTER TABLE `rapor_admin_setting`
-  MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_setting` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_catatan_wali`
 --
 ALTER TABLE `rapor_catatan_wali`
-  MODIFY `id_catatan_wali` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_catatan_wali` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_data_catatan`
 --
 ALTER TABLE `rapor_data_catatan`
-  MODIFY `id_catatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_catatan` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_data_fisik`
 --
 ALTER TABLE `rapor_data_fisik`
-  MODIFY `id_fisik` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fisik` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_data_sikap`
 --
 ALTER TABLE `rapor_data_sikap`
-  MODIFY `id_sikap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sikap` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_fisik`
 --
 ALTER TABLE `rapor_fisik`
-  MODIFY `id_fisik` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fisik` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_kikd`
 --
 ALTER TABLE `rapor_kikd`
-  MODIFY `id_kikd` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kikd` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_kkm`
 --
 ALTER TABLE `rapor_kkm`
-  MODIFY `id_kkm` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kkm` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_nilai_akhir`
 --
 ALTER TABLE `rapor_nilai_akhir`
-  MODIFY `id_nilai_akhir` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai_akhir` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_nilai_ekstra`
 --
 ALTER TABLE `rapor_nilai_ekstra`
-  MODIFY `id_nilai_ekstra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai_ekstra` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_nilai_harian`
 --
 ALTER TABLE `rapor_nilai_harian`
-  MODIFY `id_nilai_harian` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai_harian` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_nilai_pts`
 --
 ALTER TABLE `rapor_nilai_pts`
-  MODIFY `id_nilai_pts` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai_pts` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_nilai_sikap`
 --
 ALTER TABLE `rapor_nilai_sikap`
-  MODIFY `id_nilai_sikap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai_sikap` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rapor_prestasi`
 --
 ALTER TABLE `rapor_prestasi`
-  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ranking` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `running_text`
 --
 ALTER TABLE `running_text`
-  MODIFY `id_text` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_text` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_setting` bigint(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -2524,7 +2525,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `users_profile`
 --
 ALTER TABLE `users_profile`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` bigint(50) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

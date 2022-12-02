@@ -168,6 +168,30 @@ $(document).ready(function () {
         }
     });
 
+    $('#createJurusanModal').on('show.bs.modal', function (e) {
+        var nama = $(e.relatedTarget).data('nama');
+        var kode = $(e.relatedTarget).data('kode');
+        var mapel = $(e.relatedTarget).data('mapel');
+
+        var arrSel = [];
+        if (mapel != null) {
+            arrSel = mapel.split(',');
+        }
+        console.log(arrSel);
+
+        $("#createnama").val(nama);
+        $("#createkode").val(kode);
+
+        var selMapel = $("#create_mapel_peminatan");
+        selMapel.html('');
+        for (var key in mapels) {
+            if (mapels.hasOwnProperty(key)) {
+                var selected = jQuery.inArray(key, arrSel) > -1;
+                selMapel.append(new Option(mapels[key], key, false, selected));
+            }
+        }
+    });
+
     $('#editJurusanModal').on('show.bs.modal', function (e) {
         var id = $(e.relatedTarget).data('id');
         var nama = $(e.relatedTarget).data('nama');
