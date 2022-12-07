@@ -114,7 +114,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Mapel Peminatan*</label>
                     <div class="col-md-9">
-                        <select name="mapel_peminatan" class="form-control mapel_peminatan select2" multiple="multiple">
+                        <select name="mapel[]" id="create_mapel_peminatan" class="form-control mapel_peminatan select2" multiple="">
                         </select>
                     </div>
                 </div>

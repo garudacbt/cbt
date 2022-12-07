@@ -24,10 +24,10 @@ $XB = isset($convert) ? $convert['xb'] : 20;
 $YA = isset($convert) ? $convert['ya'] : 100;
 $YB = isset($convert) ? $convert['yb'] : 60;
 
+$colWidth ='';
 function decimalFixed($num) {
     return round(($num * 100) / 100, 2);
 }
-
 ?>
 
 <div class="content-wrapper bg-white">
@@ -117,6 +117,11 @@ function decimalFixed($num) {
                                         <i class="fa fa-balance-scale-right ml-1 mr-1"></i> Katrol Nilai
                                     </button>
                                 <?php endif; ?>
+                                <button type="button" id="nilai-detail" class="btn btn-success align-text-bottom"
+                                        data-toggle="tooltip"
+                                        title="Tampil Detail">
+                                    <i class="fa fa-list ml-1 mr-1"></i> Tampil Detail
+                                </button>
                                 <button type="button" id="download-excel" class="btn btn-success align-text-bottom"
                                         data-toggle="tooltip"
                                         title="Download Excel">
@@ -179,9 +184,9 @@ function decimalFixed($num) {
                                                 Nama
                                             </th>
                                             <?php if ($rekap->tampil_pg > 0) :?>
-                                            <th colspan="<?= $rekap->tampil_pg ?>" class="text-center align-middle bg-blue"
+                                            <th id="no-soal-tile" colspan="<?= $rekap->tampil_pg ?>" class="text-center align-middle bg-blue"
                                                 data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                                data-f-bold="true"
+                                                data-f-bold="true" data-exclude="false"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                                 Nomor Soal
                                             </th>
@@ -205,9 +210,9 @@ function decimalFixed($num) {
                                         <tr>
                                             <?php if ($rekap->tampil_pg > 0) :
                                             for ($s = 0; $s < $rekap->tampil_pg; $s++) : ?>
-                                                <th class="text-center align-middle bg-blue p-1" data-fill-color="b8daff"
+                                                <th class="text-center align-middle bg-blue p-1 no-soal" data-fill-color="b8daff"
                                                     data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    data-exclude="false" style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                                     <?= $s + 1 ?>
                                                 </th>
                                             <?php endfor; ?>
@@ -308,8 +313,8 @@ function decimalFixed($num) {
                                                             }
                                                         }
                                                         ?>
-                                                        <td <?= $bg2 ?> data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                                                        style="background-color: <?= $bg1 ?>;border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $jwbn ?></td>
+                                                        <td class="no-soal-siswa" <?= $bg2 ?> data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                            data-exclude="false" style="background-color: <?= $bg1 ?>;border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $jwbn ?></td>
                                                     <?php endforeach; ?>
                                                 <td data-a-v="middle" data-a-h="center" data-b-a-s="thin"
                                                     style="border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $benar_pg ?></td>
@@ -408,6 +413,9 @@ function decimalFixed($num) {
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
+    var colWidthMin = '5,15,35,10,10,10';
+    var colWidth = '<?= $colWidth ?>';
+
     var idJadwal = '<?=$jadwal_selected?>';
     var isSelected = <?= isset($siswa) ? '1' : '0'?>;
     var mapel = '<?=  $rekap->nama_mapel . " " . $rekap->kode_jenis . " " . $rekap->tp . " SMT " . $rekap->smt ?>';
@@ -486,6 +494,23 @@ function decimalFixed($num) {
                     icon: "error"
                 })
             }
+        });
+
+        $("#nilai-detail").click(function (event) {
+            $("#no-soal-tile").toggleClass('d-none');
+            $(".no-soal").toggleClass('d-none');
+            $(".no-soal-siswa").toggleClass('d-none');
+
+            var exluded = $('#no-soal-tile').attr('data-exclude') == 'true';
+            $('#no-soal-tile').attr('data-exclude', ''+!exluded);
+            $('.no-soal').attr('data-exclude', ''+!exluded);
+            $('.no-soal-siswa').attr('data-exclude', ''+!exluded);
+
+            var width = $('#table-status').attr('data-cols-width');
+            console.log('attr', width);
+            $('#table-status').attr('data-cols-width', width == colWidth ? colWidthMin : colWidth)
+            //if () {
+            //}
         });
 
         $("#download-excel").click(function (event) {

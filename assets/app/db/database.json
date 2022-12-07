@@ -5277,7 +5277,7 @@
     "columns": [
       {
         "name": "id_log",
-        "col_type": "bigint(50)",
+        "col_type": "int(11)",
         "type": "bigint",
         "collation": null,
         "max_length": "50",

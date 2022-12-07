@@ -78,18 +78,18 @@
 								$disabled_option.' id="jenis-id" class="form-control form-control-sm" required'
 							); ?>
 						</div>
-						<div class='col-md-3 mb-3'>
+						<div class='col-5 col-md-3 mb-3'>
 							<label>Tanggal Mulai</label>
 							<input type='text' id="tgl-mulai" name='tgl_mulai' value="<?=$jadwal->tgl_mulai?>"
 								   class='tgl form-control form-control-sm' autocomplete='off' required='true'/>
 						</div>
-						<div class='col-md-3 mb-3'>
+						<div class='col-5 col-md-3 mb-3'>
 							<label>Tanggal Expired</label>
 							<input type='text' id="tgl-selesai" name='tgl_selesai' value="<?=$jadwal->tgl_selesai?>"
 								   class='tgl form-control form-control-sm'
 								   autocomplete='off' required='true'/>
 						</div>
-						<div class='col-md-2 mb-3'>
+						<div class='col-2 col-md-2 mb-3'>
 							<div class='form-group'>
 								<label>Durasi (menit)</label>
 								<input type='number' id="durasi-ujian" name='durasi_ujian'

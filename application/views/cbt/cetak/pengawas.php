@@ -106,8 +106,9 @@ $allowedDates = [];
                     //var_dump($levels);
                     //echo '<br>';
                     //var_dump($pengawas);
+                    //var_dump($jadwals);
                     //echo '<br>';
-                    //var_dump($jadwals[0]);
+                    //var_dump($all_jadwal);
                     //echo '</pre>';
                     $none = count($jadwals)>0 ? '' : 'd-none';
                     if (count($jadwals)>0):

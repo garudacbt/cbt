@@ -23,6 +23,8 @@ $XA = isset($convert) ? $convert['xa'] : 0; // nilai terbesar
 $XB = isset($convert) ? $convert['xb'] : 20;  // nilai terkecil
 $YA = isset($convert) ? $convert['ya'] : 100; // hasil terbesar
 $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
+
+$colWidth ='';
 ?>
 
 <div class="content-wrapper bg-white">
@@ -76,7 +78,9 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                 <i class="fa fa-balance-scale-right ml-1 mr-1"></i> Katrol Nilai
                             </button>
                         <?php endif; ?>
-                        <button type="button" id="download-excel" class="btn btn-success align-text-bottom"
+                        <input style="width: 24px; height: 24px" class="ml-4" id="nilai-detail" type="checkbox" checked>
+                        <label for="nilai-detail" class="align-middle">Detail</label>
+                        <button type="button" id="download-excel" class="btn btn-success align-text-bottom mr-2"
                                 data-toggle="tooltip"
                                 title="Download Excel">
                             <i class="fa fa-file-excel ml-1 mr-1"></i> Ekspor ke Excel
@@ -84,6 +88,8 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                     </div>
                     <?php
                     //var_dump(isset($convert));
+                    $nilaiTertinggi = 0;
+                    $nilaiTerrendah = -1;
                     if (isset($siswas)) :
                         $cols = [$info->tampil_pg, $info->tampil_kompleks, $info->tampil_jodohkan, $info->tampil_isian, $info->tampil_esai];
                         $cols = array_filter($cols);
@@ -103,6 +109,8 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                             $colWidth .= ',4';
                         }
                         $colWidth .= ',10,10,10';
+
+                        $totalSoal = $info->tampil_pg + $info->tampil_kompleks + $info->tampil_jodohkan + $info->tampil_isian + $info->tampil_esai;
 
                         ?>
                         <div class="d-none" id="info">
@@ -128,7 +136,7 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                 </tr>
                                 <tr>
                                     <td colspan="2" height="60" class="align-top">Jumlah Soal</td>
-                                    <td colspan="5" class="align-top"><?= $info->tampil_pg ?></td>
+                                    <td colspan="5" class="align-top"><?= $totalSoal ?></td>
                                 </tr>
                                 <tr></tr>
                                 <tr>
@@ -169,7 +177,7 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                         data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
                                         data-f-bold="true">Durasi
                                     </th>
-                                    <th colspan="<?= $info->tampil_pg ?>"
+                                    <th id="no-soal-tile" colspan="<?= $info->tampil_pg ?>"
                                         class="text-center align-middle bg-blue d-none" data-fill-color="b8daff"
                                         data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
                                         style="border: 1px solid black;border-collapse: collapse; text-align: center;">
@@ -201,14 +209,14 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                     </th>
                                 </tr>
                                 <tr>
-                                    <?php for ($js=0; $js<$info->tampil_pg; $js++) : ?>
-                                            <th class="text-center align-middle bg-blue p-1 d-none"
-                                                data-fill-color="b8daff"
-                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                <?= $js+1 ?>
-                                            </th>
-                                        <?php endfor; ?>
+                                    <?php for ($js = 0; $js < $info->tampil_pg; $js++) : ?>
+                                        <th class="no-soal text-center align-middle bg-blue p-1 d-none"
+                                            data-fill-color="b8daff"
+                                            data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                            <?= $js + 1 ?>
+                                        </th>
+                                    <?php endfor; ?>
                                     <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
                                         data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
                                         style="border: 1px solid black;border-collapse: collapse; text-align: center;">
@@ -311,15 +319,23 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                             }
                                             //if ($jwb['jawaban'] != '') {
                                             //}
+                                            if (round($siswa->skor_total, 2) > $nilaiTertinggi) {
+                                                $nilaiTertinggi = round($siswa->skor_total, 2);
+                                            }
+                                            if (round($siswa->skor_total, 2) > 0 && $siswa->skor_total < $nilaiTerrendah) {
+                                                $nilaiTerrendah = round($siswa->skor_total, 2);
+                                            }
                                             ?>
-                                            <td class="d-none" <?= $bg ?> data-a-v="middle" data-a-h="center"
+                                            <td class="no-soal-siswa d-none" <?= $bg ?> data-a-v="middle" data-a-h="center"
                                                 data-b-a-s="thin"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $jwb['jawaban'] ?></td>
                                         <?php endforeach; ?>
                                         <td class="text-success" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b><?= $disable ? '' : $benar_pg ?></b></td>
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                            <b><?= $disable ? '' : $benar_pg ?></b></td>
                                         <td class="text-danger" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b><?= $disable ? '' : $salah_pg ?></b></td>
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                            <b><?= $disable ? '' : $salah_pg ?></b></td>
                                         <?php if ($info->tampil_pg > 0) : ?>
                                             <td class="text-center text-info align-middle" data-a-v="middle"
                                                 data-a-h="center" data-b-a-s="thin"
@@ -358,7 +374,7 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                                         <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
                                             data-b-a-s="thin"
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                            <b> <?= $disable ? '' : round($siswa->skor_katrol, 2) ?> </b></td>
+                                            <b> <?= $disable ? '' : ($siswa->skor_katrol == '' ? '' : round($siswa->skor_katrol, 2)) ?> </b></td>
                                         <td class="text-center align-middle" data-exclude="true" data-a-v="middle"
                                             data-a-h="center" data-b-a-s="thin"
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;">
@@ -373,6 +389,28 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                             </table>
                         </div>
                     <?php endif; ?>
+                    <!--
+                    <div>
+                        <table class="table-sm">
+                            <tr>
+                                <td>Katrol tertinggi</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Katrol terrendah</td>
+                                <td>60</td>
+                            </tr>
+                            <tr>
+                                <td>Nilai tertinggi</td>
+                                <td id="ntinggi"><?= $nilaiTertinggi ?></td>
+                            </tr>
+                            <tr>
+                                <td>Nilai terendah</td>
+                                <td id="nrendah">2</td>
+                            </tr>
+                        </table>
+                    </div>
+                    -->
                 </div>
                 <div class="overlay" id="loading">
                     <div class="spinner-grow"></div>
@@ -424,6 +462,9 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
+    var colWidthMin = '5,15,35,15,10,10,10,10,10,10';
+    var colWidth = '<?= $colWidth ?>';
+
     var idJadwal = '<?=$jadwal_selected?>';
     var isSelected = <?= isset($siswa) ? '1' : '0'?>;
     var namaMapel = '<?=isset($info) ? $info->kode : ''?>';
@@ -480,7 +521,6 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
     }
 
 
-
     $(document).ready(function () {
         ajaxcsrf();
 
@@ -527,6 +567,13 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
                         name: "Sheet 1"
                     }
                 });
+                /*
+                table1 = document.getElementById("simpleTable1");
+                table2 = document.getElementById("simpleTable2");
+                book = TableToExcel.tableToBook(table1, {sheet: {name: "sheet1"}});
+                TableToExcel.tableToSheet(book, table2, {sheet: {name: "sheet2"}});
+                TableToExcel.save(book, "test.xlsx")
+                */
             } else {
                 Swal.fire({
                     title: "ERROR",
@@ -537,6 +584,19 @@ $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
         });
 
         $('#loading').addClass('d-none');
+
+        $("#nilai-detail").on("click", function () {
+            if (this.checked) {
+            } else {
+            }
+            var exluded = this.checked;
+            $('#no-soal-tile').attr('data-exclude', ''+!exluded);
+            $('.no-soal').attr('data-exclude', ''+!exluded);
+            $('.no-soal-siswa').attr('data-exclude', ''+!exluded);
+
+            var width = $('#table-status').attr('data-cols-width');
+            $('#table-status').attr('data-cols-width', width == colWidth ? colWidthMin : colWidth)
+        });
 
         $('#perbaikan-nilai').on('submit', function (e) {
             e.preventDefault();
