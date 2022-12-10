@@ -113,12 +113,12 @@
 
             <div id="konten-soal">
             <?php if (isset($soal[1]) && count($soal[1]) > 0) : ?>
-                <div class="card card-default my-shadow mb-4">
+                <div class="card card-default my-shadow mb-4 collapsed-card">
                     <div class="card-header">
                         <h6 class="card-title"><b>I. PILIHAN GANDA</b></h6>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
+                                <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>

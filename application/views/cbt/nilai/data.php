@@ -47,7 +47,7 @@ $colWidth ='';
                 <div class="card-body">
                     <div class="row">
                         <?php $dnone = $kelas_selected == null ? 'class="d-none"' : ''; ?>
-                        <div class="col-md-3" id="by-kelas">
+                        <div class="col-md-4" id="by-kelas">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Kelas</span>
@@ -64,6 +64,17 @@ $colWidth ='';
                                 <?php
                                 echo form_dropdown('jadwal', $jadwal, $jadwal_selected, 'id="jadwal" class="form-control"'); ?>
                             </div>
+                        </div>
+                        <?php
+                        $isadmin = $this->ion_auth->is_admin() ? '' : ' d-none';
+                        if ($isadmin) :?>
+                        <?php endif; ?>
+                        <div class="col-4 mb-3">
+                        <button type="button" id="import-essai" class="btn btn-info align-text-bottom mr-2"
+                                data-toggle="tooltip"
+                                title="Import Nilai Essai">
+                            <i class="fa fa-file-excel ml-1 mr-1"></i> Import Nilai Essai
+                        </button>
                         </div>
                     </div>
                     <hr>
@@ -634,6 +645,15 @@ $colWidth ='';
                     icon: "error"
                 })
             }
+        });
+
+        $("#import-essai").on("click", function () {
+            var kls = opsiKelas.val();
+            var jad = opsiJadwal.val();
+            if (kls = null || jad == null) {
+                return;
+            }
+            window.location.href = base_url + 'cbtnilai/inputessai?kelas=' + opsiKelas.val() + '&jadwal=' + opsiJadwal.val();
         });
     })
 </script>

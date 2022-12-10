@@ -1201,6 +1201,39 @@
                     $(this).attr('src', base_url + pathUpload + forReplace[1]);
                 }
             })
+            /*
+            $.each($imgs, function () {
+                //$(this).addClass('img-zoom');
+                var curSrc = $(this).attr('src');
+                console.log('asli', curSrc);
+                var pathUpload = 'uploads';
+                var forReplace = curSrc.split(pathUpload);
+                var newSrc = '';
+
+                if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
+                    newSrc = base_url + curSrc;
+                    $(this).attr('src', newSrc);
+                } else if (curSrc.indexOf(base_url) === -1) {
+                    newSrc = base_url + pathUpload + forReplace[1];
+                    $(this).attr('src', newSrc);
+                } else {
+                    if (curSrc.indexOf('localhost') === -1) {
+                        newSrc = base_url + pathUpload + curSrc;
+                        $(this).attr('src', newSrc);
+                    } else {
+                        newSrc = base_url + pathUpload + forReplace[1];
+                        $(this).attr('src', newSrc);
+                    }
+                }
+                //$(this).removeAttr('style');
+                $(this).on('load', function() {
+                    console.log('size', $(this).height() + 'x' + $(this).width());
+                    if ($(this).height() > 50) {
+                        $(this).addClass('img-fluid');
+                    }
+                });
+            });
+            */
         });
 
         var $div_lists = $('.list-jodohkan');
