@@ -506,7 +506,8 @@ $satuan = [
         identitas += '<table style="width: 100%">' +
             '<tr style="font-family: \'Tahoma\';font-size: 12pt;">' +
             '<td style="width: 35%;padding-left: 100px;">' +
-            '<img src="' + base_url + '/assets/app/img/bg_frame_foto.jpg"></td>' +
+            '<img class="avatar" src="' + base_url + siswa.foto + '"width="100" height="130"' +
+            ' style="object-fit: cover; border: 1px solid black"></td>' +
             '</td>' +
             '<td style="width: 30%;">' +
             '<td style="width: 35%">' +
@@ -1332,6 +1333,10 @@ $satuan = [
     }
 
     function preview(idSiswa) {
+        if (raporSetting == null) {
+            $('#empty').html('<b>Rapor belum diatur oleh admin</b>');
+            return;
+        }
         //var siswa = null;
         for (let i = 0; i < arrSiswa.length; i++) {
             if (arrSiswa[i].id_siswa == idSiswa) {
@@ -1368,6 +1373,16 @@ $satuan = [
         $('#print-deskripsi1').html(createPageKeterampilan(idSiswa, siswaSelected));
 
         $('#print-deskripsi2').html(createPageekstra(idSiswa, siswaSelected));
+
+        $(`.avatar`).each(function () {
+            $(this).on("error", function () {
+                var src = $(this).attr('src').replace('profiles', 'foto_siswa');
+                $(this).attr("src", src);
+                $(this).on("error", function () {
+                    $(this).attr("src", base_url + "/assets/app/img/bg_frame.jpg");
+                });
+            });
+        });
 
         setTimeout(function () {
             $('#loading').addClass('d-none');

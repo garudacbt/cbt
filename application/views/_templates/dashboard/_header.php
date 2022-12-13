@@ -222,7 +222,7 @@ function buat_tanggal($str) {
 	$str = str_replace("Tue", "Selasa", $str);
 	$str = str_replace("Wed", "Rabu", $str);
 	$str = str_replace("Thu", "Kamis", $str);
-	$str = str_replace("Fri", "Jumat", $str);
+	$str = str_replace("Fri", "Jum'at", $str);
 	$str = str_replace("Sat", "Sabtu", $str);
 	$str = str_replace("Sun", "Minggu", $str);
 	return $str;
@@ -241,13 +241,13 @@ function singkat_tanggal($str) {
 	$str = str_replace("Oct", "Okt", $str);
 	$str = str_replace("Nov", "Nov", $str);
 	$str = str_replace("Dec", "Des", $str);
-	$str = str_replace("Mon", "Sen", $str);
-	$str = str_replace("Tue", "Sel", $str);
-	$str = str_replace("Wed", "Rab", $str);
-	$str = str_replace("Thu", "Kam", $str);
-	$str = str_replace("Fri", "Jum", $str);
-	$str = str_replace("Sat", "Sab", $str);
-	$str = str_replace("Sun", "Min", $str);
+	$str = str_replace("Mon", "Senin", $str);
+	$str = str_replace("Tue", "Selasa", $str);
+	$str = str_replace("Wed", "Rabu", $str);
+	$str = str_replace("Thu", "Kamis", $str);
+	$str = str_replace("Fri", "Jum'at", $str);
+	$str = str_replace("Sat", "Sabtu", $str);
+	$str = str_replace("Sun", "Minngu", $str);
 	return $str;
 }
 

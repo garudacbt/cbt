@@ -623,7 +623,7 @@
         identitas += '<table style="width: 100%">' +
             '<tr style="font-family: \'Tahoma\';font-size: 12pt;">' +
             '<td style="width: 35%;padding-left: 100px;">' +
-            '<img src="'+base_url+'/assets/app/img/bg_frame_foto.jpg"></td>' +
+            '<img src='+base_url+'"/assets/app/img/bg_frame.jpg"></td>' +
             '</td>' +
             '<td style="width: 30%;">' +
             '<td style="width: 35%">' +

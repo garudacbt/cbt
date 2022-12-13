@@ -1,3 +1,9 @@
+<?php
+$fotoSiswa = $siswa->foto;
+if (!file_exists(FCPATH.$siswa->foto)) {
+    $fotoSiswa = str_replace('profiles', 'foto_siswa', $siswa->foto);
+}
+?>
 <div class="content-wrapper bg-white pt-4">
     <section class="content-header">
         <div class="container-fluid">
@@ -28,8 +34,7 @@
                             <div class="box-info text-center user-profile-2">
                                 <div class="user-profile-inner">
                                     <?php
-                                    //var_dump(file_exists(FCPATH.$siswa->foto));
-                                    if (!file_exists(FCPATH.$siswa->foto)): ?>
+                                    if (!file_exists(FCPATH.$fotoSiswa)): ?>
                                         <?php if ($siswa->jenis_kelamin == 'L'): ?>
                                             <img src="<?= base_url() ?>/assets/img/siswa-l.png"
                                                  class="img-circle profile-avatar mt-2" alt="User avatar">
@@ -38,7 +43,7 @@
                                                  class="img-circle profile-avatar mt-2" alt="User avatar">
                                         <?php endif; ?>
                                     <?php else: ?>
-                                        <img src="<?= base_url() ?><?= $siswa->foto ?>"
+                                        <img src="<?= base_url() ?><?= $fotoSiswa ?>"
                                              class="img-circle profile-avatar mt-2" alt="User avatar">
                                     <?php endif; ?>
                                     <h4 class="mt-5 mb-5"><?= $siswa->nama ?></h4>
@@ -326,7 +331,7 @@
                     <input type="file" id="foto-profile" name="foto" class="dropify"
                            data-max-file-size-preview="2M"
                            data-allowed-file-extensions="jpg jpeg png"
-                           data-default-file="<?= base_url().$siswa->foto ?>"/>
+                           data-default-file="<?= base_url().$fotoSiswa ?>"/>
                 </div>
                 <?= form_close() ?>
             </div>
@@ -387,7 +392,7 @@
     var arrBio = JSON.parse(JSON.stringify(<?= json_encode($input_bio)?>));
     var fotoProfile = '';
     var idSiswa = '<?=$siswa->id_siswa?>';
-    var src = '<?=$siswa->foto?>';
+    var src = '<?=$fotoSiswa?>';
     $(document).ready(function () {
         ajaxcsrf();
         console.log(arrSiswa);

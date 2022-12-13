@@ -133,8 +133,8 @@ $satuan = [
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
     console.log('KKM', kkm);
 
-    var nipKepsek = raporSetting.nip_kepsek === '1' ? setting.nip : '';
-    var nipWalas = raporSetting.nip_walikelas === '1' ? guru.nip : '';
+    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? setting.nip : '';
+    var nipWalas = raporSetting != null && raporSetting.nip_walikelas === '1' ? guru.nip : '';
 
     function inRange(n, start, end) {
         return n >= start && n <= end;
@@ -157,6 +157,9 @@ $satuan = [
     }
 
     function createPredikat(arrN, idMapel) {
+        if (raporSetting == null) {
+            return;
+        }
         const kkmmapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[idMapel] == null ? 65 : kkm[idMapel].kkm);
         const isi = parseInt(kkmmapel);
         var pre_d = 1;
@@ -223,6 +226,10 @@ $satuan = [
     }
 
     function preview(idSiswa) {
+        if (raporSetting == null) {
+            $('#print-preview').html('<b>Rapor belum diatur oleh admin</b>');
+            return;
+        }
         var siswa = null;
         for (let i = 0; i < arrSiswa.length; i++) {
             if (arrSiswa[i].id_siswa == idSiswa) {

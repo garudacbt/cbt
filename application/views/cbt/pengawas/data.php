@@ -59,8 +59,10 @@
                             foreach ($tgl_jadwals as $tgl => $jadwal):
                                 $listMapel = array_keys($jadwal);
                                 $listIdJad = [];
-                                foreach ($jadwal[$listMapel[0]] as $ids) {
-                                    array_push($listIdJad, $ids->id_jadwal);
+                                if (isset($jadwal[$listMapel[0]])) {
+                                    foreach ($jadwal[$listMapel[0]] as $ids) {
+                                        array_push($listIdJad, $ids->id_jadwal);
+                                    }
                                 }
                                 ?>
                                 <tr>
@@ -73,11 +75,13 @@
                                     <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
                                     <td class="text-center align-middle">
                                         <?php
-                                        $idJad = $jadwal[$listMapel[0]][0]->id_jadwal;
-                                        $sel = isset($pengawas[$idJad]) &&
-                                        isset($pengawas[$idJad][$ruang_selected]) &&
-                                        isset($pengawas[$idJad][$ruang_selected][$sesi_selected])
-                                            ? explode(',', $pengawas[$idJad][$ruang_selected][$sesi_selected]->id_guru) : [];
+                                        if (isset($listMapel[0]) && isset($jadwal[$listMapel[0]]) && isset($jadwal[$listMapel[0]][0])) {
+                                            $idJad = $jadwal[$listMapel[0]][0]->id_jadwal;
+                                            $sel = isset($pengawas[$idJad]) &&
+                                            isset($pengawas[$idJad][$ruang_selected]) &&
+                                            isset($pengawas[$idJad][$ruang_selected][$sesi_selected])
+                                                ? explode(',', $pengawas[$idJad][$ruang_selected][$sesi_selected]->id_guru) : [];
+                                        }
                                         echo form_dropdown(
                                             'pengawas[]',
                                             $gurus,

@@ -495,10 +495,14 @@
 
         $(`.avatar`).each(function () {
             $(this).on("error", function () {
-                $(this).attr("src", base_url + 'assets/img/siswa.png');
+                var src = $(this).attr('src').replace('profiles', 'foto_siswa');
+                $(this).attr("src", src);
+                $(this).on("error", function () {
+                    $(this).attr("src", base_url + 'assets/img/siswa.png');
+                });
+
             });
         });
-
     }
 
 	$(document).ready(function () {

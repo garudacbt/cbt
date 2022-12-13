@@ -26,6 +26,7 @@ $(document).ready(function(){
         success: function(data){
             infobox.removeAttr('class').text('');
             btnsubmit.removeAttr('disabled').val('Login');
+            console.log('login', data);
             if(data.status){
                 infobox.addClass('info-box align-items-center justify-content-center bg-gradient-success').text('Login Sukses');
                 var go = base_url + data.url;

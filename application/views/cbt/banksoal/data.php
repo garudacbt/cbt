@@ -677,10 +677,10 @@ $allBanksIds = [];
     $(document).ready(function () {
         ajaxcsrf();
 
-        //var count = $('#konten .check-bank').length;
-        //if (count == 0) {
-            //$('#row-filter').addClass('d-none');
-        //}
+        var count = $('#konten .check-bank').length;
+        if (count == 0) {
+            $('#row-filter').addClass('d-none');
+        }
 
         var selectedF = idFilter == '' ? 'selected' : '';
         var selectedM = idMapel == '' ? 'selected' : '';

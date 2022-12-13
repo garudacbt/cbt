@@ -217,8 +217,8 @@ $satuan = [
     var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
 
-    var nipKepsek = raporSetting.nip_kepsek === '1' ? setting.nip : '';
-    var nipWalas = raporSetting.nip_walikelas === '1' ? guru.nip : '';
+    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? setting.nip : '';
+    var nipWalas = raporSetting != null && raporSetting.nip_walikelas === '1' ? guru.nip : '';
 
     var z = 0.9;
 
@@ -228,7 +228,7 @@ $satuan = [
 
     var levelAkhir = ["6", "9", "12"];
     var klsAkhir = inArray(level, levelAkhir);
-    //console.log("kelasAkhir", klsAkhir);
+    console.log('mapels', arrMapel);
 
     function inArray(val, array) {
         var found = $.inArray(val, array);
@@ -469,7 +469,8 @@ $satuan = [
         identitas += '<table style="width: 100%">' +
             '<tr style="font-family: \'Tahoma\';font-size: 12pt;">' +
             '<td style="width: 35%;padding-left: 100px;">' +
-            '<img src="' + base_url + '/assets/app/img/bg_frame_foto.jpg"></td>' +
+            '<img class="avatar" src="' + base_url + siswa.foto + '"width="100" height="130"' +
+            ' style="object-fit: cover; border: 1px solid black"></td>' +
             '</td>' +
             '<td style="width: 30%;">' +
             '<td style="width: 35%">' +
@@ -715,10 +716,11 @@ $satuan = [
 
         var arr = Object.keys(arrKelompokMapel).map(function (key) { return arrKelompokMapel[key]; });
         var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
+        console.log('indexPAI', indexPAI);
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && mapel.kelompok == pai.kode_kel_mapel) {
                 //hasSub = val.id_parent != '0';
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
@@ -863,7 +865,7 @@ $satuan = [
         var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
         var pai = arr[indexPAI];
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
                 var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
@@ -1292,6 +1294,10 @@ $satuan = [
     }
 
     function preview(idSiswa) {
+        if (raporSetting == null) {
+            $('#empty').html('<b>Rapor belum diatur oleh admin</b>');
+            return;
+        }
         //var siswa = null;
         for (let i = 0; i < arrSiswa.length; i++) {
             if (arrSiswa[i].id_siswa == idSiswa) {
@@ -1322,6 +1328,16 @@ $satuan = [
         $('#print-deskripsi1').html(createPageKeterampilan(idSiswa, siswaSelected));
 
         $('#print-deskripsi2').html(createPageekstra(idSiswa, siswaSelected));
+
+        $(`.avatar`).each(function () {
+            $(this).on("error", function () {
+                var src = $(this).attr('src').replace('profiles', 'foto_siswa');
+                $(this).attr("src", src);
+                $(this).on("error", function () {
+                    $(this).attr("src", base_url + "/assets/app/img/bg_frame.jpg");
+                });
+            });
+        });
 
         setTimeout(function () {
             $('#loading').addClass('d-none');
