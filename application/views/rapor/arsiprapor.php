@@ -389,7 +389,7 @@ $satuan = [
                 var s1 = splitted[0];
                 var s2 = splitted[1];
 
-                var limit = 30;
+                var limit = 50;
                 var len = s2.length;
                 if (len >= limit) {
                     s2 = s2.substring(0, limit) + '...';
@@ -754,7 +754,7 @@ $satuan = [
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
                 var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;

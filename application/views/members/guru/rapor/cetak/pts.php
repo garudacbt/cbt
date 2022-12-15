@@ -131,7 +131,7 @@ $satuan = [
     var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
-    console.log('KKM', kkm);
+    //console.log('KKM', kkm);
 
     var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? setting.nip : '';
     var nipWalas = raporSetting != null && raporSetting.nip_walikelas === '1' ? guru.nip : '';
@@ -318,7 +318,7 @@ $satuan = [
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var arrN = [];
                 var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
@@ -538,10 +538,10 @@ $satuan = [
     }
 
     $(document).ready(function () {
-        console.log('kelMapel', arrKelompokMapel);
-        console.log('mapel',arrMapel);
-        console.log('nilai',nilaiHarian);
-        console.log('setting', raporSetting);
+        //console.log('kelMapel', arrKelompokMapel);
+        //console.log('mapel',arrMapel);
+        //console.log('nilai',nilaiHarian);
+        //console.log('setting', raporSetting);
         $('.siswa').click(function (e) {
             e.stopPropagation();
             e.preventDefault();

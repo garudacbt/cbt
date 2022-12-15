@@ -136,7 +136,7 @@ $allowedDates = [];
                                     </thead>
                                     <tbody>
                                     <?php
-                                    foreach ($jadwals_ruang['Ruang 1'] as $jadwal) :
+                                    foreach ($jadwals_ruang[$rng] as $jadwal) :
                                         ?>
                                         <tr style="font-family: 'Times New Roman'; font-size: 11pt">
                                             <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?= str_replace(',', '<br>', singkat_tanggal(date('D,d M Y', strtotime($jadwal->tanggal)))) ?></td>

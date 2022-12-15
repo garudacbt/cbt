@@ -352,7 +352,7 @@ $satuan = [
                 var s1 = splitted[0];
                 var s2 = splitted[1];
 
-                var limit = 30;
+                var limit = 50;
                 var len = s2.length;
                 if (len >= limit) {
                     s2 = s2.substring(0, limit) + '...';

@@ -75,6 +75,7 @@
                                     <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
                                     <td class="text-center align-middle">
                                         <?php
+                                        $sel = '';
                                         if (isset($listMapel[0]) && isset($jadwal[$listMapel[0]]) && isset($jadwal[$listMapel[0]][0])) {
                                             $idJad = $jadwal[$listMapel[0]][0]->id_jadwal;
                                             $sel = isset($pengawas[$idJad]) &&
