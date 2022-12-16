@@ -3,6 +3,7 @@ function date_sort($a, $b)
 {
     return strtotime($a) - strtotime($b);
 }
+
 $allowedDates = [];
 ?>
 <div class="content-wrapper bg-white">

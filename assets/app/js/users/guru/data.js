@@ -55,9 +55,7 @@ $(document).ready(function() {
 								<i class="fa fa-user-plus m-1"></i>
 							</button>`;
 					}
-					return `<a href="javascript:void(0)" onclick="javascript:editLogin(${data.id_guru})" type="button" class="btn btn-warning btn-xs mr-2" data-id="${data.id_guru}" data-toggle="tooltip" title="Edit Login">
-								<i class="fa fa-key m-1 text-white"></i>
-							</a>` + btn;
+					return btn;
 				}
 			}
 		],

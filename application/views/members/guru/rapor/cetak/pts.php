@@ -100,7 +100,7 @@ $satuan = [
                         <div class="card-body p-0 d-flex justify-content-center bg-gray-light">
                             <div style="transform: scale(0.9)">
                                 <div id="print-preview" class="border my-shadow"
-                                     style="background: white;width: 210mm; height: 330mm;padding-left: 0.5cm;padding-right: 0.5cm;padding-top: 1cm;padding-bottom: 1cm">
+                                     style="background: white;width: 210mm; min-height: 297mm;padding-left: 0.5cm;padding-right: 0.5cm;padding-top: 1cm;padding-bottom: 1cm">
                                 </div>
                             </div>
                         </div>
