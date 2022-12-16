@@ -36,9 +36,11 @@ $allowedDates = [];
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Export As Word" onclick="exportWord()">
                                 <i class="fa fa-file-word"></i> <span class="d-none d-sm-inline-block ml-1"> Word</span></button>
+                            <!--
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Export As Excel" onclick="exportExcel()">
                                 <i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline-block ml-1"> Excel</span></button>
+                                -->
                         </div>
                     </div>
                 </div>
@@ -96,12 +98,12 @@ $allowedDates = [];
                             $list_ruang = array_keys($jadwals_ruang);
                             foreach ($list_ruang as $rng) :
                             ?>
-                            <div style="background: white; width: 210mm; height: 297mm; padding: 1mm;white-space: nowrap;"
+                            <div style="background: white; width: 210mm; min-height: 297mm; padding: 1mm;white-space: nowrap;"
                                  class="border my-shadow m-4 p-5">
                                 <table id="table-header-print" style="width: 100%; border: 0;">
                                     <tr>
                                         <td style="width:15%;">
-                                            <img alt="logo kiri" id="prev-logo-kanan-print"
+                                            <img alt="logo kiri" id="prev-logo-kanan-print" width="85" height="85"
                                                  src="<?= isset($setting->logo_kiri) ? base_url().$setting->logo_kiri : '' ?>"
                                                  style="width:85px; height:85px; margin: 6px;">
                                         </td>
@@ -113,7 +115,7 @@ $allowedDates = [];
                                         </td>
                                         <td style="width:15%;">
                                             <img alt="logo kanan" id="prev-logo-kiri-print" src="<?= isset($setting->logo_kanan) ? base_url().$setting->logo_kanan : ''?>"
-                                                 style="width:85px; height:85px; margin: 6px; border-style: none">
+                                                 width="85" height="85" style="width:85px; height:85px; margin: 6px; border-style: none">
                                         </td>
                                     </tr>
                                 </table>

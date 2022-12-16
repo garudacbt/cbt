@@ -899,7 +899,7 @@ $satuan = [
         var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
         var pai = arr[indexPAI];
         $.each(arrMapel, function (k, mapel) {
-            if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
                 var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;

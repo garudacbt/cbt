@@ -70,7 +70,7 @@
                                         class="text-center align-middle"><?= $no ?></td>
                                     <td rowspan="<?= count($listMapel) ?>"
                                         class="text-center align-middle"><?= buat_tanggal(date('D, d M Y', strtotime($tgl))) ?></td>
-                                    <td class="text-center align-middle jadwal" data-id="<?= implode(',', $listIdJad) ?>"><?= $listMapel[0] ?></td>
+                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[0] ?></td>
                                     <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
                                     <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
                                     <td class="text-center align-middle">
@@ -98,16 +98,19 @@
                                 }
                                 ?>
                                 <tr>
-                                    <td class="text-center align-middle jadwal" data-id="<?= implode(',', $listIdJad) ?>"><?= $listMapel[$i] ?></td>
+                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[$i] ?></td>
                                     <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
                                     <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
                                     <td class="text-center align-middle">
                                         <?php
-                                        $idJad = $jadwal[$listMapel[$i]][0]->id_jadwal;
-                                        $sel = isset($pengawas[$idJad]) &&
-                                        isset($pengawas[$idJad][$ruang_selected]) &&
-                                        isset($pengawas[$idJad][$ruang_selected][$sesi_selected])
-                                            ? explode(',', $pengawas[$idJad][$ruang_selected][$sesi_selected]->id_guru) : [];
+                                        $sel = '';
+                                        if (isset($listMapel[0]) && isset($jadwal[$listMapel[0]]) && isset($jadwal[$listMapel[0]][0])) {
+                                            $idJad = $jadwal[$listMapel[$i]][0]->id_jadwal;
+                                            $sel = isset($pengawas[$idJad]) &&
+                                            isset($pengawas[$idJad][$ruang_selected]) &&
+                                            isset($pengawas[$idJad][$ruang_selected][$sesi_selected])
+                                                ? explode(',', $pengawas[$idJad][$ruang_selected][$sesi_selected]->id_guru) : [];
+                                        }
                                         echo form_dropdown(
                                             'pengawas[]',
                                             $gurus,
@@ -251,10 +254,9 @@
                 const jadwal = $(row).find('.jadwal').data('id');
                 const guru = $(row).find('.pengawas').val();
 
-                const listIdJadwal = jadwal.split(',');
-                for (i=0; i<listIdJadwal.length; i++) {
+                for (i=0; i<jadwal.length; i++) {
                     let item = {};
-                    item ["jadwal"] = listIdJadwal[i];
+                    item ["jadwal"] = jadwal[i];
                     item ["ruang"] = ruang;
                     item ["sesi"] = sesi;
                     item ["guru"] = guru;

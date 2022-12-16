@@ -612,23 +612,29 @@
 
         var kalender = string.split(" ")[0];
         var waktu = string.split(" ")[1];
-        //console.log(kalender);
+        console.log('date', kalender);
+        console.log('hour', waktu);
 
-        var tanggal = kalender.split("-")[2];
-        var bulan = kalender.split("-")[1];
-        var tahun = kalender.split("-")[0];
+        const date = kalender.split("-");
+        const time = waktu.split(":");
 
-        var jam = waktu.split(":")[0];
-        var menit = waktu.split(":")[1];
-        var detik = waktu.split(":")[2];
+        var tanggal = date[2];
+        var bulan = date[1]-1;
+        var tahun = date[0];
+
+        var jam = time[0];
+        var menit = time[1];
+        var detik = time[2];
 
         var d = new Date(tahun, bulan, tanggal, jam, menit, detik);
+        console.log('newDate', d);
         var curr_day = d.getDay();
         var curr_date = d.getDate();
         var curr_month = d.getMonth();
         var curr_year = d.getFullYear();
         var curr_jam = d.getHours();
         var curr_mnt = d.getMinutes();
+        console.log('res', d.getDay());
 
         return hari[curr_day] + ", " + curr_date + "  " + bulans[curr_month] + " " + curr_year + " <br><b>" + curr_jam + ":" + curr_mnt + "</b>";
     }
