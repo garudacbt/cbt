@@ -253,7 +253,7 @@ $satuan = [
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
     var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
-    console.log("SAT", namaSatuanPend);
+    var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
 
     var z = 0.9;
 
@@ -389,7 +389,7 @@ $satuan = [
                 var s1 = splitted[0];
                 var s2 = splitted[1];
 
-                var limit = 50;
+                var limit = 100;
                 var len = s2.length;
                 if (len >= limit) {
                     s2 = s2.substring(0, limit) + '...';
