@@ -30,7 +30,7 @@
                                 //echo '</pre>';
 
                                 if (count($nilai_materi) > 0):?>
-                                    <table class="table table-sm table-hover w-100" style="line-height: 1">
+                                    <table class="table table-hover w-100" style="line-height: 1">
                                         <tr>
                                             <th class="text-center">NO</th>
                                             <th>Materi</th>
@@ -77,7 +77,7 @@
                         <div class="card-body">
                             <div id='list-nilai-tugas'>
                                 <?php if (count($nilai_tugas) > 0):?>
-                                <table class="table table-sm table-hover w-100" style="line-height: 1">
+                                <table class="table table-hover w-100" style="line-height: 1">
                                     <tr>
                                         <th class="text-center">NO</th>
                                         <th>Tugas</th>
@@ -129,13 +129,14 @@
                                 //var_dump($jadwal);
                                 //echo '</pre>';
                                 ?>
-                                <table class="table table-sm table-hover w-100 ">
+                                <table class="table table-hover w-100 ">
                                     <tr>
                                         <th class="text-center align-middle">NO</th>
                                         <th>Jenis Penilaian</th>
                                         <th>Mata Pelajaran</th>
                                         <th>Kode Penilaian</th>
                                         <th class="text-center">Nilai</th>
+                                        <th class="text-center">Detail</th>
                                     </tr>
                                     <?php
                                     if (count($jadwal) > 0) :
@@ -150,6 +151,11 @@
                                                 <td><?= $j->kode ?></td>
                                                 <td><?= $j->bank_kode ?></td>
                                                 <td class="text-center"><?= $total ?></td>
+                                                <td class="text-center">
+                                                    <button type="button" data-toggle="modal" data-target="#detail-nilai" class="btn btn-sm btn-primary">
+                                                        Detail
+                                                    </button>
+                                                </td>
                                             </tr>
                                             <?php $no++; endforeach; else: ?>
                                         <tr>
@@ -173,6 +179,43 @@
         </div>
     </section>
 </div>
+
+<div class="modal fade" id="detail-nilai" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Detail Hasil Ujian</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <td>Waktu pengerjaan</td>
+                        <td id="jdurasi">:</td>
+                    </tr>
+                    <tr>
+                        <td>Jml. jawaban benar</td>
+                        <td id="jbenar">:</td>
+                    </tr>
+                    <tr>
+                        <td>Jml. jawaban salah</td>
+                        <td id="jsalah">:</td>
+                    </tr>
+                    <tr>
+                        <td>Nilai</td>
+                        <td id="jnilai">:</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         /*

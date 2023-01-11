@@ -149,7 +149,7 @@
                         </div>
 					</div>
 					<div>
-						<table class="table table-bordered table-sm" id="table-status">
+						<table class="table table-bordered" id="table-status">
 						</table>
 					</div>
 				</div>

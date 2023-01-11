@@ -115,7 +115,7 @@ function my_array_unique($array, $keep_key_assoc = false)
                                         class="d-none d-sm-inline-block ml-1">Ekspor Semua</a>
                         </div>
 
-                        <table id="jadwal-bank" class="w-100 table table-sm table-striped table-bordered table-hover">
+                        <table id="jadwal-bank" class="w-100 table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>

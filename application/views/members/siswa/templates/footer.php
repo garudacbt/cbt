@@ -35,7 +35,7 @@
 				$.widget.bridge('uibutton', $.ui.button);
 
                 var runningText = JSON.parse('<?= json_encode($running_text) ?>');
-                console.log('runn', runningText);
+                //console.log('runn', runningText);
                 var teks = '';
                 $.each(runningText, function (i, v) {
                     teks += '<span class="ml-3 mr-3">' + v.text + '</span> &bull; '

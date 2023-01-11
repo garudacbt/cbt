@@ -169,7 +169,7 @@
                 '        </tr>' +
                 '    </table>' +
                 '</div><br>' +
-                '<table id="tabelsiswa" class="table table-sm" style="width:100%;border:1px solid #c0c0c0;border-collapse: collapse; border-spacing: 0;">' +
+                '<table id="tabelsiswa" class="table-responsive" style="width:100%;border:1px solid #c0c0c0;border-collapse: collapse; border-spacing: 0;">' +
 				'<thead>' +
 				'<tr style="background-color:lightgrey">' +
 				'<th rowspan="3" width="40" '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">No</p></th>' +
@@ -216,8 +216,8 @@
                         if (value.status[jamke] != null && value.status[jamke][idm] != null && value.status[jamke][idm][1] != null){
                             var mli = value.status[jamke][idm][1].log_time;
                             var sls = value.status[jamke][idm][1].finish_time;
-                            var tglSelesai = buatTanggal(sls, false);
-                            var durasi = calculateTime(mli, sls);
+                            var tglSelesai = sls == null ? '' : buatTanggal(sls, false);
+                            var durasi = mli != null && sls != null ? calculateTime(mli, sls) : '';
                             table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">'+ tglSelesai + '<br><i class="fa fa-clock-o"></i> ' +durasi+'</p></td>';
                         } else {
                             table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;"> - - </p></td>';
@@ -229,10 +229,10 @@
                     var adaTugas = data.materi[idm] != null && data.materi[idm][jamke] != null && data.materi[idm][jamke][2] != null;
                     if (adaTugas) {
                         if (value.status[jamke] != null && value.status[jamke][idm] != null && value.status[jamke][idm][2] != null){
-                            var mlit = value.status[jamke][idm][1].log_time;
-                            var slst = value.status[jamke][idm][1].finish_time;
-                            var tglSelesait = buatTanggal(slst, false);
-                            var durasit = calculateTime(mlit, slst);
+                            var mlit = value.status[jamke][idm][2].log_time;
+                            var slst = value.status[jamke][idm][2].finish_time;
+                            var tglSelesait = slst == null ? '' : buatTanggal(slst, false);
+                            var durasit = mlit != null && slst != null ? calculateTime(mlit, slst) : '';
                             table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">'+ tglSelesait + '<br><i class="fa fa-clock-o"></i> ' +durasit+'</p></td>';
                         } else {
                             table += '<td '+styleCenterMiddle+'><p style="margin: 4px; display: inline;"> - - </p></td>';
@@ -331,6 +331,7 @@
 	});
 
     function buatTanggal(string, singkat) {
+        console.log("tgl", string);
         var selesai = string.replace(" ", "T");
         var d = new Date(selesai);
         var curr_day = d.getDay();

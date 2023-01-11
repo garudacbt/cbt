@@ -110,7 +110,7 @@
 		console.log(data);
 		var table = '';
 
-		table = '<table id="tabelsiswa" class="table table-bordered table-striped table-sm">' +
+		table = '<table id="tabelsiswa" class="table table-bordered table-striped">' +
 			'<thead>' +
 			'<tr>' +
 			'<th width="40" class="text-center align-middle">No</th>' +

@@ -97,6 +97,12 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                 </div>
                 <div class="card-body">
                     <div class="col">
+                        <div class="col-12 p-0">
+                            <div class="alert alert-default-warning align-content-center" role="alert">
+                                <b>Info</b>
+                                <br> Jika jadwal materi/tugas sudah diatur di menu Materi dan menu Tugas, maka abaikan halaman ini.
+                            </div>
+                        </div>
                         Pilih Kelas:
                         <br>
                         <?php
@@ -181,6 +187,8 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                         <?php
                                         $arrSmt1 = ["07" => "Jul", "08" => "Agu", "09" => "Sep", "10" => "Okt", "11" => "Nov", "12" => "Des"];
                                         $arrSmt2 = ["01" => "Jan", "02" => "Feb", "03" => "Mar", "04" => "Apr", "05" => "Mei", "06" => "Jun"];
+                                        //$arrSmt = ["01" => "Jan", "02" => "Feb", "03" => "Mar", "04" => "Apr", "05" => "Mei", "06" => "Jun",
+                                        //    "07" => "Jul", "08" => "Agu", "09" => "Sep", "10" => "Okt", "11" => "Nov", "12" => "Des"];
                                         if ($smt_active->id_smt == '1') :
                                             foreach ($arrSmt1 as $key => $hiji) :
                                                 $mSelect = date('m', strtotime($date_selected)) == $key ? 'selected="selected"' : ""; ?>
@@ -204,7 +212,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                     <i class="fa fa-angle-right"></i>
                                 </button>
                             </div>
-                            <table class="table table-sm border mt-4" id="tbl-jadwal">
+                            <table class="table border mt-4" id="tbl-jadwal">
                                 <tr class="alert alert-default-success">
                                     <th class="text-center align-middle border" style="height: 50px">
                                         Hari & Tanggal
@@ -285,7 +293,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                     'select-materi',
                                                     $opsis,
                                                     isset($detail_jadwal_materi[$tempId]) ? $detail_jadwal_materi[$tempId]->id_materi : '',
-                                                    'class="select2 dropdown-materi form-control" data-name="select-materi"'. $disableSelect
+                                                    'class="select2 dropdown-materi form-control" data-name="select-materi"'//. $disableSelect
                                                 ); ?>
                                             </td>
                                             <td class="border tugas">
@@ -310,7 +318,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                     'select-tugas',
                                                     $opsis,
                                                     isset($detail_jadwal_tugas[$tempId]) ? $detail_jadwal_tugas[$tempId]->id_materi : '',
-                                                    'class="select2 dropdown-tugas form-control" data-name="select-tugas"'. $disableSelect
+                                                    'class="select2 dropdown-tugas form-control" data-name="select-tugas"'//. $disableSelect
                                                 ); ?>
                                             </td>
                                             <?php
@@ -365,7 +373,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                         'select-materi',
                                                         $opsis,
                                                         isset($detail_jadwal_materi[$tempId]) ? $detail_jadwal_materi[$tempId]->id_materi : '',
-                                                        'class="select2 dropdown-materi form-control" data-name="select-materi"'. $disableSelect
+                                                        'class="select2 dropdown-materi form-control" data-name="select-materi"'//. $disableSelect
                                                     ); ?>
                                                 </td>
                                                 <td class="border tugas">
@@ -389,7 +397,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                         'select-tugas',
                                                         $opsis,
                                                         isset($detail_jadwal_tugas[$tempId]) ? $detail_jadwal_tugas[$tempId]->id_materi : '',
-                                                        'class="select2 dropdown-tugas form-control" data-name="select-tugas"'. $disableSelect
+                                                        'class="select2 dropdown-tugas form-control" data-name="select-tugas"'//. $disableSelect
                                                     ); ?>
                                                 </td>
                                                 <?php
@@ -464,46 +472,40 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
     var blnSelected = "<?=$bln_selected?>";
     var currSmt = "<?=$smt_active->id_smt?>";
     var currTp = "<?=$tp_active->id_tp?>";
+    var currTahun = "<?=$tp_active->tahun?>".split('/');
 
     var arrIstirahat = JSON.parse(JSON.stringify(<?= json_encode($jmlIst)?>));
     var ists = [];
     $.each(arrIstirahat, function (i, v) {
         ists.push(v.ist)
     });
-    console.log('arrIst', ists);
 
-    console.log("tglSelected", tglSelected);
-
+    //console.log('tahun', currTahun[0]);
     function calculateNextWeek(tgl) {
         var d = new Date(tgl);
         var next = new Date(d.setDate(d.getDate() + 8 - d.getDay()));
-        /*
-        var datestring = ("0" + d.getDate()).slice(-2) + "-" +
-            ("0" + (d.getMonth()+1)).slice(-2) + "-" + d.getFullYear() + " " +
-            ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-        */
-        var bound = currSmt == '1' ? 1 : 6;
-        console.log("curSMT", currSmt);
-        console.log("next-bound", bound);
-        if ((next.getMonth() + 1) == bound) {
-            return null;
-        } else {
+        //var bound = currSmt == '1' ? 1 : 6;
+        //console.log("curmonth", next.getMonth());
+        //console.log("next-bound", bound);
+        //if ((next.getMonth() + 1) == bound) {
+        //    return null;
+        //} else {
             return next.getFullYear() + "-" + ("0" + (next.getMonth() + 1)).slice(-2) + "-" + ("0" + next.getDate()).slice(-2);
-        }
+        //}
     }
 
     function calculatePrevWeek(tgl) {
         var d = new Date(tgl);
         var prev = new Date(d.setDate(d.getDate() - 6 - d.getDay()));
 
-        var bound = currSmt == '1' ? 6 : 1;
-        console.log("curSMT", currSmt);
-        console.log("prev-bound", bound);
-        if (prev.getMonth() + 1 == bound) {
-            return null;
-        } else {
+        //var bound = currSmt == '1' ? 6 : 1;
+        //console.log("curmonth", prev.getMonth());
+        //console.log("prev-bound", bound);
+        //if ((prev.getMonth() + 1) == bound) {
+        //    return null;
+        //} else {
             return prev.getFullYear() + "-" + ("0" + (prev.getMonth() + 1)).slice(-2) + "-" + ("0" + prev.getDate()).slice(-2);
-        }
+        //}
     }
 
     function nextweek() {
@@ -512,20 +514,18 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
     }
 
     function prevweek() {
-        //var datestring = next.getFullYear()+ "-" + ("0" + (next.getMonth()+1)).slice(-2)  + "-" + ("0" + next.getDate()).slice(-2);
         var datestring = calculatePrevWeek(tglSelected);
         if (datestring != null) window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + klsSelected + '&date=' + datestring  + '&tahun=' + thnSelected + '&bulan='+ blnSelected;
     }
 
     $(document).ready(function () {
-
         $('#year').on('change', function () {
             var tahun = $(this).val().split('/');
             var thn;
             if (currSmt == '1') thn = tahun[0];
             else thn = tahun[1];
             var month = $('#month').val();
-            console.log(thn, month);
+            //console.log(thn, month);
 
             var day = new Date(tglSelected);
             var tgl = thn + "-" +  + "-" + ("0" + day.getDate()).slice(-2);
@@ -538,7 +538,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
             if (currSmt == '1') thn = tahun[0];
             else thn = tahun[1];
             var month = $(this).val();
-            console.log(thn, month);
+            //console.log(thn, month);
 
             var day = new Date(tglSelected);
             var tgl = thn + "-" + month + "-" + ("0" + day.getDate()).slice(-2);
@@ -599,8 +599,8 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                 }
             });
 
-            console.log("materi=" + JSON.stringify(jsonMateri, null, 4));
-            console.log("tugas=" + JSON.stringify(jsonTugas, null, 4));
+            //console.log("materi=" + JSON.stringify(jsonMateri, null, 4));
+            //console.log("tugas=" + JSON.stringify(jsonTugas, null, 4));
 
             if (jsonMateri.length == 0 && jsonTugas.length == 0) {
                 showWarningToast("Tidak ada yang bisa disimpan");
@@ -621,7 +621,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {
-                            //reload(klsSelected, tglSelected, thnSelected, blnSelected);
+                            reload(klsSelected, tglSelected, thnSelected, blnSelected);
                         });
                     } else {
                         swal.fire({

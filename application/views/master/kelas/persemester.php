@@ -122,7 +122,7 @@
         function createTSiswa(data) {
             var smt1 = data.smt1;
             var smt2 = data.smt2;
-            var table = '<table class="table table-striped table-bordered table-hover table-sm">' +
+            var table = '<table class="table table-striped table-bordered table-hover">' +
                 '    <thead>' +
                 '    <tr>' +
                 '        <th width="50" height="50" class="text-center p-0 align-middle">No.</th>' +

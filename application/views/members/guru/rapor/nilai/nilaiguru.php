@@ -61,7 +61,7 @@
                             $widthNama = $mapelNone ? '30%' : '10%';
                             $widthDesk = $mapelNone ? '50%' : '30%';
                             ?>
-                            <table id="table-nilai" class="table table-sm table-bordered table-striped text-sm" style="width: <?=$widthTable?>">
+                            <table id="table-nilai" class="table table-bordered table-striped text-sm" style="width: <?=$widthTable?>">
                                 <thead>
                                 <tr class="bg-gray">
                                     <th rowspan="2" class="text-center align-middle">NO</th>

@@ -26,7 +26,7 @@
                             </button>
                         </div>
                     </div>
-                    <table class="table table-striped table-bordered table-hover table-sm">
+                    <table class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
@@ -81,7 +81,7 @@
                     <h3 class="card-title">Catatan Per-siswa</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-bordered table-hover table-sm">
+                    <table class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th width="50" height="50" class="text-center p-0 align-middle">No.</th>

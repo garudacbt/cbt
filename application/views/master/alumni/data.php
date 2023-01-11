@@ -115,7 +115,7 @@
                         ?>
                         <div class="row">
                             <div class="col-12">
-                                <table class="table table-striped table-bordered table-hover table-sm" id="tbl-alumni">
+                                <table class="table table-striped table-bordered table-hover" id="tbl-alumni">
                                     <thead>
                                     <tr>
                                         <th width="50" height="50" class="text-center p-0 align-middle">No.</th>

@@ -9,13 +9,13 @@ http://www.tipue.com/popr
 
 .popr
 {
-     cursor: pointer;   
+     cursor: pointer;
 }
 .popr a
 {
      color: #333;
      text-decoration: none;
-     border: 0;    
+     border: 0;
 }
 .popr-box
 {
@@ -24,7 +24,7 @@ http://www.tipue.com/popr
 .popr_content
 {
      background-color: #f8f9fa;
-     padding: 7px 0;
+     padding: 7px;
      margin: 0;
 }
 .popr-item
@@ -60,7 +60,7 @@ http://www.tipue.com/popr
      box-shadow: 2px 2px 5px #f9f9f9;
      z-index: 1000;
 }
-.popr_point_top, .popr_point_bottom 
+.popr_point_top, .popr_point_bottom
 {
      position: relative;
 	background: #fff;
@@ -83,7 +83,7 @@ http://www.tipue.com/popr
 	left: 50%;
 	margin-left: -8px;
 }
-.popr_point_top:before 
+.popr_point_top:before
 {
 	border-top-color: #dcdcdc;
 	border-width: 9px;
@@ -107,7 +107,7 @@ http://www.tipue.com/popr
 	left: 50%;
 	margin-left: -8px;
 }
-.popr_point_bottom:before 
+.popr_point_bottom:before
 {
 	border-bottom-color: #dcdcdc;
 	border-width: 9px;

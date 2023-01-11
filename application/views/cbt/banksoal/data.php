@@ -100,7 +100,7 @@ $allBanksIds = [];
                         //var_dump($banks);
                         if ($mode == '1') :
                             if (isset($banks[$tp_active->id_tp]) && isset($banks[$tp_active->id_tp][$smt_active->id_smt]) && count($banks[$tp_active->id_tp][$smt_active->id_smt]) > 0) :?>
-                                <table class="w-100 table table-striped table-bordered table-sm">
+                                <table class="w-100 table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th class="text-center align-middle p-0" style="width: 50px"></th>
@@ -180,7 +180,7 @@ $allBanksIds = [];
                                     </tbody>
                                 </table>
                             <?php elseif (isset($banks[0]) && isset($banks[0][0]) && count($banks[0][0]) > 0) : ?>
-                                <table class="w-100 table table-striped table-bordered table-sm"
+                                <table class="w-100 table table-striped table-bordered"
                                        style="height: 300px">
                                     <thead>
                                     <tr>

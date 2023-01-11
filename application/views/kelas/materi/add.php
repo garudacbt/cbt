@@ -73,7 +73,7 @@ if (empty($kelas_pilih)) {
 					</div>
 				</div>
 				<div class="card-body">
-					<input type="hidden" class="form-control" name="id_materi" value="<?= $id_materi ?>">
+					<input type="hidden" class="form-control" id="id-materi" name="id_materi" value="<?= $id_materi ?>">
                     <input type="hidden" class="form-control" name="jenis" value="<?= $jenis ?>">
 					<div id="input-materi" class="row">
 						<div class="col-md-3 mb-3">
@@ -115,30 +115,31 @@ if (empty($kelas_pilih)) {
 					</div>
 				</div>
 				<?= form_close(); ?>
-				<?= form_open_multipart('', array('id' => 'formfile')) ?>
 				<div class="card card-default m-4">
 					<div class="card-header">
 						<h6 class="card-title">File Pendukung</h6>
 					</div>
 					<div class="card-body">
+                        <?= form_open_multipart('', array('id' => 'formfile')) ?>
 						<div class="form-group">
-							<ul id="media-list" class="clearfix">
+							<ul id="media-upload" class="clearfix media-list">
 								<li class="myupload">
                                     <span>
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                         <input name="file_uploads" type="file" id="picupload"
 											   class="picupload">
+                                        <input type="hidden" name="max-size" value="2048">
                                     </span>
 								</li>
 							</ul>
-						</div>
+                        </div>
+                        <?= form_close(); ?>
 					</div>
 					<div class="card-footer">
 						Info:
 					</div>
 					<div class="overlay d-none"><i class="fas fa-2x fa-sync-alt fa-spin mr-4"></i> Memuat file ...</div>
 				</div>
-				<?= form_close(); ?>
 
                 <div class="overlay" id="loading">
                     <div class="spinner-grow"></div>
@@ -161,7 +162,7 @@ if (empty($kelas_pilih)) {
 	dataFiles = $.merge(dataFiles, arrFileAttach);
 
 	$.map(kls, function (value, index) {
-		item = {};
+		var item = {};
 		item ["id"] = index;
 		item ["kelas"] = value;
 		arrKelas.push(item);
@@ -212,7 +213,6 @@ if (empty($kelas_pilih)) {
         var checkMateri = isiMateri == null ? '' : isiMateri;
         var sMateri = $($.parseHTML(checkMateri));
 
-
         sMateri.find(`img`).each(function () {
             var curSrc = $(this).attr('src');
             if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
@@ -226,9 +226,7 @@ if (empty($kelas_pilih)) {
 
         $('#text-materi').summernote('code', sMateri);
 
-
-
-	    console.log('kls',arrKelas);
+	    //console.log('kls',arrKelas);
 		$('#kelas').select2();
 		$('#guru').select2();
 		createPreviewFile();
@@ -251,8 +249,9 @@ if (empty($kelas_pilih)) {
 
 		$("#picupload").on('change', function (e) {
 			var form = new FormData($("#formfile")[0]);
+			var maxSize = $("#formfile").find('input[name="max-size"]').val();
 			//console.log('nama file', names_files);
-			uploadAttach(base_url + 'kelasmateri/uploadfile', form);
+			uploadAttach(base_url + 'kelasmateri/uploadfile', form, maxSize);
 			//createPreviewFile($(this), e)
 		});
 
@@ -272,40 +271,26 @@ if (empty($kelas_pilih)) {
 				contentType: false,
 				processData: false,
 				success: function (data) {
-					if (data.status === 'error') {
-						showDangerToast(data.status);
+                    console.log('saved', data);
+					if (!data.status) {
+						showDangerToast(data.message);
 					} else {
+                        if(typeof data.result_id != 'undefined'){
+                            $('#id-materi').val(data.result_id);
+                        }
 					    showSuccessToast('Berhasil disimpan');
-						//setTimeout(function () {
-						//	window.history.back();
-							//showSuccessToast(data.status)
-						//}, 1000);
 					}
-				}, error: function (data) {
+				},
+                error: function (data) {
 					showDangerToast('Gagal membuat materi');
 					console.log(data.responseText);
 				}
 			});
 		});
-
-		$('body').on('click', '.remove-pic', function() {
-			$(this).parent().parent().parent().remove();
-			var removeItem = $(this).attr('data-id');
-
-			for (var i = 0; i < dataFiles.length; i++) {
-				var cur = dataFiles[i];
-				if (cur.name === removeItem) {
-					dataFiles.splice(i, 1);
-					deleteImage(cur.src);
-					break;
-				}
-			}
-			console.log(dataFiles);
-		});
-
 	});
 
 	function onChangeGuru(idGuru) {
+        if (!idGuru) return;
 		var selMapel = $('#mapel');
 		selMapel.html('').select2({data: null}).trigger('change');
 		$.ajax({
@@ -322,7 +307,7 @@ if (empty($kelas_pilih)) {
 						if (value.kelas != null) {
 							for (let l = 0; l < arrKelas.length; l++) {
 								if (arrKelas[l].id === value.kelas) {
-									item = {};
+									var item = {};
 									item ['mapel'] = data[i].id_mapel;
 									item ["id"] = arrKelas[l].id;
 									item ["kelas"] = arrKelas[l].kelas;
@@ -451,7 +436,8 @@ if (empty($kelas_pilih)) {
 		}
 	}
 
-	function uploadAttach(action, data) {
+	function uploadAttach(action, data, maxSize) {
+	    console.log('upload', data);
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
@@ -462,19 +448,31 @@ if (empty($kelas_pilih)) {
 			cache: false,
 			timeout: 600000,
 			success: function (data) {
-				console.log('result', data.filename);
+				console.log('result', data);
 				//dataFiles.push(data.src);
 				//$('#files-attach').val(JSON.stringify(names_files));
-				var item = {};
-				item ['size'] = data.size;
-				item ["type"] = data.type;
-				item ["src"] = data.src;
-				item ["name"] = data.filename;
-				dataFiles.push(item);
-				console.log(data.type);
-				createPreviewFile();
+                if (data.status) {
+                    var item = {};
+                    item ['size'] = data.size;
+                    item ["type"] = data.type;
+                    item ["src"] = data.src;
+                    item ["name"] = data.filename;
+                    dataFiles.push(item);
+                    console.log(data.type);
+                    createPreviewFile();
 
-                $('#formmateri').submit();
+                    $('#formmateri').submit();
+                } else {
+                    swal.fire({
+                        title: "Gagal",
+                        html: data.src,
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "OK"
+                    });
+                }
 			},
 			error: function (e) {
 				console.log("error", e.responseText);
@@ -491,62 +489,111 @@ if (empty($kelas_pilih)) {
 		});
 	}
 
-	function deleteImage(src) {
+	function deleteImage(pos, elm, src) {
+        var fsrc = src.split('/');
+        var fnama = fsrc[fsrc.length -1];
+
 	    var csrf = $('#csrf').serialize() + '&src=' + src;
 	    console.log(csrf);
-		$.ajax({
-			data: csrf,
-			type: "POST",
-			url: base_url + "kelasmateri/deletefile",
-			cache: false,
-			success: function (response) {
-				console.log(response);
-                $('#formmateri').submit();
-			}
-		});
+        swal.fire({
+            title: "Anda yakin?",
+            html: "File <b>" + fnama +"</b> akan dihapus!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Hapus!"
+        }).then(result => {
+            if (result.value) {
+                $.ajax({
+                    data: csrf,
+                    type: "POST",
+                    url: base_url + "kelasmateri/deletefile",
+                    cache: false,
+                    success: function (response) {
+                        console.log(response);
+                        $(elm).remove();
+                        dataFiles.splice(pos, 1);
+                        $('#formmateri').submit();
+                    }
+                });
+            }
+        });
+
 	}
 
 	function createPreviewFile(/*elem, event*/) {
 		//var files = event.target.files;
 		for (var j = 0; j < dataFiles.length; j++) {
 			let file = dataFiles[j];
+            console.log('preview', file);
 			//names_files.push(elem.get(0).files[j].name);
 			var div = document.createElement("li");
-			div.setAttribute("id", "f-" + file.name);
-			if (!$("#f-" + file.name).length) {
+			div.setAttribute("data-name", file.name);
+            var fsrc = file.src.split('.');
+            var ext = fsrc[fsrc.length -1];
+
+            if (!$('li[data-name="' + file.name + '"]').length) {
 				if (file.type.match('image')) {
 					div.innerHTML = "<img src='" + base_url + file.src + "'/>" +
 						"<div  class='post-thumb'>" +
 						"<div class='inner-post-thumb'>" +
 						"<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
 						"<i class='fa fa-times' aria-hidden='true'></i></a>" +
-						"<div>" +
-						"</div>";
-					$("#media-list").prepend(div);
+						"</div>" +
+						"</div>" +
+                        "<div class='title-thumb'>" + file.name + "." + ext + "</div>";
+					$("#media-upload").prepend(div);
 				} else if (file.type.match('video')) {
 					div.innerHTML = "<video src='" + base_url + file.src + "'></video>" +
 						"<div class='post-thumb'>" +
 						"<div  class='inner-post-thumb'>" +
 						"<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
 						"<i class='fa fa-times' aria-hidden='true'></i></a>" +
-						"<div>" +
-						"</div>";
-					$("#media-list").prepend(div);
+						"</div>" +
+						"</div>" +
+                        "<div class='title-thumb'>" + file.name + "." + ext + "</div>";
+					$("#media-upload").prepend(div);
 				} else {
-					div.innerHTML = "<img src='" + base_url + "/assets/app/img/document_file.png'>" +
+                    var icon = base_url;
+                    var style = '';
+                    if (ext === 'doc' || ext === 'docx') {
+                        icon += '/assets/app/img/word-icon.png';
+                    } else if (ext === 'xls' || ext === 'xlsx') {
+                        icon += '/assets/app/img/excel-icon.png';
+                    } else if (ext === 'pdf') {
+                        icon += '/assets/app/img/pdf-icon.png';
+                    } else {
+                        icon += '/assets/app/img/document-icon.svg';
+                        style = "style='padding: 10px'";
+                    }
+					div.innerHTML = "<img src='" + icon + "' "+ style +">" +
 						"<div class='post-thumb'>" +
 						"<div  class='inner-post-thumb'>" +
 						"<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
 						"<i class='fa fa-times' aria-hidden='true'></i></a>" +
-						"<div>" +
-						"</div>";
-					$("#media-list").prepend(div);
+						"</div>" +
+						"</div>" +
+                        "<div class='title-thumb'>" + file.name + "." + ext + "</div>";
+					$("#media-upload").prepend(div);
 				}
 			}
-
 		}
-		console.log(dataFiles);
 
+        $(".remove-pic").click(function(){
+            console.log("First Way: " + $(this).data('id'));
+            //$(this).parent().parent().parent().remove();
+            var elm = $(this).parent().parent().parent();
+            var removeItem = $(this).data('id');
+            for (var i = 0; i < dataFiles.length; i++) {
+                var cur = dataFiles[i];
+                if (cur.name === removeItem) {
+                    //dataFiles.splice(i, 1);
+                    deleteImage(i, elm, cur.src);
+                    break;
+                }
+            }
+        });
     }
 
 	var entityMap = {

@@ -628,7 +628,7 @@
 			success: function (data) {
 				console.log('jadwal', data);
 				if (data.length !== 0) {
-					var tableJadwal = '<table class="table table-sm w-100">' +
+					var tableJadwal = '<table class="table w-100">' +
 						'<thead>' +
 						'<tr>' +
 						'<th class="text-center">Jam Ke</th>' +

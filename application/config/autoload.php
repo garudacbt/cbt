@@ -62,12 +62,6 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array('database', 'ion_auth', 'encryption', 'session');
 
 /*
-$CI =& get_instance();
-if ($CI->router->class != 'update') {
-    array_push($autoload['libraries'], 'database');
-    array_push($autoload['libraries'], 'ion_auth');
-}
-/*
 | -------------------------------------------------------------------
 |  Auto-load Drivers
 | -------------------------------------------------------------------

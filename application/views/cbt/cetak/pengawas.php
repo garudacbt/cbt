@@ -79,20 +79,27 @@ $allowedDates = [];
                         </div>
                     </div>
                     <hr>
+                    <!--
+                    <div class="row">
+                        <div class="col-6">
+                            <?php
+                            echo '<pre>';
+                            var_dump($jadwals);
+                            echo '</pre>';
+                            ?>
+                        </div>
+                        <div class="col-6">
+                            <?php
+                            echo '<pre>';
+                            var_dump($jadwals_ruang);
+                            echo '</pre>';
+                            ?>
+                        </div>
+                        -->
+                    </div>
                     <div class="d-flex justify-content-center bg-gray-light">
                         <div id="print-preview">
                             <?php
-                            echo '<pre>';
-                            //var_dump($setting);
-                            //echo '<br>';
-                            //var_dump($levels);
-                            //echo '<br>';
-                            //var_dump($pengawas);
-                            //var_dump($jadwals_ruang);
-                            //echo '<br>';
-                            //var_dump($all_jadwal);
-                            //var_dump(array_keys($jadwals_ruang));
-                            echo '</pre>';
                             $none = count($jadwals_ruang)>0 ? '' : 'd-none';
                             if (count($jadwals_ruang)>0):
                             $list_ruang = array_keys($jadwals_ruang);
@@ -189,7 +196,7 @@ $allowedDates = [];
         });
 
         var allowed = JSON.parse('<?=json_encode($allowedDates)?>');
-        console.log(allowed);
+        //console.log(allowed);
         $('.tgl').datetimepicker({
             icons:
                 {

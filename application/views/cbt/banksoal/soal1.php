@@ -301,7 +301,7 @@ if ($att !== false) {
                                         <button type="button" class="btn btn-sm btn-success" onclick="addColumn()">
                                             <i class="fa fa-plus"></i> Tambah Kolom</button>
                                     </div>
-                                    <table id="table-jodohkan" class="table table-sm table-bordered">
+                                    <table id="table-jodohkan" class="table table-bordered">
                                     </table>
                                     <button type="button" class="btn btn-success btn-sm" onclick="addRow()">
                                         <i class="fa fa-plus"></i> Tambah Baris

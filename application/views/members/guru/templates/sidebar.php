@@ -330,6 +330,7 @@
                                     <p>Absensi & Catatan</p>
                                 </a>
                             </li>
+                            <!--
                             <li class="nav-item">
                                 <a href="<?= base_url('rapor/raporfisik') ?>"
                                    class="nav-link <?= $pageact === 'raporfisik' ? "active" : "" ?>">
@@ -337,6 +338,7 @@
                                     <p>Fisik</p>
                                 </a>
                             </li>
+                            -->
                             <li class="nav-item">
                                 <a href="<?= base_url('rapor/rapornaik') ?>"
                                    class="nav-link <?= $pageact === 'rapornaik' ? "active" : "" ?>">

@@ -5,8 +5,6 @@
  * Date: 23/08/20
  * Time: 23:18
  */
-
-$dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file) : [];
 ?>
 
 <div class="content-wrapper" style="margin-top: -1px;">
@@ -90,11 +88,11 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
                             <div class="media card-title text-bold">File Pendukung</div>
                         </div>
                         <div class="card-body">
-                            <img id="img1" />
-                            <ul id="media-list">
-                            <?php
-                            $files = unserialize($materi->file);
-                            foreach ($files as $file) : ?>
+                            <img id="img1"/>
+                            <ul class="clearfix media-list">
+                                <?php
+                                $files = unserialize($materi->file);
+                                foreach ($files as $file) : ?>
                                     <?php
                                     $temp = explode('.', $file["src"]);
                                     $extension = end($temp);
@@ -102,22 +100,46 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
                                     if ($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif') :?>
                                         <li>
                                             <img src="<?= base_url() . $file["src"] ?>" data-target="#view-modal" data-toggle="modal" data-src="<?= base_url() . $file["src"] ?>" data-type="<?= $file["type"] ?>"/>
-                                            <span class="text-xs text-white" style="background:#000000;position:absolute;bottom: 0;padding: 6px; width: 100%"><?= substr($file["name"],0,10).'..' ?></span>
+                                            <div class="title-thumb"><?= $file["name"] ?></div>
                                         </li>
                                     <?php elseif ($extension == 'mpeg' || $extension == 'mpg' || $extension == 'mp4' || $extension == 'avi'): ?>
                                         <li>
-                                            <img src="<?= base_url() . '/assets/app/img/icon_play_black.png' ?>" data-target="#view-modal" data-toggle="modal" data-src="<?= base_url() . $file["src"] ?>" data-type="<?= $file["type"] ?>">
-                                            <span class="text-xs text-white" style="background:#000000;position:absolute;bottom: 0;padding: 6px; width: 100%"><?= substr($file["name"],0,10).'..' ?></span>
+                                            <img src="<?= base_url() . '/assets/app/img/icon_play_black.png' ?>"
+                                                 onClick="parent.open('<?= base_url() . $file["src"] ?>')">
+                                            <div class="title-thumb"><?= $file["name"] ?></div>
                                         </li>
                                     <?php else: ?>
-                                        <li>
-                                            <a href="<?= base_url() . $file["src"] ?>">
-                                                <img src="<?= base_url() . '/assets/app/img/document_file.png'?> " style="padding: 12px" onclick="dialogDownload()">
-                                                <span class="text-xs text-white" style="background:#000000;position:absolute;bottom: 0;padding: 6px; width: 100%"><?= substr($file["name"],0,10).'..' ?></span>
-                                            </a>
-                                        </li>
+                                        <?php if ($extension == 'xls' || $extension == 'xlsx') : ?>
+                                            <li>
+                                                <a href="<?= base_url() . $file["src"] ?>">
+                                                    <img src="<?= base_url() . '/assets/app/img/excel-icon.png' ?> " onclick="dialogDownload()">
+                                                    <div class="title-thumb"><?= $file["name"] ?></div>
+                                                </a>
+                                            </li>
+                                        <?php elseif ($extension == 'doc' || $extension == 'docx') : ?>
+                                            <li>
+                                                <a href="<?= base_url() . $file["src"] ?>">
+                                                    <img src="<?= base_url() . '/assets/app/img/word-icon.png' ?> " onclick="dialogDownload()">
+                                                    <div class="title-thumb"><?= $file["name"] ?></div>
+                                                </a>
+                                            </li>
+                                        <?php elseif ($extension == 'pdf') : ?>
+                                            <li>
+                                                <a href="<?= base_url() . $file["src"] ?>">
+                                                    <img src="<?= base_url() . '/assets/app/img/pdf-icon.png' ?> " onclick="dialogDownload()">
+                                                    <div class="title-thumb"><?= $file["name"] ?></div>
+                                                </a>
+                                            </li>
+                                        <?php else : ?>
+                                            <li>
+                                                <a href="<?= base_url() . $file["src"] ?>">
+                                                    <img src="<?= base_url() . '/assets/app/img/document-icon.svg' ?> " style="padding: 8px" onclick="dialogDownload()">
+                                                    <div class="title-thumb"><?= $file["name"] ?></div>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
                                     <?php endif; ?>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </div>
@@ -140,23 +162,25 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
                                     <?= form_close(); ?>
                                 </div>
                                 <div class="col-12">
-                                    <?= form_open_multipart('', array('id' => 'formfile')) ?>
                                     <div class="card card-default">
                                         <div class="card-header">
                                             <h6 class="card-title">Tambahkan File</h6>
                                         </div>
                                         <div class="card-body">
+                                            <?= form_open_multipart('', array('id' => 'formfile')) ?>
                                             <div class="form-group">
-                                                <ul id="media-list" class="clearfix">
+                                                <ul id="media-upload" class="clearfix media-list">
                                                     <li class="myupload">
 														<span>
 															<i class="fa fa-plus" aria-hidden="true"></i>
 															<input name="file_uploads" type="file" id="picupload"
                                                                    class="picupload">
+                                                            <input type="hidden" name="max-size" value="2048">
 														</span>
                                                     </li>
                                                 </ul>
                                             </div>
+                                            <?= form_close(); ?>
                                         </div>
                                         <div class="card-footer">
                                             <i class="fa fa-info-circle"></i> File yang bisa ditambahkan:
@@ -188,7 +212,6 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
                                             Memuat file ...
                                         </div>
                                     </div>
-                                    <?= form_close(); ?>
                                 </div>
                             </div>
                         </div>
@@ -227,11 +250,13 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
     var mapel = '<?= $materi->id_mapel ?>';
 
     var dataFiles = [];
-    var arrFileAttach = JSON.parse('<?= json_encode($dataFileAttach)?>');
+    var arrFileAttach = logMateri != null && logMateri.file != null ? logMateri.file : [];
+    //console.log('files', arrFileAttach);
     dataFiles = $.merge(dataFiles, arrFileAttach);
 
     $(document).ready(function () {
-        console.log('logMateri',logMateri);
+        ajaxcsrf();
+        //console.log('logMateri', logMateri);
         $('.editor').summernote({
             toolbar: [
                 ['style', ['style']],
@@ -320,8 +345,8 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
 
         $("#picupload").on('change', function (e) {
             var form = new FormData($("#formfile")[0]);
-            //console.log('nama file', names_files);
-            uploadAttach(base_url + 'siswa/uploadfile', form);
+            var maxSize = $("#formfile").find('input[name="max-size"]').val();
+            uploadAttach(base_url + 'siswa/uploadfile', form, maxSize);
             //createPreviewFile($(this), e)
         });
 
@@ -330,9 +355,9 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
             var type = $(e.relatedTarget).data('type');
             var html = '';
             if (type.match('image')) {
-                html = '<img src="'+src+'" class="img-fluid"/>';
+                html = '<img src="' + src + '" class="img-fluid"/>';
             } else if (type.match('video')) {
-                html = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="'+src+'"></iframe></div>';
+                html = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="' + src + '"></iframe></div>';
             } else {
                 html = '<img src="' + base_url + '"/assets/app/img/document_file.png"></div>';
             }
@@ -371,7 +396,7 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
         });
     }
 
-    function uploadAttach(action, data) {
+    function uploadAttach(action, data, maxsize) {
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
@@ -385,17 +410,26 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
                 console.log('result', data.filename);
                 //dataFiles.push(data.src);
                 //$('#files-attach').val(JSON.stringify(names_files));
-
-                var item = {};
-                item ['size'] = data.size;
-                item ["type"] = data.type;
-                item ["src"] = data.src;
-                item ["name"] = data.filename;
-                dataFiles.push(item);
-                console.log(data.type);
-                //createPreviewFile();
-
-                saveFileToDb();
+                if (data.status) {
+                    var item = {};
+                    item ['size'] = data.size;
+                    item ["type"] = data.type;
+                    item ["src"] = data.src;
+                    item ["name"] = data.filename;
+                    dataFiles.push(item);
+                    console.log(data.type);
+                    saveFileToDb();
+                } else {
+                    swal.fire({
+                        title: "Gagal",
+                        html: data.src,
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "OK"
+                    });
+                }
             },
             error: function (e) {
                 console.log("error", e.responseText);
@@ -432,42 +466,74 @@ $dataFileAttach = $logs != null && $logs->file != null ? unserialize($logs->file
         //var files = event.target.files;
         for (var j = 0; j < dataFiles.length; j++) {
             let file = dataFiles[j];
+            console.log('preview', file);
             //names_files.push(elem.get(0).files[j].name);
             var div = document.createElement("li");
-            div.setAttribute("id", "f-" + file.name);
-            if (!$("#f-" + file.name).length) {
+            div.setAttribute("data-name", file.name);
+            var fsrc = file.src.split('.');
+            var ext = fsrc[fsrc.length - 1];
+
+            if (!$('li[data-name="' + file.name + '"]').length) {
                 if (file.type.match('image')) {
-                    div.innerHTML = "<img src='" + base_url + "/" + file.src + "'/>" +
+                    div.innerHTML = "<img src='" + base_url + file.src + "'/>" +
                         "<div  class='post-thumb'>" +
                         "<div class='inner-post-thumb'>" +
                         "<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
                         "<i class='fa fa-times' aria-hidden='true'></i></a>" +
-                        "<div>" +
-                        "</div>";
-                    $("#media-list").prepend(div);
+                        "</div>" +
+                        "</div>" +
+                        "<div class='title-thumb'>" + file.name + "." + ext + "</div>";
+                    $("#media-upload").prepend(div);
                 } else if (file.type.match('video')) {
-                    div.innerHTML = "<video src='" + base_url + "/" + file.src + "'></video>" +
+                    div.innerHTML = "<video src='" + base_url + file.src + "'></video>" +
                         "<div class='post-thumb'>" +
                         "<div  class='inner-post-thumb'>" +
                         "<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
                         "<i class='fa fa-times' aria-hidden='true'></i></a>" +
-                        "<div>" +
-                        "</div>";
-                    $("#media-list").prepend(div);
+                        "</div>" +
+                        "</div>" +
+                        "<div class='title-thumb'>" + file.name + "." + ext + "</div>";
+                    $("#media-upload").prepend(div);
                 } else {
-                    div.innerHTML = "<img src='" + base_url + "/assets/app/img/document_file.png'>" +
+                    var icon = base_url;
+                    var style = '';
+                    if (ext === 'doc' || ext === 'docx') {
+                        icon += '/assets/app/img/word-icon.png';
+                    } else if (ext === 'xls' || ext === 'xlsx') {
+                        icon += '/assets/app/img/excel-icon.png';
+                    } else if (ext === 'pdf') {
+                        icon += '/assets/app/img/pdf-icon.png';
+                    } else {
+                        icon += '/assets/app/img/document-icon.svg';
+                        style = "style='padding: 10px'";
+                    }
+                    div.innerHTML = "<img src='" + icon + "' " + style + ">" +
                         "<div class='post-thumb'>" +
                         "<div  class='inner-post-thumb'>" +
                         "<a href='javascript:void(0);' data-id='" + file.name + "' class='remove-pic'>" +
                         "<i class='fa fa-times' aria-hidden='true'></i></a>" +
-                        "<div>" +
-                        "</div>";
-                    $("#media-list").prepend(div);
+                        "</div>" +
+                        "</div>" +
+                        "<div class='title-thumb'>" + file.name + "." + ext + "</div>";
+                    $("#media-upload").prepend(div);
                 }
             }
-
         }
-        console.log(dataFiles);
+
+        $(".remove-pic").click(function () {
+            console.log("First Way: " + $(this).data('id'));
+            //$(this).parent().parent().parent().remove();
+            var elm = $(this).parent().parent().parent();
+            var removeItem = $(this).data('id');
+            for (var i = 0; i < dataFiles.length; i++) {
+                var cur = dataFiles[i];
+                if (cur.name === removeItem) {
+                    //dataFiles.splice(i, 1);
+                    deleteImage(i, elm, cur.src);
+                    break;
+                }
+            }
+        });
     }
 
     function createThumbnail() {

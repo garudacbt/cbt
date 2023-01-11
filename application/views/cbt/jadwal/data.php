@@ -80,6 +80,9 @@ if (isset($jadwal_ujian)) {
             </div>
 
             <?php
+            //echo '<pre>';
+            //var_dump($jadwals);
+            //echo '</pre>';
             if (count($jadwals) === 0) : ?>
                 <div class="card card-default my-shadow mb-4">
                     <div class="card-body">
@@ -96,9 +99,6 @@ if (isset($jadwal_ujian)) {
                     </div>
                 </div>
             <?php else:
-            //echo '<pre>';
-            //var_dump($jadwals);
-            //echo '</pre>';
             ?>
             <div id="konten-jadwal">
                 <?php
@@ -118,7 +118,7 @@ if (isset($jadwal_ujian)) {
                             <?php foreach ($arrjadwal as $lvl => $sjadwal) : ?>
                                 <div class="card-body" style="display: block;">
                                     <h6 class="text-bold">Kelas: <?= $lvl ?></h6>
-                                    <table class="w-100 table table-bordered table-sm">
+                                    <table class="w-100 table table-bordered">
                                         <thead>
                                         <tr>
                                             <th class="text-center align-middle pt-3 pb-3" style="width: 40px">No.</th>
@@ -425,7 +425,7 @@ if (isset($jadwal_ujian)) {
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-borderless table-striped table-sm">
+                <table class="table table-borderless table-striped">
                     <tr>
                         <td>Jenis</td>
                         <td id="modal_kode_jenis"</td>

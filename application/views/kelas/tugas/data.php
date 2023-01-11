@@ -88,7 +88,7 @@ foreach ($tugas as $k=>$m) {
                     </div>
 					<div class="row">
                         <div class="col-12">
-                            <table class="w-100 table table-sm table-bordered">
+                            <table class="w-100 table table-bordered">
                                 <tr class="alert alert-success">
                                     <th rowspan="2" class="text-center align-middle">No.</th>
                                     <th rowspan="2" class="text-center align-middle">Guru</th>

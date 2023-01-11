@@ -63,7 +63,7 @@
                                 <div class="card-body p-0">
                                     <div id="konten-catatankelas">
                                         <?php if (isset($cat_kelas)) : ?>
-                                            <table class="table table-striped table-bordered table-hover table-sm">
+                                            <table class="table table-striped table-bordered table-hover">
                                                 <thead>
                                                 <tr>
                                                     <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
@@ -120,7 +120,7 @@
                                 <div class="card-body p-0">
                                     <div id="konten-catatansiswa">
                                         <?php if (isset($cat_siswa)) : ?>
-                                        <table class="table table-striped table-bordered table-hover table-sm">
+                                        <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
                                                 <th width="50" height="50" class="text-center p-0 align-middle">No.</th>

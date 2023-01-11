@@ -136,7 +136,7 @@ foreach ($materi as $k=>$m) {
 													<b><?= $value->judul_materi ?></b>
 												</li>
 												<li class="list-group-item">
-													<table class="w-100 table-sm">
+													<table class="w-100">
 														<tr>
 															<th class="w-25">Kelas</th>
 															<th>Jadwal</th>
@@ -372,7 +372,7 @@ foreach ($materi as $k=>$m) {
 					</div>
 				</div>
 				<br>
-				<table class="table table-bordered table-sm" id="kalendar">
+				<table class="table table-bordered" id="kalendar">
 					<thead>
 					<tr>
 						<th class="text-center text-danger">Minggu</th>

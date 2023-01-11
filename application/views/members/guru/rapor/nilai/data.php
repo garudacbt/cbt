@@ -49,7 +49,7 @@
                                         <b><?= $lv[0]['mapel'] ?></b>
                                     </div>
                                     <div class="card-body">
-                                        <table class="table table-bordered table-sm">
+                                        <table class="table table-bordered">
                                             <thead>
                                             <tr class="bg-light">
                                                 <th rowspan="2" width="40" class="text-center p-0 align-middle">No.</th>
@@ -122,7 +122,7 @@
                                             <b><?= $v ?></b>
                                         </div>
                                         <div class="card-body">
-                                            <table class="table table-bordered table-sm">
+                                            <table class="table table-bordered">
                                                 <thead>
                                                 <tr class="bg-light">
                                                     <th width="40" class="text-center p-0 align-middle">No.</th>

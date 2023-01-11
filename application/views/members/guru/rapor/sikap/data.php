@@ -25,7 +25,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <table id="table-spritual" class="table table-bordered table-sm">
+                            <table id="table-spritual" class="table table-bordered">
                                 <thead>
                                 <tr class="alert-default-danger">
                                     <th class="text-center align-middle border-danger" style="width: 50px">NO</th>
@@ -48,7 +48,7 @@
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <table id="table-sosial" class="table table-bordered border-danger table-sm">
+                            <table id="table-sosial" class="table table-bordered border-danger">
                                 <thead>
                                 <tr class="alert-default-danger">
                                     <th class="text-center align-middle border-danger" style="width: 50px">NO</th>

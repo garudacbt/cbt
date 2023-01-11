@@ -52,7 +52,7 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr>
                                     <td style="width: 120px">Nama</td>
                                     <td><?= $siswa->nama ?></td>
@@ -76,7 +76,7 @@
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <table class="table table-bordered table-sm" id="table-status">
+                            <table class="table table-bordered" id="table-status">
                                 <tr>
                                 <tr>
                                     <td>Ruang</td>
@@ -100,7 +100,7 @@
                             </table>
                         </div>
                         <div class="col-md-2">
-                            <table class="table table-bordered table-sm" id="table-status">
+                            <table class="table table-bordered" id="table-status">
                                 <tr>
                                     <td>PG</td>
                                     <td class="text-center"><?= round($skor->skor_pg, 2) ?></td>
@@ -133,7 +133,7 @@
                     <div class="row">
                         <?php for ($i = 0; $i < count($arr); $i++) : ?>
                             <div class="col-4 col-md-2">
-                                <table class="table table-bordered table-sm">
+                                <table class="table table-bordered">
                                     <tr>
                                         <td colspan="3" class="text-center text-indigo text-bold">Pilihan Ganda<br>(PG)</td>
                                     </tr>
@@ -167,7 +167,7 @@
                         <?php endfor; ?>
                     </div>
                     <div>
-                        <table class="table table-bordered table-sm" id="table-status">
+                        <table class="table table-bordered" id="table-status">
                         </table>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                         if (count($soal[1]) > 0) :
                             ?>
                             <table id="table-soal"
-                                   class="w-100 table table-sm table-striped table-bordered border-success nowrap">
+                                   class="w-100 table table-striped table-bordered border-success nowrap">
                                 <thead>
                                 <tr>
                                     <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>

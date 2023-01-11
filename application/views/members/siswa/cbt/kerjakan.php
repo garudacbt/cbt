@@ -382,7 +382,7 @@
                     submitJawaban(null);
                 });
             } else {
-                html += '<table id="table-jodohkan" class="table table-sm table-bordered" data-type="'+data.soal_opsi.type+'">';
+                html += '<table id="table-jodohkan" class="table table-bordered" data-type="'+data.soal_opsi.type+'">';
                 html += '<tr class="text-center">';
                 $.each(data.soal_opsi.thead, function (key, val) {
                     if (key === 0) {
@@ -427,7 +427,7 @@
                 '</div>';
             $('#konten-jawaban').html(html);
         }
-        
+
         $('#konten-modal').html(data.soal_modal);
 
         var $imgs = $('.konten-soal-jawab').find('img');

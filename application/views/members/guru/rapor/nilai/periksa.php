@@ -57,7 +57,7 @@
                     //echo '</pre>';
                     if (isset($siswa)) : ?>
                         <div class="overflow-auto">
-                            <table id="table-nilai" class="table table-sm table-bordered table-striped text-sm" style="width: 2000px">
+                            <table id="table-nilai" class="table table-bordered table-striped text-sm" style="width: 2000px">
                                 <thead>
                                 <tr class="bg-gray">
                                     <th rowspan="2" class="text-center align-middle">NO</th>

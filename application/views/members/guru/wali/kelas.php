@@ -22,7 +22,7 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table id="users" class="w-100 table table-striped table-bordered table-hover table-sm">
+						<table id="users" class="w-100 table table-striped table-bordered table-hover">
 							<thead>
 							<tr>
 								<th class="text-center align-middle" width="40" height="40">No.</th>

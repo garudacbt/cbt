@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="table-responsive px-4 pb-3" style="border: 0">
-					<table id="users" class="w-100 table table-striped table-bordered table-hover table-sm">
+					<table id="users" class="w-100 table table-striped table-bordered table-hover">
 						<thead>
 						<tr>
 							<th>No.</th>

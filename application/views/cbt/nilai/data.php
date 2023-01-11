@@ -128,7 +128,7 @@ $colWidth ='';
                             <div id="info-ujian"></div>
                         </div>
                         <div <?= $dnone ?>>
-                            <table class="w-100 table-sm" id="table-status" data-cols-width="<?= $colWidth ?>">
+                            <table class="w-100" id="table-status" data-cols-width="<?= $colWidth ?>">
                                 <tr>
                                     <td colspan="2">Mata Pelajaran</td>
                                     <td colspan="5"><?= $info->nama_mapel ?></td>

@@ -133,7 +133,7 @@ function decimalFixed($num) {
 
                         <div class="row">
                             <div class="col-12 overflow-auto">
-                                <table class="table-sm" id="table-status" data-cols-width="<?= $colWidth ?>" style="white-space: nowrap;">
+                                <table class="table" id="table-status" data-cols-width="<?= $colWidth ?>" style="white-space: nowrap;">
                                     <tr>
                                         <td colspan="2" style="width: 120px">Soal</td>
                                         <td colspan="2"><b><?= $rekap->bank_kode ?></b></td>

@@ -30,7 +30,7 @@
 					<h6 class="card-title">Catatan Untuk <b><?=$siswa->nama?></b></h6>
 				</div>
 				<div class="card-body">
-                    <table class="table table-striped table-bordered table-hover table-sm">
+                    <table class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th width="50" height="50" class="text-center p-0 align-middle">No.</th>

@@ -101,7 +101,7 @@
                         <div id="info-ujian"></div>
 					</div>
 					<div>
-						<table class="table table-bordered table-sm" id="table-status">
+						<table class="table table-bordered" id="table-status">
 						</table>
 					</div>
 				</div>
@@ -267,7 +267,7 @@
         $('#group-export').removeClass('d-none');
 		$('#loading').addClass('d-none');
 
-		$('#info-ujian').html('<table class="table table-bordered table-sm">' +
+		$('#info-ujian').html('<table class="table table-bordered">' +
             '    <tr>' +
             '        <td style="width: 120px">Soal</td>' +
             '        <td>' + data.info.bank_kode + '</td>' +

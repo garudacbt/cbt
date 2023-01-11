@@ -347,6 +347,13 @@ $satuan = [
         if (text == null) {
             return '';
         } else {
+            var limit = 300;
+            if (text.length > limit) {
+                return text.substring(0, limit) + '...';
+            } else {
+                return text;
+            }
+            /*
             var splitted = text.split(',');
             if (splitted.length > 2) {
                 var s1 = splitted[0];
@@ -361,6 +368,7 @@ $satuan = [
             } else {
                 return text;
             }
+            */
         }
     }
 
@@ -693,7 +701,7 @@ $satuan = [
         var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
         var collSpan = raporSetting.kkm_tunggal == '1' ? 5 : 6;
         tableNilai += '<br>' +
-            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td rowspan="2" style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
@@ -842,7 +850,7 @@ $satuan = [
         var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
         var collSpan = raporSetting.kkm_tunggal == '1' ? 5 : 6;
         tableNilai += '<br>' +
-            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td rowspan="2" style="width:25%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
@@ -1036,7 +1044,7 @@ $satuan = [
             headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. EKSTRAKURIKULER</b></span>' +
             '<br>' +
-            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td style="width:35%;border: 1px solid black; border-collapse: collapse"><b>Kegiatan Ekstrakurikuler</b></td>' +
@@ -1069,28 +1077,34 @@ $satuan = [
                 '</tr>';
             no++;
         }
-        tableNilai += '</table><br>';
+        tableNilai += '</table>';
 
         //prestasi
         tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PRESTASI</b></span>' +
             '<br>' +
-            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:5%;height:35px;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td style="width:35%;border: 1px solid black; border-collapse: collapse"><b>Jenis Kegiatan</b></td>' +
             '            <td style="width:60%;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
-            '        </tr>';
-        posAlpha ++;
+            '        </tr>' +
+            '       <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td style="border: 1px solid black; border-collapse: collapse; text-align: center;">1</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p1 + '</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p1_desk + '</td>' +
+            '       </tr>' +
+            '            <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td style="border: 1px solid black; border-collapse: collapse; text-align: center;">2</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p2 + '</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p2_desk + '</td>' +
+            '       </tr>' +
+            '       <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td style="border: 1px solid black; border-collapse: collapse; text-align: center;">3</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p3 + '</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p3_desk + '</td>' +
+            '       </tr>';
 
-        no = 1;
-        for (let i = 0; i < 2; i++) {
-            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1 + '</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1_desk + '</td>' +
-                '</tr>';
-            no++;
-        }
+        posAlpha ++;
         tableNilai += '</table>';
 
         //fisik
@@ -1151,9 +1165,8 @@ $satuan = [
         var ssakit = absensi[idSiswa].nilai.s == '' ? '0' : absensi[idSiswa].nilai.s;
         var sizin = absensi[idSiswa].nilai.i == '' ? '0' : absensi[idSiswa].nilai.i;
         var salpa = absensi[idSiswa].nilai.a == '' ? '0' : absensi[idSiswa].nilai.a;
-        tableNilai += '<br>' +
-            '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETIDAKHADIRAN</b></span>' +
-            '    <table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+        tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETIDAKHADIRAN</b></span>' +
+            '    <table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">Sakit</td>' +
             '            <td style="width:30%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
@@ -1177,10 +1190,9 @@ $satuan = [
 
         //catatan walikelas
         var sRank = parseInt(deskripsi[idSiswa].ranking) > 5 ? '--' : deskripsi[idSiswa].ranking;
-        tableNilai += '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. CATATAN WALI KELAS</b></span>' +
+        tableNilai += '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. CATATAN WALI KELAS</b></span>' +
             '<br>' +
-            '    <table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+            '    <table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="width:100%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
             '               <table>' +
@@ -1198,25 +1210,22 @@ $satuan = [
             '   </table>';
         posAlpha ++;
 
-        tableNilai += '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. TANGGAPAN ORANG TUA/WALI</b></span>' +
-            '<table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+        tableNilai += '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. TANGGAPAN ORANG TUA/WALI</b></span>' +
+            '<table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
             '<tr>' +
             '    <td style="width:100%;height: 40px;border: 1px solid black; border-collapse: collapse"></td>' +
             '</tr>' +
             '</table>';
         posAlpha ++;
 
-        tableNilai += '<br>' +
-            '<div style="display: flex; align-items: flex-start;">' +
-            '<div style="width:50%"></div>';
+        tableNilai += '<div style="display: flex; align-items: flex-start;">' + '<div style="width:50%"></div>';
 
         //kenaikan
         if (smt.smt == 'Genap') {
             var naikKe = parseInt(level) + 1;
             var kompetensi = level === '6' || level === '9' || level === '12' ? 'pada seluruh kompetensi' : 'kompetensi pada semester ke-1 dan ke-2';
             var txtNaik = buatTeksKenaikan(naik[idSiswa]);
-            tableNilai += '<table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
+            tableNilai += '<table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px;margin-bottom: 8px">' +
                 '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                 '            <td style="width:100%;height: 55px;border: 1px solid black; border-collapse: collapse; padding-left: 6px">' +
                 '<b>Keputusan:</b><br>' +
@@ -1429,7 +1438,8 @@ $satuan = [
     }
 
     $(document).ready(function () {
-        console.log('raporSetting', raporSetting);
+        //console.log('desk', deskripsi);
+        //console.log('raporSetting', raporSetting);
         /*
         console.log('mapels', arrMapel);
         console.log('raporSetting', raporSetting);
@@ -1437,7 +1447,6 @@ $satuan = [
         console.log('nilai_rapor', nilaiRapor);
         console.log('sikap', sikap);
         console.log('nilai', nilai);
-        console.log('desk', deskripsi);
         console.log('absensi', absensi);
         console.log('fisik', fisik);
         console.log('m_ekstra', ekstra);

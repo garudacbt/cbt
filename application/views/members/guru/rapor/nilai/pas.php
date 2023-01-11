@@ -73,7 +73,7 @@
                         $a = $bsd + 1;
                         $asd = 100;
                         ?>
-                        <table class="table w-100 table-bordered border-dark table-sm">
+                        <table class="table w-100 table-bordered border-dark">
                             <tr class="bg-light text-center">
                                 <td style="width: 20%">KKM</td>
                                 <td style="width: 20%">Jenis KKM</td>

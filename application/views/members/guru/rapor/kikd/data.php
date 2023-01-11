@@ -85,7 +85,7 @@
     function createView(data) {
         console.log(data);
         var html = '<div class="col-md-6"> ' +
-            '<table id="table-'+data.mapel+data.kelas+1+'" class="table table-bordered table-sm"> ' +
+            '<table id="table-'+data.mapel+data.kelas+1+'" class="table table-bordered"> ' +
             '<tr> ' +
             '<th class="text-center align-middle">#</th>' +
             '<th><span class="pl-2 align-middle">Aspek Pengetahuan</span>' +
@@ -107,7 +107,7 @@
         html += '</table> ' +
             '</div> ' +
             '<div class="col-md-6"> ' +
-            '<table id="table-'+data.mapel+data.kelas+2+'" class="table table-bordered table-sm"> ' +
+            '<table id="table-'+data.mapel+data.kelas+2+'" class="table table-bordered"> ' +
             '<tr> ' +
             '<th class="text-center align-middle">#</th>' +
             '<th><span class="pl-2 align-middle">Aspek Keterampilan </span>' +

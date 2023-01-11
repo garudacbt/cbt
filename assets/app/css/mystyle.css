@@ -381,16 +381,16 @@ now override the 3.3 new styles for modern browsers & apply opacity
 	content: "\2713";
 }
 
-#media-list li img {
+ul.media-list li img {
 	width: 100px;
 	height: 100px
 }
 
-#media-list li {
+ul.media-list li {
 	height: 102px
 }
 
-#media-list li video {
+ul.media-list li video {
 	width: 100px;
 	position: absolute;
 	left: 0;
@@ -431,22 +431,21 @@ li.myupload span i {
 	font-size: 54px
 }
 
-#media-list li {
+ul.media-list li {
 	float: left;
 	border: 1px solid #ccc;
-	background: #ccc;
 	position: relative;
 	margin: 0 5px 5px 0;
 	width: 102px
 }
 
-#media-list li:last-child {
+ul.media-list li:last-child {
 	margin-right: 0
 }
 
 .post-thumb {
 	position: absolute;
-	background: rgba(0, 0, 0, 0.4);
+	background: rgba(0, 0, 0, 0.3);
 	left: 0;
 	top: 0;
 	right: 0;
@@ -454,7 +453,20 @@ li.myupload span i {
 	display: none
 }
 
-#media-list li:hover .post-thumb {
+li .title-thumb {
+	position: absolute;
+	height: 28px;
+	width: 100px;
+	padding: 4px;
+	background: rgba(0, 0, 0, 0.6);
+	bottom: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: white;
+}
+
+ul.media-list li:hover .post-thumb {
 	display: block
 }
 
@@ -536,7 +548,7 @@ ul.btn-nav li span input {
 	filter: alpha(opacity=100)
 }
 
-ul#media-list {
+ul.media-list {
 	list-style: none;
 	padding: 0;
 	margin: 0

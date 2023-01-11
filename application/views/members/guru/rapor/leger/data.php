@@ -58,7 +58,7 @@
                         $widthColumns .= ',20';
                         ?>
 
-                        <table cellspacing="0" id="tbl-leger" class="table table-bordered border-primary table-sm text-sm" data-cols-width="<?=$widthColumns?>">
+                        <table cellspacing="0" id="tbl-leger" class="table table-bordered border-primary text-sm" data-cols-width="<?=$widthColumns?>">
                             <thead>
                             <tr class="alert-default-primary" data-height="30">
                                 <th rowspan="4" width="40" class="text-center align-middle border-primary" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true">No.</th>

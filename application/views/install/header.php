@@ -30,7 +30,10 @@
     <script src="<?= base_url() ?>/assets/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="<?= base_url() ?>/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!--
     <script src="<?= base_url() ?>/assets/app/js/multi-step.js"></script>
+    -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
     <style>
         .gradient {

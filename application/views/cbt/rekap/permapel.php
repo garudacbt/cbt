@@ -115,7 +115,7 @@
 					</div>
 					<div id="for-export">
                         <p id="title-table" style="text-align: center;font-weight: bold;"></p>
-						<table class="table-sm" id="table-status" style="font-size: 11pt; border: 1px solid black; border-collapse: collapse; border-spacing: 0; width: 100%">
+						<table class="table" id="table-status" style="font-size: 11pt; border: 1px solid black; border-collapse: collapse; border-spacing: 0; width: 100%">
 						</table>
 					</div>
 				</div>

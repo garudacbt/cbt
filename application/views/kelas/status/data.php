@@ -37,10 +37,12 @@
                                     title="Export As Word" onclick="exportWord()">
                                 <i class="fa fa-file-word"></i> <span class="d-none d-sm-inline-block ml-1"> Word</span>
                             </button>
+                            <!--
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Export As Excel" onclick="exportExcel()">
                                 <i class="fa fa-file-excel"></i> <span
                                         class="d-none d-sm-inline-block ml-1"> Excel</span></button>
+                                        -->
                         </div>
                     </div>
                 </div>
@@ -82,35 +84,41 @@
                                 ); ?>
                             </div>
                         </div>
-                        <div class="col-md-5 mb-2">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Materi/Tugas</span>
-                                </div>
-                                <select id="dropdown-materi" class="form-control">
-                                    <optgroup label="Materi" id="opt-materi">
-                                    </optgroup>
-                                    <optgroup label="Tugas" id="opt-tugas">
-                                    </optgroup>
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Kelas</span>
                                 </div>
                                 <select id="kelas-materi" class="form-control">
+                                    <optgroup label="Materi" id="kls-materi">
+                                    </optgroup>
+                                    <optgroup label="Tugas" id="kls-tugas">
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-2">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Materi/Tugas</span>
+                                </div>
+                                <select id="dropdown-materi" class="form-control">
+                                    <!--
+                                    <optgroup label="Materi" id="opt-materi">
+                                    </optgroup>
+                                    <optgroup label="Tugas" id="opt-tugas">
+                                    </optgroup>
+                                    -->
                                 </select>
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div id="preview" class="table-responsive">
-                        <div class="d-none" style="width:100%;">
+                        <div id="table-title" class="d-none" style="width:100%;">
                             <p id="title-doc" style="text-align:center;font-size:14pt; font-weight: bold"></p>
                         </div>
-                        <table id="log" class="table table-striped table-bordered table-hover table-sm"
+                        <table id="log" class="table table-striped table-bordered table-hover"
                                style="width: 100%;border: 1px solid #c0c0c0; border-collapse: collapse;">
                         </table>
                     </div>
@@ -186,72 +194,16 @@
     var arrKelasTugas = [];
     var form;
     var resultAll = {};
-    var tanggaljudul = '';
-    var arrJadwal = {};
 
-    console.log('kls', kelas);
+    var namaKelas = '';
+    var namaMapel = '';
+    var tanggalSingkat = '';
+    var tanggalLengkap = '';
+    var docTitle = '';
 
     $(document).ready(function () {
-        var label = $('#dropdown-materi :selected').parent().attr('label');
         form = $('#formselect');
-
-        var optMateri = $('#opt-materi');
-        var optTugas = $('#opt-tugas');
-        //var dropGuru = $('#dropdown-guru');
         var dropMapel = $('#dropdown-mapel');
-
-        /*
-		dropGuru.on('change', function () {
-            console.log($(this).val());
-			$.ajax({
-				method: "GET",
-				url: base_url + "kelasstatus/getmateriguru?id=" + $(this).val(),
-				success: function (response) {
-					console.log(response);
-					optMateri.html('');
-					optTugas.html('');
-					arrKelasMateri = [];
-					arrKelasTugas = [];
-
-					if (response.materi.length === 0) {
-						optMateri.append('<option value="">Belum ada materi</option>');
-					} else {
-						for (let j = 0; j < response.materi.length; j++) {
-                            const date = stringToDate(response.materi[j].jadwal);
-                            const tgl = dateToString(date);
-							optMateri.append('<option value="'+response.materi[j].id_kjm+'">'+response.materi[j].kode+' -' + tgl +'</option>');
-
-							var item = {};
-							item['id_materi'] = response.materi[j].id_materi;
-                            item['id_kjm'] = response.materi[j].id_kjm;
-							item['id_kelas'] = response.materi[j].kelas;
-
-							arrKelasMateri.push(item);
-						}
-					}
-
-					if (response.tugas.length === 0) {
-						optTugas.append('<option value="">Belum ada tugas</option>');
-					} else {
-						for (let k = 0; k < response.tugas.length; k++) {
-						    const date = stringToDate(response.tugas[k].jadwal);
-						    const tgl = dateToString(date);
-							optTugas.append('<option value="'+response.tugas[k].id_kjm+'">'+response.tugas[k].kode+' -' + tgl +'</option>');
-
-							var item = {};
-							item['id_materi'] = response.tugas[k].id_materi;
-                            item['id_kjm'] = response.tugas[k].id_kjm;
-							item['id_kelas'] = response.tugas[k].kelas;
-
-							arrKelasTugas.push(item);
-						}
-					}
-					label = $('#dropdown-materi :selected').parent().attr('label');
-					onChangeMateri($('#dropdown-materi').val(), label);
-				}
-			});
-		});
-		*/
 
         dropMapel.on('change', function () {
             console.log($(this).val());
@@ -260,59 +212,21 @@
                 url: base_url + "kelasstatus/getmaterimapel?id=" + $(this).val(),
                 success: function (response) {
                     console.log(response);
-                    optMateri.html('');
-                    optTugas.html('');
-                    arrKelasMateri = [];
-                    arrKelasTugas = [];
-
-                    if (response.materi.length === 0) {
-                        optMateri.append('<option value="">Belum ada materi</option>');
-                    } else {
-                        for (let j = 0; j < response.materi.length; j++) {
-                            const date = stringToDate(response.materi[j].jadwal);
-                            const tgl = dateToString(date);
-                            optMateri.append('<option value="' + response.materi[j].id_kjm + '">' + response.materi[j].kode + ' - ' + tgl + '</option>');
-                            arrJadwal[response.materi[j].id_kjm] = tgl;
-
-                            var item = {};
-                            item['id_materi'] = response.materi[j].id_materi;
-                            item['id_kjm'] = response.materi[j].id_kjm;
-                            item['id_kelas'] = response.materi[j].kelas;
-
-                            arrKelasMateri.push(item);
-                        }
-                    }
-
-                    if (response.tugas.length === 0) {
-                        optTugas.append('<option value="">Belum ada tugas</option>');
-                    } else {
-                        for (let k = 0; k < response.tugas.length; k++) {
-                            const date = stringToDate(response.tugas[k].jadwal);
-                            const tgl = dateToString(date);
-                            optTugas.append('<option value="' + response.tugas[k].id_kjm + '">' + response.tugas[k].kode + ' - ' + tgl + '</option>');
-                            arrJadwal[response.tugas[k].id_kjm] = tgl;
-
-                            var item = {};
-                            item['id_materi'] = response.tugas[k].id_materi;
-                            item['id_kjm'] = response.tugas[k].id_kjm;
-                            item['id_kelas'] = response.tugas[k].kelas;
-
-                            arrKelasTugas.push(item);
-                        }
-                    }
-                    label = $('#dropdown-materi :selected').parent().attr('label');
-                    onChangeMateri($('#dropdown-materi').val(), label);
+                    arrKelasMateri = response.materi;
+                    arrKelasTugas = response.tugas;
+                    createDropdownKelas(response.kelas);
                 }
             });
         });
 
-        $('#dropdown-materi').on('change', function () {
-            label = $('#dropdown-materi :selected').parent().attr('label');
-            onChangeMateri($(this).val(), label);
+        $('#kelas-materi').on('change', function () {
+            var val = $(this).val();
+            var label = $('#kelas-materi :selected').parent().attr('label');
+            createDropdownMateri(val, label);
         });
 
-        $('#kelas-materi').on('change', function () {
-            getLogSiswa($('#dropdown-materi :selected').parent().attr('label'));
+        $('#dropdown-materi').on('change', function () {
+            getLogSiswa($('#kelas-materi :selected').parent().attr('label'));
         });
 
         $('#daftarModal').on('show.bs.modal', function (e) {
@@ -341,14 +255,12 @@
                     if (file.type.match('image')) {
                         html = '<div class="col-12 mb-3">' +
                             '<img data-enlargeable src="' + base_url + '/' + file.src + '" alt="" class="img-thumbnail" /></div>';
-                        konten.append(html);
                     } else if (file.type.match('video')) {
                         html = '<div class="col-12 mb-3"><video src="' + base_url + '/' + file.src + '"></video></div>';
-                        konten.append(html);
                     } else {
-                        html = '<div class="col-3 mb-3"><img src="' + base_url + '"/assets/app/img/document_file.png"></div>';
-                        konten.append(html);
+                        html = '<div class="col-3 mb-3"><img src="'+base_url+'/assets/app/img/document-icon.svg"></div>';
                     }
+                    konten.append(html);
                 }
 
                 $('img[data-enlargeable]').addClass('img-enlargeable').click(function () {
@@ -424,41 +336,74 @@
 
         //if (dropGuru.val()!= '') dropGuru.change();
         if (dropMapel.val() != '0') dropMapel.change();
-
         //calculateTime("2010-11-10 06:50:40", "2010-11-16 08:58:40")
     });
 
-    function onChangeMateri(id, label) {
-        var selKelas = $('#kelas-materi');
-        tanggaljudul = arrJadwal[id] != null ? arrJadwal[id] : '';
-        selKelas.html('');
+    function createDropdownKelas(arrKelas) {
+        var klsMateri = $('#kls-materi');
+        var klsTugas = $('#kls-tugas');
+        klsMateri.html('');
+        klsTugas.html('');
 
-        if (label === 'Materi') {
-            for (let j = 0; j < arrKelasMateri.length; j++) {
-                if (arrKelasMateri[j].id_kjm === id) {
-                    var ids = arrKelasMateri[j].id_kelas;
-                    for (let k = 0; k < ids.length; k++) {
-                        selKelas.append('<option value="' + ids[k] + '">' + kelas[ids[k]] + '</option>');
-                    }
-                }
+        if (arrKelas != null && arrKelas[1] != null) {
+            for (let j = 0; j < arrKelas[1].length; j++) {
+                if (kelas[arrKelas[1][j]] !== undefined)
+                    klsMateri.append('<option value="' + arrKelas[1][j] + '">' + kelas[arrKelas[1][j]] + '</option>');
             }
         } else {
-            for (let j = 0; j < arrKelasTugas.length; j++) {
-                if (arrKelasTugas[j].id_kjm === id) {
-                    var ids = arrKelasTugas[j].id_kelas;
-                    for (let k = 0; k < ids.length; k++) {
-                        selKelas.append('<option value="' + ids[k] + '">' + kelas[ids[k]] + '</option>');
-                    }
-                }
-            }
+            klsMateri.append('<option value="-">- -</option>');
         }
 
+        if (arrKelas != null && arrKelas[2] != null) {
+            for (let j = 0; j < arrKelas[2].length; j++) {
+                klsTugas.append('<option value="' + arrKelas[2][j] + '">' + kelas[arrKelas[2][j]] + '</option>');
+            }
+        } else {
+            klsTugas.append('<option value="-">- -</option>');
+        }
+        var label = $('#kelas-materi :selected').parent().attr('label');
+        createDropdownMateri($('#kelas-materi').val(), label);
+    }
+
+    function createDropdownMateri(kelas, label) {
+        console.log(kelas, label);
+        var dropMateri = $('#dropdown-materi');
+        dropMateri.html('');
+
+        if (label === 'Materi') {
+            if (arrKelasMateri[kelas] != null && arrKelasMateri[kelas].length > 0) {
+                for (let j = 0; j < arrKelasMateri[kelas].length; j++) {
+                    const date = stringToDate(arrKelasMateri[kelas][j].jadwal);
+                    tanggalSingkat = dateToString(date)
+                    tanggalLengkap = dateToStringDay(date);
+                    dropMateri.append('<option value="' + arrKelasMateri[kelas][j].id_kjm + '">' + arrKelasMateri[kelas][j].kode + '</option>');
+                    //arrJadwal[arrKelasMateri[kelas][j].id_kjm] = tgl;
+                }
+            } else {
+                dropMateri.append('<option value="">Belum ada materi</option>');
+            }
+        } else {
+            if (arrKelasTugas[kelas] != null && arrKelasTugas[kelas].length === 0) {
+                for (let k = 0; k < arrKelasTugas[kelas].length; k++) {
+                    const date = stringToDate(arrKelasTugas[kelas][k].jadwal);
+                    tanggalSingkat = dateToString(date)
+                    tanggalLengkap = dateToStringDay(date);
+                    dropMateri.append('<option value="' + arrKelasTugas[kelas][k].id_kjm + '">' + arrKelasTugas[kelas][k].kode + '</option>');
+                }
+            } else {
+                dropMateri.append('<option value="">Belum ada tugas</option>');
+            }
+        }
         getLogSiswa(label);
     }
 
     function getLogSiswa(label) {
         var selMateri = $('#dropdown-materi').val();
         var selKelas = $('#kelas-materi').val();
+        if (selKelas === '-' || selKelas == null) {
+            $('#log').html('<tr><td>Tidak ada data</td></tr>');
+            return;
+        }
 
         $('#loading').removeClass('d-none');
 
@@ -491,7 +436,7 @@
                         '</thead><tbody>';
 
                     var no = 1;
-                    $.each(data.log, function (key, value) {
+                    $.each(resultAll, function (key, value) {
                         var login = '- -  :  - -';
                         var mulai = '- -  :  - -';
                         var selesai = '- -  :  - -';
@@ -534,11 +479,11 @@
                                     }
                                 }
                             }
-                            console.log('jamke', items);
-
                             var jamke = value.jam_ke;
-                            var tglJadwal = formatDate(items[jamke]);
-                            var diff = calculateTime(tglJadwal, value.selesai);
+                            console.log('jamke', value);
+                            console.log('items', items);
+                            var tglJadwal = items[jamke] !== undefined ? formatDate(items[jamke]) : '';
+                            var diff = tglJadwal != '' ? calculateTime(tglJadwal, value.selesai) : '';
                             ketMulai = diff == '' ? '' : 'Selesai, Terlambat <br>' + diff;
                             //console.log('jadwal:' + tglJadwal + ' selesai:' + value.selesai.log_time + ' diff:' + calculateTime(tglJadwal, value.selesai.log_time));
                         }
@@ -563,6 +508,11 @@
 
                     html += '</tbody>';
                     table.append(html);
+
+                    namaKelas = $("#kelas-materi option:selected").text();
+                    namaMapel = $("#dropdown-mapel option:selected").text();
+                    $('#title-doc').html('NILAI HARIAN ' + namaMapel.toUpperCase() + '<br>KELAS ' + namaKelas + '<br>' + tanggalLengkap);
+
                     $('#loading').addClass('d-none');
                 }
             });
@@ -687,14 +637,8 @@
         return w + " " + j;
     }
 
-    var docTitle;
-
     function cloneTable() {
-        var namakelas = $("#kelas-materi option:selected").text();
-        var namamapel = $("#dropdown-mapel option:selected").text();
-        console.log('tgl', tanggaljudul);
-        docTitle = 'Nilai ' + namakelas + ' ' + namamapel + ' ' + tanggaljudul;
-        $('#title-doc').text(docTitle.toUpperCase());
+        docTitle = 'NILAI HARIAN ' + namaMapel + ' ' + namaKelas + ' ' + tanggalSingkat.toUpperCase();
 
         var styleCenterMiddle = 'border: 1px solid #c0c0c0; border-collapse: collapse; text-align: center; vertical-align: middle;';
         var styleLeftMiddle = 'border: 1px solid #c0c0c0; border-collapse: collapse; vertical-align: middle;';
@@ -740,9 +684,5 @@
             margins: {top: 700, bottom: 700, left: 1000, right: 1000}
         });
         saveAs(converted, docTitle + '.docx');
-    }
-
-    function exportExcel() {
-
     }
 </script>

@@ -23,7 +23,7 @@
                                     <button type="button" data-toggle="modal" data-target="#editKelompokModal" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
-                            <table id="tableKelompok" class="w-100 table-sm table table-striped table-bordered table-hover">
+                            <table id="tableKelompok" class="w-100 table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th class="text-center align-middle">Kategori</th>
@@ -43,7 +43,7 @@
                                     <button type="button" data-toggle="modal" data-target="#editSubKelompokModal" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
-                            <table id="tableSubKelompok" class="w-100 table-sm table table-striped table-bordered table-hover">
+                            <table id="tableSubKelompok" class="w-100 table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th class="text-center align-middle">Kode</th>
@@ -67,7 +67,7 @@
 				</div>
 				<div class="card-body">
                     <?= form_open('', array('id' => 'bulk')) ?>
-					<table id="tableMapel" class="w-100 table table-striped table-bordered table-hover table-sm">
+					<table id="tableMapel" class="w-100 table table-striped table-bordered table-hover">
 						<thead>
 						<tr>
 							<th class="text-center align-middle p-0 w-auto">
@@ -349,7 +349,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="w-100 table table-sm">
+                <table class="w-100 table">
                     <tr>
                         <th>
                             No

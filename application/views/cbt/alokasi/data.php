@@ -104,7 +104,7 @@ $allowedDates = [];
                     <?php
                     if (count($arr) > 0) :
                         if ($jenis_selected != null) :?>
-                            <table class="table table-sm border mt-4" id="tbl">
+                            <table class="table border mt-4" id="tbl">
                                 <tr>
                                     <th class="text-center align-middle border">
                                         Hari & Tanggal
@@ -112,11 +112,8 @@ $allowedDates = [];
                                     <th class="text-center align-middle border">
                                         Level Kelas
                                     </th>
-                                    <th class="text-center align-middle border d-none">
+                                    <th class="text-center align-middle border">
                                         Jam ke
-                                    </th>
-                                    <th width="100" class="text-center align-middle border">
-                                        Menit ke
                                     </th>
                                     <th class="text-center align-middle border">
                                         Jadwal / Mata Pelajaran
@@ -124,7 +121,7 @@ $allowedDates = [];
                                 </tr>
                                 <?php
                                 foreach ($arr as $key => $jadwal):
-                                    $drop_jadwal = [];
+                                    $drop_jadwal[-1] = 'Tidak diatur';
                                     $kls_jadwal = [];
                                     foreach ($jadwal['jadwal'] as $jdwl) {
                                         $drop_jadwal[$jdwl->id_jadwal] = $jdwl->bank_kode.' ('.$jdwl->nama_mapel.')';
@@ -143,27 +140,28 @@ $allowedDates = [];
                                         }
                                         $kls_jadwal[] = $kelasbank;
                                     }
-
                                     ?>
                                     <tr>
                                         <td rowspan="<?= count($jadwal['jadwal']) ?>" class="text-center align-middle border">
                                             <?= buat_tanggal(date('D, d M Y', strtotime($key))) ?>
                                         </td>
                                         <?php $keyj = array_search('1', array_column($jadwal['jadwal'], 'jam_ke'));
-                                        if (!$keyj) $keyj = 0; ?>
+                                        if (!$keyj) $keyj = 0;
+                                        ?>
                                         <td class="border text-center align-middle level">
                                             <?= $jadwal['level'] ?> (<?= $kls_jadwal[$keyj] ?>)
                                         </td>
-                                        <td class="border text-center align-middle jam-ke d-none">
+                                        <td class="border text-center align-middle jam-ke">
                                             1
                                         </td>
                                         <td class="border">
-                                            <input type="number" id="jarak" name="jarak" value="0"
-                                                   class="form-control form-control-sm jarak" required readonly>
-                                        </td>
-                                        <td class="border">
                                             <?php
-                                            echo form_dropdown('mapel', $drop_jadwal, $jadwal['jadwal'][$keyj]->id_jadwal, 'id="' . $jadwal['jadwal'][$keyj]->id_jadwal . '" class="form-control form-control-sm jadwal"'); ?>
+                                            $notSet = $jadwal['jadwal'][$keyj]->jam_ke == 0;
+                                            $selected = $notSet ? null : $jadwal['jadwal'][$keyj]->id_jadwal;
+                                            echo form_dropdown('mapel',
+                                                $drop_jadwal,
+                                                $selected,
+                                                'id="' . $jadwal['jadwal'][$keyj]->id_jadwal . '" class="form-control form-control-sm jadwal"'); ?>
                                         </td>
                                     </tr>
                                     <?php
@@ -176,17 +174,17 @@ $allowedDates = [];
                                                 <td class="border text-center align-middle level">
                                                     <?= $jadwal['level'] ?> (<?= $kls_jadwal[$keyi] ?>)
                                                 </td>
-                                                <td class="border text-center align-middle jam-ke d-none">
+                                                <td class="border text-center align-middle jam-ke">
                                                     <?= $i + 1 ?>
                                                 </td>
                                                 <td class="border">
-                                                    <input type="number" id="jarak" name="jarak"
-                                                           value="<?= $jadwal['jadwal'][$keyi]->jarak ?>"
-                                                           class="form-control form-control-sm jarak" required>
-                                                </td>
-                                                <td class="border">
                                                     <?php
-                                                    echo form_dropdown('mapel', $drop_jadwal, $jadwal['jadwal'][$keyi]->id_jadwal, 'id="' . $jadwal['jadwal'][$keyi]->id_jadwal . '" class="form-control form-control-sm jadwal"'); ?>
+                                                    $notSet = $jadwal['jadwal'][$keyi]->jam_ke == 0;
+                                                    $selected = $notSet ? null : $jadwal['jadwal'][$keyi]->id_jadwal;
+                                                    echo form_dropdown('mapel',
+                                                        $drop_jadwal,
+                                                        $selected, //$jadwal['jadwal'][$keyi]->id_jadwal,
+                                                        'id="' . $jadwal['jadwal'][$keyi]->id_jadwal . '" class="form-control form-control-sm jadwal"'); ?>
                                                 </td>
                                             </tr>
                                         <?php endfor; endif; endforeach; ?>
@@ -320,13 +318,11 @@ $allowedDates = [];
             var jsonObj = [];
             $rows1.each((i, row) => {
                 const jam_ke = $(row).find('.jam-ke').text().trim();
-                const jarak = $(row).find('input.jarak').val();
                 const id_jadwal = $(row).find('.jadwal').val();
 
                 let item = {};
                 item ["id_jadwal"] = id_jadwal;
                 item ["jam_ke"] = jam_ke;
-                item ["jarak"] = jarak;
 
                 jsonObj.push(item);
             });

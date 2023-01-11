@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-bordered">
                         <tr>
                             <td style="width: 120px">
                                 Nama Kelas
@@ -84,7 +84,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h6>Siswa Kelas <?= $kelas->nama_kelas?></h6>
-                            <table class="table table-bordered table-striped table-sm">
+                            <table class="table table-bordered table-striped">
                                 <tr>
                                     <th class="text-center align-middle">No</th>
                                     <th class="text-center align-middle">N I S</th>
@@ -131,7 +131,7 @@
                                 $struktur->sie_kekeluargaan, $struktur->sie_humas
                             ];
                             ?>
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="bg-light">
                                     <th class="text-center align-middle">No</th>
                                     <th class="text-center align-middle">Jabatan</th>

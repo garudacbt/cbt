@@ -53,8 +53,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['404_override'] = '';
 //$route['translate_uri_dashes'] = FALSE;
 
-$route['default_controller'] = 'install';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['default_controller'] = 'auth';
 $route['login'] = 'Auth/index';
 $route['logout'] = 'Auth/logout';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;

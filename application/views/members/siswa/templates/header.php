@@ -147,7 +147,7 @@ $display_logout = $this->uri->segment(2) == "penilaian" ? 'd-none' : '';
         <nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
             <ul class="navbar-nav ml-2 <?=$dnone?>">
                 <li class="nav-item">
-                    <a href="<?=base_url('dashboard')?>" type="button" class="btn btn-success">
+                    <a href="javascript:history.back()" type="button" class="btn btn-success">
                         <i class="fas fa-arrow-left mr-2"></i><span class="d-none d-sm-inline-block ml-1">Beranda</span>
                     </a>
                 </li>

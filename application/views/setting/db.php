@@ -39,7 +39,7 @@
 
 					<h6><b>RIWAYAT BACKUP</b></h6>
 					<?= form_open('', array('id' => 'edittp')) ?>
-					<table id="database" class="table table-striped table-bordered table-hover table-sm">
+					<table id="database" class="table table-striped table-bordered table-hover">
 						<thead>
 						<tr>
 							<th width="50" height="50" class="text-center p-0 align-middle">No.</th>

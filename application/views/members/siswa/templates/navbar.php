@@ -5,7 +5,7 @@
 			$page = $this->uri->segment(1);
 			if ($page !== 'dashboard') :
 			?>
-			<a class="nav-link" href="<?=base_url('dashboard')?>" role="button"><i class="fas fa-arrow-left"></i></a>
+			<a class="nav-link" href="javascript:history.back()" role="button"><i class="fas fa-arrow-left"></i></a>
 			<?php endif; ?>
 		</li>
 	</ul>

@@ -27,7 +27,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <table id="tbl1" class="table table-bordered table-sm">
+                                    <table id="tbl1" class="table table-bordered">
                                         <thead>
                                         <tr class="alert-default-danger">
                                             <th class="text-center align-middle border-danger" style="width: 40px">No</th>

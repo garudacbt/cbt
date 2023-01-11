@@ -58,7 +58,7 @@
                         $widthColumns .= ',15,10,15,15';
                         ?>
 
-                        <table cellspacing="0" id="tbl-leger" class="table table-bordered border-primary table-sm text-sm" data-cols-width="<?=$widthColumns?>">
+                        <table cellspacing="0" id="tbl-leger" class="table table-bordered border-primary text-sm" data-cols-width="<?=$widthColumns?>">
                             <!--
                             <tr>
                                 <th colspan="<?= (count($arrMapel)*2) + (count($arrMulok)*2) + 17 ?>" class="text-center align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true">No.</th>

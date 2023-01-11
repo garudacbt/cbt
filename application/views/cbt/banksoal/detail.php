@@ -193,7 +193,7 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane" id="ganda">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -307,7 +307,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane" id="kompleks">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -428,7 +428,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane active" id="jodoh">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -525,7 +525,7 @@
                                                         <div class='list-jodohkan' data-nomor="<?=$s->nomor_soal?>" data-list='<?= json_encode($jawaban['jawaban']) ?>'>
                                                         </div>
                                                     <?php else : ?>
-                                                        <table class="table table-sm table-bordered">
+                                                        <table class="table table-bordered">
                                                             <?php
                                                             foreach ($jawaban['jawaban'] as $nomor => $items) :
                                                                 if ($nomor === 0) : ?>
@@ -559,7 +559,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane" id="isian">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -663,7 +663,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane" id="essai">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>

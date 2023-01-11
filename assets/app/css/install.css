@@ -61,6 +61,25 @@
     margin-left: 20px;
 }
 
+.setup-right {
+    z-index: 0;
+    color: #fff;
+}
+
+.setup-right:before {
+    background-image:url("../../img/hero-img.png");
+    background-repeat: no-repeat;
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 999em;
+    /* allow for bootstrap column padding */
+    top: -15px;
+    left: -15px;
+    bottom: -15px;
+}
+
 @media (max-width: 991px) {
     #hero {
         text-align: center;

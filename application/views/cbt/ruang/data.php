@@ -35,7 +35,7 @@
 				<div class="card-body">
 					<?= form_open('cbtruang/delete', array('id' => 'bulk')); ?>
 					<div class="table-responsive">
-						<table id="ruang" class="w-100 table table-striped table-bordered table-hover table-sm">
+						<table id="ruang" class="w-100 table table-striped table-bordered table-hover">
 							<thead>
 							<tr>
 								<th width="40" class="align-middle text-center p-0">

@@ -29,7 +29,7 @@
 				</div>
 				<div class="card-body">
 					<?=form_open('',array('id'=>'bulk'))?>
-					<table id="jurusan" class="w-100 table table-striped table-bordered table-hover table-sm">
+					<table id="jurusan" class="w-100 table table-striped table-bordered table-hover">
 						<thead>
 						<tr>
 							<th class="text-center align-middle p-0" style="width: 40px">

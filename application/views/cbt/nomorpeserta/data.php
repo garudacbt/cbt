@@ -54,7 +54,7 @@
 						</div>
 					</div>
 					<div>
-						<table class="table table-bordered table-sm mt-4" id="table-nomor">
+						<table class="table table-bordered mt-4" id="table-nomor">
 						</table>
 					</div>
 				</div>

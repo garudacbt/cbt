@@ -45,7 +45,7 @@
 						<div class="col-md-7 mb-4">
 							<label>Tahun Pelajaran</label>
 							<?= form_open('', array('id' => 'edittp')) ?>
-							<table id="tahun" class="table table-striped table-bordered table-hover table-sm">
+							<table id="tahun" class="table table-striped table-bordered table-hover">
 								<thead>
 								<tr>
 									<th class="d-none">id</th>
@@ -87,7 +87,7 @@
 						<div class="col-md-5">
 							<label>Semester</label>
 							<?= form_open('', array('id' => 'editsmt')) ?>
-							<table id="semester" class="table table-striped table-bordered table-hover table-sm">
+							<table id="semester" class="table table-striped table-bordered table-hover">
 								<thead>
 								<tr>
 									<th class="d-none">id</th>

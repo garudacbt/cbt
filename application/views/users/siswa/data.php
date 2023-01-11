@@ -38,7 +38,7 @@
                     //echo '</pre>';
                     ?>
 					<div class="table-responsive">
-						<table id="users" class="w-100 table table-striped table-bordered table-hover table-sm">
+						<table id="users" class="w-100 table table-striped table-bordered table-hover">
 							<thead>
 							<tr>
 								<th class="text-center" style="width: 40px">No.</th>

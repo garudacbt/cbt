@@ -188,6 +188,7 @@
 
     var bulans = ['Januari', 'Februari', 'Maret', 'April',
         'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    var arrhari = ['Minggu','Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
 
     function stringToDate(dateStr) {
         var parts = dateStr.split("-");
@@ -201,6 +202,15 @@
         let day = date.getDate().toString().padStart(2, '0');
         return day + ' ' + bulans[month] + ' ' + year;
     }
+
+    function dateToStringDay(date) {
+        let year = date.getFullYear();
+        //let month = (1 + date.getMonth()).toString().padStart(2, '0');
+        const month = date.getMonth();
+        let day = date.getDate().toString().padStart(2, '0');
+        return arrhari[date.getDay()] +', '+ day + ' ' + bulans[month] + ' ' + year;
+    }
+
 </script>
 
 <?php

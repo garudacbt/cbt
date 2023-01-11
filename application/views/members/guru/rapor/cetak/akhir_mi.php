@@ -1,3 +1,21 @@
+<?php
+$satuan = [
+    "1" => ["",
+        "SEKOLAH DASAR (SD)",
+        "MADRASAH IBTIDAIYAH (MI)"
+    ],
+    "2" => ["",
+        "SEKOLAH MENENGAH PERTAMA (SMP)",
+        "MADRASAH TSANAWIYAH (MTS)"
+    ],
+    "3" => ["",
+        "SEKOLAH MENENGAH ATAS (SMA)",
+        "MADRASAH ALIYAH (MA)",
+        "SEKOLAH MENENGAH KEJURUAN (SMK)"
+    ]
+];
+
+?>
 <div class="content-wrapper bg-white pt-4">
     <section class="content-header">
         <div class="container-fluid">
@@ -16,16 +34,8 @@
                     <div class="card">
                         <div class="card-header bg-light">
                             <h3 class="card-title">Siswa</h3>
-                            <!--
-                            <div class="card-tools">
-                                <button class="btn btn-primary btn-sm" onclick="printAllSiswa()">
-                                    <i class="fa fa-print mr-1"></i>Cetak Semua
-                                </button>
-                            </div>
-                            -->
                         </div>
-                        <div class="card-body p-0"
-                             style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
+                        <div class="card-body p-0" style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
                             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
                                 <?php
                                 $n = 1;
@@ -48,41 +58,42 @@
                                 <h6>Preview</h6>
                             </div>
                             <div class="card-tools">
-                                <button class="btn btn-primary btn-sm" onclick="perbesar()" disabled>
+                                <button class="btn btn-success btn-sm" onclick="perbesar()" disabled>
                                     <i class="fa fa-search-plus mr-1"></i>Perbesar
                                 </button>
-                                <button class="btn btn-primary btn-sm" onclick="perkecil()" disabled>
+                                <button class="btn btn-success btn-sm" onclick="perkecil()" disabled>
                                     <i class="fa fa-search-minus mr-1"></i>Perkecil
                                 </button>
                             </div>
                         </div>
                         <div class="card-body bg-gray-light p-1">
-                            <div class="row mb-2 ml-1">
+                            <div class="row mb-1 ml-1 mr-1 d-flex flex-wrap">
                                 <button id="cetak-sampul" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakSampul()"
                                         disabled>
-                                    <i class="fa fa-print mr-1"></i>Sampul (1)
+                                    <i class="fa fa-print mr-1"></i>Sampul
                                 </button>
                                 <button id="cetak-info" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakInfo()"
                                         disabled>
-                                    <i class="fa fa-print mr-1"></i>Sampul (2)
+                                    <i class="fa fa-print mr-1"></i>Info
                                 </button>
                                 <button id="cetak-data" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakData()"
                                         disabled>
-                                    <i class="fa fa-print mr-1"></i>Data Siswa (3)
-                                </button>
-                                <button id="cetak-data" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakHalAwal()"
-                                        disabled>
-                                    <i class="fa fa-print mr-1"></i>1, 2, 3
+                                    <i class="fa fa-print mr-1"></i>Data Siswa
                                 </button>
                                 <button id="cetak-nilai" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakRapor()"
                                         disabled>
-                                    <i class="fa fa-print mr-1"></i>Nilai (4, 5, 6)
+                                    <i class="fa fa-print mr-1"></i>Nilai
                                 </button>
                                 <button id="cetak-semua" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakSemua()"
                                         disabled>
-                                    <i class="fa fa-print mr-1"></i>Semua (1 - 6)
+                                    <i class="fa fa-print mr-1"></i>Semua Halaman
                                 </button>
+                                <div class="text-right mb-1 ml-auto">
+                                    <span>Hal. dari</span>
+                                    <input type="number" id="page-start" style="width: 100px;" disabled="disabled">
+                                </div>
                             </div>
+                            <hr>
                             <div class="d-flex justify-content-center bg-gray-light" style="min-height: 300mm">
                                 <div id="zoom" style="transform: scale(0.9); transform-origin: top center">
                                     <div id="print-preview">
@@ -90,7 +101,7 @@
                                              style="display: flex;-webkit-justify-content: center;justify-content: center;width: 210mm; height: 297mm;padding: 10mm">
                                             Silahkan pilih siswa
                                         </div>
-                                        <div id="print-sampul" class="border my-shadow mb-3 d-none"
+                                        <div id="print-sampul" class="border my-shadow mb-3 d-none p-5"
                                              style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm; padding: 5mm 10mm 5mm 10mm">
                                             <div style="margin-top: 80px;text-align: center">
                                                 <div class="image">
@@ -102,16 +113,9 @@
                                                      style="text-align: center;font-family: 'Arial';font-size: 20pt;font-weight: bold">
                                                     <p style="margin-bottom: 0">LAPORAN HASIL BELAJAR</p>
                                                     <?php
-                                                    $header_rapor = '';
-                                                    if ($setting->jenjang == '1'){
-                                                        $header_rapor = 'MADRASAH IBTIDAIYAH (MI)';
-                                                    } elseif ($setting->jenjang == '1') {
-                                                        $header_rapor = 'MADRASAH TSANAWIYAH (MTS)';
-                                                    } else {
-                                                        $header_rapor = 'MADRASAH ALIYAH (MA)';
-                                                    }
+                                                    $header_rapor = $satuan[$setting->jenjang][$setting->satuan_pendidikan];
                                                     ?>
-                                                    <p style="margin-bottom: 0"><?=$header_rapor?></p>
+                                                    <p style="margin-bottom: 0"><?= $header_rapor ?></p>
                                                     <p style="margin-bottom: 0;font-family: 'Arial';font-size: 24pt;"><?= $setting->sekolah ?></p>
                                                 </div>
                                                 <div class="judul"
@@ -154,25 +158,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="print-info" class="border my-shadow mb-3 d-none"
-                                             style="background-color: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-info" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-data" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-data" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-sikap-nilai" class="border my-shadow mb-3 d-none pb-5"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-sikap" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <!--
-                                        <div id="print-nilai" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-nilai" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        -->
-                                        <div id="print-deskripsi1" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-deskripsi1" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
-                                        <div id="print-deskripsi2" class="border my-shadow mb-3 d-none"
-                                             style="background: white;width: 210mm; min-height: 297mm;padding: 5mm 10mm 5mm 10mm">
+                                        <div id="print-deskripsi2" class="border my-shadow mb-3 d-none p-5"
+                                             style="background: white;width: 210mm; min-height: 297mm;">
                                         </div>
                                     </div>
                                 </div>
@@ -193,9 +195,12 @@
     var siswaSelected = null;
     var kelas = '<?= $kelas ?>';
     var level = '<?= $lvl_kelas ?>';
+    var tp = JSON.parse(JSON.stringify(<?= json_encode($tp_name != null ? $tp_name : "") ?>));
+    var smt = JSON.parse(JSON.stringify(<?= json_encode($smt_name != null ? $smt_name : "") ?>));
     var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswas)?>));
     var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
+    var arrKelompokMapel = JSON.parse(JSON.stringify(<?= json_encode($kelompoks)?>));
     var arrekstra = JSON.parse(JSON.stringify(<?= json_encode($mapel_ekstra)?>));
     var sikap = JSON.parse(JSON.stringify(<?= json_encode($sikap)?>));
     var nilai = JSON.parse(JSON.stringify(<?= json_encode($nilai)?>));

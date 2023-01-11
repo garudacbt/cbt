@@ -193,7 +193,7 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="ganda">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -300,7 +300,7 @@
                                     </div>
                                 </div>
                             <!--
-                                <table id="table-pg" class="table-soal table table-sm table-striped mt-3">
+                                <table id="table-pg" class="table-soal table table-striped mt-3">
                                     <?php
                                     foreach ($soals_pg as $s) :
                                         $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
@@ -345,7 +345,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane" id="kompleks">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -413,7 +413,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <table id="table-pg2" class="table-soal table table-sm table-striped mt-3">
+                                <table id="table-pg2" class="table-soal table table-striped mt-3">
                                     <?php
                                     foreach ($soals_pg2 as $s) :
                                         $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
@@ -461,7 +461,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane" id="jodoh">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -527,7 +527,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <table id="table-jodohkan" class="table-soal table table-sm table-striped mt-3">
+                                <table id="table-jodohkan" class="table-soal table table-striped mt-3">
                                     <?php
                                     foreach ($soals_jodohkan as $s) :
                                         $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
@@ -557,7 +557,7 @@
                                                              style="display:block;"></div>
                                                     </div>
                                                 <?php else : ?>
-                                                    <table class="table table-sm table-bordered">
+                                                    <table class="table table-bordered">
                                                         <?php
                                                         foreach ($jawaban['jawaban'] as $nomor => $items) :
                                                             if ($nomor === 0) : ?>
@@ -590,7 +590,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane" id="isian">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -656,7 +656,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <table id="table-isian" class="table-soal table table-sm table-striped mt-3">
+                                <table id="table-isian" class="table-soal table table-striped mt-3">
                                     <?php
                                     foreach ($soals_isian as $s) :
                                         $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
@@ -689,7 +689,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane" id="essai">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
                                     <th class="border-dark" colspan="2">Jumlah Soal</th>
@@ -755,7 +755,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <table id="table-essai" class="table-soal table table-sm table-striped">
+                                <table id="table-essai" class="table-soal table table-striped">
                                     <?php
                                     foreach ($soals_essai as $s) :
                                         $checked = $s->tampilkan == 1 ? 'checked' : '' ?>

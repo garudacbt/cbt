@@ -140,7 +140,7 @@
                             <p id="title-table" style="text-align: center;font-weight: bold;"></p>
                             <p id="title-mapel" style="text-align: center;font-weight: bold;"></p>
                             -->
-                            <table class="table-sm" id="table-status" style="font-size: 11pt; width: 100%;" data-cols-width="5,15,35,10">
+                            <table class="table" id="table-status" style="font-size: 11pt; width: 100%;" data-cols-width="5,15,35,10">
                             </table>
                         </div>
                     <?php endif; ?>

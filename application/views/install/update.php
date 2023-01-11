@@ -26,7 +26,7 @@
         <hr>
         <div class="row mb-3">
             <div class="col-8">
-                <h4>UPDATE/RESET DATABASE</h4>
+                <h4>UPDATE DATABASE</h4>
             </div>
             <div class="col-4 text-right">
                 <a href="<?=base_url()?>" class="btn btn-success">
@@ -48,15 +48,10 @@
 
         <div class="row">
             <div class="col-md-3 col-6">
-                <button id="check" class="w-100 btn btn-primary" onclick="cekDb()">Cek Database</button>
+                <button id="check" class="w-100 btn btn-primary" onclick="cekDatabase()">Cek Database</button>
             </div>
-            <!--
-            <div class="col-md-3 col-6">
-                <a href="<?=base_url().'/update/make_base'?>" class="w-100 btn btn-primary">Make Migration</a>
-            </div>
-            -->
             <div id="update" class="col-md-3 col-6 d-none">
-                <button id="btn-update" class="w-100 btn btn-success" onclick="updateDb()">Update Database</button>
+                <button id="btn-update" class="w-100 btn btn-success" onclick="updateDatabase()">Update Database</button>
             </div>
 
             <div id="progress" class="col-md-6 col-12 d-none">
@@ -66,11 +61,11 @@
                 </div>
             </div>
 
-            <div id="spinner" class="col-md-9 d-none">
+            <div id="spinner" class="col-md-6 d-none">
                 <div class="spinner-border text-danger" role="status">
                     <span class="sr-only">Loading</span>
                 </div>
-                <span class="ml-2">
+                <span id="spinner-info" class="ml-2">
                     Mengambil informasi ....
                 </span>
             </div>
@@ -91,124 +86,22 @@
 
     });
 
-    let jmlTbl, jmlCol, jmlMod;
-    let percen, newPercen = 0;
-    let forAddTbl, forAddCol, forModCol;
-
-    function tableCreate(data) {
-        var html = '<div id="create" class="col-md-6">' +
-            '<p>Table yang akan dibuat</p>\n' +
-            '<table class="table table-bordered table-sm border-primary">\n' +
-            '    <tr class="bg-gray">\n' +
-            '        <th class="text-center">NO</th>\n' +
-            '        <th>Table</th>\n' +
-            '    </tr>\n';
-
-        var no = 1;
-        $.each(data, function (i, table) {
-            html += '<tr>' +
-                '<td class="text-center">'+no+'</td>' +
-                '<td>'+table.table_name+'</td>' +
-                '</tr>\n';
-            no++;
-        });
-        html += '</table></div>';
-        $('#info-table').append(html);
-    }
-
-    function columnAdd(data) {
-        var html = '<div id="add" class="col-md-6">\n' +
-            '<p>Kolom yang akan ditambahkan ke table</p>\n' +
-            '<table class="table table-bordered table-sm">\n' +
-            '    <tr class="bg-gray">\n' +
-            '        <th class="text-center">NO</th>\n' +
-            '        <th>Table</th>\n' +
-            '        <th>Kolom</th>\n' +
-            '    </tr>\n';
-
-        var no = 1;
-        $.each(data, function (table, column) {
-            html += '        <tr>\n' +
-                '            <td rowspan="'+column.length+'" class="text-center">'+no+'</td>\n' +
-                '            <td rowspan="'+column.length+'">'+table+'</td>\n' +
-                '            <td>'+column[0].name+'</td>\n' +
-                '        </tr>\n';
-
-            for (let i = 1; i < column.length; i++) {
-                html += '        <tr>\n' +
-                    '            <td>'+column[i].name+'</td>\n' +
-                    '        </tr>\n';
-            }
-            no++;
-        });
-        html += '</table></div>';
-        $('#info-table').append(html);
-    }
-
-
-    function columnMod(data) {
-        var html = '<div id="modify" class="col-md-6"><p>Kolom yang akan dimodifikasi</p>\n' +
-            '<table class="table table-bordered table-sm">\n' +
-            '    <tr class="bg-gray">\n' +
-            '        <th class="text-center">NO</th>\n' +
-            '        <th>Table</th>\n' +
-            '        <th>Kolom</th>\n' +
-            '    </tr>\n';
-        var no = 1;
-        $.each(data, function (table, column) {
-            var col_names = $.map(column, function(element,index) {return index});
-            html += '        <tr>\n' +
-            '            <td rowspan="'+col_names.length+'" class="text-center">'+no+'</td>\n' +
-            '            <td rowspan="'+col_names.length+'">'+table+'</td>\n' +
-            '            <td>'+col_names[0]+'</td>\n' +
-            '        </tr>\n';
-            for (let i = 1; i < col_names.length; i++) {
-                html += '            <tr>\n' +
-                    '                <td>'+col_names[i]+'</td>\n' +
-                    '            </tr>\n';
-            }
-            no++;
-        });
-        html += '</table></div>';
-        $('#info-table').append(html);
-    }
-
-    function cekDb() {
+    function cekDatabase() {
         $('#check').attr('disabled', 'disabled');
         $('#spinner').removeClass('d-none');
         $('#update').addClass('d-none');
         $('#progress').addClass('d-none');
         $.ajax({
             type: "GET",
-            url: base_url+'update/checkdb',
+            url: base_url+'update/checkdatabase',
             success: function (response) {
                 console.log(response);
-                //updateProgress(100, response.message);
                 $('#check').removeAttr('disabled');
                 $('#check').text('Cek Ulang Database');
                 $('#spinner').addClass('d-none');
                 $('#info-db').removeClass('d-none');
 
-                forAddTbl = response.add_tbl;
-                forAddCol = response.add_col;
-                forModCol = response.mod_col;
-
-                jmlTbl = response.count_tbl;
-                jmlCol = response.count_col;
-                jmlMod = response.count_mod;
-
-                var schedule = 0;
-                if (jmlTbl > 0) schedule += 1;
-                console.log('sch', schedule);
-                if (jmlCol > 0) schedule += 1;
-                console.log('sch', schedule);
-                if (jmlMod > 0) schedule += 1;
-                console.log('sch', schedule);
-                percen = 100 / schedule;
-
-                console.log('percen', percen);
-
-                if (jmlTbl === 0 && jmlCol === 0 && jmlMod === 0) {
+                if (response.counts === 0) {
                     console.log('updated');
                     $('#info-db').html('Database sudah versi terbaru');
                 } else {
@@ -216,10 +109,29 @@
                     $('#info-db').html('Database perlu update, silahkan lakukan update ke versi terbaru');
                     $('#update').removeClass('d-none');
                 }
-                $('#info-table').html('');
-                if (jmlTbl > 0) tableCreate(response.create_tables);
-                if (jmlCol > 0) columnAdd(response.add_columns_to_table);
-                if (jmlMod > 0) columnMod(response.edit_columns);
+            }
+        });
+    }
+
+    function updateDatabase() {
+        $('#check').attr('disabled', 'disabled');
+        $('#btn-update').attr('disabled', 'disabled');
+
+        $('#spinner').removeClass('d-none');
+        $('#spinner-info').html('Update database....');
+        $('#info-db').html('Update database....');
+
+        $.ajax({
+            method: "GET",
+            url: base_url+'update/updatedatabase',
+            success: function (response) {
+                console.log(response);
+                $('#spinner').addClass('d-none');
+                $('#info-db').html('Update database selesai');
+
+                $('#check').removeAttr('disabled');
+                $('#btn-update').removeAttr('disabled');
+                $('#update').addClass('d-none');
             }
         });
     }
@@ -227,6 +139,7 @@
     function updateProgress(count, message) {
         var progress = $('.progress-bar');
         var prog = Math.round(Number(count));
+        console.log(prog);
         progress.attr('aria-valuenow', prog);
         progress.attr('style','width:'+ prog +'%; height: 35px');
         progress.html('<span class="text-dark">' + prog + '%  ' + message + '</span>');
@@ -237,74 +150,6 @@
         }
 
         $('#info-db').html(message);
-    }
-
-    function updateDb() {
-        $('#check').attr('disabled', 'disabled');
-        $('#btn-update').attr('disabled', 'disabled');
-        $('#progress').removeClass('d-none');
-
-        const dataPost = $('#update-database').serialize() + '&data=' + forAddTbl.replace(/\+/g, "%2B");
-        if (jmlTbl > 0) {
-            $.ajax({
-                method: "POST",
-                data: dataPost,
-                url: base_url+'update/createtable',
-                success: function (response) {
-                    console.log(response);
-                    if (response.success) {
-                        updateProgress(percen, response.message);
-                        createColumn(percen);
-                    }
-                }
-            });
-        } else {
-            updateProgress(0, 'Update kolom');
-            createColumn(0);
-        }
-    }
-
-    function createColumn(prc) {
-        const dataPost = $('#update-database').serialize() + '&data=' + forAddCol.replace(/\+/g, "%2B");
-        if (jmlCol > 0) {
-            $.ajax({
-                method: "POST",
-                data: dataPost,
-                url: base_url+'update/createcolumn',
-                success: function (response) {
-                    console.log(response);
-                    percen += prc;
-                    if (response.success) {
-                        updateProgress(percen, response.message);
-                        editColumn(percen);
-                    }
-                }
-            });
-        } else {
-            updateProgress(0, 'Modify kolom');
-            editColumn(0);
-        }
-    }
-
-    function editColumn(prc) {
-        const dataPost = $('#update-database').serialize() + '&data=' + forModCol.replace(/\+/g, "%2B");
-        if (jmlMod > 0) {
-            $.ajax({
-                method: "POST",
-                data: dataPost,
-                url: base_url+'update/editcolumn',
-                success: function (response) {
-                    percen += prc;
-                    console.log(response);
-                    if (response.success) {
-                        //updateProgress(percen, response.message);
-                        updateProgress(100, 'Update Selesai');
-                    }
-                }
-            });
-        } else {
-            updateProgress(0, 'Update Selesai');
-        }
     }
 
 </script>

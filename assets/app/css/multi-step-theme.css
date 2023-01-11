@@ -21,12 +21,18 @@
     background-color: #EAEAEA; }
 
 .multi-step .card-header .card-steps .step.completed:after {
-  border-color: #39c0ba; }
+  border-color: #39c0ba;
+}
 
 .multi-step .card-header .card-steps .step.completed .dot {
   border-color: #39c0ba; }
-  .multi-step .card-header .card-steps .step.completed .dot:before {
-    background-color: #39c0ba; }
+
+.multi-step .card-header .card-steps .step.completed .dot:before {
+    background-color: #39c0ba;
+}
+
+.multi-step .card-header .card-steps .step .label.completed {
+  color: #39c0ba; }
 
 .multi-step .card-header .card-steps .step.skipped:after {
   border-color: #ffc107; }

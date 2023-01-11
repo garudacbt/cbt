@@ -51,7 +51,7 @@
                                 $arrDur[$is['ist']] = $is['dur'];
                             }
                             ?>
-                            <table class="table table-sm w-100">
+                            <table class="table w-100">
                                 <thead>
                                 <tr>
                                     <th class="text-center">Jam Ke</th>

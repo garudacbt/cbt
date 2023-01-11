@@ -126,7 +126,7 @@
                 setTimeout(function () {
                     $('#file-preview').children().not("table").remove();
                     $('#file-preview').children('table').each(function (i, v) {
-                        $(this).addClass('table table-bordered table-sm w-100');
+                        $(this).addClass('table table-bordered w-100');
 
                         const $trs = $(this).find('tr'), headers = $trs.splice(0, 1); // header rows
 

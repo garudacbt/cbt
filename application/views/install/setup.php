@@ -1,8 +1,7 @@
 <section class="d-flex align-items-center gradient">
-
     <div class="container p-4">
         <div class="row">
-            <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1 aos-init aos-animate" data-aos="fade-up">
+            <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 aos-init aos-animate" data-aos="fade-up">
                 <div class="text-center text-md-left">
                     <div class="mb-3 text-white">
                         <img style="width:100px; height:auto;" src="<?=base_url()?>/assets/img/garuda_white.svg"><span class="h1 align-bottom">aruda</span> <span class="h1 align-bottom"> CBT</span>
@@ -10,19 +9,94 @@
                     <div class="h2 text-white">
                         <b>G</b>abungan <b>A</b>plikasi <b>R</b>apor,<br/><b>U</b>jian dan e-learning
                     </div>
-
-                    <?php if ($res != '1') :?>
-                        <p class="text-white">Belum lengkap: <?=$msg?></p>
-                    <?php endif; ?>
-                    <a href="<?= base_url('install/steps') ?>" class="btn btn-default"><i class="fa fa-download"></i> Install Sekarang</a>
                 </div>
             </div>
-            <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img aos-init aos-animate" data-aos="fade-up">
-                <img src="<?=base_url()?>/assets/img/hero-img.png" alt="" style="max-width: 90%; height: auto">
+            <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch hero-img aos-init aos-animate pt-5" data-aos="fade-up">
+                <div class="card" style="background-color: rgba(255,255,255,.7);">
+                    <div class="card-body">
+                        <?=form_open('create', array('id'=>'create'))?>
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="input-nama-db">Host Name</label>
+                                <input type="text" class="form-control db" id="input-nama-host" name="hostname" value="" placeholder="localhost" required>
+                            </div>
+                            <div class="form-group col-12" required>
+                                <label for="input-nama-db">Host Username</label>
+                                <input type="text" class="form-control db" id="input-user-host" name="hostuser" value="" placeholder="Host Username">
+                            </div>
+                            <div class="form-group col-12" required>
+                                <label for="input-nama-db">Host Password</label>
+                                <input type="text" class="form-control" id="input-pass-host" value="" name="hostpass" placeholder="Host Password">
+                                <small class="form-text text-muted">Kosongkan jika tidak menggunakan password.</small>
+                            </div>
+                            <div class="form-group col-12" required>
+                                <label for="input-nama-db">Nama Database</label>
+                                <input type="text" class="form-control db" id="input-nama-db" name="database" value="" placeholder="Nama Database">
+                                <small class="form-text text-muted">Jangan gunakan spasi.</small>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap align-items-center justify-content-end">
+                            <button type="submit" id="install-db" class="btn-primary btn">INSTALL / UPDATE</button>
+                        </div>
+                        <?=form_close()?>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="alert alert-default-info align-content-center mt-4" role="alert" style="background-color: rgba(255,255,255,.7);">
+            <i><b>A. Update Aplikasi</b></i>
+            <ul>
+                <li>
+                    Isi kolom di atas, sesuaikan dengan pengaturan localhost/mySql dan nama database yang sudah ada, lalu klik [INSTALL / UPDATE].
+                </li>
+            </ul>
+            <br>
+            <i><b>B. Install Otomatis</b></i>
+            <ul>
+                <li>
+                    Isi kolom di atas, sesuaikan dengan pengaturan localhost/mySql, isi nama database, lalu klik [INSTALL / UPDATE
+                </li>
+                <li>
+                    Lanjutkan proses instalasi di halaman selanjutnya
+                </li>
+            </ul>
+            <br>
+            <i><b>C. Install Manual</b></i>
+            <br>Jika ingin menginstall manual, lakukan langkah dibawah ini:
+            <ol>
+                <li>
+                    Buat database baru di <b>phpmyadmin</b>
+                </li>
+                <li>
+                    IMPORT file database di dalam folder /assets/app/db/master.sql
+                </li>
+                <li>
+                    Buka file <b>database.php</b> di dalam folder /application/config/
+                </li>
+                <li>
+                    Ganti baris kode dibawah ini:
+                    <pre style="white-space: pre-line">
+                        <code><span class="badge badge-light">'hostname' => '',</span></code>
+                        <code><span class="badge badge-light">'username' => '',</span></code>
+                        <code><span class="badge badge-light">'password' => '',</span></code>
+                        <code><span class="badge badge-light">'database' => '',</span></code>
+                    </pre>
+                    menjadi:
+                    <br>
+                    <pre style="white-space: pre-line">
+                        <code><span class="badge badge-light">'hostname' => 'localhost', </span>
+                            <span class="badge badge-light">'username' => '',  </span> // default xampp tidak menggunakan username, laragon menggunakan username = root
+                            <span class="badge badge-light">'password' => '',  </span> // default xampp dan laragon tidak menggunakan password
+                            <span class="badge badge-light">'database' => 'nama_database', </span> // sesuaikan dengan nama database yang dibuat
+                        </code>
+                    </pre>
+                </li>
+                <li>
+                    Refresh halaman ini
+                </li>
+            </ol>
+        </div>
     </div>
-
 </section>
 <section class="gradient">
     <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -41,3 +115,70 @@
         </g>
     </svg>
 </section>
+
+<script>
+    console.log('<?= $res ?>', '<?= $msg ?>');
+    $(document).ready(function() {
+        $('#create').submit(function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            console.log("data:", $(this).serialize());
+
+            swal.fire({
+                title: "Checking database",
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
+
+            const dataPost = $(this).serialize();
+            $.ajax({
+                url: base_url + 'install/checkdatabase',
+                method: 'POST',
+                data: dataPost + '&page=0',
+                success: function (response) {
+                    console.log(response);
+                    swal.close();
+                    swal.fire({
+                        title: "Sukses",
+                        html: "Database berhasil diinstall",
+                        icon: "success",
+                        closeOnClickOutside: false,
+                        showCancelButton: false,
+                        closeOnEsc: false,
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    }).then(result => {
+                        if (result.value) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function (xhr, error, status) {
+                    swal.close();
+                    Swal.fire({
+                        title: "ERROR",
+                        html: 'Gagal inisialisasi database',
+                        icon: "error"
+                    });
+                    console.log(xhr.responseText);
+                }
+            });
+
+            /*
+            setTimeout(
+                function() {
+                    swal.close();
+                }, 5000);
+                */
+        });
+    });
+</script>

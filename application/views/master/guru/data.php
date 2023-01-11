@@ -77,7 +77,7 @@ function sortByPosition($a, $b) {
                                         <?php if ($mapels_guru != null || $ekstras_guru != null):?>
                                         <div>
                                             <span>Pengampu:</span>
-                                            <table class="table table-bordered table-bordered table-sm">
+                                            <table class="table table-bordered table-bordered">
                                                 <tr>
                                                     <th class="text-center">No.</th>
                                                     <th class="text-center">Mata Pelajaran</th>

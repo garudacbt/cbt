@@ -35,16 +35,22 @@ foreach ($materi as $k => $m) {
     <section class="content">
         <div class="container-fluid">
             <?php
-            //echo '<pre>';
-            //var_dump($kelas_materi);
-            //echo '<br>';
-            //var_dump($total);
-            //echo '<br>';
-            //var_dump($kelas_materi);
-            //var_dump($curr_materi);
-            //echo '</pre>';
+            $days = [0,1,2,3,4,5,6];
+            $disabledDay = [];
+            $mapeljamke = [];
+            foreach ($jadwal_mapel as $km=>$vm) {
+                foreach ($vm as $kk=>$vk) {
+                    $disabledDay[$km][$kk] = $days;
+                    $mapeljamke[$km][$kk] = '';
+                    foreach ($vk as $ih) {
+                        if ($mapeljamke[$km][$kk] == '') $mapeljamke[$km][$kk] = $ih->jam_ke;
+                        unset($disabledDay[$km][$kk][$ih->id_hari]);
+                        //$disabledDay[$km] = array_diff($disabledDay[$km], array($ih->id_hari));
+                    }
+                }
+            }
             ?>
-            <div class="card card-default my-shadow mb-4">
+            <div class="card card-default my-shadow mb-4 <?= count($jadwal_mapel) > 0 ? '' : 'd-none' ?>">
                 <div class="card-header">
                     <h6 class="card-title"><?= $subjudul ?></h6>
                     <div class="card-tools">
@@ -104,14 +110,12 @@ foreach ($materi as $k => $m) {
                         $arrIds = [];
                         if (count($curr_materi) > 0) :?>
                         <div class="col-12">
-                            <table class="w-100 table table-sm table-bordered">
+                            <table class="w-100 table table-bordered">
                                 <tr class="alert alert-success">
                                     <th rowspan="2" class="text-center align-middle">No.</th>
-                                    <th rowspan="2" class="text-center align-middle">Guru</th>
-                                    <th rowspan="2" class="text-center align-middle">Mapel</th>
+                                    <th rowspan="2" class="text-center align-middle">Guru<br>Mapel</th>
                                     <th colspan="3" class="text-center align-middle"><?=$subjudul?></th>
-                                    <th rowspan="2" class="text-center align-middle">TP / SMT</th>
-                                    <th rowspan="2" class="text-center align-middle">Dibuat</th>
+                                    <th rowspan="2" class="text-center align-middle">Tgl. Mulai</th>
                                     <th rowspan="2" class="text-center align-middle">Status</th>
                                     <th rowspan="2" class="text-center align-middle" style="width: 100px">Aksi</th>
                                 </tr>
@@ -125,40 +129,65 @@ foreach ($materi as $k => $m) {
                                 foreach ($curr_materi as $key => $value) :
                                     $arr = unserialize($value->materi_kelas);
                                     array_push($arrIds, $value->id_materi);
+                                    $rows = count($arr) > 1 ? count($arr) : '1';
                                     ?>
                                     <tr>
-                                        <td class="text-center align-middle"><?= $no ?></td>
-                                        <td class="align-middle"><?= $value->nama_guru ?></td>
-                                        <td class="align-middle"><?= $value->kode ?></td>
-                                        <td class="align-middle"><?= $value->kode_materi ?></td>
-                                        <td class="align-middle"><?= $value->judul_materi ?></td>
+                                        <td rowspan="<?=$rows?>" class="text-center align-middle"><?= $no ?></td>
+                                        <td rowspan="<?=$rows?>" class="align-middle">
+                                            <?= $value->nama_guru ?><br><b><?= $value->kode ?></b>
+                                        </td>
+                                        <td rowspan="<?=$rows?>" class="align-middle"><?= $value->kode_materi ?></td>
+                                        <td rowspan="<?=$rows?>" class="align-middle"><?= $value->judul_materi ?></td>
+                                        <!--
                                         <?php
                                         $arrKls = '';
                                         foreach ($arr as $k => $v) {
                                             if (isset($kelas_materi[$value->id_materi][$v])) {
-                                                $arrKls .= '<span class="badge badge-secondary mr-1">' . $kelas_materi[$value->id_materi][$v] . '</span>';
+                                                $arrKls .= '<span class="badge mr-1">' . $kelas_materi[$value->id_materi][$v] . '</span>';
                                             }
                                         } ?>
-
-                                        <td class="text-center align-middle"><?= $arrKls ?></td>
-                                        <td class="text-center align-middle"><?= $value->tahun ?> smt <?= $value->nama_smt ?></td>
+                                        -->
                                         <td class="text-center align-middle">
-                                            <?= date('d-m-Y H:i', strtotime($value->updated_on)) ?>
-
+                                            <b><?= isset($kelas_materi[$value->id_materi]) && isset($kelas_materi[$value->id_materi][$arr[0]])
+                                                        ? $kelas_materi[$value->id_materi][$arr[0]]
+                                                        : '' ?></b>
+                                        </td>
+                                        <td class="align-middle">
+                                            <?php
+                                            $tglMulai = isset($jadwal_materi[$value->id_materi][$arr[0]])
+                                                ? buat_tanggal(date('D, d M Y', strtotime($jadwal_materi[$value->id_materi][$arr[0]])))
+                                                : '. . .';
+                                            $old = isset($jadwal_materi[$value->id_materi][$arr[0]])
+                                                ? $jadwal_materi[$value->id_materi][$arr[0]]
+                                                : '';
+                                            $jam = isset($mapeljamke[$value->id_mapel][$arr[0]])
+                                                ? $mapeljamke[$value->id_mapel][$arr[0]] : '1';
+                                            ?>
+                                            <button class="btn btn-default"
+                                                    data-toggle="modal"
+                                                    data-target="#openCalendar"
+                                                    data-jamke="<?= $jam ?>"
+                                                    data-time="<?=$old?>"
+                                                    data-jenis="<?= $jenis ?>"
+                                                    data-materi="<?= $value->id_materi ?>"
+                                                    data-mapel="<?= $value->id_mapel ?>"
+                                                    data-kelas="<?= $arr[0]?>">
+                                                <i class="fa fa-calendar-check-o mr-2"></i><?= $tglMulai ?>
+                                            </button>
                                         </td>
                                         <?php
                                         $stt = $value->status == '1' ? 'Aktif' : 'Non Aktif';
                                         $btn_bg = $value->status == '1' ? 'bg-success' : 'bg-warning';
                                         //$btn_txt = $value->status == '1' ? 'Nonaktifkan' : 'Aktifkan';
                                         ?>
-                                        <td class="text-center align-middle">
+                                        <td rowspan="<?=$rows?>" class="text-center align-middle">
                                             <button
                                                     class="btn btn-xs <?= $btn_bg ?>"
                                                     onclick="aktifkanMateri(<?= $value->id_materi ?>, <?= $value->status ?>)">
                                                 <?= $stt ?>
                                             </button>
                                         </td>
-                                        <td class="text-center">
+                                        <td rowspan="<?=$rows?>" class="text-center align-middle">
                                             <a type="button" class="btn btn-sm btn-warning" title="Edit <?=$subjudul?>"
                                                href="<?= base_url('kelasmateri/add/'. $jenis. '/' . $value->id_materi) ?>">
                                                 <i class="fa fa-pencil-alt"></i>
@@ -170,7 +199,38 @@ foreach ($materi as $k => $m) {
                                             </button>
                                         </td>
                                     </tr>
-                                    <?php $no++; endforeach; ?>
+                                <?php for ($k = 1; $k < count($arr); $k++) : ?>
+                                <tr>
+                                    <td class="text-center align-middle">
+                                        <b><?= isset($kelas_materi[$value->id_materi]) && isset($kelas_materi[$value->id_materi][$arr[$k]])
+                                                ? $kelas_materi[$value->id_materi][$arr[$k]]
+                                                : '' ?></b>
+                                    </td>
+                                    <td class="align-middle">
+                                        <?php
+                                        $tglMulai = isset($jadwal_materi[$value->id_materi][$arr[$k]])
+                                            ? buat_tanggal(date('D, d M Y', strtotime($jadwal_materi[$value->id_materi][$arr[$k]])))
+                                            : '. . .';
+                                            $old = isset($jadwal_materi[$value->id_materi][$arr[$k]])
+                                                ? $jadwal_materi[$value->id_materi][$arr[$k]]
+                                                : '';
+                                            $jam = isset($mapeljamke[$value->id_mapel][$arr[$k]])
+                                                ? $mapeljamke[$value->id_mapel][$arr[$k]] : '1';
+                                            ?>
+                                        <button class="btn btn-default"
+                                                data-toggle="modal"
+                                                data-target="#openCalendar"
+                                                data-jamke="<?= $jam ?>"
+                                                data-time="<?=$old?>"
+                                                data-jenis="<?= $jenis ?>"
+                                                data-materi="<?= $value->id_materi ?>"
+                                                data-mapel="<?= $value->id_mapel ?>"
+                                                data-kelas="<?= $arr[$k]?>">
+                                            <i class="fa fa-calendar-check-o mr-2"></i><?= $tglMulai ?>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <?php endfor; $no++; endforeach; ?>
                             </table>
                         </div>
                         <?php else: ?>
@@ -180,6 +240,19 @@ foreach ($materi as $k => $m) {
                                 </div>
                             </div>
                         <?php endif; ?>
+                    </div>
+                </div>
+                <div id="loading" class="overlay d-none"><div class="spinner-grow"></div></div>
+            </div>
+            <div class="card card-default my-shadow mb-4 <?= count($jadwal_mapel) == 0 ? '' : 'd-none' ?>">
+                <div class="card-header">
+                    <h6 class="card-title"><?= $subjudul ?></h6>
+                </div>
+                <div class="card-body">
+                    <div class="col-12 p-0">
+                        <div class="alert alert-default-warning align-content-center" role="alert">
+                            Jadwal Pelajaran belum diatur
+                        </div>
                     </div>
                 </div>
             </div>
@@ -255,6 +328,41 @@ foreach ($materi as $k => $m) {
     </div>
 </div>
 
+<div class="modal fade" id="openCalendar" tabindex="-1" role="dialog" aria-labelledby="openCalendarLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="openCalendarLabel">Tanggal Mulai</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="tgl"></div>
+                <div id="empty" class="d-none"><p>Jadwal Pelajaran belum diatur</p></div>
+                <div id="form-tgl">
+                    <?= form_open('', array('id' => 'set-jadwal')) ?>
+                    <input class="d-none" type="text" name="id_kelas" value="">
+                    <input class="d-none" type="text" name="jenis" value="">
+                    <input class="d-none" type="text" name="jam_ke" value="">
+                    <input class="d-none" type="text" name="id_materi" value="">
+                    <input class="d-none" type="text" name="id_mapel" value="">
+                    <input class="d-none" type="text" name="jadwal_lama" value="">
+                    <input class="d-none" type="text" name="jadwal_materi" value="">
+                    <?= form_close() ?>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-id="cancel" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="btn-result" disabled
+                        data-id="ok" onclick="simpanTgl(this)">Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= form_open('', array('id' => 'up')) ?>
 <?= form_close() ?>
 
@@ -264,9 +372,11 @@ foreach ($materi as $k => $m) {
     var subjudul = '<?=$subjudul?>';
     var urlJenis = '<?=$jenis == "1" ? "materi" : "tugas"?>';
     var jenis = '<?=$jenis?>';
+    const thn = JSON.parse('<?= json_encode($tp_active) ?>');
+    const smt = JSON.parse('<?= json_encode($smt_active) ?>');
+    const days = JSON.parse('<?= json_encode($disabledDay) ?>');
     $(document).ready(function () {
         ajaxcsrf();
-
         function getMateriGuru() {
             window.location.href = base_url + 'kelasmateri/'+ urlJenis +'?id=' + idGuru;
         }
@@ -347,6 +457,67 @@ foreach ($materi as $k => $m) {
                     title: subjudul + " Kosong",
                     text: "Tidak ada materi yang bisa dihapus",
                     icon: "info"
+                });
+            }
+        });
+
+        $('#openCalendar').on('show.bs.modal', function (e) {
+            const idJenis = $(e.relatedTarget).data('jenis');
+            const idMateri = $(e.relatedTarget).data('materi');
+            const idMapel = $(e.relatedTarget).data('mapel');
+            const idKelas = $(e.relatedTarget).data('kelas');
+            const jamke = $(e.relatedTarget).data('jamke');
+            var oldTime = $(e.relatedTarget).data('time');
+
+            $("input[name='id_kelas']").val(idKelas);
+            $("input[name='id_mapel']").val(idMapel);
+            $("input[name='id_materi']").val(idMateri);
+            $("input[name='jenis']").val(idJenis);
+            $("input[name='jam_ke']").val(jamke);
+            $("input[name='jadwal_lama']").val(oldTime);
+
+            if (days[idMapel] === undefined || days[idMapel][idKelas] === undefined) {
+                $('#empty').removeClass('d-none');
+                $('.xdsoft_datetimepicker').addClass('d-none');
+                $('#btn-result').attr('disabled', '');
+            } else {
+                var dis = days[idMapel][idKelas];
+                $('#empty').addClass('d-none');
+                $('.xdsoft_datetimepicker').removeClass('d-none');
+                $('#btn-result').removeAttr('disabled');
+                var values = Object.keys(dis).map(function (key) { return dis[key]; });
+                let today = new Date().toISOString().slice(0, 10);
+                if (oldTime === '') oldTime = today;
+                $("input[name='jadwal_materi']").val(oldTime);
+                $('#tgl').datetimepicker({
+                    icons:
+                        {
+                            next: 'fa fa-angle-right',
+                            previous: 'fa fa-angle-left'
+                        },
+                    timepicker: false,
+                    format: 'Y-m-d',
+                    inline: true,
+                    disabledWeekDays: values,
+                    todayButton: true,
+                    defaultDate: oldTime,
+                    value: oldTime,
+                    widgetPositioning: {
+                        horizontal: 'left',
+                        vertical: 'bottom'
+                    },
+                    onChangeDateTime: function(date){
+                        var tgl = date.getDate();
+                        if (tgl < 10) tgl = '0'+tgl;
+                        var nb = date.getMonth() + 1;
+                        var bln = nb;
+                        if (nb < 10) bln = '0'+nb;
+
+                        var thn = date.getFullYear();
+                        var hari = date.getDay();
+                        console.log(tgl, bln, thn);
+                        $("input[name='jadwal_materi']").val(thn+'-'+bln+'-'+tgl);
+                    }
                 });
             }
         });
@@ -497,6 +668,55 @@ foreach ($materi as $k => $m) {
                             icon: "error"
                         });
                     }
+                });
+            }
+        });
+    }
+
+    function simpanTgl(btn) {
+        // id_kjm = kls + tp + smt +
+        // $tanggal.replaceAll("-", "") + jamke + jenis
+        console.log('post', $('#set-jadwal').serialize());
+        $('#openCalendar').modal('hide').data('bs.modal', null);
+        $('#openCalendar').on('hidden', function () {
+            $(this).data('modal', null);
+        });
+        $('#tgl').html('');
+
+        $('#loading').removeClass('d-none');
+        $.ajax({
+            url: base_url + "kelasmateri/savejadwal",
+            type: "POST",
+            data: $('#set-jadwal').serialize(),
+            success: function (data) {
+                console.log("result", data);
+                $('#loading').addClass('d-none');
+                if (data) {
+                    swal.fire({
+                        title: "Sukses",
+                        text: "Jadwal materi berhasil disimpan",
+                        icon: "success",
+                        showCancelButton: false,
+                    }).then(result => {
+                        if (result.value) {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    swal.fire({
+                        title: "ERROR",
+                        text: "Jadwal materi gagal disimpan",
+                        icon: "error",
+                        showCancelButton: false,
+                    });
+                }
+            }, error: function (xhr, status, error) {
+                console.log("error", xhr.responseText);
+                swal.fire({
+                    title: "ERROR",
+                    text: "Jadwal materi gagal disimpan",
+                    icon: "error",
+                    showCancelButton: false,
                 });
             }
         });

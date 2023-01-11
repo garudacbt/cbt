@@ -46,34 +46,17 @@
  * @property Ion_auth_model $ion_auth_model
  * @property Datatables $datatables
  * @property Settings_model $settings
- * @property Menu_model $menu
  * @property Master_model $master
  * @property Dashboard_model $dashboard
  * @property Kelas_model $kelas
  * @property Users_model $users
  * @property Cbt_model $cbt
- * @property Soal_model $soal
  * @property Dropdown_model $dropdown
  * @property Log_model $logging
  * @property Rapor_model $rapor
  * @property Post_model $post
  *
- * @property Apimodel $api
- * @property Adminmodel $admin
- * @property Gurumodel $guru
- * @property Siswamodel $siswa
- * @property Usermodel $user
  *
- * @property Kelasmainmodel $kelas_main
- *
- * @property Mapelmodel $mapel
- *
- * @property Kelasjadwalmodel $kelas_jadwal
- *
- * @property Cbtjadwalmodel $cbt_jadwal
- *
- *
- * @property DAOFactory $dao
  *
  */
 class CI_Controller

@@ -37,7 +37,7 @@
                                 RUNNING TEXT akan muncul di bagian bawah layar siswa.
                             </div>
 
-                            <table id="tb-text" class="table table-bordered table-sm mb-2">
+                            <table id="tb-text" class="table table-bordered mb-2">
                                 <?php
                                 for ($i=0;$i<5;$i++) :
                                 $text = isset($running_text[$i]) ? $running_text[$i]->text : '';
@@ -630,7 +630,7 @@
     */
 
     function createListText(data){
-        var html = '<table class="table table-sm w-100">';
+        var html = '<table class="table w-100">';
         if (data.running_text.length > 0) {
             $.each(data.running_text, function (i, v) {
                 html += '<tr> ' +

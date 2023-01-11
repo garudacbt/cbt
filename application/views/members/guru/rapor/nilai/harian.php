@@ -75,7 +75,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <table id="tbl1" class="table table-bordered table-sm">
+                            <table id="tbl1" class="table table-bordered">
                                 <thead>
                                 <tr class="alert-default-success">
                                     <th class="text-center align-middle border-success" style="width: 50px">#</th>
@@ -99,7 +99,7 @@
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <table id="tbl2" class="table table-bordered border-success table-sm">
+                            <table id="tbl2" class="table table-bordered border-success">
                                 <thead>
                                 <tr class="alert-default-success">
                                     <th class="text-center align-middle border-success">#</th>
@@ -153,7 +153,7 @@
                     $a = $bsd + 1;
                     $asd = 100;
                     ?>
-                    <table class="table w-100 table-bordered border-dark table-sm">
+                    <table class="table w-100 table-bordered border-dark">
                         <tr class="bg-light text-center">
                             <td style="width: 20%">KKM</td>
                             <td style="width: 20%">Jenis KKM</td>

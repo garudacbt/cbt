@@ -42,7 +42,7 @@
 
                     <?php
                     if (count($tgl_jadwals) > 0) : ?>
-                        <table class="table table-sm table-bordered" id="tbl-pengawas">
+                        <table class="table table-bordered" id="tbl-pengawas">
                             <thead>
                             <tr>
                                 <th style="width: 40px" class="text-center align-middle">No.</th>

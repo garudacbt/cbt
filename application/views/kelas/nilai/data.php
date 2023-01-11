@@ -186,7 +186,7 @@
             '        </tr>' +
             '    </table>' +
             '</div><br>' +
-            '<table id="log-nilai" class="table table-sm" style="width:100%;border:1px solid #c0c0c0;border-collapse: collapse; border-spacing: 0; font-size: 10pt">' +
+            '<table id="log-nilai" class="table" style="width:100%;border:1px solid #c0c0c0;border-collapse: collapse; border-spacing: 0; font-size: 10pt">' +
             '<thead>' +
 			'<tr>' +
 			'<th rowspan="3" style="min-width: 40px; border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleHead + '>No.</th>' +

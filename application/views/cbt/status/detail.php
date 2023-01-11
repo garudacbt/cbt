@@ -36,7 +36,7 @@
                         if (count($soal) > 0) :
                             ?>
                             <table id="table-soal"
-                                   class="w-100 table table-sm table-striped table-bordered border-success nowrap">
+                                   class="w-100 table table-striped table-bordered border-success nowrap">
                                 <thead>
                                 <tr>
                                     <th colspan="4" class="text-center align-middle bg-blue">SOAL ASLI</th>

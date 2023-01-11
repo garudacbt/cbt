@@ -27,7 +27,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <table id="tbl1" class="table table-bordered table-sm">
+                                    <table id="tbl1" class="table table-bordered">
                                         <thead>
                                         <tr class="alert-default-danger">
                                             <th class="text-center align-middle border-danger" style="width: 50px">Poin</th>
@@ -49,7 +49,7 @@
                                     </table>
                                 </div>
                                 <div class="col-md-6">
-                                    <table id="tbl2" class="table table-bordered border-danger table-sm">
+                                    <table id="tbl2" class="table table-bordered border-danger">
                                         <thead>
                                         <tr class="alert-default-danger">
                                             <th class="text-center align-middle border-danger" style="width: 50px">Point</th>

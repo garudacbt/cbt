@@ -86,7 +86,7 @@
                         ?>
                         <div class="row">
                             <div class="col-12" id="persiswa">
-                                <table class="table table-striped table-bordered table-hover table-sm" id="tbl-siswa">
+                                <table class="table table-striped table-bordered table-hover" id="tbl-siswa">
                                     <thead>
                                     <tr>
                                         <th width="50" height="50" class="text-center p-0 align-middle">No.</th>

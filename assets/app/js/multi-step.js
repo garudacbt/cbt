@@ -140,7 +140,7 @@
                 //.attr('aria-labelledby', `${id}Title`)
                 //.attr('aria-hidden', 'true');
             this.element.html(`<div class="multi-step">
-<div class="card card-step-content">
+<div class="card card-step-content" style="background-color: rgba(255,255,255,.7);">
     <div class="card-header">    
         <div class="card-step-header">
             <h5 class="card-step-title" id="${id}LongTitle">${this.options.title}</h5>

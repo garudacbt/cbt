@@ -109,7 +109,7 @@ $jenjang = $setting->jenjang;
 					<div id="atur-by-kelas">
 						<?= form_open('cbtsesisiswa/editsesikelas', array('id' => 'editsesikelas')) ?>
 						<div class="table-responsive">
-							<table id="sesi" class="w-100 table table-striped table-bordered table-hover table-sm">
+							<table id="sesi" class="w-100 table table-striped table-bordered table-hover">
 								<thead class="alert alert-primary">
 								<tr>
 									<th height="50" width="40" class="align-middle text-center p-0">No.</th>
@@ -205,7 +205,7 @@ $jenjang = $setting->jenjang;
 									 aria-labelledby="content-below-<?= $titletab->id_kelas ?>-tab">
 									<?php $arraySiswaPerKelas = $kelasarray[$titletab->nama_kelas]; ?>
 									<div class="table-responsive" id="list-siswa">
-										<table id="sesi-<?= $titletab->id_kelas ?>" class="w-100 table table-striped table-bordered table-hover table-sm">
+										<table id="sesi-<?= $titletab->id_kelas ?>" class="w-100 table table-striped table-bordered table-hover">
 											<thead class="alert alert-primary">
 											<tr>
 												<th height="50" width="40" class="align-middle text-center p-0">No.</th>
@@ -454,7 +454,7 @@ $jenjang = $setting->jenjang;
 
 	function createTable(dataRuang, arrSesi) {
 		var html = '<div class="table-responsive" id="list-siswa">' +
-			'<table id="sesi-siswa" class="w-100 table table-striped table-bordered table-hover table-sm">' +
+			'<table id="sesi-siswa" class="w-100 table table-striped table-bordered table-hover">' +
 			'<thead class="alert alert-primary">' +
 			'<tr>' +
 			'<th height="50" width="40" class="align-middle text-center p-0">No.</th>' +

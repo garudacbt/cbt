@@ -172,7 +172,7 @@
 				},
 			timepicker: false,
 			format: 'Y-m-d',
-            disabledWeekDays: [0],
+            //disabledWeekDays: [0],
 			widgetPositioning: {
 				horizontal: 'left',
 				vertical: 'bottom'
