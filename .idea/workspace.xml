@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="version 1.3.20221216">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="version 1.3.20230111" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,10 +96,10 @@
         <counts>
           <entry key="project.closed" value="20" />
           <entry key="project.open.time.0" value="8" />
-          <entry key="project.open.time.1" value="10" />
+          <entry key="project.open.time.1" value="11" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -110,7 +108,7 @@
           <entry key="html" value="5" />
           <entry key="js" value="1" />
           <entry key="md" value="1" />
-          <entry key="php" value="34" />
+          <entry key="php" value="35" />
           <entry key="sql" value="1" />
           <entry key="sql___jb_old___" value="2" />
         </counts>
@@ -120,7 +118,7 @@
           <entry key="HTML" value="5" />
           <entry key="JavaScript" value="1" />
           <entry key="Markdown" value="1" />
-          <entry key="PHP" value="34" />
+          <entry key="PHP" value="35" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="SQL" value="1" />
         </counts>
@@ -129,30 +127,20 @@
         <counts>
           <entry key="md" value="571" />
           <entry key="php" value="11" />
-          <entry key="txt" value="103" />
+          <entry key="txt" value="107" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="571" />
           <entry key="PHP" value="11" />
-          <entry key="PLAIN_TEXT" value="103" />
+          <entry key="PLAIN_TEXT" value="107" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/views/cbt/cetak/pengawas.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -278,8 +266,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -296,6 +282,54 @@
               <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="helpers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="hooks" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="logs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="third_party" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -320,6 +354,42 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="members" type="462c0819:PsiDirectoryNode" />
               <item name="guru" type="462c0819:PsiDirectoryNode" />
+              <item name="cbt" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="members" type="462c0819:PsiDirectoryNode" />
+              <item name="guru" type="462c0819:PsiDirectoryNode" />
+              <item name="cbt" type="462c0819:PsiDirectoryNode" />
+              <item name="banksoal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="members" type="462c0819:PsiDirectoryNode" />
+              <item name="guru" type="462c0819:PsiDirectoryNode" />
+              <item name="cbt" type="462c0819:PsiDirectoryNode" />
+              <item name="token" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="members" type="462c0819:PsiDirectoryNode" />
+              <item name="guru" type="462c0819:PsiDirectoryNode" />
+              <item name="kelas" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="rapor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -327,15 +397,21 @@
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="members" type="462c0819:PsiDirectoryNode" />
-              <item name="guru" type="462c0819:PsiDirectoryNode" />
-              <item name="rapor" type="462c0819:PsiDirectoryNode" />
-              <item name="nilai" type="462c0819:PsiDirectoryNode" />
+              <item name="setting" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -432,20 +508,7 @@
       <workItem from="1671340480676" duration="77000" />
       <workItem from="1671594283291" duration="845000" />
       <workItem from="1671723730048" duration="32000" />
-    </task>
-    <task id="LOCAL-00019" summary="fix error dashboard">
-      <created>1619356462690</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1619356462690</updated>
-    </task>
-    <task id="LOCAL-00020" summary="fix error dashboard">
-      <created>1619356760747</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1619356760747</updated>
+      <workItem from="1673449515183" duration="281000" />
     </task>
     <task id="LOCAL-00021" summary="fix error dashboard">
       <created>1619356884553</created>
@@ -776,16 +839,30 @@
       <option name="project" value="LOCAL" />
       <updated>1671340519469</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="version 1.3.20230111">
+      <created>1673449659080</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1673449659080</updated>
+    </task>
+    <task id="LOCAL-00069" summary="version 1.3.20230111">
+      <created>1673449714472</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1673449714472</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66751000" />
+    <option name="totallyTimeSpent" value="67032000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2375189" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24130106" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -857,7 +934,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="#7" />
     <MESSAGE value="#8" />
     <MESSAGE value="#9" />
     <MESSAGE value="fix import siswa" />
@@ -882,15 +958,10 @@
     <MESSAGE value="version 1.3.20221212" />
     <MESSAGE value="version 1.3.20221216" />
     <MESSAGE value="fix arsip rapor" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix arsip rapor" />
+    <MESSAGE value="version 1.3.20230111" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.3.20230111" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/uploads/import/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uploads/profiles/user.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/uploads/profiles/siswa.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -1098,6 +1169,14 @@
         <state relative-caret-position="82">
           <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/Db_manager.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-542" />
       </provider>
     </entry>
   </component>
