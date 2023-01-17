@@ -245,6 +245,16 @@ now override the 3.3 new styles for modern browsers & apply opacity
 	border: 1px solid #ffffff;
 }
 
+.bg-circle {
+	width: 49px;
+	height: 49px;
+	text-align: center;
+	padding: 5px 0 5px 10px;
+	line-height: 2.00;
+	border-radius: 30px;
+	white-space: nowrap;
+}
+
 .btn-circle {
 	width: 49px;
 	height: 49px;
@@ -274,7 +284,7 @@ now override the 3.3 new styles for modern browsers & apply opacity
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-	border-radius: .60rem;
+	border-radius: .80rem;
 }
 
 .btn-circle-sm {

@@ -169,7 +169,7 @@
                 '        </tr>' +
                 '    </table>' +
                 '</div><br>' +
-                '<table id="tabelsiswa" class="table-responsive" style="width:100%;border:1px solid #c0c0c0;border-collapse: collapse; border-spacing: 0;">' +
+                '<table id="tabelsiswa" class="table-responsive" style="width:100%;border-collapse: collapse; border-spacing: 0;">' +
 				'<thead>' +
 				'<tr style="background-color:lightgrey">' +
 				'<th rowspan="3" width="40" '+styleCenterMiddle+'><p style="margin: 4px; display: inline;">No</p></th>' +
@@ -338,8 +338,8 @@
         var curr_date = d.getDate();
         var curr_month = d.getMonth();
         var curr_year = d.getFullYear();
-        var curr_jam = d.getHours();
-        var curr_mnt = d.getMinutes();
+        var curr_jam = d.getHours().toString().padStart(2, '0');
+        var curr_mnt = d.getMinutes().toString().padStart(2, '0');
 
         console.log("curr_month", curr_month);
 

@@ -42,7 +42,7 @@
                                         $no = 1;
                                         foreach ($nilai_materi as $nil) :
                                             ?>
-                                            <tr>
+                                            <tr onclick="showDialog(this)" data-text="<?=$nil->catatan?>">
                                                 <td class="text-center"><?= $no ?></td>
                                                 <td>
                                                     <?= $nil->kode ?>
@@ -89,7 +89,7 @@
                                     $no = 1;
                                     foreach ($nilai_tugas as $nil) :
                                         ?>
-                                        <tr>
+                                        <tr onclick="showDialog(this)" data-text="<?=$nil->catatan?>">
                                             <td class="text-center"><?= $no ?></td>
                                             <td>
                                                 <?= $nil->kode ?>
@@ -125,11 +125,12 @@
                             <div id='list-cbt'>
                                 <?php
                                 //echo '<pre>';
-                                //var_dump($nilai);
+                                //var_dump($durasi);
+                                //var_dump($skor);
                                 //var_dump($jadwal);
                                 //echo '</pre>';
                                 ?>
-                                <table class="table table-hover w-100 ">
+                                <table class="table w-100 ">
                                     <tr>
                                         <th class="text-center align-middle">NO</th>
                                         <th>Jenis Penilaian</th>
@@ -147,19 +148,29 @@
                                             ?>
                                             <tr>
                                                 <td class="text-center"><?= $no ?></td>
-                                                <td><?= $j->nama_jenis ?></td>
+                                                <td><?= $j->nama_jenis ?><br><small><?=buat_tanggal(date('D, d M Y', strtotime($j->tgl_mulai)))?></small></td>
                                                 <td><?= $j->kode ?></td>
                                                 <td><?= $j->bank_kode ?></td>
                                                 <td class="text-center"><?= $total ?></td>
                                                 <td class="text-center">
-                                                    <button type="button" data-toggle="modal" data-target="#detail-nilai" class="btn btn-sm btn-primary">
+                                                    <button type="button"
+                                                            data-koreksi="<?= isset($j->dikoreksi) ? $j->dikoreksi : '0' ?>"
+                                                            data-tampil="<?=$j->hasil_tampil?>"
+                                                            data-id="<?= $j->id_jadwal ?>"
+                                                            data-toggle="modal"
+                                                            data-target="#detail-nilai"
+                                                            class="btn btn-sm btn-primary">
                                                         Detail
                                                     </button>
                                                 </td>
                                             </tr>
                                             <?php $no++; endforeach; else: ?>
                                         <tr>
-                                            <td colspan="5" class="text-center">Belum ada jadwal ulangan/ujian</td>
+                                            <td colspan="6" class="text-center">
+                                                <div class="alert align-content-center alert-default-warning" role="alert">
+                                                    Belum ada jadwal ulangan/ujian
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php endif; ?>
                                 </table>
@@ -190,22 +201,68 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table">
+                <table class="w-100">
+                    <tr>
+                        <td>Tgl. Pelaksanaan</td>
+                        <td id="jwaktu">:</td>
+                    </tr>
+                    <tr>
+                        <td>Mulai</td>
+                        <td id="jmulai">:</td>
+                    </tr>
+                    <tr>
+                        <td>Selesai</td>
+                        <td id="jselesai">:</td>
+                    </tr>
                     <tr>
                         <td>Waktu pengerjaan</td>
                         <td id="jdurasi">:</td>
                     </tr>
+                </table>
+                <hr>
+                <div id="alert" class="alert alert-default-warning align-content-center" role="alert">
+                    Hubungi guru pengampu jika ingin mengetahui nilai.
+                </div>
+                <table id="table-detail-soal" class="w-100">
                     <tr>
-                        <td>Jml. jawaban benar</td>
-                        <td id="jbenar">:</td>
+                        <th class="border-bottom"></th>
+                        <th class="text-center border-bottom">JML. SOAL</th>
+                        <th class="text-center border-bottom">BENAR</th>
+                        <th class="text-center border-bottom">SKOR</th>
+                    </tr>
+                    <tr id="tpg">
+                        <td>Soal Pilihan Ganda</td>
+                        <td class="text-center" id="jpg"></td>
+                        <td class="text-center" id="bpg"></td>
+                        <td class="text-center" id="spg"></td>
+                    </tr>
+                    <tr id="tpg2">
+                        <td>Soal PG Kompleks</td>
+                        <td class="text-center" id="jpg2"></td>
+                        <td class="text-center" id="bpg2"></td>
+                        <td class="text-center" id="spg2"></td>
+                    </tr>
+                    <tr id="tjod">
+                        <td>Soal Menjodohkan</td>
+                        <td class="text-center" id="jjod"></td>
+                        <td class="text-center" id="bjod"></td>
+                        <td class="text-center" id="sjod"></td>
+                    </tr>
+                    <tr id="tis">
+                        <td>Soal Isian</td>
+                        <td class="text-center" id="jis"></td>
+                        <td class="text-center" id="bis"></td>
+                        <td class="text-center" id="sis"></td>
+                    </tr>
+                    <tr id="tes">
+                        <td>Soal Uraian</td>
+                        <td class="text-center" id="jes"></td>
+                        <td class="text-center" id="bes"></td>
+                        <td class="text-center" id="ses"></td>
                     </tr>
                     <tr>
-                        <td>Jml. jawaban salah</td>
-                        <td id="jsalah">:</td>
-                    </tr>
-                    <tr>
-                        <td>Nilai</td>
-                        <td id="jnilai">:</td>
+                        <td colspan="3" class="text-center border-top"><b>TOTAL SKOR</b></td>
+                        <td class="text-center border-top" id="jskor"></td>
                     </tr>
                 </table>
             </div>
@@ -217,19 +274,80 @@
 </div>
 
 <script>
+    var arrbulan = ['', 'Januari', 'Februari', 'Maret', 'April',
+        'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    var arrhari = ['Minggu','Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+    var skores = JSON.parse('<?= json_encode($skor)?>');
+    var durasies = JSON.parse('<?= json_encode($durasi)?>');
+    var jadwals = JSON.parse('<?= json_encode($jadwal)?>');
     $(document).ready(function () {
-        /*
-        $.ajax({
-            type: 'GET',
-            url: base_url + 'dashboard/getjadwalkbm/'+kelas,
-            success: function (data) {
-                console.log('kbm', data);
-                jadwalKbm = data;
-                $.each(data.istirahat, function (key, value) {
-                    arrIst.push(value.ist);
-                });
+        $('#detail-nilai').on('show.bs.modal', function (e) {
+            var tampilNilai = $(e.relatedTarget).data('tampil');
+            var id  = $(e.relatedTarget).data('id');
+            var dikoreksi  = $(e.relatedTarget).data('dikoreksi') == '1';
+
+            var jadwal = jadwals[id];
+            var dur = durasies[id].length > 0 ? durasies[id][0] : null;
+            var skor = skores[id];
+            $('#alert').toggleClass('d-none', tampilNilai == '1');
+
+            var sp = jadwal.tgl_mulai.split('-');
+            var d = new Date(sp[0], sp[1]-1, sp[2]);
+            $('#jwaktu').html(': ' + arrhari[d.getDay()] + ', ' + sp[2] + ' ' + arrbulan[parseInt(sp[1])] + ' ' + sp[0]);
+
+            if (dur != null && dur.mulai != null && dur.selesai != null && dur.lama_ujian != null) {
+                console.log(dur);
+                var m = dur.mulai.split(' ')[1].split(':');
+                $('#jmulai').html(': ' + m[0] + ':' + m[1]);
+                var s = dur.selesai.split(' ')[1].split(':');
+                $('#jselesai').html(': ' + s[0] + ':' + s[1]);
+                var l = dur.lama_ujian.split(':');
+                var dr = '';
+                if (l[0] !== '00') {
+                    dr += parseInt(l[0]) + ' jam ';
+                }
+                dr += parseInt(l[1]) + ' menit';
+                $('#jdurasi').html(': ' + dr);
+            }
+
+            if (tampilNilai == '1') {
+                $('#table-detail-soal').removeClass('d-none');
+                $('#tpg').toggleClass('d-none', parseInt(jadwal.tampil_pg) == 0);
+                $('#jpg').text(jadwal.tampil_pg);
+                $('#bpg').text(skor.benar_pg);
+                $('#spg').text(skor.skor_pg);
+
+                $('#tpg2').toggleClass('d-none', parseInt(jadwal.tampil_kompleks) == 0);
+                $('#jpg2').text(jadwal.tampil_kompleks);
+                $('#bpg2').text(skor.benar_kompleks);
+                $('#spg2').text(skor.skor_kompleks);
+
+                $('#tjod').toggleClass('d-none', parseInt(jadwal.tampil_jodohkan) == 0);
+                $('#jjod').text(jadwal.tampil_jodohkan);
+                $('#bjod').text(skor.benar_jodohkan);
+                $('#sjod').text(skor.skor_jodohkan);
+
+                $('#tis').toggleClass('d-none', parseInt(jadwal.tampil_isian) == 0);
+                $('#jis').text(jadwal.tampil_isian);
+                $('#bis').text(skor.benar_isian);
+                $('#sis').html(dikoreksi ? skor.skor_isian : 'sedang<br>dikoreksi');
+
+                $('#tes').toggleClass('d-none', parseInt(jadwal.tampil_esai) == 0);
+                $('#jes').text(jadwal.tampil_esai);
+                $('#bes').text(skor.benar_esai);
+                $('#ses').html(dikoreksi ? skor.skor_esai : 'sedang<br>dikoreksi');
+                $('#jskor').html(`<b>${skor.skor_total}</b>`);
+            } else {
+                $('#table-detail-soal').addClass('d-none');
             }
         });
-        */
     });
+
+    function showDialog(tr) {
+        swal.fire({
+            title: "Catatan Guru",
+            html: '<div class="w-100 border p-4">' + $(tr).data('text') + '</div>',
+            confirmButtonText: "TUTUP"
+        })
+    }
 </script>

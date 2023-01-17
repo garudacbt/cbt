@@ -161,6 +161,8 @@
 					previous: 'fa fa-angle-left'
 				},
 			timepicker: false,
+            scrollInput : false,
+            scrollMonth : false,
 			format: 'D, d M Y',//'Y-m-d',
 			widgetPositioning: {
 				horizontal: 'left',

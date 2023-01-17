@@ -272,6 +272,8 @@
 				},
 			format: 'Y-m-d',
 			timepicker: false,
+            scrollInput : false,
+            scrollMonth : false,
             disabledWeekDays: [0],
             widgetPositioning: {
 				horizontal: 'left',

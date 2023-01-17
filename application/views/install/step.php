@@ -21,64 +21,64 @@
                                     <h5 class="card-step-title">
                                         Install Applikasi</h5>
                                     <div class="card-steps">
-                                        <div class="step completed <?= $data->current_page == 1 ? 'current' : ''?>" data-step="1" data-step-skip="false">
+                                        <div class="step completed <?= $data->current_page == 1 ? 'current' : '' ?>" data-step="1" data-step-skip="false">
                                             <div class="dot"></div>
-                                            <label class="label <?= $data->current_page > 1 ? 'completed' : ''?>">Database</label>
+                                            <label class="label <?= $data->current_page > 1 ? 'completed' : '' ?>">Database</label>
                                         </div>
-                                        <div class="step <?= $data->current_page == 2 ? 'current' : ''?>" data-step="2" data-step-skip="false">
+                                        <div class="step <?= $data->current_page == 2 ? 'current' : '' ?>" data-step="2" data-step-skip="false">
                                             <div class="dot"></div>
-                                            <label class="label <?= $data->current_page > 2 ? 'completed' : ''?>">Administrator</label>
+                                            <label class="label <?= $data->current_page > 2 ? 'completed' : '' ?>">Administrator</label>
                                         </div>
-                                        <div class="step <?= $data->current_page == 3 ? 'current' : ''?>" data-step="3" data-step-skip="true">
+                                        <div class="step <?= $data->current_page == 3 ? 'current' : '' ?>" data-step="3" data-step-skip="false">
                                             <div class="dot"></div>
-                                            <label class="label <?= $data->current_page > 3 ? 'completed' : ''?>">Sekolah</label>
+                                            <label class="label <?= $data->current_page > 3 ? 'completed' : '' ?>">Sekolah</label>
                                         </div>
-                                        <div class="step <?= $data->current_page == 4 ? 'current' : ''?>" data-step="4" data-step-skip="false">
+                                        <div class="step <?= $data->current_page == 4 ? 'current' : '' ?>" data-step="4" data-step-skip="false">
                                             <div class="dot"></div>
                                             <label class="label">Selesai</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body card-step-body">
-                                <?= form_open('', array('id' => 'installapp')) ?>
-                                <div class="step-content-container">
-                                    <?php
-                                    $readAdminNama = $data->nama_admin === '' ? '' : 'readonly';
-                                    $readAdminUser = $data->user_admin === '' ? '' : 'readonly';
-                                    $readAdminPass = $data->pass_admin === '' ? '' : 'readonly';
+                            <?php
+                            $readAdminNama = $data->nama_admin === '' ? '' : 'readonly';
+                            $readAdminUser = $data->user_admin === '' ? '' : 'readonly';
+                            $readAdminPass = $data->pass_admin === '' ? '' : 'readonly';
 
-                                    $readAppNama = $data->aplikasi === '' ? '' : 'readonly';
-                                    $readSklNama = $data->sekolah === '' ? '' : 'readonly';
-                                    $readSklKepsek = $data->kepsek === '' ? '' : 'readonly';
-                                    $readSklJenjang = $data->jenjang === '' ? '' : 'readonly';
-                                    $readSklAlamat = $data->alamat === '' ? '' : 'readonly';
-                                    $readSklDesa = $data->desa === '' ? '' : 'readonly';
-                                    $readSklKec = $data->kec === '' ? '' : 'readonly';
-                                    $readSklKab = $data->kota === '' ? '' : 'readonly';
-                                    $readSklTlp = $data->tlp === '' ? '' : 'readonly';
-                                    ?>
-                                    <div class="step-content <?= $data->current_page == 1 ? 'active' : ''?>" data-step="1" data-step-skip="false">
+                            $readAppNama = $data->aplikasi === '' ? '' : 'readonly';
+                            $readSklNama = $data->sekolah === '' ? '' : 'readonly';
+                            $readSklKepsek = $data->kepsek === '' ? '' : 'readonly';
+                            $readSklJenjang = $data->jenjang === '' ? '' : 'readonly';
+                            $readSklAlamat = $data->alamat === '' ? '' : 'readonly';
+                            $readSklDesa = $data->desa === '' ? '' : 'readonly';
+                            $readSklKec = $data->kec === '' ? '' : 'readonly';
+                            $readSklKota = $data->kota === '' ? '' : 'readonly';
+                            $readSklTlp = $data->tlp === '' ? '' : 'readonly';
+                            ?>
+                            <?= form_open('', array('id' => 'installapp')) ?>
+                            <div class="card-body card-step-body">
+                                <div class="step-content-container">
+                                    <div class="step-content <?= $data->current_page == 1 ? 'active' : '' ?>" data-step="1" data-step-skip="false">
                                         <div class="content-inner">
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label for="input-nama-db">Host Name</label>
-                                                    <input type="text" class="form-control db" id="input-nama-host" name="hostname" value="<?=$data->hostname?>" placeholder="localhost" readonly="">
+                                                    <input type="text" class="form-control db" id="input-nama-host" name="hostname" value="<?= $data->hostname ?>" placeholder="localhost" readonly="">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="input-nama-db">Host Username</label>
-                                                    <input type="text" class="form-control db" id="input-user-host" name="hostuser" value="<?=$data->username?>" placeholder="Host Username" readonly="">
+                                                    <input type="text" class="form-control db" id="input-user-host" name="hostuser" value="<?= $data->username ?>" placeholder="Host Username" readonly="">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="input-nama-db">Host Password</label>
-                                                    <input type="text" class="form-control" id="input-pass-host" value="<?=$data->password?>" name="hostpass" placeholder="Host Password" readonly="">
+                                                    <input type="text" class="form-control" id="input-pass-host" value="<?= $data->password ?>" name="hostpass" placeholder="Host Password" readonly="">
                                                     <small class="form-text text-muted">Kosongkan jika tidak menggunakan
                                                         password.
                                                     </small>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="input-nama-db">Nama Database</label>
-                                                    <input type="text" class="form-control db" id="input-nama-db" name="database" value="<?=$data->database?>" placeholder="Nama Database" readonly="">
+                                                    <input type="text" class="form-control db" id="input-nama-db" name="database" value="<?= $data->database ?>" placeholder="Nama Database" readonly="">
                                                     <small class="form-text text-muted">Jangan gunakan spasi.</small>
                                                 </div>
                                             </div>
@@ -88,7 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="step-content <?= $data->current_page == 2 ? 'active' : ''?>" data-step="2" data-step-skip="false">
+                                    <div class="step-content <?= $data->current_page == 2 ? 'active' : '' ?>" data-step="2" data-step-skip="false">
                                         <div class="content-inner">
                                             <div class="text-center">
                                                 <p><b>LOGIN ADMINISTRATOR</b></p>
@@ -96,11 +96,11 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="col-form-label">Nama Lengkap</label>
-                                                    <input type="text" name="nama_lengkap" id="input-nama-adm" value="<?=$data->nama_admin?>" class="form-control adm" required="" <?= $readAdminNama ?>>
+                                                    <input type="text" name="nama_lengkap" id="input-nama-adm" value="<?= $data->nama_admin ?>" class="form-control adm" required="" <?= $readAdminNama ?>>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="col-form-label">Username</label>
-                                                    <input type="text" name="username" id="input-user" class="form-control adm" value="<?=$data->user_admin?>" required="" <?= $readAdminUser ?>>
+                                                    <input type="text" name="username" id="input-user" class="form-control adm" value="<?= $data->user_admin ?>" required="" <?= $readAdminUser ?>>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="col-form-label">Password</label>
@@ -123,25 +123,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="step-content <?= $data->current_page == 3 ? 'active' : ''?>" data-step="3" data-step-skip="true">
+                                    <div class="step-content <?= $data->current_page == 3 ? 'active' : '' ?>" data-step="3" data-step-skip="false">
                                         <div class="content-inner">
                                             <div class="row">
                                                 <div class="col-md-4 mb-4">
                                                     <label>Nama Aplikasi *</label>
-                                                    <input type="text" id="input-nama-app" name="nama_aplikasi" class="form-control app" value="<?=$data->aplikasi?>" required="" <?= $readAppNama ?>>
+                                                    <input type="text" id="input-nama-app" name="nama_aplikasi" class="form-control app" value="<?= $data->aplikasi ?>" required="" <?= $readAppNama ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
                                                     <label>Nama Sekolah *</label>
-                                                    <input type="text" id="input-nama-skl" name="nama_sekolah" class="form-control app" value="<?=$data->sekolah?>" required="" <?= $readSklNama ?>>
+                                                    <input type="text" id="input-nama-skl" name="nama_sekolah" class="form-control app" value="<?= $data->sekolah ?>" required="" <?= $readSklNama ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
                                                     <label>Kepala Sekolah *</label>
-                                                    <input type="text" id="input-nama-kepsek" name="kepsek" class="form-control app" value="<?=$data->kepsek?>" required="" <?= $readSklKepsek ?>>
+                                                    <input type="text" id="input-nama-kepsek" name="kepsek" class="form-control app" value="<?= $data->kepsek ?>" required="" <?= $readSklKepsek ?>>
                                                 </div>
                                                 <div class="col-md-3 mb-4">
                                                     <label>Jenjang *</label>
                                                     <select class="form-control app" id="input-jenjang" data-placeholder="Pilih Jenjang" name="jenjang" required="" <?= $readSklJenjang ?>>
-                                                        <option value="" selected="<?=$data->jenjang?>" disabled="">Pilih Jenjang</option>
+                                                        <option value="" selected="<?= $data->jenjang ?>" disabled="">
+                                                            Pilih Jenjang
+                                                        </option>
                                                         <option value="1">SD/MI</option>
                                                         <option value="2">SMP/MTS</option>
                                                         <option value="3">SMA/MA/SMK</option>
@@ -150,19 +152,19 @@
                                                 <div class="col-md-5 mb-4">
                                                     <label>Alamat *</label>
                                                     <br>
-                                                    <input type="text" id="input-alamat" class="form-control app" name="alamat" value="<?=$data->alamat?>" required="" <?= $readSklAlamat ?>>
+                                                    <input type="text" id="input-alamat" class="form-control app" name="alamat" value="<?= $data->alamat ?>" required="" <?= $readSklAlamat ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
                                                     <label>Desa/Kelurahan *</label>
-                                                    <input type="text" id="input-desa" name="desa" class="form-control app" value="<?=$data->desa?>" required="" <?= $readSklDesa ?>>
+                                                    <input type="text" id="input-desa" name="desa" class="form-control app" value="<?= $data->desa ?>" required="" <?= $readSklDesa ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
                                                     <label>Kecamatan *</label>
-                                                    <input type="text" id="input-kec" name="kec" class="form-control app" value="<?=$data->kec?>" required="" <?= $readSklKec ?>>
+                                                    <input type="text" id="input-kec" name="kec" class="form-control app" value="<?= $data->kec ?>" required="" <?= $readSklKec ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
                                                     <label>Kabupaten/Kota *</label>
-                                                    <input type="text" id="input-kota" name="kota" class="form-control app" value="<?=$data->kab?>" required="" <?= $readSklKab ?>>
+                                                    <input type="text" id="input-kota" name="kota" class="form-control app" value="<?= $data->kota ?>" required="" <?= $readSklKota ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
                                                     <label>Nomor Telepon</label>
@@ -170,7 +172,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">+62</span>
                                                         </div>
-                                                        <input type="number" id="input-tlp" name="tlp" class="form-control" value="<?=$data->tlp?>" <?= $readSklTlp ?>>
+                                                        <input type="number" id="input-tlp" name="tlp" class="form-control" value="<?= $data->tlp ?>" <?= $readSklTlp ?>>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +185,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="step-content <?= $data->current_page == 4 ? 'active' : ''?>" data-step="4" data-step-skip="false">
+                                    <div class="step-content <?= $data->current_page == 4 ? 'active' : '' ?>" data-step="4" data-step-skip="false">
                                         <div class="content-inner">
                                             <div class="row p-4">
                                                 <table class="table">
@@ -243,8 +245,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <?= form_close() ?>
                             </div>
+                            <?= form_close() ?>
                             <div class="overlay d-none loading">
                                 <div class="spinner-grow"></div>
                             </div>
@@ -272,34 +274,11 @@
         </g>
     </svg>
 </section>
-<!--
-<div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-        <div class="card my-5">
-            <div class="card-header">
-                Setting database
-            </div>
-            <div class="card-body">
-                <li>Rename file <b>application/config/database.sample.php</b> menjadi <b>application/config/database.php</b>
-                </li>
-                <?php if (!empty($error)): ?>
-                    <li>
-                        Atur koneksi database pada file <b>application/config/database.php</b>, isi bagian - bagian
-                        configurasi dengan benar :<br>
-                    </li>
-                    <?= $error; ?>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-    <div class="col-2"></div>
-</div>
--->
+
 <script>
     var dataInstall = JSON.parse(JSON.stringify(<?=json_encode($data)?>));
     var currentPage = dataInstall.current_page;
-    var completed = dataInstall.current_page -1;
+    var completed = dataInstall.current_page - 1;
     var dbSudah = false;
     $(document).ready(function () {
         console.log('data', dataInstall);
@@ -474,11 +453,11 @@
     function switchPage(page, back) {
         $('.step').removeClass('current');
         console.log(completed, page);
-        if (back) $('.card-step').find('[data-step="'+(page+1)+'"]').removeClass('completed');
-        $('.card-step').find('[data-step="'+page+'"]').addClass('current');
+        if (back) $('.card-step').find('[data-step="' + (page + 1) + '"]').removeClass('completed');
+        $('.card-step').find('[data-step="' + page + '"]').addClass('current');
 
         $('.step-content').removeClass('active');
-        $('.step-content-container').find('[data-step="'+page+'"]').addClass('active');
+        $('.step-content-container').find('[data-step="' + page + '"]').addClass('active');
 
         if (page == 4) {
             $('#text-db').text(': ' + $('#input-nama-db').val());

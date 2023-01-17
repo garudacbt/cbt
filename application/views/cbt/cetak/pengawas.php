@@ -204,6 +204,8 @@ $allowedDates = [];
                     previous: 'fa fa-angle-left'
                 },
             timepicker: false,
+            scrollInput : false,
+            scrollMonth : false,
             format: 'Y-m-d',
             disabledWeekDays: [0],
             //allowDates: allowed,

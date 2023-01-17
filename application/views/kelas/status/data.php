@@ -146,29 +146,35 @@
                 <div class="container-fluid border">
                     <div id="konten-hasil" class="row">
                     </div>
-                    <div id="konten-nilai" class="row">
-                        <div class="col-4 mb-3">
-                            <div id="nilai-hasil" class="text-center" style="font-size: 60pt">
+                    <hr>
+                    <div id="konten-nilai" class="row p-2">
+                        <div class="col-4 mb-3 border text-center align-middle">
+                            <div id="nilai-hasil" style="font-size: 60pt">
                             </div>
                         </div>
                         <div class="col-8">
                             <?= form_open('', array('id' => 'formnilai')) ?>
                             <div class="row">
-                                <div class="col-4 mb-3">
-                                    <label>Beri Nilai</label>
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label id="label-title">Beri Nilai</label>
                                     <input class="form-control" name="nilai" id="nilai" type="text" required>
                                     <input type="hidden" name="id_log" id="id-log">
                                     <input type="hidden" name="method" id="method">
                                 </div>
-                                <div class="col-4 mb-3">
+                                <div class="col-12 col-md-8 mb-3">
+                                    <span><b>Info</b></span>
                                     <br>
-                                    <button type="submit" class="btn btn-primary mt-2">Simpan Nilai</button>
+                                    <small>
+                                        Kosongkan nilai jika siswa harus mengulang materi/tugas.
+                                    </small>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 mb-3">
+                                <div class="col-12">
                                     <label>Catatan Untuk Siswa</label>
-                                    <input id="catatan" class="form-control" name="catatan" type="text">
+                                    <textarea id="catatan" class="form-control" name="catatan"></textarea>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Simpan Nilai</button>
                                 </div>
                             </div>
                             <?= form_close(); ?>
@@ -200,18 +206,19 @@
     var tanggalSingkat = '';
     var tanggalLengkap = '';
     var docTitle = '';
+    let label = '';
 
     $(document).ready(function () {
         form = $('#formselect');
         var dropMapel = $('#dropdown-mapel');
 
         dropMapel.on('change', function () {
-            console.log($(this).val());
+            //console.log($(this).val());
             $.ajax({
                 method: "GET",
                 url: base_url + "kelasstatus/getmaterimapel?id=" + $(this).val(),
                 success: function (response) {
-                    console.log(response);
+                    console.log('response', response);
                     arrKelasMateri = response.materi;
                     arrKelasTugas = response.tugas;
                     createDropdownKelas(response.kelas);
@@ -221,8 +228,8 @@
 
         $('#kelas-materi').on('change', function () {
             var val = $(this).val();
-            var label = $('#kelas-materi :selected').parent().attr('label');
-            createDropdownMateri(val, label);
+            label = $('#kelas-materi :selected').parent().attr('label');
+            createDropdownMateri(val);
         });
 
         $('#dropdown-materi').on('change', function () {
@@ -232,7 +239,7 @@
         $('#daftarModal').on('show.bs.modal', function (e) {
             var key = $(e.relatedTarget).data('key');
             var konten = $('#konten-hasil');
-            console.log(resultAll[key]);
+            //console.log(resultAll[key]);
             var val = resultAll[key];
             var html = '';
             $('#daftarLabel').text('Hasil Siswa ' + val.nama);
@@ -258,7 +265,7 @@
                     } else if (file.type.match('video')) {
                         html = '<div class="col-12 mb-3"><video src="' + base_url + '/' + file.src + '"></video></div>';
                     } else {
-                        html = '<div class="col-3 mb-3"><img src="'+base_url+'/assets/app/img/document-icon.svg"></div>';
+                        html = '<div class="col-3 mb-3"><img src="'+base_url+'/assets/app/img/document-icon.svg" class="img-thumbnail"></div>';
                     }
                     konten.append(html);
                 }
@@ -292,16 +299,17 @@
                 });
                 $('#method').val('update');
             }
+            var ttl = val.nilai === '' ? 'Beri Nilai' : 'Edit Nilai';
             var nilaiHasil = val.nilai === '' ? '' : val.nilai;
             var catatanGuru = val.catatan === '' ? '' : val.catatan;
 
             var idMateri = $('#dropdown-materi').val();
             $('#id-log').val(key + '' + idMateri);
-            console.log('id', key + '' + idMateri);
-
+            //console.log('id', key + '' + idMateri);
+            $('#label-title').text(ttl);
             $('#nilai-hasil').text(nilaiHasil);
             $('#nilai').val(nilaiHasil);
-            $('#catatan').val(catatanGuru);
+            $('#catatan').html(catatanGuru);
 
         });
 
@@ -322,7 +330,7 @@
                         $(this).data('modal', null);  // destroys modal
                     });
                     showSuccessToast('Data berhasil disimpan.');
-                    getLogSiswa(label)
+                    getLogSiswa()
                 }, error: function (xhr, status, error) {
                     $('#daftarModal').modal('hide').data('bs.modal', null);
                     $('#daftarModal').on('hidden', function () {
@@ -361,43 +369,44 @@
         } else {
             klsTugas.append('<option value="-">- -</option>');
         }
-        var label = $('#kelas-materi :selected').parent().attr('label');
-        createDropdownMateri($('#kelas-materi').val(), label);
+        label = $('#kelas-materi :selected').parent().attr('label');
+        createDropdownMateri($('#kelas-materi').val());
     }
 
-    function createDropdownMateri(kelas, label) {
-        console.log(kelas, label);
+    function createDropdownMateri(kelas) {
         var dropMateri = $('#dropdown-materi');
         dropMateri.html('');
 
         if (label === 'Materi') {
+            console.log('arr', arrKelasMateri[kelas]);
             if (arrKelasMateri[kelas] != null && arrKelasMateri[kelas].length > 0) {
                 for (let j = 0; j < arrKelasMateri[kelas].length; j++) {
                     const date = stringToDate(arrKelasMateri[kelas][j].jadwal);
-                    tanggalSingkat = dateToString(date)
+                    tanggalSingkat = dateToString(date);
                     tanggalLengkap = dateToStringDay(date);
-                    dropMateri.append('<option value="' + arrKelasMateri[kelas][j].id_kjm + '">' + arrKelasMateri[kelas][j].kode + '</option>');
+                    dropMateri.append('<option value="' + arrKelasMateri[kelas][j].id_kjm + '">' + arrKelasMateri[kelas][j].kode + ' ' + tanggalSingkat +'</option>');
                     //arrJadwal[arrKelasMateri[kelas][j].id_kjm] = tgl;
                 }
             } else {
                 dropMateri.append('<option value="">Belum ada materi</option>');
             }
         } else {
-            if (arrKelasTugas[kelas] != null && arrKelasTugas[kelas].length === 0) {
+            console.log('arr', arrKelasTugas[kelas]);
+            if (arrKelasTugas[kelas] != null && arrKelasTugas[kelas].length > 0) {
                 for (let k = 0; k < arrKelasTugas[kelas].length; k++) {
                     const date = stringToDate(arrKelasTugas[kelas][k].jadwal);
-                    tanggalSingkat = dateToString(date)
+                    tanggalSingkat = dateToString(date);
                     tanggalLengkap = dateToStringDay(date);
-                    dropMateri.append('<option value="' + arrKelasTugas[kelas][k].id_kjm + '">' + arrKelasTugas[kelas][k].kode + '</option>');
+                    dropMateri.append('<option value="' + arrKelasTugas[kelas][k].id_kjm + '">' + arrKelasTugas[kelas][k].kode + ' ' + tanggalSingkat +'</option>');
                 }
             } else {
                 dropMateri.append('<option value="">Belum ada tugas</option>');
             }
         }
-        getLogSiswa(label);
+        getLogSiswa();
     }
 
-    function getLogSiswa(label) {
+    function getLogSiswa() {
         var selMateri = $('#dropdown-materi').val();
         var selKelas = $('#kelas-materi').val();
         if (selKelas === '-' || selKelas == null) {
@@ -480,8 +489,8 @@
                                 }
                             }
                             var jamke = value.jam_ke;
-                            console.log('jamke', value);
-                            console.log('items', items);
+                            //console.log('jamke', value);
+                            //console.log('items', items);
                             var tglJadwal = items[jamke] !== undefined ? formatDate(items[jamke]) : '';
                             var diff = tglJadwal != '' ? calculateTime(tglJadwal, value.selesai) : '';
                             ketMulai = diff == '' ? '' : 'Selesai, Terlambat <br>' + diff;
@@ -558,12 +567,12 @@
 
     function buatTanggal(string) {
         var hari = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-        var bulans = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        var bulans = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
         var kalender = string.split(" ")[0];
         var waktu = string.split(" ")[1];
-        console.log('date', kalender);
-        console.log('hour', waktu);
+        //console.log('date', kalender);
+        //console.log('hour', waktu);
 
         const date = kalender.split("-");
         const time = waktu.split(":");
@@ -577,16 +586,19 @@
         var detik = time[2];
 
         var d = new Date(tahun, bulan, tanggal, jam, menit, detik);
-        console.log('newDate', d);
+        //console.log('newDate', d.getMonth());
         var curr_day = d.getDay();
+        /*
         var curr_date = d.getDate();
         var curr_month = d.getMonth();
         var curr_year = d.getFullYear();
         var curr_jam = d.getHours();
         var curr_mnt = d.getMinutes();
         console.log('res', d.getDay());
+        */
 
-        return hari[curr_day] + ", " + curr_date + "  " + bulans[curr_month] + " " + curr_year + " <br><b>" + curr_jam + ":" + curr_mnt + "</b>";
+        //return hari[curr_day] + ", " + curr_date + "  " + bulans[curr_month] + " " + curr_year + " <br><b>" + curr_jam + ":" + curr_mnt + "</b>";
+        return hari[curr_day] + ", " + tanggal + "  " + bulans[parseInt(bulan)] + " " + tahun + " <br><b>" + jam + ":" + menit + "</b>";
     }
 
     function calculateTime(jadwal, selesai) {

@@ -107,6 +107,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/app/css/stylised.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/contextmenu/jquery.contextmenu.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/plugins/pignose/css/pignose.calendar.css">
 
     <style>
         page {

@@ -5,6 +5,8 @@
  * Date: 23/08/20
  * Time: 23:18
  */
+
+$ada_nilai = $logs != null && $logs->nilai != null;
 ?>
 
 <div class="content-wrapper" style="margin-top: -1px;">
@@ -35,32 +37,11 @@
                                 Nilai
                                 <br>
                                 <span style="font-size: 28pt">
-                                <?= $logs != null && $logs->nilai != null ? $logs->nilai : '' ?>
+                                <?= $ada_nilai ? $logs->nilai : '' ?>
                                 </span>
                             </div>
                         </div>
                         <?php
-                        //str_replace("world","Peter","Hello world!");
-                        //
-                        //        var sMateri = $($.parseHTML(checkMateri));
-                        //        sMateri.find(`img`).each(function () {
-                        //            var curSrc = $(this).attr('src');
-                        //            if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                        //                $(this).attr('src', base_url+curSrc);
-                        //            } else if (curSrc.indexOf(base_url) === -1) {
-                        //                var pathUpload = 'uploads';
-                        //                var forReplace = curSrc.split(pathUpload);
-                        //                $(this).attr('src', base_url + pathUpload + forReplace[1]);
-                        //            }
-                        //        });
-
-                        //$html = str_get_html($received_str);
-                        //
-                        ////Image tag
-                        //$img_tag = $html->find("img", 0)->outertext;
-                        //
-                        ////Example Text
-                        //$example_text = $html->find('div[style=example]', 0)->last_child()->innertext;
                         $dom = new DOMDocument();
                         @$dom->loadHTML($materi->isi_materi);
                         $images = $dom->getElementsByTagName('img');
@@ -77,6 +58,13 @@
                         $isi_materi = $dom->saveHTML();
                         ?>
                         <div class="card-body">
+                            <?php if ($ada_nilai) : ?>
+                                <div class="col-lg-12 p-0">
+                                    <div class="alert align-content-center alert-default-warning" role="alert">
+                                        Materi/tugas ini sudah dikerjakan dan sudah mendapat nilai, tidak bisa dikerjakan ulang!
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <h3 class="text-center"><?= $materi->judul_materi ?></h3>
                             <div class="text-justify"><?= $isi_materi ?></div>
                         </div>
@@ -241,6 +229,7 @@
 </div>
 
 <script>
+    var adaNilai = '<?=$ada_nilai?>' == '1';
     var logMateri = JSON.parse('<?= json_encode($logs) ?>');
     var logMulai = '<?= $logs != null && $logs->log_time != null ? $logs->log_time : '' ?>';
     var logSelesai = '<?= $logs != null && $logs->finish_time != null ? $logs->finish_time : '' ?>';
@@ -256,7 +245,6 @@
 
     $(document).ready(function () {
         ajaxcsrf();
-        //console.log('logMateri', logMateri);
         $('.editor').summernote({
             toolbar: [
                 ['style', ['style']],
@@ -305,6 +293,7 @@
             e.stopPropagation();
             e.preventDefault();
 
+            if (adaNilai) return;
             var update = logSelesai === '' ? '0' : '1';
             var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjm=' + idKjm + '&jamke=' + jamKe + '&mapel=' + mapel + '&attach=' + JSON.stringify(dataFiles);
 
@@ -344,6 +333,7 @@
         });
 
         $("#picupload").on('change', function (e) {
+            if (adaNilai) return;
             var form = new FormData($("#formfile")[0]);
             var maxSize = $("#formfile").find('input[name="max-size"]').val();
             uploadAttach(base_url + 'siswa/uploadfile', form, maxSize);
@@ -351,6 +341,7 @@
         });
 
         $('#view-modal').on('show.bs.modal', function (e) {
+            if (adaNilai) return;
             var src = $(e.relatedTarget).data('src');
             var type = $(e.relatedTarget).data('type');
             var html = '';
@@ -378,6 +369,7 @@
     }
 
     function saveFileToDb() {
+        if (adaNilai) return;
         var update = logSelesai === '' ? '0' : '1';
         var dataUpload = $('#formhasil').serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&jamke=' + jamKe + '&id_kjm=' + idKjm + '&attach=' + JSON.stringify(dataFiles);
         console.log(dataUpload);
@@ -397,6 +389,7 @@
     }
 
     function uploadAttach(action, data, maxsize) {
+        if (adaNilai) return;
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
@@ -447,6 +440,7 @@
     }
 
     function deleteImage(src) {
+        if (adaNilai) return;
         $.ajax({
             data: {src: src},
             type: "POST",

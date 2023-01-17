@@ -193,7 +193,7 @@ $base_url = str_replace('installer/', '', $base_url);
                         confirmButtonText: "OK"
                     }).then(result => {
                         if (result.value) {
-                            if (isSuccess) window.location.href = '<?= $base_url ?>/update';
+                            if (isSuccess) window.location.href = '<?= $base_url ?>';
                         }
                     });
                 },

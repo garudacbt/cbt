@@ -5,7 +5,6 @@
  * Date: 07/08/20
  * Time: 22:29
  */
-
 ?>
 <div class="content-wrapper" style="margin-top: -1px;">
     <div class="sticky">
@@ -41,7 +40,7 @@
                             <div class="row">
                                 <?php
                                 $today = date("Y-m-d");
-                                $materi = $materis[$today];
+                                $materi = isset($materis[$today]) ? $materis[$today] : [];
                                 $jamMulai = new DateTime($kbm->kbm_jam_mulai);
                                 $jamSampai = new DateTime($kbm->kbm_jam_mulai);
 
@@ -112,8 +111,11 @@
                                                                     <i class="fas fa-book-open"></i>
                                                                 </div>
                                                                 <hr style="margin-top:0; margin-bottom: 0">
-
-                                                                <a href="<?= base_url('siswa/buka' . $subjudul . '/' . $materi[$jamke]->id_kjm . '/' . $jamke) ?>" class="small-box-footer p-2">BUKA <?= strtoupper($judul) ?>
+                                                                <?php
+                                                                $disabled = new DateTime('NOW') < $jamMulai;
+                                                                $href = $disabled == '' ? base_url('siswa/buka' . $subjudul . '/' . $materi[$jamke]->id_kjm . '/' . $jamke) : 'javascript:void(0)';
+                                                                ?>
+                                                                <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul) ?>
                                                                     <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
                                                                 </a>
                                                             </div>
@@ -146,7 +148,9 @@
                                     <?php endfor; ?>
                                 <?php else: ?>
                                     <div class="col-12 alert alert-default-warning">
-                                        <div class="text-center">Belum ada jadwal pelajaran</div>
+                                        <div class="text-center">
+                                            <?= date('N') == 7 ? 'Hari MINGGU' : 'Belum ada jadwal pelajaran'; ?>
+                                        </div>
                                     </div>
                                 <?php endif;
                                 ?>
@@ -177,18 +181,21 @@
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <?php
+                                //$hari = date('Y-m-d');
                                 $jamMulai = new DateTime($kbm->kbm_jam_mulai);
                                 $jamSampai = new DateTime($kbm->kbm_jam_mulai);
 
                                 foreach ($materis as $tg => $mat) :
                                     $show = $tg == $today ? 'show active' : '';
+                                    $stg = explode('-', $tg);
+                                    $y = $stg[0];
+                                    $m = $stg[1];
+                                    $d = $stg[2];
+                                    $jamMulai->setDate($y, $m, $d);
+                                    $jamSampai->setDate($y, $m, $d);
                                     ?>
                                     <div class="tab-pane fade <?= $show ?>" id="tab-<?= $tg ?>" role="tabpanel" aria-labelledby="tab-<?= $tg ?>-tab">
                                         <?php
-                                        //echo '<pre>';
-                                        //var_dump($arrIst);
-                                        //var_dump($mat);
-                                        //echo '</pre>';
                                         $log = $logs[$tg];
                                         ?>
                                         <table class="table table-sm">
@@ -220,16 +227,18 @@
                                                 $jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
                                             else :
                                                 $jamSampai->add(new DateInterval('PT' . $kbm->kbm_jam_pel . 'M'));
+                                                $disabled = new DateTime('NOW') < $jamMulai ? 'btn-disabled' : '';
                                                 if (isset($mat[$jamke]->id_kjm)) :
+                                                    $href = $disabled == '' ? base_url() . 'siswa/buka' . $subjudul . '/' . $mat[$jamke]->id_kjm . '/' . $jamke : 'javascript:void(0)';
                                                     $status = '';
                                                     if (count($log) > 0) {
                                                         if (isset($log[$mat[$jamke]->id_kjm]) && $log[$mat[$jamke]->id_kjm]->finish_time != null) {
-                                                            $status = '<a href="' . base_url() . 'siswa/buka' . $subjudul . '/' . $mat[$jamke]->id_kjm . '/' . $jamke . '" class="btn btn-success">Selesai</a>';
+                                                            $status = '<a href="' . $href . '" class="btn btn-success ' . $disabled . '">Selesai</a>';
                                                         } else {
-                                                            $status = '<a href="' . base_url() . 'siswa/buka' . $subjudul . '/' . $mat[$jamke]->id_kjm . '/' . $jamke . '" class="btn btn-warning">Belum Selesai</a>';
+                                                            $status = '<a href="' . $href . '" class="btn btn-warning ' . $disabled . '">Belum Selesai</a>';
                                                         }
                                                     } else {
-                                                        $status = '<a href="' . base_url() . 'siswa/buka' . $subjudul . '/' . $mat[$jamke]->id_kjm . '/' . $jamke . '" class="btn btn-danger">Belum Dikerjakan</a>';
+                                                        $status = '<a href="' . $href . '" class="btn btn-danger ' . $disabled . '">Belum Dikerjakan</a>';
                                                     }
                                                     ?>
                                                     <tr>
