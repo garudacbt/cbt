@@ -49,11 +49,12 @@
                             $readSklNama = $data->sekolah === '' ? '' : 'readonly';
                             $readSklKepsek = $data->kepsek === '' ? '' : 'readonly';
                             $readSklJenjang = $data->jenjang === '' ? '' : 'readonly';
+                            $readSklSatuan = $data->satuan === '' ? '' : 'readonly';
                             $readSklAlamat = $data->alamat === '' ? '' : 'readonly';
                             $readSklDesa = $data->desa === '' ? '' : 'readonly';
                             $readSklKec = $data->kec === '' ? '' : 'readonly';
                             $readSklKota = $data->kota === '' ? '' : 'readonly';
-                            $readSklTlp = $data->tlp === '' ? '' : 'readonly';
+                            $readSklProv = $data->prov === '' ? '' : 'readonly';
                             ?>
                             <?= form_open('', array('id' => 'installapp')) ?>
                             <div class="card-body card-step-body">
@@ -127,19 +128,40 @@
                                         <div class="content-inner">
                                             <div class="row">
                                                 <div class="col-md-4 mb-4">
-                                                    <label>Nama Aplikasi *</label>
+                                                    <label>Nama Aplikasi</label>
                                                     <input type="text" id="input-nama-app" name="nama_aplikasi" class="form-control app" value="<?= $data->aplikasi ?>" required="" <?= $readAppNama ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                    <label>Nama Sekolah *</label>
+                                                    <label>Nama Sekolah</label>
                                                     <input type="text" id="input-nama-skl" name="nama_sekolah" class="form-control app" value="<?= $data->sekolah ?>" required="" <?= $readSklNama ?>>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                    <label>Kepala Sekolah *</label>
+                                                    <label>Kepala Sekolah</label>
                                                     <input type="text" id="input-nama-kepsek" name="kepsek" class="form-control app" value="<?= $data->kepsek ?>" required="" <?= $readSklKepsek ?>>
                                                 </div>
-                                                <div class="col-md-3 mb-4">
-                                                    <label>Jenjang *</label>
+                                                <div class="col-md-7 mb-4">
+                                                    <label>Alamat</label>
+                                                    <br>
+                                                    <input type="text" id="input-alamat" class="form-control app" name="alamat" value="<?= $data->alamat ?>" required="" <?= $readSklAlamat ?>>
+                                                </div>
+                                                <div class="col-md-5 mb-4">
+                                                    <label>Desa/Kelurahan</label>
+                                                    <input type="text" id="input-desa" name="desa" class="form-control app" value="<?= $data->desa ?>" required="" <?= $readSklDesa ?>>
+                                                </div>
+                                                <div class="col-md-4 mb-4">
+                                                    <label>Kecamatan</label>
+                                                    <input type="text" id="input-kec" name="kec" class="form-control app" value="<?= $data->kec ?>" required="" <?= $readSklKec ?>>
+                                                </div>
+                                                <div class="col-md-4 mb-4">
+                                                    <label>Kabupaten/Kota</label>
+                                                    <input type="text" id="input-kota" name="kota" class="form-control app" value="<?= $data->kota ?>" required="" <?= $readSklKota ?>>
+                                                </div>
+                                                <div class="col-md-4 mb-4">
+                                                    <label>Provinsi</label>
+                                                    <input type="text" id="input-prov" name="prov" class="form-control" value="<?= $data->prov ?>" <?= $readSklProv ?>>
+                                                </div>
+                                                <div class="col-md-4 mb-4">
+                                                    <label>Jenjang</label>
                                                     <select class="form-control app" id="input-jenjang" data-placeholder="Pilih Jenjang" name="jenjang" required="" <?= $readSklJenjang ?>>
                                                         <option value="" selected="<?= $data->jenjang ?>" disabled="">
                                                             Pilih Jenjang
@@ -149,31 +171,11 @@
                                                         <option value="3">SMA/MA/SMK</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-5 mb-4">
-                                                    <label>Alamat *</label>
-                                                    <br>
-                                                    <input type="text" id="input-alamat" class="form-control app" name="alamat" value="<?= $data->alamat ?>" required="" <?= $readSklAlamat ?>>
-                                                </div>
                                                 <div class="col-md-4 mb-4">
-                                                    <label>Desa/Kelurahan *</label>
-                                                    <input type="text" id="input-desa" name="desa" class="form-control app" value="<?= $data->desa ?>" required="" <?= $readSklDesa ?>>
-                                                </div>
-                                                <div class="col-md-4 mb-4">
-                                                    <label>Kecamatan *</label>
-                                                    <input type="text" id="input-kec" name="kec" class="form-control app" value="<?= $data->kec ?>" required="" <?= $readSklKec ?>>
-                                                </div>
-                                                <div class="col-md-4 mb-4">
-                                                    <label>Kabupaten/Kota *</label>
-                                                    <input type="text" id="input-kota" name="kota" class="form-control app" value="<?= $data->kota ?>" required="" <?= $readSklKota ?>>
-                                                </div>
-                                                <div class="col-md-4 mb-4">
-                                                    <label>Nomor Telepon</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">+62</span>
-                                                        </div>
-                                                        <input type="number" id="input-tlp" name="tlp" class="form-control" value="<?= $data->tlp ?>" <?= $readSklTlp ?>>
-                                                    </div>
+                                                    <label>Satuan Pend.</label>
+                                                    <select class="form-control app" id="input-satuan" data-placeholder="Pilih Satuan Pendidikan" name="satuan" required="" <?= $readSklSatuan ?>>
+                                                        <option value="" disabled="">Satuan Pendidikan</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-wrap align-items-center justify-content-end">
@@ -223,12 +225,12 @@
                                                         <td id="text-jen">:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Alamat</td>
-                                                        <td id="text-alm">:</td>
+                                                        <td>Satuan Pend.</td>
+                                                        <td id="text-satuan">:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>No. Telepon</td>
-                                                        <td id="text-tlp">:</td>
+                                                        <td>Alamat</td>
+                                                        <td id="text-alm">:</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -280,8 +282,10 @@
     var currentPage = dataInstall.current_page;
     var completed = dataInstall.current_page - 1;
     var dbSudah = false;
+
+    var satuanPend = [[], ["SD","MI"], ["SMP","MTS"], ["SMA","MA","SMK"]];
     $(document).ready(function () {
-        console.log('data', dataInstall);
+        console.log('data', satuanPend);
 
         $('.modal-footer').addClass('d-none');
 
@@ -385,6 +389,15 @@
             $('#installapp').submit();
         });
 
+        $('#input-jenjang').change(function () {
+            var htmlOptions = '<option value="" disabled="">Satuan Pendidikan</option>';
+            var satSelected = satuanPend[$(this).val()];
+            for (let i = 0; i < satSelected.length; i++) {
+                htmlOptions += '<option value="'+(i+1)+'">'+satSelected[i]+'</option>';
+            }
+            $('#input-satuan').html(htmlOptions);
+        });
+
         $('#installapp').submit(function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -408,6 +421,7 @@
 
             swal.close();
             $('.loading').addClass('d-none');
+
             $.ajax({
                 url: base_url + 'install/createapp',
                 method: 'POST',
@@ -467,9 +481,10 @@
             $('#text-pass').text(': ' + $('#input-pass').val());
             $('#text-skl').text(': ' + $('#input-nama-skl').val());
             $('#text-kep').text(': ' + $('#input-nama-kepsek').val());
-            $('#text-jen').text(': ' + $('#input-jenjang').val());
-            $('#text-alm').text(': ' + $('#input-alamat').val() + ' ' + $('#input-desa').val() + ' ' + $('#input-kec').val() + ' ' + $('#input-kota').val());
-            $('#text-tlp').text(': ' + $('#input-tlp').val());
+            $('#text-jen').text(': ' + $('#input-jenjang option:selected').text());
+            $('#text-satuan').text(': ' + $('#input-satuan option:selected').text());
+            $('#text-alm').text(': ' + $('#input-alamat').val() + ' ' + $('#input-desa').val() + ' ' +
+                $('#input-kec').val() + ' ' + $('#input-kota').val() + ' ' + $('#input-prov').val());
         }
     }
 </script>

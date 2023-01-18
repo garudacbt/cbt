@@ -73,7 +73,7 @@ $colWidth ='';
                         <button type="button" id="import-essai" class="btn btn-info align-text-bottom mr-2"
                                 data-toggle="tooltip"
                                 title="Import Nilai Essai">
-                            <i class="fa fa-pencil ml-1 mr-1"></i> Input Nilai Essai
+                            <i class="fa fa-file-excel ml-1 mr-1"></i> Import Nilai Essai
                         </button>
                         </div>
                     </div>

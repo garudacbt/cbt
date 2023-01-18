@@ -153,7 +153,11 @@ $satuan = [
 
                                                 <div class="foot"
                                                      style="text-align: center;font-family: 'Arial';font-size: 14pt;font-weight: bold;margin-top: 80px">
+                                                    <?php if ($setting->satuan_pendidikan == '2') : ?>
                                                     <p>KEMENTRIAN AGAMA</p>
+                                                    <?php else: ?>
+                                                    <p>KEMENTRIAN PENDIDIKAN DAN KEBUDAYAAN</p>
+                                                    <?php endif; ?>
                                                     <p>REPUBLIK INDONESIA</p>
                                                 </div>
                                             </div>
@@ -1306,7 +1310,13 @@ $satuan = [
         if (raporSetting == null) {
             $('#empty').html('<b>Rapor belum diatur oleh admin</b>');
             return;
+        } else {
+            if (raporSetting.kkm_tunggal == "0" && kkm.length == 0) {
+                $('#empty').html('<b>KKM belum diatur</b>');
+                return;
+            }
         }
+
         //var siswa = null;
         for (let i = 0; i < arrSiswa.length; i++) {
             if (arrSiswa[i].id_siswa == idSiswa) {
