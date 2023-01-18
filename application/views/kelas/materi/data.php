@@ -217,7 +217,7 @@ foreach ($materi as $k => $m) {
                                                 ? $kelas_materi[$value->id_materi][$arr[$k]]
                                                 : '' ?></b>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">
                                         <?php
                                         $jam = isset($mapeljamke[$value->id_mapel][$arr[$k]])
                                             ? $mapeljamke[$value->id_mapel][$arr[$k]] : '1';

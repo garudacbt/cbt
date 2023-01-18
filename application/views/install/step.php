@@ -419,7 +419,7 @@
                     swal.close();
                     swal.fire({
                         title: isSuccess ? "Sukses" : "Gagal!",
-                        html: isSuccess ? "Aplikasi berhasil diinstall" : response,
+                        html: isSuccess ? "Aplikasi berhasil diinstall" : 'Gagal menyimpan data aplikasi',
                         icon: isSuccess ? "success" : "error",
                         closeOnClickOutside: false,
                         showCancelButton: false,
