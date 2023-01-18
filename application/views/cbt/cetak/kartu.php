@@ -151,7 +151,7 @@
 													<span id="prev-kota"><?= $setting->kota ?></span>, <span
 														id="prev-tanggal"><?= isset($kartu->tanggal) ? $kartu->tanggal : '' ?></span>
 													<br>
-                                                    Kepala Madrasah
+                                                    Kepala <?= $setting->satuan_pendidikan == '2' ? 'Madrasah' : 'Sekolah' ?>
 													<br>
                                                     <br>
 													<br>
@@ -254,6 +254,7 @@
 	var logoKiri = '<?=base_url().$setting->logo_kiri?>';
 	var tandatangan = '<?=base_url().$setting->tanda_tangan?>';
 	var kepsek = '<?= $setting->kepsek ?>';
+    var satuanPend = '<?= $setting->satuan_pendidikan ?>' === '2' ? 'Madrasah' : 'Sekolah';
 	var printBy = 1;
 
 	function submitKartu() {
@@ -360,7 +361,7 @@
                         '<td style="text-align: center;">' +
                         '<div id="prev-tandatangan-print" style="font-family: \'Times New Roman\'; font-size: 9pt; line-height: 1; background: url('+tandatangan+') no-repeat center; background-size: 100px 60px">' +
                         '<span>' + oldKota + '</span>, <span>' + oldTgl + '</span>' +
-                        '<br>Kepala Madrasah' +
+                        '<br>Kepala ' + satuanPend +
                         '<br>' +
                         '<br>' +
                         '<br>' +
@@ -463,7 +464,7 @@
                     '<td style="text-align: center;">' +
                     '<div id="prev-tandatangan-print" style="font-family: \'Times New Roman\'; font-size: 9pt; line-height: 1; background: url('+tandatangan+') no-repeat center; background-size: 100px 60px">' +
                     '<span>' + oldKota + '</span>, <span>' + oldTgl + '</span>' +
-                    '<br>Kepala Madrasah' +
+                    '<br>Kepala ' + satuanPend +
                     '<br>' +
                     '<br>' +
                     '<br>' +
