@@ -7,6 +7,7 @@ class Database {
         if (mysqli_connect_errno())
             return false;
         $mysqli->query("CREATE DATABASE IF NOT EXISTS " . $data['database']);
+        while (mysqli_next_result($mysqli));
         $mysqli->close();
         return true;
     }
@@ -17,6 +18,7 @@ class Database {
             return false;
         $query = file_get_contents('../assets/app/db/master.sql');
         $mysqli->multi_query($query);
+        while (mysqli_next_result($mysqli));
         $mysqli->close();
         return true;
     }
