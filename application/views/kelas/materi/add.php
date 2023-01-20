@@ -99,17 +99,17 @@ if (empty($kelas_pilih)) {
 									data-placeholder="Pilih Kelas" required=""></select>
 						</div>
 						<div class="col-12 mb-3">
-							<label>Judul Materi</label>
+							<label>Judul <?=$judul?></label>
 							<input type="text" class="form-control" name="judul" aria-describedby="helpId"
 								   value="<?= $materi->judul_materi ?>" placeholder="Judul materi" required>
 						</div>
 						<div class="col-12 mb-3">
-							<label>Isi Materi</label>
+							<label>Isi <?=$judul?></label>
 							<textarea id="text-materi" name='isi_materi' class='editor'
                                       spellcheck="false" autocomplete="off"
 									  data-id="<?= $this->security->get_csrf_hash() ?>"
 									  data-name="<?= $this->security->get_csrf_token_name() ?>"
-									  rows='10' cols='80' style='width:100%;'>
+									  rows='10' cols='80' style='width:100%;' required>
                             </textarea>
 						</div>
 					</div>
@@ -252,7 +252,6 @@ if (empty($kelas_pilih)) {
 			var maxSize = $("#formfile").find('input[name="max-size"]').val();
 			//console.log('nama file', names_files);
 			uploadAttach(base_url + 'kelasmateri/uploadfile', form, maxSize);
-			//createPreviewFile($(this), e)
 		});
 
 		$('#formmateri').submit(function (e) {
@@ -460,8 +459,7 @@ if (empty($kelas_pilih)) {
                     dataFiles.push(item);
                     console.log(data.type);
                     createPreviewFile();
-
-                    $('#formmateri').submit();
+                    //$('#formmateri').submit();
                 } else {
                     swal.fire({
                         title: "Gagal",

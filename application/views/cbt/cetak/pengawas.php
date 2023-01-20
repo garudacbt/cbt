@@ -1,6 +1,5 @@
 <?php
-function date_sort($a, $b)
-{
+function date_sort($a, $b) {
     return strtotime($a) - strtotime($b);
 }
 
@@ -32,10 +31,12 @@ $allowedDates = [];
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Print" onclick="print()">
-                                <i class="fas fa-print"></i> <span class="d-none d-sm-inline-block ml-1"> Print/PDF</span></button>
+                                <i class="fas fa-print"></i>
+                                <span class="d-none d-sm-inline-block ml-1"> Print/PDF</span></button>
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Export As Word" onclick="exportWord()">
-                                <i class="fa fa-file-word"></i> <span class="d-none d-sm-inline-block ml-1"> Word</span></button>
+                                <i class="fa fa-file-word"></i> <span class="d-none d-sm-inline-block ml-1"> Word</span>
+                            </button>
                             <!--
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Export As Excel" onclick="exportExcel()">
@@ -61,15 +62,15 @@ $allowedDates = [];
                             </div>
                         </div>
                         <?php
-                        $dnone = $filter_selected == '0' ? 'd-none' : ''?>
-                        <div class='col-md-2 col-4 <?=$dnone?>' id="tgl-dari">
+                        $dnone = $filter_selected == '0' ? 'd-none' : '' ?>
+                        <div class='col-md-2 col-4 <?= $dnone ?>' id="tgl-dari">
                             <div class="form-group">
                                 <label for="dari">Dari</label>
                                 <input type='text' id="dari" name='dari' value="<?= $dari_selected ?>"
                                        class='tgl form-control' autocomplete='off'/>
                             </div>
                         </div>
-                        <div class='col-md-2 col-4 <?=$dnone?>' id="tgl-sampai">
+                        <div class='col-md-2 col-4 <?= $dnone ?>' id="tgl-sampai">
                             <div class="form-group">
                                 <label for="sampai">Sampai</label>
                                 <input type='text' id="sampai" name='sampai'
@@ -78,96 +79,87 @@ $allowedDates = [];
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <!--
-                    <div class="row">
-                        <div class="col-6">
-                            <?php
-                            echo '<pre>';
-                            var_dump($jadwals);
-                            echo '</pre>';
-                            ?>
-                        </div>
-                        <div class="col-6">
-                            <?php
-                            echo '<pre>';
-                            var_dump($jadwals_ruang);
-                            echo '</pre>';
-                            ?>
-                        </div>
-                        -->
-                    </div>
-                    <div class="d-flex justify-content-center bg-gray-light">
-                        <div id="print-preview">
-                            <?php
-                            $none = count($jadwals_ruang)>0 ? '' : 'd-none';
-                            if (count($jadwals_ruang)>0):
+                </div>
+                <div class="d-flex justify-content-center bg-gray-light">
+                    <div id="print-preview">
+                        <?php
+                        $none = count($jadwals_ruang) > 0 ? '' : 'd-none';
+                        if (count($jadwals_ruang) > 0):
                             $list_ruang = array_keys($jadwals_ruang);
                             foreach ($list_ruang as $rng) :
-                            ?>
-                            <div style="background: white; width: 210mm; min-height: 297mm; padding: 1mm;white-space: nowrap;"
-                                 class="border my-shadow m-4 p-5">
-                                <table id="table-header-print" style="width: 100%; border: 0;">
-                                    <tr>
-                                        <td style="width:15%;">
-                                            <img alt="logo kiri" id="prev-logo-kanan-print" width="85" height="85"
-                                                 src="<?= isset($setting->logo_kiri) ? base_url().$setting->logo_kiri : '' ?>"
-                                                 style="width:85px; height:85px; margin: 6px;">
-                                        </td>
-                                        <td style="width:70%; text-align: center;">
-                                            <div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 14pt"><?= $setting->sekolah ?></div>
-                                            <div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 16pt"><b>DAFTAR PENGAWAS</b></div>
-                                            <div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 13pt"><?= strtoupper($jenis_ujian->nama_jenis .' ('. $jenis_ujian->kode_jenis.')') ?></div>
-                                            <div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 12pt">Tahun Pelajaran: <?= $tp_active->tahun ?></div>
-                                        </td>
-                                        <td style="width:15%;">
-                                            <img alt="logo kanan" id="prev-logo-kiri-print" src="<?= isset($setting->logo_kanan) ? base_url().$setting->logo_kanan : ''?>"
-                                                 width="85" height="85" style="width:85px; height:85px; margin: 6px; border-style: none">
-                                        </td>
-                                    </tr>
-                                </table>
-                                <hr style="border: 1px solid; margin-bottom: 6px; margin-top: 2px">
-                                <p><?=$rng?></p>
-                                <table class="tbl-pengawas" style="width: 100%; border-collapse: collapse">
-                                    <thead>
-                                    <tr style="font-family: 'Times New Roman'; font-size: 12pt">
-                                        <th style="border: 1px solid black; height: 40px; text-align: center;">Hari & Tanggal</th>
-                                        <!--
-                                        <th style="border: 1px solid black; height: 40px; text-align: center;">Ruang</th>
-                                        -->
-                                        <th style="border: 1px solid black; height: 40px; text-align: center;">Sesi</th>
-                                        <!--
-                                        <th class="text-center align-middle">Jam ke</th>
-                                        -->
-                                        <th style="border: 1px solid black; height: 40px; text-align: center;">Mata Pelajaran</th>
-                                        <th style="border: 1px solid black; height: 40px; text-align: center;">Pengawas</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    foreach ($jadwals_ruang[$rng] as $jadwal) :
-                                        ?>
-                                        <tr style="font-family: 'Times New Roman'; font-size: 11pt">
-                                            <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?= str_replace(',', '<br>', singkat_tanggal(date('D,d M Y', strtotime($jadwal->tanggal)))) ?></td>
-                                            <!--
-                                            <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?=$jadwal->ruang?></td>
-                                            -->
-                                            <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?=$jadwal->sesi?></td>
-                                            <!--
-                                <td class="text-center align-middle"><?=$jadwal->waktu?></td>
-                                -->
-                                            <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?=$jadwal->mapel?></td>
-                                            <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?=$jadwal->pengawas?></td>
+                                ?>
+                                <div style="background: white; width: 210mm; min-height: 297mm; padding: 1mm;white-space: nowrap;"
+                                     class="border my-shadow m-4 p-5">
+                                    <table id="table-header-print" style="width: 100%; border: 0;">
+                                        <tr>
+                                            <td style="width:15%;">
+                                                <img alt="logo kiri" id="prev-logo-kanan-print" width="85" height="85"
+                                                     src="<?= isset($setting->logo_kiri) ? base_url() . $setting->logo_kiri : '' ?>"
+                                                     style="width:85px; height:85px; margin: 6px;">
+                                            </td>
+                                            <td style="width:70%; text-align: center;">
+                                                <div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 14pt"><?= $setting->sekolah ?></div>
+                                                <div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 16pt">
+                                                    <b>DAFTAR PENGAWAS</b></div>
+                                                <div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 13pt"><?= strtoupper($jenis_ujian->nama_jenis . ' (' . $jenis_ujian->kode_jenis . ')') ?></div>
+                                                <div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 12pt">
+                                                    Tahun Pelajaran: <?= $tp_active->tahun ?></div>
+                                            </td>
+                                            <td style="width:15%;">
+                                                <img alt="logo kanan" id="prev-logo-kiri-print" src="<?= isset($setting->logo_kanan) ? base_url() . $setting->logo_kanan : '' ?>"
+                                                     width="85" height="85" style="width:85px; height:85px; margin: 6px; border-style: none">
+                                            </td>
                                         </tr>
-                                    <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                                <br>
-                                <div id="konten-copy" class="d-none"></div>
-                            </div>
-                            <div style="page-break-after: always"></div>
+                                    </table>
+                                    <hr style="border: 1px solid; margin-bottom: 6px; margin-top: 2px">
+                                    <p><?= $rng ?></p>
+                                    <table class="tbl-pengawas" style="width: 100%; border-collapse: collapse">
+                                        <thead>
+                                        <tr style="font-family: 'Times New Roman'; font-size: 12pt">
+                                            <th style="border: 1px solid black; height: 40px; text-align: center;">Hari
+                                                & Tanggal
+                                            </th>
+                                            <!--
+                                            <th style="border: 1px solid black; height: 40px; text-align: center;">Ruang</th>
+                                            -->
+                                            <th style="border: 1px solid black; height: 40px; text-align: center;">
+                                                Sesi
+                                            </th>
+                                            <!--
+                                            <th class="text-center align-middle">Jam ke</th>
+                                            -->
+                                            <th style="border: 1px solid black; height: 40px; text-align: center;">Mata
+                                                Pelajaran
+                                            </th>
+                                            <th style="border: 1px solid black; height: 40px; text-align: center;">
+                                                Pengawas
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        foreach ($jadwals_ruang[$rng] as $jadwal) :
+                                            ?>
+                                            <tr style="font-family: 'Times New Roman'; font-size: 11pt">
+                                                <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?= str_replace(',', '<br>', singkat_tanggal(date('D,d M Y', strtotime($jadwal->tanggal)))) ?></td>
+                                                <!--
+                                            <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?= $jadwal->ruang ?></td>
+                                            -->
+                                                <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?= $jadwal->sesi ?></td>
+                                                <!--
+                                <td class="text-center align-middle"><?= $jadwal->waktu ?></td>
+                                -->
+                                                <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?= $jadwal->mapel ?></td>
+                                                <td style="line-height: 1.5;border: 1px solid black; text-align: center;"><?= $jadwal->pengawas ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <div id="konten-copy" class="d-none"></div>
+                                </div>
+                                <div style="page-break-after: always"></div>
                             <?php endforeach; endif; ?>
-                        </div>
                     </div>
                 </div>
                 <div class="overlay d-none" id="loading">
@@ -175,7 +167,8 @@ $allowedDates = [];
                 </div>
             </div>
         </div>
-    </section>
+</div>
+</section>
 </div>
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
@@ -191,7 +184,7 @@ $allowedDates = [];
         ajaxcsrf();
 
         $(".tbl-pengawas").rowspanizer({
-            columns: [0,1,2],
+            columns: [0, 1, 2],
             vertical_align: "middle"
         });
 
@@ -204,8 +197,8 @@ $allowedDates = [];
                     previous: 'fa fa-angle-left'
                 },
             timepicker: false,
-            scrollInput : false,
-            scrollMonth : false,
+            scrollInput: false,
+            scrollMonth: false,
             format: 'Y-m-d',
             disabledWeekDays: [0],
             //allowDates: allowed,
@@ -226,7 +219,7 @@ $allowedDates = [];
                 $('#tgl-dari').addClass('d-none');
                 $('#tgl-sampai').addClass('d-none');
                 var jenis = opsiJenis.val();
-                var url =  base_url + 'cbtcetak/pengawas?jenis=' + jenis + '&filter=0';
+                var url = base_url + 'cbtcetak/pengawas?jenis=' + jenis + '&filter=0';
                 if (jenis != "") {
                     $('#loading').removeClass('d-none');
                     window.location.href = url;
@@ -241,8 +234,8 @@ $allowedDates = [];
         opsiJenis.change(function () {
             //var jj = $(this).val();
             //if (jj != "" && jj !== old) {
-                getAllJadwal();
-                //window.location.href = base_url + 'cbtalokasi?jenis=' + jj + '&level=' + opsiLevel.val();
+            getAllJadwal();
+            //window.location.href = base_url + 'cbtalokasi?jenis=' + jj + '&level=' + opsiLevel.val();
             //}
         });
 
@@ -358,7 +351,7 @@ $allowedDates = [];
         var converted = htmlDocx.asBlob(content, {
             //orientation: 'landscape',
             size: 'A4',
-            margins:{top:700, bottom:700, left:1000, right:1000}
+            margins: {top: 700, bottom: 700, left: 1000, right: 1000}
         });
         saveAs(converted, docTitle + '.docx');
     }

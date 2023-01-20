@@ -159,24 +159,24 @@ if (isset($jadwal_ujian)) {
                                             $enableEdit = true;
                                             $sedangdikerjakan = 0;
                                             $terpakai = true;
-                                            $bgRandom = 'bg-gradient-maroon';
+                                            $bgRandom = 'bg-maroon';
                                             if ($jadwal->status == '0') {
-                                                $bgRandom = 'bg-gradient-gray';
+                                                $bgRandom = 'bg-gray';
                                             } else {
                                                 if ($today < $startDay) {
                                                     //belum dimulai
-                                                    $bgRandom = 'bg-gradient-maroon';
+                                                    $bgRandom = 'bg-maroon';
                                                 } elseif ($today > $endDay) {
                                                     //selesai
                                                     $terpakai = isset($total_siswa[$jadwal->id_jadwal]) && count($total_siswa[$jadwal->id_jadwal]) > 0;
-                                                    $bgRandom = $terpakai ? 'bg-gradient-fuchsia' : 'bg-gradient-yellow';
+                                                    $bgRandom = $terpakai ? 'bg-fuchsia' : 'bg-yellow';
                                                     if ($jadwal->rekap == '1') {
-                                                        $bgRandom = $terpakai ? 'bg-gradient-success' : 'bg-gradient-yellow';
+                                                        $bgRandom = $terpakai ? 'bg-success' : 'bg-yellow';
                                                     }
                                                 } else {
                                                     //sedang dilaksanakan
                                                     $terpakai = isset($total_siswa[$jadwal->id_jadwal]) && count($total_siswa[$jadwal->id_jadwal]) > 0;
-                                                    $bgRandom = $terpakai ? 'bg-gradient-indigo' : 'bg-gradient-yellow';
+                                                    $bgRandom = $terpakai ? 'bg-indigo' : 'bg-yellow';
                                                     $sedangdikerjakan = $terpakai ? 1 : 0;
                                                 }
                                             }
@@ -197,7 +197,7 @@ if (isset($jadwal_ujian)) {
                                             <?php endif; ?>
                                             <td class="text-center align-middle p-0"><?=$nomer?></td>
                                             <td class="align-middle d-none"><?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?></td>
-                                                <td class="align-middle"><?= $jadwal->bank_kode ?></td>
+                                                <td class="align-middle <?=$bgRandom?>"><?= $jadwal->bank_kode ?></td>
                                             <td class="align-middle"><?= $jadwal->nama_mapel ?></td>
                                                 <td class="align-middle"><?= $kelasbank ?></td>
                                                 <td class="text-center align-middle p-0"><?= ($jadwal->status === '0') ? '<span class="badge badge-btn badge-secondary">Non Aktif</span>' : '<span class="badge badge-btn badge-success">Aktif</span>' ?></td>
@@ -528,7 +528,7 @@ if (isset($jadwal_ujian)) {
                                 icon: "success"
                             }).then(result => {
                                 if (result.value) {
-                                    window.location.href = base_url + 'cbtjadwal';
+                                    window.location.reload();
                                 }
                             });
                         } else {

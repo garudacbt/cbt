@@ -43,16 +43,16 @@ $allowedDates = [];
                         <strong>Catatan!</strong>
                         <ol>
                             <li>
-                                Mengatur berapa menit jadwal ujian akan aktif setelah sesi dimulai
+                                Mengatur urutan aktif jadwal ujian sesuai urutan jam
                             </li>
                             <li>
-                                Contoh <b>Menit ke</b> 90, maka jadwal mapel akan aktif 90 menit setelah Mapel pertama dimulai
+                                Contoh <b>Jam ke</b> 2, maka jadwal mapel akan aktif setelah jam pertama selesai dikerjakan oleh siswa
                             </li>
                             <li>
-                                Jika semua <b>Menit ke</b> diatur ke 0 maka semua jadwal akan bisa dikerjakan oleh siswa
+                                Jika semua <b>Jam ke</b> tidak diatur maka semua jadwal yang aktif akan bisa dikerjakan oleh siswa
                             </li>
                             <li>
-                                halaman ini berlaku jika semua jadwal telah diaktifkan
+                                Halaman ini berlaku jika semua jadwal telah diaktifkan
                             </li>
                             <li>
                                 Jika halaman ini tidak diatur/tidak disimpan, maka jadwal ujian mengikuti aturan di MENU <b>JADWAL</b>
@@ -60,7 +60,6 @@ $allowedDates = [];
                         </ol>
                     </div>
                     <br>
-
                     <div class="row mb-3">
                         <div class="col-md-3 col-6">
                             <div class="form-group">

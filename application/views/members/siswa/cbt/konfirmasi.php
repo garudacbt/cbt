@@ -162,13 +162,13 @@
                 method: 'GET',
                 success: function (data) {
                     console.log(data);
-
                     if (data.token === tkn) {
                         $('#konfir').submit();
                     } else {
+                        $('#load-soal').removeAttr('disabled');
                         swal.fire({
                             "title": "Token salah",
-                            "text": "Token yang kamu masukkan salah",
+                            "html": "Token yang kamu masukkan salah<br>004",
                             "icon": "error"
                         }).then(result => {
                             if (data.status) {
@@ -178,6 +178,7 @@
                     }
                 },
                 error: function (xhr, status, error) {
+                    $('#load-soal').removeAttr('disabled');
                     swal.fire({
                         "title": "Error",
                         "text": "Server tidak merespon",
@@ -203,10 +204,18 @@
                 if (data.soal > 0) {
                     cekDurasi();
                 } else {
-                    showDangerToast('Coba kembali ke beranda, lalu ulangi lagi');
+                    swal.fire({
+                        "title": "Error",
+                        "html": "Tidak ada soal ujian<br>Hubungi proktor",
+                        "icon": "error"
+                    });
                 }
             }, error: function (xhr, error, status) {
-                showDangerToast('ERROR!');
+                swal.fire({
+                    "title": "Error",
+                    "html": "Coba kembali ke beranda, lalu ulangi lagi<br>006",
+                    "icon": "error"
+                });
                 console.log(xhr.responseText);
             }
         });
@@ -221,7 +230,12 @@
             success: function (data) {
                 window.location.href = base_url + 'siswa/penilaian/' + jadwal;
             }, error: function (xhr, error, status) {
-                showDangerToast('ERROR!');
+                swal.fire({
+                    "title": "Error",
+                    "html": "Coba kembali ke beranda, lalu ulangi lagi<br>007",
+                    "icon": "error"
+                })
+                //showDangerToast('ERROR!');
                 console.log(xhr.responseText);
             }
         });

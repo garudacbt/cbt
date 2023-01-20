@@ -144,7 +144,7 @@
                                         $no = 1;
                                         foreach ($jadwal as $j) :
                                             $hanya_pg = $j->tampil_pg > 0 && $j->tampil_kompleks == 0 && $j->tampil_jodohkan == 0 && $j->tampil_isian == 0 && $j->tampil_esai == 0;
-                                            $total = !$hanya_pg && isset($j->dikoreksi) && $j->dikoreksi == 0 ? '*' : ($j->hasil_tampil == '0' ? '**' : $nilai[$j->id_jadwal]);
+                                            $total = !$hanya_pg && isset($skor[$j->id_jadwal]->dikoreksi) && $skor[$j->id_jadwal]->dikoreksi == 0 ? '*' : ($j->hasil_tampil == '0' ? '**' : $skor[$j->id_jadwal]->skor_total);
                                             ?>
                                             <tr>
                                                 <td class="text-center"><?= $no ?></td>
@@ -154,7 +154,7 @@
                                                 <td class="text-center"><?= $total ?></td>
                                                 <td class="text-center">
                                                     <button type="button"
-                                                            data-koreksi="<?= isset($j->dikoreksi) ? $j->dikoreksi : '0' ?>"
+                                                            data-koreksi="<?= isset($skor[$j->id_jadwal]->dikoreksi) ? $skor[$j->id_jadwal]->dikoreksi : '0' ?>"
                                                             data-tampil="<?=$j->hasil_tampil?>"
                                                             data-id="<?= $j->id_jadwal ?>"
                                                             data-toggle="modal"
@@ -284,11 +284,12 @@
         $('#detail-nilai').on('show.bs.modal', function (e) {
             var tampilNilai = $(e.relatedTarget).data('tampil');
             var id  = $(e.relatedTarget).data('id');
-            var dikoreksi  = $(e.relatedTarget).data('dikoreksi') == '1';
+            var dikoreksi  = $(e.relatedTarget).data('koreksi') == '1';
 
             var jadwal = jadwals[id];
             var dur = durasies[id].length > 0 ? durasies[id][0] : null;
             var skor = skores[id];
+
             $('#alert').toggleClass('d-none', tampilNilai == '1');
 
             var sp = jadwal.tgl_mulai.split('-');
@@ -296,7 +297,6 @@
             $('#jwaktu').html(': ' + arrhari[d.getDay()] + ', ' + sp[2] + ' ' + arrbulan[parseInt(sp[1])] + ' ' + sp[0]);
 
             if (dur != null && dur.mulai != null && dur.selesai != null && dur.lama_ujian != null) {
-                console.log(dur);
                 var m = dur.mulai.split(' ')[1].split(':');
                 $('#jmulai').html(': ' + m[0] + ':' + m[1]);
                 var s = dur.selesai.split(' ')[1].split(':');
@@ -334,8 +334,9 @@
 
                 $('#tes').toggleClass('d-none', parseInt(jadwal.tampil_esai) == 0);
                 $('#jes').text(jadwal.tampil_esai);
-                $('#bes').text(skor.benar_esai);
-                $('#ses').html(dikoreksi ? skor.skor_esai : 'sedang<br>dikoreksi');
+                //$('#bes').text(skor.benar_esai);
+                $('#bes').text('-');
+                $('#ses').html(dikoreksi ? skor.skor_essai : 'sedang<br>dikoreksi');
                 $('#jskor').html(`<b>${skor.skor_total}</b>`);
             } else {
                 $('#table-detail-soal').addClass('d-none');

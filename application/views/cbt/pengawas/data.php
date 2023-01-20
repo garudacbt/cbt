@@ -41,6 +41,10 @@
                     </div>
 
                     <?php
+                    //echo '<pre>';
+                    //var_dump($tgl_jadwals);
+                    //var_dump($pengawas);
+                    //echo '</pre>';
                     if (count($tgl_jadwals) > 0) : ?>
                         <table class="table table-bordered" id="tbl-pengawas">
                             <thead>
@@ -177,66 +181,6 @@
                 window.location.href = url;
             }
         }
-
-        $('#simpanpengawas').on('submit', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            var kosong = ruang == '' || sesi == "" || jenis == "";
-            if (kosong) return;
-
-            const $rows1 = $('#tbl').find('tr'), headers1 = $rows1.splice(0, 1);
-            var jsonObj = [];
-            $rows1.each((i, row) => {
-                const ruang = opsiRuang.val();
-                const sesi = opsiSesi.val();
-                const jadwal = $(row).find('.jadwal').data('id');
-                const guru = $(row).find('.pengawas').val();
-
-                let item = {};
-                item ["jadwal"] = jadwal;
-                item ["ruang"] = ruang;
-                item ["sesi"] = sesi;
-                item ["guru"] = guru;
-
-                jsonObj.push(item);
-            });
-
-
-            var dataPost = $(this).serialize() + "&data=" + JSON.stringify(jsonObj);
-            //console.log('table 2', dataPost);
-            /*
-            $.ajax({
-                url: base_url + "cbtpengawas/savepengawas",
-                type: "POST",
-                dataType: "JSON",
-                data: dataPost,
-                success: function (data) {
-                    console.log("response:", data);
-                    if (data.status) {
-                        swal.fire({
-                            title: "Sukses",
-                            html: "Pengawas ujian berhasil disimpan",
-                            icon: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#3085d6",
-                            confirmButtonText: "OK"
-                        }).then(result => {
-                            if (result.value) {
-                                window.location.reload();
-                            }
-                        });
-                    } else {
-                        showDangerToast('gagal disimpan')
-                    }
-                }, error: function (xhr, status, error) {
-                    console.log("response:", xhr.responseText);
-                    showDangerToast('gagal disimpan')
-                }
-            });
-            */
-        });
 
         $('#savepengawas').on('submit', function (e) {
             e.stopPropagation();
