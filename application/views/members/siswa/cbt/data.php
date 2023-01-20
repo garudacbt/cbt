@@ -115,141 +115,140 @@ $jadwal_selesai = [];
                                 <?php else:
                                     $jamSesi = $cbt_info == null ? '0' : (isset($cbt_info->sesi_id) ? $cbt_info->sesi_id : $cbt_info->id_sesi);
                                     if (isset($cbt_jadwal[date('Y-m-d')]) && count($cbt_jadwal[date('Y-m-d')]) > 0) :
-                                        foreach ($cbt_jadwal as $tgl => $jadwals)  :
-                                            foreach ($jadwals as $key => $jadwal)  :
-                                                $kk = unserialize($jadwal->bank_kelas);
-                                                $arrKelasCbt = [];
-                                                foreach ($kk as $k) {
-                                                    array_push($arrKelasCbt, $k['kelas_id']);
-                                                }
+                                        foreach ($cbt_jadwal[date('Y-m-d')] as $key => $jadwal)  :
+                                            $kk = unserialize($jadwal->bank_kelas);
+                                            $arrKelasCbt = [];
+                                            foreach ($kk as $k) {
+                                                array_push($arrKelasCbt, $k['kelas_id']);
+                                            }
 
-                                                $startDay = strtotime($jadwal->tgl_mulai);
-                                                $endDay = strtotime($jadwal->tgl_selesai);
-                                                $today = strtotime(date('Y-m-d'));
+                                            $startDay = strtotime($jadwal->tgl_mulai);
+                                            $endDay = strtotime($jadwal->tgl_selesai);
+                                            $today = strtotime(date('Y-m-d'));
 
-                                                //echo 'skrg='.$today . ' start=' . $startDay . ' end=' . $endDay;
+                                            //echo 'skrg='.$today . ' start=' . $startDay . ' end=' . $endDay;
 
-                                                $hariMulai = new DateTime($jadwal->tgl_mulai);
-                                                $hariSampai = new DateTime($jadwal->tgl_selesai);
+                                            $hariMulai = new DateTime($jadwal->tgl_mulai);
+                                            $hariSampai = new DateTime($jadwal->tgl_selesai);
 
-                                                $sesiMulai = new DateTime($sesi[$jamSesi]['mulai']);
-                                                $sesiSampai = new DateTime($sesi[$jamSesi]['akhir']);
-                                                $now = strtotime(date('H:i'));
+                                            $sesiMulai = new DateTime($sesi[$jamSesi]['mulai']);
+                                            $sesiSampai = new DateTime($sesi[$jamSesi]['akhir']);
+                                            $now = strtotime(date('H:i'));
 
-                                                $durasi = $elapsed[$jadwal->id_jadwal];
-                                                $jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke] = $durasi != null
-                                                    ? $durasi->status == '2'
-                                                    : false;
+                                            $durasi = $elapsed[$jadwal->id_jadwal];
+                                            $jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke] = $durasi != null
+                                                ? $durasi->status == '2'
+                                                : false;
 
-                                                if ($durasi != null) {
-                                                    $selesai = $durasi->selesai != null;
-                                                    $lanjutkan = $durasi->lama_ujian != null;
-                                                    $reset = $durasi->reset;
-                                                    if ($lanjutkan != null && !$selesai) $bg = 'bg-gradient-warning';
-                                                    elseif ($selesai) $bg = 'bg-gradient-success';
-                                                    else {
-                                                        $bg = 'bg-gradient-danger';
-                                                    }
-                                                } else {
-                                                    $selesai = false;
-                                                    $lanjutkan = false;
-                                                    $reset = 0;
+                                            if ($durasi != null) {
+                                                $selesai = $durasi->selesai != null;
+                                                $lanjutkan = $durasi->lama_ujian != null;
+                                                $reset = $durasi->reset;
+                                                if ($lanjutkan != null && !$selesai) $bg = 'bg-gradient-warning';
+                                                elseif ($selesai) $bg = 'bg-gradient-success';
+                                                else {
                                                     $bg = 'bg-gradient-danger';
                                                 }
-                                                ?>
-                                                <div class="jadwal-cbt col-md-6 col-lg-4">
-                                                    <div class="card border">
-                                                        <div class="card-header">
-                                                            <div class="card-title">
-                                                                <b>Jam ke: <?= $jadwal->jam_ke ?></b>
-                                                            </div>
-                                                            <div class="card-tools">
-                                                                <b><i class="fa fa-clock-o text-gray mr-1"></i><?= $jadwal->durasi_ujian ?>
-                                                                    mnt</b>
-                                                            </div>
+                                            } else {
+                                                $selesai = false;
+                                                $lanjutkan = false;
+                                                $reset = 0;
+                                                $bg = 'bg-gradient-danger';
+                                            }
+                                            ?>
+                                            <div class="jadwal-cbt col-md-6 col-lg-4">
+                                                <div class="card border">
+                                                    <div class="card-header">
+                                                        <div class="card-title">
+                                                            <b>Jam ke: <?= $jadwal->jam_ke ?></b>
                                                         </div>
-                                                        <div class="card-body p-0">
-                                                            <div class="small-box <?= $bg ?> mb-0">
-                                                                <div class="inner">
-                                                                    <h4><b><?= $jadwal->kode ?></b></h4>
-                                                                    <h5><?= $jadwal->nama_jenis ?></h5>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-book-open"></i>
-                                                                </div>
-                                                                <hr style="margin-top:0; margin-bottom: 0">
-                                                                <?php
-                                                                if (!$lanjutkan && $reset == 0 && !$selesai) : ?>
-                                                                    <?php if ($today < $startDay) : ?>
-                                                                        <div id="<?= $jadwal->id_jadwal ?>"
-                                                                             class="status small-box-footer p-2"
-                                                                             data-tgl="<?= $jadwal->tgl_mulai ?>"
-                                                                             data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                            <b>BELUM DIMULAI</b>
-                                                                        </div>
-                                                                    <?php elseif ($today > $endDay) : ?>
-                                                                        <div id="<?= $jadwal->id_jadwal ?>"
-                                                                             class="status small-box-footer p-2"
-                                                                             data-tgl="<?= $jadwal->tgl_mulai ?>"
-                                                                             data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                            <b>SUDAH BERAKHIR</b>
-                                                                        </div>
-                                                                    <?php else: ?>
-                                                                        <?php if ($now < strtotime($sesiMulai->format('H:i'))) : ?>
-                                                                            <div id="<?= $jadwal->id_jadwal ?>"
-                                                                                 class="status small-box-footer p-2"
-                                                                                 data-tgl="<?= $jadwal->tgl_mulai ?>"
-                                                                                 data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                                <b><?= strtoupper($cbt_info->nama_sesi) ?>
-                                                                                    BELUM DIMULAI</b>
-                                                                            </div>
-                                                                        <?php elseif ($now > strtotime($sesiSampai->format('H:i'))) : ?>
-                                                                            <div id="<?= $jadwal->id_jadwal ?>"
-                                                                                 class="status small-box-footer p-2"
-                                                                                 data-tgl="<?= $jadwal->tgl_mulai ?>"
-                                                                                 data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                                <b><?= strtoupper($cbt_info->nama_sesi) ?>
-                                                                                    SUDAH BERAKHIR</b>
-                                                                            </div>
-                                                                        <?php else : ?>
-                                                                            <?php if (isset($jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1]) && $jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1] == false) : ?>
-                                                                                <button id="<?= $jadwal->id_jadwal ?>"
-                                                                                        class="btn-block btn status text-white small-box-footer p-2">
-                                                                                    <b>MENUNGGU</b>
-                                                                                </button>
-                                                                            <?php else : ?>
-                                                                                <button id="<?= $jadwal->id_jadwal ?>"
-                                                                                        onclick="location.href='<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>'"
-                                                                                        class="btn-block status text-white small-box-footer p-2"
-                                                                                        data-tgl="<?= $jadwal->tgl_mulai ?>"
-                                                                                        data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                                    <b>KERJAKAN</b><i
-                                                                                            class="fas fa-arrow-circle-right ml-3"></i>
-                                                                                </button>
-                                                                            <?php endif; endif; endif; ?>
-                                                                <?php elseif ($lanjutkan && !$selesai) : ?>
-                                                                    <button id="<?= $jadwal->id_jadwal ?>"
-                                                                            class="btn-block btn status small-box-footer p-2 text-white"
-                                                                            onclick="location.href='<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>'"
-                                                                            data-tgl="<?= $jadwal->tgl_mulai ?>"
-                                                                            data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                        <b>LANJUTKAN</b><i
-                                                                                class="fas fa-arrow-circle-right ml-3"></i>
-                                                                    </button>
-                                                                <?php else : ?>
+                                                        <div class="card-tools">
+                                                            <b><i class="fa fa-clock-o text-gray mr-1"></i><?= $jadwal->durasi_ujian ?>
+                                                                mnt</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body p-0">
+                                                        <div class="small-box <?= $bg ?> mb-0">
+                                                            <div class="inner">
+                                                                <h6 class="crop-text-1"><b><?= $jadwal->nama_mapel ?></b></h6>
+                                                                <h5><?= $jadwal->nama_jenis ?></h5>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-book-open"></i>
+                                                            </div>
+                                                            <hr style="margin-top:0; margin-bottom: 0">
+                                                            <?php
+                                                            if (!$lanjutkan && $reset == 0 && !$selesai) : ?>
+                                                                <?php if ($today < $startDay) : ?>
                                                                     <div id="<?= $jadwal->id_jadwal ?>"
-                                                                         class="btn status small-box-footer p-2"
+                                                                         class="status small-box-footer p-2"
                                                                          data-tgl="<?= $jadwal->tgl_mulai ?>"
                                                                          data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                        <b>SUDAH SELESAI</b>
+                                                                        <b>BELUM DIMULAI</b>
                                                                     </div>
-                                                                <?php endif; ?>
-                                                            </div>
+                                                                <?php elseif ($today > $endDay) : ?>
+                                                                    <div id="<?= $jadwal->id_jadwal ?>"
+                                                                         class="status small-box-footer p-2"
+                                                                         data-tgl="<?= $jadwal->tgl_mulai ?>"
+                                                                         data-jamke="<?= $jadwal->jam_ke ?>">
+                                                                        <b>SUDAH BERAKHIR</b>
+                                                                    </div>
+                                                                <?php else: ?>
+                                                                    <?php if ($now < strtotime($sesiMulai->format('H:i'))) : ?>
+                                                                        <div id="<?= $jadwal->id_jadwal ?>"
+                                                                             class="status small-box-footer p-2"
+                                                                             data-tgl="<?= $jadwal->tgl_mulai ?>"
+                                                                             data-jamke="<?= $jadwal->jam_ke ?>">
+                                                                            <b><?= strtoupper($cbt_info->nama_sesi) ?>
+                                                                                BELUM DIMULAI</b>
+                                                                        </div>
+                                                                    <?php elseif ($now > strtotime($sesiSampai->format('H:i'))) : ?>
+                                                                        <div id="<?= $jadwal->id_jadwal ?>"
+                                                                             class="status small-box-footer p-2"
+                                                                             data-tgl="<?= $jadwal->tgl_mulai ?>"
+                                                                             data-jamke="<?= $jadwal->jam_ke ?>">
+                                                                            <b><?= strtoupper($cbt_info->nama_sesi) ?>
+                                                                                SUDAH BERAKHIR</b>
+                                                                        </div>
+                                                                    <?php else : ?>
+                                                                        <?php if (isset($jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1]) && $jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1] == false) : ?>
+                                                                            <button id="<?= $jadwal->id_jadwal ?>"
+                                                                                    class="btn-block btn status text-white small-box-footer p-2 btn-disabled" disabled>
+                                                                                <b>MENUNGGU</b>
+                                                                            </button>
+                                                                        <?php else : ?>
+                                                                            <button id="<?= $jadwal->id_jadwal ?>"
+                                                                                    onclick="location.href='<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>'"
+                                                                                    class="btn btn-block status text-white small-box-footer p-2"
+                                                                                    data-tgl="<?= $jadwal->tgl_mulai ?>"
+                                                                                    data-jamke="<?= $jadwal->jam_ke ?>">
+                                                                                <b>KERJAKAN</b><i
+                                                                                        class="fas fa-arrow-circle-right ml-3"></i>
+                                                                            </button>
+                                                                        <?php endif; endif; endif; ?>
+                                                            <?php elseif ($lanjutkan && !$selesai) : ?>
+                                                                <button id="<?= $jadwal->id_jadwal ?>"
+                                                                        class="btn-block btn status small-box-footer p-2 text-white"
+                                                                        onclick="location.href='<?= base_url('siswa/konfirmasi/' . $jadwal->id_jadwal) ?>'"
+                                                                        data-tgl="<?= $jadwal->tgl_mulai ?>"
+                                                                        data-jamke="<?= $jadwal->jam_ke ?>">
+                                                                    <b>LANJUTKAN</b><i
+                                                                            class="fas fa-arrow-circle-right ml-3"></i>
+                                                                </button>
+                                                            <?php else : ?>
+                                                                <div id="<?= $jadwal->id_jadwal ?>"
+                                                                     class="btn status small-box-footer p-2"
+                                                                     data-tgl="<?= $jadwal->tgl_mulai ?>"
+                                                                     data-jamke="<?= $jadwal->jam_ke ?>">
+                                                                    <b>SUDAH SELESAI</b>
+                                                                </div>
+                                                            <?php endif; ?>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php
-                                            endforeach; endforeach;
+                                            </div>
+                                        <?php
+                                        endforeach;
                                     else: ?>
                                         <div class="col-12 alert alert-default-warning">
                                             <div class="text-center">Tidak ada jadwal penilaian hari ini.</div>
@@ -375,7 +374,7 @@ $jadwal_selesai = [];
                                                     <td class="text-center"><?= $jadwal->jam_ke ?>
                                                         <br><?= $jadwal->durasi_ujian ?> mnt
                                                     </td>
-                                                    <td class="text-center"><?= $jadwal->kode ?><br>
+                                                    <td class="text-center"><?= $jadwal->nama_mapel ?><br>
                                                         <small class="d-block d-md-none"><?= $jadwal->nama_jenis ?></small>
                                                     </td>
                                                     <td class="d-none d-md-block"><?= $jadwal->nama_jenis ?></td>
