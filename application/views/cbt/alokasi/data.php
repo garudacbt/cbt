@@ -118,7 +118,7 @@
                                             <?=$jadwal->bank_kode.' ('.$jadwal->nama_mapel.')'?>
                                         </td>
                                         <td class="text-center border jam-ke" data-id="<?=$jadwal->id_jadwal?>">
-                                            <input class="form-control" type="number" name="jamke" value="<?=$jadwal->jam_ke?>">
+                                            <input class="form-control" type="number" min="1" name="jamke" value="<?=$jadwal->jam_ke?>">
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
