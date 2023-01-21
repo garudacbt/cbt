@@ -259,7 +259,7 @@
 									<tr>
 										<td></td>
 										<td>
-											NIP
+											NIP/NUPTK
 										</td>
 										<td>:</td>
 										<td class="editable bg-lime">_________________________</td>
@@ -274,7 +274,7 @@
 									<tr>
 										<td></td>
 										<td>
-											NIP
+											NIP/NUPTK
 										</td>
 										<td>:</td>
 										<td class="editable bg-lime">_________________________</td>
@@ -291,10 +291,10 @@
 									<tr>
 										<td></td>
 										<td>
-											NIP
+											NIP/NUPTK
 										</td>
 										<td>:</td>
-										<td class="editable bg-lime">_________________________</td>
+										<td class="editable bg-lime"><?= isset($kop->nip) ? $kop->nip : '' ?></td>
 									</tr>
 								</table>
 							</div>
@@ -374,9 +374,9 @@
                         $('#edit-waktu-mulai').html('<b>'+response.info.sesi.waktu_mulai.substring(0, 5)+'</b>');
                         $('#edit-waktu-akhir').html('<b>'+response.info.sesi.waktu_akhir.substring(0, 5)+'</b>');
                         $('#edit-mapel').html('<b>'+response.info.jadwal.nama_mapel+'</b>');
-                        var p1 = response.info.pengawas.length > 0 ? response.info.pengawas[0].nama_guru : '';
+                        var p1 = response.info.pengawas.length > 0 ? response.info.pengawas[0].nama_guru : '_________________________';
                         $('#edit-pengawas1').text(p1);
-                        var p2 = response.info.pengawas.length > 1 ? response.info.pengawas[1].nama_guru : '';
+                        var p2 = response.info.pengawas.length > 1 ? response.info.pengawas[1].nama_guru : '_________________________';
                         $('#edit-pengawas2').text(p2);
                         document.title = 'Berita Acara '+ response.info.jadwal.kode + ' ' + $('#edit-ruang').text() + ' ' + $('#edit-sesi').text();
                     }

@@ -8,119 +8,220 @@
 ?>
 
 <div class="content-wrapper bg-white">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
                 <div class="col-6">
                     <button onclick="window.history.back();" type="button" class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-arrow-circle-left"></i><span
                                 class="d-none d-sm-inline-block ml-1">Kembali</span>
                     </button>
                 </div>
-			</div>
-		</div>
-	</section>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card card-default my-shadow mb-4">
-				<div class="card-body">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default my-shadow mb-4">
+                <div class="card-body">
                     <div class="alert alert-default-success border-success">
                         <h6><i class="icon fas fa-check"></i> Info Soal</h6>
                         <div class="row" id="info">
-                            <div class="col-8">
+                            <div class="col-12 col-md-6">
                                 <table>
                                     <tr>
                                         <td>Jenis Penilaian</td>
-                                        <td> : </td>
+                                        <td> :</td>
                                         <td><span class="text-bold"><?= $jadwal->nama_jenis ?></span></td>
                                     </tr>
                                     <tr>
                                         <td>Mata Pelajaran</td>
-                                        <td> : </td>
+                                        <td> :</td>
                                         <td><span class="text-bold"><?= $jadwal->nama_mapel ?></span></td>
                                     </tr>
                                     <tr>
                                         <td>Kelas</td>
-                                        <td> : </td>
+                                        <td> :</td>
                                         <td><span class="text-bold"><?= $nama_kelas ?></span></td>
                                     </tr>
                                     <tr>
                                         <td>Pengampu</td>
-                                        <td> : </td>
+                                        <td> :</td>
                                         <td><span class="text-bold"><?= $jadwal->nama_guru ?></span></td>
                                     </tr>
                                 </table>
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-md-6">
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <td class="text-center" style="border-color:black;">
-                                            Jml. Essai
-                                        </td>
-                                        <td class="text-center" style="border-color:black;">
-                                            Max. Nilai Essai
-                                        </td>
+                                        <?php if ($jadwal->tampil_pg != '0') : ?>
+                                            <td class="text-center" style="border-color:black;">
+                                                Jml. PG
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_kompleks != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                Jml. PGK
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_jodohkan != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                Jml. Jodohkan
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_isian != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                Jml. Isian Singkat
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_esai != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                Jml. Essai
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                     <tr>
-                                        <td class="text-center" style="border-color:black;">
-                                            <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_esai ?></span>
-                                        </td>
-                                        <td class="text-center" style="border-color:black;">
-                                            <span class="text-bold" style="font-size: 20pt"><?= $jadwal->bobot_esai ?></span>
-                                        </td>
+                                        <?php if ($jadwal->tampil_pg != '0') : ?>
+                                            <td class="text-center" style="border-color:black;">
+                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_pg ?></span>
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_kompleks != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_kompleks ?></span>
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_jodohkan != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_jodohkan ?></span>
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_isian != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_isian ?></span>
+                                            </td>
+                                        <?php endif;
+                                        if ($jadwal->tampil_esai != '0') :?>
+                                            <td class="text-center" style="border-color:black;">
+                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_esai ?></span>
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <br>
-                    <table class="table table-striped table-bordered" id="table-essai">
+                    <table class="table table-striped table-bordered table-responsive" id="table-essai">
                         <tr>
-                            <th class="text-center align-middle" width="40">
+                            <th class="text-center align-middle">
                                 No.
                             </th>
-                            <th class="text-center align-middle" width="100">
+                            <th class="text-center align-middle">
                                 No. Peserta
                             </th>
                             <th class="align-middle">
                                 Nama
                             </th>
-                            <th class="text-center align-middle">
-                                Nilai Essai
-                            </th>
+                            <?php if ($jadwal->tampil_pg != '0') : ?>
+                                <th class="text-center align-middle">
+                                    Nilai PG<br>
+                                    Max. Point: <?= $jadwal->bobot_pg ?>
+                                </th>
+                            <?php endif;
+                            if ($jadwal->tampil_kompleks != '0') :?>
+                                <th class="text-center align-middle">
+                                    Nilai PG Kompleks<br>
+                                    Max. Point: <?= $jadwal->bobot_kompleks ?>
+                                </th>
+                            <?php endif;
+                            if ($jadwal->tampil_jodohkan != '0') :?>
+                                <th class="text-center align-middle">
+                                    Nilai Menjodohkan<br>
+                                    Max. Point: <?= $jadwal->bobot_jodohkan ?>
+                                </th>
+                            <?php endif;
+                            if ($jadwal->tampil_isian != '0') :?>
+                                <th class="text-center align-middle">
+                                    Nilai Isisan Singkat<br>
+                                    Max.Point: <?= $jadwal->bobot_isian ?>
+                                </th>
+                            <?php endif;
+                            if ($jadwal->tampil_esai != '0') :?>
+                                <th class="text-center align-middle">
+                                    Nilai Essai<br>
+                                    Max.Point: <?= $jadwal->bobot_esai ?>
+                                </th>
+                            <?php endif; ?>
                         </tr>
                         <?php
                         $no = 1;
                         foreach ($siswas as $siswa) :
                             $idSiswa = $siswa->id_siswa;
                             ?>
-                            <tr>
+                            <tr class="nilai" data-idsiswa="<?= $idSiswa ?>">
                                 <td class="text-center align-middle"> <?= $no ?> </td>
                                 <td class="text-center align-middle"> <?= $siswa->nomor_peserta ?> </td>
                                 <td class="align-middle"> <?= $siswa->nama ?> </td>
-                                <td class="text-center text-success align-middle essai">
-                                    <input class="nessai" name="input<?= $idSiswa ?>" data-idsiswa="<?= $idSiswa ?>"
-                                           value="<?= $siswa->skor_essai ?>"
-                                           type="number" min="0"
-                                           max="<?= $jadwal->bobot_esai ?>"
-                                           step="0.1"/>
+                                <?php if ($jadwal->tampil_pg != '0') : ?>
+                                    <td class="text-center text-success align-middle">
+                                        <?= $siswa->skor_pg ?>
+                                    </td>
+                                <?php endif;
+                                if ($jadwal->tampil_kompleks != '0') :?>
+                                    <td class="text-center text-success align-middle">
+                                        <input class="form-control npg2" name="input-pg2"
+                                               value="<?= $siswa->skor_pg2 ?>"
+                                               type="number" min="0"
+                                               max="<?= $jadwal->bobot_kompleks ?>"
+                                               step="0.1"/>
+                                    </td>
+                                <?php endif;
+                                if ($jadwal->tampil_jodohkan != '0') :?>
+                                    <td class="text-center text-success align-middle">
+                                        <input class="form-control njodohkan" name="input-jodohkan"
+                                               value="<?= $siswa->skor_jod ?>"
+                                               type="number" min="0"
+                                               max="<?= $jadwal->bobot_jodohkan ?>"
+                                               step="0.1"/>
+                                    </td>
+                                <?php endif;
+                                if ($jadwal->tampil_isian != '0') :?>
+                                    <td class="text-center text-success align-middle">
+                                        <input class="form-control nisian" name="input-isian"
+                                               value="<?= $siswa->skor_isian ?>"
+                                               type="number" min="0"
+                                               max="<?= $jadwal->bobot_isian ?>"
+                                               step="0.1"/>
+                                    </td>
+                                <?php endif;
+                                if ($jadwal->tampil_esai != '0') :?>
+                                    <td class="text-center text-success align-middle">
+                                        <input class="form-control nessai" name="input-essai"
+                                               value="<?= $siswa->skor_essai ?>"
+                                               type="number" min="0"
+                                               max="<?= $jadwal->bobot_esai ?>"
+                                               step="0.1"/>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                             <?php $no++; endforeach; ?>
                     </table>
                     <br>
-                    <button id="essai" class="float-right btn btn-sm btn-primary" onclick="simpan(this)">Simpan Nilai Essai
+                    <button id="essai" class="float-right btn btn-sm btn-primary" onclick="simpan(this)">Simpan Nilai
+                        Essai
                     </button>
                 </div>
-				<div class="overlay d-none" id="loading">
-					<div class="spinner-grow"></div>
-				</div>
-			</div>
-		</div>
-	</section>
+                <div class="overlay d-none" id="loading">
+                    <div class="spinner-grow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <?= form_open('update', array('id' => 'koreksi')) ?>
@@ -131,31 +232,36 @@
         //var id = $(btn).attr('id');
         var loading = $(`#loading`);
 
-        var max = <?= $jadwal->bobot_esai ?>;
-        var $nilai = $(`#table-essai`).find('.essai');
+        var maxpg2 = <?= $jadwal->bobot_kompleks ?>;
+        var maxjod = <?= $jadwal->bobot_jodohkan ?>;
+        var maxis = <?= $jadwal->bobot_isian ?>;
+        var maxes = <?= $jadwal->bobot_esai ?>;
+
+        var $nilai = $(`#table-essai`).find('.nilai');
         var json = [];
         $.each($nilai, function () {
-            var n = $(this).find('.nessai').val();
-            if (n > max) {
-                showDangerToast("Point persoal harus kurang dari " + max);
-                json = [];
-                return false;
-            }
-            if ($(this).is(":hidden")) {
-                showDangerToast("Klik tombol &#10004; dulu");
+            var npg2 = $(this).find('.npg2').val();
+            var njod = $(this).find('.njodohkan').val();
+            var nis = $(this).find('.nisian').val();
+            var nes = $(this).find('.nessai').val();
+            if (npg2 > maxpg2 || njod > maxjod || nis > maxis || nes > maxes) {
+                showDangerToast("Point persoal harus kurang dari nilai max.");
                 json = [];
                 return false;
             }
 
             var item = {};
-            item['id_nilai'] = $(this).find('.nessai').data('idsiswa') + '<?= $jadwal->id_jadwal ?>;';
-            item['id_siswa'] = $(this).find('.nessai').data('idsiswa');
-            item['id_jadwal'] = '<?= $jadwal->id_jadwal ?>;';
-            item['essai_nilai'] = n;
+            item['id_nilai'] = $(this).data('idsiswa') + '<?= $jadwal->id_jadwal ?>';
+            item['id_siswa'] = $(this).data('idsiswa');
+            item['id_jadwal'] = '<?= $jadwal->id_jadwal ?>';
+            item['kompleks_nilai'] = npg2;
+            item['jodohkan_nilai'] = njod;
+            item['isian_nilai'] = nis;
+            item['essai_nilai'] = nes;
             json.push(item);
         });
 
-        var dataPost = $('#koreksi').serialize() + '&jadwal=<?=$jadwal->id_jadwal?>&jenis=5' + '&nilai=' + JSON.stringify(json);
+        var dataPost = $('#koreksi').serialize() + '&jadwal=<?=$jadwal->id_jadwal?>&nilai=' + JSON.stringify(json);
         console.log(dataPost);
 
         if (json.length > 0) {
@@ -180,6 +286,7 @@
             });
         }
     }
+
     $(document).ready(function () {
     });
 </script>

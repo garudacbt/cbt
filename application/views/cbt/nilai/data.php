@@ -391,7 +391,7 @@ $colWidth ='';
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                             <button type="button" class="btn btn-xs bg-success mb-1 <?= $disabled ?>"
                                                     onclick="lihatJawaban(<?= $siswa->id_siswa ?>)"
-                                                    data-toggle="tooltip" title="Detail Jawaban Siswa">Koreksi
+                                                    data-toggle="tooltip" title="Detail Jawaban Siswa" <?= $disabled ?>>Koreksi
                                             </button>
                                         </td>
                                     </tr>

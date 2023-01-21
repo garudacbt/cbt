@@ -155,12 +155,13 @@ $jadwal_selesai = [];
                                                 $reset = 0;
                                                 $bg = 'bg-gradient-danger';
                                             }
+                                            $jam_ke = $jadwal->jam_ke == '0' ? '1' : $jadwal->jam_ke;
                                             ?>
                                             <div class="jadwal-cbt col-md-6 col-lg-4">
                                                 <div class="card border">
                                                     <div class="card-header">
                                                         <div class="card-title">
-                                                            <b>Jam ke: <?= $jadwal->jam_ke ?></b>
+                                                            <b>Jam ke: <?= $jam_ke ?></b>
                                                         </div>
                                                         <div class="card-tools">
                                                             <b><i class="fa fa-clock-o text-gray mr-1"></i><?= $jadwal->durasi_ujian ?>
@@ -289,6 +290,7 @@ $jadwal_selesai = [];
                                             </tr>
                                             <?php
                                             foreach ($jadwals as $key => $jadwal)  :
+                                                $jam_ke = $jadwal->jam_ke == '0' ? '1' : $jadwal->jam_ke;
                                                 $kk = unserialize($jadwal->bank_kelas);
                                                 $arrKelasCbt = [];
                                                 foreach ($kk as $k) {
@@ -371,7 +373,7 @@ $jadwal_selesai = [];
                                                         . ' <b>SUDAH SELESAI</b></button>';
                                                 } ?>
                                                 <tr>
-                                                    <td class="text-center"><?= $jadwal->jam_ke ?>
+                                                    <td class="text-center"><?= $jam_ke ?>
                                                         <br><?= $jadwal->durasi_ujian ?> mnt
                                                     </td>
                                                     <td class="text-center"><?= $jadwal->nama_mapel ?><br>

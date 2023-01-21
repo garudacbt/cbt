@@ -223,7 +223,7 @@
                 <div id="alert" class="alert alert-default-warning align-content-center" role="alert">
                     Hubungi guru pengampu jika ingin mengetahui nilai.
                 </div>
-                <table id="table-detail-soal" class="w-100">
+                <table id="table-detail-soal" class="w-100 table-striped">
                     <tr>
                         <th class="border-bottom"></th>
                         <th class="text-center border-bottom">JML. SOAL</th>

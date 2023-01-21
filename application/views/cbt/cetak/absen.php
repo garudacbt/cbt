@@ -276,25 +276,6 @@
                 '</table>' +
                 '</div>' +
                 '</div>' +
-                    /*
-                '<table style="width: 100%; border: 0;">' +
-                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                '<td style="width:15%;">' + kelasTitle + '</td>' +
-                '<td>:</td>' +
-                '<td style="width:35%;">' + kelasVal + '</td>' +
-                '<td style="width:15%;">Hari/Tanggal</td>' +
-                '<td>:</td>' +
-                '<td>' + handleTanggal(data.info.jadwal.tgl_mulai) + '</td>' +
-                '</tr>' +
-                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                '<td style="width:15%;">Sesi</td>' + '<td>:</td>' + '<td style="width:35%;">' + sesi + '</td>' +
-                '<td>Mata Pelajaran</td>' + '<td>:</td>' + '<td>' + data.info.jadwal.nama_mapel + '</td>' +
-                '</tr>' +
-                '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                '<td>Waktu</td>' + '<td>:</td>' + '<td>' + data.info.sesi.waktu_mulai + ' s/d ' + data.info.sesi.waktu_akhir + '</td>' +
-                '</tr>' +
-                '</table>' +
-                */
                 '<br>' +
                 '<table style="width: 100%; border-collapse: collapse">' +
                 '<tr style="font-family: \'Times New Roman\';">' +
@@ -345,28 +326,45 @@
                     '<td style="padding-right: 5px"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> orang</td>' +
                     '</tr>' +
                     '</table>' +
-                    '</td>' +
-                    '<td style="width: 30%; padding-left: 10px">' +
-                    'Pengawas 1' +
-                    '<br>' +
-                    '<br>' +
-                    '<br>' +
-                    '<br>' +
-                    '<u>' + pengawas1 + '</u>' +
-                    '<br>' +
-                    'Nip:' +
-                    '</td>' +
-                    '<td style="width: 30%">' +
-                    'Pengawas 2' +
-                    '<br>' +
-                    '<br>' +
-                    '<br>' +
-                    '<br>' +
-                    '<u>' + pengawas2 + '</u>' +
-                    '<br>' +
-                    'Nip:' +
-                    '</td>' +
-                    '</tr>' +
+                    '</td>';
+                if (pengawas2 == '') {
+                    card += '<td style="width: 30%; padding-left: 10px"></td>';
+                } else {
+                    card += '<td style="width: 30%; padding-left: 10px">' +
+                        'Pengawas 1' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<u>' + pengawas1 + '</u>' +
+                        '<br>' +
+                        'Nip:' +
+                        '</td>';
+                }
+                if (pengawas2 == '') {
+                    card += '<td style="width: 30%">' +
+                        'Pengawas' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<u>' + pengawas1 + '</u>' +
+                        '<br>' +
+                        'Nip:' +
+                        '</td>';
+                } else {
+                    card += '<td style="width: 30%">' +
+                        'Pengawas 2' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<br>' +
+                        '<u>' + pengawas2 + '</u>' +
+                        '<br>' +
+                        'Nip:' +
+                        '</td>';
+                }
+                card += '</tr>' +
                     '</table>' +
                     '</div>' +
                     '</div>';

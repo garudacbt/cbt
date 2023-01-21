@@ -3,8 +3,7 @@
 		<li class="nav-item">
 			<?php
 			$page = $this->uri->segment(1);
-			if ($page !== 'dashboard') :
-			?>
+			if ($page !== 'dashboard') : ?>
 			<a class="nav-link" href="javascript:history.back()" role="button"><i class="fas fa-arrow-left"></i></a>
 			<?php endif; ?>
 		</li>

@@ -26,7 +26,7 @@
                                 Contoh <b>Jam ke</b> 2, maka jadwal mapel akan aktif setelah jam pertama selesai dikerjakan oleh siswa
                             </li>
                             <li>
-                                Jika semua <b>Jam ke</b> tidak diatur maka semua jadwal yang aktif akan bisa dikerjakan oleh siswa
+                                Jika semua <b>Jam ke</b> diatur ke 0 atau 1 maka semua jadwal yang aktif akan bisa dikerjakan oleh siswa
                             </li>
                             <li>
                                 Halaman ini berlaku jika semua jadwal telah diaktifkan
