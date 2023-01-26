@@ -28,6 +28,19 @@
         <div class="container-fluid">
             <div class="card card-default my-shadow mb-4">
                 <div class="card-body">
+                    <div class="alert alert-default-danger">
+                        <ul>
+                            <li>
+                                Halaman ini digunakan jika ingin menginput nilai tanpa koreksi.
+                            </li>
+                            <li>
+                                Jika hasil siswa sudah dikoreksi dan diberi nilai, maka nilai di halaman ini akan mengganti nilai hasil koreksi.
+                            </li>
+                            <li>
+                                Nilai 0 di halaman ini tidak akan mengganti nilai hasil koreksi.
+                            </li>
+                        </ul>
+                    </div>
                     <div class="alert alert-default-success border-success">
                         <h6><i class="icon fas fa-check"></i> Info Soal</h6>
                         <div class="row" id="info">
@@ -212,8 +225,8 @@
                             <?php $no++; endforeach; ?>
                     </table>
                     <br>
-                    <button id="essai" class="float-right btn btn-sm btn-primary" onclick="simpan(this)">Simpan Nilai
-                        Essai
+                    <button id="essai" class="float-right btn btn-sm btn-primary" onclick="simpan(this)">
+                        Simpan Nilai
                     </button>
                 </div>
                 <div class="overlay d-none" id="loading">

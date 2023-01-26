@@ -280,6 +280,7 @@
     var skores = JSON.parse('<?= json_encode($skor)?>');
     var durasies = JSON.parse('<?= json_encode($durasi)?>');
     var jadwals = JSON.parse('<?= json_encode($jadwal)?>');
+
     $(document).ready(function () {
         $('#detail-nilai').on('show.bs.modal', function (e) {
             var tampilNilai = $(e.relatedTarget).data('tampil');

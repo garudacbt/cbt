@@ -1020,7 +1020,7 @@ function createListJodohkan(data) {
         ],
         "existingLinks": data.linked
     };
-    console.log('no-soal', nomor_soal);
+    //console.log('no-soal', nomor_soal);
     /*
     $(".fieldLinkerSave").on("click",function(){
         var results = fieldLinks.fieldsLinker("getLinks");
@@ -1037,6 +1037,30 @@ function createListJodohkan(data) {
             fieldLinks.fieldsLinker("changeParameters",{"associationMode": "manyToMany"});
         }
     });
+
+    /* test disable click
+    $(`ul[data-col="baris-kiri${nomor_soal}"] li`).click(function(e) {
+        var from = $(e.target).text();
+        console.log('klik', from);
+        var results = fieldLinks.fieldsLinker("getLinks");
+        console.log('res', results);
+        var count = 0;
+        results.links.forEach(function(e) {
+            if (from == e.from) {
+                count ++;
+            }
+        });
+        console.log('count', count);
+        if (count >= 3) {
+            $(e.target).removeClass('selected');
+            $('.FL-main').trigger('click');
+        }
+    });
+
+    $('.FL-main').on('click', function (e) {
+        console.log('main klik');
+    });
+    */
 
     /*
     $("input[name='mobileClickIt']").on("click", function () {

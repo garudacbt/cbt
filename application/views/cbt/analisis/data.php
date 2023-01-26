@@ -84,9 +84,11 @@
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
+                                        <!--
                                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                                             <i class="fas fa-times"></i>
                                         </button>
+                                        -->
                                     </div>
                                 </div>
 
@@ -218,6 +220,7 @@
                             </div>
                         <?php endif;
                         if (isset($soals[2])) : ?>
+                        <!-- Todo analisis pg kompleks
                             <div class="card card-success col-md-12 p-0">
                                 <div class="card-header">
                                     <h3 class="card-title">Soal Pilihan Ganda Kompleks</h3>
@@ -272,6 +275,7 @@
                                     </table>
                                 </div>
                             </div>
+                            -->
                         <?php endif;
                         if (isset($soals[3])) :
                         foreach ($soals[2] as $soal) :
@@ -281,10 +285,13 @@
                             $soal->jawaban_siswa = json_decode(json_encode($soal->jawaban_siswa));
                             $soal->jawaban_benar = json_decode(json_encode($soal->jawaban_benar));
                             ?>
+                            <!-- Todo analisis menjodohkan -->
                         <?php endforeach; endif;
                         if (isset($soals[4])) : ?>
+                            <!-- Todo analisis isian singkat -->
                         <?php endif;
                         if (isset($soals[5])) : ?>
+                            <!-- Todo analisis uraian -->
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>

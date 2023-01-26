@@ -304,7 +304,6 @@ function my_array_unique($array, $keep_key_assoc = false)
                             });
                         }
                     });
-
                 }
             });
         }

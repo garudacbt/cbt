@@ -165,7 +165,7 @@
                                     <span><b>Info</b></span>
                                     <br>
                                     <small>
-                                        Kosongkan nilai jika siswa harus mengulang materi/tugas.
+                                        Kosongkan (<b>0</b>) jika siswa harus mengulang materi/tugas.
                                     </small>
                                 </div>
                                 <div class="col-12">
@@ -259,13 +259,33 @@
 
                 for (let i = 0; i < val.file.length; i++) {
                     var file = val.file[i];
+                    var fsrc = file.src.split('.');
+                    var ext = fsrc[fsrc.length -1];
                     if (file.type.match('image')) {
-                        html = '<div class="col-12 mb-3">' +
-                            '<img data-enlargeable src="' + base_url + '/' + file.src + '" alt="" class="img-thumbnail" /></div>';
+                        html = '<div class="col-3 mb-3">' +
+                            '<img data-enlargeable src="' + base_url + '/' + file.src + '" alt="" class="img-thumbnail"></div>';
                     } else if (file.type.match('video')) {
-                        html = '<div class="col-12 mb-3"><video src="' + base_url + '/' + file.src + '"></video></div>';
+                        html = '<div class="col-3 mb-3">' +
+                            '<img src="'+base_url+'/assets/app/img/icon_play_black.png'+'" class="img-thumbnail"' +
+                            ' onClick="parent.open(\''+base_url +'/'+ file.src+'\')">' +
+                            '</div>';
                     } else {
-                        html = '<div class="col-3 mb-3"><img src="'+base_url+'/assets/app/img/document-icon.svg" class="img-thumbnail"></div>';
+                        var icon = base_url;
+                        var style = '';
+                        if (ext === 'doc' || ext === 'docx') {
+                            icon += '/assets/app/img/word-icon.png';
+                        } else if (ext === 'xls' || ext === 'xlsx') {
+                            icon += '/assets/app/img/excel-icon.png';
+                        } else if (ext === 'pdf') {
+                            icon += '/assets/app/img/pdf-icon.png';
+                        } else {
+                            icon += '/assets/app/img/document-icon.svg';
+                            style = "style='padding: 10px'";
+                        }
+                        html = '<div class="col-3 mb-3">' +
+                            '<a href="'+base_url+'/'+file.src+'"><img src="' + icon + '" alt="" class="img-thumbnail" onclick="dialogDownload()">' +
+                            '</a></div>';
+                        //html = '<div class="col-3 mb-3"><img src="'+base_url+'/assets/app/img/document-icon.svg" class="img-thumbnail"></div>';
                     }
                     konten.append(html);
                 }
@@ -697,4 +717,9 @@
         });
         saveAs(converted, docTitle + '.docx');
     }
+
+    function dialogDownload() {
+        showSuccessToast("File telah didownload")
+    }
+
 </script>

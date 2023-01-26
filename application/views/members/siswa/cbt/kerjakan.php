@@ -167,9 +167,10 @@
     let jawabanSiswa, jawabanBaru = null, jsonJawaban;
     let nav = 0;
     let soalTerjawab = 0, soalTotal =0;
+    var message = "Jangan menggunakan klik kanan!";
 
     $(document).ready(function () {
-        startTime();
+        //startTime();
         document.onmousedown = rtclickcheck;
         swal.fire({
             title: 'Peraturan Ujian',
@@ -472,6 +473,8 @@
             //$('#next').removeClass('d-none');
             //$('#finish').addClass('d-none');
         }
+
+        $('video').css({'width': '100%', 'max-height': '100%'});
 
         $('.check').change(function () {
             submitJawaban(null);
@@ -858,7 +861,6 @@
         //return item;
     }
 
-    var message = "Dilarang Copy Paste";
     function rtclickcheck(keyp){
         if (navigator.appName == "Netscape" && keyp.which == 3){
             alert(message); return false;
@@ -869,17 +871,6 @@
         }
     }
 
-    function launchFullScreen(element) {
-        if(element.requestFullScreen) {
-            element.requestFullScreen();
-        } else if(element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        } else if(element.webkitRequestFullScreen) {
-            element.webkitRequestFullScreen();
-        }
-    }
-
-    /* Function to open fullscreen mode */
     function openFullscreen() {
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
@@ -896,20 +887,4 @@
         }
     }
 
-    function startTime() {
-        var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-
-        //document.getElementById('live-clock').innerHTML = h + ":" + m + ":" + s;
-        $('#live-clock').html('<span class="text-lg">' + h + ':' + m + '</span>:' + s);
-        var t = setTimeout(startTime, 500);
-    }
-
-    function checkTime(i) {
-        if (i < 10) {i = "0" + i}return i;
-    }
 </script>

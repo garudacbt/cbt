@@ -40,6 +40,7 @@
                             <div class="row">
                                 <?php
                                 $today = date("Y-m-d");
+                                $log = $logs[$today];
                                 $materi = isset($materis[$today]) ? $materis[$today] : [];
                                 $jamMulai = new DateTime($kbm->kbm_jam_mulai);
                                 $jamSampai = new DateTime($kbm->kbm_jam_mulai);
@@ -114,10 +115,29 @@
                                                                 <?php
                                                                 $disabled = new DateTime('NOW') < $jamMulai;
                                                                 $href = $disabled == '' ? base_url('siswa/buka' . $subjudul . '/' . $materi[$jamke]->id_kjm . '/' . $jamke) : 'javascript:void(0)';
-                                                                ?>
-                                                                <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul) ?>
-                                                                    <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
-                                                                </a>
+
+                                                                $status = '';
+                                                                if (count($log) > 0) :
+                                                                    if (isset($log[$materi[$jamke]->id_kjm]) && $log[$materi[$jamke]->id_kjm]->finish_time != null) :
+                                                                        if ($log[$materi[$jamke]->id_kjm]->nilai != '0') :?>
+                                                                        <span class="small-box-footer p-2" data-nilai="<?=$log[$materi[$jamke]->id_kjm]->nilai?>"
+                                                                              data-text="<?=$log[$materi[$jamke]->id_kjm]->catatan?>"
+                                                                              onclick="showDialog(this)"><b>SELESAI</b></span>
+                                                                        <?php else : ?>
+                                                                            <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>ULANGI <?= strtoupper($judul) ?>
+                                                                                <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
+                                                                            </a>
+                                                                        <?php endif;?>
+                                                                    <?php else : ?>
+                                                                        <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>Belum Selesai
+                                                                            <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
+                                                                        </a>
+                                                                    <?php endif; ?>
+                                                                <?php else : ?>
+                                                                    <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul) ?>
+                                                                        <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
+                                                                    </a>
+                                                                <?php endif; ?>
                                                             </div>
                                                         </div>
                                                     <?php else: ?>
@@ -233,7 +253,9 @@
                                                     $status = '';
                                                     if (count($log) > 0) {
                                                         if (isset($log[$mat[$jamke]->id_kjm]) && $log[$mat[$jamke]->id_kjm]->finish_time != null) {
-                                                            $status = '<a href="' . $href . '" class="btn btn-success ' . $disabled . '">Selesai</a>';
+                                                            $status = '<span class="btn btn-success"  data-nilai="'.$log[$mat[$jamke]->id_kjm]->nilai.'"
+                                                                              data-text="'.$log[$mat[$jamke]->id_kjm]->catatan.'"
+                                                                              onclick="showDialog(this)"><b>Selesai</b></span>';
                                                         } else {
                                                             $status = '<a href="' . $href . '" class="btn btn-warning ' . $disabled . '">Belum Selesai</a>';
                                                         }
@@ -312,5 +334,22 @@
             w = 320;
         }
         $(".nama-mapel").css("width", w);
+    }
+
+    function showDialog(sel) {
+        swal.fire({
+            title: "HASIL <?= strtoupper($judul) ?>",
+            html: '<table class="table table-striped table-bordered w-100">' +
+                '    <tr>' +
+                '        <th>NILAI</th>' +
+                '        <th>Catatan Guru</th>' +
+                '    </tr>' +
+                '    <tr>' +
+                '        <td class="text-lg text-bold">'+ $(sel).data('nilai') +'</td>' +
+                '        <td>'+ $(sel).data('text') +'</td>' +
+                '    </tr>' +
+                '</table>',
+            confirmButtonText: "TUTUP"
+        })
     }
 </script>

@@ -6,7 +6,7 @@
  * Time: 23:18
  */
 
-$ada_nilai = $logs != null && $logs->nilai != null;
+$ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
 ?>
 
 <div class="content-wrapper" style="margin-top: -1px;">
@@ -171,7 +171,8 @@ $ada_nilai = $logs != null && $logs->nilai != null;
                                             <?= form_close(); ?>
                                         </div>
                                         <div class="card-footer">
-                                            <i class="fa fa-info-circle"></i> File yang bisa ditambahkan:
+                                            <i class="fa fa-info-circle"></i> File yang akan ditambahkan harus diberi nama siswa!
+                                            <br>File yang bisa ditambahkan:
                                             <br>
                                             <table class="ml-4">
                                                 <tr>

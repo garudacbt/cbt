@@ -165,7 +165,7 @@
 </div>
 
 <script>
-	var jadwalKbm;
+	let jadwalKbm;
 	var arrIst = [];
 	var kelas = '<?=$siswa->id_kelas?>';
     var kodeKelas = '<?=$siswa->kode_kelas?>';
@@ -715,6 +715,7 @@
         getPosts();
         loadJadwal();
 
+        console.log('jadwal', jadwalKbm);
     });
 
 	function addTimes (startTime, endTime) {

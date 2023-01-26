@@ -68,17 +68,6 @@ foreach ($soal_ada as $key => $value) {
 
     <section class="content">
         <div class="container-fluid">
-            <?php
-            //echo time();
-            //echo '<pre>';
-            //var_dump(unserialize($soal->file));
-            //var_dump($soal);
-            //for ($i=97; $i<117; $i++) {
-            //    var_dump(chr($i));
-            //}
-            //var_dump($soal_belum_komplit);
-            //echo '</pre>';
-            ?>
             <div class="card my-shadow">
                 <div class="card-body">
                     <div class="row">

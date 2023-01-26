@@ -127,7 +127,7 @@
                             <ul>
                                 <li>Bobot soal: <b><?= $info->bobot_pg ?></b>. Jumlah soal:
                                     <b><?= $info->tampil_pg ?></b>. Max point persoal:
-                                    <b><?= $info->bobot_pg / $info->tampil_pg ?></b>.
+                                    <b><?= round($info->bobot_pg / $info->tampil_pg, 2) ?></b>.
                                 </li>
                                 <li>Point soal PG tidak bisa diedit</li>
                             </ul>
@@ -148,7 +148,7 @@
                                 </th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Point</th>
+                                <th class="text-center align-middle bg-teal" style="width: 50px">Point<br>Max. <?= round($info->bobot_pg / $info->tampil_pg, 2) ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -251,7 +251,7 @@
                             <ul>
                                 <li>Bobot soal: <b><?= $info->bobot_kompleks ?></b>. Jumlah soal:
                                     <b><?= $info->tampil_kompleks ?></b>. Max point persoal:
-                                    <b><?= $info->bobot_kompleks / $info->tampil_kompleks ?></b>.
+                                    <b><?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?></b>.
                                 </li>
                                 <li>Point soal PG Kompleks bisa diedit</li>
                                 <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
@@ -271,7 +271,7 @@
                                 <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point</th>
+                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?></th>
                                 <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
                             </tr>
                             </thead>
@@ -347,7 +347,7 @@
                             <ul>
                                 <li>Bobot soal: <b><?= $info->bobot_jodohkan ?></b>. Jumlah soal:
                                     <b><?= $info->tampil_jodohkan ?></b>. Max point persoal:
-                                    <b><?= $info->bobot_jodohkan / $info->tampil_jodohkan ?></b>.
+                                    <b><?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?></b>.
                                 </li>
                                 <li>Point soal menjodohkan bisa diedit</li>
                                 <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
@@ -363,10 +363,10 @@
                             <tr>
                                 <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
                                 <th class="text-center align-middle bg-blue">Soal</th>
-                                <th class="text-center align-middle bg-blue">Jawaban</th>
+                                <th class="text-center align-middle bg-blue">Jawaban Benar</th>
                                 <th class="text-center align-middle bg-teal">Jawaban Siswa</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point</th>
+                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?></th>
                                 <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
                             </tr>
                             </thead>
@@ -473,7 +473,7 @@
                             <ul>
                                 <li>Bobot soal: <b><?= $info->bobot_isian ?></b>. Jumlah soal:
                                     <b><?= $info->tampil_isian ?></b>. Max point persoal:
-                                    <b><?= $info->bobot_isian / $info->tampil_isian ?></b>.
+                                    <b><?= round($info->bobot_isian / $info->tampil_isian, 2) ?></b>.
                                 </li>
                                 <li>Point soal isian singkat bisa diedit</li>
                                 <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
@@ -492,7 +492,7 @@
                                 <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point</th>
+                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_isian / $info->tampil_isian, 2) ?></th>
                                 <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
                             </tr>
                             </thead>
@@ -559,7 +559,7 @@
                             <ul>
                                 <li>Bobot soal: <b><?= $info->bobot_esai ?></b>. Jumlah soal:
                                     <b><?= $info->tampil_esai ?></b>. Max point persoal:
-                                    <b><?= $info->bobot_esai / $info->tampil_esai ?></b>.
+                                    <b><?= round($info->bobot_esai / $info->tampil_esai) ?></b>.
                                 </li>
                                 <li>Point soal uraian bisa diedit</li>
                                 <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
@@ -578,7 +578,7 @@
                                 <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
                                 <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point</th>
+                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_esai / $info->tampil_esai) ?></th>
                                 <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
                             </tr>
                             </thead>

@@ -106,15 +106,6 @@ $colWidth ='';
                         $cols = array_filter($cols);
                         $rows = count($cols) > 1 ? 1 : 2;
 
-                        //echo '<pre>';
-                        //var_dump($soal[2]);
-                        //print_r($scores);
-                        //var_dump($siswas[0]);
-                        //echo '<br>';
-                        //var_dump($durasies[39]['jawab_pg']);
-                        //echo '<br>';
-                        //var_dump($info);
-                        //echo '</pre>';
                         $colWidth = '5,15,35,15,10,10,10';
                         for ($s = 0; $s < $info->tampil_pg; $s++) {
                             $colWidth .= ',4';
@@ -304,7 +295,7 @@ $colWidth ='';
                                             data-b-a-s="thin"
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;"> <?= $siswa->nomor_peserta ?> </td>
                                         <td class="align-middle" data-a-v="middle" data-b-a-s="thin"
-                                            style="border: 1px solid black;border-collapse: collapse;"> <?= $siswa->nama ?> </td>
+                                            style="border: 1px solid black;border-collapse: collapse; padding: 2px 6px"> <?= $siswa->nama ?> </td>
                                         <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
                                             data-b-a-s="thin"
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $siswa->kode_ruang ?></td>
@@ -530,7 +521,6 @@ $colWidth ='';
             }
         });
     }
-
 
     $(document).ready(function () {
         ajaxcsrf();
