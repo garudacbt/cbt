@@ -148,7 +148,7 @@
 											</td>
 											<td style="text-align: center;">
 												<div id="prev-tandatangan" style="font-family: 'Times New Roman'; font-size: 9pt; line-height: 1; background: url('<?= base_url().$setting->tanda_tangan ?>') no-repeat center; background-size: 100px 60px">
-													<span id="prev-kota"><?= $setting->kota ?></span>, <span
+													<span id="prev-kota"><?= $setting->desa ?></span>, <span
 														id="prev-tanggal"><?= isset($kartu->tanggal) ? $kartu->tanggal : '' ?></span>
 													<br>
                                                     Kepala <?= $setting->satuan_pendidikan == '2' ? 'Madrasah' : 'Sekolah' ?>
