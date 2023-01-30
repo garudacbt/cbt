@@ -81,11 +81,15 @@ $satuan = ["1" => ["SD","MI"], "2"=>["SMP","MTS"], "3"=>["SMA","MA","SMK"]];
 							<br>
 							<textarea class="w-100 p-2 required" name="alamat" required><?=$setting->alamat?></textarea>
 						</div>
-                        <div class="col-md-3 mb-4">
+ <div class="col-md-2 mb-4">
+                            <label>Desa *</label>
+                            <input type="text" name="desa" class="form-control required" value="<?=$setting->desa?>" required>
+                        </div>                       
+<div class="col-md-2 mb-4">
                             <label>Kecamatan *</label>
                             <input type="text" name="kec" class="form-control required" value="<?=$setting->kecamatan?>" required>
                         </div>
-						<div class="col-md-3 mb-4">
+						<div class="col-md-2 mb-4">
 							<label>Kabupaten/Kota *</label>
 							<input type="text" name="kota" class="form-control required" value="<?=$setting->kota?>" required>
 						</div>
