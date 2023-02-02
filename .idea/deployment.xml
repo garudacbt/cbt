@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="ftp.byethost4.com">
+  <component name="PublishConfigData" serverName="ftp.byethost4.com" compareModeInSync="SIZE" showNewOnSourceInSync="false" showNewOnTargetInSync="false">
     <serverData>
       <paths name="ftp.byethost4.com">
         <serverdata>
