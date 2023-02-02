@@ -1,4 +1,6 @@
 # GarudaCBT
+
+Harap download aplikasi dari tombol [<> Code] -> Download zip
 ______
 - [HOME](https://garudacbt.github.io/cbt)
 - [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
