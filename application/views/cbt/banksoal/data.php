@@ -42,6 +42,24 @@ $allBanksIds = [];
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="row ml-1">
+                        Kode Warna:
+                        <table class="w-100">
+                            <tr>
+                                <td class="p-1" style="width: 20px"><i class="fas fa-square text-muted"></i></td>
+                                <td class="p-1">Tidak digunakan (bisa dihapus)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1"><i class="fas fa-square text-yellow"></i></td>
+                                <td class="p-1">Digunakan jadwal</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1"><i class="fas fa-square text-maroon"></i></td>
+                                <td class="p-1">Digunakan siswa</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr>
                     <div class="row" id="row-filter">
                         <div class="col-12 col-md-6">
                             <div class="alert alert-default-info">
@@ -97,7 +115,6 @@ $allBanksIds = [];
                     </div>
                     <div class="row" id="konten">
                         <?php
-                        //var_dump($banks);
                         if ($mode == '1') :
                             if (isset($banks[$tp_active->id_tp]) && isset($banks[$tp_active->id_tp][$smt_active->id_smt]) && count($banks[$tp_active->id_tp][$smt_active->id_smt]) > 0) :?>
                                 <table class="w-100 table table-striped table-bordered">
@@ -124,9 +141,17 @@ $allBanksIds = [];
                                         foreach ($jumlahKelas as $j) {
                                             foreach ($kelas as $k) {
                                                 if ((isset($j->kelas_id) && isset($k->id_kelas)) && $j->kelas_id === $k->id_kelas) {
-                                                    $kelasbank .= '<span class="badge badge-btn badge-primary">'.$k->nama_kelas .'</span> ';
+                                                    $kelasbank .= '<span class="badge badge-btn badge-primary">' . $k->nama_kelas . '</span> ';
                                                 }
                                             }
+                                        }
+                                        $terpakai = true;
+                                        $bgRandom = 'text-maroon';
+                                        if ($bank->digunakan == '0') {
+                                            $bgRandom = 'text-gray';
+                                        } else {
+                                            $terpakai = isset($total_siswa[$bank->id_bank]);
+                                            $bgRandom = $terpakai ? 'text-maroon' : 'text-yellow';
                                         }
                                         ?>
                                         <tr>
@@ -134,10 +159,11 @@ $allBanksIds = [];
                                                 <input name="checked[]" value="<?= $bank->id_bank ?>"
                                                        class="check-bank" type="checkbox"
                                                        style="width: 20px;height: 20px">
-
                                             </td>
                                             <td class="text-center align-middle"><?= $no ?></td>
-                                            <td class="align-middle"><?= $bank->bank_kode ?></td>
+                                            <td class="align-middle">
+                                                <i class="fas fa-square text-lg mr-1 <?= $bgRandom ?>"></i><?= $bank->bank_kode ?>
+                                            </td>
                                             <td class="align-middle"><?= $bank->nama_mapel ?></td>
                                             <td class="align-middle"><?= $kelasbank ?></td>
                                             <td class="text-center w-auto">
@@ -148,12 +174,11 @@ $allBanksIds = [];
                                                                 class="fa fa-pencil-alt"></i></a>
                                                 </span>
                                                 <span data-toggle="tooltip" title="Import Soal">
-											<a href="javascript:void(0)" data-total="<?= $bank->total_soal ?>"
-                                               data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                               type="button" class="btn btn-warning btn-sm mb-1">
-												<i class="fas fa-upload"></i> Import
-											</a>
-										</span>
+                                                    <a href="javascript:void(0)" data-total="<?= $bank->total_soal ?>"
+                                                       data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
+                                                       type="button" class="btn btn-warning btn-sm mb-1">
+                                                        <i class="fas fa-upload"></i> Import</a>
+                                                </span>
                                                 <span data-toggle="tooltip" title="Detail/Buat Soal">
                                         <a href="<?= base_url('cbtbanksoal/detail/' . $bank->id_bank) ?>"
                                            type="button" class="btn btn-success btn-sm mb-1">
@@ -205,9 +230,17 @@ $allBanksIds = [];
                                         foreach ($jumlahKelas as $j) {
                                             foreach ($kelas as $k) {
                                                 if ((isset($j->kelas_id) && isset($k->id_kelas)) && $j->kelas_id === $k->id_kelas) {
-                                                    $kelasbank .= '<span class="badge badge-btn badge-primary">'.$k->nama_kelas .'</span> ';
+                                                    $kelasbank .= '<span class="badge badge-btn badge-primary">' . $k->nama_kelas . '</span> ';
                                                 }
                                             }
+                                        }
+                                        $terpakai = true;
+                                        $bgRandom = 'bg-gradient-maroon';
+                                        if ($bank->digunakan == '0') {
+                                            $bgRandom = 'bg-gradient-gray';
+                                        } else {
+                                            $terpakai = isset($total_siswa[$bank->id_bank]);
+                                            $bgRandom = $terpakai ? 'bg-gradient-maroon' : 'bg-gradient-yellow';
                                         }
                                         ?>
                                         <tr>
@@ -271,20 +304,28 @@ $allBanksIds = [];
                             <?php endif;
                         else:
                             if (isset($banks[$tp_active->id_tp]) && isset($banks[$tp_active->id_tp][$smt_active->id_smt]) && count($banks[$tp_active->id_tp][$smt_active->id_smt]) > 0) :
-                                foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank) :?>
+                                foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank) :
+                                    $terpakai = true;
+                                    $bgRandom = 'bg-gradient-maroon';
+                                    if ($bank->digunakan == '0') {
+                                        $bgRandom = 'bg-gradient-gray';
+                                    } else {
+                                        $terpakai = isset($total_siswa[$bank->id_bank]);
+                                        $bgRandom = $terpakai ? 'bg-gradient-maroon' : 'bg-gradient-yellow';
+                                    }
+                                    ?>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="card border mb-4">
-                                            <div class="card-header border-bottom-0 bg-gradient-blue">
+                                            <div class="card-header border-bottom-0 <?=$bgRandom?>">
                                                 <h3 class="card-title mt-1"><b><?= $bank->bank_kode ?></b></h3>
                                                 <div class="card-tools">
 									<span data-toggle="tooltip" title="Edit Bank Soal">
-										<a type="button"
-                                           href="<?= base_url('cbtbanksoal/editBank?id_bank=' . $bank->id_bank . '&id_guru=' . $bank->id_guru) ?>"
-                                           class="btn btn-warning btn-sm mr-1">
-											<i class="fa fa-pencil-alt"></i>
+										<a href="<?= base_url('cbtbanksoal/editBank?id_bank=' . $bank->id_bank . '&id_guru=' . $bank->id_guru) ?>"
+                                           class="btn btn-default mr-1">
+											<i class="fa fa-pencil"></i>
 										</a>
 									</span>
-                                                    <button class="btn btn-danger">
+                                                    <button class="btn btn-default">
                                                         <input name="checked[]" value="<?= $bank->id_bank ?>"
                                                                class="check-bank float-left" type="checkbox"
                                                                style="width: 20px;height: 20px">
@@ -364,7 +405,7 @@ $allBanksIds = [];
                                                             data-level="<?= $bank->bank_level ?>"
                                                             data-essai="<?= $bank->tampil_esai ?>"
                                                             onclick="getSoal(this)" type="button"
-                                                            class="btn btn-primary w-100">
+                                                            class="btn btn-default w-100">
                                                         <i class="fas fa-download mr-1"></i> Download Soal Untuk
                                                         Siswa<br>
                                                         <small><i>untuk keperluan ujian kertas</i></small>
@@ -661,7 +702,6 @@ $allBanksIds = [];
     </div>
 </div>
 
-
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/jquery.wordexport.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
@@ -882,8 +922,8 @@ $allBanksIds = [];
                     $.each(respon.soal, function (i, v) {
                         if (v.jenis == '1') {
                             jwbnPgSiswa += '<tr>' +
-                                '<td>'+v.nomor_soal+'<td>' +
-                                '<td>'+v.jawaban+'<td>' +
+                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
 
                             pg1 += '<li style="margin-bottom: 12px">' +
@@ -900,8 +940,8 @@ $allBanksIds = [];
 
                         } else if (v.jenis == '2') {
                             jwbnPg2Siswa += '<tr>' +
-                                '<td>'+v.nomor_soal+'<td>' +
-                                '<td>'+v.jawaban+'<td>' +
+                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
 
                             pg2 += '<li style="padding-bottom: 12px">' + v.soal +
@@ -912,8 +952,8 @@ $allBanksIds = [];
                             pg2 += '</ol>' + '</li>';
                         } else if (v.jenis == '3') {
                             jwbnJodohkanSiswa += '<tr>' +
-                                '<td>'+v.nomor_soal+'<td>' +
-                                '<td>'+v.jawaban+'<td>' +
+                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
 
                             jodoh += '<li style="padding-bottom: 12px">' + v.soal +
@@ -931,8 +971,8 @@ $allBanksIds = [];
                             jodoh += '</table></li>';
                         } else if (v.jenis == '4') {
                             jwbnIsianSiswa += '<tr>' +
-                                '<td>'+v.nomor_soal+'<td>' +
-                                '<td>'+v.jawaban+'<td>' +
+                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
                             isian += '<li style="padding-bottom: 12px; display: flex; align-items: baseline;">' +
                                 '<span style="margin-right: 12px; padding: 0;">' + v.soal + '</span>' +
@@ -940,8 +980,8 @@ $allBanksIds = [];
                                 '......................................</span></li>';
                         } else if (v.jenis == '5') {
                             jwbnEssaiSiswa += '<tr>' +
-                                '<td>'+v.nomor_soal+'<td>' +
-                                '<td>'+v.jawaban+'<td>' +
+                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
                             essais += '<li style="padding-bottom: 24px;"><section style="display: flex; align-items: baseline; margin-bottom: 8px">' +
                                 '<span style="margin-right: 12px; padding: 0;">' + v.soal + '</span>' +

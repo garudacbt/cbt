@@ -99,9 +99,6 @@
 	<!-- jQuery UI 1.11.4 -->
 	<script src="<?= base_url() ?>/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-	<!-- POPr -->
-	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/plugins/jquery-popmenu/popr/popr.css">
-	<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-popmenu/popr/popr.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/DualSelectList/js/bala.DualSelectList.jquery.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/app/css/stylised.css">
@@ -127,11 +124,11 @@
         }
     </style>
 </head>
-
+<script>
+    let base_url = '<?=base_url()?>';
+</script>
 <script src="<?= base_url() ?>/assets/app/js/generate.js"></script>
 <script type="text/javascript">
-    let globalToken;
-	let base_url = '<?=base_url()?>';
 	let tp_active = '<?= $tp_active->tahun ?>';
 	let smt_active = '<?= $smt_active->smt ?>';
 	let id_tp_active = '<?= $tp_active->id_tp ?>';
@@ -145,20 +142,13 @@
         m = checkTime(m);
         s = checkTime(s);
 
-        //document.getElementById('live-clock').innerHTML = h + ":" + m + ":" + s;
         $('#live-clock').html('<span class="text-lg">' + h + ':' + m + '</span>:' + s);
-        var t = setTimeout(startTime, 500);
+        setTimeout(startTime, 1000);
     }
 
     function checkTime(i) {
         if (i < 10) {i = "0" + i}return i;
     }
-
-    getToken(function (tokenResult) {
-        //console.log("getToken", tokenResult);
-        globalToken = tokenResult;
-        //globalToken.token = tokenResult.token;
-    });
 
     function buat_tanggal_indonesia(str) {
         str = str.replace("Jan", "Januari");

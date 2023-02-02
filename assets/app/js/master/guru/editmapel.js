@@ -178,12 +178,14 @@ $(document).ready(function () {
     $('#level').select2();
     $('#ekstra').select2();
 
+    $('.guru2').select2();
+
 	$.ajax({
         url: base_url + "dataguru/getDataKelas",
 		type: "GET",
 		success: function (data) {
             kelas = JSON.parse(data);
-            console.log('kelas', kelas);
+            //console.log('kelas', kelas);
             kelas.sort(sortByKode);
             kelas.sort(sortByLevel);
 
@@ -207,15 +209,13 @@ $(document).ready(function () {
 
         let btn = $('#btn-jabatan');
         btn.attr('disabled', 'disabled').text('Process...');
-
-        console.log($(this).serialize());
-
+        //console.log($(this).serialize());
 		$.ajax({
 			url: $(this).attr('action'),
 			data: $(this).serialize(),
 			type: 'POST',
 			success: function (response) {
-				console.log(response.data);
+				console.log(response);
 				swal.fire({
 					"title": response.status ? "Berhasil" : "Gagal",
 					"text": response.msg,
@@ -264,7 +264,7 @@ $(document).ready(function () {
 				});
 			}
 		});
-		console.log(selectedMapel);
+		//console.log(selectedMapel);
 		$('#kelasmapel' + data.id).val(selectedMapel);
 		$(".selectmapel").select2({tags: true});
 
@@ -327,7 +327,7 @@ $(document).ready(function () {
                 });
             }
         });
-        console.log(selectedEkstra);
+        //console.log(selectedEkstra);
         $('#kelasekstra' + data.id).val(selectedEkstra);
         $(".selectekstra").select2({tags: true});
 
@@ -342,14 +342,14 @@ $(document).ready(function () {
 
     $('#ekstra').on('select2:unselect', function (e) {
         var data = e.params.data;
-        console.log(data);
+        //console.log(data);
         for (var i = 0; i < ekstraObj.length; i++)
             if (ekstraObj[i].id && ekstraObj[i].id === data.id) {
                 //ekstraObj.splice(i, 1);
                 $("div").remove("#"+ data.id +"");
                 break;
             }
-        console.log("ekstraObj", ekstraObj);
+        //console.log("ekstraObj", ekstraObj);
 
         if (!$(".addmapel").length && !$(".addekstra").length) {
             $('#keterangan').addClass('d-none');
@@ -363,7 +363,7 @@ $(document).ready(function () {
 
 	$('#level').on('select2:select', function (e) {
 		var data = e.params.data;
-		console.log(data);
+		//console.log(data);
 
 		if (data.id === "4") {
 			var inputgroup = $('#input-jabatan');
@@ -380,7 +380,7 @@ $(document).ready(function () {
 
 			$.each(kelas, function (key, entry) {
 				if (entry.id_kelas === kelas_id) {
-					console.log(kelas_id);
+					//console.log(kelas_id);
 					sel.append($('<option value="'+entry.id_kelas+'" selected="selected">'+entry.nama_kelas+'</option>'));
 				} else {
 					sel.append($('<option value="'+entry.id_kelas+'">'+entry.nama_kelas+'</option>'));
@@ -393,4 +393,32 @@ $(document).ready(function () {
 			$("div").remove("#input-group-walikelas");
 		}
 	});
+
+	//console.log('before', guru_before);
+
+    $('#copyjabatan').on('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $('#beforeModal').modal('hide').data('bs.modal', null);
+
+        //console.log($(this).serialize());
+		$.ajax({
+			url: $(this).attr('action'),
+			data: $(this).serialize(),
+			type: 'POST',
+			success: function (response) {
+				console.log(response);
+				swal.fire({
+					"title": response.status ? "Berhasil" : "Gagal",
+					"text": response.msg,
+					"icon": response.status ? "success" : "error"
+				}).then(result => {
+					window.location.href = base_url+'dataguru';
+				});
+			},
+			error: function (xhr, error, status) {
+				console.log(xhr.responseText);
+			}
+		});
+    });
 });

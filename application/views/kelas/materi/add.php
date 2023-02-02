@@ -257,18 +257,14 @@ if (empty($kelas_pilih)) {
 		$('#formmateri').submit(function (e) {
 			e.stopPropagation();
 			e.preventDefault();
-			var dataUpload = new FormData($('#formmateri')[0]);
-			dataUpload.append('attach', JSON.stringify(dataFiles));
-			console.log(dataUpload);
 
-			$.ajax({
-				method: 'POST',
+            var dataUpload = $(this).serialize() + '&attach='+JSON.stringify(dataFiles);
+            console.log(dataUpload);
+
+            $.ajax({
 				url: base_url + 'kelasmateri/savemateri',
-				enctype: 'multipart/form-data',
+                method: "POST",
 				data: dataUpload,
-				cache: false,
-				contentType: false,
-				processData: false,
 				success: function (data) {
                     console.log('saved', data);
 					if (!data.status) {

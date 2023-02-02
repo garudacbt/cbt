@@ -1,10 +1,10 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="margin-top: -1px;">
-	<!-- Main content -->
-	<div class="sticky">
-	</div>
-	<section class="content overlap p-4">
-		<div class="container">
+    <!-- Main content -->
+    <div class="sticky">
+    </div>
+    <section class="content overlap p-4">
+        <div class="container">
             <?php $this->load->view('members/siswa/templates/top'); ?>
             <div class="row">
                 <div class="col-12">
@@ -20,8 +20,10 @@
                                     <div class="col-lg-2 col-sm-3 col-4 mb-3">
                                         <a href="<?= base_url($m->link) ?>">
                                             <figure class="text-center">
-                                                <img class="img-fluid" src="<?= base_url() ?>/assets/app/img/<?=$m->icon?>" width="80" height="80" />
-                                                <figcaption><?=$m->title?></figcaption>
+                                                <img class="img-fluid"
+                                                     src="<?= base_url() ?>/assets/app/img/<?= $m->icon ?>" width="80"
+                                                     height="80"/>
+                                                <figcaption><?= $m->title ?></figcaption>
                                             </figure>
                                         </a>
                                     </div>
@@ -31,7 +33,7 @@
                     </div>
                 </div>
             </div>
-			<div class="row">
+            <div class="row">
                 <div class="col-12 col-md-7">
                     <div class="card card-success">
                         <div class="card-header">
@@ -63,43 +65,105 @@
                             </div>
                             <div class="card-tools">
                                 <button type="button" onclick="loadJadwal()" class="btn btn-sm">
-                                    <i class="fa fa-sync text-white"></i> <span class="d-none d-sm-inline-block ml-1 text-white">Reload</span>
+                                    <i class="fa fa-sync text-white"></i> <span
+                                            class="d-none d-sm-inline-block ml-1 text-white">Reload</span>
                                 </button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id='list-jadwal'>
-                            </div>
+                            <?php
+                            if ($kbms != null) :
+                                if (count($jadwals) > 0):
+                                    $no = 1;
+                                    $arrIst = [];
+                                    if (isset($kbms->istirahat)) {
+                                        foreach ($kbms->istirahat as $istirahat) {
+                                            array_push($arrIst, $istirahat['ist']);
+                                            $arrDur[$istirahat['ist']] = $istirahat['dur'];
+                                        }
+                                    }
+                                    $active = $no == 1 ? 'active' : '';
+                                    ?>
+
+                                    <div class="table-responsive">
+                                        <table class="w-100 table">
+                                            <tbody>
+                                            <?php
+                                            $jamMulai = new DateTime($kbms->kbm_jam_mulai);
+                                            $jamSampai = new DateTime($kbms->kbm_jam_mulai);
+                                            for ($i = 0; $i < $kbms->kbm_jml_mapel_hari; $i++) :
+                                                $jamke = $i + 1;
+                                                if (in_array($jamke, $arrIst)) :
+                                                    $jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
+                                                    ?>
+                                                    <tr class="jam" data-jamke="<?= $jamke ?>">
+                                                        <td class="align-middle" width="150">
+                                                            <?= $jamMulai->format('H:i') ?>
+                                                            - <?= $jamSampai->format('H:i') ?>
+                                                        </td>
+                                                        <td class="align-middle">ISTIRAHAT</td>
+                                                    </tr>
+                                                    <?php
+                                                    $jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
+                                                else :
+                                                    $jamSampai->add(new DateInterval('PT' . $kbms->kbm_jam_pel . 'M'));
+                                                    ?>
+                                                    <tr class="jam" data-jamke="<?= $jamke ?>">
+                                                        <td class="align-middle">
+                                                            <?= $jamMulai->format('H:i') ?>
+                                                            - <?= $jamSampai->format('H:i') ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?= $jadwals[$jamke]->kode != null ? $jadwals[$jamke]->kode : '--' ?>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                    $jamMulai->add(new DateInterval('PT' . $kbms->kbm_jam_pel . 'M'));
+                                                endif; endfor; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php else: ?>
+                                    <p>
+                                        Tidak ada jadwal hari ini
+                                    </p>
+                                <?php endif; ?>
+                            <?php else:?>
+                                <p>
+                                    Jadwal untuk kelas <?= $kelas ?> belum dibuat
+                                </p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-			</div>
-		</div>
-	</section>
+            </div>
+        </div>
+    </section>
 </div>
 
-<div class="modal fade" id="pengumumanModal" tabindex="-1" role="dialog" aria-labelledby="previewLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="user-block">
-					<img id="foto" class="img-circle" src="<?= base_url() ?>/assets/img/user.jpg" alt="User Image">
-					<span id="username" class="username">test</span>
-					<span id="tgl" class="description">aja</span>
-				</div>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body p-3">
-				<div id="isi-pengumuman"></div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Tutup
-				</button>
-			</div>
-		</div>
-	</div>
+<div class="modal fade" id="pengumumanModal" tabindex="-1" role="dialog" aria-labelledby="previewLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="user-block">
+                    <img id="foto" class="img-circle" src="<?= base_url() ?>/assets/img/user.jpg" alt="User Image">
+                    <span id="username" class="username">test</span>
+                    <span id="tgl" class="description">aja</span>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-3">
+                <div id="isi-pengumuman"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Tutup
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="komentarModal" tabindex="-1" role="dialog" aria-labelledby="komentarLabel">
@@ -165,11 +229,11 @@
 </div>
 
 <script>
-	let jadwalKbm;
-	var arrIst = [];
-	var kelas = '<?=$siswa->id_kelas?>';
+    let jadwalKbm;
+    var arrIst = [];
+    var kelas = '<?=$siswa->id_kelas?>';
     var kodeKelas = '<?=$siswa->kode_kelas?>';
-	var pengumuman;
+    var pengumuman;
 
     var halaman = 0;
     var idSiswa = "<?=$siswa->id_siswa?>";
@@ -240,29 +304,29 @@
                 '        </div>' +
                 '        <div class="ml-2">' +
                 '            <span class="btn-sm mr-2 text-muted">' + createTime(v.tanggal) + '</span>' +
-                '            <span id="trigger-reply'+v.id_comment+'" class="btn btn-sm mr-2 text-muted action-collapse" data-toggle="collapse" aria-expanded="true"' +
+                '            <span id="trigger-reply' + v.id_comment + '" class="btn btn-sm mr-2 text-muted action-collapse" data-toggle="collapse" aria-expanded="true"' +
                 '                              aria-controls="collapse-reply' + v.id_comment + '"' +
                 '                              href="#collapse-reply' + v.id_comment + '"><b>' + v.jml + ' balasan</b></span>' +
                 '            <span class="btn btn-sm mr-2 text-muted btn-toggle-reply"' +
                 '                  data-id="' + v.id_comment + '" data-toggle="modal" data-target="#balasanModal">' +
                 '                <i class="fas fa-reply"></i> <b>Balas</b></span>';
             if (v.dari_group === '3' && v.dari === idSiswa) {
-                comm += '            <span class="btn btn-sm text-muted" data-id="'+v.id_comment+'">' +
+                comm += '            <span class="btn btn-sm text-muted" data-id="' + v.id_comment + '">' +
                     '                <i class="fa fa-trash mr-1"></i> Hapus' +
                     '            </span>';
             }
             comm += '        </div>' +
                 '<div id="collapse-reply' + v.id_comment + '" class="p-2 collapse toggle-reply" data-id="' + v.id_comment + '" data-parent="#parent-reply' + v.id_comment + '">';
             if (v.jml != '0') {
-                comm += '<div id="konten-reply' + v.id_comment + '"></div>'+
-                    '<div id="loadmore-reply' + v.id_comment + '" onclick="getReplies('+v.id_comment+')" class="text-center mb-3 loadmore-reply">' +
+                comm += '<div id="konten-reply' + v.id_comment + '"></div>' +
+                    '<div id="loadmore-reply' + v.id_comment + '" onclick="getReplies(' + v.id_comment + ')" class="text-center mb-3 loadmore-reply">' +
                     '       <div class="btn btn-default">Muat balasan lainnya ...</div>' +
                     '</div>';
             }
             comm += '    <div id="loading-reply' + v.id_comment + '" class="text-center d-none">' +
                 '        <div class="spinner-grow"></div>' +
                 '    </div>' +
-                '</div>'+
+                '</div>' +
                 '    </div>' +
                 '</div>';
         });
@@ -336,18 +400,18 @@
                 }
 
                 repl +=
-                    '<div class="media mt-1 media'+v.id_reply+'">'
+                    '<div class="media mt-1 media' + v.id_reply + '">'
                     + avatar +
                     '    <div class="w-100">' +
                     '        <div class="media-body border pl-3" style="border-radius: 17px; background-color: #dee2e6">' +
-                    '            <span class="text-xs text-muted"><b>'+dari+'</b></span>' +
+                    '            <span class="text-xs text-muted"><b>' + dari + '</b></span>' +
                     '            <div class="comment-text">' + v.text +
                     '            </div>' +
                     '        </div>' +
                     '        <div class="ml-2">' +
-                    '            <small class="btn-sm mr-2 text-muted">'+createTime(v.tanggal)+'</small>';
+                    '            <small class="btn-sm mr-2 text-muted">' + createTime(v.tanggal) + '</small>';
                 if (v.dari_group === '3' && v.dari === idSiswa) {
-                    repl += '            <span class="btn btn-sm text-muted" data-id="'+v.id_reply+'">' +
+                    repl += '            <span class="btn btn-sm text-muted" data-id="' + v.id_reply + '">' +
                         '                <i class="fa fa-trash mr-1"></i> Hapus' +
                         '            </span>';
                 }
@@ -362,7 +426,7 @@
         } else {
             $(`#konten-reply${id}`).prepend(repl);
         }
-        console.log('added', 'reply'+id);
+        console.log('added', 'reply' + id);
     }
 
     function getComments(id) {
@@ -446,11 +510,11 @@
             }
 
             card += '<div class="card">' +
-                '    <div class="card-body" id="parent'+v.id_post+'">' +
+                '    <div class="card-body" id="parent' + v.id_post + '">' +
                 '        <div class="media">' +
                 avatar +
                 '                <div class="media-body ml-3">' +
-                '                    <span class="font-weight-bold"><b>'+dari+'</b></span>' +
+                '                    <span class="font-weight-bold"><b>' + dari + '</b></span>' +
                 '                    <br/>' +
                 '                    <span class="text-gray">' + createTime(v.tanggal) + '</span>' +
                 '                </div>' +
@@ -458,30 +522,30 @@
                 '        <div class="mt-2">' + v.text + '</div>' +
                 '        <div class="text-muted">' +
                 '            <button type="button" class="btn btn-default btn-sm mr-2 btn-toggle"' +
-                '                    data-id="'+v.id_post+'" data-toggle="modal"' +
+                '                    data-id="' + v.id_post + '" data-toggle="modal"' +
                 '                    data-target="#komentarModal"><i class="fas fa-reply mr-1"></i> Tulis komentar' +
                 '            </button>' +
-                '            <button type="button" id="trigger'+v.id_post+'" class="btn btn-default btn-sm mr-2 action-collapse"' +
+                '            <button type="button" id="trigger' + v.id_post + '" class="btn btn-default btn-sm mr-2 action-collapse"' +
                 '                    data-toggle="collapse" aria-expanded="true"' +
-                '                    aria-controls="collapse-'+v.id_post+'"' +
-                '                    href="#collapse-'+v.id_post+'">' +
-                '                <i class="fa fa-commenting-o mr-1"></i>'+v.jml+' komentar' +
+                '                    aria-controls="collapse-' + v.id_post + '"' +
+                '                    href="#collapse-' + v.id_post + '">' +
+                '                <i class="fa fa-commenting-o mr-1"></i>' + v.jml + ' komentar' +
                 '            </button>' +
                 '        </div>' +
                 '    </div>' +
-                '    <div id="collapse-'+v.id_post+'" class="p-2 collapse toggle-comment"' +
-                '         data-id="'+v.id_post+'" data-parent="#parent'+v.id_post+'">' +
+                '    <div id="collapse-' + v.id_post + '" class="p-2 collapse toggle-comment"' +
+                '         data-id="' + v.id_post + '" data-parent="#parent' + v.id_post + '">' +
                 '        <hr class="m-0">' +
-                '        <div id="konten'+v.id_post+'" class="p-4">' +
+                '        <div id="konten' + v.id_post + '" class="p-4">' +
                 '        </div>' +
-                '        <div id="loading'+v.id_post+'" class="text-center d-none">' +
+                '        <div id="loading' + v.id_post + '" class="text-center d-none">' +
                 '            <div class="spinner-grow"></div>' +
                 '        </div>';
-            if (v.jml=='0'){
+            if (v.jml == '0') {
                 card += '<div class="text-center">Tidak ada komentar</div>';
             } else {
-                card += '<div id="loadmore'+v.id_post+'"' +
-                    '     onclick="getComments('+v.id_post+')"' +
+                card += '<div id="loadmore' + v.id_post + '"' +
+                    '     onclick="getComments(' + v.id_post + ')"' +
                     '     class="text-center mt-4 loadmore">' +
                     '    <div class="btn btn-default">Muat komentar lainnya ...</div>' +
                     '</div>';
@@ -513,7 +577,7 @@
             var id = $(e.relatedTarget).data('id');
             $("#id-comment").val(id);
 
-            var isVisible = $(`#collapse-reply${id}`).hasClass('show' );
+            var isVisible = $(`#collapse-reply${id}`).hasClass('show');
             if (!isVisible) {
                 $(`#trigger-reply${id}`).click();
             }
@@ -558,7 +622,7 @@
 
         setTimeout(function () {
             $.ajax({
-                url: base_url + "siswa/getpost?halaman="+halaman+"&kelas="+kodeKelas,
+                url: base_url + "siswa/getpost?halaman=" + halaman + "&kelas=" + kodeKelas,
                 type: "GET",
                 //data: {halaman: halaman, kelas: kodeKelas},
                 success: function (response) {
@@ -577,181 +641,177 @@
         }, 500);
     }
 
-	function loadPengumuman() {
-		$.ajax({
-			type: 'GET',
-			url: base_url + 'dashboard/getpengumuman/3',
-			success: function (data) {
-				pengumuman = data;
-				//console.log('result', data);
-				var ul = '<ul class="products-list product-list-in-card pl-2 pr-2">';
-				var pos = 0;
-				$.each(data, function (key, value) {
-					//var nama = value.id_group === '1' ? value.name : (value.id_group === '2' ? value.nama_guru : value.nama);
-					var tgl = formatTanggal(value.date);//new Date('02/12/2018');
-					ul += '  <li class="item">' +
-						'<a href="javascript:void(0)" data-toggle="modal" data-target="#pengumumanModal" data-pos="'+pos+'">' +
-						'    <div class="media" style="line-height: 1">' +
-						'      <img class="img-circle media-left" src="'+base_url+'/assets/img/user.jpg" width="40" height="40" />' +
-						'      <div class="media-body ml-2">' +
-						'        <span class="float-right text-xs text-muted">'+tgl+'</span>' +
-						'        <span><b>'+value.judul+'</b></span>' +
-						'        <br />' +
-						'        <span class="text-sm">'+value.nama_guru+'</span>' +
-						'      </div>' +
-						'    </div>' +
-						'</a>' +
-						'  </li>';
+    function loadPengumuman() {
+        $.ajax({
+            type: 'GET',
+            url: base_url + 'dashboard/getpengumuman/3',
+            success: function (data) {
+                pengumuman = data;
+                //console.log('result', data);
+                var ul = '<ul class="products-list product-list-in-card pl-2 pr-2">';
+                var pos = 0;
+                $.each(data, function (key, value) {
+                    //var nama = value.id_group === '1' ? value.name : (value.id_group === '2' ? value.nama_guru : value.nama);
+                    var tgl = formatTanggal(value.date);//new Date('02/12/2018');
+                    ul += '  <li class="item">' +
+                        '<a href="javascript:void(0)" data-toggle="modal" data-target="#pengumumanModal" data-pos="' + pos + '">' +
+                        '    <div class="media" style="line-height: 1">' +
+                        '      <img class="img-circle media-left" src="' + base_url + '/assets/img/user.jpg" width="40" height="40" />' +
+                        '      <div class="media-body ml-2">' +
+                        '        <span class="float-right text-xs text-muted">' + tgl + '</span>' +
+                        '        <span><b>' + value.judul + '</b></span>' +
+                        '        <br />' +
+                        '        <span class="text-sm">' + value.nama_guru + '</span>' +
+                        '      </div>' +
+                        '    </div>' +
+                        '</a>' +
+                        '  </li>';
 
-					pos ++;
-				});
-				ul += '<li>' +
-					'<a href="">' +
-					'<div class="text-center">' +
-					'<br>Lihat semua pengumuman' +
-					'</div>' +
-					'</a>' +
-					'</li>' +
-					'</ul>';
-				$('#list-pengumuman').html(ul);
-			}
-		})
-	}
+                    pos++;
+                });
+                ul += '<li>' +
+                    '<a href="">' +
+                    '<div class="text-center">' +
+                    '<br>Lihat semua pengumuman' +
+                    '</div>' +
+                    '</a>' +
+                    '</li>' +
+                    '</ul>';
+                $('#list-pengumuman').html(ul);
+            }
+        })
+    }
 
-	function loadJadwal() {
-		var date = new Date();
-		var hari = date.getDay();
+    function loadJadwal() {
+        var date = new Date();
+        var hari = date.getDay();
 
-		$.ajax({
-			type: 'GET',
-			url: base_url + 'dashboard/getjadwalhariini/'+kelas+'/'+hari,
-			success: function (data) {
-				console.log('jadwal', data);
-				if (data.length !== 0) {
-					var tableJadwal = '<table class="table w-100">' +
-						'<thead>' +
-						'<tr>' +
-						'<th class="text-center">Jam Ke</th>' +
-						'<th class="text-center">Waktu</th>' +
-						'<th>Mata Pelajaran</th>' +
-						'</tr></thead>' +
-						'<tbody>';
-					var jamMapel = jadwalKbm.jadwal.kbm_jam_pel;
-					var waktu = jadwalKbm.jadwal.kbm_jam_mulai;
-					var jmlMapel = jadwalKbm.jadwal.kbm_jml_mapel_hari;
+        $.ajax({
+            type: 'GET',
+            url: base_url + 'dashboard/getjadwalhariini/' + kelas + '/' + hari,
+            success: function (data) {
+                console.log('jadwal', data);
+                if (data.length !== 0) {
+                    var tableJadwal = '<table class="table w-100">' +
+                        '<thead>' +
+                        '<tr>' +
+                        '<th class="text-center">Jam Ke</th>' +
+                        '<th class="text-center">Waktu</th>' +
+                        '<th>Mata Pelajaran</th>' +
+                        '</tr></thead>' +
+                        '<tbody>';
+                    var jamMapel = jadwalKbm.jadwal.kbm_jam_pel;
+                    var waktu = jadwalKbm.jadwal.kbm_jam_mulai;
+                    var jmlMapel = jadwalKbm.jadwal.kbm_jml_mapel_hari;
 
-					var istirahat = jadwalKbm.istirahat;
-					var wktPel = 0;
-					var wktIst = 0;
-					for (let i = 0; i < jmlMapel; i++) {
-						var jamKe = i+1;
-						var isIst = jQuery.inArray(''+jamKe, arrIst) > -1;
+                    var istirahat = jadwalKbm.istirahat;
+                    var wktPel = 0;
+                    var wktIst = 0;
+                    for (let i = 0; i < jmlMapel; i++) {
+                        var jamKe = i + 1;
+                        var isIst = jQuery.inArray('' + jamKe, arrIst) > -1;
 
-						if (isIst) {
-							tableJadwal += '<tr>' +
-								'<td class="text-center">'+jamKe+'</td>' +
-								'<td class="text-center">'+waktu+'</td>' +
-								'<td>ISTIRAHAT</td>' +
-								'</tr>';
-							waktu = addTimes(waktu, '00:'+istirahat[wktIst].dur);
-							wktIst ++;
-						} else {
-							//console.log(data[wktPel]);
+                        if (isIst) {
+                            tableJadwal += '<tr>' +
+                                '<td class="text-center">' + jamKe + '</td>' +
+                                '<td class="text-center">' + waktu + '</td>' +
+                                '<td>ISTIRAHAT</td>' +
+                                '</tr>';
+                            waktu = addTimes(waktu, '00:' + istirahat[wktIst].dur);
+                            wktIst++;
+                        } else {
+                            //console.log(data[wktPel]);
                             var mpl = data[wktPel].nama_mapel == null ? '- -' : data[wktPel].nama_mapel;
-							tableJadwal += '<tr>' +
-								'<td class="text-center">'+data[wktPel].jam_ke+'</td>' +
-								'<td class="text-center">'+waktu+'</td>' +
-								'<td>'+mpl+'</td>' +
-								'</tr>';
-							wktPel ++;
-							waktu = addTimes(waktu, '00:'+jamMapel);
-						}
-						console.log(waktu);
-					}
-					tableJadwal += '</tbody></table>';
-					$('#list-jadwal').html(tableJadwal);
-				} else {
-					$('#list-jadwal').html('Tidak ada jadwal hari ini');
-				}
-			}
-		})
-	}
+                            tableJadwal += '<tr>' +
+                                '<td class="text-center">' + data[wktPel].jam_ke + '</td>' +
+                                '<td class="text-center">' + waktu + '</td>' +
+                                '<td>' + mpl + '</td>' +
+                                '</tr>';
+                            wktPel++;
+                            waktu = addTimes(waktu, '00:' + jamMapel);
+                        }
+                        console.log(waktu);
+                    }
+                    tableJadwal += '</tbody></table>';
+                    $('#list-jadwal').html(tableJadwal);
+                } else {
+                    $('#list-jadwal').html('Tidak ada jadwal hari ini');
+                }
+            }
+        })
+    }
 
-	$(document).ready(function () {
-		//form = $('#formselect');
-		$.ajax({
-			type: 'GET',
-			url: base_url + 'dashboard/getjadwalkbm/'+kelas,
-			success: function (data) {
-				console.log('kbm', data);
-				jadwalKbm = data;
-				$.each(data.istirahat, function (key, value) {
-					arrIst.push(value.ist);
-				});
-			}
-		});
+    $(document).ready(function () {
+        //form = $('#formselect');
+        $.ajax({
+            type: 'GET',
+            url: base_url + 'dashboard/getjadwalkbm/' + kelas,
+            success: function (data) {
+                console.log('kbm', data);
+                jadwalKbm = data;
+                $.each(data.istirahat, function (key, value) {
+                    arrIst.push(value.ist);
+                });
+            }
+        });
 
-		$('#pengumumanModal').on('show.bs.modal', function (e) {
-			var pos = $(e.relatedTarget).data('pos');
-			var item = pengumuman[pos];
-			var tgl = formatTanggal(item.date);
+        $('#pengumumanModal').on('show.bs.modal', function (e) {
+            var pos = $(e.relatedTarget).data('pos');
+            var item = pengumuman[pos];
+            var tgl = formatTanggal(item.date);
 
-			var nama = item.nama_guru;
-			var foto = item.foto;
-			var tanggal = tgl;
-			var judul = item.judul;
-			var isi = item.text;
+            var nama = item.nama_guru;
+            var foto = item.foto;
+            var tanggal = tgl;
+            var judul = item.judul;
+            var isi = item.text;
 
-			$('#username').text(nama);
-			$('#tgl').text(tanggal);
-			$('#foto').attr('src', base_url+'/assets/img/'+foto);
+            $('#username').text(nama);
+            $('#tgl').text(tanggal);
+            $('#foto').attr('src', base_url + '/assets/img/' + foto);
 
-			var html = '<h3>'+judul+'</h3>'+isi;
-			$('#isi-pengumuman').html(html);
+            var html = '<h3>' + judul + '</h3>' + isi;
+            $('#isi-pengumuman').html(html);
 
-		});
+        });
 
-        //loadPengumuman();
         getPosts();
-        loadJadwal();
-
-        console.log('jadwal', jadwalKbm);
     });
 
-	function addTimes (startTime, endTime) {
-		var times = [ 0, 0, 0 ];
-		var max = times.length;
+    function addTimes(startTime, endTime) {
+        var times = [0, 0, 0];
+        var max = times.length;
 
-		var a = (startTime || '').split(':');
-		var b = (endTime || '').split(':');
+        var a = (startTime || '').split(':');
+        var b = (endTime || '').split(':');
 
-		// normalize time values
-		for (var i = 0; i < max; i++) {
-			a[i] = isNaN(parseInt(a[i])) ? 0 : parseInt(a[i]);
-			b[i] = isNaN(parseInt(b[i])) ? 0 : parseInt(b[i])
-		}
+        // normalize time values
+        for (var i = 0; i < max; i++) {
+            a[i] = isNaN(parseInt(a[i])) ? 0 : parseInt(a[i]);
+            b[i] = isNaN(parseInt(b[i])) ? 0 : parseInt(b[i])
+        }
 
-		// store time values
-		for (var j = 0; j < max; j++) {
-			times[j] = a[j] + b[j]
-		}
+        // store time values
+        for (var j = 0; j < max; j++) {
+            times[j] = a[j] + b[j]
+        }
 
-		var hours = times[0];
-		var minutes = times[1];
-		var seconds = times[2];
+        var hours = times[0];
+        var minutes = times[1];
+        var seconds = times[2];
 
-		if (seconds >= 60) {
-			var m = (seconds / 60) << 0;
-			minutes += m;
-			seconds -= 60 * m
-		}
+        if (seconds >= 60) {
+            var m = (seconds / 60) << 0;
+            minutes += m;
+            seconds -= 60 * m
+        }
 
-		if (minutes >= 60) {
-			var h = (minutes / 60) << 0;
-			hours += h;
-			minutes -= 60 * h
-		}
+        if (minutes >= 60) {
+            var h = (minutes / 60) << 0;
+            hours += h;
+            minutes -= 60 * h
+        }
 
-		return ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2);// + ':' + ('0' + seconds).slice(-2)
-	}
+        return ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2);// + ':' + ('0' + seconds).slice(-2)
+    }
 </script>

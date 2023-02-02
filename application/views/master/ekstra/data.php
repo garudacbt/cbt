@@ -22,7 +22,7 @@
                         </button>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 table-responsive">
                             <table id="tableEkstra" class="w-100 table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -256,18 +256,19 @@
                 {
                     searchable: false,
                     targets: 3,
+                    className: "text-center",
                     data: {
                         id_ekstra: "id_ekstra",
                         nama_ekstra: "nama_ekstra",
                         kode_ekstra: "kode_ekstra"
                     },
                     render: function (data, type, row, meta) {
-                        return `<div class="text-center">
+                        return `<div class="btn-group btn-group-xs">
 									<a class="btn btn-xs btn-warning editRecord" data-toggle="modal" data-target="#editEkstraModal" data-id='${data.id_ekstra}' data-nama='${data.nama_ekstra}' data-kode='${data.kode_ekstra}'>
-										<i class="fa fa-pencil-alt text-white"></i>
+										<i class="fa fa-pencil-alt text-white text-xs"></i>
 									</a>
 									<a onclick="deleteItem(${data.id_ekstra})" class="btn btn-xs btn-danger deleteRecord" data-id='${data.id_ekstra}'>
-								<i class="fa fa-trash text-white"></i>
+								<i class="fa fa-trash text-white text-xs"></i>
 							</a>
 								</div>`;
                     }

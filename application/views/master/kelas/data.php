@@ -15,21 +15,15 @@
                 <div class="card-body">
                     <div class="row">
                         <?php if ($smt_active->id_smt == '2'): ?>
-                            <div class="alert alert-default-info align-content-center" role="alert">
-                                Fitur-fitur di bawah ini digunakan hanya pada <b>SMT II</b>
-                                <ul>
-                                    <li>
-                                        <i class="fas fa-tools mr-1"></i> <b>Atur Kelas Semester</b>
-                                        digunakan jika ingin menyalin semua data kelas dari SMT I ke SMT II
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-tools mr-1"></i> <b>Kenaikan Kelas</b>
-                                        digunakan untuk mengatur kenaikan kelas, siswa akan otomatis dipindahkan ke
-                                        tahun
-                                        pelajaran
-                                        berikutnya sesuai kelasnya
-                                    </li>
-                                </ul>
+                            <div class="col-12 alert alert-default-info align-content-center" role="alert">
+                                <span class="badge badge-primary"><i class="fas fa-tools mr-1"></i> Atur Kelas Semester</span>
+                                digunakan jika ingin menyalin semua data kelas dari SMT I ke SMT II
+                            </div>
+                        <?php else: ?>
+                            <div class="col-12 alert alert-default-info align-content-center" role="alert">
+                                <span class="badge badge-primary"><i class="fas fa-tools mr-1"></i> Kenaikan Kelas</span>
+                                    digunakan untuk mengatur kenaikan kelas, siswa akan otomatis dipindahkan ke
+                                    tahun pelajaran berikutnya sesuai kelasnya
                             </div>
                         <?php endif; ?>
                         <div>
@@ -43,14 +37,14 @@
                             </span>
                             <?php if ($smt_active->id_smt == '2') : ?>
                                 <span data-toggle="tooltip" title="Manajemen Kelas">
-                                    <a href="<?= base_url('datakelas/manage') ?>" type="button" class="btn bg-fuchsia mr-2 mb-3">
+                                    <a href="<?= base_url('datakelas/manage') ?>" type="button" class="btn btn-primary mr-2 mb-3">
                                         <i class="fas fa-tools mr-1"></i> Atur Kelas Semester
                                     </a>
                                 </span>
                             <?php endif; ?>
                             <?php if ($smt_active->id_smt == '1') : ?>
                                 <span data-toggle="tooltip" title="Kenaikan Kelas">
-                                    <a href="<?= base_url('datakelas/kenaikan') ?>" type="button" class="btn bg-purple mr-2 mb-3">
+                                    <a href="<?= base_url('datakelas/kenaikan') ?>" type="button" class="btn btn-primary mr-2 mb-3">
                                         <i class="fas fa-tools mr-1"></i> Kenaikan Kelas
                                     </a>
                                 </span>
@@ -83,57 +77,59 @@
                             </div>
                         </div>
                     <?php else: ?>
-
-                    <table class="w-100 table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr class="alert alert-info">
-                            <th class="text-center align-middle p-0">No.</th>
-                            <th>Nama Kelas</th>
-                            <th>Kode Kelas</th>
-                            <?php if ($setting->jenjang == '3') : ?>
-                                <td>Jurusan</td>
-                            <?php endif; ?>
-                            <th>Wali Kelas</th>
-                            <th class="align-middle text-center">Jumlah Siswa</th>
-                            <th class="text-center align-middle p-0" style="width: 180px"><span>Aksi</span></th>
-                        </tr>
-                        <?php
-                        $no = 1;
-                        foreach ($kelas as $kls) : ?>
-                            <tr>
-                                <td class="align-middle text-center"><?= $no ?></td>
-                                <td class="align-middle"><?= $kls->nama_kelas ?></td>
-                                <td class="align-middle"><?= $kls->kode_kelas ?></td>
+                    <div class="table-responsive">
+                        <table class="w-100 table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="alert alert-info">
+                                <th class="text-center align-middle p-0">No.</th>
+                                <th>Nama Kelas</th>
+                                <th>Kode Kelas</th>
                                 <?php if ($setting->jenjang == '3') : ?>
-                                    <td class="align-middle text-center"><?= $kls->nama_jurusan ?></td>
+                                    <td>Jurusan</td>
                                 <?php endif; ?>
-                                <td class="align-middle"><?= $kls->nama_guru ?></td>
-                                <td class="align-middle text-center"><?= $kls->jml_siswa ?></td>
-                                <td class="align-middle text-center">
+                                <th>Wali Kelas</th>
+                                <th class="align-middle text-center">Jumlah Siswa</th>
+                                <th class="text-center align-middle p-0" style="width: 180px"><span>Aksi</span></th>
+                            </tr>
+                            <?php
+                            $no = 1;
+                            foreach ($kelas as $kls) : ?>
+                                <tr>
+                                    <td class="align-middle text-center"><?= $no ?></td>
+                                    <td class="align-middle"><?= $kls->nama_kelas ?></td>
+                                    <td class="align-middle"><?= $kls->kode_kelas ?></td>
+                                    <?php if ($setting->jenjang == '3') : ?>
+                                        <td class="align-middle text-center"><?= $kls->nama_jurusan ?></td>
+                                    <?php endif; ?>
+                                    <td class="align-middle"><?= $kls->nama_guru ?></td>
+                                    <td class="align-middle text-center"><?= $kls->jml_siswa ?></td>
+                                    <td class="align-middle text-center">
+                                        <div class="btn-group btn-group-xs">
                                 <span data-toggle="tooltip" title="Lihat Detail Kelas">
 										<a type="button" href="<?= base_url('datakelas/detail/' . $kls->id_kelas) ?>"
                                            class="btn btn-default btn-xs mr-1">
 											<i class="fa fa-eye"></i>
 										</a>
 									</span>
-                                    <span data-toggle="tooltip" title="Edit Kelas">
+                                            <span data-toggle="tooltip" title="Edit Kelas">
 										<a type="button" href="<?= base_url('datakelas/edit/' . $kls->id_kelas) ?>"
                                            class="btn btn-default btn-xs mr-1">
 											<i class="fa fa-pencil-alt"></i>
 										</a>
 									</span>
-                                    <button data-id="<?= $kls->id_kelas ?>" type="button"
-                                            class="btn-xs btn btn-default hapuskelas" data-toggle="tooltip"
-                                            title="Hapus Data Kelas">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-
-                                </td>
-                            </tr>
-                        <?php
-                        $no++; endforeach; endif;?>
-                        </thead>
-                    </table>
+                                            <button data-id="<?= $kls->id_kelas ?>" type="button"
+                                                    class="btn-xs btn btn-default hapuskelas" data-toggle="tooltip"
+                                                    title="Hapus Data Kelas">
+                                                <i class="far fa-trash-alt text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php
+                                $no++; endforeach; endif;?>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!--

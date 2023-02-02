@@ -269,61 +269,6 @@ $allowedDates = [];
             }
         }
 
-        $('#simpanalokasi').on('submit', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            const $rows1 = $('#tbl').find('tr'), headers1 = $rows1.splice(0, 1);
-            var jsonObj = [];
-            $rows1.each((i, row) => {
-                const jam_ke = $(row).find('.jam-ke').text().trim();
-                const jarak = $(row).find('input.jarak').val();
-                const id_jadwal = $(row).find('.jadwal').val();
-
-                let item = {};
-                item ["id_jadwal"] = id_jadwal;
-                item ["jam_ke"] = jam_ke;
-                item ["jarak"] = jarak;
-
-                jsonObj.push(item);
-            });
-
-
-            var dataPost = $(this).serialize() + "&alokasi=" + JSON.stringify(jsonObj);
-            console.log(dataPost);
-
-            $.ajax({
-                url: base_url + "cbtalokasi/savealokasi",
-                type: "POST",
-                dataType: "JSON",
-                data: dataPost,
-                success: function (data) {
-                    console.log("response:", data);
-                    if (data.status) {
-                        swal.fire({
-                            title: "Sukses",
-                            html: "Alokasi waktu ujian berhasil disimpan",
-                            icon: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#3085d6",
-                            confirmButtonText: "OK"
-                        }).then(result => {
-                            if (result.value) {
-                                window.location.reload();
-                            }
-                        });
-                    } else {
-                        showDangerToast('gagal disimpan')
-                    }
-                }, error: function (xhr, status, error) {
-                    console.log("response:", xhr.responseText);
-                    showDangerToast('gagal disimpan')
-                }
-            });
-
-        });
-
         $('#selector button').click(function () {
             $(this).addClass('active').siblings().addClass('btn-outline-primary').removeClass('active btn-primary');
 

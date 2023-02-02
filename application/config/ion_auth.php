@@ -101,7 +101,7 @@ $config['join']['groups'] = 'group_id';
 | For more information, check the password_hash function help: http://php.net/manual/en/function.password-hash.php
 |
 */
-$config['hash_method']			= 'bcrypt';	// bcrypt or argon2
+$config['hash_method']			    = 'bcrypt';	// bcrypt or argon2
 $config['bcrypt_default_cost']		= 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
 $config['bcrypt_admin_cost']		= 12;		// Cost for user in admin group
 $config['argon2_default_params']	= [

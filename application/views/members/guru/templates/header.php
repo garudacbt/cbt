@@ -111,10 +111,6 @@
 	<!-- jQuery UI 1.11.4 -->
 	<script src="<?= base_url() ?>/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-	<!-- POPr -->
-	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/plugins/jquery-popmenu/popr/popr.css">
-	<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-popmenu/popr/popr.js"></script>
-
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/jexcel/css/jexcel.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/jexcel/css/jsuites.css">
     <script src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>

@@ -42,7 +42,7 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-7 mb-4">
+						<div class="col-md-7 mb-4 table-responsive">
 							<label>Tahun Pelajaran</label>
 							<?= form_open('', array('id' => 'edittp')) ?>
 							<table id="tahun" class="table table-striped table-bordered table-hover">
@@ -75,8 +75,10 @@
 											<?php endif;?>
 										</td>
 										<td class="text-center">
-											<button type="button" data-id="<?=$value->id_tp?>" data-tahun="<?=$value->tahun?>" data-from="edit" data-toggle="modal" data-target="#createTahunModal" class="btn btn-xs btn-warning btn-edit">Edit</button>
-											<button type="button" data-id="<?=$value->id_tp?>" class="btn btn-xs btn-danger btn-hapus">Hapus</button>
+                                            <div class="btn-group btn-group-sm">
+                                                <button type="button" data-id="<?=$value->id_tp?>" data-tahun="<?=$value->tahun?>" data-from="edit" data-toggle="modal" data-target="#createTahunModal" class="btn btn-xs btn-warning btn-edit">Edit</button>
+                                                <button type="button" data-id="<?=$value->id_tp?>" class="btn btn-xs btn-danger btn-hapus">Hapus</button>
+                                            </div>
 										</td>
 									</tr>
 								<?php endforeach; ?>

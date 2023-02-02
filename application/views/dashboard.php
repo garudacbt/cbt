@@ -52,8 +52,7 @@
                                     </ul>
                                 </div>
                                 <?php
-                                if (count($jadwals)>0 && count($kbms)>0):
-                                ?>
+                                if (count($jadwals)>0 && count($kbms)>0):?>
                                 <div class="card-body p-0">
                                     <div class="tab-content">
                                         <?php
@@ -152,14 +151,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <?php foreach ($ujian_box as $info) : ?>
-                                    <div class="col-md-3 col-4" style="min-height: 60px">
+                                    <div class="col-md-4 col-6" style="min-height: 60px">
                                         <a href="<?=base_url().$info->url?>">
                                             <div class="info-box border p-1" style="min-height: 60px">
-                                                <!--
-												<span class="info-box-icon bg-gradient-<?= $info->box ?> elevation-1">
-													<i class="fa fa-<?= $info->icon ?>"></i>
-												</span>
-												-->
                                                 <div class="info-box-content p-1 text-danger">
                                                     <span class="info-box-text"><?= $info->title; ?></span>
                                                     <h5 class="info-box-number m-0"><?= $info->total; ?></h5>
@@ -168,28 +162,88 @@
                                         </a>
                                     </div>
                                 <?php endforeach; ?>
+                                <div class="col-md-4 col-6" style="min-height: 60px">
+                                    <a href="<?=base_url('cbttoken')?>">
+                                        <div class="info-box border p-1" style="min-height: 60px">
+                                            <div class="info-box-content p-1 text-danger">
+                                                <span class="info-box-text">Token <small class="float-right" id="interval">-- : --</small></span>
+                                                <h5 class="info-box-number m-0" id="token-view"><?= $token->token != null ? $token->token : '- - - - - -' ?></h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-center"><b>PENILAIAN HARI INI</b></h6>
+                                </div>
+                                <div class="col-12 table-responsive">
+                                    <?php
+                                    $no = 1;
+                                    if (count($jadwal_ujian) > 0) : ?>
+                                    <table id="tbl-penilaian" class="table table-bordered">
+                                        <tr>
+                                            <th class="text-center align-middle">NO</th>
+                                            <th class="text-center align-middle">RUANG</th>
+                                            <th class="text-center align-middle">SESI</th>
+                                            <th class="text-center align-middle">JAM KE</th>
+                                            <th class="text-center align-middle">MATA PELAJARAN</th>
+                                            <th class="text-center align-middle">PENGAWAS</th>
+                                        </tr>
+                                        <?php
+                                        foreach ($ruangs as $ruang=>$sesis) :
+                                        foreach ($sesis as $sesi) :
+                                        foreach ($jadwal_ujian as $jadwal) :
+                                            $id_guru = isset($pengawas[$jadwal->id_jadwal])
+                                                && isset($pengawas[$jadwal->id_jadwal][$ruang]) &&
+                                                isset($pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id])
+                                                ? explode(',', $pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
+                                                : [];
+                                        //$peng = $id_guru != '' && isset($gurus[$id_guru]) ? $gurus[$id_guru] : '';
+                                            ?>
+                                        <tr>
+                                            <td class="text-center align-middle"><?=$no?></td>
+                                            <td class="text-center align-middle"><?=$sesi->nama_ruang?></td>
+                                            <td class="text-center align-middle"><?=$sesi->nama_sesi?></td>
+                                            <td class="text-center align-middle"><?=$jadwal->jam_ke?></td>
+                                            <td class="text-center align-middle"><?=$jadwal->nama_mapel?></td>
+                                            <td class="align-middle crop-text-table">
+                                                <?php foreach ($id_guru as $ig) {
+                                                    echo isset($gurus[$ig]) ? '<p class="p-0 m-0">'.$gurus[$ig].'</p>' : '';
+                                                } ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; endforeach; $no ++; endforeach; ?>
+                                    </table>
+                                    <?php else: ?>
+                                        <table class="w-100 table-bordered"><tr><td class="text-center">Tidak ada jadwal penilaian</td></tr></table>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <h5>Mading</h5>
-                    <div class="konten-pengumuman">
-                        <div id="pengumuman">
-                        </div>
-                        <p id="loading-post" class="text-center d-none">
-                            <br/><i class="fa fa-spin fa-circle-o-notch"></i> Loading....
-                        </p>
-                        <div id="loadmore-post"
-                             onclick="getPosts()"
-                             class="text-center mt-4 loadmore d-none">
-                            <div class="btn btn-default">Muat Timeline lainnya ...</div>
+                    <div class="card card-light my-shadow mb-3">
+                        <div class="card-header"><b>INFO/PENGUMUMAN</b></div>
+                        <div class="card-body">
+                            <div class="konten-pengumuman">
+                                <div id="pengumuman">
+                                </div>
+                                <p id="loading-post" class="text-center d-none">
+                                    <br/><i class="fa fa-spin fa-circle-o-notch"></i> Loading....
+                                </p>
+                                <div id="loadmore-post"
+                                     onclick="getPosts()"
+                                     class="text-center mt-4 loadmore d-none">
+                                    <div class="btn btn-default">Muat Timeline lainnya ...</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 	</section>
 </div>
-
 
 <div class="modal fade" id="komentarModal" tabindex="-1" role="dialog" aria-labelledby="komentarLabel">
     <div class="modal-dialog" role="document">
@@ -253,4 +307,9 @@
     </div>
 </div>
 
+<script>
+    adaJadwalUjian = '<?=count($ada_ujian)?>';
+    localStorage.setItem('ada_jadwal_ujian', adaJadwalUjian);
+</script>
+<script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/dashboard.js"></script>

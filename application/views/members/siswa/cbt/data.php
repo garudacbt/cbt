@@ -271,7 +271,7 @@ $jadwal_selesai = [];
                             </h5>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row table-responsive">
                                 <table class="table">
                                     <?php
                                     foreach ($cbt_jadwal as $tgl => $jadwals)  :

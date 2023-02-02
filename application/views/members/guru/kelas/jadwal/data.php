@@ -118,7 +118,7 @@ if (isset($jadwal_kbm)) {
                                         if (in_array($jamke, $arrIst)) :
                                             $jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
                                             ?>
-                                            <tr class="jam bg-gradient-fuchsia" data-jamke="<?= $jamke ?>">
+                                            <tr class="jam bg-gradient-red" data-jamke="<?= $jamke ?>">
                                                 <td class="align-middle text-center">
                                                     <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
                                                 </td>
@@ -142,32 +142,14 @@ if (isset($jadwal_kbm)) {
                                                 if (isset($arrRes[$jamke])) :
                                                     foreach ($arrRes[$jamke] as $value) :?>
                                                         <td class="text-center align-middle">
-                                                            <div class="value-name"
-                                                                 data-idmapel="<?= $value['id_mapel'] ?>"
-                                                                 data-idhari="<?= $value['id_hari'] ?>"
-                                                                 id="<?= $value['id_hari'] . $jamke ?>">
-                                                                <?= $value['kode'] ?>
-                                                            </div>
+                                                            <?= $value['kode'] ?>
                                                         </td>
                                                     <?php
                                                     endforeach;
                                                 else:
                                                     for ($d = 0; $d < 6; $d++) :
                                                         ?>
-                                                        <td class="align-middle">
-                                                            <div class="float-left value-name" data-idmapel="0"
-                                                                 data-idhari="<?= $d + 1 ?>"
-                                                                 id="<?= $d + 1 . $jamke ?>">
-                                                            </div>
-                                                            <i class="popr fa fa-book float-right text-gray"
-                                                               data-id="<?= $d + 1 . $jamke ?>"></i>
-                                                        </td>
-                                                        <div class="popr-box" data-box-id="<?= $d + 1 . $jamke ?>">
-                                                            <div data-id="<?= $d + 1 . $jamke ?>" class="popr-item">
-                                                                Tidak ada
-                                                            </div>
-                                                        </div>
-
+                                                        <td class="align-middle"></td>
                                                     <?php
                                                     endfor;
                                                 endif; ?>

@@ -546,7 +546,6 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-// TAMBAHAN
-$config['jml_opsi']	= 5; // opsi jawaban 1 - 5
+$config['app_version']	= '1.4.1';
 $config['min_password_length']  = 6;
 $config['max_password_length'] = 20;

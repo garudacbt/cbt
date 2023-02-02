@@ -4,4 +4,4 @@
     |    https://github.com/garudacbt/cbt    |
     |________________________________________|
 */
- defined("\102\x41\x53\x45\x50\101\124\110") or exit("\116\157\40\x64\151\x72\x65\x63\x74\40\163\143\162\x69\x70\x74\x20\141\143\143\x65\x73\163\40\141\x6c\x6c\157\167\145\144"); class Migrate extends CI_Controller { public function index() { } }
+ defined("\x42\x41\123\x45\120\x41\x54\110") or exit("\x4e\x6f\40\x64\151\x72\x65\x63\164\x20\x73\143\162\151\160\x74\x20\x61\143\x63\145\163\x73\x20\x61\x6c\154\157\167\145\x64"); class Migrate extends CI_Controller { public function index() { } }

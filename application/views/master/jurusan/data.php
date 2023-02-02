@@ -29,58 +29,60 @@
 				</div>
 				<div class="card-body">
 					<?=form_open('',array('id'=>'bulk'))?>
-					<table id="jurusan" class="w-100 table table-striped table-bordered table-hover">
-						<thead>
-						<tr>
-							<th class="text-center align-middle p-0" style="width: 40px">
-								<input type="checkbox" id="select_all">
-							</th>
-							<th style="width: 40px" class="text-center align-middle p-0">No.</th>
-                            <th>Kode</th>
-							<th>Jurusan</th>
-                            <th>Mapel Peminatan</th>
-							<th class="text-center align-middle p-0" style="width: 100px"><span>Aksi</span></th>
-						</tr>
-						</thead>
-                        <tbody>
-                        <?php
-                        $no = 1;
-                        foreach ($jurusans as $row) :
-                            $badges = '';
-                            foreach (explode(',', $row->mapel_peminatan) as $mid) {
-                                if ($mid != '')
-                                    $badges .= '<div class="badge badge-btn badge-success mr-1">'.$jurusan_mapels[$row->id_jurusan][$mid].'</div>';
-                            }
-                        ?>
-                        <tr>
-                            <td>
-                                <div class="text-center">
-                                    <input id="check<?=$row->id_jurusan?>" name="checked[]" class="check" value="<?=$row->id_jurusan?>" type="checkbox">
-                                </div>
-                            </td>
-                            <td class="text-center"><?=$no?></td>
-                            <td><?=$row->kode_jurusan?></td>
-                            <td><?=$row->nama_jurusan?></td>
-                            <td><?=$badges?></td>
-                            <td>
-                                <div class="text-center">
-                                    <a class="btn btn-xs btn-warning editRecord" data-toggle="modal"
-                                       data-target="#editJurusanModal" data-deletable="<?=$row->deletable?>"
-                                       data-mapel="<?=$row->mapel_peminatan?>" data-id='<?=$row->id_jurusan?>'
-                                       data-nama='<?=$row->nama_jurusan?>' data-kode='<?=$row->kode_jurusan?>'>
-                                        <i class="fa fa-pencil-alt text-white"></i>
-                                    </a>
-                                    <!--
-                                    <button onclick="deleteItem(${data.id_jurusan})" class="btn btn-xs btn-danger deleteRecord" data-id="${data.id_jurusan}" ${disabled}>
-                                <i class="fa fa-trash text-white"></i>
-                            </button>
-                                    -->
-                                </div>
-                            </td>
-                        </tr>
-                        <?php $no++; endforeach; ?>
-                        </tbody>
-					</table>
+                    <div class="table-responsive">
+                        <table id="jurusan" class="w-100 table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="text-center align-middle p-0" style="width: 40px">
+                                    <input type="checkbox" id="select_all">
+                                </th>
+                                <th style="width: 40px" class="text-center align-middle p-0">No.</th>
+                                <th>Kode</th>
+                                <th>Jurusan</th>
+                                <th>Mapel Peminatan</th>
+                                <th class="text-center align-middle p-0" style="width: 100px"><span>Aksi</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($jurusans as $row) :
+                                $badges = '';
+                                foreach (explode(',', $row->mapel_peminatan) as $mid) {
+                                    if ($mid != '')
+                                        $badges .= '<div class="badge badge-btn badge-success mr-1">'.$jurusan_mapels[$row->id_jurusan][$mid].'</div>';
+                                }
+                                ?>
+                                <tr>
+                                    <td>
+                                        <div class="text-center">
+                                            <input id="check<?=$row->id_jurusan?>" name="checked[]" class="check" value="<?=$row->id_jurusan?>" type="checkbox">
+                                        </div>
+                                    </td>
+                                    <td class="text-center"><?=$no?></td>
+                                    <td><?=$row->kode_jurusan?></td>
+                                    <td><?=$row->nama_jurusan?></td>
+                                    <td><?=$badges?></td>
+                                    <td>
+                                        <div class="text-center">
+                                            <a class="btn btn-xs btn-warning editRecord" data-toggle="modal"
+                                               data-target="#editJurusanModal" data-deletable="<?=$row->deletable?>"
+                                               data-mapel="<?=$row->mapel_peminatan?>" data-id='<?=$row->id_jurusan?>'
+                                               data-nama='<?=$row->nama_jurusan?>' data-kode='<?=$row->kode_jurusan?>'>
+                                                <i class="fa fa-pencil-alt text-white"></i>
+                                            </a>
+                                            <!--
+                                            <button onclick="deleteItem(${data.id_jurusan})" class="btn btn-xs btn-danger deleteRecord" data-id="${data.id_jurusan}" ${disabled}>
+                                        <i class="fa fa-trash text-white"></i>
+                                    </button>
+                                            -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php $no++; endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
 					<?=form_close()?>
 				</div>
 			</div>

@@ -35,7 +35,6 @@
                                 Klik SIMPAN untuk menyalin semua data kelas
                             </li>
                         </ul>
-                        Untuk menyalin siswa antar Tahun Pelajaran, gunakan halaman KENAIKAN KELAS
                     </div>
                     <?= form_open('', array('id' => 'managekelas')) ?>
                     <div class="row">

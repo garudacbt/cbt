@@ -46,7 +46,7 @@ if (isset($jadwal_ujian)) {
                     </div>
                 </div>
                 <div class="card-body">
-                    Kode Background Jadwal:
+                    Kode Warna Jadwal:
                     <table class="w-100">
                         <tr>
                             <td class="p-1" style="width: 20px"><i class="fas fa-square text-muted"></i></td>
@@ -80,9 +80,6 @@ if (isset($jadwal_ujian)) {
             </div>
 
             <?php
-            //echo '<pre>';
-            //var_dump($jadwals);
-            //echo '</pre>';
             if (count($jadwals) === 0) : ?>
                 <div class="card card-default my-shadow mb-4">
                     <div class="card-body">
@@ -118,7 +115,7 @@ if (isset($jadwal_ujian)) {
                             <?php foreach ($arrjadwal as $lvl => $sjadwal) : ?>
                                 <div class="card-body" style="display: block;">
                                     <h6 class="text-bold">Kelas: <?= $lvl ?></h6>
-                                    <table class="w-100 table table-bordered">
+                                    <table class="table table-bordered w-100">
                                         <thead>
                                         <tr>
                                             <th class="text-center align-middle pt-3 pb-3" style="width: 40px">No.</th>
@@ -159,24 +156,24 @@ if (isset($jadwal_ujian)) {
                                             $enableEdit = true;
                                             $sedangdikerjakan = 0;
                                             $terpakai = true;
-                                            $bgRandom = 'bg-maroon';
+                                            $bgRandom = 'text-maroon';
                                             if ($jadwal->status == '0') {
-                                                $bgRandom = 'bg-gray';
+                                                $bgRandom = 'text-gray';
                                             } else {
                                                 if ($today < $startDay) {
                                                     //belum dimulai
-                                                    $bgRandom = 'bg-maroon';
+                                                    $bgRandom = 'text-maroon';
                                                 } elseif ($today > $endDay) {
                                                     //selesai
-                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]) && count($total_siswa[$jadwal->id_jadwal]) > 0;
-                                                    $bgRandom = $terpakai ? 'bg-fuchsia' : 'bg-yellow';
+                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]);
+                                                    $bgRandom = $terpakai ? 'text-fuchsia' : 'text-yellow';
                                                     if ($jadwal->rekap == '1') {
-                                                        $bgRandom = $terpakai ? 'bg-success' : 'bg-yellow';
+                                                        $bgRandom = $terpakai ? 'text-success' : 'text-yellow';
                                                     }
                                                 } else {
                                                     //sedang dilaksanakan
-                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]) && count($total_siswa[$jadwal->id_jadwal]) > 0;
-                                                    $bgRandom = $terpakai ? 'bg-indigo' : 'bg-yellow';
+                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]);
+                                                    $bgRandom = $terpakai ? 'text-indigo' : 'text-yellow';
                                                     $sedangdikerjakan = $terpakai ? 1 : 0;
                                                 }
                                             }
@@ -197,7 +194,7 @@ if (isset($jadwal_ujian)) {
                                             <?php endif; ?>
                                             <td class="text-center align-middle p-0"><?=$nomer?></td>
                                             <td class="align-middle d-none"><?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?></td>
-                                                <td class="align-middle <?=$bgRandom?>"><?= $jadwal->bank_kode ?></td>
+                                                <td class="align-middle"><i class="fas fa-square mr-1 text-lg <?=$bgRandom?>"></i><?= $jadwal->bank_kode ?></td>
                                             <td class="align-middle"><?= $jadwal->nama_mapel ?></td>
                                                 <td class="align-middle"><?= $kelasbank ?></td>
                                                 <td class="text-center align-middle p-0"><?= ($jadwal->status === '0') ? '<span class="badge badge-btn badge-secondary">Non Aktif</span>' : '<span class="badge badge-btn badge-success">Aktif</span>' ?></td>
@@ -215,7 +212,7 @@ if (isset($jadwal_ujian)) {
                                                        data-reset="<?= $jadwal->reset_login == '1' ? 'Ya' : 'Tidak' ?>"
                                                        data-status="<?= ($jadwal->status === '0') ? 'Non Aktif' : 'Aktif' ?>"
                                                        data-rekap="<?= $jadwal->rekap == '1' ? 'Sudah' : 'Belum' ?>"
-                                                       data-total="<?= isset($total_siswa[$jadwal->id_jadwal]) ? count($total_siswa[$jadwal->id_jadwal]) : '0'; ?>">
+                                                       data-total="<?= isset($total_siswa[$jadwal->id_jadwal]) ? $total_siswa[$jadwal->id_jadwal] : '0'; ?>">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                     <a href="<?= $enableEdit ? base_url('cbtjadwal/add/' . $jadwal->id_jadwal . '?enable=' . $sedangdikerjakan) : '#' ?>"
@@ -290,7 +287,7 @@ if (isset($jadwal_ujian)) {
                                                     $bgRandom = 'bg-gradient-maroon';
                                                 } elseif ($today > $endDay) {
                                                     //selesai
-                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]) && count($total_siswa[$jadwal->id_jadwal]) > 0;
+                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]);
                                                     $bgRandom = $terpakai ? 'bg-gradient-fuchsia' : 'bg-gradient-yellow';
                                                     if ($jadwal->rekap == '1') {
                                                         $bgRandom = $terpakai ? 'bg-gradient-success' : 'bg-gradient-yellow';
@@ -298,7 +295,7 @@ if (isset($jadwal_ujian)) {
                                                     //$enableEdit = false;
                                                 } else {
                                                     //sedang dilaksanakan
-                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]) && count($total_siswa[$jadwal->id_jadwal]) > 0;
+                                                    $terpakai = isset($total_siswa[$jadwal->id_jadwal]);
                                                     $bgRandom = $terpakai ? 'bg-gradient-indigo' : 'bg-gradient-yellow';
                                                     $sedangdikerjakan = $terpakai ? 1 : 0;
                                                 }
@@ -379,7 +376,7 @@ if (isset($jadwal_ujian)) {
                                                         <div class="d-flex justify-content-between mr-2 ml-2">
                                                             <span>Mengerjakan</span>
                                                             <span class="float-right">
-                                                            <b><?= isset($total_siswa[$jadwal->id_jadwal]) ? count($total_siswa[$jadwal->id_jadwal]) : '0'; ?></b>
+                                                            <b><?= isset($total_siswa[$jadwal->id_jadwal]) ? $total_siswa[$jadwal->id_jadwal] : '0'; ?></b>
                                                         </span>
                                                         </div>
                                                     </div>
@@ -501,6 +498,9 @@ if (isset($jadwal_ujian)) {
 </div>
 
 <script>
+    adaJadwalUjian = '<?=count($ada_ujian)?>';
+    localStorage.setItem('ada_jadwal_ujian', adaJadwalUjian);
+
     $('.btn-disabled').click(function (e) {
         e.preventDefault();
     });

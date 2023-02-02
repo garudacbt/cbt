@@ -41,6 +41,7 @@ $(document).ready(function () {
             {
                 searchable: false,
                 targets: 3,
+                className: "text-center",
                 data: {
                     id_kel_mapel: "id_kel_mapel",
                     nama_kel_mapel: "nama_kel_mapel",
@@ -49,8 +50,8 @@ $(document).ready(function () {
                     kategori: "kategori"
                 },
                 render: function (data, type, row, meta) {
-                    return `<div class="text-center">
-									<a class="btn btn-xs btn-warning" data-toggle="modal" data-target="#editKelompokModal"
+                    return `<div class="btn-group btn-group-xs">
+									<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editKelompokModal"
 									 data-id="${data.id_kel_mapel}"
 									 data-nama="${data.nama_kel_mapel}"
 									  data-kode="${data.kode_kel_mapel}"
@@ -58,7 +59,7 @@ $(document).ready(function () {
 										<i class="fa fa-pencil-alt text-white"></i>
 									</a>
 
-                                    <button onclick="hapusKelompok(this)" class="btn btn-xs btn-danger deleteRecord"
+                                    <button onclick="hapusKelompok(this)" class="btn btn-danger btn-xs deleteRecord"
 									 data-id="${data.id_kel_mapel}"
 									 data-utama="${data.id_parent}"
 								  data-kode="${data.kode_kel_mapel}">
@@ -111,6 +112,7 @@ $(document).ready(function () {
             {
                 searchable: false,
                 targets: 3,
+                className: "text-center",
                 data: {
                     id_kel_mapel: "id_kel_mapel",
                     nama_kel_mapel: "nama_kel_mapel",
@@ -119,8 +121,8 @@ $(document).ready(function () {
                     kategori: "kategori"
                 },
                 render: function (data, type, row, meta) {
-                    return `<div class="text-center">
-									<a class="btn btn-xs btn-warning" data-toggle="modal" data-target="#editSubKelompokModal"
+                    return `<div class="btn-group btn-group-xs">
+									<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editSubKelompokModal"
 									 data-id="${data.id_kel_mapel}"
 									 data-nama="${data.nama_kel_mapel}"
 									  data-kode="${data.kode_kel_mapel}"
@@ -128,7 +130,7 @@ $(document).ready(function () {
 									  data-kategori="${data.kategori}">
 									    <i class="fa fa-pencil-alt text-white"></i>
 									</a>
-                                                <button onclick="hapusKelompok(this)" class="btn btn-xs btn-danger deleteRecord"
+                                                <button onclick="hapusKelompok(this)" class="btn btn-danger btn-xs deleteRecord"
 									 data-id="${data.id_kel_mapel}"
 									 data-utama="${data.id_parent}"
 								  data-kode="${data.kode_kel_mapel}">

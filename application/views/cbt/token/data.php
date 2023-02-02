@@ -8,163 +8,138 @@
 ?>
 
 <div class="content-wrapper bg-white">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card card-default my-shadow mb-4">
-				<div class="card-header">
-					<h6 class="card-title"><?=$subjudul?></h6>
-					<div class="card-tools">
-					</div>
-				</div>
-				<div class="card-body">
-					<div class="container-fluid h-100">
-						<div class="row h-100 justify-content-center d-none">
-							<div class="col-4 input-group mb-3">
-								<div class="input-group-prepend w-40">
-									<span class="input-group-text">Otomatis ? </span>
-								</div>
-								<?php
-								$arrVal = ["TIDAK","YA"];
-								echo form_dropdown(
-									'auto',
-									$arrVal,
-									null,
-									'id="auto" class="form-control"'
-								); ?>
-							</div>
-						</div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default my-shadow mb-4">
+                <div class="card-header">
+                    <h6 class="card-title"><?= $subjudul ?></h6>
+                    <div class="card-tools">
+                        <button id="generate" onclick="simpanToken()" class="btn btn-success">
+                            GENERATE NEW TOKEN
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert border border-success alert-default-success">
+                                Token akan digenerate otomatis jika pilihan <b>Otomatis: YA</b> dan ada jadwal ujian pada hari ini.
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 p-1">
+                            <div class="card border border-light">
+                                <div class="row card-body">
+                                    <div class="col-6">
+                                        <label>Otomatis ?</label>
+                                        <?php
+                                        $arrVal = ["TIDAK", "YA"];
+                                        echo form_dropdown(
+                                            'auto',
+                                            $arrVal,
+                                            $token->auto,
+                                            'id="auto" class="form-control"'
+                                        ); ?>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Interval (menit)</label>
+                                        <input id="jarak" type="number" class="form-control" name="jarak" value="<?=$token->jarak?>" <?=$token->auto == '0' ? 'disabled="disabled"' : ''?>>
+                                        <button class="float-right mt-3 btn btn-info" onclick="simpanToken()">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="row h-100 justify-content-center">
-							<div class="card col-4 bg-gradient-fuchsia p-4">
-								<span class="text-center">TOKEN SAAT INI</span>
-								<h1 class="text-center" id="token-view">- - - - - -</h1>
-							</div>
-						</div>
-                        <div class="row h-100 justify-content-center">
-                            <button id="generate" onclick="generate()" class="btn btn-success">
-                                GENERATE NEW TOKEN
-                            </button>
+                        <div class="col-12 col-md-6 p-1">
+                            <div class="card card-light p-4">
+                                <span class="text-center">TOKEN SAAT INI</span>
+                                <h1 class="text-center" id="token-view"><?=$token->token?></h1>
+                                <small id="info-interval" class="mt-3 text-center">Token akan dibuat otomatis dalam <b id="interval">-- : --</b></small>
+                            </div>
                         </div>
                     </div>
-				</div>
-			</div>
-		</div>
-	</section>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
-    function generate() {
-        generateToken(function (result) {
-            console.log("result", result);
-            $('#token-view').text(result.token);
-            $('#generate').removeAttr('disabled').text('GENERATE TOKEN');
-            $('#auto').removeAttr('disabled');
-            $('#auto').val(result.auto);
-        });
-    }
-
-    /*
-    function createToken(t, f) {
-        token = t;
-        clearInterval(timer);
-        if (token.auto==='1') {
-            timer = setInterval(function(){
-                generateToken(f);
-            }, 1000*60*5); //1000*60*15 = 15 menit
-        } else {
-            generateToken(f);
-        }
-    }
-
-    function generateToken(f) {
-        var tokenBaru        = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var charactersLength = characters.length;
-        for ( var i = 0; i < 6; i++ ) {
-            tokenBaru += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-
-        var tkn = token.token==='' ? '-' : token.token;
-        $.ajax({
-            url: base_url + "cbttoken/generatetoken/"+tkn+"/"+tokenBaru+"/"+token.auto,
-            type: "GET",
-            success: function () {
-                console.log('tokenResult', tokenBaru);
-                if (f && (typeof f == "function")) {
-                    var resultData = {};
-                    resultData ["token"] = tokenBaru;
-                    resultData ["auto"] = token.auto;
-                    token = resultData;
-                    f(resultData);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.log(xhr);
-            }
-        });
-        //return result;
-    }
-
-*/
-    $(document).ready(function () {
-		$('#auto').on('change', function () {
-			var token = {};
-			token ["token"] = globalToken.token;
-			token ["auto"] = $(this).val();
-            $('#auto').attr('disabled', true);
-            $('#token-view').text("- - - - - -");
-            $('#generate').attr('disabled', 'disabled').text('MEMBUAT TOKEN ..');
-
-			generateToken(function (result) {
-                $('#token-view').text(globalToken.token);
-                $('#generate').removeAttr('disabled').text('GENERATE TOKEN');
-                $('#auto').removeAttr('disabled');
-                $('#auto').val(globalToken.auto);
+    let timerTokenView;
+    function simpanToken() {
+        var auto = $('#auto').val();
+        var jarak = $('#jarak').val();
+        if (auto == '1' && jarak == '0') {
+            swal.fire({
+                title: "Ups!",
+                text: "Interval menit harus diisi",
+                icon: "warning"
             });
-		});
+        } else {
+            globalToken.auto = $('#auto').val();
+            globalToken.jarak = $('#jarak').val();
+            generateToken(function (result) {
+                createViewToken(result);
+            });
+        }
+    }
 
-		//loadToken();/
-        var checkExist = setInterval(function() {
-            if (globalToken != null) {
-                //console.log('global', globalToken);
-                $('#token-view').text(globalToken.token);
-                $('#generate').removeAttr('disabled').text('GENERATE TOKEN');
-                $('#auto').removeAttr('disabled');
-                $('#auto').val(globalToken.auto);
-
-                clearInterval(checkExist);
-            }
-        }, 500);
-
-        /*
-        Object.defineProperty(globalToken, "token", {
-            get: function(){
-                return this.token;
-            },
-            set: function(newToken){
-                this.token=newToken;
-                //this.auto=newValue.auto;
-                //alert(this._year);
-                //alert(this.edition);
-
-                console.log('listener', globalToken);
-                $('#token-view').text(newToken);
-                $('#generate').removeAttr('disabled').text('GENERATE TOKEN');
-                $('#auto').removeAttr('disabled');
-                $('#auto').val(globalToken.auto);
-            }
+    $(document).ready(function () {
+        $('#auto').on('change', function () {
+            var idAuto = $(this).val();
+            var token = {};
+            token ["token"] = globalToken.token;
+            token ["auto"] = idAuto;
+            $('#jarak').attr('disabled', idAuto == '0');
         });
-        */
+
+        setTimeout(function () {
+            getGlobalToken();
+        }, 1000);
     });
 
+    function getGlobalToken() {
+        if (globalToken != null) {
+            createViewToken(globalToken);
+        }
+    }
+
+    function createViewToken(result) {
+        console.log('ada', adaJadwalUjian);
+        $('#token-view').text(result.token);
+        if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
+            $('#info-interval').removeClass('invisible');
+            var mulai = result.updated == null ? new Date(): new Date(result.updated);
+            const now = getDiffMinutes(mulai);
+            var mnt = Number(result.jarak);
+
+            mnt = mnt - now.m;
+            var scn = 60 - now.s;
+            if (scn > 0) {
+                mnt = mnt -1;
+            }
+
+            if (timerTokenView) {
+                clearInterval(timerTokenView);
+                timerTokenView = null;
+            }
+            timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
+                if (isOver) {
+                    block.html('<b>Memuat token baru</b>');
+                    setTimeout(function(){getGlobalToken()}, 300);
+                }
+            })
+        } else {
+            $('#info-interval').addClass('invisible')
+        }
+    }
 </script>

@@ -160,29 +160,71 @@
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-center"><b>PENILAIAN HARI INI</b></h6>
+                                </div>
+                                <div class="col-12 table-responsive">
+                                    <?php
+                                    $no = 1;
+                                    if (count($jadwal_ujian) > 0) : ?>
+                                        <table id="tbl-penilaian" class="table table-bordered">
+                                            <tr>
+                                                <th class="text-center align-middle">NO</th>
+                                                <th class="text-center align-middle">RUANG</th>
+                                                <th class="text-center align-middle">SESI</th>
+                                                <th class="text-center align-middle">JAM KE</th>
+                                                <th class="text-center align-middle">MATA PELAJARAN</th>
+                                                <th class="text-center align-middle">PENGAWAS</th>
+                                            </tr>
+                                            <?php
+                                            foreach ($ruangs as $ruang=>$sesis) :
+                                                foreach ($sesis as $sesi) :
+                                                    foreach ($jadwal_ujian as $jadwal) :
+                                                        $id_guru = isset($pengawas[$jadwal->id_jadwal])
+                                                        && isset($pengawas[$jadwal->id_jadwal][$ruang]) &&
+                                                        isset($pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id])
+                                                            ? explode(',', $pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
+                                                            : [];
+                                                        //$peng = $id_guru != '' && isset($gurus[$id_guru]) ? $gurus[$id_guru] : '';
+                                                        ?>
+                                                        <tr>
+                                                            <td class="text-center align-middle"><?=$no?></td>
+                                                            <td class="text-center align-middle"><?=$sesi->nama_ruang?></td>
+                                                            <td class="text-center align-middle"><?=$sesi->nama_sesi?></td>
+                                                            <td class="text-center align-middle"><?=$jadwal->jam_ke?></td>
+                                                            <td class="text-center align-middle"><?=$jadwal->nama_mapel?></td>
+                                                            <td class="align-middle crop-text-table">
+                                                                <?php foreach ($id_guru as $ig) {
+                                                                    echo isset($gurus[$ig]) ? '<p class="p-0 m-0">'.$gurus[$ig].'</p>' : '';
+                                                                } ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; endforeach; $no ++; endforeach; ?>
+                                        </table>
+                                    <?php else: ?>
+                                        <table class="w-100 table-bordered"><tr><td class="text-center">Tidak ada jadwal penilaian</td></tr></table>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!--
-                    <div class="card">
-                        <div class="card-header with-border">
-                            <div class="card-title">Pengumuman</div>
-                        </div>
+                    <div class="card card-light my-shadow mb-3">
+                        <div class="card-header"><b>INFO/PENGUMUMAN</b></div>
                         <div class="card-body">
-                        </div>
-                    </div>
-                    -->
-                    <hr>
-                    <h5>Pengumuman</h5>
-                    <div class="konten-pengumuman">
-                        <div id="pengumuman">
-                        </div>
-                        <p id="loading-post" class="text-center d-none">
-                            <br/><i class="fa fa-spin fa-circle-o-notch"></i> Loading....
-                        </p>
-                        <div id="loadmore-post"
-                             onclick="getPosts()"
-                             class="text-center mt-4 loadmore d-none">
-                            <div class="btn btn-default">Muat Pengumuman lainnya ...</div>
+                            <div class="konten-pengumuman">
+                                <div id="pengumuman">
+                                </div>
+                                <p id="loading-post" class="text-center d-none">
+                                    <br/><i class="fa fa-spin fa-circle-o-notch"></i> Loading....
+                                </p>
+                                <div id="loadmore-post"
+                                     onclick="getPosts()"
+                                     class="text-center mt-4 loadmore d-none">
+                                    <div class="btn btn-default">Muat Pengumuman lainnya ...</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,6 +294,7 @@
     </div>
 </div>
 
+<script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script>
     var halaman = 0;
     var idGuru = "<?=$guru->id_guru?>";
@@ -477,73 +520,80 @@
     function addPosts(response) {
         var card = '';
 
-        $.each(response, function (i, v) {
-            var dari, foto, avatar;
-            if (v.dari == '0') {
-                dari = 'Admin';
-                avatar = v.foto != null ? '<img class="img-circle border" src="' + v.foto + '" alt="Img" width="50px" height="50px">' :
-                    '<div class="btn-circle btn-success media-left pt-1">A</div>';
-            } else {
-                if (v.dari_group == '2') {
-                    dari = v.nama_guru;
-                    foto = v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png';
-                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+        if (response.length > 0) {
+            $.each(response, function (i, v) {
+                var dari, foto, avatar;
+                if (v.dari == '0') {
+                    dari = 'Admin';
+                    avatar = v.foto != null ? '<img class="img-circle border" src="' + v.foto + '" alt="Img" width="50px" height="50px">' :
+                        '<div class="btn-circle btn-success media-left pt-1">A</div>';
                 } else {
-                    dari = v.nama_siswa;
-                    foto = v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png';
-                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                    if (v.dari_group == '2') {
+                        dari = v.nama_guru;
+                        foto = v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png';
+                        avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                    } else {
+                        dari = v.nama_siswa;
+                        foto = v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png';
+                        avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                    }
                 }
-            }
 
-            card += '<div class="card">' +
-                '    <div class="card-body" id="parent'+v.id_post+'">' +
-                '        <div class="media">' +
-                avatar +
-                '                <div class="media-body ml-3">' +
-                '                    <span class="font-weight-bold"><b>'+dari+'</b></span>' +
-                '                    <br/>' +
-                '                    <span class="text-gray">' + createTime(v.tanggal) + '</span>' +
-                '                </div>' +
-                '        </div>' +
-                '        <div class="mt-2">' + v.text + '</div>' +
-                '        <div class="text-muted">' +
-                '            <button type="button" class="btn btn-default btn-sm mr-2 btn-toggle"' +
-                '                    data-id="'+v.id_post+'" data-toggle="modal"' +
-                '                    data-target="#komentarModal"><i class="fas fa-reply mr-1"></i> Tulis komentar' +
-                '            </button>' +
-                '            <button type="button" id="trigger'+v.id_post+'" class="btn btn-default btn-sm mr-2 action-collapse"' +
-                '                    data-toggle="collapse" aria-expanded="true"' +
-                '                    aria-controls="collapse-'+v.id_post+'"' +
-                '                    href="#collapse-'+v.id_post+'">' +
-                '                <i class="fa fa-commenting-o mr-1"></i>'+v.jml+' komentar' +
-                '            </button>';
-            if (v.dari_group === '2' && v.dari === idGuru) {
-                card += '            <button type="button" class="btn btn-default btn-sm" data-id="'+v.id_post+'">' +
-                    '                <i class="fa fa-trash mr-1"></i> Hapus' +
+                card += '<div class="card">' +
+                    '    <div class="card-body" id="parent' + v.id_post + '">' +
+                    '        <div class="media">' +
+                    avatar +
+                    '                <div class="media-body ml-3">' +
+                    '                    <span class="font-weight-bold"><b>' + dari + '</b></span>' +
+                    '                    <br/>' +
+                    '                    <span class="text-gray">' + createTime(v.tanggal) + '</span>' +
+                    '                </div>' +
+                    '        </div>' +
+                    '        <div class="mt-2">' + v.text + '</div>' +
+                    '        <div class="text-muted">' +
+                    '            <button type="button" class="btn btn-default btn-sm mr-2 btn-toggle"' +
+                    '                    data-id="' + v.id_post + '" data-toggle="modal"' +
+                    '                    data-target="#komentarModal"><i class="fas fa-reply mr-1"></i> Tulis komentar' +
+                    '            </button>' +
+                    '            <button type="button" id="trigger' + v.id_post + '" class="btn btn-default btn-sm mr-2 action-collapse"' +
+                    '                    data-toggle="collapse" aria-expanded="true"' +
+                    '                    aria-controls="collapse-' + v.id_post + '"' +
+                    '                    href="#collapse-' + v.id_post + '">' +
+                    '                <i class="fa fa-commenting-o mr-1"></i>' + v.jml + ' komentar' +
                     '            </button>';
-            }
-            card += '        </div>' +
-                '    </div>' +
-                '    <div id="collapse-'+v.id_post+'" class="p-2 collapse toggle-comment"' +
-                '         data-id="'+v.id_post+'" data-parent="#parent'+v.id_post+'">' +
-                '        <hr class="m-0">' +
-                '        <div id="konten'+v.id_post+'" class="p-4">' +
-                '        </div>' +
-                '        <div id="loading'+v.id_post+'" class="text-center d-none">' +
-                '            <div class="spinner-grow"></div>' +
-                '        </div>';
-            if (v.jml=='0'){
-                card += '<div class="text-center">Tidak ada komentar</div>';
-            } else {
-                card += '<div id="loadmore'+v.id_post+'"' +
-                    '     onclick="getComments('+v.id_post+')"' +
-                    '     class="text-center mt-4 loadmore">' +
-                    '    <div class="btn btn-default">Muat komentar lainnya ...</div>' +
+                if (v.dari_group === '2' && v.dari === idGuru) {
+                    card += '            <button type="button" class="btn btn-default btn-sm" data-id="' + v.id_post + '">' +
+                        '                <i class="fa fa-trash mr-1"></i> Hapus' +
+                        '            </button>';
+                }
+                card += '        </div>' +
+                    '    </div>' +
+                    '    <div id="collapse-' + v.id_post + '" class="p-2 collapse toggle-comment"' +
+                    '         data-id="' + v.id_post + '" data-parent="#parent' + v.id_post + '">' +
+                    '        <hr class="m-0">' +
+                    '        <div id="konten' + v.id_post + '" class="p-4">' +
+                    '        </div>' +
+                    '        <div id="loading' + v.id_post + '" class="text-center d-none">' +
+                    '            <div class="spinner-grow"></div>' +
+                    '        </div>';
+                if (v.jml == '0') {
+                    card += '<div class="text-center">Tidak ada komentar</div>';
+                } else {
+                    card += '<div id="loadmore' + v.id_post + '"' +
+                        '     onclick="getComments(' + v.id_post + ')"' +
+                        '     class="text-center mt-4 loadmore">' +
+                        '    <div class="btn btn-default">Muat komentar lainnya ...</div>' +
+                        '</div>';
+                }
+                card += '</div>' +
                     '</div>';
-            }
-            card += '</div>' +
-                '</div>';
-        });
+            })
+        } else {
+            card = '<div class="card card-default">' +
+                '<div class="card-body">' +
+                ' <p>Tidak ada pengumuman</p>' +
+                '</div></div>';
+        }
 
         $('#pengumuman').html(card);
 
@@ -663,6 +713,11 @@
     }
 
     $(document).ready(function () {
+        $("#tbl-penilaian").rowspanizer({
+            columns: [0, 1, 2],
+            vertical_align: "middle"
+        });
+
         var colorBg = ['success', 'success', 'secondary', 'primary', 'warning', 'danger',
             'primary', "warning", "primary", "success", "primary", "success", "warning"
         ];

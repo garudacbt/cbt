@@ -63,7 +63,7 @@ if (isset($jadwal_kbm)) {
 					if (isset($jadwal_mapel)) :
 						//var_dump($jadwal_kbm);
 						//echo '<pre>';
-						//var_dump($kelas);
+						//var_dump($mapels);
 						//echo '</pre>';
 						foreach ($jadwal_mapel as $k) {
 							foreach ($k['jadwal'] as $j) {
@@ -180,7 +180,7 @@ if (isset($jadwal_kbm)) {
                         <?php else:?>
                         <?= form_open('setMapel', array('id' => 'setmapel')); ?>
 						<div class="table-responsive">
-							<table id="jadwal-pelajaran" class="w-100 table table-striped table-bordered">
+							<table id="jadwal-pelajaran" class="w-100 table table-bordered">
 								<thead class="alert alert-primary">
 								<tr>
 									<th height="50" class="align-middle text-center p-0">WAKTU</th>
@@ -201,7 +201,7 @@ if (isset($jadwal_kbm)) {
 									if (in_array($jamke, $arrIst)) :
 										$jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
 										?>
-										<tr class="jam bg-gradient-fuchsia" data-jamke="<?= $jamke ?>">
+										<tr class="jam bg-gradient-red" data-jamke="<?= $jamke ?>">
 											<td class="align-middle text-center">
 												<?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
 											</td>
@@ -225,7 +225,14 @@ if (isset($jadwal_kbm)) {
 											if (isset($arrRes[$jamke])) :
 												foreach ($arrRes[$jamke] as $value) :?>
 													<td class="align-middle">
-														<div class="float-left value-name"
+                                                        <?= form_dropdown(
+                                                        'input-mapel',
+                                                        $mapels,
+                                                        $value['id_mapel'],
+                                                        'data-idhari="'.$value["id_hari"] .'" data-jamke="'. $jamke.'"'.' class="form-control form-control-sm" data-placeholder="Pilih Mapel"'
+                                                        ); ?>
+                                                        <!--
+                                                        <div class="float-left value-name"
 															 data-idmapel="<?= $value['id_mapel'] ?>"
 															 data-idhari="<?= $value['id_hari'] ?>"
 															 id="<?= $value['id_hari'] . $jamke ?>">
@@ -233,7 +240,9 @@ if (isset($jadwal_kbm)) {
 														</div>
 														<i class="popr fa fa-book float-right text-gray"
 														   data-id="<?= $value['id_hari'] . $jamke ?>"></i>
+														   -->
 													</td>
+                                                <!--
 													<div class="popr-box"
 														 data-box-id="<?= $value['id_hari'] . $jamke ?>">
 														<div data-id="<?= $value['id_hari'] . $jamke ?>"
@@ -248,37 +257,11 @@ if (isset($jadwal_kbm)) {
 														<?php
 														endforeach; ?>
 													</div>
+													-->
 												<?php
 												endforeach;
-											else:
-												for ($d = 0; $d < 6; $d++) :
-													?>
-													<td class="align-middle">
-														<div class="float-left value-name" data-idmapel="0"
-															 data-idhari="<?= $d + 1 ?>"
-															 id="<?= $d + 1 . $jamke ?>">
-														</div>
-														<i class="popr fa fa-book float-right text-gray"
-														   data-id="<?= $d + 1 . $jamke ?>"></i>
-													</td>
-													<div class="popr-box" data-box-id="<?= $d + 1 . $jamke ?>">
-														<div data-id="<?= $d + 1 . $jamke ?>"
-                                                             data-idmapel="0"
-                                                             class="popr-item">Tidak ada</div>
-														<?php foreach ($mapels as $mp): ?>
-															<div data-id="<?= $d + 1 . $jamke ?>"
-																 data-idmapel="<?= $mp->id_mapel ?>"
-																 class="popr-item"><?= $mp->kode ?>
-                                                            </div>
-														<?php
-														endforeach; ?>
-													</div>
-
-												<?php
-												endfor;
 											endif; ?>
 										</tr>
-
 										<?php
 										$jamMulai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M'));
 									endif;
@@ -309,15 +292,12 @@ if (isset($jadwal_kbm)) {
 	</section>
 </div>
 
-<script src="<?= base_url() ?>/assets/plugins/contextmenu/jquery.contextmenu.js"></script>
-
 <script>
     var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
     let method = '<?= $method ?>';
 	var jmlMapel = 0;
 	$(document).ready(function () {
-		$('.popr').popr();
-
+		//$('.popr').popr();
 		$('#jam_mulaiEdit, #jam_mulai').datetimepicker({
 			datepicker: false,
 			format: 'H:i',
@@ -376,21 +356,20 @@ if (isset($jadwal_kbm)) {
 			const $rows = $('#jadwal-pelajaran').find('tr'), headers = $rows.splice(0, 1); // header rows
 			var jsonObj = [];
 			$rows.each((i, row) => {
-				var jamke = $(row).attr("data-jamke");
-				const colsHari = $(row).find('div.value-name');
-				colsHari.each((h, col) => {
+				//var jamke = $(row).attr("data-jamke");
+                const $colsHari = $(row).find('select');
+				$colsHari.each((h, col) => {
 					let item = {};
 					item ["id_tp"] = id_tp_active;
 					item ["id_smt"] = id_smt_active;
-					item ["id_hari"] = $(col).attr("data-idhari");
-					item ["id_mapel"] = $(col).attr('data-idmapel');
-					item ["jam_ke"] = jamke;
+					item ["id_hari"] = $(col).data("idhari");
+					item ["id_mapel"] = $(col).val();
+					item ["jam_ke"] = $(col).data("jamke");
 
 					jsonObj.push(item);
 				});
 			});
 			//console.log("data="+JSON.stringify(jsonObj, null, 4));
-
 			$.ajax({
 				url: base_url + 'kelasjadwal/setmapel',
 				type: "POST",
@@ -425,11 +404,10 @@ if (isset($jadwal_kbm)) {
 					});
 				}
 			});
-
 		});
-
 	});
 
+	/*
 	$(document).on('click', '.popr-item', function () {
 		var id = $(this).data('id');
 		var id_mapel = $(this).data('idmapel');
@@ -440,6 +418,7 @@ if (isset($jadwal_kbm)) {
 		value.text(text);
 		console.log('idmapel', value.data('id'));
 	});
+	*/
 
 	function reload() {
 		window.location.href = base_url + 'kelasjadwal/kelas/' + '<?=$id_kelas?>';

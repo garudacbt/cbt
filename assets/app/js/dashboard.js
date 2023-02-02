@@ -1,3 +1,4 @@
+let timerTokenView;
 var halaman = 0;
 
 function createTime(d) {
@@ -108,7 +109,7 @@ function addComments(id, comments, append) {
 }
 
 function addReplies(id, replies, append) {
-    console.log('replies', replies);
+    //console.log('replies', replies);
     var repl = '';
     $.each(replies, function (i, v) {
         var sudahAda = $(`.media${v.id_reply}`).length;
@@ -155,7 +156,7 @@ function addReplies(id, replies, append) {
     } else {
         $(`#konten-reply${id}`).prepend(repl);
     }
-    console.log('added', 'reply'+id);
+    //console.log('added', 'reply'+id);
 }
 
 function getComments(id) {
@@ -169,7 +170,6 @@ function getComments(id) {
             url: base_url + "pengumuman/getcomment/" + id + "/" + page,
             type: "GET",
             success: function (response) {
-                //console.log('page', page);
                 console.log("result", response);
                 page += 1;
                 currentPage = page;
@@ -198,7 +198,6 @@ function getReplies(id) {
             url: base_url + "pengumuman/getreplies/" + id + "/" + page,
             type: "GET",
             success: function (response) {
-                //console.log('page', page);
                 console.log("result", response);
                 page += 1;
                 currentPage = page;
@@ -220,71 +219,78 @@ function getReplies(id) {
 function addPosts(response) {
     var card = '';
 
-    $.each(response, function (i, v) {
-        var dari, foto, avatar;
-        if (v.dari == '0') {
-            dari = 'Admin';
-            avatar = v.foto != null ? '<img class="img-circle border" src="' + v.foto + '" alt="Img" width="50px" height="50px">' :
-                '<div class="btn-circle btn-success media-left pt-1 align-middle">A</div>';
-        } else {
-            if (v.dari_group == '2') {
-                dari = v.nama_guru;
-                foto = v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png';
-                avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+    if (response.length > 0) {
+        $.each(response, function (i, v) {
+            var dari, foto, avatar;
+            if (v.dari == '0') {
+                dari = 'Admin';
+                avatar = v.foto != null ? '<img class="img-circle border" src="' + v.foto + '" alt="Img" width="50px" height="50px">' :
+                    '<div class="btn-circle btn-success media-left pt-1 align-middle">A</div>';
             } else {
-                dari = v.nama_siswa;
-                foto = v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png';
-                avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                if (v.dari_group == '2') {
+                    dari = v.nama_guru;
+                    foto = v.foto != null ? base_url + v.foto : base_url + 'assets/img/siswa.png';
+                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                } else {
+                    dari = v.nama_siswa;
+                    foto = v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png';
+                    avatar = '<img class="img-circle border" src="' + foto + '" alt="Img" width="50px" height="50px">';
+                }
             }
-        }
 
-        card += '<div class="card my-shadow">' +
-        '    <div class="card-body" id="parent'+v.id_post+'">' +
-        '        <div class="media">' +
-            avatar +
-        '                <div class="media-body ml-3">' +
-        '                    <span class="font-weight-bold"><b>'+dari+'</b></span>' +
-        '                    <br/>' +
-        '                    <span class="text-gray">' + createTime(v.tanggal) + '</span>' +
-        '                </div>' +
-        '        </div>' +
-        '        <div class="mt-2">' + v.text + '</div>' +
-        '        <div class="text-muted">' +
-        '            <button type="button" class="btn btn-default btn-sm mr-2 btn-toggle"' +
-        '                    data-id="'+v.id_post+'" data-toggle="modal"' +
-        '                    data-target="#komentarModal"><i class="fas fa-reply mr-1"></i> Tulis komentar' +
-        '            </button>' +
-        '            <button type="button" id="trigger'+v.id_post+'" class="btn btn-default btn-sm mr-2 action-collapse"' +
-        '                    data-toggle="collapse" aria-expanded="true"' +
-        '                    aria-controls="collapse-'+v.id_post+'"' +
-        '                    href="#collapse-'+v.id_post+'">' +
-        '                <i class="fa fa-commenting-o mr-1"></i>'+v.jml+' komentar' +
-        '            </button>' +
-        '            <button type="button" class="btn btn-default btn-sm" onclick="hapusPost('+v.id_post+')" data-id="'+v.id_post+'">' +
-        '                <i class="fa fa-trash mr-1"></i> Hapus' +
-        '            </button>' +
-        '        </div>' +
-        '    </div>' +
-        '    <div id="collapse-'+v.id_post+'" class="p-2 collapse toggle-comment"' +
-        '         data-id="'+v.id_post+'" data-parent="#parent'+v.id_post+'">' +
-        '        <hr class="m-0">' +
-        '        <div id="konten'+v.id_post+'" class="p-4">' +
-        '        </div>' +
-        '        <div id="loading'+v.id_post+'" class="text-center d-none">' +
-        '            <div class="spinner-grow"></div>' +
-        '        </div>';
-        if (v.jml=='0'){
-            card += '<div class="text-center" id="empty-comment">Tidak ada komentar</div>';
-        } else {
-            card += '<div id="loadmore'+v.id_post+'"' +
-                '     onclick="getComments('+v.id_post+')"' +
-                '     class="text-center mt-4 loadmore">' +
-                '    <div class="btn btn-default">Muat komentar lainnya ...</div>' +
+            card += '<div class="card card-default">' +
+                '    <div class="card-body" id="parent'+v.id_post+'">' +
+                '        <div class="media">' +
+                avatar +
+                '                <div class="media-body ml-3">' +
+                '                    <span class="font-weight-bold"><b>'+dari+'</b></span>' +
+                '                    <br/>' +
+                '                    <span class="text-gray">' + createTime(v.tanggal) + '</span>' +
+                '                </div>' +
+                '        </div>' +
+                '        <div class="mt-2">' + v.text + '</div>' +
+                '        <div class="text-muted">' +
+                '            <button type="button" class="btn btn-default btn-sm mr-2 btn-toggle"' +
+                '                    data-id="'+v.id_post+'" data-toggle="modal"' +
+                '                    data-target="#komentarModal"><i class="fas fa-reply mr-1"></i> Tulis komentar' +
+                '            </button>' +
+                '            <button type="button" id="trigger'+v.id_post+'" class="btn btn-default btn-sm mr-2 action-collapse"' +
+                '                    data-toggle="collapse" aria-expanded="true"' +
+                '                    aria-controls="collapse-'+v.id_post+'"' +
+                '                    href="#collapse-'+v.id_post+'">' +
+                '                <i class="fa fa-commenting-o mr-1"></i>'+v.jml+' komentar' +
+                '            </button>' +
+                '            <button type="button" class="btn btn-default btn-sm" onclick="hapusPost('+v.id_post+')" data-id="'+v.id_post+'">' +
+                '                <i class="fa fa-trash mr-1"></i> Hapus' +
+                '            </button>' +
+                '        </div>' +
+                '    </div>' +
+                '    <div id="collapse-'+v.id_post+'" class="p-2 collapse toggle-comment"' +
+                '         data-id="'+v.id_post+'" data-parent="#parent'+v.id_post+'">' +
+                '        <hr class="m-0">' +
+                '        <div id="konten'+v.id_post+'" class="p-4">' +
+                '        </div>' +
+                '        <div id="loading'+v.id_post+'" class="text-center d-none">' +
+                '            <div class="spinner-grow"></div>' +
+                '        </div>';
+            if (v.jml=='0'){
+                card += '<div class="text-center" id="empty-comment">Tidak ada komentar</div>';
+            } else {
+                card += '<div id="loadmore'+v.id_post+'"' +
+                    '     onclick="getComments('+v.id_post+')"' +
+                    '     class="text-center mt-4 loadmore">' +
+                    '    <div class="btn btn-default">Muat komentar lainnya ...</div>' +
+                    '</div>';
+            }
+            card += '</div>' +
                 '</div>';
-        }
-        card += '</div>' +
-            '</div>';
-    });
+        });
+    } else {
+        card = '<div class="card card-default">' +
+            '<div class="card-body">' +
+            ' <p>Tidak ada pengumuman</p>' +
+            '</div></div>';
+    }
 
     $('#pengumuman').html(card);
 
@@ -319,7 +325,7 @@ function addPosts(response) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
-        console.log("data", $(this).serialize());
+        //console.log("data", $(this).serialize());
         var id = $(this).find('input[name=id_post]').val();
 
         $.ajax({
@@ -350,7 +356,7 @@ function addPosts(response) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
-        console.log("data", $(this).serialize());
+        //console.log("data", $(this).serialize());
         var id = $(this).find('input[name=id_comment]').val();
 
         $.ajax({
@@ -635,7 +641,12 @@ $(document).ready(function(){
 	Pace.restart();
     ajaxcsrf();
 
-	var colorBg = ['success', 'success', 'secondary', 'primary', 'warning', 'danger',
+    $("#tbl-penilaian").rowspanizer({
+        columns: [0, 1, 2],
+        vertical_align: "middle"
+    });
+
+    var colorBg = ['success', 'success', 'secondary', 'primary', 'warning', 'danger',
 		'primary', "warning", "primary", "success", "primary", "success", "warning"
 	];
 
@@ -644,7 +655,7 @@ $(document).ready(function(){
 			url: base_url + "dashboard/getlog/10",
 			method:"GET",
 			success:function(data) {
-				console.log(data);
+				//console.log(data);
 				var ul = '<ul class="products-list product-list-in-card pl-2 pr-2">';
 				$.each(data, function (key, value) {
 					var nama = value.id_group === '1' ? value.first_name : value.first_name +' '+ value.last_name; //value.id_group === '1' ? value.name : (value.id_group === '2' ? value.nama_guru : value.nama);
@@ -701,4 +712,43 @@ $(document).ready(function(){
 		$('.live-clock').html(time);
 	}, 1000);
 	*/
+
+    setTimeout(function () {
+        getGlobalToken();
+    }, 1000);
 });
+
+function getGlobalToken() {
+    if (globalToken != null) {
+        createViewToken(globalToken);
+    }
+}
+
+function createViewToken(result) {
+    $('#token-view').text(result.token);
+    if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
+        $('#interval').removeClass('d-none');
+        var mulai = result.updated == null ? new Date(): new Date(result.updated);
+        const now = getDiffMinutes(mulai);
+        var mnt = Number(result.jarak);
+
+        mnt = mnt - now.m;
+        var scn = 60 - now.s;
+        if (scn > 0) {
+            mnt = mnt -1;
+        }
+
+        if (timerTokenView) {
+            clearInterval(timerTokenView);
+            timerTokenView = null;
+        }
+        timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
+            if (isOver) {
+                block.html('<b>-- : --</b>');
+                setTimeout(function(){getGlobalToken()}, 300);
+            }
+        })
+    } else {
+        $('#interval').addClass('d-none');
+    }
+}

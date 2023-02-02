@@ -14,7 +14,7 @@
             <div class="card my-shadow mb-4">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <div class="row mb-2">
                                 <div class="col-6">
                                     <h6>Kelompok Utama</h6>
@@ -23,18 +23,20 @@
                                     <button type="button" data-toggle="modal" data-target="#editKelompokModal" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
-                            <table id="tableKelompok" class="w-100 table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th class="text-center align-middle">Kategori</th>
-                                    <th class="text-center align-middle">Kode</th>
-                                    <th class="align-middle">Nama</th>
-                                    <th class="text-center align-middle" style="width: 100px"><span>Aksi</span></th>
-                                </tr>
-                                </thead>
-                            </table>
+                            <div class="table-responsive">
+                                <table id="tableKelompok" class="w-100 table table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center align-middle">Kategori</th>
+                                        <th class="text-center align-middle">Kode</th>
+                                        <th class="align-middle">Nama</th>
+                                        <th class="text-center align-middle p-0"><span>Aksi</span></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <div class="row mb-2">
                                 <div class="col-6">
                                     <h6>Sub Kelompok</h6>
@@ -43,16 +45,18 @@
                                     <button type="button" data-toggle="modal" data-target="#editSubKelompokModal" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
-                            <table id="tableSubKelompok" class="w-100 table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th class="text-center align-middle">Kode</th>
-                                    <th class="align-middle">Nama</th>
-                                    <th class="text-center align-middle">Kel. Utama</th>
-                                    <th class="text-center align-middle" style="width: 100px"><span>Aksi</span></th>
-                                </tr>
-                                </thead>
-                            </table>
+                            <div class="table-responsive">
+                                <table id="tableSubKelompok" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center align-middle">Kode</th>
+                                        <th class="align-middle">Nama</th>
+                                        <th class="text-center align-middle">Kel. Utama</th>
+                                        <th class="text-center align-middle p-0"><span>Aksi</span></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,21 +71,23 @@
 				</div>
 				<div class="card-body">
                     <?= form_open('', array('id' => 'bulk')) ?>
-					<table id="tableMapel" class="w-100 table table-striped table-bordered table-hover">
-						<thead>
-						<tr>
-							<th class="text-center align-middle p-0 w-auto">
-								<input type="checkbox" class="select_all">
-							</th>
-							<th class="text-center align-middle p-0 w-auto">No.Urut Rapor</th>
-							<th class="text-center">Mata Pelajaran</th>
-							<th class="text-center">Kode Mata Pelajaran</th>
-                            <th class="text-center">Kelompok</th>
-                            <th class="text-center">Status</th>
-							<th class="text-center align-middle p-0"><span>Aksi</span></th>
-						</tr>
-						</thead>
-					</table>
+                    <div class="table-responsive">
+                        <table id="tableMapel" class="w-100 table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="text-center align-middle p-0 w-auto">
+                                    <input type="checkbox" class="select_all">
+                                </th>
+                                <th class="text-center align-middle p-0 w-auto">No.Urut Rapor</th>
+                                <th class="text-center">Mata Pelajaran</th>
+                                <th class="text-center">Kode Mata Pelajaran</th>
+                                <th class="text-center">Kelompok</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center align-middle p-0"><span>Aksi</span></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
 					<?= form_close() ?>
 				</div>
 			</div>

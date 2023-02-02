@@ -23,29 +23,24 @@
 			<div class="card card-default my-shadow mb-4">
 				<div class="card-header">
 					<h6 class="card-title"><?= $subjudul ?></h6>
-                    <!--
-                        <div id="selector" class="card-tools btn-group">
-                            <button type="button" class="btn active btn-primary">By Kelas</button>
-                            <button type="button" class="btn btn-outline-primary">By Ruang</button>
-                        </div>
-                    -->
-                    </div>
+                    <button class="card-tools btn btn-default btn-sm mr-2 btn-toggle" data-toggle="modal"
+                            data-target="#infoModal"><i class="fas fa-info-circle mr-1"></i> Info Error
+                    </button>
+                </div>
 				<div class="card-body">
 					<div class="row">
-                        <!--
-                        <div class="col-6 col-md-3">
+                        <div class="col-12 mb-3">
                             <div class="input-group">
-                                <div class="input-group-prepend w-30">
-                                    <span class="input-group-text">Hari</span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-center">TOKEN</span>
                                 </div>
-                                <select name="hari" id="hari" class="form-control">
-                                    <option value="0">Hari ini</option>
-                                    <option value="1">Semua Jadwal</option>
-                                </select>
+                                <input id="token-view" class="form-control text-bold text-center" value="<?=isset($token) ? $token->token : '- - - - - -'?>" readonly="readonly" />
+                                <div class="input-group-append">
+                                    <span id="interval" class="input-group-text text-xs">-- : --</span>
+                                </div>
                             </div>
                         </div>
-                        -->
-						<div class="col-6 col-md-3">
+						<div class="col-12 col-md-6 mb-3">
 							<div class="input-group">
 								<div class="input-group-prepend w-30">
 									<span class="input-group-text">Jadwal</span>
@@ -59,7 +54,7 @@
 								); ?>
 							</div>
 						</div>
-						<div class="col-6 col-md-3" id="by-kelas">
+						<div class="col-12 col-md-6 mb-3" id="by-kelas">
 							<div class="input-group">
 								<div class="input-group-prepend w-30">
 									<span class="input-group-text">Kelas</span>
@@ -68,7 +63,7 @@
                                 </select>
 							</div>
 						</div>
-						<div class="col-3 d-none" id="by-ruang">
+						<div class="col-3 d-none mb-3" id="by-ruang">
 							<div class="input-group">
 								<div class="input-group-prepend w-30">
 									<span class="input-group-text">Ruang</span>
@@ -82,7 +77,7 @@
 								); ?>
 							</div>
 						</div>
-						<div class="col-3 d-none">
+						<div class="col-3 d-none mb-3">
 							<div class="input-group">
 								<div class="input-group-prepend w-30">
 									<span class="input-group-text">Sesi</span>
@@ -114,13 +109,16 @@
                                             untuk merefresh halaman
                                         </li>
                                         <li>
-                                            Aksi <b>RESET</b> untuk mengizinkkan siswa mengerjakan ujian di beberapa komputer.
+                                            <b>RESET WAKTU.</b> Jika siswa logout sebelum selesai dan tidak melanjutkan sampai waktu ujian habis maka akan ditolak, jika ingin melanjutkan maka harus reset waktu.
                                         </li>
                                         <li>
-                                            Aksi <b>SELESAIKAN</b> untuk memaksa siswa menyelesaikan ujian.
+                                            Aksi <b>RESET IZIN</b> untuk mengizinkkan siswa mengerjakan ujian di perangkat berbeda.
                                         </li>
                                         <li>
-                                            Aksi <b>ULANGI</b> untuk mengulang ujian siswa dari awal.
+                                            Aksi <b>PAKSA SELESAI</b> untuk memaksa siswa menyelesaikan ujian.
+                                        </li>
+                                        <li>
+                                            Aksi <b>ULANG</b> untuk mengulang ujian siswa dari awal.
                                         </li>
                                         <li>
                                             <span class="badge badge-success"><i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi</span>
@@ -148,7 +146,7 @@
                             </button>
                         </div>
 					</div>
-					<div>
+					<div class="table-responsive">
 						<table class="table table-bordered" id="table-status">
 						</table>
 					</div>
@@ -192,7 +190,58 @@
 </div>
 <?=form_close()?>
 
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoLabel">Kode error siswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table w-100">
+                    <tr>
+                        <td class="text-bold">001</td>
+                        <td>:</td>
+                        <td>Token salah atau token belum digenerate</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">002</td>
+                        <td>:</td>
+                        <td>Harus reset izin</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">003</td>
+                        <td>:</td>
+                        <td>Harus reset waktu</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">004</td>
+                        <td>:</td>
+                        <td>Soal belum dibuat atau belum dipilih</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">005</td>
+                        <td>:</td>
+                        <td>Siswa menggunakan browser yang tidak mendukung</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">006</td>
+                        <td>:</td>
+                        <td>internet down atau error dari database/server</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    let timerTokenView;
     var dnone = '<?= $this->ion_auth->is_admin() ? "" : "d-none" ?>';
 	var printBy = 1;
 	var url = '';
@@ -354,14 +403,15 @@
             '<th rowspan="2" class="text-center align-middle">Ruang</th>' +
             '<th rowspan="2" class="text-center align-middle">Sesi</th>' +
 			'<th colspan="2" class="text-center align-middle">Status</th>' +
-			'<th colspan="4" class="text-center align-middle '+dnone+'">Aksi</th>' +
+            '<th rowspan="2" class="text-center align-middle '+dnone+'">Reset<br>Waktu</th>' +
+			'<th colspan="3" class="text-center align-middle '+dnone+'">Aksi</th>' +
 			'</tr>' +
 			'<tr>' +
 			'<th class="text-center align-middle p-1">Mulai</th>' +
             '<th class="text-center align-middle">Durasi</th>' +
-			'<th class="text-center align-middle '+dnone+'">Reset</th>' +
-            '<th class="text-center align-middle '+dnone+'">Selesaikan</th>' +
-            '<th class="text-center align-middle '+dnone+'">Ulangi</th>' +
+            '<th class="text-center align-middle '+dnone+'">Reset<br>Izin</th>' +
+            '<th class="text-center align-middle '+dnone+'">Paksa<br>Selesai</th>' +
+            '<th class="text-center align-middle '+dnone+'">Ulang</th>' +
 			'</tr></thead><tbody>';
 
 		for (let i = 0; i < data.siswa.length; i++) {
@@ -423,6 +473,11 @@
                 '<td class="text-center align-middle">' + sesi + '</td>' +
 				'<td class="text-center align-middle">' + mulai + '</td>' +
                 '<td class="text-center align-middle">' + loading + durasi + '</td>' +
+                '<td class="text-center align-middle">' +
+                '	<button type="button" class="btn btn-default" ' +
+                'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" ' +
+                'data-toggle="modal" data-target="#resetModal" '+disabledReset+'><i class="fa fa-refresh"></i></button>' +
+                '</td>' +
 				'<td class="text-center text-success align-middle '+dnone+'">' +
                 '<input class="check input-reset" type="checkbox" '+disabledReset+'>' +
                 '</td>' +
@@ -432,16 +487,6 @@
                 '<td class="text-center text-danger align-middle '+dnone+'">' +
                 '<input class="check input-ulang" type="checkbox" '+disabledUlang+'>' +
                 '</td>' +
-                //'<td class="text-center align-middle">' +
-				//'	<button type="button" class="btn btn-xs bg-fuchsia mb-1" ' +
-                //'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" ' +
-                //'data-toggle="modal" data-target="#resetModal" '+disabledReset+'>Reset</button>' +
-				//'	<button id="paksa-'+idSiswa+'" type="button" class="btn btn-xs bg-orange mb-1" ' +
-                //'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" onclick="paksaSelesai('+idSiswa+')" '+disabledReset+'>Selesaikan</button>' +
-				//'	<button id="ulangi-'+idSiswa+'" type="button" class="btn btn-xs bg-maroon mb-1" ' +
-                //'data-bank="'+data.info.id_bank+'" data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" onclick="ulangiSiswa('+idSiswa+')" '+disabledUlang+'>Ulangi</button>' +
-                //'	<a type="button" class="ml-3 btn btn-xs bg-success mb-1" href="'+base_url+'cbtstatus/detail?siswa='+idSiswa+'&jadwal='+data.info.id_jadwal+'">Detail</a>' +
-                //'</td>' +
 				'</tr>';
 		}
 
@@ -561,13 +606,11 @@
 
         var idSiswa = '';
         var idJadwal = '';
-            $('#resetModal').on('show.bs.modal', function (e) {
+        $('#resetModal').on('show.bs.modal', function (e) {
             idSiswa = $(e.relatedTarget).data('siswa');
             idJadwal = $(e.relatedTarget).data('jadwal');
 
             console.log('siswa:' + idSiswa, 'jadwal:' + idJadwal);
-            //$(e.currentTarget).find('input[id="namaEdit"]').val(nama);
-            //$(e.currentTarget).find('input[id="kodeEdit"]').val(kode);
         });
 
         $('#reset').on('submit', function (e) {
@@ -585,11 +628,53 @@
                 data: $(this).serialize() + '&id_durasi=' + idSiswa+''+idJadwal,
                 success: function (data) {
                     console.log(data.status);
+                    if (data.status) refreshStatus();
+                    else showDangerToast('tidak bisa mereset waktu');
                 }, error: function (xhr, status, error) {
                     console.log('error');
                 }
             });
 
         });
-    })
+
+        setTimeout(function () {
+            getGlobalToken();
+        }, 1000);
+    });
+
+    function getGlobalToken() {
+        if (globalToken != null) {
+            createViewToken(globalToken);
+        }
+    }
+
+    function createViewToken(result) {
+        $('#token-view').val(result.token);
+        if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
+            $('#interval').removeClass('d-none');
+            var mulai = result.updated == null ? new Date(): new Date(result.updated);
+            const now = getDiffMinutes(mulai);
+            var mnt = Number(result.jarak);
+
+            mnt = mnt - now.m;
+            var scn = 60 - now.s;
+            if (scn > 0) {
+                mnt = mnt -1;
+            }
+
+            if (timerTokenView) {
+                clearInterval(timerTokenView);
+                timerTokenView = null;
+            }
+            timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
+                if (isOver) {
+                    block.html('<b>-- : --</b>');
+                    setTimeout(function(){getGlobalToken()}, 300);
+                }
+            })
+        } else {
+            $('#interval').addClass('d-none');
+        }
+    }
+
 </script>

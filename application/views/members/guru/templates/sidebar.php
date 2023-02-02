@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light-teal my-shadow">
+<aside class="main-sidebar sidebar-light-teal">
     <!-- Brand Logo -->
     <a href="<?= base_url(); ?>" class="brand-link bg-white">
         <?php $logo_app = $setting->logo_kiri == null ? base_url() . 'assets/img/favicon.png' : base_url() . $setting->logo_kiri; ?>

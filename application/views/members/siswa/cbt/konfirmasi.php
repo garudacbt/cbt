@@ -49,6 +49,10 @@
                                     }
 
                                     ?>
+                                    <?= form_open('', array('id' => 'konfir')) ?>
+                                    <input type="hidden" name="siswa" value="<?= $siswa->id_siswa ?>">
+                                    <input type="hidden" name="jadwal" value="<?= $bank->id_jadwal ?>">
+                                    <input type="hidden" name="bank" value="<?= $bank->id_bank ?>">
                                     <ul class="list-group list-group-unbordered">
                                         <li class="list-group-item p-1"> Mata Pelajaran
                                             <span class="float-right"><b><?= $bank->nama_mapel ?></b></span>
@@ -98,15 +102,8 @@
                                     </div>
                                     <br>
                                     <span class="float-right" data-toggle="tooltip" title="MULAI">
-                                        <button id="load-soal" onclick="loadSoal()"
-                                                type="button" class="btn btn-success">MULAI
-                                        </button>
+                                        <button id="load-soal" type="submit" class="btn btn-success">MULAI</button>
                                     </span>
-
-                                    <?= form_open('', array('id' => 'konfir')) ?>
-                                    <input type="hidden" name="siswa" value="<?= $siswa->id_siswa ?>">
-                                    <input type="hidden" name="jadwal" value="<?= $bank->id_jadwal ?>">
-                                    <input type="hidden" name="bank" value="<?= $bank->id_bank ?>">
                                     <?= form_close(); ?>
 
                                 <?php elseif (!$valid) : ?>
@@ -139,6 +136,103 @@
 
 <script src="<?= base_url() ?>/assets/app/js/redirect.js"></script>
 <script>
+    $('#konfir').submit(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        swal.fire({
+            title: "Membuka Soal",
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
+        console.log($(this).serialize());
+        var jadwal = $(this).find('input[name="jadwal"]').val();
+        $.ajax({
+            type: 'POST',
+            url: base_url + 'siswa/validasisiswa',
+            data: $(this).serialize(),
+            success: function (data) {
+                console.log(data);
+                // jika menggunakan token, cek token
+                if (data.token === true) {
+                    // token ok
+                    // cek browser dulu
+                    if (data.support === false) {
+                        // browser tidak support
+                        // siswa stop disini
+                        swal.fire({
+                            "title": "Error",
+                            "html": "Browser tidak mendukung!<br>Gunakan browser Chrome, atau Mozilla<br>005",
+                            "icon": "error"
+                        });
+                    } else {
+                        // browser OK
+                        // cek izin ujian
+                        if (data.izinkan === true) {
+                            // diizinkan
+                            // cek sisa waktu
+                            if (data.ada_waktu === true) {
+                                // masih ada waktu
+                                // cek apakah ada soal?
+                                if (data.jml_soal > 0) {
+                                    // ada soal
+                                    // siswa masuk halaman ujian
+                                    window.location.href = base_url + 'siswa/penilaian/' + jadwal;
+                                } else {
+                                    // soal belum dibuat
+                                    swal.fire({
+                                        "title": "Error",
+                                        "html": "Tidak ada soal ujian<br>Hubungi proktor<br>004",
+                                        "icon": "error"
+                                    });
+                                }
+                            } else {
+                                // siswa logout ditengah ujian dan tidak melanjutkan sampai waktu ujian habis
+                                // admin harus reset waktu
+                                swal.fire({
+                                    "title": "Error",
+                                    "html": data.warn.msg+"<br>Hubungi proktor<br>003",
+                                    "icon": "error"
+                                });
+                            }
+                        } else {
+                            // ditengah ujian, siswa ganti hape/komputer
+                            // siswa tidak diizinkan ujian
+                            // admin perlu reset izin
+                            swal.fire({
+                                "title": "Error",
+                                "html": "Anda sedang mengerjakan ujian di perangkat lain<br>Hubungi proktor<br>002",
+                                "icon": "error"
+                            });
+                        }
+                    }
+                } else {
+                    // token salah, atau token tidak dibuat oleh admin
+                    swal.fire({
+                        "title": "Error",
+                        "html": "TOKEN salah!<br>Hubungi proktor<br>001",
+                        "icon": "error"
+                    });
+                }
+            }, error: function (xhr, error, status) {
+                swal.fire({
+                    "title": "Error",
+                    "html": "Coba kembali ke beranda, lalu ulangi lagi<br>006",
+                    "icon": "error"
+                });
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+    /*
     function loadSoal() {
         swal.fire({
             title: "Membuka Soal",
@@ -191,36 +285,6 @@
         }
     }
 
-    $('#konfir').submit(function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        $.ajax({
-            type: 'POST',
-            url: base_url + 'siswa/ceksesisiswa',
-            data: $(this).serialize(),
-            success: function (data) {
-                console.log(data);
-                if (data.soal > 0) {
-                    cekDurasi();
-                } else {
-                    swal.fire({
-                        "title": "Error",
-                        "html": "Tidak ada soal ujian<br>Hubungi proktor",
-                        "icon": "error"
-                    });
-                }
-            }, error: function (xhr, error, status) {
-                swal.fire({
-                    "title": "Error",
-                    "html": "Coba kembali ke beranda, lalu ulangi lagi<br>006",
-                    "icon": "error"
-                });
-                console.log(xhr.responseText);
-            }
-        });
-    });
-
     function cekDurasi() {
         var jadwal = $('#konfir').find('input[name="jadwal"]').val();
         $.ajax({
@@ -228,17 +292,35 @@
             url: base_url + 'siswa/cekelapsedtimer',
             data: $('#konfir').serialize(),
             success: function (data) {
-                window.location.href = base_url + 'siswa/penilaian/' + jadwal;
+                console.log('response', data);
+                //window.location.href = base_url + 'siswa/penilaian/' + jadwal;
+                swal.fire({
+                    "title": "Test",
+                    "html": "data",
+                    "icon": "error"
+                });
             }, error: function (xhr, error, status) {
                 swal.fire({
                     "title": "Error",
                     "html": "Coba kembali ke beranda, lalu ulangi lagi<br>007",
                     "icon": "error"
-                })
+                });
                 //showDangerToast('ERROR!');
                 console.log(xhr.responseText);
             }
         });
+    }
+    */
+
+    console.log('mnt', getMinutes('2023-01-30 11:30:30'));
+    function getMinutes(d) {
+        var startTime = new Date(d);
+        var endTime = new Date();
+        endTime.setHours(endTime.getHours() - startTime.getHours());
+        endTime.setMinutes(endTime.getMinutes() - startTime.getMinutes());
+        endTime.setSeconds(endTime.getSeconds() - startTime.getSeconds());
+
+        return {h:endTime.getHours(), m:endTime.getMinutes(), s:endTime.getSeconds()}
     }
 
 </script>

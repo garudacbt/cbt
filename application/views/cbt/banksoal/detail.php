@@ -1540,7 +1540,8 @@
                         //showSuccessToast(`${data.check} Soal terpilih berhasil disimpan`)
                         window.location.reload(true);
                     } else {
-                        showDangerToast('Soal terpilih gagal disimpan')
+                        window.location.reload(true);
+                        showSuccessToast('Soal tersimpan = 0')
                     }
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);

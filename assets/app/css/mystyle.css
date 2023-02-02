@@ -776,6 +776,13 @@ div.hr {
 	-webkit-box-orient: vertical;
 }
 
+.crop-text-table {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 300px;
+}
+
 .rTable {
 	display: table;
 	width: 100%;
