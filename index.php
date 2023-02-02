@@ -37,7 +37,7 @@
  */
 
 $envs = ['development', 'testing', 'production'];
-define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : $envs[0]);
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : $envs[2]);
 
 switch (ENVIRONMENT) {
     case 'development':
