@@ -192,6 +192,9 @@ $arrBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
                                                 <th class="text-center align-middle">Keterangan</th>
                                             </tr>
                                             <?php
+                                            $jamMapel = $kbm->kbm_jam_pel;
+                                            $waktu = $kbm->kbm_jam_mulai;
+                                            $jmlMapel = $kbm->kbm_jml_mapel_hari;
                                             $materi = $sebulan['materis'][$tgl];
 
                                             $statusMateri = isset($sebulan['log'][1]) &&
@@ -286,7 +289,9 @@ $arrBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
                                                         </tr>
                                                         <?php
                                                         $jamMulai->add(new DateInterval('PT' . $jamMapel . 'M'));
-                                                    endif; endfor; endif; endif; endforeach; ?>
+                                                    endif;
+                                                endfor;
+                                            endif; endif; endforeach; ?>
                                     </tbody>
                                 </table>
                             <?php else: ?>
