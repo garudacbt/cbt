@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="version 1.4.1">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cbt/banksoal/import.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/import.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app/js/master/kelas/add.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/js/master/kelas/add.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -97,13 +98,13 @@
     <session id="1698047499">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="37" />
-          <entry key="project.open.time.0" value="18" />
-          <entry key="project.open.time.1" value="16" />
+          <entry key="project.closed" value="41" />
+          <entry key="project.open.time.0" value="20" />
+          <entry key="project.open.time.1" value="18" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="37" />
+          <entry key="project.opened" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -113,7 +114,7 @@
           <entry key="js" value="2" />
           <entry key="json" value="1" />
           <entry key="md" value="2" />
-          <entry key="php" value="67" />
+          <entry key="php" value="69" />
           <entry key="sql" value="1" />
           <entry key="sql___jb_old___" value="2" />
         </counts>
@@ -124,7 +125,7 @@
           <entry key="JSON" value="1" />
           <entry key="JavaScript" value="2" />
           <entry key="Markdown" value="2" />
-          <entry key="PHP" value="67" />
+          <entry key="PHP" value="69" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="SQL" value="1" />
         </counts>
@@ -132,14 +133,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="md" value="571" />
-          <entry key="php" value="105" />
+          <entry key="php" value="107" />
           <entry key="txt" value="116" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="571" />
-          <entry key="PHP" value="105" />
+          <entry key="PHP" value="107" />
           <entry key="PLAIN_TEXT" value="116" />
         </counts>
       </usages-collector>
@@ -147,44 +148,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/members/siswa/cbt/ujian.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4788">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="e#163#170#1" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/kelas/status/data.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="223" column="20" selection-start-line="223" selection-start-column="20" selection-end-line="223" selection-end-column="20" />
-              <folding>
-                <element signature="e#19868#26818#0#HTML" />
-                <element signature="n#style#0;n#tr#0;n#thead#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#tr#1;n#thead#0;n#!!top" expanded="true" />
-                <element signature="e#26847#27477#0#HTML" />
-                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/controllers/Kelasstatus.php">
+        <entry file="file://$PROJECT_DIR$/application/views/kelas/materijadwal/data.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-            </state>
+            <state relative-caret-position="-345" />
           </provider>
         </entry>
       </file>
@@ -241,11 +208,11 @@
         <option value="$PROJECT_DIR$/application/views/cbt/cetak/pengawas.php" />
         <option value="$PROJECT_DIR$/application/views/cbt/nilai/data.php" />
         <option value="$PROJECT_DIR$/application/config/database.php" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/application/config/routes.php" />
         <option value="$PROJECT_DIR$/application/views/cbt/alokasi/data.php" />
         <option value="$PROJECT_DIR$/application/views/members/guru/templates/header.php" />
         <option value="$PROJECT_DIR$/application/views/dashboard.php" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -342,12 +309,6 @@
               <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -363,7 +324,23 @@
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="kelas" type="462c0819:PsiDirectoryNode" />
-              <item name="status" type="462c0819:PsiDirectoryNode" />
+              <item name="jadwal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="kelas" type="462c0819:PsiDirectoryNode" />
+              <item name="materi" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="kelas" type="462c0819:PsiDirectoryNode" />
+              <item name="materijadwal" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -383,7 +360,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/backups/garuda.sql" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1675349305764" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1675493444580" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ci4-vclient/client" />
@@ -484,41 +461,10 @@
       <workItem from="1675335513846" duration="1824000" />
       <workItem from="1675337897479" duration="756000" />
       <workItem from="1675346658147" duration="1250000" />
-    </task>
-    <task id="LOCAL-00037" summary="versi 1.2-beta">
-      <created>1635400284052</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1635400284052</updated>
-    </task>
-    <task id="LOCAL-00038" summary="readme">
-      <created>1635401868139</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1635401868139</updated>
-    </task>
-    <task id="LOCAL-00039" summary="readme">
-      <created>1635401897857</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1635401897857</updated>
-    </task>
-    <task id="LOCAL-00040" summary="readme">
-      <created>1638927265847</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1638927265847</updated>
-    </task>
-    <task id="LOCAL-00041" summary="readme">
-      <created>1638927666826</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1638927666826</updated>
+      <workItem from="1675350855047" duration="774000" />
+      <workItem from="1675357242428" duration="435000" />
+      <workItem from="1675398116344" duration="100000" />
+      <workItem from="1675493291056" duration="168000" />
     </task>
     <task id="LOCAL-00042" summary="readme">
       <created>1638959442374</created>
@@ -828,17 +774,52 @@
       <option name="project" value="LOCAL" />
       <updated>1675346693522</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="version 1.4.1">
+      <created>1675350870099</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1675350870099</updated>
+    </task>
+    <task id="LOCAL-00087" summary="version 1.4.1">
+      <created>1675351009001</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1675351009001</updated>
+    </task>
+    <task id="LOCAL-00088" summary="version 1.4.1">
+      <created>1675351602727</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1675351602727</updated>
+    </task>
+    <task id="LOCAL-00089" summary="version 1.4.1">
+      <created>1675357445145</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1675357445146</updated>
+    </task>
+    <task id="LOCAL-00090" summary="version 1.4.1">
+      <created>1675398169083</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1675398169083</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78947000" />
+    <option name="totallyTimeSpent" value="80424000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30734292" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32853898" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -853,7 +834,7 @@
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.5147541" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.2885246" />
       <window_info anchor="bottom" id="FTP" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.3295082" />
@@ -939,13 +920,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="version 1.4.1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/views/install/setup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/add.php" />
     <entry file="file://$PROJECT_DIR$/assets/adminlte/dist/js/pages/dashboard.js">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1054,13 +1028,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="41" column="22" lean-forward="true" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/app/js/kelas/jadwal/kalender.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1541">
@@ -1162,16 +1129,10 @@
     <entry file="file://$PROJECT_DIR$/application/models/Log_model.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/members/siswa/cbt/ujian.php">
+    <entry file="file://$PROJECT_DIR$/application/controllers/Kelasstatus.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4788">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#163#170#1" expanded="true" />
-          </folding>
+        <state relative-caret-position="161">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
@@ -1179,22 +1140,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
           <caret line="223" column="20" selection-start-line="223" selection-start-column="20" selection-end-line="223" selection-end-column="20" />
-          <folding>
-            <element signature="e#19868#26818#0#HTML" />
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#1;n#thead#0;n#!!top" expanded="true" />
-            <element signature="e#26847#27477#0#HTML" />
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Kelasstatus.php">
+    <entry file="file://$PROJECT_DIR$/application/views/members/siswa/cbt/ujian.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="92">
+          <caret line="39" column="78" selection-start-line="39" selection-start-column="78" selection-end-line="39" selection-end-column="78" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/kelas/materijadwal/data.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-345" />
       </provider>
     </entry>
   </component>
