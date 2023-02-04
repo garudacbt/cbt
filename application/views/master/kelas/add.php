@@ -34,9 +34,9 @@
 								<div class="form-group row">
 									<?php
                                     //echo '<pre>';
-                                    //var_dump(count($siswakelas));
+                                    //var_dump($id_kelas);
                                     //echo '</pre>';
-									echo form_hidden('id_kelas', $kelas->id_kelas)
+                                    if (isset($id_kelas)) echo form_hidden('id_kelas', $id_kelas);
 									?>
 									<label for="nama_kelas" class="col-md-3 col-form-label">Nama Kelas</label>
 									<div class="col-md-9">

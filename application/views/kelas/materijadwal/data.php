@@ -288,7 +288,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                 }
                                                 //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
                                                 $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
-                                                $tempId = $tempIdSelected . str_replace('-','', $jh) . '11';
+                                                $tempId = $tempIdSelected . str_replace('-','', $jh) .$jamke. '1';
 
                                                 echo form_dropdown(
                                                     'select-materi',
@@ -313,7 +313,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                                 }
                                                 //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
                                                 $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
-                                                $tempId = $tempIdSelected . str_replace('-','', $jh) . '12';
+                                                $tempId = $tempIdSelected . str_replace('-','', $jh) . $jamke . '2';
 
                                                 echo form_dropdown(
                                                     'select-tugas',

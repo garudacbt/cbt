@@ -145,13 +145,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <?php foreach ($ujian_box as $info) : ?>
-                                    <div class="col-md-3 col-4" style="min-height: 60px">
-                                        <div class="info-box border" style="min-height: 60px">
-                                            <!--
-												<span class="info-box-icon bg-gradient-<?= $info->box ?> elevation-1">
-													<i class="fa fa-<?= $info->icon ?>"></i>
-												</span>
-												-->
+                                    <div class="col-md-4 col-6" style="min-height: 60px">
+                                        <div class="info-box border p-1" style="min-height: 60px">
                                             <div class="info-box-content p-1 text-danger">
                                                 <span class="info-box-text text-sm"><?= $info->title; ?></span>
                                                 <h5 class="info-box-number"><?= $info->total; ?></h5>
@@ -159,6 +154,14 @@
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
+                                <div class="col-md-4 col-6" style="min-height: 60px">
+                                        <div class="info-box border p-1" style="min-height: 60px">
+                                            <div class="info-box-content p-1 text-danger">
+                                                <span class="info-box-text text-sm">Token <small class="float-right" id="interval">-- : --</small></span>
+                                                <h5 class="info-box-number" id="token-view"><?= $token->token != null ? $token->token : '- - - - - -' ?></h5>
+                                            </div>
+                                        </div>
+                                </div>
                             </div>
                             <hr>
                             <div class="row">
@@ -296,8 +299,10 @@
 
 <script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script>
+    let timerTokenView;
     var halaman = 0;
     var idGuru = "<?=$guru->id_guru?>";
+
     function createTime(d) {
         var date = new Date(d);
 
@@ -757,6 +762,48 @@
         load_log();
 
         getPosts();
+
+        getToken(function (result) {
+            getGlobalToken();
+        });
     });
 
+    function getGlobalToken() {
+        if (globalToken != null) {
+            createViewToken(globalToken);
+        }
+    }
+
+    function createViewToken(result) {
+        $('#token-view').text(result.token);
+        if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
+            $('#interval').removeClass('d-none');
+            var mulai = result.updated == null ? new Date(): new Date(result.updated);
+            const now = getDiffMinutes(mulai);
+            var mnt = Number(result.jarak);
+
+            mnt = mnt - now.m;
+            var scn = 60 - now.s;
+            if (scn > 0) {
+                mnt = mnt -1;
+            }
+
+            if (timerTokenView) {
+                clearInterval(timerTokenView);
+                timerTokenView = null;
+            }
+            timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
+                if (isOver) {
+                    block.html('<b>-- : --</b>');
+                    setTimeout(function(){
+                        getToken(function (result) {
+                            getGlobalToken();
+                        });
+                    }, 300);
+                }
+            })
+        } else {
+            $('#interval').addClass('d-none');
+        }
+    }
 </script>

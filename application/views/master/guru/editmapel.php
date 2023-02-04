@@ -153,7 +153,7 @@
                         $jks2 = [];
                         $jke2 = [];
                         ?>
-                        <div class="">
+                        <div class="d-none">
                             <?php
                             foreach ($guru2->mapel_kelas as $val) {
                                 array_push($jks2, $val->id_mapel);

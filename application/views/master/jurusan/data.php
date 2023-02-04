@@ -14,7 +14,7 @@
 			<div class="card my-shadow mb-4">
 				<div class="card-header py-3">
 					<div class="card-title">
-						<h6>Master <?=$subjudul?></h6>
+						<h6><?=$subjudul?></h6>
 					</div>
 					<div class="card-tools">
 						<button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default"><i

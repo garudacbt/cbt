@@ -77,8 +77,20 @@ $(document).ready(function () {
 
 	$('#create').submit(function (e) {
 		e.preventDefault();
+        swal.fire({
+            title: "Menyimpan data",
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
 
-		console.log("data:", $(this).serialize() + s);
+		//console.log("data:", $(this).serialize() + s);
 
 		$.ajax({
 			url: base_url + "datakelas/save",
@@ -86,21 +98,34 @@ $(document).ready(function () {
 			dataType: "JSON",
 			data: $(this).serialize() + s,
 			success: function (data) {
-				if (data.status) {
-					window.location.href = base_url+'datakelas';
-					//showSuccessToast('Data berhasil disimpan.')
-				} else {
-					showDangerToast('Data tidak tersimpan.');
-				}
+				var msg = data.status ? 'Data kelas berhasil disimpan' : 'Data kelas gagal disimpan';
+                swal.fire({
+                    text: msg,
+                    icon: data.status ? "success" : "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#3085d6",
+                }).then(result => {
+                    if (data.status) {
+                        window.location.href = base_url+'datakelas';
+                    }
+                });
+
 			}, error: function (xhr, status, error) {
 				console.log(xhr.responseText);
-				showDangerToast('Data tidak tersimpan.');
+                swal.fire({
+                    title: "Error",
+                    text: "Data tidak tersimpan.",
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#3085d6",
+                });
+				//showDangerToast('Data tidak tersimpan.');
 			}
 		});
 	});
 
-	console.log('arrSiswa', arrAllSiswa);
-    console.log('arrSel', arrSelSiswa);
+	//console.log('arrSiswa', arrAllSiswa);
+    //console.log('arrSel', arrSelSiswa);
     //NEW DUALIST
     var dsl = $('#dualSelectExample').DualSelectList({
         'candidateItems' : arrAllSiswa,//['Item 01', 'Item 02', 'Item 03', 'Item 04', 'Item 05', 'Item 06', 'Item 07'],

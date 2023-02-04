@@ -229,35 +229,9 @@ if (isset($jadwal_kbm)) {
                                                         'input-mapel',
                                                         $mapels,
                                                         $value['id_mapel'],
-                                                        'data-idhari="'.$value["id_hari"] .'" data-jamke="'. $jamke.'"'.' class="form-control form-control-sm" data-placeholder="Pilih Mapel"'
+                                                        'data-idhari="'.$value["id_hari"] .'" data-jamke="'. $jamke.'"'.' class="select2 form-control form-control-sm" data-placeholder="Pilih Mapel"'
                                                         ); ?>
-                                                        <!--
-                                                        <div class="float-left value-name"
-															 data-idmapel="<?= $value['id_mapel'] ?>"
-															 data-idhari="<?= $value['id_hari'] ?>"
-															 id="<?= $value['id_hari'] . $jamke ?>">
-															<?= $value['kode'] ?>
-														</div>
-														<i class="popr fa fa-book float-right text-gray"
-														   data-id="<?= $value['id_hari'] . $jamke ?>"></i>
-														   -->
 													</td>
-                                                <!--
-													<div class="popr-box"
-														 data-box-id="<?= $value['id_hari'] . $jamke ?>">
-														<div data-id="<?= $value['id_hari'] . $jamke ?>"
-                                                             data-idmapel="0"
-															 class="popr-item">
-															Tidak ada
-														</div>
-														<?php foreach ($mapels as $mp): ?>
-															<div data-id="<?= $value['id_hari'] . $jamke ?>"
-																 data-idmapel="<?= $mp->id_mapel ?>"
-																 class="popr-item"><i class="fa fa-book mr-2"></i><?= $mp->kode ?></div>
-														<?php
-														endforeach; ?>
-													</div>
-													-->
 												<?php
 												endforeach;
 											endif; ?>
@@ -297,6 +271,7 @@ if (isset($jadwal_kbm)) {
     let method = '<?= $method ?>';
 	var jmlMapel = 0;
 	$(document).ready(function () {
+	    $('.select2').select2();
 		//$('.popr').popr();
 		$('#jam_mulaiEdit, #jam_mulai').datetimepicker({
 			datepicker: false,

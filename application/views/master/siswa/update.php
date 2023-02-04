@@ -28,8 +28,8 @@
                         <?php
                         if (count($kelas) > 0) :
                         foreach ($kelas as $id=>$kls) : ?>
-                            <div class="col-md-3 text-center mb-3">
-                                <a href="<?= base_url().'datasiswa/downloaddata/'.$id ?>" class="card-tools btn-success btn btn-sm">
+                            <div class="col-6 col-md-3 text-center mb-3">
+                                <a href="<?= base_url().'datasiswa/downloaddata/'.$id ?>" class="card-tools btn-success btn btn-block">
                                     <i class="fas fa-download"></i><span class="ml-2">Download Data Siswa<br />Kelas <?=$kls?></span>
                                 </a>
                             </div>

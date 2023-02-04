@@ -22,7 +22,7 @@
 				</div>
 				-->
 				<div class="card-header">
-					<h6 class="card-title">Master <?=$subjudul?></h6>
+					<h6 class="card-title"><?=$subjudul?></h6>
 					<div class="card-tools">
 						<button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default">
 							<i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>

@@ -168,9 +168,9 @@
                                     foreach ($ekstra_ekstra as $ex):?>
                                         <th class="border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"></th>
                                     <?php endforeach; ?>
-                                    <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $absensi[$siswa->id_siswa]['s'] ?></td>
-                                    <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $absensi[$siswa->id_siswa]['i'] ?></td>
-                                    <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $absensi[$siswa->id_siswa]['a'] ?></td>
+                                    <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= isset($absensi[$siswa->id_siswa]['s']) ? $absensi[$siswa->id_siswa]['s'] : '' ?></td>
+                                    <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= isset($absensi[$siswa->id_siswa]['i']) ? $absensi[$siswa->id_siswa]['i'] : '' ?></td>
+                                    <td class="text-center border-primary p-0 align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= isset($absensi[$siswa->id_siswa]['a']) ? $absensi[$siswa->id_siswa]['a'] : '' ?></td>
                                     <td class="text-center align-middle border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $jmlNilai?></td>
                                     <td class="text-center align-middle border-primary p-0" data-a-v="middle" data-a-h="center" data-b-a-s="thin"><?= $deskripsi[$siswa->id_siswa]->ranking?></td>
                                     <?php

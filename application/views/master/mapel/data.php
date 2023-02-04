@@ -64,7 +64,7 @@
 
             <div class="card my-shadow mb-4">
 				<div class="card-header with-border">
-					<h3 class="card-title text-bold">Data Mata Pelajaran</h3>
+					<h3 class="card-title text-bold"><?=$subjudul?></h3>
 					<div class="card-tools">
 						<button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default"><i class="fa fa-sync"></i> Reload</button>
 					</div>

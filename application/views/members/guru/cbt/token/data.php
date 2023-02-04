@@ -27,10 +27,11 @@
 				<div class="card-body">
 					<div class="container-fluid h-100">
 						<div class="row h-100 justify-content-center">
-							<div class="card col-4 bg-gradient-fuchsia p-4">
-								<span class="text-center">TOKEN SAAT INI</span>
-								<h1 class="text-center" id="token-view">- - - - - -</h1>
-							</div>
+                            <div class="card col-lg-6 card-light p-4">
+                                <span class="text-center">TOKEN SAAT INI</span>
+                                <h1 class="text-center" id="token-view"><?=$token->token?></h1>
+                                <small id="info-interval" class="mt-3 text-center">Token akan dibuat otomatis dalam <b id="interval">-- : --</b></small>
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -40,24 +41,50 @@
 </div>
 
 <script>
-	let tokenResponse;
+    let timerTokenView;
 	$(document).ready(function () {
-		function loadToken() {
-			$.ajax({
-				url: base_url + "cbttoken/loadtoken",
-				type: "GET",
-				success: function (response) {
-					tokenResponse = response;
-					console.log("load", tokenResponse);
-					$('#token-view').html('<b>'+response.token+'</b>');
-				},
-				error: function (xhr, status, error) {
-					console.log(xhr);
-				}
-			});
-		}
-
-		loadToken();
+        getToken(function (result) {
+            getGlobalToken();
+        });
 	});
+
+    function getGlobalToken() {
+        if (globalToken != null) {
+            createViewToken(globalToken);
+        }
+    }
+
+    function createViewToken(result) {
+        $('#token-view').text(result.token);
+        if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
+            $('#interval').removeClass('d-none');
+            var mulai = result.updated == null ? new Date(): new Date(result.updated);
+            const now = getDiffMinutes(mulai);
+            var mnt = Number(result.jarak);
+
+            mnt = mnt - now.m;
+            var scn = 60 - now.s;
+            if (scn > 0) {
+                mnt = mnt -1;
+            }
+
+            if (timerTokenView) {
+                clearInterval(timerTokenView);
+                timerTokenView = null;
+            }
+            timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
+                if (isOver) {
+                    block.html('<b>-- : --</b>');
+                    setTimeout(function(){
+                        getToken(function (result) {
+                            getGlobalToken();
+                        });
+                    }, 300);
+                }
+            })
+        } else {
+            $('#interval').addClass('d-none');
+        }
+    }
 
 </script>

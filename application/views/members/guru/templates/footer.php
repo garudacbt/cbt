@@ -99,7 +99,6 @@
 			<!--
 			<script src="<?= base_url() ?>/assets/plugins/file-uploader/src/image-uploader.js"></script>
 			-->
-			<script src="<?= base_url() ?>/assets/app/js/generate.js"></script>
             <script src="<?=base_url()?>/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 
 			<!-- Custom JS -->
