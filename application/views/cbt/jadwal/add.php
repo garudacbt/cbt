@@ -53,16 +53,6 @@
                                 $disabled_option.' id="id-mapel" class="form-control form-control-sm" required'
                             ); ?>
                         </div>
-						<div class="col-md-5 mb-3 d-none">
-							<label>Guru</label>
-							<?php
-							echo form_dropdown(
-								'guru',
-								is_array($guru) ? $guru : [$guru->id_guru => $guru->nama_guru],
-								isset($jadwal->bank_guru_id) ? $jadwal->bank_guru_id : '',
-								$disabled_option.' id="id-guru" class="form-control form-control-sm" required'
-							); ?>
-						</div>
 						<div class="col-md-4 mb-3">
 							<label>Bank Soal</label>
 							<select <?=$disabled_option?> name="bank_id" id="bank-id" class="form-control form-control-sm" required=""></select>
@@ -179,7 +169,7 @@
 	var idBank = '<?=$jadwal->id_bank?>';
 	$(document).ready(function () {
         ajaxcsrf();
-        console.log('used',digunakan);
+        //console.log('used',digunakan);
 
         var selMapel = $('#id-mapel');
         var selec = idBank == '' ? 'selected' : '';
@@ -268,37 +258,14 @@
             });
 		});
 
-		function getBank(guru) {
-			$.ajax({
-				url: base_url + "cbtjadwal/getbankguru/"+guru,
-				type: "GET",
-				success: function (data) {
-					selBank.html('');
-					$.each(data, function (i, v) {
-                        console.log(i);
-						var selected = i===idBank ? 'selected' : '';
-						if (i !== '') selBank.append('<option value="'+i+'" '+selected+'>'+v+'</option>');
-					});
-				}, error: function (xhr, status, error) {
-					console.log("error", xhr.responseText);
-				}
-			});
-		}
-
-		$('#id-guru').on('change', function () {
-			getBank($(this).val());
-		});
-
-		getBank($('#id-guru').val());
-
         function getBankMapel(mapel) {
             $.ajax({
                 url: base_url + "cbtjadwal/getbankmapel/"+mapel,
                 type: "GET",
                 success: function (data) {
+                    console.log('bank',data);
                     selBank.html('');
                     $.each(data, function (i, v) {
-                        console.log(i);
                         var selected = i===idBank ? 'selected' : '';
                         if (i !== '') selBank.append('<option value="'+i+'" '+selected+'>'+v+'</option>');
                     });
@@ -311,5 +278,7 @@
         selMapel.on('change', function () {
             getBankMapel($(this).val());
         });
-	});
+
+        getBankMapel(selMapel.val());
+    });
 </script>

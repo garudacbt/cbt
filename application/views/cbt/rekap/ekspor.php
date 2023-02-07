@@ -206,7 +206,7 @@
     var nilai_max = 100;//nilai siswa terbesar
     var nilai_min = 0;//nilai siswa terkecil
     var hasil_max = 100;//batas nilai terbesar
-    var hasil_min = 60;//batas nilai terkecil
+    var hasil_min = 20;//batas nilai terkecil
 
     var jeniss = <?= json_encode($jenis) ?>;
     var kelass = <?= json_encode($kelas) ?>;
@@ -236,7 +236,7 @@
             $('#opsi-mapel').html(opsis);
         }
 
-        console.log('mapel', arrMapel);
+        //console.log('mapel', arrMapel);
         var rows = arrMapel.length > 1 ? '2' : '1';
         var namaMpl = arrMapel.length > 1 ? '' : arrMapel[0].nama_mapel;
 
@@ -440,13 +440,13 @@
         $('#perbaikanModal').on('show.bs.modal', function (e) {
             $('#ya').val(hasil_max);
             $('#yb').val(hasil_min);
-            console.log('show dialog');
+            //console.log('show dialog');
         });
 
         $('#btn-convert').click(function (e) {
             hasil_max = parseInt($('#ya').val());
             hasil_min = parseInt($('#yb').val());
-            console.log(hasil_max, hasil_min);
+            //console.log(hasil_max, hasil_min);
             //console.log(nilai_max, nilai_min);
 
             $('#perbaikanModal').modal('hide').data('bs.modal', null);

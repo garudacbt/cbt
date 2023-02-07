@@ -19,7 +19,7 @@
 								<?php
 								$foto = $guru->foto;
 								if ($foto=='' || $foto == null) {
-									$foto = 'assets/img/user.jpg';
+									$foto = 'assets/img/siswa.jpg';
 								}
 								?>
 								<img src="<?= base_url().$foto ?>"
@@ -466,16 +466,22 @@
 			var input = $(this)[0];
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
-				reader.onload = function (e) {
-					$('#prev-logo-kanan').attr('src', e.target.result);
-				};
+				//reader.onload = function (e) {
+				//	$('#prev-logo-kanan').attr('src', e.target.result);
+				//};
 				reader.readAsDataURL(input.files[0]);
 
 				var form = new FormData($('#set-foto-profile')[0]);
 				uploadAttach(base_url + 'guruview/uploadfile/'+idGuru, form);
 			}
 		});
-	});
+
+        $(`.profile-avatar`).each(function () {
+            $(this).on("error", function () {
+                $(this).attr("src", base_url + 'assets/img/siswa.png'); // default foto
+            });
+        });
+    });
 
 	function deleteImage(fromBtn) {
 		console.log(src);

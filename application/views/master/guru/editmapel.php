@@ -28,6 +28,9 @@
                                         <b>Aksi ini akan mengganti jabatan dan mapel guru yang sudah diatur di semester sekarang</b>.
                                     </li>
                                     <li>
+                                        Pastikan nama kelas sekarang sudah dibuat dan sama seperti nama kelas sebelumnya.
+                                    </li>
+                                    <li>
                                         Aksi ini tidak akan berjalan sempurna jika nama kelas di semester sebelumnya berbeda dengan nama kelas di semestr sekarang.
                                     </li>
                                 </ul>

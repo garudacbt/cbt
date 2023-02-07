@@ -192,6 +192,10 @@
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
+                        <?php
+                        $disable_delete = $bank->digunakan > 0 || $total_siswa > 0;
+                        $dis = $disable_delete ? 'disabled' : '';
+                        ?>
                         <div class="tab-pane" id="ganda">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
@@ -222,20 +226,35 @@
                                 <tr class="alert alert-default-danger">
                                     <td colspan="5" class="border-dark">
                                         Info :
-                                        <br>
-                                        <?php if ($total_pg < $bank->tampil_pg) : ?>
-                                            Soal PILIHAN GANDA masih kurang, klik tombol <b>(<i class="fas fa-plus"></i>
-                                                Tambah/Edit Soal)</b>  untuk menambahkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_pg > 0 && $bank->tampil_pg == '0') : ?>
-                                            Ada soal PILIHAN GANDA tapi tidak ada yang ditampilkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_pg_tampil <> $bank->tampil_pg) : ?>
-                                            Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
-                                            <br>
-                                        <?php endif; ?>
+                                        <ul>
+                                            <?php if ($total_pg < $bank->tampil_pg) : ?>
+                                                <li>
+                                                    Soal PILIHAN GANDA masih kurang, klik tombol
+                                                    <b>(<i class="fas fa-plus"></i>
+                                                        Tambah/Edit Soal)</b> untuk menambahkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_pg > 0 && $bank->tampil_pg == '0') : ?>
+                                                <li>
+                                                    Ada soal PILIHAN GANDA tapi tidak ada yang ditampilkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_pg_tampil <> $bank->tampil_pg) : ?>
+                                                <li>
+                                                    Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($bank->digunakan > 0) : ?>
+                                                <li>
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_siswa > 0) : ?>
+                                                <li>
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
                                     </td>
                                 </tr>
                             </table>
@@ -244,7 +263,7 @@
                                 <?= form_open('', array('id' => 'select-pg')) ?>
                                 <input type="hidden" name="id_bank" value="<?= $bank->id_bank ?>">
                                 <input type="hidden" name="jenis" value="1">
-                                <div class="d-sm-flex justify-content-between">
+                                <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-pg-all m-1" id="all-pg"
                                                type="checkbox">
@@ -264,38 +283,51 @@
                                     <div class="rTableBody">
                                         <?php
                                         foreach ($soals_pg as $s) :
-                                        $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
-                                        <div class="rTableRow">
-                                            <div class="rTableCell align-top" style="width: 40px;">
-                                                <input style="width: 24px; height: 24px" class="check-pg mt-2"
-                                                       id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
-                                                       value="<?= $s->id_soal ?>" <?= $checked ?>>
-                                            </div>
-                                            <div class="rTableCell align-top" style="width: 40px;">
-                                                <div class="mt-2">
-                                                    <?= $s->nomor_soal ?>.
+                                            $checked = $s->tampilkan == 1 ? 'checked' : ''; ?>
+                                            <div class="rTableRow">
+                                                <div class="rTableCell align-top text-left" style="width: 40px;">
+                                                    <input style="width: 24px; height: 24px" class="check-pg mt-2"
+                                                           id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
+                                                           value="<?= $s->id_soal ?>" <?= $checked ?>>
                                                 </div>
-                                            </div>
-                                            <div class="rTableCell">
-                                                <div class="mt-2">
-                                                    <?= $s->soal ?>
+                                                <div class="rTableCell align-top text-center" style="width: 40px;">
+                                                    <p class="mt-2">
+                                                        <?= $s->nomor_soal ?>.
+                                                    </p>
+                                                </div>
+                                                <div class="rTableCell align-top">
+                                                    <div class="mt-2">
+                                                        <?= $s->soal ?>
+                                                    </div>
                                                     <br>
+                                                    <ul class="list-group list-group-unbordered pl-3"
+                                                        style="list-style-type: upper-alpha">
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_a) ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_b) ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_c) ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d) ?></li>
+                                                        <?php if ($setting->jenjang === '3') : ?>
+                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_e) ?></li>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                    <div class="mb-2 mt-2">Jawaban:
+                                                        <b><?= strtoupper($s->jawaban) ?></b>
+                                                    </div>
                                                 </div>
-                                                <br>
-                                                <ul class="list-group list-group-unbordered pl-3"
-                                                    style="list-style-type: upper-alpha">
-                                                    <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_a) ?></li>
-                                                    <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_b) ?></li>
-                                                    <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_c) ?></li>
-                                                    <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d) ?></li>
-                                                    <?php if ($setting->jenjang === '3') : ?>
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_e) ?></li>
-                                                    <?php endif; ?>
-                                                </ul>
-                                                <div class="mb-2 mt-2">Jawaban: <b><?= strtoupper($s->jawaban) ?></b>
+                                                <div class="rTableCell text-right pt-2" style="width: 60px">
+                                                    <a href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?no=' . $s->nomor_soal . '&jns=1') ?>"
+                                                       type="button" class="btn btn-sm btn-default mb-2">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-default"
+                                                            type="button"
+                                                            data-idsoal="<?= $s->id_soal ?>"
+                                                            data-nomor="<?= $s->nomor_soal ?>"
+                                                            data-jenis="1"
+                                                            onclick="hapusSoal(this)" <?= $dis ?>>
+                                                        <i class="fa fa-trash"></i></button>
                                                 </div>
                                             </div>
-                                        </div>
                                         <?php endforeach; ?>
                                     </div>
                                 </div>
@@ -337,21 +369,34 @@
                                 <tr class="alert alert-default-danger">
                                     <td colspan="5" class="border-dark">
                                         Info :
-                                        <br>
-                                        <?php if ($total_pg2 < $bank->tampil_kompleks) : ?>
-                                            Soal PILIHAN GANDA KOMPLEKS masih kurang, klik tombol <b>(<i
-                                                        class="fas fa-plus"></i> Tambah/Edit
-                                                Soal)</b>  untuk menambahkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_pg2 > 0 && $bank->tampil_kompleks == '0') : ?>
-                                            Ada soal PILIHAN GANDA KOMPLEKS tapi tidak ada yang ditampilkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_pg2_tampil <> $bank->tampil_kompleks) : ?>
-                                            Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
-                                            <br>
-                                        <?php endif; ?>
+                                        <ul>
+                                            <?php if ($total_pg2 < $bank->tampil_kompleks) : ?>
+                                                <li>
+                                                    Soal PILIHAN GANDA KOMPLEKS masih kurang, klik tombol <b>(<i
+                                                                class="fas fa-plus"></i> Tambah/Edit
+                                                        Soal)</b> untuk menambahkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_pg2 > 0 && $bank->tampil_kompleks == '0') : ?>
+                                                <li>
+                                                    Ada soal PILIHAN GANDA KOMPLEKS tapi tidak ada yang ditampilkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_pg2_tampil <> $bank->tampil_kompleks) : ?>
+                                                <li>
+                                                    Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($bank->digunakan > 0) : ?>
+                                                <li>
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_siswa > 0) : ?>
+                                                <li>
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
                                     </td>
                                 </tr>
                             </table>
@@ -360,7 +405,7 @@
                                 <?= form_open('', array('id' => 'select-pg2')) ?>
                                 <input type="hidden" name="id_bank" value="<?= $bank->id_bank ?>">
                                 <input type="hidden" name="jenis" value="2">
-                                <div class="d-sm-flex justify-content-between">
+                                <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-pg2-all m-1" id="all-pg2"
                                                type="checkbox">
@@ -382,17 +427,17 @@
                                         foreach ($soals_pg2 as $s) :
                                             $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
                                             <div class="rTableRow">
-                                                <div class="rTableCell align-top" style="width: 40px;">
+                                                <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-pg2 mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
                                                            value="<?= $s->id_soal ?>" <?= $checked ?>>
                                                 </div>
-                                                <div class="rTableCell align-top" style="width: 40px;">
-                                                    <div class="mt-2">
+                                                <div class="rTableCell align-top text-center" style="width: 40px;">
+                                                    <p class="mt-2">
                                                         <?= $s->nomor_soal ?>.
-                                                    </div>
+                                                    </p>
                                                 </div>
-                                                <div class="rTableCell">
+                                                <div class="rTableCell align-top">
                                                     <div class="mt-2">
                                                         <?= $s->soal ?>
                                                         <br>
@@ -414,7 +459,21 @@
                                                             <?php endfor; ?>
                                                         </ul>
                                                     <?php endif; ?>
-                                                    <div class="mb-2 mt-2">Jawaban: <b><?= strtoupper($jwb_pg2) ?></b></div>
+                                                    <div class="mb-2 mt-2">Jawaban: <b><?= strtoupper($jwb_pg2) ?></b>
+                                                    </div>
+                                                </div>
+                                                <div class="rTableCell text-right pt-2" style="width: 60px">
+                                                    <a href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?no=' . $s->nomor_soal . '&jns=2') ?>"
+                                                       type="button" class="btn btn-sm btn-default mb-2">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-default"
+                                                            type="button"
+                                                            data-idsoal="<?= $s->id_soal ?>"
+                                                            data-nomor="<?= $s->nomor_soal ?>"
+                                                            data-jenis="2"
+                                                            onclick="hapusSoal(this)" <?= $dis ?>>
+                                                        <i class="fa fa-trash"></i></button>
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
@@ -457,20 +516,35 @@
                                 <tr class="alert alert-default-danger">
                                     <td colspan="5" class="border-dark">
                                         Info :
-                                        <br>
-                                        <?php if ($total_jodohkan < $bank->tampil_jodohkan) : ?>
-                                            Soal MENJODOHKAN masih kurang, klik tombol <b>(<i class="fas fa-plus"></i>
-                                                Tambah/Edit Soal)</b>  untuk menambahkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_jodohkan > 0 && $bank->tampil_jodohkan == '0') : ?>
-                                            Ada soal MENJODOHKAN tapi tidakada yang ditampilkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_jodohkan_tampil <> $bank->tampil_jodohkan) : ?>
-                                            Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
-                                            <br>
-                                        <?php endif; ?>
+                                        <ul>
+                                            <?php if ($total_jodohkan < $bank->tampil_jodohkan) : ?>
+                                                <li>
+                                                    Soal MENJODOHKAN masih kurang, klik tombol
+                                                    <b>(<i class="fas fa-plus"></i>
+                                                        Tambah/Edit Soal)</b> untuk menambahkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_jodohkan > 0 && $bank->tampil_jodohkan == '0') : ?>
+                                                <li>
+                                                    Ada soal MENJODOHKAN tapi tidakada yang ditampilkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_jodohkan_tampil <> $bank->tampil_jodohkan) : ?>
+                                                <li>
+                                                    Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($bank->digunakan > 0) : ?>
+                                                <li>
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_siswa > 0) : ?>
+                                                <li>
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
                                     </td>
                                 </tr>
                             </table>
@@ -479,7 +553,7 @@
                                 <?= form_open('', array('id' => 'select-jodohkan')) ?>
                                 <input type="hidden" name="id_bank" value="<?= $bank->id_bank ?>">
                                 <input type="hidden" name="jenis" value="3">
-                                <div class="d-sm-flex justify-content-between">
+                                <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-jodohkan-all m-1"
                                                id="all-jodohkan" type="checkbox">
@@ -501,17 +575,17 @@
                                         foreach ($soals_jodohkan as $s) :
                                             $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
                                             <div class="rTableRow">
-                                                <div class="rTableCell align-top" style="width: 40px;">
+                                                <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-jodohkan mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
                                                            value="<?= $s->id_soal ?>" <?= $checked ?>>
                                                 </div>
-                                                <div class="rTableCell align-top" style="width: 40px;">
-                                                    <div class="mt-2">
+                                                <div class="rTableCell align-top text-center" style="width: 40px;">
+                                                    <p class="mt-2">
                                                         <?= $s->nomor_soal ?>.
-                                                    </div>
+                                                    </p>
                                                 </div>
-                                                <div class="rTableCell">
+                                                <div class="rTableCell align-top">
                                                     <div class="mt-2">
                                                         <?= $s->soal ?>
                                                         <br>
@@ -522,7 +596,7 @@
                                                     ?>
                                                     <div class="mb-2 mt-2"><b>Jawaban:</b></div>
                                                     <?php if (isset($jawaban['model']) && $jawaban['model'] == '1') : ?>
-                                                        <div class='list-jodohkan' data-nomor="<?=$s->nomor_soal?>" data-list='<?= json_encode($jawaban['jawaban']) ?>'>
+                                                        <div class='list-jodohkan' data-nomor="<?= $s->nomor_soal ?>" data-list='<?= json_encode($jawaban['jawaban']) ?>'>
                                                         </div>
                                                     <?php else : ?>
                                                         <table class="table table-bordered">
@@ -546,6 +620,19 @@
                                                                 <?php endif; endforeach; ?>
                                                         </table>
                                                     <?php endif; ?>
+                                                </div>
+                                                <div class="rTableCell text-right pt-2" style="width: 60px">
+                                                    <a href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?no=' . $s->nomor_soal . '&jns=3') ?>"
+                                                       type="button" class="btn btn-sm btn-default mb-2">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-default"
+                                                            type="button"
+                                                            data-idsoal="<?= $s->id_soal ?>"
+                                                            data-nomor="<?= $s->nomor_soal ?>"
+                                                            data-jenis="3"
+                                                            onclick="hapusSoal(this)" <?= $dis ?>>
+                                                        <i class="fa fa-trash"></i></button>
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
@@ -588,20 +675,35 @@
                                 <tr class="alert alert-default-danger">
                                     <td colspan="5" class="border-dark">
                                         Info :
-                                        <br>
-                                        <?php if ($total_isian < $bank->tampil_isian) : ?>
-                                            Soal ISIAN SINGKAT masih kurang, klik tombol <b>(<i class="fas fa-plus"></i>
-                                                Tambah/Edit Soal)</b>  untuk menambahkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_isian > 0 && $bank->tampil_isian == '0') : ?>
-                                            Ada soal ISIAN SINGKAT tapi tidak ada yang ditampilkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_isian_tampil <> $bank->tampil_isian) : ?>
-                                            Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
-                                            <br>
-                                        <?php endif; ?>
+                                        <ul>
+                                            <?php if ($total_isian < $bank->tampil_isian) : ?>
+                                                <li>
+                                                    Soal ISIAN SINGKAT masih kurang, klik tombol
+                                                    <b>(<i class="fas fa-plus"></i>
+                                                        Tambah/Edit Soal)</b> untuk menambahkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_isian > 0 && $bank->tampil_isian == '0') : ?>
+                                                <li>
+                                                    Ada soal ISIAN SINGKAT tapi tidak ada yang ditampilkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_isian_tampil <> $bank->tampil_isian) : ?>
+                                                <li>
+                                                    Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($bank->digunakan > 0) : ?>
+                                                <li>
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_siswa > 0) : ?>
+                                                <li>
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
                                     </td>
                                 </tr>
                             </table>
@@ -610,7 +712,7 @@
                                 <?= form_open('', array('id' => 'select-isian')) ?>
                                 <input type="hidden" name="id_bank" value="<?= $bank->id_bank ?>">
                                 <input type="hidden" name="jenis" value="1">
-                                <div class="d-sm-flex justify-content-between">
+                                <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-isian-all m-1"
                                                id="all-isian" type="checkbox">
@@ -632,17 +734,17 @@
                                         foreach ($soals_isian as $s) :
                                             $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
                                             <div class="rTableRow">
-                                                <div class="rTableCell align-top" style="width: 40px;">
+                                                <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-isian mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
                                                            value="<?= $s->id_soal ?>" <?= $checked ?>>
                                                 </div>
-                                                <div class="rTableCell align-top" style="width: 40px;">
-                                                    <div class="mt-2">
+                                                <div class="rTableCell align-top text-center" style="width: 40px;">
+                                                    <p class="mt-2">
                                                         <?= $s->nomor_soal ?>.
-                                                    </div>
+                                                    </p>
                                                 </div>
-                                                <div class="rTableCell">
+                                                <div class="rTableCell align-top">
                                                     <div class="mt-2">
                                                         <?= $s->soal ?>
                                                         <br>
@@ -650,6 +752,19 @@
                                                     <br>
                                                     <div class="mb-2 mt-2">Jawaban: <b><?= $s->jawaban ?></b>
                                                     </div>
+                                                </div>
+                                                <div class="rTableCell text-right pt-2" style="width: 60px">
+                                                    <a href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?no=' . $s->nomor_soal . '&jns=4') ?>"
+                                                       type="button" class="btn btn-sm btn-default mb-2">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-default"
+                                                            type="button"
+                                                            data-idsoal="<?= $s->id_soal ?>"
+                                                            data-nomor="<?= $s->nomor_soal ?>"
+                                                            data-jenis="4"
+                                                            onclick="hapusSoal(this)" <?= $dis ?>>
+                                                        <i class="fa fa-trash"></i></button>
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
@@ -692,20 +807,34 @@
                                 <tr class="alert alert-default-danger">
                                     <td colspan="5" class="border-dark">
                                         Info :
-                                        <br>
-                                        <?php if ($total_essai < $bank->tampil_esai) : ?>
-                                            Soal ESSAI masih kurang, klik tombol <b>(<i class="fas fa-plus"></i>
-                                                Tambah/Edit Soal)</b>  untuk menambahkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_essai > 0 && $bank->tampil_esai == '0') : ?>
-                                            Ada soal ESSAI tapi tidak ada yang ditampilkan.
-                                            <br>
-                                        <?php endif; ?>
-                                        <?php if ($total_essai_tampil <> $bank->tampil_esai) : ?>
-                                            Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
-                                            <br>
-                                        <?php endif; ?>
+                                        <ul>
+                                            <?php if ($total_essai < $bank->tampil_esai) : ?>
+                                                <li>
+                                                    Soal ESSAI masih kurang, klik tombol <b>(<i class="fas fa-plus"></i>
+                                                        Tambah/Edit Soal)</b> untuk menambahkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_essai > 0 && $bank->tampil_esai == '0') : ?>
+                                                <li>
+                                                    Ada soal ESSAI tapi tidak ada yang ditampilkan.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_essai_tampil <> $bank->tampil_esai) : ?>
+                                                <li>
+                                                    Jumlah soal yang ditampilkan tidak sama dengan jumlah seharusnya.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($bank->digunakan > 0) : ?>
+                                                <li>
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                            <?php if ($total_siswa > 0) : ?>
+                                                <li>
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
                                     </td>
                                 </tr>
                             </table>
@@ -714,9 +843,9 @@
                                 <?= form_open('', array('id' => 'select-essai')) ?>
                                 <input type="hidden" name="id_bank" value="<?= $bank->id_bank ?>">
                                 <input type="hidden" name="jenis" value="5">
-                                <div class="d-sm-flex justify-content-between">
+                                <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
-                                        <input style="width: 24px; height: 24px" class="check-essai-all" id="all-essai"
+                                        <input style="width: 24px; height: 24px" class="check-essai-all m-1" id="all-essai"
                                                type="checkbox">
                                         <label for="all-essai" class="align-middle">Pilih Semua Essai</label>
                                     </div>
@@ -736,17 +865,17 @@
                                         foreach ($soals_essai as $s) :
                                             $checked = $s->tampilkan == 1 ? 'checked' : '' ?>
                                             <div class="rTableRow">
-                                                <div class="rTableCell align-top" style="width: 40px;">
+                                                <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-essai mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
                                                            value="<?= $s->id_soal ?>" <?= $checked ?>>
                                                 </div>
-                                                <div class="rTableCell align-top" style="width: 40px;">
-                                                    <div class="mt-2">
+                                                <div class="rTableCell align-top text-center" style="width: 40px;">
+                                                    <p class="mt-2">
                                                         <?= $s->nomor_soal ?>.
-                                                    </div>
+                                                    </p>
                                                 </div>
-                                                <div class="rTableCell">
+                                                <div class="rTableCell align-top">
                                                     <div class="mt-2">
                                                         <?= $s->soal ?>
                                                         <br>
@@ -754,6 +883,19 @@
                                                     <br>
                                                     <div class="mb-2 mt-2">Jawaban: <b><?= $s->jawaban ?></b>
                                                     </div>
+                                                </div>
+                                                <div class="rTableCell text-right pt-2" style="width: 60px">
+                                                    <a href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?no=' . $s->nomor_soal . '&jns=5') ?>"
+                                                       type="button" class="btn btn-sm btn-default mb-2">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-default"
+                                                            type="button"
+                                                            data-idsoal="<?= $s->id_soal ?>"
+                                                            data-nomor="<?= $s->nomor_soal ?>"
+                                                            data-jenis="5"
+                                                            onclick="hapusSoal(this)" <?= $dis ?>>
+                                                        <i class="fa fa-trash"></i></button>
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
@@ -770,9 +912,7 @@
                     </div>
                 </div>
             </div>
-            <div id="temp-list">
-
-            </div>
+            <div id="temp-list"></div>
             <div id="for-export" class="d-none">
                 <p><b>I. Soal Pilihan Ganda</b></p>
                 <table class="table-soal"
@@ -1172,6 +1312,8 @@
     </section>
 </div>
 
+<?= form_open('', array('id' => 'up')) ?>
+<?= form_close() ?>
 <!--
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/jquery.wordexport.js"></script>
@@ -1185,6 +1327,7 @@
     var jmlJodohkanTampil = '<?=$bank->tampil_jodohkan?>';
     var jmlIsianTampil = '<?=$bank->tampil_isian?>';
     var jmlEssaiTampil = '<?=$bank->tampil_esai?>';
+    var arrJenis = ['', 'Pilihan Ganda', 'PG Kompleks', 'Menjodohkan', 'Isian Singkat', 'Uraian/Essai'];
 
     $(document).ready(function () {
         var $tableSoal = $('.table-soal');
@@ -1239,7 +1382,7 @@
         var $div_lists = $('.list-jodohkan');
         $.each($div_lists, function () {
             var noSoal = $(this).data('nomor');
-            $(this).html('<div class="bonds" id="graph'+noSoal+'" style="display:block;"></div>');
+            $(this).html('<div class="bonds" id="graph' + noSoal + '" style="display:block;"></div>');
         });
 
         $.each($div_lists, function () {
@@ -1259,18 +1402,18 @@
                 },
                 "Lists": [
                     {
-                        "name": "baris-kiri"+noSoal,
+                        "name": "baris-kiri" + noSoal,
                         "list": datas.jawaban[0]
                     },
                     {
-                        "name": "baris-kanan"+noSoal,
+                        "name": "baris-kanan" + noSoal,
                         "list": datas.jawaban[1],
                         //"mandatories": ["last_name", "email_adress"]
                     }
                 ],
                 "existingLinks": datas.linked
             };
-            var fields = $('#graph'+noSoal).fieldsLinker("init", inputs);
+            var fields = $('#graph' + noSoal).fieldsLinker("init", inputs);
             fields.fieldsLinker('disable');
             console.log('list', datas);
         });
@@ -1597,7 +1740,7 @@
             });
             canvas.remove();
         }
-    })
+    });
 
     function convertTableToList(num, array) {
         var kanan = array.shift();
@@ -1613,8 +1756,8 @@
             $.each(arv, function (t, v) {
                 if (v != '0') {
                     var po = {};
-                    po['kiri'] = 'kiri'+num+(n+1);
-                    po['kanan'] = 'kanan'+num+(t+1);
+                    po['kiri'] = 'kiri' + num + (n + 1);
+                    po['kanan'] = 'kanan' + num + (t + 1);
                     poss.push(po);
 
                     var it = {};
@@ -1629,5 +1772,49 @@
         item['linked'] = linked;
         item['pos'] = poss;
         return item;
+    };
+
+    function hapusSoal(btn) {
+        const id = $(btn).data('idsoal');
+        const no = $(btn).data('nomor');
+        const jn = $(btn).data('jenis');
+
+        swal.fire({
+            title: "HAPUS ?",
+            html: "Soal berikut akan dihapus<br>Nomor: <b>" + no + "</b><br>Jenis: <b>" + arrJenis[jn] + "</b>",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Hapus!"
+        }).then(result => {
+            if (result.value) {
+                $.ajax({
+                    url: base_url + "cbtbanksoal/hapussoal",
+                    method: "POST",
+                    data: $('#up').serialize() + '&soal_id=' + id,
+                    success: function (result) {
+                        console.log("result", result);
+                        var tit = result ? 'BERHASIL' : 'GAGAL';
+                        var msg = result ? 'berhasil' : 'gagal';
+                        var ic = result ? 'success' : 'error';
+                        swal.fire({
+                            title: tit,
+                            text: "Soal " + msg + " dihapus",
+                            icon: ic,
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                        }).then(result => {
+                            if (result.value) {
+                                window.location.reload();
+                            }
+                        });
+                    }, error: function (xhr, status, error) {
+                        console.log("error", xhr.responseText);
+                        showDangerToast('ERROR!!');
+                    }
+                });
+            }
+        })
     }
 </script>

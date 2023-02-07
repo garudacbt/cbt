@@ -227,9 +227,6 @@ foreach ($soal_ada as $key => $value) {
                         <button type="submit" class="btn btn-primary btn-sm mr-1">
                             <i class="fa fa-plus mr-1"></i>Simpan
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" id="hapus-soal">
-                            <i class="fa fa-trash mr-1"></i>Hapus
-                        </button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -454,6 +451,7 @@ foreach ($soal_ada as $key => $value) {
 <script src="<?= base_url() ?>/assets/app/js/mediastyler.js"></script>
 
 <script type="text/javascript">
+    var nomor_soal = '<?=$p_no?>';
     let soal_ada = '<?=is_null($soal) ? 'n' : 'y'?>';
     let idBank = '<?= $bank->id_bank ?>';
     let idSoal = '<?= is_null($soal) ? 0 : $soal->id_soal ?>';

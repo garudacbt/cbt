@@ -444,7 +444,7 @@ function hapusPost(idPost) {
                 type: "GET",
                 success: function (data) {
                     console.log("result", data);
-                    if (data.status) {
+                    if (data) {
                         swal.fire({
                             title: "Sukses",
                             text: "Pengumuman dihapus",

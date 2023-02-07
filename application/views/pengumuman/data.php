@@ -498,6 +498,7 @@
                                 showCancelButton: false,
                             }).then(result => {
                                 if (result.value) {
+                                    window.location.reload();
                                 }
                             });
                         } else {
