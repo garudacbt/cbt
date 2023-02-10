@@ -126,7 +126,7 @@
                     ?>
 
                     <div class="row">
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-6 col-md-8">
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item p-1"> Kode Bank Soal
                                     <span class="float-right"><b><?= $bank->bank_kode ?></b></span>
@@ -144,7 +144,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-3 col-md-4">
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item p-1"> Total Seharusnya
                                     <span class="float-right"><b><?= $total_soal_seharusnya_tampil ?></b></span>
@@ -155,12 +155,12 @@
                                 <li class="list-group-item p-1"> Total ditampilkan
                                     <span class="float-right"><b><?= $total_soal_tampil ?></b></span>
                                 </li>
-                                <li class="list-group-item p-1"> Keterangan
+                                <li class="list-group-item p-1"> Ket.
                                     <span class="float-right"><b><?= $status_soal ?></b></span>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-4 mt-2">
+                        <div class="col-lg-3 mt-2">
                             <div class="card">
                                 <div class="card-body text-center p-2 <?= $bg_color ?>">
                                     <b>Pembuatan Soal</b>
@@ -169,6 +169,15 @@
                                     <br>
                                     <span><?= $ket_soal ?></span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-1">
+                            <div class="alert alert-default-info">
+                                Jika keteragan pembuatan soal sudah <b>SELESAI</b> tapi tidak muncul di akun siswa, klik tombol
+                                <span class="badge badge-btn badge-primary">
+                                <i class="fa fa-save"></i> <span class="d-none d-md-inline-block ml-1">Simpan Soal Terpilih</span>
+                            </span>
+                                di bawah
                             </div>
                         </div>
                     </div>

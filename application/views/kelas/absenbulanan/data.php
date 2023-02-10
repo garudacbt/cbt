@@ -24,9 +24,9 @@
 				<div class="card-header">
 					<h6 class="card-title"><?= $subjudul ?></h6>
 					<div class="card-tools">
-						<a type="button" href="<?= base_url('kelasabsen') ?>" class="btn btn-sm btn-default">
+						<button type="button" id="reload-page" class="btn btn-sm btn-default">
 							<i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
-						</a>
+						</button>
 						<div class="btn-group">
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Print" onclick="print()">
@@ -141,7 +141,7 @@
 
     function createTable(data) {
         docTitle = '';
-        console.log('response',data);
+        //console.log('response',data);
         if (data.jadwal == null) {
             $('#konten-absensi').html('<p>tidak ada jadwal pelajaran</p>');
             $('#loading').addClass('d-none');
@@ -383,11 +383,11 @@
 		bln = selBulan.val();
 		thn = selTahun.val();
 
-		function reload(mapel, kls, bln, thn) {
-			//console.log(bln, thn, kls);
+		function reload(mapel, kls, bln, thn, force) {
 			var empty = bln==='' || thn==='' || kls==='';
 			var newData = '&thn='+thn+'&bln='+bln+'&kelas='+kls+'&mapel='+mapel;
-			if (!empty && oldData !== newData) {
+			var f = force ? true : oldData !== newData;
+			if (!empty && f) {
 				oldData = newData;
 				$('#loading').removeClass('d-none');
 				setTimeout(function() {
@@ -409,24 +409,28 @@
 		}
 
 		selMapel.on('change', function () {
-			reload($(this).val(), selKelas.val(), selBulan.val(), selTahun.val());
+			reload($(this).val(), selKelas.val(), selBulan.val(), selTahun.val(), false);
 		});
 
 		selKelas.change(function(){
-			reload(selMapel.val(), $(this).val(), selBulan.val(), selTahun.val());
+			reload(selMapel.val(), $(this).val(), selBulan.val(), selTahun.val(), false);
 		});
 
 		selBulan.change(function(){
 			bln = $(this).val();
-			reload(selMapel.val(), selKelas.val(), $(this).val(), selTahun.val());
+			reload(selMapel.val(), selKelas.val(), $(this).val(), selTahun.val(), false);
 		});
 
 		selTahun.change(function(){
 			thn = $(this).val();
-			reload(selMapel.val(), selKelas.val(), selBulan.val(), $(this).val());
+			reload(selMapel.val(), selKelas.val(), selBulan.val(), $(this).val(), false);
 		});
 
-		reload(selMapel.val(), selKelas.val(), selBulan.val(), selTahun.val());
+		reload(selMapel.val(), selKelas.val(), selBulan.val(), selTahun.val(), false);
+
+		$('#reload-page').click(function() {
+		    reload(selMapel.val(), selKelas.val(), selBulan.val(), selTahun.val(), true);
+        })
 	});
 
 	function terlambat(value, jadwal) {

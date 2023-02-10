@@ -27,7 +27,8 @@
                                     $foto = 'assets/img/siswa.jpg';
                                 }
                                 ?>
-                                <img src="<?= base_url().$foto ?>"
+                                <img onerror="this.src='<?=base_url('assets/img/siswa.png')?>'"
+                                        src="<?= base_url().$foto ?>"
                                      class="img-circle profile-avatar mt-2" alt="User avatar">
                                 <h4 class="mt-5"><?= $guru->nama_guru ?></h4>
                                 <h5 class="mb-5"><?= $guru->level . ' ' . $guru->nama_kelas ?></h5>

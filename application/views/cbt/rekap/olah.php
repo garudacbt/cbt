@@ -81,17 +81,6 @@ function decimalFixed($num) {
                     <hr>
                     <?php
                     if (isset($rekap) && $kelas) :
-                        //echo '<pre>';
-                        //var_dump($rekap);
-                        //echo var_export($rekap, true);
-                        //echo '<br>';
-                        //echo var_export($info, true);
-                        //echo var_export(unserialize_with_key($infos[0]->jawaban_pg), true);
-                        //$soal_pgs = unserialize($siswas[39]->nilai[4]->soal_pg);
-                        //var_dump($siswas[0]);
-                        //var_dump($info->jawaban_pg);
-                        //echo '</pre>';
-
                         $colWidth = '5,15,35';
                         for ($s = 0; $s < $rekap->tampil_pg; $s++) {
                             $colWidth .= ',4';
@@ -164,7 +153,6 @@ function decimalFixed($num) {
                                     <?php if (isset($siswas)) :
                                         $soal_pgs = $rekap->jawaban_pg;
                                         ?>
-
                                         <tr>
                                             <th rowspan="2" class="text-center align-middle bg-blue" width="40"
                                                 data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"

@@ -40,6 +40,24 @@ if (empty($kelas_pilih)) {
 	}
 }
 
+function formatBytes($bytes, $precision = 2) {
+    if ($bytes >= 1073741824) {
+        $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+    } elseif ($bytes >= 1048576) {
+        $bytes = number_format($bytes / 1048576, 2) . ' MB';
+    } elseif ($bytes >= 1024) {
+        $bytes = number_format($bytes / 1024, 2) . ' KB';
+    } elseif ($bytes > 1) {
+        $bytes = $bytes . ' bytes';
+    } elseif ($bytes == 1) {
+        $bytes = $bytes . ' byte';
+    } else {
+        $bytes = '0 bytes';
+    }
+    return $bytes;
+}
+// edit ukaran file jika diperlukan
+$max_size = 2048; // KB
 ?>
 
 <div class="content-wrapper bg-white pt-4">
@@ -128,7 +146,7 @@ if (empty($kelas_pilih)) {
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                         <input name="file_uploads" type="file" id="picupload"
 											   class="picupload">
-                                        <input type="hidden" name="max-size" value="2048">
+                                        <input type="hidden" name="max-size" value="<?=$max_size?>">
                                     </span>
 								</li>
 							</ul>
@@ -136,7 +154,44 @@ if (empty($kelas_pilih)) {
                         <?= form_close(); ?>
 					</div>
 					<div class="card-footer">
-						Info:
+                        File yang bisa ditambahkan:
+                        <table class="ml-4">
+                            <tr>
+                                <td>Gambar</td>
+                                <td> :</td>
+                                <td>jpg, png, bmp, gif</td>
+                            </tr>
+                            <tr>
+                                <td>Video</td>
+                                <td> :</td>
+                                <td>mp4, avi, mpeg</td>
+                            </tr>
+                            <tr>
+                                <td>Suara</td>
+                                <td> :</td>
+                                <td>mp3, wav</td>
+                            </tr>
+                            <tr>
+                                <td>Dokumen</td>
+                                <td> :</td>
+                                <td>pdf, word, excel, power point</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <ul>
+                            <li>
+                                Ukuran file maksimal = <?=formatBytes($max_size*1024)?> (<?=$max_size?> KB)
+                            </li>
+                            <?php if ($this->ion_auth->is_admin()) : ?>
+                            <li>
+                                Ukuran file bisa dirubah dengan mengedit file <i>/application/views/kelas/materi/add.php</i> baris kode ke 60
+                            </li>
+                            <?php else: ?>
+                                <li>
+                                    Hubungi admin jika tidak bisa menambahkan file ukuran besar
+                                </li>
+                            <?php endif; ?>
+                        </ul>
 					</div>
 					<div class="overlay d-none"><i class="fas fa-2x fa-sync-alt fa-spin mr-4"></i> Memuat file ...</div>
 				</div>
@@ -575,13 +630,12 @@ if (empty($kelas_pilih)) {
 		}
 
         $(".remove-pic").click(function(){
-            console.log("First Way: " + $(this).data('id'));
-            //$(this).parent().parent().parent().remove();
+            $(this).parent().parent().parent().remove();
             var elm = $(this).parent().parent().parent();
             var removeItem = $(this).data('id');
             for (var i = 0; i < dataFiles.length; i++) {
                 var cur = dataFiles[i];
-                if (cur.name === removeItem) {
+                if (cur.name == removeItem) {
                     //dataFiles.splice(i, 1);
                     deleteImage(i, elm, cur.src);
                     break;

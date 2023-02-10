@@ -35,10 +35,6 @@
                 </div>
                 <div class="card-body">
                     <?php
-                    //echo '<pre>';
-                    //echo var_export($kelas);
-                    //echo '<br>';
-                    //echo '</pre>';
                     if (count($rekaps) === 0) : ?>
                         <?php if (!isset($tp_active) || !isset($smt_active)) : ?>
                             <div class="col-12">
@@ -64,7 +60,7 @@
                                     echo form_dropdown(
                                         'tahun',
                                         $tahuns,
-                                        null,
+                                        isset($tp_active) ? $tp_active->tahun : '',
                                         'id="opsi-tahun" class="form-control"'
                                     ); ?>
                                 </div>
@@ -78,7 +74,7 @@
                                     echo form_dropdown(
                                         'smt',
                                         $semester,
-                                        null,
+                                        isset($smt_active) ? $smt_active->nama_smt : '',
                                         'id="opsi-semester" class="form-control"'
                                     ); ?>
                                 </div>
@@ -135,14 +131,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="for-export">
-                            <!--
-                            <p id="title-table" style="text-align: center;font-weight: bold;"></p>
-                            <p id="title-mapel" style="text-align: center;font-weight: bold;"></p>
-                            -->
-                            <table class="table" id="table-status" style="font-size: 11pt; width: 100%;" data-cols-width="5,15,35,10">
+                        <div id="for-word" class="table-responsive">
+                            <br>
+                            <table class="table" id="preview" style="font-size: 11pt; width: 100%;">
                             </table>
                         </div>
+                        <table class="table d-none" id="table-status" style="font-size: 11pt; width: 100%;" data-cols-width="5,15,35,10">
+                        </table>
                     <?php endif; ?>
                 </div>
                 <div class="overlay d-none" id="loading">
@@ -164,7 +159,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label for="nama_sesi" class="col-md-4 col-form-label">Nilai Tertinggi</label>
+                    <label class="col-md-4 col-form-label">Nilai Tertinggi</label>
                     <div class="col-md-8">
                         <input type="text" id="ya" class="form-control" name="ya" value="100"
                                placeholder="Nilai tertinggi yang diinginkan" required>
@@ -172,11 +167,17 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kode_sesi" class="col-md-4 col-form-label">Nilai Terrendah</label>
+                    <label class="col-md-4 col-form-label">Nilai Terrendah</label>
                     <div class="col-md-8">
                         <input type="text" id="yb" class="form-control" name="yb" value="60"
                                placeholder="Nilai terrendah yang diinginkan" required>
                         <small>diisi nilai puluhan dibawah nilai tertinggi, misal 60</small>
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-4 col-form-label">KKM</label>
+                    <div class="col-md-8">
+                        <input type="text" id="kkm" class="form-control" name="kkm" value="70" placeholder="KKM" required>
                     </div>
                 </div>
             </div>
@@ -193,7 +194,8 @@
 <?= form_close(); ?>
 
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/jquery.wordexport.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
+<script src="<?= base_url() ?>/assets/app/js/convert-area.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
@@ -206,7 +208,9 @@
     var nilai_max = 100;//nilai siswa terbesar
     var nilai_min = 0;//nilai siswa terkecil
     var hasil_max = 100;//batas nilai terbesar
-    var hasil_min = 20;//batas nilai terkecil
+    var hasil_min = 60;//batas nilai terkecil
+    var kkm = 70;
+    var orientation = 'potrait';
 
     var jeniss = <?= json_encode($jenis) ?>;
     var kelass = <?= json_encode($kelas) ?>;
@@ -240,7 +244,95 @@
         var rows = arrMapel.length > 1 ? '2' : '1';
         var namaMpl = arrMapel.length > 1 ? '' : arrMapel[0].nama_mapel;
 
-        var tbody = ' <tr>' +
+        var tinfo =  '<table><tr>' +
+            '     <td colspan="2" style="width: 120px">Jenis Ujian</td>' +
+            '     <td colspan="5">: '+$("#jenis option:selected").text()+'</td>' +
+            ' </tr>' +
+            ' <tr>' +
+            '     <td colspan="2">Mata Pelajaran</td>' +
+            '     <td colspan="5">: '+mpl+'</td>' +
+            ' </tr>' +
+            ' <tr>' +
+            '     <td colspan="2">Kelas</td>' +
+            '     <td colspan="5">: '+$("#kelas option:selected").text()+'</td>' +
+            ' </tr>' +
+            ' <tr></tr></table>';
+        $('#for-word').prepend(tinfo);
+
+        var thead = '<tr>' +
+            '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="width:40px; border: 1px solid black;border-collapse: collapse; text-align: center;font-weight: bold;background-color: lightgrey;">No.</th>'+
+            '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">No. Peserta</th>' +
+            '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nama</th>';
+
+        if (rows > 1) {
+            thead +='<th colspan="'+arrMapel.length+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nilai</th>' +
+                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Jumlah</th>' +
+                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Rata-rata</th>' +
+                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Rank</th>' +
+                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Ket.</th>' +
+                '</tr>';
+        } else {
+            thead +='<th colspan="'+arrMapel.length+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nilai</th>' +
+                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Ket.</th>' +
+                '</tr>';
+        }
+
+        if (arrMapel.length > 1) {
+            thead += '<tr class="head">';
+            for (let m = 0; m < arrMapel.length; m++) {
+                thead += '<th class="p-1 text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">'+arrMapel[m].kode+'</th>';
+            }
+            thead += '</tr>';
+        }
+
+        var tbody = '';
+        var nos = 1;
+        $.each(data.siswa, function (ind, v) {
+            //var disabled = mulai.includes('-') ? 'disabled' : '';
+            var jumlahNilai = 0;
+            var i = v.id_siswa;
+            tbody += '<tr>' +
+                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">'+nos+'</td>' +
+                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">'+v.nomor_peserta+'</td>' +
+                '<td data-a-v="middle" data-a-h="left" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;">'+v.nama+'</td>';
+            $.each(arrMapel, function (key, val) {
+                var nn = data.nilai[i][val.id_mapel];
+                var nilaiPg = nn == null ? 0 : parseFloat(nn.nilai_pg);
+                var nilaiPg2 = nn == null ? 0 : parseFloat(nn.soal_kompleks.nilai);
+                var nilaiJod = nn == null ? 0 : parseFloat(nn.soal_jodohkan.nilai);
+                var nilaiIs = nn == null ? 0 : parseFloat(nn.soal_isian.nilai);
+                var nilaiEs = nn == null ? 0 : parseFloat(nn.soal_essai.nilai);
+                var skor = nilaiPg + nilaiPg2 + nilaiJod + nilaiIs + nilaiEs;
+                if (convert) {
+                    if (skor > 0)
+                        skor = (((hasil_max - hasil_min) / 100)* decimalFixed(skor)) + hasil_min;
+                } else {
+                    if (decimalFixed(skor) > nilai_max) {
+                        nilai_max = decimalFixed(skor);
+                    }
+                    if (decimalFixed(skor) < nilai_max) {
+                        nilai_min = decimalFixed(skor);
+                    }
+                }
+                jumlahNilai += decimalFixed(skor);
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" class="text-success" style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b>'+ decimalFixed(skor) +'</b></td>';
+            });
+
+            var rata2 = decimalFixed(jumlahNilai / arrMapel.length);
+            var ketNilai = rata2 == kkm ? 'Tercapai' : (rata2 > kkm ? 'Terlampaui' : 'Remidi');
+            if (arrMapel.length > 1) {
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">'+decimalFixed(jumlahNilai)+'</td>';
+                tbody += '<td class="total" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"><b>'+decimalFixed(jumlahNilai / arrMapel.length)+'</b></td>';
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"></td>';
+            }
+            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">'+ketNilai+'</td>';
+            tbody += '</tr>';
+            nos +=1;
+        });
+
+        $('#preview').html('<thead>'+thead+'</thead>'+tbody);
+
+        var texcel = ' <tr>' +
             '     <td colspan="2" style="width: 120px">Jenis Ujian</td>' +
             '     <td colspan="5">:'+$("#jenis option:selected").text()+'</td>' +
             ' </tr>' +
@@ -252,61 +344,10 @@
             '     <td colspan="2">Kelas</td>' +
             '     <td colspan="5">:'+$("#kelas option:selected").text()+'</td>' +
             ' </tr>' +
-            ' <tr></tr>' +
-            '<tr>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="width:40px; border: 1px solid black;border-collapse: collapse; text-align: center;font-weight: bold;">No.</th>'+
-            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">No. Peserta</th>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Nama</th>' +
-            '<th colspan="'+arrMapel.length+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Skor</th>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Jumlah</th>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Rata-rata</th>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">Rank</th>' +
-            '</tr>';
+            ' <tr></tr>';
+        texcel += thead + tbody;
 
-        if (arrMapel.length > 1) {
-            tbody += '<tr>';
-            for (let m = 0; m < arrMapel.length; m++) {
-                tbody += '<th class="p-1 text-center align-middle bg-blue" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;">'+arrMapel[m].kode+'</th>';
-            }
-            tbody += '</tr>';
-        }
-
-        var nos = 1;
-        $.each(data.siswa, function (i, v) {
-            //var disabled = mulai.includes('-') ? 'disabled' : '';
-            var jumlahNilai = 0;
-            tbody += '<tr>' +
-                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">'+nos+'</td>' +
-                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">'+v[0].nomor_peserta+'</td>' +
-                '<td data-a-v="middle" data-a-h="left" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;">'+v[0].nama+'</td>';
-            $.each(arrMapel, function (key, val) {
-                var nn = data.nilai[i][val.id_mapel];
-                var skor = nn == null ? '0' : data.nilai[i][val.id_mapel].nilai_pg;
-                var nilai_pg = skor;
-                if (convert) {
-                    nilai_pg = (((hasil_max - hasil_min) / 100)* decimalFixed(skor)) + hasil_min;
-                } else {
-                    nilai_pg = skor;
-                    if (decimalFixed(skor) > nilai_max) {
-                        nilai_max = decimalFixed(skor);
-                    }
-                    if (decimalFixed(skor) < nilai_max) {
-                        nilai_min = decimalFixed(skor);
-                    }
-                }
-                jumlahNilai += decimalFixed(nilai_pg);
-                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" class="text-success" style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b>'+ decimalFixed(nilai_pg) +'</b></td>';
-            });
-
-            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">'+decimalFixed(jumlahNilai)+'</td>';
-            tbody += '<td class="total" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"><b>'+decimalFixed(jumlahNilai / arrMapel.length)+'</b></td>';
-            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"></td>';
-            tbody += '</tr>';
-            nos +=1;
-        });
-
-        //tbody += '</tbody>';
-        $('#table-status').html(tbody);
+        $('#table-status').html(texcel);
         $('#info').removeClass('d-none');
         $('#loading').addClass('d-none');
 
@@ -319,7 +360,8 @@
                 $('.total').filter(function() {return $(this).text() == v;}).next().text(i + 1);
             });
 
-        console.log(nilai_max, nilai_min);
+        //console.log(nilai_max, nilai_min);
+        orientation = rows > 1 ? 'landscape' : 'potrait';
     }
 
     function refreshStatus() {
@@ -423,8 +465,16 @@
         });
 
         $("#download-word").click(function (event) {
-            $("#for-export").wordExport(`REKAP NILAI ${$("#jenis option:selected").text()} ${kodeMapel} ` +
-                `Kls_${$("#kelas option:selected").text()} ${$("#opsi-tahun option:selected").text()} ${$("#opsi-semester option:selected").text()}`);
+            event.preventDefault();
+            var contentDocument = $('#for-word').convertToHtmlFile('detail', '');
+            var content = '<!DOCTYPE html>' + contentDocument.documentElement.outerHTML;
+            var converted = htmlDocx.asBlob(content, {
+                orientation: orientation,
+                size: 'A4',
+                margins: {top: 700, bottom: 700, left: 1000, right: 1000}
+            });
+            saveAs(converted, `REKAP NILAI ${$("#jenis option:selected").text()} ${kodeMapel} ` +
+                `Kls_${$("#kelas option:selected").text()} ${$("#opsi-tahun option:selected").text()} ${$("#opsi-semester option:selected").text()}.docx`);
         });
 
         $("#download-excel").click(function (event) {
@@ -440,7 +490,7 @@
         $('#perbaikanModal').on('show.bs.modal', function (e) {
             $('#ya').val(hasil_max);
             $('#yb').val(hasil_min);
-            //console.log('show dialog');
+            $('#kkm').val(kkm);
         });
 
         $('#btn-convert').click(function (e) {
@@ -448,6 +498,7 @@
             hasil_min = parseInt($('#yb').val());
             //console.log(hasil_max, hasil_min);
             //console.log(nilai_max, nilai_min);
+            kkm = parseInt($('#kkm').val());
 
             $('#perbaikanModal').modal('hide').data('bs.modal', null);
             $('#perbaikanModal').on('hidden', function () {

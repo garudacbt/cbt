@@ -56,7 +56,9 @@ function sortByPosition($a, $b) {
                                 <div class="card flex-fill">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="media mb-3">
-                                            <img class="d-flex mr-3 rounded-circle img-thumbnail thumb-lg avatar" src="<?=$guru->foto !=null ? base_url($guru->foto) : base_url('assets/img/siswa.png')?>" alt="foto" />
+                                            <img class="d-flex mr-3 rounded-circle img-thumbnail thumb-lg"
+                                                 onerror="this.src='<?=base_url('assets/img/siswa.png')?>'"
+                                                 src="<?=base_url($guru->foto)?>" alt="foto" />
                                             <div class="media-body overflow-hidden">
                                                 <p class="card-text mb-0 text-xs"><?=$guru->nip?></p>
                                                 <h6 class="card-text mb-0"><?=$guru->nama_guru?></h6>
@@ -215,12 +217,14 @@ function sortByPosition($a, $b) {
             }
         });
     }
-
+    /*
     $(document).ready(function () {
-        $(`.avatar`).each(function () {
+        $(`img.avatar`).each(function () {
             $(this).on("error", function () {
-                $(this).attr("src", base_url + 'assets/img/siswa.png'); // default foto
+                console.log('foto', $(this).attr('src'));
+                $(this).attr("src", base_url + '/assets/img/siswa.png'); // default foto
             });
         });
     });
+    */
 </script>

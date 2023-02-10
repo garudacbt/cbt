@@ -37,14 +37,14 @@
                                 RUNNING TEXT akan muncul di bagian bawah layar siswa.
                             </div>
 
-                            <table id="tb-text" class="table table-bordered mb-2">
+                            <table id="tb-text" class="table mb-2 table-bordered">
                                 <?php
                                 for ($i=0;$i<5;$i++) :
                                 $text = isset($running_text[$i]) ? $running_text[$i]->text : '';
                                     ?>
                                     <tr>
-                                        <td width="30" class="text-sm border-secondary text-center"><?= $i+1 ?></td>
-                                        <td class="text-sm border-secondary editable"><?= $text ?></td>
+                                        <td width="30" class="text-sm text-center"><?= $i+1 ?></td>
+                                        <td class="text-sm editable"><?= $text ?></td>
                                     </tr>
                                 <?php endfor; ?>
                             </table>
@@ -851,6 +851,6 @@
                 }
             });
         });
-        //loadListText();
+
     })
 </script>

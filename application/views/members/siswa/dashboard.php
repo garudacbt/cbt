@@ -130,7 +130,7 @@
                                 <?php endif; ?>
                             <?php else:?>
                                 <p>
-                                    Jadwal untuk kelas <?= $kelas ?> belum dibuat
+                                    Jadwal untuk kelas <?= $siswa->nama_kelas ?> belum dibuat
                                 </p>
                             <?php endif; ?>
                         </div>

@@ -25,7 +25,7 @@
 				<div class="card-header">
 					<h6 class="card-title"><?= $subjudul ?></h6>
 					<div class="card-tools">
-						<a type="button" href="<?= base_url('kelasstatus') ?>" class="btn btn-sm btn-default">
+						<a type="button" href="<?= base_url('kelasnilai') ?>" class="btn btn-sm btn-default">
 							<i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
 						</a>
                         <div class="btn-group">

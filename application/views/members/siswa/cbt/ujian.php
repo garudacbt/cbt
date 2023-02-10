@@ -247,6 +247,15 @@
     let h,m,s;
     var message = "Jangan menggunakan klik kanan!";
 
+    let tick = 0;
+    const _second = 1000,
+        _minute = _second * 60,
+        _hour = _minute * 60,
+        _day = _hour * 24;
+    const durasiUjian = Number(infoJadwal.durasi_ujian);
+    let dif;
+    let timerOut;
+
     $(document).ready(function () {
         $(document).keydown(function (event) {
             //console.log('press', event.keyCode);
@@ -586,6 +595,7 @@
         s = Number(el[2]);
 
         var mulai = durasi.mulai == null || durasi.mulai == '0' ? new Date(): new Date(durasi.mulai);
+        /*
         const now = getMinutes(mulai);
 
         var mnt = Number(infoJadwal.durasi_ujian);
@@ -594,17 +604,84 @@
         if (scn > 0) {
             mnt = mnt -1;
         }
-        /*
-        var wt = elapsed.split(':');
-        mnt = mnt - Number(wt[1]);
-        var scn = 60 - Number(wt[2]);
-        if (scn > 0) {
-            mnt = mnt -1;
-        }
-        */
         setTimer(0, mnt, scn);
+        */
+
+        let dateStart = new Date(mulai);
+        let datenow = new Date();
+        dif = datenow - dateStart;
+        tick = 0;
+        startCountDown();
     }
 
+    function startCountDown() {
+        var now = new Date();
+        var end = new Date();
+        end.setMinutes(end.getMinutes() + durasiUjian);
+        end.setSeconds(end.getSeconds() - tick);
+
+        let distance = end - +now;
+        distance = distance - dif;
+        let days = Math.floor(distance / _day),
+            hours = Math.floor((distance % _day) / _hour),
+            minutes = Math.floor((distance % _hour) / _minute),
+            seconds = Math.floor((distance % _minute) / _second);
+
+        if (days < 10) days = '0' + days;
+        if (hours < 10) hours = '0' + hours;
+        if (minutes < 10) minutes = '0' + minutes;
+        if (seconds < 10) seconds = '0' + seconds;
+
+        if (distance <= 0) {
+            $('#timer').html('WAKTU SUDAH HABIS');
+            $('#prev').attr('disabled', 'disabled');
+            $('#next').attr('disabled', 'disabled');
+
+            var siswa = $('#up').find('input[name="siswa"]').val();
+            var bank = $('#up').find('input[name="bank"]').val();
+            var jadwal = $('#up').find('input[name="jadwal"]').val();
+
+            console.log('jwb', jsonJawaban);
+
+            $.ajax({
+                url: base_url + 'siswa/savejawaban',
+                method: 'POST',
+                data: $('#jawab').serialize() + '&jadwal=' + jadwal + '&siswa=' + siswa + '&bank=' + bank +
+                    '&waktu='+$('#timer').text()+'&elapsed='+elapsed + '&data=' + JSON.stringify(jsonJawaban),
+                success: function (response) {
+                    $('.konten-soal-jawab').html('');
+                    dialogWaktu();
+                },
+                error: function (xhr, error, status) {
+                    console.log(xhr.responseText);
+                }
+            });
+        } else {
+            $('#timer').html(hours + ':' + minutes + ':' + seconds);
+            if (timerOut) {
+                clearTimeout(timerOut);
+                timerOut = null;
+            }
+            tick ++;
+            getElapsedTimer();
+            timerOut = setTimeout(startCountDown, 1000);
+        }
+    }
+
+    function getElapsedTimer() {
+        s++;
+        if (s > 59) {
+            s = 0;
+            m ++;
+        }
+        if (m > 59) {
+            m = 0;
+            h ++;
+        }
+        elapsed = (h < 10 ? '0'+h : h) + ":" + (m < 10 ? '0'+m : m) + ":" + (s < 10 ? '0'+s : s);
+    }
+
+    /*
     function setTimer(jam, menit, detik) {
         if (timer) {
             clearInterval(timer);
@@ -639,19 +716,7 @@
             }
         });
     }
-
-    function getElapsedTimer() {
-        s++;
-        if (s > 59) {
-            s = 0;
-            m ++;
-        }
-        if (m > 59) {
-            m = 0;
-            h ++;
-        }
-        elapsed = (h < 10 ? '0'+h : h) + ":" + (m < 10 ? '0'+m : m) + ":" + (s < 10 ? '0'+s : s);
-    }
+    */
 
     function nextSoal() {
         $('#next').attr('disabled', 'disabled');

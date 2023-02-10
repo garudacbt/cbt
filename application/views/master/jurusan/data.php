@@ -17,7 +17,7 @@
 						<h6><?=$subjudul?></h6>
 					</div>
 					<div class="card-tools">
-						<button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default"><i
+						<button type="button" onclick="window.location.reload()" class="btn btn-sm btn-default"><i
 								class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
 						</button>
 						<button type="button" data-toggle="modal" data-target="#createJurusanModal" class="btn btn-sm btn-primary"><i

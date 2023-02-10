@@ -56,10 +56,6 @@ function my_array_unique($array, $keep_key_assoc = false)
                     <div class="row" id="konten">
                         <?php
                         $rekaps = my_array_unique($rekaps);
-                        //echo '<pre>';
-                        //echo var_export($koreksi[51]);
-                        //echo '<br>';
-                        //echo '</pre>';
 
                         if (count($rekaps) === 0) : ?>
                             <?php if (!isset($tp_active) || !isset($smt_active)) : ?>
@@ -346,6 +342,8 @@ function my_array_unique($array, $keep_key_assoc = false)
                 type: "POST",
                 success: function (respon) {
                     console.log(respon);
+                    window.location.href = base_url + 'cbtrekap';
+                    /*
                     if (respon.rekap && respon.nilai > 0) {
                         swal.fire({
                             title: "Berhasil",
@@ -363,6 +361,7 @@ function my_array_unique($array, $keep_key_assoc = false)
                             icon: "error"
                         });
                     }
+                    */
                 },
                 error: function () {
                     swal.fire({
@@ -384,12 +383,14 @@ function my_array_unique($array, $keep_key_assoc = false)
                 success: function (data) {
                     //$('#loading-atas').addClass('d-none');
                     console.log(data);
+                    window.location.href = base_url + 'cbtrekap'
+                    /*
                     if (data.rekap && data.nilai > 0) {
-                        window.location.href = base_url + 'cbtrekap'
                     } else {
                         $('#loading-atas').addClass('d-none');
                         showDangerToast(data.message);
                     }
+                    */
                 }, error: function (xhr, status, error) {
                     $('#loading-atas').addClass('d-none');
                     console.log(xhr.responseText);
@@ -402,7 +403,7 @@ function my_array_unique($array, $keep_key_assoc = false)
     $(document).ready(function () {
         ajaxcsrf();
 
-        $("#flashdata").fadeTo(5000, 500).slideUp(500, function () {
+        $("#flashdata").fadeTo(8000, 500).slideUp(500, function () {
             $("#flashdata").slideUp(500);
         });
 
