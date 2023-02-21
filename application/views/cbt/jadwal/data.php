@@ -99,6 +99,9 @@ if (isset($jadwal_ujian)) {
             ?>
             <div id="konten-jadwal">
                 <?php
+                //echo '<pre>';
+                //var_dump($jadwals);
+                //echo '</pre>';
                 if ($mode == '1') :
                     foreach ($jadwals as $title => $arrjadwal) :
                         ?>

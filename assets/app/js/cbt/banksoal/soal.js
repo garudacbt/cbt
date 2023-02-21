@@ -680,22 +680,20 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                     var sSoal = $($.parseHTML(checkSoal));
                     sSoal.find(`img`).each(function () {
                         var curSrc = $(this).attr('src');
-                        curSrc.replace(base_url, '');
-                        if (curSrc.indexOf("http") === -1) {// && curSrc.indexOf("base64") === -1) {
-                            //$(this).attr('src', base_url+curSrc);
-                        } else if (curSrc.indexOf(base_url) === -1) {
+                        console.log('src', curSrc);
+                        if (curSrc.indexOf("base64") > 0) {
+                        } else {
                             var pathUpload = 'uploads';
                             var forReplace = curSrc.split(pathUpload);
                             $(this).attr('src', base_url + pathUpload + forReplace[1]);
+                            console.log('src', base_url + pathUpload + forReplace[1]);
                         }
                     });
 
                     sSoal.find(`video`).each(function () {
                         var curSrc = $(this).attr('src');
-                        curSrc.replace(base_url, '');
-                        if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                            $(this).attr('src', base_url+curSrc);
-                        } else if (curSrc.indexOf(base_url) === -1) {
+                        if (curSrc.indexOf("base64") > 0) {
+                        } else {
                             var pathUpload = 'uploads';
                             var forReplace = curSrc.split(pathUpload);
                             $(this).attr('src', base_url + pathUpload + forReplace[1]);
@@ -704,10 +702,8 @@ function getSoalById(id_bank, number, id, jenis_soal) {
 
                     sSoal.find(`audio`).each(function () {
                         var curSrc = $(this).attr('src');
-                        curSrc.replace(base_url, '');
-                        if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                            $(this).attr('src', base_url+curSrc);
-                        } else if (curSrc.indexOf(base_url) === -1) {
+                        if (curSrc.indexOf("base64") > 0) {
+                        } else {
                             var pathUpload = 'uploads';
                             var forReplace = curSrc.split(pathUpload);
                             $(this).attr('src', base_url + pathUpload + forReplace[1]);
@@ -723,28 +719,6 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                         $.each(arrJawaban, function (i, item) {
                             var chekJawaban = arrJawaban[i] == null ? '' : arrJawaban[i];
                             var sJawabPg = $($.parseHTML(chekJawaban));
-                            sJawabPg.find(`img`).each(function () {
-                                var curSrc = $(this).attr('src').replaceAll(base_url, '');
-                                console.log('img', curSrc);
-                                if (curSrc.indexOf("http") === -1 || curSrc.indexOf("data:image") === -1) {
-                                    console.log('no http',);
-                                    $(this).attr('src', base_url + curSrc);
-                                    /*
-                                    if (curSrc.indexOf(base_url) === -1) {
-                                        $(this).attr('src', base_url + curSrc);
-                                    } else {
-                                        curSrc.replaceAll(base_url, '');
-                                        $(this).attr('src', base_url + curSrc);
-                                    }
-                                    */
-                                } else if (curSrc.indexOf(base_url) === -1) {
-                                    console.log('no base url',);
-                                    var pathUpload = 'uploads';
-                                    var forReplace = curSrc.split(pathUpload);
-                                    $(this).attr('src', base_url + pathUpload + forReplace[1]);
-                                }
-                                console.log('img', curSrc.replaceAll(base_url, ''));
-                            });
                             $('#textjawaban_' + arrAbjad[i]).summernote('code', sJawabPg);
 
                         });
@@ -804,49 +778,6 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                             } else {
                                 createTableJodohkan(data.jawaban);
                             }
-					        /*
-					        var trs = '<table id="table-jodohkan" class="table table-sm table-bordered">';
-                            $.each(data.jawaban.jawaban, function (k, v) {
-                                if (k === 0) {
-                                    trs += '<tr class="text-center">';
-                                    $.each(v, function (key, val) {
-                                        if (key === 0) {
-                                            trs += '<th class="text-white">'+val+'</th>';
-                                        } else {
-                                            trs += '<th class="kolom">' +
-                                                '<div>' +
-                                                '<span class="editable">'+val+'</span>' +
-                                                '<span class="float-right hapus-kolom" title="hapus kolom: '+val+'" style="cursor: pointer">&times;</span>' +
-                                                '</div>' +
-                                                '</th>';
-                                        }
-                                    });
-                                    trs += '</tr>';
-                                } else {
-                                    trs += '<tr class="text-center">';
-                                    $.each(v, function (t, i) {
-                                        if (t === 0) {
-                                            trs += '<td class="baris text-bold">' +
-                                                '<div>' +
-                                                '<span class="editable">'+i+'</span>' +
-                                                '<span class="float-right hapus-baris" title="hapus baris: '+i+'" style="cursor: pointer">&times;</span>' +
-                                                '</div>' +
-                                                '</td>';
-                                        } else {
-                                            const checked = i == '0' ? '' : ' checked';
-                                            const type = data.jawaban.type != '2' ? 'checkbox' : 'radio';
-                                            trs += '<td>' +
-                                                '<input class="check" type="'+type+'" name="check'+k+'" style="height: 20px; width: 20px"'+checked+'>' +
-                                                '</td>';
-                                        }
-                                    });
-                                    trs += '</tr>';
-                                }
-                            });
-                            trs += '</table>' +
-                                '<button type="button" class="btn btn-success btn-sm" onclick="addRow()"><i class="fa fa-plus"></i> Tambah Baris</button>';
-                            $('#jawaban-jodohkan').html(trs);
-                            */
                         } else {
                             $('#model-opsi').val('0');
                             $('#type-opsi').val('0');
@@ -910,16 +841,6 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                         $('#jawaban-isian').val($.trim(data.jawaban));
                     } else {
                         var sJawabEssai = $($.parseHTML(`<div>${data.jawaban}</div>`));
-                        sJawabEssai.find(`img`).each(function () {
-                            var curSrc = $(this).attr('src');
-                            if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                                $(this).attr('src', base_url+curSrc);
-                            } else if (curSrc.indexOf(base_url) === -1) {
-                                var pathUpload = 'uploads';
-                                var forReplace = curSrc.split(pathUpload);
-                                $(this).attr('src', base_url + pathUpload + forReplace[1]);
-                            }
-                        });
 						$('#jawaban-essai').summernote('code', sJawabEssai);
 					}
 

@@ -194,20 +194,25 @@
                                         <?php
                                         foreach ($ruangs as $ruang=>$sesis) :
                                         foreach ($sesis as $sesi) :
+                                            $kelas_ruang_sesi = $kelas_ujian[$ruang][$sesi->sesi_id];
                                         foreach ($jadwal_ujian as $jadwal) :
-                                            $id_guru = isset($pengawas[$jadwal->id_jadwal])
-                                                && isset($pengawas[$jadwal->id_jadwal][$ruang]) &&
-                                                isset($pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id])
-                                                ? explode(',', $pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
+                                            $id_guru = isset($pengawas[$jadwal[0]->id_jadwal])
+                                                && isset($pengawas[$jadwal[0]->id_jadwal][$ruang]) &&
+                                                isset($pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id])
+                                                ? explode(',', $pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
                                                 : [];
-                                        //$peng = $id_guru != '' && isset($gurus[$id_guru]) ? $gurus[$id_guru] : '';
+                                            $bank_kelass = unserialize($jadwal[0]->bank_kelas);
+                                            $badge_kelas = '';
+                                            foreach ($bank_kelass as $bank_kelas) {
+                                                $badge_kelas .= '<span class="badge badge-info">'.$bank_kelas['kelas_id'].'</span>';
+                                            }
                                             ?>
                                         <tr>
                                             <td class="text-center align-middle"><?=$no?></td>
                                             <td class="text-center align-middle"><?=$sesi->nama_ruang?></td>
                                             <td class="text-center align-middle"><?=$sesi->nama_sesi?></td>
-                                            <td class="text-center align-middle"><?=$jadwal->jam_ke?></td>
-                                            <td class="text-center align-middle"><?=$jadwal->nama_mapel?></td>
+                                            <td class="text-center align-middle"><?=$jadwal[0]->jam_ke?></td>
+                                            <td class="text-center align-middle"><?=$jadwal[0]->kode?></td>
                                             <td class="align-middle crop-text-table">
                                                 <?php foreach ($id_guru as $ig) {
                                                     echo isset($gurus[$ig]) ? '<p class="p-0 m-0">'.$gurus[$ig].'</p>' : '';

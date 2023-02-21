@@ -205,7 +205,7 @@
                         $disable_delete = $bank->digunakan > 0 || $total_siswa > 0;
                         $dis = $disable_delete ? 'disabled' : '';
                         ?>
-                        <div class="tab-pane" id="ganda">
+                        <div class="tab-pane table-responsive" id="ganda">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
@@ -347,7 +347,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="tab-pane" id="kompleks">
+                        <div class="tab-pane table-responsive" id="kompleks">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
@@ -495,7 +495,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="tab-pane active" id="jodoh">
+                        <div class="tab-pane table-responsive active" id="jodoh">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
@@ -654,7 +654,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="tab-pane" id="isian">
+                        <div class="tab-pane table-responsive" id="isian">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
@@ -786,7 +786,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="tab-pane" id="essai">
+                        <div class="tab-pane table-responsive" id="essai">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
@@ -1339,53 +1339,33 @@
     var arrJenis = ['', 'Pilihan Ganda', 'PG Kompleks', 'Menjodohkan', 'Isian Singkat', 'Uraian/Essai'];
 
     $(document).ready(function () {
-        var $tableSoal = $('.table-soal');
-        $.each($tableSoal, function () {
-            var $imgs = $(this).find('tr img');
-            $.each($imgs, function () {
-                var curSrc = $(this).attr('src');
-                console.log('asli', curSrc);
-                if (curSrc.indexOf("base64") > 0) {
-                } else if (curSrc.indexOf(base_url) === -1) {
-                    var pathUpload = 'uploads';
-                    var forReplace = curSrc.split(pathUpload);
-                    console.log('replaced', pathUpload, forReplace[1]);
-                    $(this).attr('src', base_url + pathUpload + forReplace[1]);
-                }
-            })
-            /*
-            $.each($imgs, function () {
-                //$(this).addClass('img-zoom');
-                var curSrc = $(this).attr('src');
-                console.log('asli', curSrc);
-                var pathUpload = 'uploads';
+        var pathUpload = 'uploads';
+        var $imgs = $('img');
+        $.each($imgs, function () {
+            var curSrc = $(this).attr('src');
+            if (curSrc.indexOf("base64") > 0) {
+            } else {
                 var forReplace = curSrc.split(pathUpload);
-                var newSrc = '';
+                $(this).attr('src', base_url + pathUpload + forReplace[1]);
+            }
+        });
 
-                if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                    newSrc = base_url + curSrc;
-                    $(this).attr('src', newSrc);
-                } else if (curSrc.indexOf(base_url) === -1) {
-                    newSrc = base_url + pathUpload + forReplace[1];
-                    $(this).attr('src', newSrc);
-                } else {
-                    if (curSrc.indexOf('localhost') === -1) {
-                        newSrc = base_url + pathUpload + curSrc;
-                        $(this).attr('src', newSrc);
-                    } else {
-                        newSrc = base_url + pathUpload + forReplace[1];
-                        $(this).attr('src', newSrc);
-                    }
-                }
-                //$(this).removeAttr('style');
-                $(this).on('load', function() {
-                    console.log('size', $(this).height() + 'x' + $(this).width());
-                    if ($(this).height() > 50) {
-                        $(this).addClass('img-fluid');
-                    }
-                });
-            });
-            */
+        $.each($(`video`), function () {
+            var curSrc = $(this).attr('src');
+            if (curSrc.indexOf("base64") > 0) {
+            } else {
+                var forReplace = curSrc.split(pathUpload);
+                $(this).attr('src', base_url + pathUpload + forReplace[1]);
+            }
+        });
+
+        $.each($(`audio`), function () {
+            var curSrc = $(this).attr('src');
+            if (curSrc.indexOf("base64") > 0) {
+            } else {
+                var forReplace = curSrc.split(pathUpload);
+                $(this).attr('src', base_url + pathUpload + forReplace[1]);
+            }
         });
 
         var $div_lists = $('.list-jodohkan');

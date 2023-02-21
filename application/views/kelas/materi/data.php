@@ -37,15 +37,11 @@ foreach ($materi as $k => $m) {
             <?php
             $days = [0,1,2,3,4,5,6];
             $disabledDay = [];
-            $mapeljamke = [];
             foreach ($jadwal_mapel as $km=>$vm) {
                 foreach ($vm as $kk=>$vk) {
                     $disabledDay[$km][$kk] = $days;
-                    $mapeljamke[$km][$kk] = '';
                     foreach ($vk as $ih) {
-                        if ($mapeljamke[$km][$kk] == '') $mapeljamke[$km][$kk] = $ih->jam_ke;
                         unset($disabledDay[$km][$kk][$ih->id_hari]);
-                        //$disabledDay[$km] = array_diff($disabledDay[$km], array($ih->id_hari));
                     }
                 }
             }
@@ -86,9 +82,6 @@ foreach ($materi as $k => $m) {
                     </div>
                     <div class="row">
                         <?php
-                        //echo '<pre>';
-                        //var_dump($jadwal_materi);
-                        //echo '</pre>';
                         $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
                         $left = $this->ion_auth->is_admin() ? 'text-right' : 'text-left';
                         $btnNone = count($curr_materi) > 0 ? '' : 'd-none';
@@ -112,7 +105,7 @@ foreach ($materi as $k => $m) {
                         <?php
                         $arrIds = [];
                         if (count($curr_materi) > 0) :?>
-                        <div class="col-12">
+                        <div class="col-12 table-responsive">
                             <table class="w-100 table table-bordered">
                                 <tr class="alert alert-success">
                                     <th rowspan="2" class="text-center align-middle">No.</th>
@@ -131,7 +124,7 @@ foreach ($materi as $k => $m) {
                                 $no = 1;
                                 foreach ($curr_materi as $key => $value) :
                                     $arr = unserialize($value->materi_kelas);
-                                    array_push($arrIds, $value->id_materi);
+                                    $arrIds[] = $value->id_materi;
                                     $rows = count($arr) > 1 ? count($arr) : '1';
                                     ?>
                                     <tr>
@@ -141,15 +134,6 @@ foreach ($materi as $k => $m) {
                                         </td>
                                         <td rowspan="<?=$rows?>" class="align-middle"><?= $value->kode_materi ?></td>
                                         <td rowspan="<?=$rows?>" class="align-middle"><?= $value->judul_materi ?></td>
-                                        <!--
-                                        <?php
-                                        $arrKls = '';
-                                        foreach ($arr as $k => $v) {
-                                            if (isset($kelas_materi[$value->id_materi][$v])) {
-                                                $arrKls .= '<span class="badge mr-1">' . $kelas_materi[$value->id_materi][$v] . '</span>';
-                                            }
-                                        } ?>
-                                        -->
                                         <td class="text-center align-middle">
                                             <b><?= isset($kelas_materi[$value->id_materi]) && isset($kelas_materi[$value->id_materi][$arr[0]])
                                                         ? $kelas_materi[$value->id_materi][$arr[0]]
@@ -157,17 +141,16 @@ foreach ($materi as $k => $m) {
                                         </td>
                                         <td class="align-middle text-center">
                                             <?php
-                                            $jam = isset($mapeljamke[$value->id_mapel][$arr[0]])
-                                                ? $mapeljamke[$value->id_mapel][$arr[0]] : '1';
                                             $arrtgl = '';
                                             $disableDates = [];
                                             if (isset($jadwal_materi[$value->id_materi][$arr[0]])) {
                                                 if (count($jadwal_materi[$value->id_materi][$arr[0]])>0) {
                                                     foreach ($jadwal_materi[$value->id_materi][$arr[0]] as $jtgl) {
                                                         $disabledBtn = $jtgl->jml_siswa == '0' ? '' : 'disabled';
-                                                        array_push($disableDates, $jtgl->jadwal_materi);
+                                                        $disableDates[] = $jtgl->jadwal_materi;
+                                                        $jam = substr($jtgl->id_kjm, strlen($jtgl->id_kjm) -2, 1);
                                                         $ctgl = singkat_tanggal(date('d M Y', strtotime($jtgl->jadwal_materi)));
-                                                        $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">'.$ctgl
+                                                        $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">'.$ctgl.' jam:'.$jam
                                                             .'<button class="btn btn-sm" data-tgl="'.$ctgl.'" data-id="'.$jtgl->id_kjm.'" onclick="hapusTgl(this)" '.$disabledBtn.'><i class="fa fa-times-circle-o"></i></button></span></div>';
                                                     }
                                                 }
@@ -179,7 +162,6 @@ foreach ($materi as $k => $m) {
                                                     data-target="#openCalendar"
                                                     data-dis="<?= implode(',' , $disableDates) ?>"
                                                     data-jenis="<?= $jenis ?>"
-                                                    data-jamke="<?= $jam ?>"
                                                     data-materi="<?= $value->id_materi ?>"
                                                     data-mapel="<?= $value->id_mapel ?>"
                                                     data-kelas="<?= $arr[0]?>">
@@ -189,7 +171,6 @@ foreach ($materi as $k => $m) {
                                         <?php
                                         $stt = $value->status == '1' ? 'Aktif' : 'Non Aktif';
                                         $btn_bg = $value->status == '1' ? 'bg-success' : 'bg-warning';
-                                        //$btn_txt = $value->status == '1' ? 'Nonaktifkan' : 'Aktifkan';
                                         ?>
                                         <td rowspan="<?=$rows?>" class="text-center align-middle">
                                             <button
@@ -219,15 +200,13 @@ foreach ($materi as $k => $m) {
                                     </td>
                                     <td class="align-middle text-center">
                                         <?php
-                                        $jam = isset($mapeljamke[$value->id_mapel][$arr[$k]])
-                                            ? $mapeljamke[$value->id_mapel][$arr[$k]] : '1';
                                         $arrtgl = '';
                                         $disableDates = [];
                                         if (isset($jadwal_materi[$value->id_materi][$arr[$k]])) {
                                             if (count($jadwal_materi[$value->id_materi][$arr[$k]])>0) {
                                                 foreach ($jadwal_materi[$value->id_materi][$arr[$k]] as $jtgl) {
                                                     $disabledBtn = $jtgl->jml_siswa == '0' ? '' : 'disabled';
-                                                    array_push($disableDates, $jtgl->jadwal_materi);
+                                                    $disableDates[] = $jtgl->jadwal_materi;
                                                     $ctgl = singkat_tanggal(date('d M Y', strtotime($jtgl->jadwal_materi)));
                                                     $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">'. $ctgl
                                                         .'<button class="btn btn-sm" data-tgl="'.$ctgl.'" data-id="'.$jtgl->id_kjm.'" onclick="hapusTgl(this)" '.$disabledBtn.'><i class="fa fa-times-circle-o"></i></button></span></div>';
@@ -240,7 +219,6 @@ foreach ($materi as $k => $m) {
                                                 data-toggle="modal"
                                                 data-target="#openCalendar"
                                                 data-dis="<?= implode(',' , $disableDates) ?>"
-                                                data-jamke="<?= $jam ?>"
                                                 data-jenis="<?= $jenis ?>"
                                                 data-materi="<?= $value->id_materi ?>"
                                                 data-mapel="<?= $value->id_mapel ?>"
@@ -311,7 +289,7 @@ foreach ($materi as $k => $m) {
                             $arr = unserialize($am->materi_kelas);
                             $skelas = '';
                             for ($i = 0; $i < count($arr); $i++) {
-                                $skelas .= isset($kelas[$arr[$i]]) ? $kelas[$arr[$i]] : "-";
+                                $skelas .= $kelas[$arr[$i]] ?? "-";
                                 if ($i < (count($arr) - 1)) {
                                     $skelas .= ', ';
                                 }
@@ -359,17 +337,25 @@ foreach ($materi as $k => $m) {
             </div>
             <div class="modal-body text-center p-0">
                 <div id="tgl"></div>
+                <hr>
                 <div id="empty" class="d-none"><p>Jadwal Pelajaran belum diatur</p></div>
-                <div id="form-tgl">
-                    <?= form_open('', array('id' => 'set-jadwal')) ?>
+                <?= form_open('', array('id' => 'set-jadwal')) ?>
+                <div id="form-tgl" class="m-3">
                     <input class="d-none" type="text" name="id_kelas" value="">
                     <input class="d-none" type="text" name="jenis" value="">
-                    <input class="d-none" type="text" name="jam_ke" value="">
                     <input class="d-none" type="text" name="id_materi" value="">
                     <input class="d-none" type="text" name="id_mapel" value="">
                     <input class="d-none" type="text" name="jadwal_materi" value="">
-                    <?= form_close() ?>
+                    <div class="row align-items-center">
+                        <span class="col-3 text-bold">Jam Ke:</span>
+                        <select id="jam-ke" name="jam_ke" class="form-control col-6" required="">
+                            <option>
+                                Pilih tanggal dulu
+                            </option>
+                        </select>
+                    </div>
                 </div>
+                <?= form_close() ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-id="cancel" data-dismiss="modal">Batal</button>
@@ -391,6 +377,7 @@ foreach ($materi as $k => $m) {
     var subjudul = '<?=$subjudul?>';
     var urlJenis = '<?=$jenis == "1" ? "materi" : "tugas"?>';
     var jenis = '<?=$jenis?>';
+    const mapelJam = JSON.parse('<?= json_encode($tanggal_jadwal) ?>');
     const thn = JSON.parse('<?= json_encode($tp_active) ?>');
     const smt = JSON.parse('<?= json_encode($smt_active) ?>');
     const days = JSON.parse('<?= json_encode($disabledDay) ?>');
@@ -486,14 +473,13 @@ foreach ($materi as $k => $m) {
             const idMateri = $(e.relatedTarget).data('materi');
             const idMapel = $(e.relatedTarget).data('mapel');
             const idKelas = $(e.relatedTarget).data('kelas');
-            const jamke = $(e.relatedTarget).data('jamke');
             var disabledDates = $(e.relatedTarget).data('dis');
 
             $("input[name='id_kelas']").val(idKelas);
             $("input[name='id_mapel']").val(idMapel);
             $("input[name='id_materi']").val(idMateri);
             $("input[name='jenis']").val(idJenis);
-            $("input[name='jam_ke']").val(jamke);
+            //$("input[name='jam_ke']").val(jamke);
 
             if (days[idMapel] === undefined || days[idMapel][idKelas] === undefined) {
                 $('#empty').removeClass('d-none');
@@ -514,52 +500,26 @@ foreach ($materi as $k => $m) {
                     format: 'YYYY-MM-DD',
                     select: onSelectHandler,
                     disabledWeekdays: values,
-                    disabledDates: disabledDates.split(',')
+                    //disabledDates: disabledDates.split(',')
                 });
-                /*
-                $('#tgl').datetimepicker({
-                    icons:
-                        {
-                            next: 'fa fa-angle-right',
-                            previous: 'fa fa-angle-left'
-                        },
-                    timepicker: false,
-                    scrollInput : false,
-                    scrollMonth : false,
-                    format: 'Y-m-d',
-                    inline: true,
-                    disabledWeekDays: values,
-                    todayButton: true,
-                    defaultDate: oldTime,
-                    value: oldTime,
-                    widgetPositioning: {
-                        horizontal: 'left',
-                        vertical: 'bottom'
-                    },
-                    onChangeDateTime: function(date){
-                        var tgl = date.getDate();
-                        if (tgl < 10) tgl = '0'+tgl;
-                        var nb = date.getMonth() + 1;
-                        var bln = nb;
-                        if (nb < 10) bln = '0'+nb;
+            }
 
-                        var thn = date.getFullYear();
-                        var hari = date.getDay();
-                        console.log(tgl, bln, thn);
-                        $("input[name='jadwal_materi']").val(thn+'-'+bln+'-'+tgl);
-                    }
+            function onSelectHandler(date, context) {
+                console.log('selected', new Date(date[0]).getDay());
+                //console.log(date[0].format('YYYY-MM-DD'));
+                $('#jam-ke').html('');
+                var vals = mapelJam[idMapel][idKelas][new Date(date[0]).getDay()];
+                console.log('selected', vals);
+                var values = '';
+                $.each(vals, function (ind, val) {
+                    values += '<option value="'+val+'">'+val+'</option>';
                 });
-                */
+                $('#jam-ke').html(values);
+
+                $("input[name='jadwal_materi']").val(date[0].format('YYYY-MM-DD'));
             }
         });
     });
-
-    function onSelectHandler(date, context) {
-        //console.log('selected', date);
-        //console.log('selected', text);
-        console.log(date[0].format('YYYY-MM-DD'));
-        $("input[name='jadwal_materi']").val(date[0].format('YYYY-MM-DD'));
-    }
 
     function aktifkanMateri(id, status) {
         function aktifkan() {

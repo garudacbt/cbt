@@ -31,14 +31,14 @@
                         - Jangan lupa untuk menyimpan perubahan ringkasan materi
                     </div>
                     <?= form_open('', array('id' => 'editkikd')) ?>
-                    <?= form_close() ?>
                     <?php foreach ($mapel as $key => $mpl) : ?>
                         <div class="card border border-success">
                             <div class="card-header alert-default-success">
                                 <b><?= $mpl ?></b>
+                                <button type="submit" class="card-tools btn btn-sm btn-primary" disabled><i class="fa fa-save"></i> Simpan</button>
                             </div>
                             <div class="card-body">
-                                Kelas:
+                                <span><b>Kelas:</b></span><br>
                                 <?php foreach ($kelas[$key] as $k => $kls) :
                                     if ($kls['id_kelas'] != null) :?>
                                         <button class="btn btn-outline-success btn-kelas m<?=$key?>" data-mapel="<?= $key ?>"
@@ -56,6 +56,7 @@
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <?= form_close() ?>
                 </div>
             </div>
         </div>
@@ -83,14 +84,13 @@
     }
 
     function createView(data) {
-        console.log(data);
+        //console.log(data);
         var html = '<div class="col-md-6"> ' +
             '<table id="table-'+data.mapel+data.kelas+1+'" class="table table-bordered"> ' +
             '<tr> ' +
             '<th class="text-center align-middle">#</th>' +
             '<th><span class="pl-2 align-middle">Aspek Pengetahuan</span>' +
-            '<button id="btn'+data.mapel+data.kelas+'1'+'" class="btn btn-sm btn-primary float-right btn-save" data-asp="1" data-mapel="'+data.mapel+'" data-kelas="'+data.kelas+'">Simpan</button></th> ' +
-            '</tr> ';
+            '</th></tr> ';
         for (let i = 0; i < 8; i++) {
             var asp1 = data.kikd[1];
             var idPeng;
@@ -99,10 +99,17 @@
             } else {
                 idPeng = '';
             }
-            html += '<tr data-id="'+data.mapel+data.kelas+1+(i+1)+'"> ' +
+            var mapel1 = data.mapel+'';
+            var kls1 = data.kelas+'';
+            var aspk1 = '1';
+            var id_mapel_kelas1 = mapel1 + kls1;
+            var id_kikd1 = mapel1 + kls1 + aspk1 + (i+1);
+            html += '<tr> ' +
                 '<td class="text-center" style="width: 40px">P-'+(i+1)+'</td> ' +
-                '<td class="editable text-primary">'+idPeng+'</td> ' +
-                '</tr> ';
+                '<td class="editable text-primary">' +
+                '<textarea name="materi[1]['+id_mapel_kelas1+']['+id_kikd1+']"' +
+                ' placeholder="Place some text here" style="width:100%;">' + idPeng +'</textarea>' +
+                '</td></tr>';
         }
         html += '</table> ' +
             '</div> ' +
@@ -111,8 +118,7 @@
             '<tr> ' +
             '<th class="text-center align-middle">#</th>' +
             '<th><span class="pl-2 align-middle">Aspek Keterampilan </span>' +
-            '<button id="btn'+data.mapel+data.kelas+'2'+'" class="btn btn-sm btn-primary float-right btn-save" data-asp="2" data-mapel="'+data.mapel+'" data-kelas="'+data.kelas+'">Simpan</button></th> ' +
-            '</tr>';
+            '</th></tr>';
         for (let j = 0; j < 8; j++) {
             var asp2 = data.kikd[2];
             var idKetr;
@@ -121,68 +127,28 @@
             } else {
                 idKetr = '';
             }
-            html += '<tr data-id="'+data.mapel+data.kelas+2+(j+1)+'"> ' +
+            var mapel = data.mapel+'';
+            var kls = data.kelas+'';
+            var aspk = '2';
+            var id_mapel_kelas = mapel + kls;
+            var id_kikd = mapel + kls + aspk + (j+1);
+
+            html += '<tr> ' +
                 '<td class="text-center" style="width: 40px">K-'+(j+1)+'</td> ' +
-                '<td class="editable text-primary">'+idKetr+'</td> ' +
-                '</tr>';
+                '<td class="editable text-primary">' +
+                '<textarea name="materi[2]['+id_mapel_kelas+']['+id_kikd+']"' +
+                ' placeholder="Place some text here" style="width:100%;">' + idKetr +'</textarea>' +
+                '</td></tr>';
         }
         html += '</table> </div>';
 
         $('#alert' + data.mapel).addClass('d-none');
         $('#konten-kikd' + data.mapel).html(html);
+        $('.btn').removeAttr('disabled');
 
+        /*
         $('.editable').attr('contentEditable',true);
-
-        $('.btn-save').click(function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            var id_mapel = $(this).data('mapel');
-            var id_kelas = $(this).data('kelas');
-            var asp = $(this).data('asp');
-            var id_kikd = ''+id_mapel+id_kelas+asp;
-            console.log(id_kikd);
-            if (this.id == 'btn'+id_kikd) {
-                const $rows = $('#table-' + id_kikd).find('tr'), headers = $rows.splice(0, 1);
-                var jsonObj = [];
-                var no = 1;
-                $rows.each((i, row) => {
-                    const materi_kikd = $(row).find('.editable').text();
-
-                    let item = {};
-                    item ["id_kikd"] = '' + id_kikd + no;
-                    item ["id_mapel_kelas"] = '' + id_mapel + id_kelas;
-                    item ["aspek"] = asp;
-                    item ["materi_kikd"] = materi_kikd;
-
-                    jsonObj.push(item);
-                    no++;
-                });
-
-                var form = $('#editkikd').serialize();
-                var dataPost = form + "&indikator=" + JSON.stringify(jsonObj);
-                console.log(dataPost);
-
-                $.ajax({
-                    url: base_url + "rapor/savekikd",
-                    type: "POST",
-                    dataType: "JSON",
-                    data: dataPost,
-                    success: function (data) {
-                        console.log("response:", data);
-                        if (data.status) {
-                            showSuccessToast('Data berhasil disimpan')
-                        } else {
-                            showDangerToast('gagal disimpan')
-                        }
-                    }, error: function (xhr, status, error) {
-                        console.log("response:", xhr.responseText);
-                        showDangerToast('gagal disimpan')
-                    }
-                });
-            }
-        });
-
+         */
     }
 
     $(document).ready(function () {
@@ -199,6 +165,67 @@
 
             $('.m'+mapel).removeClass('active');
             $(this).toggleClass('active');
+        });
+
+        $('#editkikd').submit('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            //console.log($(this).serialize());
+
+            swal.fire({
+                title: "Menyimpan",
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: base_url + "rapor/savekikd",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function (data) {
+                    //console.log("response:", data);
+                    if (data.status) {
+                        //showSuccessToast('Data berhasil disimpan')
+                        swal.fire({
+                            title: "Sukses",
+                            html: "Indikator penilaian berhasil disimpan",
+                            icon: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                            confirmButtonText: "OK"
+                        })
+                    } else {
+                        //showDangerToast('gagal disimpan')
+                        swal.fire({
+                            title: "Error",
+                            html: "Gagal menyimpan",
+                            icon: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                            confirmButtonText: "OK"
+                        })
+                    }
+                }, error: function (xhr, status, error) {
+                    console.log("response:", xhr.responseText);
+                    //showDangerToast('gagal disimpan')
+                    swal.fire({
+                        title: "Error",
+                        html: "Gagal menyimpan",
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    })
+                }
+            });
         });
     });
 </script>

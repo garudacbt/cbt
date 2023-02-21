@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="version 1.4.1">
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="version 1.4.2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/cbt/banksoal/import.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cbt/banksoal/import.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app/js/master/kelas/add.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app/js/master/kelas/add.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,146 +14,8 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-1517765607">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="19" />
-          <entry key="project.open.time.0" value="6" />
-          <entry key="project.open.time.1" value="4" />
-          <entry key="project.open.time.14" value="1" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.17" value="1" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.28" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.7" value="1" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="20" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="config" value="1" />
-          <entry key="css" value="1" />
-          <entry key="exclude" value="1" />
-          <entry key="gitignore" value="3" />
-          <entry key="html" value="22" />
-          <entry key="jpg" value="1" />
-          <entry key="js" value="1" />
-          <entry key="json" value="3" />
-          <entry key="md" value="7" />
-          <entry key="php" value="36" />
-          <entry key="png" value="7" />
-          <entry key="rst" value="1" />
-          <entry key="sql" value="7" />
-          <entry key="svg" value="8" />
-          <entry key="txt" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CSS" value="1" />
-          <entry key="Git exclude file" value="1" />
-          <entry key="Git file" value="2" />
-          <entry key="HTML" value="22" />
-          <entry key="Image" value="8" />
-          <entry key="JSON" value="3" />
-          <entry key="JavaScript" value="1" />
-          <entry key="Markdown" value="7" />
-          <entry key="PHP" value="36" />
-          <entry key="PLAIN_TEXT" value="4" />
-          <entry key="SQL" value="7" />
-          <entry key="SVG" value="8" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="css" value="5" />
-          <entry key="gitignore" value="51" />
-          <entry key="html" value="459" />
-          <entry key="json" value="1" />
-          <entry key="md" value="217" />
-          <entry key="php" value="396" />
-          <entry key="svg" value="18" />
-          <entry key="txt" value="136" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="CSS" value="5" />
-          <entry key="Git file" value="23" />
-          <entry key="HTML" value="459" />
-          <entry key="JSON" value="1" />
-          <entry key="Markdown" value="217" />
-          <entry key="PHP" value="396" />
-          <entry key="PLAIN_TEXT" value="164" />
-          <entry key="SVG" value="18" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="1698047499">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="41" />
-          <entry key="project.open.time.0" value="20" />
-          <entry key="project.open.time.1" value="18" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="41" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="htaccess" value="1" />
-          <entry key="html" value="5" />
-          <entry key="js" value="2" />
-          <entry key="json" value="1" />
-          <entry key="md" value="2" />
-          <entry key="php" value="69" />
-          <entry key="sql" value="1" />
-          <entry key="sql___jb_old___" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="HTML" value="5" />
-          <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="2" />
-          <entry key="Markdown" value="2" />
-          <entry key="PHP" value="69" />
-          <entry key="PLAIN_TEXT" value="3" />
-          <entry key="SQL" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="md" value="571" />
-          <entry key="php" value="107" />
-          <entry key="txt" value="116" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="Markdown" value="571" />
-          <entry key="PHP" value="107" />
-          <entry key="PLAIN_TEXT" value="116" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/views/kelas/materijadwal/data.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-345" />
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -213,6 +73,7 @@
         <option value="$PROJECT_DIR$/application/views/members/guru/templates/header.php" />
         <option value="$PROJECT_DIR$/application/views/dashboard.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/application/config/config.php" />
       </list>
     </option>
   </component>
@@ -293,6 +154,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -305,49 +167,11 @@
               <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="kelas" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="kelas" type="462c0819:PsiDirectoryNode" />
-              <item name="jadwal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="kelas" type="462c0819:PsiDirectoryNode" />
-              <item name="materi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="garudacbt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="garudacbt" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="kelas" type="462c0819:PsiDirectoryNode" />
-              <item name="materijadwal" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -465,34 +289,9 @@
       <workItem from="1675357242428" duration="435000" />
       <workItem from="1675398116344" duration="100000" />
       <workItem from="1675493291056" duration="168000" />
-    </task>
-    <task id="LOCAL-00042" summary="readme">
-      <created>1638959442374</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1638959442374</updated>
-    </task>
-    <task id="LOCAL-00043" summary="readme">
-      <created>1639208712119</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1639208712119</updated>
-    </task>
-    <task id="LOCAL-00044" summary="readme">
-      <created>1646110337717</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1646110337717</updated>
-    </task>
-    <task id="LOCAL-00045" summary="readme">
-      <created>1646111366076</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1646111366076</updated>
+      <workItem from="1675515459736" duration="405000" />
+      <workItem from="1675739435582" duration="760000" />
+      <workItem from="1676013746566" duration="163000" />
     </task>
     <task id="LOCAL-00046" summary="readme">
       <created>1646115265036</created>
@@ -809,17 +608,44 @@
       <option name="project" value="LOCAL" />
       <updated>1675398169083</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="version 1.4.1 (04-02-2023)">
+      <created>1675515524480</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1675515524480</updated>
+    </task>
+    <task id="LOCAL-00092" summary="version 1.4.1 (04-02-2023)">
+      <created>1675515698274</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1675515698275</updated>
+    </task>
+    <task id="LOCAL-00093" summary="version 1.4.2">
+      <created>1675739538762</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1675739538762</updated>
+    </task>
+    <task id="LOCAL-00094" summary="version 1.4.3">
+      <created>1676013857870</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1676013857870</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80424000" />
+    <option name="totallyTimeSpent" value="81752000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32853898" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34443602" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -834,7 +660,7 @@
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.2885246" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.3229508" />
       <window_info anchor="bottom" id="FTP" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.3295082" />
@@ -892,9 +718,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fix error dashboard" />
-    <MESSAGE value="fix kelas/materi/tugas/rapor" />
-    <MESSAGE value="new db" />
     <MESSAGE value="versi 1.1-beta" />
     <MESSAGE value="versi 1.2-beta" />
     <MESSAGE value="fix minor bug" />
@@ -917,7 +740,10 @@
     <MESSAGE value="version 1.3.20230121" />
     <MESSAGE value="version 1.4.0" />
     <MESSAGE value="version 1.4.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 1.4.1" />
+    <MESSAGE value="version 1.4.1 (04-02-2023)" />
+    <MESSAGE value="version 1.4.2" />
+    <MESSAGE value="version 1.4.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.4.3" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/models/add.php" />
@@ -1045,11 +871,6 @@
     <entry file="file://$PROJECT_DIR$/application/views/kelas/materi/add.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2070" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/config/routes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
@@ -1154,8 +975,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/kelas/materijadwal/data.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-345" />
+        <state relative-caret-position="341">
+          <caret line="548" column="34" selection-start-line="548" selection-start-column="34" selection-end-line="548" selection-end-column="34" />
+        </state>
       </provider>
     </entry>
   </component>

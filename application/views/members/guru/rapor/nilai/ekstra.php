@@ -62,9 +62,13 @@
                     <?php endif; ?>
                     <div id="t-siswa" class="w-100"></div>
                     <?= form_open('', array('id' => 'uploadnilai')) ?>
-                    <button type="submit" class="btn btn-primary float-right mt-3 mb-3">
-                        <i class="fa fa-save mr-1"></i>Simpan
-                    </button>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-12 text-right">
+                                <button type="submit" class="btn btn-primary mt-3 mb-3">
+                                    <i class="fa fa-save mr-1"></i>Simpan</button>
+                            </div>
+                        </div>
+                        <div id="for-upload" class="d-none row"></div>
                     <?= form_close() ?>
                     <?php endif; ?>
                 </div>
@@ -80,6 +84,8 @@
     var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
     var idMapel = '<?=$ekstra['id_ekstra']?>';
     var idKelas = '<?=$kelas['id_kelas']?>';
+    var tpActive = '<?=$tp_active->id_tp?>';
+    var smtActive = '<?=$smt_active->id_smt?>';
 
     var isi = parseInt(kkm.kkm);
     var pre_d = 0;
@@ -221,18 +227,7 @@
                 timeout: 600000,
                 success: function (data) {
                     console.log(data);
-                    swal.fire({
-                        title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil diupdate",
-                        icon: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        confirmButtonText: "OK"
-                    }).then(result => {
-                        if (result.value) {
-                            window.location.href = base_url + 'rapor/inputekstra/'+idMapel+'/'+idKelas
-                        }
-                    });
+                    window.location.href = base_url + 'rapor/inputekstra/'+idMapel+'/'+idKelas
                 },
                 error: function (e) {
                     console.log("error", e.responseText);
@@ -245,18 +240,44 @@
             e.preventDefault();
             e.stopImmediatePropagation();
 
+            swal.fire({
+                title: "Menyimpan nilai ekstrakulikuler",
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
+
             var tbl = $('table.jexcel tr').get().map(function(row) {
                 return $(row).find('td').get().map(function(cell) {
                     return $(cell).html();
                 });
             });
             tbl.shift();
-            console.log($(this).serialize() + '&nilai='+JSON.stringify(tbl));
+            var inputs = '';
+            $.each(tbl, function (idx, s) {
+                var idSiswa = s[6];
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_nilai_ekstra]" value="'+idMapel+idKelas+idSiswa+tpActive+smtActive+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_siswa]" value="'+idSiswa+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_tp]" value="'+tpActive+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_smt]" value="'+smtActive+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_ekstra]" value="'+idMapel+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_kelas]" value="'+idKelas+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][nilai]" value="'+s[3]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][predikat]" value="'+s[4]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][deskripsi]" value="'+s[5]+'" class="form-control col-1">';
+            });
+            $('#for-upload').html(inputs);
 
             $.ajax({
                 type: "POST",
-                url: base_url + 'rapor/importekstra/'+idMapel+'/'+idKelas,
-                data: $(this).serialize() + '&nilai='+JSON.stringify(tbl),
+                url: base_url + 'rapor/importekstra',
+                data: $(this).serialize(),
                 cache: false,
                 success: function (data) {
                     console.log(data);
@@ -275,7 +296,14 @@
                 },
                 error: function (e) {
                     console.log("error", e.responseText);
-                    showDangerToast(e.responseText);
+                    swal.fire({
+                        title: "Error",
+                        html: "Gagal menyimpan",
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    })
                 }
             });
         });

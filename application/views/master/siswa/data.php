@@ -12,15 +12,6 @@
 	<section class="content">
 		<div class="container-fluid">
 			<div class="card card-default my-shadow mb-4">
-				<!--
-				<div class="card-header with-border">
-					<h3 class="card-title">Master <?= $subjudul ?></h3>
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-						</button>
-					</div>
-				</div>
-				-->
 				<div class="card-header">
 					<h6 class="card-title"><?=$subjudul?></h6>
 					<div class="card-tools">
@@ -37,6 +28,10 @@
 					</div>
 				</div>
 				<div class="card-body">
+                    <div class="alert alert-default-light border border-success align-content-center mb-3" role="alert">
+                        Aktifkan siswa yang tidak muncul di menu <b>User Management -> Siswa</b>
+                    </div>
+
                     <?php
                     //var_dump($count_siswa);
                     //echo '<br>';

@@ -3,6 +3,13 @@ var mapelObj = [];
 var mapelGuru;
 var ekstraObj = [];
 var ekstraGuru;
+let mapelTerisi, ekstraTerisi, jabatanTerisi;
+
+function inArrayKelas(val, array) {
+	var found = $.inArray(val, array);
+	return found >= 0;
+}
+
 function submitajax(url, data, msg, btn) {
     $.ajax({
         url: url,
@@ -15,7 +22,6 @@ function submitajax(url, data, msg, btn) {
                     "text": msg,
                     "type": "success"
                 });
-                //$('form#change_password').trigger('reset');
             } else {
                 if (response.errors) {
                     $.each(response.errors, function (key, val) {
@@ -41,32 +47,39 @@ function submitajax(url, data, msg, btn) {
 }
 
 function createDropdownKelasMapel() {
-	//console.log(JSON.parse(mapel_guru));
 	mapelGuru = JSON.parse(mapel_guru);
 
 	var inputgroup = $('#input-mapel');
-	//inputgroup.html('');
-	//console.log(data);
 
 	$.each(mapelGuru, function (keym, entrym) {
-		var div1 = $('<div>',  {class : "input-group input-group-sm mb-3 addmapel", id: entrym.id_mapel});
+		var div1 = $('<div>',  {class : "row mb-4 addmapel", id: entrym.id_mapel});
 		var hiden = $('<input>', {type:"hidden", name:"nama_mapel"+entrym.id_mapel, value: entrym.nama_mapel});
 		hiden.appendTo(div1);
 
-		var div2 = $('<div>',  {class : "input-group-prepend"});
-		var spangroup = $('<div>',  {class : "input-group-text", text: entrym.nama_mapel});
+		//var div2 = $('<div>',  {class : ""});
+		var spangroup = $('<label>',  {class : "", text: entrym.nama_mapel});
 		var sel = $('<select>',  {id : "kelasmapel" + entrym.id_mapel, name : "kelasmapel"+entrym.id_mapel+"[]", class : "select2 form-control selectmapel",
 			multiple:'multiple', required:'required'});
 
-		div2.append(spangroup);
-		div1.append(div2);
+		//div2.append(spangroup);
+		div1.append(spangroup);
 		div1.append(sel);
 		div1.appendTo(inputgroup);
 
 		$.each(kelas, function (key, entry) {
+			var terisi = [];
+			$.each(mapelTerisi[entrym.id_mapel], function (idg, valg) {
+				var ada = guru_id != idg && inArrayKelas(entry.id_kelas, valg['kelas']);
+				var mengisi = ada ? ' - - ( '+valg['guru']+' )' : '';
+				if (ada) {
+					terisi.push({ada: ada, kelas: entry.id_kelas, guru: mengisi});
+				}
+			});
+			var adaGuru = terisi.length > 0 ? terisi[0].guru : '';
 			sel.append($('<option></option>')
 				.attr('value', entry.id_kelas)
-				.text(entry.nama_kelas));
+				.attr('disabled', terisi.length > 0)
+				.text(entry.nama_kelas+adaGuru));
 		});
 
 		item = {};
@@ -81,11 +94,6 @@ function createDropdownKelasMapel() {
 	});
 
 	$(".selectmapel").select2({tags: true});
-
-
-    if ($(".addmapel").length || $(".addekstra").length) {
-		$('#keterangan').removeClass('d-none');
-	}
 }
 
 function createDropdownKelasEkstra() {
@@ -94,24 +102,34 @@ function createDropdownKelasEkstra() {
     var inputgroup = $('#input-mapel');
 
     $.each(ekstraGuru, function (keym, entrym) {
-        var div1 = $('<div>',  {class : "input-group input-group-sm mb-3 addekstra", id: entrym.id_ekstra});
+        var div1 = $('<div>',  {class : "row mb-4 addekstra", id: entrym.id_ekstra});
         var hiden = $('<input>', {type:"hidden", name:"nama_ekstra"+entrym.id_ekstra, value: entrym.nama_ekstra});
         hiden.appendTo(div1);
 
-        var div2 = $('<div>',  {class : "input-group-prepend"});
-        var spangroup = $('<div>',  {class : "input-group-text", text: entrym.nama_ekstra});
+        //var div2 = $('<div>',  {class : ""});
+        var spangroup = $('<label>',  {class : "", text: entrym.nama_ekstra});
         var sel = $('<select>',  {id : "kelasekstra" + entrym.id_ekstra, name : "kelasekstra"+entrym.id_ekstra+"[]", class : "select2 form-control selectekstra",
             multiple:'multiple', required:'required'});
 
-        div2.append(spangroup);
-        div1.append(div2);
+        //div2.append(spangroup);
+        div1.append(spangroup);
         div1.append(sel);
         div1.appendTo(inputgroup);
 
         $.each(kelas, function (key, entry) {
+			var terisi = [];
+			$.each(ekstraTerisi[entrym.id_ekstra], function (idg, valg) {
+				var ada = guru_id != idg && inArrayKelas(entry.id_kelas, valg['kelas']);
+				var mengisi = ada ? ' - - ( '+valg['guru']+' )' : '';
+				if (ada) {
+					terisi.push({ada: ada, kelas: entry.id_kelas, guru: mengisi});
+				}
+			});
+			var adaGuru = terisi.length > 0 ? terisi[0].guru : '';
             sel.append($('<option></option>')
+				.attr('disabled', terisi.length > 0)
                 .attr('value', entry.id_kelas)
-                .text(entry.nama_kelas));
+                .text(entry.nama_kelas+adaGuru));
         });
 
         var item = {};
@@ -126,35 +144,36 @@ function createDropdownKelasEkstra() {
     });
 
     $(".selectekstra").select2({tags: true});
-
-
-    if ($(".addmapel").length || $(".addekstra").length) {
-        $('#keterangan').removeClass('d-none');
-    }
 }
 
 function createDropdownKelasWali() {
 	if (level_id === "4") {
 		var inputgroup = $('#input-jabatan');
 
-		var div1 = $('<div>',  {class : "input-group input-group-sm mb-3 addkelas", id: "input-group-walikelas"});
-		var div2 = $('<div>',  {class : "input-group-prepend"});
-		var spangroup = $('<div>',  {class : "input-group-text", text: "Kelas"});
+		var div1 = $('<div>',  {class : "row mb-4 addkelas", id: "input-group-walikelas"});
+		//var div2 = $('<div>',  {class : ""});
+		var spangroup = $('<label>',  {class : "", text: "Kelas"});
 		var sel = $('<select>',  {name : "kelas_wali", class : "select2 form-control selectkelas", required:'required'});
-		sel.append($('<option value="" selected="selected" disabled>Pilih Kelas</option>'));
-		div2.append(spangroup);
-		div1.append(div2);
+		//div2.append(spangroup);
+		div1.append(spangroup);
 		div1.append(sel);
 		div1.appendTo(inputgroup);
 
+		var arrSelect = [];
 		$.each(kelas, function (key, entry) {
-			if (entry.id_kelas === kelas_id) {
-				//console.log(kelas_id);
-				sel.append($('<option value="'+entry.id_kelas+'" selected="selected">'+entry.nama_kelas+'</option>'));
-			} else {
-				sel.append($('<option value="'+entry.id_kelas+'">'+entry.nama_kelas+'</option>'));
+			var guru = '';
+			var selected = [];
+			if (jabatanTerisi[4][entry.id_kelas] != undefined) {
+				var idg = jabatanTerisi[4][entry.id_kelas].id;
+				guru = guru_id != idg ? ' - - ( '+jabatanTerisi[4][entry.id_kelas].nama + ' )' : '';
+				selected = entry.id_kelas == kelas_id ? 'selected="selected" ' : '';
+				arrSelect.push(entry.id_kelas == kelas_id);
 			}
+			var disabl = guru !='' ? 'disabled="disabled"': '';
+			sel.append($('<option value="'+entry.id_kelas+'" '+ selected + disabl+'>'+entry.nama_kelas+guru+'</option>'));
 		});
+		var isSelected = inArrayKelas(true, arrSelect) ? '' : 'selected="selected"';
+		sel.prepend($('<option value="" '+isSelected+' disabled>Pilih Kelas</option>'));
 
 		$(".selectkelas").select2({tags: true});
 	}
@@ -177,15 +196,17 @@ $(document).ready(function () {
 	$('#mapel').select2();
     $('#level').select2();
     $('#ekstra').select2();
-
     $('.guru2').select2();
 
 	$.ajax({
         url: base_url + "dataguru/getDataKelas",
 		type: "GET",
 		success: function (data) {
-            kelas = JSON.parse(data);
-            //console.log('kelas', kelas);
+			console.log('kelas', data);
+			mapelTerisi = data.mpl_terisi;
+			ekstraTerisi = data.eks_terisi;
+			jabatanTerisi = data.jabatan;
+            kelas = data.kelas;
             kelas.sort(sortByKode);
             kelas.sort(sortByLevel);
 
@@ -237,22 +258,34 @@ $(document).ready(function () {
 
 		var inputgroup = $('#input-mapel');
 
-		var div1 = $('<div>',  {class : "input-group input-group-sm mb-3 addmapel", id: data.id});
+		var div1 = $('<div>',  {class : "row mb-4 addmapel", id: data.id});
 		var hiden = $('<input>', {type:"hidden", name:"nama_mapel"+data.id, value: data.text});
 		hiden.appendTo(div1);
 
-		var div2 = $('<div>',  {class : "input-group-prepend"});
-		var spangroup = $('<div>',  {class : "input-group-text", text: data.text});
+		//var div2 = $('<div>',  {class : ""});
+		var spangroup = $('<label>',  {class : "", text: data.text});
 		var sel = $('<select>',  {id : "kelasmapel" + data.id, name : "kelasmapel"+data.id+"[]", class : "select2 form-control selectmapel",
 			multiple:'multiple', required:'required'});
 
-		div2.append(spangroup);
-		div1.append(div2);
+		//div2.append(spangroup);
+		div1.append(spangroup);
 		div1.append(sel);
 		div1.appendTo(inputgroup);
 
 		$.each(kelas, function (key, entry) {
-			sel.append($('<option></option>').attr('value', entry.id_kelas).text(entry.nama_kelas));
+			var terisi = [];
+			$.each(mapelTerisi[data.id], function (idg, valg) {
+				var ada = guru_id != idg && inArrayKelas(entry.id_kelas, valg['kelas']);
+				var mengisi = ada ? ' - - ( '+valg['guru']+' )' : '';
+				if (ada) {
+					terisi.push({ada: ada, kelas: entry.id_kelas, guru: mengisi});
+				}
+			});
+			var adaGuru = terisi.length > 0 ? terisi[0].guru : '';
+			sel.append($('<option></option>')
+				.attr('value', entry.id_kelas)
+				.attr('disabled', terisi.length>0)
+				.text(entry.nama_kelas + adaGuru));
 		});
 
 		var selectedMapel = [];
@@ -268,13 +301,6 @@ $(document).ready(function () {
 		$('#kelasmapel' + data.id).val(selectedMapel);
 		$(".selectmapel").select2({tags: true});
 
-        if ($(".addmapel").length || $(".addekstra").length) {
-			$('#keterangan').removeClass('d-none');
-		}
-
-		//console.log(mapelGuru);
-		//console.log(mapelObj);
-
 	});
 
 	$('#mapel').on('select2:unselect', function (e) {
@@ -289,9 +315,9 @@ $(document).ready(function () {
 		//console.log("mapelObj", mapelObj);
 		//jsonKelasMapel();
 
-        if (!$(".addmapel").length && !$(".addekstra").length) {
-			$('#keterangan').addClass('d-none');
-		}
+        //if (!$(".addmapel").length && !$(".addekstra").length) {
+		//	$('#keterangan').addClass('d-none');
+		//}
 	});
 
     $('#ekstra').on('select2:select', function (e) {
@@ -300,22 +326,34 @@ $(document).ready(function () {
 
         var inputgroup = $('#input-mapel');
 
-        var div1 = $('<div>',  {class : "input-group input-group-sm mb-3 addekstra", id: data.id});
+        var div1 = $('<div>',  {class : "row mb-4 addekstra", id: data.id});
         var hiden = $('<input>', {type:"hidden", name:"nama_ekstra"+data.id, value: data.text});
         hiden.appendTo(div1);
 
-        var div2 = $('<div>',  {class : "input-group-prepend"});
-        var spangroup = $('<div>',  {class : "input-group-text", text: data.text});
+        //var div2 = $('<div>',  {class : ""});
+        var spangroup = $('<label>',  {class : "", text: data.text});
         var sel = $('<select>',  {id : "kelasekstra" + data.id, name : "kelasekstra"+data.id+"[]", class : "select2 form-control selectekstra",
             multiple:'multiple', required:'required'});
 
-        div2.append(spangroup);
-        div1.append(div2);
+        //div2.append(spangroup);
+        div1.append(spangroup);
         div1.append(sel);
         div1.appendTo(inputgroup);
 
         $.each(kelas, function (key, entry) {
-            sel.append($('<option></option>').attr('value', entry.id_kelas).text(entry.nama_kelas));
+			let terisi = [];
+			$.each(ekstraTerisi[data.id], function (idg, valg) {
+				var ada = guru_id != idg && inArrayKelas(entry.id_kelas, valg['kelas']);
+				var mengisi = ada ? ' - - ( '+valg['guru']+' )' : '';
+				if (ada) {
+					terisi.push({ada: ada, kelas: entry.id_kelas, guru: mengisi});
+				}
+			});
+			var adaGuru = terisi.length > 0 ? terisi[0].guru : '';
+            sel.append($('<option></option>')
+				.attr('disabled', terisi.length>0)
+				.attr('value', entry.id_kelas)
+				.text(entry.nama_kelas + adaGuru));
         });
 
         var selectedEkstra = [];
@@ -330,14 +368,6 @@ $(document).ready(function () {
         //console.log(selectedEkstra);
         $('#kelasekstra' + data.id).val(selectedEkstra);
         $(".selectekstra").select2({tags: true});
-
-        if ($(".addmapel").length || $(".addekstra").length) {
-            $('#keterangan').removeClass('d-none');
-        }
-
-        //console.log(mapelGuru);
-        //console.log(mapelObj);
-
     });
 
     $('#ekstra').on('select2:unselect', function (e) {
@@ -351,9 +381,9 @@ $(document).ready(function () {
             }
         //console.log("ekstraObj", ekstraObj);
 
-        if (!$(".addmapel").length && !$(".addekstra").length) {
-            $('#keterangan').addClass('d-none');
-        }
+        //if (!$(".addmapel").length && !$(".addekstra").length) {
+        //    $('#keterangan').addClass('d-none');
+        //}
     });
 
 	$('#kelas-wali').select2({
@@ -368,33 +398,33 @@ $(document).ready(function () {
 		if (data.id === "4") {
 			var inputgroup = $('#input-jabatan');
 
-			var div1 = $('<div>',  {class : "input-group input-group-sm mb-3 addkelas", id: "input-group-walikelas"});
-			var div2 = $('<div>',  {class : "input-group-prepend"});
-			var spangroup = $('<div>',  {class : "input-group-text", text: "Kelas"});
+			var div1 = $('<div>',  {class : "row mb-4 addkelas", id: "input-group-walikelas"});
+			//var div2 = $('<div>',  {class : ""});
+			var spangroup = $('<label>',  {class : "", text: "Kelas"});
 			var sel = $('<select>',  {name : "kelas_wali", class : "select2 form-control selectkelas", required:'required'});
-			sel.append($('<option value="" selected="selected" disabled>Pilih Kelas</option>'));
-			div2.append(spangroup);
-			div1.append(div2);
+			//div2.append(spangroup);
+			div1.append(spangroup);
 			div1.append(sel);
 			div1.appendTo(inputgroup);
 
 			$.each(kelas, function (key, entry) {
-				if (entry.id_kelas === kelas_id) {
-					//console.log(kelas_id);
-					sel.append($('<option value="'+entry.id_kelas+'" selected="selected">'+entry.nama_kelas+'</option>'));
-				} else {
-					sel.append($('<option value="'+entry.id_kelas+'">'+entry.nama_kelas+'</option>'));
+				var guru = '';
+				var selected = '';
+				if (jabatanTerisi[4][entry.id_kelas] != undefined) {
+					var idg = jabatanTerisi[4][entry.id_kelas].id;
+					guru = guru_id != idg ? ' - - ( '+jabatanTerisi[4][entry.id_kelas].nama + ' )' : '';
+					selected = entry.id_kelas == kelas_id ? 'selected="selected" ' : '';
 				}
-				//sel.append($('<option>', {value: entry.id_kelas, text: entry.nama_kelas}));
+				var disabl = guru !='' ? '' : 'disabled="disabled"';
+				sel.append($('<option value="'+entry.id_kelas+'" '+ selected + disabl+'>'+entry.nama_kelas+guru+'</option>'));
 			});
+			sel.prepend($('<option value="" selected="selected" disabled>Pilih Kelas</option>'));
 
 			$(".selectkelas").select2({tags: true});
 		} else {
 			$("div").remove("#input-group-walikelas");
 		}
 	});
-
-	//console.log('before', guru_before);
 
     $('#copyjabatan').on('submit', function (e) {
         e.preventDefault();

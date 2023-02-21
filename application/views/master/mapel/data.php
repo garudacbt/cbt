@@ -70,6 +70,9 @@
 					</div>
 				</div>
 				<div class="card-body">
+                    <div class="alert alert-default-light border border-success align-content-center mb-3" role="alert">
+                        <b>Nomor Urut Rapor</b> dan <b>Kelompok</b> diperlukan jika ingin mencetak rapor
+                    </div>
                     <?= form_open('', array('id' => 'bulk')) ?>
                     <div class="table-responsive">
                         <table id="tableMapel" class="w-100 table table-striped table-bordered table-hover">

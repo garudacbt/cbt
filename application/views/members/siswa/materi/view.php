@@ -61,7 +61,7 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                             <?php if ($ada_nilai) : ?>
                                 <div class="col-lg-12 p-0">
                                     <div class="alert align-content-center alert-default-warning" role="alert">
-                                        Materi/tugas ini sudah dikerjakan dan sudah mendapat nilai, tidak bisa dikerjakan ulang!
+                                        <?=$judul?> ini sudah dikerjakan dan sudah mendapat nilai, tidak bisa dikerjakan ulang!
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -138,7 +138,7 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                             <div id="input-materi" class="row">
                                 <div class="col-12 mb-3">
                                     <?= form_open('', array('id' => 'formhasil')) ?>
-                                    <label>Hasil Materi</label>
+                                    <label>Hasil <?=$judul?></label>
                                     <textarea id="text-materi" name='isi_materi' class='editor'
                                               data-id="<?= $this->security->get_csrf_hash() ?>"
                                               data-name="<?= $this->security->get_csrf_token_name() ?>"
@@ -311,7 +311,7 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                         }, 1000);
                     }
                 }, error: function (data) {
-                    showDangerToast('Gagal membuat materi');
+                    showDangerToast('Gagal menyimpan');
                     console.log(data);
                 }
             });

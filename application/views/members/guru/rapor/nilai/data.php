@@ -64,9 +64,9 @@
                                                 <?php
                                                 $no = 1;
                                                 foreach ($lv as $k => $kls) :
-                                                    $indich = $harian[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
-                                                    $indicp = $pts[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
-                                                    $indica = $pas[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
+                                                    $indich = $harian[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success text-xs"></i>' : '<i class="fa fa-warning text-warning text-xs"></i>';
+                                                    $indicp = $pts[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success text-xs"></i>' : '<i class="fa fa-warning text-warning text-xs"></i>';
+                                                    $indica = $pas[$km][$kls['nama_kelas']] == $siswas[$km][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success text-xs"></i>' : '<i class="fa fa-warning text-warning text-xs"></i>';
                                                     ?>
                                                     <tr>
                                                         <td class="text-center">
@@ -87,7 +87,7 @@
                                                         </td>
                                                         <td class="text-center w-25">
                                                             <a href="<?= $kls['url_pas'] ?>" type="button"
-                                                               class="btn btn-xs btn-primary">Input Nilai</a>
+                                                               class="btn btn-xs btn-primary">Input Nilai </a>
                                                             <?= $indica ?>
                                                         </td>
                                                     </tr>
@@ -122,7 +122,7 @@
                                                 <?php
                                                 $no = 1;
                                                 foreach ($kelas_ekstra[$k] as $e => $kls) :
-                                                    $indice = $ekstras[$k][$kls['nama_kelas']] == $siswae[$k][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success"/>' : '<i class="fa fa-warning text-warning"/>';
+                                                    $indice = $ekstras[$k][$kls['nama_kelas']] == $siswae[$k][$kls['nama_kelas']] ? '<i class="fa fa-check-circle text-success text-xs"/>' : '<i class="fa fa-warning text-warning text-xs"/>';
                                                     ?>
                                                     <tr>
                                                         <td class="text-center">

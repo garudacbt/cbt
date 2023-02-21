@@ -282,10 +282,10 @@
 
                         if (soalCek != "") {
                             $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no+'][soal]" value="' + encodeURIComponent(items[1]) + '">');
+                                '['+no+'][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                             $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no+'][opsi]['+ops+']" value="' + encodeURIComponent(items[4]) + '">');
+                                '['+no+'][opsi]['+ops+']" value="' + encodeURIComponent(removeUrl(items[4])) + '">');
 
                             if (knc != "" && knc.toUpperCase() == "V") {
                                 $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
@@ -299,7 +299,7 @@
                         var ops1 = $(items[0]).text().trim();
 
                         $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                            '[' + no1 + '][opsi]['+ops1+']" value="' + encodeURIComponent(items[1]) + '">');
+                            '[' + no1 + '][opsi]['+ops1+']" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                         var knc1 = $(items[2]).text().trim();
                         if (knc1 != "" && knc1.toUpperCase() == "V") {
@@ -315,7 +315,7 @@
                         var kd_kolom = $(items[5]).text().trim();
                         var kd_kunci = $(items[7]).text().trim();
                         $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                            '['+no3+'][soal]" value="' + encodeURIComponent(items[1]) + '">');
+                            '['+no3+'][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                         var brs = $(items[4]).text().trim();
                         if (brs != "") {
@@ -360,10 +360,10 @@
                 } else {
                     var no4 = $(items[0]).text().trim();
                     $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                        '['+no4+'][soal]" value="' + encodeURIComponent(items[1]) + '">');
+                        '['+no4+'][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                     $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                        '['+no4+'][kunci]" value="' + encodeURIComponent(items[3]) + '">');
+                        '['+no4+'][kunci]" value="' + encodeURIComponent(removeUrl(items[3])) + '">');
                 }
                 tbls[tempJenis] = myRows;
             }
@@ -414,12 +414,17 @@
             },
             success:function(data){
                 $(id).attr('src', base_url + data.src);
+                //$(id).attr('data-imgsrc', data.src);
                 //console.log(data);
             },
             complete:function(){
                 //console.log("Request finished.");
             }
         });
+    }
+
+    function removeUrl(str) {
+        return str.replace(base_url, '');
     }
 
 </script>

@@ -240,9 +240,10 @@
     let idSoal, idSoalSiswa, jenisSoal, modelSoal, typeSoal;
     let jawabanSiswa, jawabanBaru = null, jsonJawaban;
     let nav = 0;
-    let soalTerjawab = 0, soalTotal =0;
-    let timer, timerSelesai;
-    const durasi = JSON.parse(JSON.stringify(<?= json_encode($elapsed) ?>));
+    let soalTerjawab = 0, soalTotal = 0;
+    let timerOut;
+    let timerSelesai;
+    //const durasi = JSON.parse(JSON.stringify(<?= json_encode($elapsed) ?>));
     let elapsed = '0';
     let h,m,s;
     var message = "Jangan menggunakan klik kanan!";
@@ -254,7 +255,6 @@
         _day = _hour * 24;
     const durasiUjian = Number(infoJadwal.durasi_ujian);
     let dif;
-    let timerOut;
 
     $(document).ready(function () {
         $(document).keydown(function (event) {
@@ -513,7 +513,6 @@
 
         var $imgs = $('.konten-soal-jawab').find('img');
         $.each($imgs, function () {
-            //$(this).addClass('img-zoom');
             var curSrc = $(this).attr('src');
             var newSrc = '';
             if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
@@ -526,7 +525,6 @@
                 $(this).attr('src', newSrc);
             }
             $(this).on('load', function() {
-                //console.log('size', $(this).height() + 'x' + $(this).width());
                 if ($(this).height() > 50) {
                     $(this).addClass('img-fluid');
                 }
@@ -588,111 +586,10 @@
 
     function setElapsed(durasi) {
         elapsed = durasi.lama_ujian == null || durasi.lama_ujian == '0' ? "00:00:00" : durasi.lama_ujian;
-        var el = elapsed.split(':');
-        //console.log('elapsed',elapsed);
-        h = Number(el[0]);
-        m = Number(el[1]);
-        s = Number(el[2]);
-
-        var mulai = durasi.mulai == null || durasi.mulai == '0' ? new Date(): new Date(durasi.mulai);
-        /*
-        const now = getMinutes(mulai);
-
-        var mnt = Number(infoJadwal.durasi_ujian);
-        mnt = mnt - now.m;
-        var scn = 60 - now.s;
-        if (scn > 0) {
-            mnt = mnt -1;
-        }
-        setTimer(0, mnt, scn);
-        */
-
-        let dateStart = new Date(mulai);
-        let datenow = new Date();
-        dif = datenow - dateStart;
-        tick = 0;
-        startCountDown();
-    }
-
-    function startCountDown() {
-        var now = new Date();
-        var end = new Date();
-        end.setMinutes(end.getMinutes() + durasiUjian);
-        end.setSeconds(end.getSeconds() - tick);
-
-        let distance = end - +now;
-        distance = distance - dif;
-        let days = Math.floor(distance / _day),
-            hours = Math.floor((distance % _day) / _hour),
-            minutes = Math.floor((distance % _hour) / _minute),
-            seconds = Math.floor((distance % _minute) / _second);
-
-        if (days < 10) days = '0' + days;
-        if (hours < 10) hours = '0' + hours;
-        if (minutes < 10) minutes = '0' + minutes;
-        if (seconds < 10) seconds = '0' + seconds;
-
-        if (distance <= 0) {
-            $('#timer').html('WAKTU SUDAH HABIS');
-            $('#prev').attr('disabled', 'disabled');
-            $('#next').attr('disabled', 'disabled');
-
-            var siswa = $('#up').find('input[name="siswa"]').val();
-            var bank = $('#up').find('input[name="bank"]').val();
-            var jadwal = $('#up').find('input[name="jadwal"]').val();
-
-            console.log('jwb', jsonJawaban);
-
-            $.ajax({
-                url: base_url + 'siswa/savejawaban',
-                method: 'POST',
-                data: $('#jawab').serialize() + '&jadwal=' + jadwal + '&siswa=' + siswa + '&bank=' + bank +
-                    '&waktu='+$('#timer').text()+'&elapsed='+elapsed + '&data=' + JSON.stringify(jsonJawaban),
-                success: function (response) {
-                    $('.konten-soal-jawab').html('');
-                    dialogWaktu();
-                },
-                error: function (xhr, error, status) {
-                    console.log(xhr.responseText);
-                }
-            });
-        } else {
-            $('#timer').html(hours + ':' + minutes + ':' + seconds);
-            if (timerOut) {
-                clearTimeout(timerOut);
-                timerOut = null;
-            }
-            tick ++;
-            getElapsedTimer();
-            timerOut = setTimeout(startCountDown, 1000);
-        }
-    }
-
-    function getElapsedTimer() {
-        s++;
-        if (s > 59) {
-            s = 0;
-            m ++;
-        }
-        if (m > 59) {
-            m = 0;
-            h ++;
-        }
-        elapsed = (h < 10 ? '0'+h : h) + ":" + (m < 10 ? '0'+m : m) + ":" + (s < 10 ? '0'+s : s);
-    }
-
-    /*
-    function setTimer(jam, menit, detik) {
-        if (timer) {
-            clearInterval(timer);
-            timer = null;
-        }
-        timer = set_timer($('#timer'), [0, jam, menit, detik], function(block, isOver) {
-            if (!isOver) {
-                getElapsedTimer();
-            } else {
-                block.html('WAKTU SUDAH HABIS');
-
+        createTimerCountdown(durasiUjian, elapsed.split(':'), function (isOver, remaining, onGoing) {
+            $('#timer').html(remaining);
+            elapsed = onGoing;
+            if (isOver) {
                 $('#prev').attr('disabled', 'disabled');
                 $('#next').attr('disabled', 'disabled');
 
@@ -714,9 +611,8 @@
                     }
                 });
             }
-        });
+        })
     }
-    */
 
     function nextSoal() {
         $('#next').attr('disabled', 'disabled');
@@ -1086,5 +982,61 @@
         endTime.setSeconds(endTime.getSeconds() - startTime.getSeconds());
 
         return {h:endTime.getHours(), m:endTime.getMinutes(), s:endTime.getSeconds()}
+    }
+
+    function createTimerCountdown(durasi, elapsed, func) {
+        const perdetik = 1000;
+        const permenit = 60 * perdetik;
+        const perjam = 60 * permenit;
+        const t_dur = durasi * (1000 * 60);
+
+        let t_jam = Number(elapsed[0]);
+        let t_mnt = Number(elapsed[1]);
+        let t_dtk = Number(elapsed[2]);
+
+        testTimer();
+
+        function testTimer() {
+            if (timerOut) {
+                clearTimeout(timerOut);
+                timerOut = null;
+            }
+
+            const elapsedMicro = (t_jam * perjam) + (t_mnt * permenit) + (t_dtk * perdetik);
+            const t_remaining = t_dur - elapsedMicro;
+            if (t_remaining <= 0) {
+                if (func && (typeof func == "function")) {
+                    func(true, 'Waktu habis', zeroPad(t_jam)+':'+zeroPad(t_mnt)+':'+zeroPad(t_dtk));
+                }
+            } else {
+                // elapsed
+                t_dtk++;
+                if (t_dtk > 59) {
+                    t_dtk = 0;
+                    t_mnt ++;
+                }
+                if (t_mnt > 59) {
+                    t_mnt = 0;
+                    t_jam ++;
+                }
+
+                // remaining
+                const r_jam = Math.floor(t_remaining / perjam);
+                const r_mnt = Math.floor((t_remaining % perjam) / permenit);
+                const r_dtk = Math.floor((t_remaining % permenit) / perdetik);
+
+                if (func && (typeof func == "function")) {
+                    func(false,
+                        zeroPad(r_jam)+':'+zeroPad(r_mnt)+':'+zeroPad(r_dtk),
+                        zeroPad(t_jam)+':'+zeroPad(t_mnt)+':'+zeroPad(t_dtk)
+                    );
+                }
+                timerOut = setTimeout(testTimer, 1000);
+            }
+        }
+
+        function zeroPad(no) {
+            return no < 10 ? '0'+no : no;
+        }
     }
 </script>

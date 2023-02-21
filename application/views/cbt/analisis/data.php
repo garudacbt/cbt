@@ -84,11 +84,6 @@
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <!--
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                        -->
                                     </div>
                                 </div>
 
@@ -381,6 +376,18 @@
                     console.log("error", xhr.responseText);
                 }
             });
+        });
+
+        $('table tbody tr img').each(function () {
+            var curSrc = $(this).attr('src');
+            console.log('src', curSrc);
+            if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
+                $(this).attr('src', base_url + curSrc);
+            } else if (curSrc.indexOf(base_url) === -1) {
+                var pathUpload = 'uploads';
+                var forReplace = curSrc.split(pathUpload);
+                $(this).attr('src', base_url + pathUpload + forReplace[1]);
+            }
         });
 
         /*

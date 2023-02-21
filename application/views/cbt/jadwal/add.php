@@ -173,7 +173,7 @@
 
         var selMapel = $('#id-mapel');
         var selec = idBank == '' ? 'selected' : '';
-        selMapel.prepend('<option value="0" '+selec+'>Pilih Mata Pelajaran</option>');
+        selMapel.prepend('<option value="" '+selec+'>Pilih Mata Pelajaran</option>');
         var selBank = $('#bank-id');
 
 		$('.select2').select2();
@@ -264,7 +264,7 @@
                 type: "GET",
                 success: function (data) {
                     console.log('bank',data);
-                    selBank.html('');
+                    selBank.html('<option value="" '+selec+'>Pilih Bank Soal:</option>');
                     $.each(data, function (i, v) {
                         var selected = i===idBank ? 'selected' : '';
                         if (i !== '') selBank.append('<option value="'+i+'" '+selected+'>'+v+'</option>');

@@ -47,7 +47,7 @@
                     <div class="card my-shadow mb-4">
                         <?= form_open('dataguru/saveJabatan', array('id' => 'editjabatan'), array('id_guru' => $guru->id_guru)) ?>
                         <div class="card-header">
-                            <h6 class="card-title">Edit Jabatan <?= $guru->nama_guru ?></h6>
+                            <h6 class="card-title text-bold">Edit Jabatan <?= $guru->nama_guru ?></h6>
                             <div class="card-tools">
                                 <a type="button" href="<?= base_url('dataguru') ?>" class="btn btn-sm btn-default">
                                     <i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
@@ -81,50 +81,58 @@
                                 }
                                 ?>
                                 <div class="col-md-6">
-                                    <label class="col-form-label">Mengajar</label>
-                                    <div class="input-group input-group-sm mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Mata Pelajaran</span>
+                                    <div class="card card-light border border-light">
+                                        <div class="card-header">
+                                            <span class="card-title text-bold">Mengajar</span>
                                         </div>
-                                        <?php
-                                        echo form_dropdown(
-                                            'mapel[]',
-                                            $mapels,
-                                            $jks,
-                                            'id="mapel" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Mapel"'
-                                        ); ?>
-                                    </div>
-                                    <div id="input-ekstra">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">ekstrakurikuler</span>
+                                        <div class="card-body">
+                                            <div class="row mb-4">
+                                                <label>Mata Pelajaran:</label>
+                                                <?php
+                                                echo form_dropdown(
+                                                    'mapel[]',
+                                                    $mapels,
+                                                    $jks,
+                                                    'id="mapel" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Mapel"'
+                                                ); ?>
+
                                             </div>
-                                            <?php
-                                            echo form_dropdown(
-                                                'ekstra[]',
-                                                $ekskul,
-                                                $jke,
-                                                'id="ekstra" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Ekstrakurikuler"'
-                                            ); ?>
+                                            <div class="row" id="input-ekstra">
+                                                <label>Ekstrakurikuler:</label>
+                                                <?php
+                                                echo form_dropdown(
+                                                    'ekstra[]',
+                                                    $ekskul,
+                                                    $jke,
+                                                    'id="ekstra" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Ekstrakurikuler"'
+                                                ); ?>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div id="input-mapel">
-                                        <label id="keterangan">Tentukan Kelas</label>
+                                    <div class="card card-light border border-light">
+                                        <div class="card-header">
+                                            <span id="keterangan" class="card-title text-bold">Tentukan Kelas Mapel</span>
+                                        </div>
+                                        <div class="card-body" id="input-mapel"></div>
                                     </div>
                                 </div>
-                                <div id="input-jabatan" class="col-md-6">
-                                    <label class="col-form-label">Jabatan Tambahan</label>
-                                    <div class="input-group input-group-sm mb-3">
-                                        <div class="input-group-prepend w-40">
-                                            <span class="input-group-text">Jabatan</span>
+                                <div class="col-md-6">
+                                    <div class="card card-light border border-light">
+                                        <div class="card-header">
+                                            <span id="keterangan" class="card-title text-bold">Jabatan Tambahan</span>
                                         </div>
-                                        <?php
-                                        echo form_dropdown(
-                                            'level',
-                                            $levels,
-                                            $guru->id_level,
-                                            'id="level" class="form-control form-control-sm" required'
-                                        ); ?>
+                                        <div class="card-body" id="input-jabatan">
+                                            <div class="row mb-4">
+                                                <label>Jabatan</label>
+                                                <?php
+                                                echo form_dropdown(
+                                                    'level',
+                                                    $levels,
+                                                    $guru->id_level,
+                                                    'id="level" class="form-control form-control-sm" required'
+                                                ); ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

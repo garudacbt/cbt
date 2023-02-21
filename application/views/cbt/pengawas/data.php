@@ -26,34 +26,33 @@
                         </div>
                         <div class="col-md-3 col-4">
                             <div class="form-group">
-                                <label for="jenis">Sesi</label>
-                                <?php
-                                echo form_dropdown('sesi', $sesi, $sesi_selected, 'id="sesi" class="form-control"'); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-4">
-                            <div class="form-group">
                                 <label for="jenis">Ruang</label>
                                 <?php
                                 echo form_dropdown('ruang', $ruang, $ruang_selected, 'id="ruang" class="form-control"'); ?>
                             </div>
                         </div>
+                        <div class="col-md-3 col-4">
+                            <div class="form-group">
+                                <label for="jenis">Sesi</label>
+                                <?php
+                                echo form_dropdown('sesi', $sesi, $sesi_selected, 'id="sesi" class="form-control"'); ?>
+                            </div>
+                        </div>
                     </div>
 
                     <?php
-                    //echo '<pre>';
-                    //var_dump($tgl_jadwals);
-                    //var_dump($pengawas);
-                    //echo '</pre>';
                     if (count($tgl_jadwals) > 0) : ?>
                         <table class="table table-bordered" id="tbl-pengawas">
                             <thead>
                             <tr>
                                 <th style="width: 40px" class="text-center align-middle">No.</th>
                                 <th class="text-center align-middle">Hari / Tanggal</th>
-                                <th class="text-center align-middle">Mata Pelajaran</th>
-                                <th class="text-center align-middle">Sesi</th>
                                 <th class="text-center align-middle">Ruang</th>
+                                <th class="text-center align-middle">Sesi</th>
+                                <!--
+                                <th class="text-center align-middle">Kelas Peserta</th>
+                                -->
+                                <th class="text-center align-middle">Mata Pelajaran</th>
                                 <th class="text-center align-middle">Pengawas</th>
                             </tr>
                             </thead>
@@ -65,7 +64,7 @@
                                 $listIdJad = [];
                                 if (isset($jadwal[$listMapel[0]])) {
                                     foreach ($jadwal[$listMapel[0]] as $ids) {
-                                        array_push($listIdJad, $ids->id_jadwal);
+                                        $listIdJad[] = $ids->id_jadwal;
                                     }
                                 }
                                 ?>
@@ -74,9 +73,9 @@
                                         class="text-center align-middle"><?= $no ?></td>
                                     <td rowspan="<?= count($listMapel) ?>"
                                         class="text-center align-middle"><?= buat_tanggal(date('D, d M Y', strtotime($tgl))) ?></td>
-                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[0] ?></td>
-                                    <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
                                     <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
+                                    <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
+                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[0] ?></td>
                                     <td class="text-center align-middle">
                                         <?php
                                         $sel = '';
@@ -98,17 +97,17 @@
                                 <?php for ($i = 1; $i < count($listMapel); $i++) :
                                 $listIdJad = [];
                                 foreach ($jadwal[$listMapel[$i]] as $ids) {
-                                    array_push($listIdJad, $ids->id_jadwal);
+                                    $listIdJad[] = $ids->id_jadwal;
                                 }
                                 ?>
                                 <tr>
-                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[$i] ?></td>
-                                    <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
                                     <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
+                                    <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
+                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[$i] ?></td>
                                     <td class="text-center align-middle">
                                         <?php
                                         $sel = '';
-                                        if (isset($listMapel[0]) && isset($jadwal[$listMapel[0]]) && isset($jadwal[$listMapel[0]][0])) {
+                                        if (isset($listMapel[$i]) && isset($jadwal[$listMapel[$i]]) && isset($jadwal[$listMapel[$i]][0])) {
                                             $idJad = $jadwal[$listMapel[$i]][0]->id_jadwal;
                                             $sel = isset($pengawas[$idJad]) &&
                                             isset($pengawas[$idJad][$ruang_selected]) &&

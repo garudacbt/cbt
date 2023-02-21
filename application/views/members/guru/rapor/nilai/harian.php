@@ -59,6 +59,7 @@
                 </div>
             </div>
 
+            <?= form_open('', array('id' => 'editkikd')) ?>
             <div class="card my-shadow mb-4">
                 <div class="card-header py-3">
                     <div class="card-title">
@@ -75,24 +76,27 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <table id="tbl1" class="table table-bordered">
+                            <table id="tbl1" class="table table-bordered border-success">
                                 <thead>
                                 <tr class="alert-default-success">
                                     <th class="text-center align-middle border-success" style="width: 50px">#</th>
                                     <th class="border-success">
-                                        <span class="pl-2 align-middle">Edit Aspek Pengetahuan</span>
+                                        <span class="align-middle">Edit Aspek Pengetahuan</span>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                 for ($i=0;$i<8;$i++):
-                                    $id_kikd = $mapel['id_mapel'].$kelas['id_kelas'].'1'.($i+1);
+                                    $id_mapel_kelas = $mapel['id_mapel'].$kelas['id_kelas'];
+                                    $id_kikd = $id_mapel_kelas.'1'.($i+1);
                                     $materi = $kikd[1][$id_kikd] == null ? '' : $kikd[1][$id_kikd]->materi_kikd;
                                     ?>
                                     <tr>
-                                        <td style="width: 50px" class="text-sm text-center border-success nomor pt-0 pb-0">P<?= $i+1 ?></td>
-                                        <td class="text-sm border-success editable p-0 pl-2"><?= $materi ?></td>
+                                        <td style="width: 50px" class="text-sm align-middle text-center nomor border-success p-0">P<?= $i+1 ?></td>
+                                        <td class="text-sm border-success p-0">
+                                            <input type="text" name="materi[1][<?=$id_mapel_kelas?>][<?=$id_kikd?>]" value="<?= $materi ?>" style="width: 100%; border: 0; padding-left: 6px; padding-right: 6px">
+                                        </td>
                                     </tr>
                                 <?php endfor; ?>
                                 </tbody>
@@ -111,23 +115,24 @@
                                 <tbody>
                                 <?php
                                 for ($i=0;$i<8;$i++):
-                                    $id_kikd = $mapel['id_mapel'].$kelas['id_kelas'].'2'.($i+1);
+                                    $id_mapel_kelas = $mapel['id_mapel'].$kelas['id_kelas'];
+                                    $id_kikd = $id_mapel_kelas.'2'.($i+1);
                                     $materi = $kikd[2][$id_kikd] == null ? '' : $kikd[2][$id_kikd]->materi_kikd;
                                     ?>
                                     <tr>
                                         <td style="width: 50px" class="text-sm text-center border-success nomor pt-0 pb-0">K<?= $i+1 ?></td>
-                                        <td class="text-sm border-success editable p-0 pl-2"><?= $materi ?></td>
+                                        <td class="text-sm border-success editable p-0">
+                                            <input type="text" name="materi[2][<?=$id_mapel_kelas?>][<?=$id_kikd?>]" value="<?= $materi ?>" style="width: 100%; border: 0; padding-left: 6px; padding-right: 6px">
                                     </tr>
                                 <?php endfor; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <?= form_open('', array('id' => 'editkikd')) ?>
                     <button type="submit" class="btn btn-success float-right" data-jenis="1">Simpan</button>
-                    <?= form_close() ?>
                 </div>
             </div>
+            <?= form_close() ?>
             <?php $dnone = $kkm == null ? 'd-none' : ''; ?>
             <div class="card my-shadow mb-4 <?=$dnone?>">
                 <div class="card-header py-3">
@@ -174,9 +179,16 @@
                     </table>
                     <div id="t-siswa" class="w-100"></div>
                     <?= form_open('', array('id' => 'uploadnilai')) ?>
-                    <button type="submit" class="btn btn-primary float-right mt-3 mb-3">
-                        <i class="fa fa-save mr-1"></i>Simpan
-                    </button>
+                    <input type="hidden" name="id_kelas" class="form-control" value="<?=$mapel['id_mapel']?>">
+                    <input type="hidden" name="id_mapel" class="form-control" value="<?=$kelas['id_kelas']?>">
+                    <div class="row mt-3 mb-3">
+                        <div class="col-12 text-right">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-save mr-1"></i>Simpan
+                            </button>
+                        </div>
+                    </div>
+                    <div id="for-upload" class="d-none row"></div>
                     <?= form_close() ?>
                 </div>
             </div>
@@ -186,6 +198,8 @@
 <script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jexcel.js"></script>
 <script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
+    var tpActive = '<?=$tp_active->id_tp?>';
+    var smtActive = '<?=$smt_active->id_smt?>';
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswa)?>));
     var arrNilai = JSON.parse(JSON.stringify(<?= json_encode($nilai)?>));
     var arrKiKd = JSON.parse(JSON.stringify(<?= json_encode($kikd)?>));
@@ -401,7 +415,7 @@
         cols = $.grep(cols, function (n, i) {
             return (n != null && n.nilai !== '');
         });
-        console.log('grepped', cols);
+        //console.log('grepped', cols);
 
         var result = cols.length>1 ? 'Memiliki kemampuan' : '';
         if (cols.length > 0) {
@@ -686,20 +700,6 @@
                 success: function (data) {
                     console.log(data);
                     window.location.href = base_url + 'rapor/inputharian/'+idMapel+'/'+idKelas
-                    /*
-                    swal.fire({
-                        title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil diupdate",
-                        icon: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        confirmButtonText: "OK"
-                    }).then(result => {
-                        if (result.value) {
-                            window.location.href = base_url + 'rapor/inputharian/'+idMapel+'/'+idKelas
-                        }
-                    });
-                    */
                 },
                 error: function (e) {
                     console.log("error", e.responseText);
@@ -712,6 +712,19 @@
             e.preventDefault();
             e.stopImmediatePropagation();
 
+            swal.fire({
+                title: "Menyimpan nilai harian",
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
+
             var tbl = $('table.jexcel tr').get().map(function(row) {
                 return $(row).find('td').get().map(function(cell) {
                     return $(cell).html().replace(/\&nbsp;/g, '').trim();
@@ -719,12 +732,45 @@
             });
             tbl.shift();
             tbl.shift();
-            var dataPost = $(this).serialize() + '&nilai='+JSON.stringify(tbl);
-            console.log(dataPost);
+            var inputs = '';
+            $.each(tbl, function (idx, s) {
+                var idSiswa = s[27];
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_nilai_harian]" value="'+idMapel+idKelas+idSiswa+tpActive+smtActive+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_siswa]" value="'+idSiswa+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_tp]" value="'+tpActive+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_smt]" value="'+smtActive+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_mapel]" value="'+idMapel+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][id_kelas]" value="'+idKelas+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p1]" value="'+s[3]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p2]" value="'+s[4]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p3]" value="'+s[5]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p4]" value="'+s[6]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p5]" value="'+s[7]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p6]" value="'+s[8]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p7]" value="'+s[9]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p8]" value="'+s[10]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p_rata_rata]" value="'+s[12]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p_predikat]" value="'+s[13]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][p_deskripsi]" value="'+s[14]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k1]" value="'+s[15]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k2]" value="'+s[16]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k3]" value="'+s[17]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k4]" value="'+s[18]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k5]" value="'+s[19]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k6]" value="'+s[20]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k7]" value="'+s[21]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k8]" value="'+s[22]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k_rata_rata]" value="'+s[24]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k_predikat]" value="'+s[25]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][k_deskripsi]" value="'+s[26]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa['+idSiswa+'][jml]" value="'+s[30]+'" class="form-control col-1">';
+            });
+            $('#for-upload').html(inputs);
+
             $.ajax({
                 type: "POST",
-                url: base_url + 'rapor/importharian/'+idMapel+'/'+idKelas,
-                data: dataPost,
+                url: base_url + 'rapor/importharian',
+                data: $(this).serialize(),
                 cache: false,
                 success: function (data) {
                     console.log(data);
@@ -743,81 +789,43 @@
                 },
                 error: function (e) {
                     console.log("error", e.responseText);
-                    showDangerToast(e.responseText);
+                    swal.fire({
+                        title: "Error",
+                        html: "Gagal menyimpan",
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    })
                 }
             });
         });
-
-        /*
-        $('#download').on('click', function () {
-            //console.log('json',tableSiswa.jexcel('getColumnData', 1));
-            var form = $('#template').serialize();
-            //console.log(form +'&data='+ JSON.stringify(tableSiswa.jexcel('getJson')));
-            $.ajax({
-                type: "POST",
-                url: base_url+"rapor/prosesnilaiharian",
-                data: form +'&data='+ JSON.stringify(tableSiswa.jexcel('getJson')),
-                //cache: false
-                success: function(response){
-                    if (response.status) {
-                        window.location.href = base_url+"rapor/download";
-                    }
-                }
-            });
-        })*/
-
-        $('.editable').attr('contentEditable',true);
 
         $('#editkikd').on('submit', function (e) {
             e.stopPropagation();
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            const $rows1 = $('#tbl1').find('tr'), headers1 = $rows1.splice(0, 1);
-            var jsonObj = [];
-            var no = 1;
-            $rows1.each((i, row) => {
-                var id_kikd = ''+idMapel+idKelas+'1'+ no;
-                const materi_kikd = $(row).find('.editable').text();
-
-                let item = {};
-                item ["id_kikd"] = id_kikd;
-                item ["id_mapel_kelas"] = '' + idMapel + idKelas;
-                item ["aspek"] = '1';
-                item ["materi_kikd"] = materi_kikd.trim();
-
-                jsonObj.push(item);
-                no++;
+            swal.fire({
+                title: "Menyimpan indikator penilaian",
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
             });
-
-            const $rows2 = $('#tbl2').find('tr'), headers2 = $rows2.splice(0, 1);
-            no = 1;
-            $rows2.each((i, row) => {
-                var id_kikd = ''+idMapel+idKelas+'2'+ no;
-                const materi_kikd = $(row).find('.editable').text().trim();
-
-                let item = {};
-                item ["id_kikd"] = id_kikd;
-                item ["id_mapel_kelas"] = '' + idMapel + idKelas;
-                item ["aspek"] = '2';
-                item ["materi_kikd"] = materi_kikd;
-
-                jsonObj.push(item);
-                no++;
-            });
-
-            var dataPost = $(this).serialize() + "&indikator=" + JSON.stringify(jsonObj);
-            console.log(dataPost);
 
             $.ajax({
                 url: base_url + "rapor/savekikd",
                 type: "POST",
-                dataType: "JSON",
-                data: dataPost,
+                data: $(this).serialize(),
                 success: function (data) {
-                    console.log("response:", data);
+                    //console.log("response:", data);
                     if (data.status) {
-                        //showSuccessToast('Data berhasil disimpan')
                         swal.fire({
                             title: "Sukses",
                             html: "Indikator penilaian berhasil disimpan",
@@ -831,11 +839,25 @@
                             }
                         });
                     } else {
-                        showDangerToast('gagal disimpan')
+                        swal.fire({
+                            title: "Error",
+                            html: "Gagal menyimpan",
+                            icon: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                            confirmButtonText: "OK"
+                        })
                     }
                 }, error: function (xhr, status, error) {
                     console.log("response:", xhr.responseText);
-                    showDangerToast('gagal disimpan')
+                    swal.fire({
+                        title: "Error",
+                        html: "Gagal menyimpan",
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    })
                 }
             });
         });
