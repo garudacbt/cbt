@@ -49,8 +49,7 @@
                                     </ul>
                                 </div>
                                 <?php
-                                if (count($jadwals)>0 && count($kbms)>0):
-                                    ?>
+                                if (count($jadwals)>0 && count($kbms)>0):?>
                                     <div class="card-body p-0">
                                         <div class="tab-content">
                                             <?php
@@ -63,7 +62,6 @@
                                                     $arrDur[$istirahat['ist']] = $istirahat['dur'];
                                                 }
                                             }
-
                                                 $active = $no == 1 ? 'active' : '';
                                                 ?>
                                                 <div class="tab-pane <?=$active?>" id="tab_<?=$ky?>">
@@ -172,40 +170,45 @@
                                     <?php
                                     $no = 1;
                                     if (count($jadwal_ujian) > 0) : ?>
-                                        <table id="tbl-penilaian" class="table table-bordered">
-                                            <tr>
-                                                <th class="text-center align-middle">NO</th>
-                                                <th class="text-center align-middle">RUANG</th>
-                                                <th class="text-center align-middle">SESI</th>
-                                                <th class="text-center align-middle">JAM KE</th>
-                                                <th class="text-center align-middle">MATA PELAJARAN</th>
-                                                <th class="text-center align-middle">PENGAWAS</th>
-                                            </tr>
-                                            <?php
-                                            foreach ($ruangs as $ruang=>$sesis) :
-                                                foreach ($sesis as $sesi) :
-                                                    foreach ($jadwal_ujian as $jadwal) :
-                                                        $id_guru = isset($pengawas[$jadwal->id_jadwal])
-                                                        && isset($pengawas[$jadwal->id_jadwal][$ruang]) &&
-                                                        isset($pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id])
-                                                            ? explode(',', $pengawas[$jadwal->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
-                                                            : [];
-                                                        //$peng = $id_guru != '' && isset($gurus[$id_guru]) ? $gurus[$id_guru] : '';
-                                                        ?>
-                                                        <tr>
-                                                            <td class="text-center align-middle"><?=$no?></td>
-                                                            <td class="text-center align-middle"><?=$sesi->nama_ruang?></td>
-                                                            <td class="text-center align-middle"><?=$sesi->nama_sesi?></td>
-                                                            <td class="text-center align-middle"><?=$jadwal->jam_ke?></td>
-                                                            <td class="text-center align-middle"><?=$jadwal->nama_mapel?></td>
-                                                            <td class="align-middle crop-text-table">
-                                                                <?php foreach ($id_guru as $ig) {
-                                                                    echo isset($gurus[$ig]) ? '<p class="p-0 m-0">'.$gurus[$ig].'</p>' : '';
-                                                                } ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php endforeach; endforeach; $no ++; endforeach; ?>
-                                        </table>
+                                    <table id="tbl-penilaian" class="table table-bordered">
+                                        <tr>
+                                            <th class="text-center align-middle">NO</th>
+                                            <th class="text-center align-middle">RUANG</th>
+                                            <th class="text-center align-middle">SESI</th>
+                                            <th class="text-center align-middle">JAM KE</th>
+                                            <th class="text-center align-middle">MATA PELAJARAN</th>
+                                            <th class="text-center align-middle">PENGAWAS</th>
+                                        </tr>
+                                        <?php
+                                        foreach ($ruangs as $ruang=>$sesis) :
+                                        foreach ($sesis as $sesi) :
+                                            $kelas_ruang_sesi = $kelas_ujian[$ruang][$sesi->sesi_id];
+                                        foreach ($jadwal_ujian as $jadwal) :
+                                            $id_guru = isset($pengawas[$jadwal[0]->id_jadwal])
+                                                && isset($pengawas[$jadwal[0]->id_jadwal][$ruang]) &&
+                                                isset($pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id])
+                                                ? explode(',', $pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
+                                                : [];
+                                            $bank_kelass = unserialize($jadwal[0]->bank_kelas);
+                                            $badge_kelas = '';
+                                            foreach ($bank_kelass as $bank_kelas) {
+                                                $badge_kelas .= '<span class="badge badge-info">'.$bank_kelas['kelas_id'].'</span>';
+                                            }
+                                            ?>
+                                        <tr>
+                                            <td class="text-center align-middle"><?=$no?></td>
+                                            <td class="text-center align-middle"><?=$sesi->nama_ruang?></td>
+                                            <td class="text-center align-middle"><?=$sesi->nama_sesi?></td>
+                                            <td class="text-center align-middle"><?=$jadwal[0]->jam_ke?></td>
+                                            <td class="text-center align-middle"><?=$jadwal[0]->kode?></td>
+                                            <td class="align-middle crop-text-table">
+                                                <?php foreach ($id_guru as $ig) {
+                                                    echo isset($gurus[$ig]) ? '<p class="p-0 m-0">'.$gurus[$ig].'</p>' : '';
+                                                } ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; endforeach; $no ++; endforeach; ?>
+                                    </table>
                                     <?php else: ?>
                                         <table class="w-100 table-bordered"><tr><td class="text-center">Tidak ada jadwal penilaian</td></tr></table>
                                     <?php endif; ?>
