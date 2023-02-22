@@ -30,7 +30,7 @@
                                     <?php
                                     //var_dump(file_exists(FCPATH.$alumni->foto));
                                     //var_dump(FCPATH.$alumni->foto);
-                                    if (!file_exists(FCPATH.$alumni->foto)): ?>
+                                    if (!file_exists(FCPATH . $alumni->foto)): ?>
                                         <?php if ($alumni->jenis_kelamin == 'L'): ?>
                                             <img src="<?= base_url() ?>/assets/img/siswa-l.png"
                                                  class="img-circle profile-avatar mt-2" alt="User avatar">
@@ -46,19 +46,22 @@
                                     <div class="user-button">
                                         <div class="row">
                                             <div class="col-6">
-                                                <button type="button" data-toggle="modal" data-target="#editFotoModal" class="btn btn-sm btn-primary btn-block"><i
+                                                <button type="button" data-toggle="modal" data-target="#editFotoModal"
+                                                        class="btn btn-sm btn-primary btn-block"><i
                                                             class="fas fa-image"></i> Ganti Foto
                                                 </button>
                                             </div>
                                             <div class="col-6">
-                                                <button type="button" class="btn btn-danger btn-sm btn-block" onclick="deleteImage(true)"><i
+                                                <button type="button" class="btn btn-danger btn-sm btn-block"
+                                                        onclick="deleteImage(true)"><i
                                                             class="fa fa-trash"></i> Hapus Foto
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-12">
-                                                <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#editKelulusanModal"><i
+                                                <button type="button" class="btn btn-warning btn-block"
+                                                        data-toggle="modal" data-target="#editKelulusanModal"><i
                                                             class="fa fa-pencil"></i> Edit Kelulusan
                                                 </button>
                                             </div>
@@ -75,7 +78,8 @@
                         <div class="card-header p-1">
                             <div class="card-title">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#dataalumni" data-toggle="tab">Alumni</a>
+                                    <li class="nav-item"><a class="nav-link active" href="#dataalumni"
+                                                            data-toggle="tab">Alumni</a>
                                     </li>
                                     <li class="nav-item"><a class="nav-link" href="#bioalumni"
                                                             data-toggle="tab">Detail</a></li>
@@ -247,7 +251,8 @@
                                         <?php else: ?>
                                             <div class="form-group row">
                                                 <div class="col-md-4 mb-sm-0">
-                                                    <label for="<?= $bio->name ?>" class="control-label"><?= $bio->label ?></label>
+                                                    <label for="<?= $bio->name ?>"
+                                                           class="control-label"><?= $bio->label ?></label>
                                                 </div>
                                                 <div class="col-md-8 mb-sm-0">
                                                     <div class="input-group">
@@ -327,7 +332,8 @@
     </section>
 </div>
 
-<div class="modal fade" id="editFotoModal" tabindex="-1" role="dialog" aria-labelledby="editFotoLabel" aria-hidden="true">
+<div class="modal fade" id="editFotoModal" tabindex="-1" role="dialog" aria-labelledby="editFotoLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -343,7 +349,7 @@
                     <input type="file" id="foto-profile" name="foto" class="dropify"
                            data-max-file-size-preview="2M"
                            data-allowed-file-extensions="jpg jpeg png"
-                           data-default-file="<?= base_url().$alumni->foto ?>"/>
+                           data-default-file="<?= base_url() . $alumni->foto ?>"/>
                 </div>
                 <?= form_close() ?>
             </div>
@@ -354,8 +360,9 @@
     </div>
 </div>
 
-<?=form_open('', array('id'=>'updatekelulusan'),  array('id_siswa' => $alumni->id_siswa))?>
-<div class="modal fade" id="editKelulusanModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<?= form_open('', array('id' => 'updatekelulusan'), array('id_siswa' => $alumni->id_siswa)) ?>
+<div class="modal fade" id="editKelulusanModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -369,19 +376,22 @@
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Tahun Lulus</span>
                     </div>
-                    <input type="number" class="form-control" name="tahun_lulus" value="<?= $alumni->tahun_lulus ?>" placeholder="Tahun Lulus" required>
+                    <input type="number" class="form-control" name="tahun_lulus" value="<?= $alumni->tahun_lulus ?>"
+                           placeholder="Tahun Lulus" required>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Nomor Ijazah</span>
                     </div>
-                    <input type="text" class="form-control" name="no_ijazah" value="<?= $alumni->no_ijazah ?>" placeholder="Nomor Ijazah">
+                    <input type="text" class="form-control" name="no_ijazah" value="<?= $alumni->no_ijazah ?>"
+                           placeholder="Nomor Ijazah">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Kelas Akhir</span>
                     </div>
-                    <input type="text" name="kelas_akhir" class="form-control" value="<?= $alumni->kelas_akhir ?>" placeholder="Kelas akhir" required>
+                    <input type="text" name="kelas_akhir" class="form-control" value="<?= $alumni->kelas_akhir ?>"
+                           placeholder="Kelas akhir" required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -391,7 +401,7 @@
         </div>
     </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
 <script>
     var fotoProfile = '';
@@ -407,8 +417,8 @@
                     previous: 'fa fa-angle-left'
                 },
             timepicker: false,
-            scrollInput : false,
-            scrollMonth : false,
+            scrollInput: false,
+            scrollMonth: false,
             format: 'Y-m-d',
             disabledWeekDays: [0],
             widgetPositioning: {
@@ -530,7 +540,7 @@
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {
-                            if(result.value) {
+                            if (result.value) {
                                 window.location.reload();
                             }
                         })
@@ -593,7 +603,7 @@
                 reader.readAsDataURL(input.files[0]);
 
                 var form = new FormData($('#set-foto-profile')[0]);
-                uploadAttach(base_url + 'dataalumni/uploadfile/'+idAlumni, form);
+                uploadAttach(base_url + 'dataalumni/uploadfile/' + idAlumni, form);
             }
         });
 

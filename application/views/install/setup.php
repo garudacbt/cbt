@@ -1,60 +1,70 @@
 <section class="d-flex align-items-center gradient">
     <div class="container p-4">
         <div class="row">
-            <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 aos-init aos-animate" data-aos="fade-up">
+            <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 aos-init aos-animate"
+                 data-aos="fade-up">
                 <div class="text-center text-md-left">
                     <div class="mb-3 text-white">
-                        <img style="width:100px; height:auto;" src="<?=base_url()?>/assets/img/garuda_white.svg"><span class="h1 align-bottom">aruda</span> <span class="h1 align-bottom"> CBT</span>
+                        <img style="width:100px; height:auto;" src="<?= base_url() ?>/assets/img/garuda_white.svg"><span
+                                class="h1 align-bottom">aruda</span> <span class="h1 align-bottom"> CBT</span>
                     </div>
                     <div class="h2 text-white">
                         <b>G</b>abungan <b>A</b>plikasi <b>R</b>apor,<br/><b>U</b>jian dan e-learning
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch hero-img aos-init aos-animate pt-5" data-aos="fade-up">
+            <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch hero-img aos-init aos-animate pt-5"
+                 data-aos="fade-up">
                 <div class="card" style="background-color: rgba(255,255,255,.7);">
                     <div class="card-body">
-                        <?=form_open('create', array('id'=>'create'))?>
+                        <?= form_open('create', array('id' => 'create')) ?>
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="input-nama-db">Host Name</label>
-                                <input type="text" class="form-control db" id="input-nama-host" name="hostname" value="" placeholder="localhost" required>
+                                <input type="text" class="form-control db" id="input-nama-host" name="hostname" value=""
+                                       placeholder="localhost" required>
                             </div>
                             <div class="form-group col-12" required>
                                 <label for="input-nama-db">Host Username</label>
-                                <input type="text" class="form-control db" id="input-user-host" name="hostuser" value="" placeholder="Host Username">
+                                <input type="text" class="form-control db" id="input-user-host" name="hostuser" value=""
+                                       placeholder="Host Username">
                             </div>
                             <div class="form-group col-12" required>
                                 <label for="input-nama-db">Host Password</label>
-                                <input type="text" class="form-control" id="input-pass-host" value="" name="hostpass" placeholder="Host Password">
+                                <input type="text" class="form-control" id="input-pass-host" value="" name="hostpass"
+                                       placeholder="Host Password">
                                 <small class="form-text text-muted">Kosongkan jika tidak menggunakan password.</small>
                             </div>
                             <div class="form-group col-12" required>
                                 <label for="input-nama-db">Nama Database</label>
-                                <input type="text" class="form-control db" id="input-nama-db" name="database" value="" placeholder="Nama Database">
+                                <input type="text" class="form-control db" id="input-nama-db" name="database" value=""
+                                       placeholder="Nama Database">
                                 <small class="form-text text-muted">Jangan gunakan spasi.</small>
                             </div>
                         </div>
                         <div class="d-flex flex-wrap align-items-center justify-content-end">
                             <button type="submit" id="install-db" class="btn-primary btn">INSTALL / UPDATE</button>
                         </div>
-                        <?=form_close()?>
+                        <?= form_close() ?>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="alert alert-default-info align-content-center mt-4" role="alert" style="background-color: rgba(255,255,255,.7);">
+        <div class="alert alert-default-info align-content-center mt-4" role="alert"
+             style="background-color: rgba(255,255,255,.7);">
             <i><b>A. Update Aplikasi</b></i>
             <ul>
                 <li>
-                    Isi kolom di atas, sesuaikan dengan pengaturan localhost/mySql dan nama database yang sudah ada, lalu klik [INSTALL / UPDATE].
+                    Isi kolom di atas, sesuaikan dengan pengaturan localhost/mySql dan nama database yang sudah ada,
+                    lalu klik [INSTALL / UPDATE].
                 </li>
             </ul>
             <br>
             <i><b>B. Install Otomatis</b></i>
             <ul>
                 <li>
-                    Isi kolom di atas, sesuaikan dengan pengaturan localhost/mySql, isi nama database, lalu klik [INSTALL / UPDATE
+                    Isi kolom di atas, sesuaikan dengan pengaturan localhost/mySql, isi nama database, lalu klik
+                    [INSTALL / UPDATE
                 </li>
                 <li>
                     Lanjutkan proses instalasi di halaman selanjutnya
@@ -99,7 +109,8 @@
     </div>
 </section>
 <section class="gradient">
-    <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
                 <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
@@ -118,7 +129,7 @@
 
 <script>
     console.log('<?= $res ?>', '<?= $msg ?>');
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#create').submit(function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();

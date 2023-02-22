@@ -171,7 +171,8 @@ $jadwal_selesai = [];
                                                     <div class="card-body p-0">
                                                         <div class="small-box <?= $bg ?> mb-0">
                                                             <div class="inner">
-                                                                <h6 class="crop-text-1"><b><?= $jadwal->nama_mapel ?></b></h6>
+                                                                <h6 class="crop-text-1">
+                                                                    <b><?= $jadwal->nama_mapel ?></b></h6>
                                                                 <h5><?= $jadwal->nama_jenis ?></h5>
                                                             </div>
                                                             <div class="icon">
@@ -214,7 +215,8 @@ $jadwal_selesai = [];
                                                                     <?php else : ?>
                                                                         <?php if (isset($jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1]) && $jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1] == false) : ?>
                                                                             <button id="<?= $jadwal->id_jadwal ?>"
-                                                                                    class="btn-block btn status text-white small-box-footer p-2 btn-disabled" disabled>
+                                                                                    class="btn-block btn status text-white small-box-footer p-2 btn-disabled"
+                                                                                    disabled>
                                                                                 <b>MENUNGGU</b>
                                                                             </button>
                                                                         <?php else : ?>

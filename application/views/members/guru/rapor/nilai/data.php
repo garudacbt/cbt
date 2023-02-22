@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="card my-shadow mb-4">
                 <div class="card-body">
-                    <?php if (count($mapel)==0 && count($ekstra) == 0) : ?>
+                    <?php if (count($mapel) == 0 && count($ekstra) == 0) : ?>
                         <div class="alert alert-default-warning align-content-center" role="alert">
                             Tidak ada Mata Pelajaran diampu
                             <br> Hubungi Admin

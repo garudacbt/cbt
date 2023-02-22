@@ -35,20 +35,23 @@
                         <div class="card border border-success">
                             <div class="card-header alert-default-success">
                                 <b><?= $mpl ?></b>
-                                <button type="submit" class="card-tools btn btn-sm btn-primary" disabled><i class="fa fa-save"></i> Simpan</button>
+                                <button type="submit" class="card-tools btn btn-sm btn-primary" disabled><i
+                                            class="fa fa-save"></i> Simpan
+                                </button>
                             </div>
                             <div class="card-body">
                                 <span><b>Kelas:</b></span><br>
                                 <?php foreach ($kelas[$key] as $k => $kls) :
                                     if ($kls['id_kelas'] != null) :?>
-                                        <button class="btn btn-outline-success btn-kelas m<?=$key?>" data-mapel="<?= $key ?>"
+                                        <button class="btn btn-outline-success btn-kelas m<?= $key ?>"
+                                                data-mapel="<?= $key ?>"
                                                 data-kelas="<?= $kls['id_kelas'] ?>"><?= $kls['nama_kelas'] ?></button>
                                     <?php endif; endforeach; ?>
                                 <div id="alert<?= $key ?>" class="mt-3 alert alert-default-warning align-content-center"
                                      role="alert">
                                     Silahklan pilih kelas
                                 </div>
-                                <div id="konten-kikd<?=$key?>" class="row mt-3">
+                                <div id="konten-kikd<?= $key ?>" class="row mt-3">
                                 </div>
                             </div>
                             <div class="overlay d-none" id="loading<?= $key ?>">
@@ -86,7 +89,7 @@
     function createView(data) {
         //console.log(data);
         var html = '<div class="col-md-6"> ' +
-            '<table id="table-'+data.mapel+data.kelas+1+'" class="table table-bordered"> ' +
+            '<table id="table-' + data.mapel + data.kelas + 1 + '" class="table table-bordered"> ' +
             '<tr> ' +
             '<th class="text-center align-middle">#</th>' +
             '<th><span class="pl-2 align-middle">Aspek Pengetahuan</span>' +
@@ -94,27 +97,27 @@
         for (let i = 0; i < 8; i++) {
             var asp1 = data.kikd[1];
             var idPeng;
-            if (asp1[data.mapel+data.kelas+'1'+(i+1)] != null) {
-                idPeng = asp1[data.mapel+data.kelas+'1'+(i+1)].materi_kikd;
+            if (asp1[data.mapel + data.kelas + '1' + (i + 1)] != null) {
+                idPeng = asp1[data.mapel + data.kelas + '1' + (i + 1)].materi_kikd;
             } else {
                 idPeng = '';
             }
-            var mapel1 = data.mapel+'';
-            var kls1 = data.kelas+'';
+            var mapel1 = data.mapel + '';
+            var kls1 = data.kelas + '';
             var aspk1 = '1';
             var id_mapel_kelas1 = mapel1 + kls1;
-            var id_kikd1 = mapel1 + kls1 + aspk1 + (i+1);
+            var id_kikd1 = mapel1 + kls1 + aspk1 + (i + 1);
             html += '<tr> ' +
-                '<td class="text-center" style="width: 40px">P-'+(i+1)+'</td> ' +
+                '<td class="text-center" style="width: 40px">P-' + (i + 1) + '</td> ' +
                 '<td class="editable text-primary">' +
-                '<textarea name="materi[1]['+id_mapel_kelas1+']['+id_kikd1+']"' +
-                ' placeholder="Place some text here" style="width:100%;">' + idPeng +'</textarea>' +
+                '<textarea name="materi[1][' + id_mapel_kelas1 + '][' + id_kikd1 + ']"' +
+                ' placeholder="Place some text here" style="width:100%;">' + idPeng + '</textarea>' +
                 '</td></tr>';
         }
         html += '</table> ' +
             '</div> ' +
             '<div class="col-md-6"> ' +
-            '<table id="table-'+data.mapel+data.kelas+2+'" class="table table-bordered"> ' +
+            '<table id="table-' + data.mapel + data.kelas + 2 + '" class="table table-bordered"> ' +
             '<tr> ' +
             '<th class="text-center align-middle">#</th>' +
             '<th><span class="pl-2 align-middle">Aspek Keterampilan </span>' +
@@ -122,22 +125,22 @@
         for (let j = 0; j < 8; j++) {
             var asp2 = data.kikd[2];
             var idKetr;
-            if (asp2[data.mapel+data.kelas+'2'+(j+1)] != null) {
-                idKetr = asp2[data.mapel+data.kelas+'2'+(j+1)].materi_kikd;
+            if (asp2[data.mapel + data.kelas + '2' + (j + 1)] != null) {
+                idKetr = asp2[data.mapel + data.kelas + '2' + (j + 1)].materi_kikd;
             } else {
                 idKetr = '';
             }
-            var mapel = data.mapel+'';
-            var kls = data.kelas+'';
+            var mapel = data.mapel + '';
+            var kls = data.kelas + '';
             var aspk = '2';
             var id_mapel_kelas = mapel + kls;
-            var id_kikd = mapel + kls + aspk + (j+1);
+            var id_kikd = mapel + kls + aspk + (j + 1);
 
             html += '<tr> ' +
-                '<td class="text-center" style="width: 40px">K-'+(j+1)+'</td> ' +
+                '<td class="text-center" style="width: 40px">K-' + (j + 1) + '</td> ' +
                 '<td class="editable text-primary">' +
-                '<textarea name="materi[2]['+id_mapel_kelas+']['+id_kikd+']"' +
-                ' placeholder="Place some text here" style="width:100%;">' + idKetr +'</textarea>' +
+                '<textarea name="materi[2][' + id_mapel_kelas + '][' + id_kikd + ']"' +
+                ' placeholder="Place some text here" style="width:100%;">' + idKetr + '</textarea>' +
                 '</td></tr>';
         }
         html += '</table> </div>';
@@ -163,7 +166,7 @@
             url = base_url + 'rapor/datakikd/' + mapel + '/' + kelas;
             refreshStatus(mapel);
 
-            $('.m'+mapel).removeClass('active');
+            $('.m' + mapel).removeClass('active');
             $(this).toggleClass('active');
         });
 

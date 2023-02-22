@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><?= $judul . $kelas->nama_kelas?></h1>
+                    <h1><?= $judul . $kelas->nama_kelas ?></h1>
                 </div>
             </div>
         </div>
@@ -30,7 +30,8 @@
                                     <table id="tbl1" class="table table-bordered">
                                         <thead>
                                         <tr class="alert-default-danger">
-                                            <th class="text-center align-middle border-danger" style="width: 40px">No</th>
+                                            <th class="text-center align-middle border-danger" style="width: 40px">No
+                                            </th>
                                             <th class="border-danger">
                                                 <span class="pl-2 align-middle">Pendengaran</span>
                                             </th>
@@ -48,13 +49,14 @@
                                         <tbody>
                                         <?php
                                         $arrFis = ['telinga', 'mata', 'gigi', 'lain'];
-                                        for ($i=0;$i<4;$i++) :?>
+                                        for ($i = 0; $i < 4; $i++) :?>
                                             <tr>
-                                                <td class="text-sm text-center border-success pt-0 pb-0 kode"><?=$i+1?></td>
+                                                <td class="text-sm text-center border-success pt-0 pb-0 kode"><?= $i + 1 ?></td>
                                                 <?php foreach ($deskFisik as $desk) :
-                                                    if ($desk->kode == $i+1) :?>
-                                                <td data-jenis="<?= $desk->jenis ?>" class="text-sm border-success editable p-0 pl-2"><?= $desk->deskripsi ?></td>
-                                                <?php endif; endforeach; ?>
+                                                    if ($desk->kode == $i + 1) :?>
+                                                        <td data-jenis="<?= $desk->jenis ?>"
+                                                            class="text-sm border-success editable p-0 pl-2"><?= $desk->deskripsi ?></td>
+                                                    <?php endif; endforeach; ?>
                                             </tr>
                                         <?php endfor; ?>
                                         </tbody>
@@ -91,8 +93,8 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jexcel.js"></script>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jsuites.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswa)?>));
     var arrNilai = JSON.parse(JSON.stringify(<?= json_encode($nilai)?>));
@@ -109,29 +111,29 @@
             return (n !== '' && n != null);
         });
 
-        if (desk.length===0) return '';
+        if (desk.length === 0) return '';
 
         var result = '';
         for (let i = 0; i < arrFisik.length; i++) {
             var n1 = parseInt(arrFisik[i].kode);
-            var n2 = arrFisik[(i+1)] != null  && arrFisik[(i+1)].kode != null ? parseInt(arrFisik[(i+1)].kode) : (n1+100);
-            if (inRange(desk, n1, (n2-1))) {
-                result += '\n'+arrFisik[i].deskripsi;
+            var n2 = arrFisik[(i + 1)] != null && arrFisik[(i + 1)].kode != null ? parseInt(arrFisik[(i + 1)].kode) : (n1 + 100);
+            if (inRange(desk, n1, (n2 - 1))) {
+                result += '\n' + arrFisik[i].deskripsi;
             }
         }
         return result;
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         //console.log('siswa',arrSiswa);
-        console.log('nilai',arrNilai);
+        console.log('nilai', arrNilai);
         //console.log('absen',smt);
 
         var arrTelinga = [];
         var arrMata = [];
         var arrGigi = [];
         var arrLain = [];
-        
+
         $.each(arrFisik, function (i, v) {
             if (v.jenis == '1') {
                 arrTelinga.push(v.deskripsi)
@@ -144,7 +146,7 @@
             }
         });
 
-        $('.editable').attr('contentEditable',true);
+        $('.editable').attr('contentEditable', true);
         var tableSize = $('#t-siswa');
         var dataSiswa = [];
         var row = 1;
@@ -167,7 +169,7 @@
                 [
                     noInduk, v.nama,
                     tinggi1, tinggi2, berat1, berat2,
-                    telinga,mata,gigi,lainnya,
+                    telinga, mata, gigi, lainnya,
                     v.id_siswa,
                 ]
             );
@@ -222,13 +224,13 @@
         }
 
         var tableSiswa = $('#t-siswa').jexcel({
-            data:dataSiswa,
-            minDimensions:[11],
+            data: dataSiswa,
+            minDimensions: [11],
             //defaultColWidth: 100,
             tableOverflow: true,
-            tableWidth: ''+tableSize.width()+'px',
-            tableHeight: (80*dataSiswa.length)+'px',
-            search:true,
+            tableWidth: '' + tableSize.width() + 'px',
+            tableHeight: (80 * dataSiswa.length) + 'px',
+            search: true,
             freezeColumns: 2,
             //rowResize: true,
             columnResize: false,
@@ -236,7 +238,7 @@
             /*[
             {width: 100},
             {width: 300},       ],*/
-            nestedHeaders:[
+            nestedHeaders: [
                 [
                     {title: 'DATA SISWA', colspan: '2'},
                     {title: 'TINGGI', colspan: '2'},
@@ -244,7 +246,7 @@
                     {title: 'KONDISI KESEHATAN', colspan: '5'},
                 ]
             ],
-            updateTable:function(instance, cell, col, row, val, label, cellName) {
+            updateTable: function (instance, cell, col, row, val, label, cellName) {
                 if (col === 0 || col === 1) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
@@ -252,16 +254,16 @@
                     cell.classList.add('readonly');
                 }
 
-                if (col === 2||col === 3 ||  col === 4 ||  col === 5) {
+                if (col === 2 || col === 3 || col === 4 || col === 5) {
                     cell.style.backgroundColor = '#b9f6ca';
                 }
 
                 if (smt === 1) {
-                    if (col === 2||col === 4) {
+                    if (col === 2 || col === 4) {
                         cell.classList.add('readonly');
                     }
                 } else {
-                    if (col === 3 ||  col === 5) {
+                    if (col === 3 || col === 5) {
                         cell.classList.add('readonly');
                     }
                 }
@@ -270,12 +272,12 @@
                     cell.style.borderLeft = '3px solid #9e9e9e';
                 }
 
-                if (col === 6|| col === 7 || col === 8 || col === 9) {
+                if (col === 6 || col === 7 || col === 8 || col === 9) {
                     cell.style.backgroundColor = '#e0f7fa';
                     cell.style.fontSize = 'small';
                 }
 
-                if (col === 6|| col === 7 || col === 8 || col === 9) {
+                if (col === 6 || col === 7 || col === 8 || col === 9) {
                     cell.style.textAlign = 'left';
                     cell.style.fontSize = 'small';
                 }
@@ -287,7 +289,7 @@
                     cell.style.fontSize = 'small';
                 }
             },
-            onchange: function(instance, cell, col, row, value, label) {
+            onchange: function (instance, cell, col, row, value, label) {
                 /*
                 var cellName = jexcel.getColumnNameFromId([col,row]);
                 if (inRange(col, 2, 7)) {
@@ -311,32 +313,32 @@
             console.log(d1);
             var values2 = $(`td[data-x="7"][data-y="${row}"]`).text();
             console.log(values2);
-            tableSiswa.setValue('I'+(row+1), setDesk(d1, 1) + setDesk([values2], 2), true);
+            tableSiswa.setValue('I' + (row + 1), setDesk(d1, 1) + setDesk([values2], 2), true);
         }
 
         $('#uploadnilai').on('submit', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            var tbl = $('table.jexcel tr').get().map(function(row) {
-                return $(row).find('td').get().map(function(cell) {
+            var tbl = $('table.jexcel tr').get().map(function (row) {
+                return $(row).find('td').get().map(function (cell) {
                     return $(cell).html();
                 });
             });
             tbl.shift();
             tbl.shift();
-            console.log($(this).serialize() + '&nilai='+JSON.stringify(tbl));
+            console.log($(this).serialize() + '&nilai=' + JSON.stringify(tbl));
 
             $.ajax({
                 type: "POST",
-                url: base_url + 'rapor/importfisik/'+idKelas,
-                data: $(this).serialize() + '&nilai='+JSON.stringify(tbl),
+                url: base_url + 'rapor/importfisik/' + idKelas,
+                data: $(this).serialize() + '&nilai=' + JSON.stringify(tbl),
                 cache: false,
                 success: function (data) {
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil disimpan",
+                        html: "<b>" + data + "<b> nilai berhasil disimpan",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
@@ -354,13 +356,13 @@
             });
         });
 
-        $('#editdeskripsi').on('submit',function (e) {
+        $('#editdeskripsi').on('submit', function (e) {
             e.stopPropagation();
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            var tbl = $('table#tbl1 tr').get().map(function(row) {
-                return $(row).find('td').get().map(function(cell) {
+            var tbl = $('table#tbl1 tr').get().map(function (row) {
+                return $(row).find('td').get().map(function (cell) {
                     return $(cell).html();
                 });
             });

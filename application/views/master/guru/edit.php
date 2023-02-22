@@ -1,21 +1,22 @@
 <div class="content-wrapper bg-white pt-4">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-6">
-					<h1><?= $judul ?></h1>
-				</div>
-				<div class="col-6">
-					<a href="<?= base_url('dataguru') ?>" type="button" class="btn btn-sm btn-danger float-right">
-						<i class="fas fa-arrow-circle-left"></i><span class="d-none d-sm-inline-block ml-1">Kembali</span>
-					</a>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-6">
+                    <h1><?= $judul ?></h1>
+                </div>
+                <div class="col-6">
+                    <a href="<?= base_url('dataguru') ?>" type="button" class="btn btn-sm btn-danger float-right">
+                        <i class="fas fa-arrow-circle-left"></i><span
+                                class="d-none d-sm-inline-block ml-1">Kembali</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
+    <section class="content">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-4 col-md-4">
                     <div class="card my-shadow card-primary card-outline">
@@ -23,31 +24,34 @@
                             <div class="user-profile-inner">
                                 <?php
                                 $foto = $guru->foto;
-                                if ($foto=='' || $foto == null) {
+                                if ($foto == '' || $foto == null) {
                                     $foto = 'assets/img/siswa.jpg';
                                 }
                                 ?>
-                                <img onerror="this.src='<?=base_url('assets/img/siswa.png')?>'"
-                                        src="<?= base_url().$foto ?>"
+                                <img onerror="this.src='<?= base_url('assets/img/siswa.png') ?>'"
+                                     src="<?= base_url() . $foto ?>"
                                      class="img-circle profile-avatar mt-2" alt="User avatar">
                                 <h4 class="mt-5"><?= $guru->nama_guru ?></h4>
                                 <h5 class="mb-5"><?= $guru->level . ' ' . $guru->nama_kelas ?></h5>
                                 <div class="user-button">
                                     <div class="row">
                                         <div class="col-6">
-                                            <button type="button" data-toggle="modal" data-target="#editFotoModal" class="btn btn-sm btn-primary btn-block"><i
+                                            <button type="button" data-toggle="modal" data-target="#editFotoModal"
+                                                    class="btn btn-sm btn-primary btn-block"><i
                                                         class="fas fa-image"></i> Ganti Foto
                                             </button>
                                         </div>
                                         <div class="col-6">
-                                            <button type="button" class="btn btn-danger btn-sm btn-block" onclick="deleteImage(true)"><i
+                                            <button type="button" class="btn btn-danger btn-sm btn-block"
+                                                    onclick="deleteImage(true)"><i
                                                         class="fa fa-trash"></i> Hapus Foto
                                             </button>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-12">
-                                            <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#editLoginModal"><i
+                                            <button type="button" class="btn btn-warning btn-block" data-toggle="modal"
+                                                    data-target="#editLoginModal"><i
                                                         class="fa fa-pencil"></i> Edit Username / Password
                                             </button>
                                         </div>
@@ -71,7 +75,8 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
                                            href="#custom-tabs-four-profile" role="tab"
-                                           aria-controls="custom-tabs-four-profile" aria-selected="false">Data Lengkap</a>
+                                           aria-controls="custom-tabs-four-profile" aria-selected="false">Data
+                                            Lengkap</a>
                                     </li>
                                 </ul>
                             </div>
@@ -83,7 +88,8 @@
                         </div>
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-four-tabContent">
-                                <div class="tab-pane fade active show" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                                <div class="tab-pane fade active show" id="custom-tabs-four-home" role="tabpanel"
+                                     aria-labelledby="custom-tabs-four-home-tab">
                                     <?php foreach ($input_profile as $input) : ?>
                                         <?php if ($input->name == 'jenis_kelamin'): ?>
                                             <div class="form-group row">
@@ -99,7 +105,9 @@
                                                         </div>
                                                         <select class="form-control" data-placeholder="Jenis Kelamin"
                                                                 name="jenis_kelamin" required>
-                                                            <option value="" <?= $input->value == null ? 'selected' : '' ?> disabled>Pilih Jenis Kelamin</option>
+                                                            <option value="" <?= $input->value == null ? 'selected' : '' ?>
+                                                                    disabled>Pilih Jenis Kelamin
+                                                            </option>
                                                             <?php
                                                             $arrJk = ["L" => "Laki-laki", "P" => "Perempuan"];
                                                             foreach ($arrJk as $key => $jk) : ?>
@@ -158,7 +166,8 @@
                                             </div>
                                         <?php endif; endforeach; ?>
                                 </div>
-                                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
+                                     aria-labelledby="custom-tabs-four-profile-tab">
                                     <?php foreach ($input_alamat as $alamat) : ?>
                                         <div class="form-group row">
                                             <div class="col-md-4 mb-sm-0">
@@ -189,11 +198,12 @@
                     <?= form_close(); ?>
                 </div>
             </div>
-		</div>
-	</section>
+        </div>
+    </section>
 </div>
 
-<div class="modal fade" id="editFotoModal" tabindex="-1" role="dialog" aria-labelledby="editFotoLabel" aria-hidden="true">
+<div class="modal fade" id="editFotoModal" tabindex="-1" role="dialog" aria-labelledby="editFotoLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -209,7 +219,7 @@
                     <input type="file" id="foto-profile" name="foto" class="dropify"
                            data-max-file-size-preview="2M"
                            data-allowed-file-extensions="jpg jpeg png"
-                           data-default-file="<?= base_url().$guru->foto ?>"/>
+                           data-default-file="<?= base_url() . $guru->foto ?>"/>
                 </div>
                 <?= form_close() ?>
             </div>
@@ -220,8 +230,9 @@
     </div>
 </div>
 
-<?=form_open('', array('id'=>'updatelogin'),  array('id_guru' => $guru->id_guru))?>
-<div class="modal fade" id="editLoginModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<?= form_open('', array('id' => 'updatelogin'), array('id_guru' => $guru->id_guru)) ?>
+<div class="modal fade" id="editLoginModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -235,13 +246,15 @@
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Username</span>
                     </div>
-                    <input type="text" class="form-control" name="username" value="<?= $guru->username ?>" placeholder="Username">
+                    <input type="text" class="form-control" name="username" value="<?= $guru->username ?>"
+                           placeholder="Username">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Password Lama</span>
                     </div>
-                    <input class="form-control" name="old" value="<?= $guru->password ?>" placeholder="Username" readonly>
+                    <input class="form-control" name="old" value="<?= $guru->password ?>" placeholder="Username"
+                           readonly>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend w-40">
@@ -253,7 +266,8 @@
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Konfirmasi Password</span>
                     </div>
-                    <input type="text" name="new_confirm" class="form-control" placeholder="Konfirmasi Password Baru" required>
+                    <input type="text" name="new_confirm" class="form-control" placeholder="Konfirmasi Password Baru"
+                           required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -263,7 +277,7 @@
         </div>
     </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
 <script>
     var fotoProfile = '';
@@ -278,8 +292,8 @@
                 },
             format: 'Y-m-d',
             timepicker: false,
-            scrollInput : false,
-            scrollMonth : false,
+            scrollInput: false,
+            scrollMonth: false,
             disabledWeekDays: [0],
             widgetPositioning: {
                 horizontal: 'left',
@@ -351,7 +365,7 @@
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {
-                            if(result.value) {
+                            if (result.value) {
                                 window.location.reload();
                             }
                         })
@@ -400,23 +414,23 @@
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {
-                            if(result.value) {
+                            if (result.value) {
                                 window.location.reload();
                             }
                         })
                     } else {
                         var html = '<ul>';
-                        if (data.errors.username !=null && data.errors.username !=="") {
-                            html += '<li>' +data.errors.username+ '</li>';
+                        if (data.errors.username != null && data.errors.username !== "") {
+                            html += '<li>' + data.errors.username + '</li>';
                         }
-                        if (data.errors.old !=null && data.errors.old !=="") {
-                            html += '<li>' +data.errors.old+ '</li>';
+                        if (data.errors.old != null && data.errors.old !== "") {
+                            html += '<li>' + data.errors.old + '</li>';
                         }
-                        if (data.errors.new !=null && data.errors.new !=="") {
-                            html += '<li>' +data.errors.new+ '</li>';
+                        if (data.errors.new != null && data.errors.new !== "") {
+                            html += '<li>' + data.errors.new + '</li>';
                         }
-                        if (data.errors.new_confirm !=null && data.errors.new_confirm !=="") {
-                            html += '<li>' +data.errors.new_confirm+ '</li>';
+                        if (data.errors.new_confirm != null && data.errors.new_confirm !== "") {
+                            html += '<li>' + data.errors.new_confirm + '</li>';
                         }
                         html += '</ul>';
                         swal.fire({
@@ -476,7 +490,7 @@
                 //};
                 reader.readAsDataURL(input.files[0]);
                 var form = new FormData($('#set-foto-profile')[0]);
-                uploadAttach(base_url + 'guruview/uploadfile/'+idGuru, form);
+                uploadAttach(base_url + 'guruview/uploadfile/' + idGuru, form);
             }
         });
 
@@ -493,7 +507,7 @@
         $.ajax({
             data: {src: src},
             type: "GET",
-            url: base_url + "guruview/deletefile/"+idGuru,
+            url: base_url + "guruview/deletefile/" + idGuru,
             cache: false,
             success: function (response) {
                 console.log(response);

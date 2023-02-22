@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><?= $judul . $kelas->nama_kelas?></h1>
+                    <h1><?= $judul . $kelas->nama_kelas ?></h1>
                 </div>
             </div>
         </div>
@@ -30,7 +30,9 @@
                                     <table id="tbl1" class="table table-bordered">
                                         <thead>
                                         <tr class="alert-default-danger">
-                                            <th class="text-center align-middle border-danger" style="width: 100px">Ranking</th>
+                                            <th class="text-center align-middle border-danger" style="width: 100px">
+                                                Ranking
+                                            </th>
                                             <th class="border-danger">
                                                 <span class="pl-2 align-middle">Edit Saran / Dorongan</span>
                                             </th>
@@ -38,7 +40,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        for ($i=0;$i<count($deskRanking);$i++):
+                                        for ($i = 0; $i < count($deskRanking); $i++):
                                             $skp = $deskRanking[$i]; ?>
                                             <tr>
                                                 <td class="text-sm text-center border-success rank pt-0 pb-0"><?= $skp->rank ?></td>
@@ -81,8 +83,8 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jexcel.js"></script>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jsuites.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswa)?>));
     var arrNilai = JSON.parse(JSON.stringify(<?= json_encode($nilai)?>));
@@ -105,13 +107,13 @@
     }
 
     function setDesk(desk) {
-        if (desk==='') return '';
+        if (desk === '') return '';
         var result = '';
         for (let i = 0; i < arrRanking.length; i++) {
             var n1 = parseInt(arrRanking[i].kode);
-            var n2 = arrRanking[(i+1)] != null  && arrRanking[(i+1)].kode != null ? parseInt(arrRanking[(i+1)].kode) : (n1+100);
-            if (inRange(parseInt(desk), n1, (n2-1))) {
-                result += ''+arrRanking[i].deskripsi;
+            var n2 = arrRanking[(i + 1)] != null && arrRanking[(i + 1)].kode != null ? parseInt(arrRanking[(i + 1)].kode) : (n1 + 100);
+            if (inRange(parseInt(desk), n1, (n2 - 1))) {
+                result += '' + arrRanking[i].deskripsi;
                 console.log('desk', parseInt(desk));
             }
         }
@@ -127,21 +129,21 @@
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         //console.log('siswa',arrSiswa);
         //console.log('nilai',arrNilai);
         //console.log('ranking',arrRanking);
         //console.log('mapel',arrMapel);
         //console.log('harian',arrNilaiHarian);
         //console.log('pts',arrNilaiPts);
-        console.log('pas',arrNilaiPas);
+        console.log('pas', arrNilaiPas);
         console.log("rata_harian", arrNilaiRataK);
 
 
         var totalR = 0;
         var totalK = 0;
 
-        $('.editable').attr('contentEditable',true);
+        $('.editable').attr('contentEditable', true);
         var tableSize = $('#t-siswa');
         var dataSiswa = [];
         var row = 1;
@@ -159,10 +161,10 @@
 
             var arrData = [
                 noInduk, v.nama,
-                '=SUM(M'+row+':AZ'+row+')',
+                '=SUM(M' + row + ':AZ' + row + ')',
                 '',//'=RANK_EQ(C'+row+',[C1:C'+arrSiswa.length+'])',
                 '',//setDesk(n1),
-                n3,n4,n5,n6,n7,n8,
+                n3, n4, n5, n6, n7, n8,
                 v.id_siswa,
             ];
             $.merge(arrData, jmlNilai);
@@ -175,7 +177,7 @@
         //console.log('arrNilai',dataSiswa);
 
         var arrCol = [];
-        for (let i = 0; i < (12+arrMapel.length); i++) {
+        for (let i = 0; i < (12 + arrMapel.length); i++) {
             var item = {};
             if (i === 0) {
                 item['title'] = 'N I S N';
@@ -212,13 +214,13 @@
         }
 
         var tableSiswa = $('#t-siswa').jexcel({
-            data:dataSiswa,
-            minDimensions:[(11+arrMapel.length)],
+            data: dataSiswa,
+            minDimensions: [(11 + arrMapel.length)],
             //defaultColWidth: 100,
             tableOverflow: true,
-            tableWidth: ''+tableSize.width()+'px',
-            tableHeight: (80*dataSiswa.length)+'px',
-            search:true,
+            tableWidth: '' + tableSize.width() + 'px',
+            tableHeight: (80 * dataSiswa.length) + 'px',
+            search: true,
             freezeColumns: 2,
             //rowResize: true,
             columnResize: false,
@@ -226,14 +228,14 @@
             /*[
             {width: 100},
             {width: 300},       ],*/
-            nestedHeaders:[
+            nestedHeaders: [
                 [
                     {title: 'DATA SISWA', colspan: '2'},
                     {title: 'PERINGKAT KELAS (otomatis)', colspan: '3'},
                     {title: 'PRESTASI (diisi manual)', colspan: '7'},
                 ]
             ],
-            updateTable:function(instance, cell, col, row, val, label, cellName) {
+            updateTable: function (instance, cell, col, row, val, label, cellName) {
                 if (col === 0 || col === 1) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
@@ -250,7 +252,7 @@
                     cell.className = 'ranking';
                 }
 
-                if (col === 2||col === 3 || col === 4) {
+                if (col === 2 || col === 3 || col === 4) {
                     cell.style.backgroundColor = '#fff3cd';
                     cell.classList.add('readonly');
                 }
@@ -264,7 +266,7 @@
                     cell.style.borderLeft = '3px solid #9e9e9e';
                 }
 
-                if (col === 5||col === 6|| col === 7 || col === 8 || col === 9 || col === 10) {
+                if (col === 5 || col === 6 || col === 7 || col === 8 || col === 9 || col === 10) {
                     cell.style.backgroundColor = '#e0f7fa';
                 }
 
@@ -282,9 +284,9 @@
                 }
 
             },
-            onchange: function(instance, cell, col, row, value, label) {
-                var cellName = jexcel.getColumnNameFromId([col,row]);
-                if (col===2) {
+            onchange: function (instance, cell, col, row, value, label) {
+                var cellName = jexcel.getColumnNameFromId([col, row]);
+                if (col === 2) {
                     changed(col, row);
                 }
             }
@@ -292,13 +294,20 @@
 
         function changed(col, row) {
             let totalList = $(".total")
-                .map(function() {return $(this).text()})
+                .map(function () {
+                    return $(this).text()
+                })
                 .get()
-                .sort(function(a,b){return a - b })
-                .reduce(function(a, b) {if (b != a[0]) a.unshift(b);return a}, []);
+                .sort(function (a, b) {
+                    return a - b
+                })
+                .reduce(function (a, b) {
+                    if (b != a[0]) a.unshift(b);
+                    return a
+                }, []);
 
             totalList.forEach((v, i) => {
-                $('.total').filter(function() {
+                $('.total').filter(function () {
                     if (v == 0) {
                         return '';
                     } else {
@@ -317,25 +326,25 @@
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            var tbl = $('table.jexcel tr').get().map(function(row) {
-                return $(row).find('td').get().map(function(cell) {
+            var tbl = $('table.jexcel tr').get().map(function (row) {
+                return $(row).find('td').get().map(function (cell) {
                     return $(cell).html();
                 });
             });
             tbl.shift();
             tbl.shift();
-            console.log($(this).serialize() + '&nilai='+JSON.stringify(tbl));
+            console.log($(this).serialize() + '&nilai=' + JSON.stringify(tbl));
 
             $.ajax({
                 type: "POST",
-                url: base_url + 'rapor/importprestasi/'+idKelas,
-                data: $(this).serialize() + '&nilai='+JSON.stringify(tbl),
+                url: base_url + 'rapor/importprestasi/' + idKelas,
+                data: $(this).serialize() + '&nilai=' + JSON.stringify(tbl),
                 cache: false,
                 success: function (data) {
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil disimpan",
+                        html: "<b>" + data + "<b> nilai berhasil disimpan",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
@@ -353,14 +362,14 @@
             });
         });
 
-        $('#editdeskripsi').on('submit',function (e) {
+        $('#editdeskripsi').on('submit', function (e) {
             e.stopPropagation();
             e.preventDefault();
             e.stopImmediatePropagation();
 
             var jsonObj = [];
 
-            var table1 =$('#tbl1');
+            var table1 = $('#tbl1');
             const $rows1 = table1.find('tr'), headers1 = $rows1.splice(0, 1);
             $rows1.each((i, row) => {
                 const desk = $(row).find('.editable').text();
@@ -410,7 +419,7 @@
                     console.log("response:", data);
                     if (data.status) {
                         //showSuccessToast('Data berhasil disimpan')
-                        window.location.href = base_url + 'rapor/raporprestasi/'+idKelas
+                        window.location.href = base_url + 'rapor/raporprestasi/' + idKelas
                     } else {
                         showDangerToast('gagal disimpan')
                     }

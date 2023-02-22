@@ -33,53 +33,55 @@
                     //$idTpActive = $tp[$searchId];
                     $tpBefore = '';
                     if (isset($tp[$searchId - 1])) :
-                    $tpBefore = $tp[$searchId - 1];
-                    ?>
-                    <div class="alert alert-default-info align-content-center" role="alert">
-                        Fitur ini digunakan untuk menaikkan semua siswa dari TP: <b><?= $tpBefore->tahun ?></b> ke TP:
-                        <b><?= $tp_active->tahun ?></b>
-                        <br>
-                        <ul>
-                            <li>
-                                Pilih kelas dari TP: <?= $tpBefore->tahun ?>
-                            </li>
-                            <li>
-                                Klik SIMPAN untuk menaikan siswa dalam kelas terpilih
-                            </li>
-                            <li>
-                                Siswa yang menurut rapor tidak naik maka otomatis tidak naik
-                            </li>
-                            <li>
-                                Untuk mengatur wali kelas baru gunakan menu <b>KELAS/ROMBEL</b>
-                            </li>
-                            <li>
-                                Untuk siswa kelas akhir diatur di menu <b>ALUMNI</b>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <label>Kelas <?= $tpBefore->tahun ?></label>
-                            <select name="kelas_lama" id="opsi-kelas1" class="form-control">
-                                <?php foreach ($kelas_lama as $key => $kls) :
-                                    $selected = $key == $kelas_selected ? 'selected="selected"' : ''; ?>
-                                    <option value="<?= $key ?>" <?= $selected ?>><?= $kls ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                        $tpBefore = $tp[$searchId - 1];
+                        ?>
+                        <div class="alert alert-default-info align-content-center" role="alert">
+                            Fitur ini digunakan untuk menaikkan semua siswa dari TP: <b><?= $tpBefore->tahun ?></b> ke
+                            TP:
+                            <b><?= $tp_active->tahun ?></b>
+                            <br>
+                            <ul>
+                                <li>
+                                    Pilih kelas dari TP: <?= $tpBefore->tahun ?>
+                                </li>
+                                <li>
+                                    Klik SIMPAN untuk menaikan siswa dalam kelas terpilih
+                                </li>
+                                <li>
+                                    Siswa yang menurut rapor tidak naik maka otomatis tidak naik
+                                </li>
+                                <li>
+                                    Untuk mengatur wali kelas baru gunakan menu <b>KELAS/ROMBEL</b>
+                                </li>
+                                <li>
+                                    Untuk siswa kelas akhir diatur di menu <b>ALUMNI</b>
+                                </li>
+                            </ul>
                         </div>
-                        <?php if (isset($siswas)) : ?>
-                            <div class="col-md-9 mb-2 text-right">
-                                <label>Mode Pilihan</label>
-                                <br>
-                                <div id="selector" class="btn-group mb-4">
-                                    <button type="button" class="btn active btn-success"><b>Naikkan Persiswa</b>
-                                    </button>
-                                    <button type="button" class="btn btn-outline-success"><b>Naikkan Semua</b></button>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <label>Kelas <?= $tpBefore->tahun ?></label>
+                                <select name="kelas_lama" id="opsi-kelas1" class="form-control">
+                                    <?php foreach ($kelas_lama as $key => $kls) :
+                                        $selected = $key == $kelas_selected ? 'selected="selected"' : ''; ?>
+                                        <option value="<?= $key ?>" <?= $selected ?>><?= $kls ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                        <?php endif; ?>
-                    </div>
-                    <?php if (isset($siswas)) :
+                            <?php if (isset($siswas)) : ?>
+                                <div class="col-md-9 mb-2 text-right">
+                                    <label>Mode Pilihan</label>
+                                    <br>
+                                    <div id="selector" class="btn-group mb-4">
+                                        <button type="button" class="btn active btn-success"><b>Naikkan Persiswa</b>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success"><b>Naikkan Semua</b>
+                                        </button>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <?php if (isset($siswas)) :
                         //echo '<pre>';
                         //var_dump($siswa_kelas_baru);
                         //echo '</pre>';
@@ -168,7 +170,7 @@
                         <div class="alert alert-default-warning align-content-center" role="alert">
                             Tidak ada kelas di tahun sebelumnya
                         </div>
-                    <?php endif;?>
+                    <?php endif; ?>
                 </div>
             </div>
             <!--

@@ -25,7 +25,8 @@
                         </div>
                         <div class="card-body p-0"
                              style="height: 1000px;overflow-y:auto;-webkit-overflow-scrolling: touch">
-                            <ul id="list-siswa" class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
+                            <ul id="list-siswa" class="nav nav-pills nav-sidebar flex-column nav-child-indent"
+                                data-widget="treeview">
                                 <?php
                                 if (isset($siswas)) :
                                     $n = 1;
@@ -249,14 +250,14 @@
             '            Nomor Induk Siswa' +
             '        </td>' +
             '        <td style="width: 2%">:</td>' +
-            '        <td>'+ handleNull(siswa.nis) +'</td>' +
+            '        <td>' + handleNull(siswa.nis) + '</td>' +
             '    </tr>' +
             '    <tr>' +
             '        <td>' +
             '            Nomor Induk Siswa Nasional' +
             '        </td>' +
             '        <td style="width: 2%">:</td>' +
-            '        <td>'+ handleNull(siswa.nisn) +'</td>' +
+            '        <td>' + handleNull(siswa.nisn) + '</td>' +
             '    </tr>' +
             '</table>' +
             '<br/>';
@@ -269,7 +270,7 @@
             identitas += '<tr style="font-size: 11pt;font-weight: bold;">' +
                 '    <td style="width: 3%; border: 0;padding-top: 12px">' + abjad + '.</td>' +
                 '    <td colspan="5" style="padding-top: 12px">' + header.title + '</td>' +
-            '</tr>';
+                '</tr>';
 
             var tableFisik = '';
             if (header.table != null) {
@@ -279,8 +280,8 @@
 
                 var cols = 0;
                 $.each(header.table.tahun, function (k, tahun) {
-                    cols ++;
-                    tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center">'+tahun+'</td>';
+                    cols++;
+                    tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center">' + tahun + '</td>';
                 });
                 tableFisik += '    </tr>' +
                     '    <tr>' +
@@ -288,7 +289,7 @@
                 for (let i = 0; i < cols; i++) {
                     tableFisik += '<td style="border: 1px solid black; border-collapse: collapse;text-align: center"></td>';
                 }
-                    tableFisik += '    </tr>' +
+                tableFisik += '    </tr>' +
                     '    <tr>' +
                     '        <td style="border: 1px solid black; border-collapse: collapse;text-align: center">Tinggi Badan</td>';
                 for (let i = 0; i < cols; i++) {
@@ -353,7 +354,7 @@
                     identitas += '</tr>';
 
                 }
-                nomor ++;
+                nomor++;
             });
 
         });
@@ -426,7 +427,7 @@
                     identitas += '</tr>';
 
                 }
-                nomor ++;
+                nomor++;
             });
 
         });
@@ -489,7 +490,7 @@
                     identitas += '</tr>';
 
                 }
-                nomor ++;
+                nomor++;
             });
 
         });

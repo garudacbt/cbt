@@ -9,34 +9,35 @@
 $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unserialize($log_selesai->file) : [];
 ?>
 <div class="content-wrapper" style="margin-top: -1px;">
-	<div class="sticky">
-	</div>
-	<section class="content overlap">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="card my-shadow mt-5">
-						<div class="card-header p-4">
-							<div class="media" style="line-height: 1.2">
+    <div class="sticky">
+    </div>
+    <section class="content overlap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card my-shadow mt-5">
+                        <div class="card-header p-4">
+                            <div class="media" style="line-height: 1.2">
                                 <?php
                                 $avatar = $tugas->foto == null ? 'assets/img/guru.png' : $tugas->foto;
                                 ?>
-                                <img class="img-circle media-left" src="<?= base_url($avatar) ?>" width="60" height="60" />
-								  <div class="media-body ml-4">
-									    <span class="text-lg"><b><?= $tugas->nama_guru ?></b></span>
-									    <br />
-									    <span> <?= $tugas->nama_mapel ?> </span>
-									  <br />
-									  <span>Kelas <?= $siswa->nama_kelas ?> </span>
-									  </div>
-								</div>
-						</div>
-						<div class="card-body">
-							<h3 class="text-center"><?= $tugas->judul_materi ?></h3>
-							<div class="text-justify"><?= $tugas->isi_materi ?></div>
-						</div>
-					</div>
-				</div>
+                                <img class="img-circle media-left" src="<?= base_url($avatar) ?>" width="60"
+                                     height="60"/>
+                                <div class="media-body ml-4">
+                                    <span class="text-lg"><b><?= $tugas->nama_guru ?></b></span>
+                                    <br/>
+                                    <span> <?= $tugas->nama_mapel ?> </span>
+                                    <br/>
+                                    <span>Kelas <?= $siswa->nama_kelas ?> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="text-center"><?= $tugas->judul_materi ?></h3>
+                            <div class="text-justify"><?= $tugas->isi_materi ?></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-12">
                     <div class="card my-shadow">
                         <div class="card-body">
@@ -47,8 +48,11 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
                                     <textarea id="text-tugas" name='isi_tugas' class='editor'
                                               data-id="<?= $this->security->get_csrf_hash() ?>"
                                               data-name="<?= $this->security->get_csrf_token_name() ?>"
-                                              rows='10' cols='80' style='width:100%;'><?=$log_selesai!=null ? $log_selesai->text : ''?></textarea>
-                                    <button type="submit" class="btn btn-primary float-right ml-1"><i class="fa fa-upload"></i> KIRIM</button>
+                                              rows='10' cols='80'
+                                              style='width:100%;'><?= $log_selesai != null ? $log_selesai->text : '' ?></textarea>
+                                    <button type="submit" class="btn btn-primary float-right ml-1"><i
+                                                class="fa fa-upload"></i> KIRIM
+                                    </button>
                                     <?= form_close(); ?>
                                 </div>
                                 <div class="col-12">
@@ -63,7 +67,8 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
                                                     <li class="myupload">
 														<span>
 															<i class="fa fa-plus" aria-hidden="true"></i>
-															<input name="file_uploads" type="file" id="picupload" class="picupload">
+															<input name="file_uploads" type="file" id="picupload"
+                                                                   class="picupload">
 														</span>
                                                     </li>
                                                 </ul>
@@ -75,27 +80,29 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
                                             <table class="ml-4">
                                                 <tr>
                                                     <td>Gambar</td>
-                                                    <td> : </td>
+                                                    <td> :</td>
                                                     <td>jpg, png, bmp, gif</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Video</td>
-                                                    <td> : </td>
+                                                    <td> :</td>
                                                     <td>mp4, avi, mpeg</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Suara</td>
-                                                    <td> : </td>
+                                                    <td> :</td>
                                                     <td>mp3, wav</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Dokumen</td>
-                                                    <td> : </td>
+                                                    <td> :</td>
                                                     <td>pdf, word, excel, power point</td>
                                                 </tr>
                                             </table>
                                         </div>
-                                        <div class="overlay d-none"><i class="fas fa-2x fa-sync-alt fa-spin mr-4"></i> Memuat file ...</div>
+                                        <div class="overlay d-none"><i class="fas fa-2x fa-sync-alt fa-spin mr-4"></i>
+                                            Memuat file ...
+                                        </div>
                                     </div>
                                     <?= form_close(); ?>
                                 </div>
@@ -103,16 +110,16 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
                         </div>
                     </div>
                 </div>
-			</div>
-		</div>
-	</section>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
     var logMulai = '<?= $log_mulai != null ? $log_mulai->log_time : '' ?>';
     var logSelesai = '<?= $log_selesai != null ? $log_selesai->log_time : '' ?>';
-	var idSiswa = '<?= $siswa->id_siswa ?>';
-	var idKjt = '<?= $tugas->id_kjm ?>';
+    var idSiswa = '<?= $siswa->id_siswa ?>';
+    var idKjt = '<?= $tugas->id_kjm ?>';
     var jamKe = '<?= $jamke ?>';
 
     var dataFiles = [];
@@ -171,7 +178,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
             e.preventDefault();
 
             var update = logSelesai === '' ? '0' : '1';
-            var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjm=' + idKjt + '&jamke=' + jamKe + '&attach='+JSON.stringify(dataFiles);
+            var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjm=' + idKjt + '&jamke=' + jamKe + '&attach=' + JSON.stringify(dataFiles);
 
             $.ajax({
                 type: 'POST',
@@ -192,7 +199,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
             });
         });
 
-        $('body').on('click', '.remove-pic', function() {
+        $('body').on('click', '.remove-pic', function () {
             $(this).parent().parent().parent().remove();
             var removeItem = $(this).attr('data-id');
 
@@ -231,7 +238,7 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
 
     function saveFileToDb() {
         var update = logSelesai === '' ? '0' : '1';
-        var dataUpload = $('#formhasil').serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&jamke=' + jamKe + '&id_kjm=' + idKjt + '&attach='+JSON.stringify(dataFiles);
+        var dataUpload = $('#formhasil').serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&jamke=' + jamKe + '&id_kjm=' + idKjt + '&attach=' + JSON.stringify(dataFiles);
         console.log(dataUpload);
 
         $.ajax({

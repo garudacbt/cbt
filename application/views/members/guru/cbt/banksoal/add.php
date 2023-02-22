@@ -32,7 +32,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
             <div class="card my-shadow">
                 <div class="card-header">
                     <div class="card-title">
-                        <h6><?= $subjudul.' - '.$bank->bank_kode ?></h6>
+                        <h6><?= $subjudul . ' - ' . $bank->bank_kode ?></h6>
                     </div>
                     <div class="card-tools">
                         <button type="submit" class="btn btn-primary btn-sm">
@@ -54,8 +54,9 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         </div>
                         <div class='col-md-3 mb-3'>
                             <label>Guru Pengampu</label>
-                            <select name="guru" id="select-guru" class="select2 form-control form-control-sm" required="">
-                                <option value="<?=$id_guru?>"><?=$guru->nama_guru?></option>
+                            <select name="guru" id="select-guru" class="select2 form-control form-control-sm"
+                                    required="">
+                                <option value="<?= $id_guru ?>"><?= $guru->nama_guru ?></option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -95,7 +96,8 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         </div>
                         <div class='col-8 col-md-2 mb-3'>
                             <label>Pilih Kelas</label><br>
-                            <select name="kelas[]" id="select-kelas" class="select2 form-control form-control-sm" multiple="multiple" required=""></select>
+                            <select name="kelas[]" id="select-kelas" class="select2 form-control form-control-sm"
+                                    multiple="multiple" required=""></select>
                         </div>
                         <div class='col-6 col-md-2 mb-3'>
                             <label>Jumlah Soal PG</label>
@@ -104,7 +106,8 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         </div>
                         <div class='col-6 col-md-2 mb-3'>
                             <label>Bobot Soal PG %</label>
-                            <input type='number' name='bobot_pg' class='form-control form-control-sm' value="<?= $bank->bobot_pg ?>"
+                            <input type='number' name='bobot_pg' class='form-control form-control-sm'
+                                   value="<?= $bank->bobot_pg ?>"
                                    required/>
                         </div>
                         <div class='col-6 col-md-2 mb-3'>
@@ -129,7 +132,8 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         </div>
                         <div class='col-6 col-md-3 mb-3'>
                             <label>KKM</label>
-                            <input type='number' name='kkm' class='form-control form-control-sm' value="<?= $bank->kkm ?>"
+                            <input type='number' name='kkm' class='form-control form-control-sm'
+                                   value="<?= $bank->kkm ?>"
                                    required/>
                         </div>
                         <div class='col-6 col-md-3 mb-3'>
@@ -174,7 +178,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
     var idGuru = '<?=$id_guru?>';
     var idMapel = '<?=$bank->bank_mapel_id?>';
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         ajaxcsrf();
         var selLevel = $('#select-level');
         var selKelas = $('#select-kelas');
@@ -213,7 +217,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
 
         function getMateriGuru(guru) {
             $.ajax({
-                url: base_url + "cbtbanksoal/getmapelguru?id_guru="+guru,
+                url: base_url + "cbtbanksoal/getmapelguru?id_guru=" + guru,
                 type: "GET",
                 success: function (data) {
                     console.log(data);
@@ -235,7 +239,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
 
             } else {
                 $.ajax({
-                    url: base_url + "cbtbanksoal/getkelaslevel?level="+param+"&id_guru="+idGuru+'&mapel='+mapel,
+                    url: base_url + "cbtbanksoal/getkelaslevel?level=" + param + "&id_guru=" + idGuru + '&mapel=' + mapel,
                     type: "GET",
                     success: function (data) {
                         console.log(data);

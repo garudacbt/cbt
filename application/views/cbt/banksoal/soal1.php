@@ -208,11 +208,11 @@ if ($att !== false) {
             </div>
 
             <?php
-            $pg_none        = $tab_active == '1' ? '' : 'd-none';
-            $pg2_none       = $tab_active == '2' ? '' : 'd-none';
-            $jodohkan_none  = $tab_active == '3' ? '' : 'd-none';
-            $isian_none     = $tab_active == '4' ? '' : 'd-none';
-            $essai_none     = $tab_active == '5' ? '' : 'd-none';
+            $pg_none = $tab_active == '1' ? '' : 'd-none';
+            $pg2_none = $tab_active == '2' ? '' : 'd-none';
+            $jodohkan_none = $tab_active == '3' ? '' : 'd-none';
+            $isian_none = $tab_active == '4' ? '' : 'd-none';
+            $essai_none = $tab_active == '5' ? '' : 'd-none';
 
             ?>
             <div class="card my-shadow">
@@ -257,7 +257,7 @@ if ($att !== false) {
                                     $rangeAbjad = range('a', 'c');
                                 };
                                 ?>
-                                <div id="root-opsi-pg" class="<?= $pg_none?>">
+                                <div id="root-opsi-pg" class="<?= $pg_none ?>">
                                     <?php
                                     foreach ($rangeAbjad as $abjad) :
                                         if (is_null($soal)) {
@@ -278,10 +278,12 @@ if ($att !== false) {
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
-                                <div id="root-opsi-pg2"  class="<?= $pg2_none?>">
+                                <div id="root-opsi-pg2" class="<?= $pg2_none ?>">
                                     <div id="opsi-pg2"></div>
                                     <div class="mb-3 ml-3">
-                                        <button id="tambah-jawaban-pg2" type="button" class="btn btn-success">Tambah Jawaban</button>
+                                        <button id="tambah-jawaban-pg2" type="button" class="btn btn-success">Tambah
+                                            Jawaban
+                                        </button>
                                     </div>
                                 </div>
 
@@ -299,7 +301,8 @@ if ($att !== false) {
                                         );
                                         ?>
                                         <button type="button" class="btn btn-sm btn-success" onclick="addColumn()">
-                                            <i class="fa fa-plus"></i> Tambah Kolom</button>
+                                            <i class="fa fa-plus"></i> Tambah Kolom
+                                        </button>
                                     </div>
                                     <table id="table-jodohkan" class="table table-bordered">
                                     </table>
@@ -310,7 +313,7 @@ if ($att !== false) {
 
                                 <div class="mt-1 ml-3" id="jawaban-benar">
                                     <label>Jawaban Benar</label>
-                                    <div id="root-jawaban-pg"  class="<?= $pg_none ?>">
+                                    <div id="root-jawaban-pg" class="<?= $pg_none ?>">
                                         <?php //var_dump(trim(strtolower($soal->jawaban)));
                                         echo form_dropdown(
                                             'jawaban_pg',

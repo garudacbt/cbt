@@ -128,7 +128,7 @@
                                         Tidak ada jadwal hari ini
                                     </p>
                                 <?php endif; ?>
-                            <?php else:?>
+                            <?php else: ?>
                                 <p>
                                     Jadwal untuk kelas <?= $siswa->nama_kelas ?> belum dibuat
                                 </p>

@@ -135,11 +135,14 @@
                             <div class="col-4 col-md-2">
                                 <table class="table table-bordered">
                                     <tr>
-                                        <td colspan="3" class="text-center text-indigo text-bold">Pilihan Ganda<br>(PG)</td>
+                                        <td colspan="3" class="text-center text-indigo text-bold">Pilihan Ganda<br>(PG)
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center text-bold" style="width: 50px">No.</th>
-                                        <td class="text-center text-bold">Jawaban</th>
+                                        <td class="text-center text-bold" style="width: 50px">No.
+                                        </th>
+                                        <td class="text-center text-bold">Jawaban
+                                        </th>
                                     </tr>
                                     <?php
                                     for ($j = 0; $j < $arr[$i]; $j++) :

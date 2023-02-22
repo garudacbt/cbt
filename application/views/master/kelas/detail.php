@@ -7,7 +7,8 @@
                 </div>
                 <div class="col-6">
                     <a href="<?= base_url('datakelas') ?>" type="button" class="btn btn-sm btn-danger float-right">
-                        <i class="fas fa-arrow-circle-left"></i><span class="d-none d-sm-inline-block ml-1">Kembali</span>
+                        <i class="fas fa-arrow-circle-left"></i><span
+                                class="d-none d-sm-inline-block ml-1">Kembali</span>
                     </a>
                 </div>
             </div>
@@ -19,7 +20,7 @@
             <div class="card my-shadow">
                 <div class="card-header">
                     <div class="card-title">
-                        <h6><?= $subjudul . ' ' . $kelas->nama_kelas?></h6>
+                        <h6><?= $subjudul . ' ' . $kelas->nama_kelas ?></h6>
                     </div>
                     <div class="card-tools">
                         <button type="submit" class="btn btn-primary btn-sm">
@@ -34,7 +35,7 @@
                                 Nama Kelas
                             </td>
                             <td>
-                                <?=$kelas->nama_kelas?>
+                                <?= $kelas->nama_kelas ?>
                             </td>
                         </tr>
                         <tr>
@@ -42,25 +43,25 @@
                                 Kode Kelas
                             </td>
                             <td>
-                                <?=$kelas->kode_kelas?>
+                                <?= $kelas->kode_kelas ?>
                             </td>
                         </tr>
                         <?php if ($setting->jenjang == '3') : ?>
-                        <tr>
-                            <td>
-                                Jurusan
-                            </td>
-                            <td>
-                                <?=$kelas->nama_jurusan?>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    Jurusan
+                                </td>
+                                <td>
+                                    <?= $kelas->nama_jurusan ?>
+                                </td>
+                            </tr>
                         <?php endif; ?>
                         <tr>
                             <td>
                                 Level Kelas
                             </td>
                             <td>
-                                <?=$kelas->level?>
+                                <?= $kelas->level ?>
                             </td>
                         </tr>
                         <tr>
@@ -68,7 +69,7 @@
                                 Wali Kelas
                             </td>
                             <td>
-                                <?=$kelas->nama_guru?>
+                                <?= $kelas->nama_guru ?>
                             </td>
                         </tr>
                         <tr>
@@ -76,14 +77,14 @@
                                 Jumlah Siswa
                             </td>
                             <td>
-                                <?=count($siswas)?>
+                                <?= count($siswas) ?>
                             </td>
                         </tr>
                     </table>
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>Siswa Kelas <?= $kelas->nama_kelas?></h6>
+                            <h6>Siswa Kelas <?= $kelas->nama_kelas ?></h6>
                             <table class="table table-bordered table-striped">
                                 <tr>
                                     <th class="text-center align-middle">No</th>
@@ -104,18 +105,18 @@
                                             <?= $siswa->nama ?>
                                         </td>
                                     </tr>
-                                <?php $no++; endforeach; ?>
+                                    <?php $no++; endforeach; ?>
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <h6>Struktur Organisasi Kelas <?= $kelas->nama_kelas?></h6> (Diisi oleh wali kelas)
+                            <h6>Struktur Organisasi Kelas <?= $kelas->nama_kelas ?></h6> (Diisi oleh wali kelas)
                             <?php
                             //echo '<pre>';
                             //var_dump(array_search('119', array_column($siswas, 'id_siswa')));
                             //var_dump($struktur);
                             //echo '</pre>';
                             $arrJabatan = [
-                                    'Wali Kelas', 'Ketua Kelas', 'Wakil Ketua',
+                                'Wali Kelas', 'Ketua Kelas', 'Wakil Ketua',
                                 'Sekretaris I', 'Sekretaris II', 'Bendahara I',
                                 'Bendahara II', 'Sie Upacara', 'Sie Ekstrakurikuler',
                                 'Sie Olahraga', 'Sie Keagamaan', 'Sie Keamanan',
@@ -123,7 +124,7 @@
                                 'Sie Kesehatan', 'Sie Kekeluargaan', 'Sie Humas'
                             ];
                             $arrSiswa = [
-                                    '', $struktur->ketua, $struktur->wakil_ketua, $struktur->sekretaris_1,
+                                '', $struktur->ketua, $struktur->wakil_ketua, $struktur->sekretaris_1,
                                 $struktur->sekretaris_2, $struktur->bendahara_1, $struktur->bendahara_2,
                                 $struktur->sie_upacara, $struktur->sie_ekstrakurikuler, $struktur->sie_olahraga,
                                 $struktur->sie_keagamaan, $struktur->sie_keamanan, $struktur->sie_ketertiban,
@@ -140,18 +141,18 @@
                                 <?php
                                 $no = 1;
                                 foreach ($arrJabatan as $j) :
-                                    $key = array_search($arrSiswa[$no-1], array_column($siswas, 'id_siswa'));
+                                    $key = array_search($arrSiswa[$no - 1], array_column($siswas, 'id_siswa'));
                                     ?>
-                                <tr>
-                                    <td class="text-center"><?=$no?></td>
-                                    <td>
-                                        <?=$j?>
-                                    </td>
-                                    <td>
-                                        <?=$key?>
-                                    </td>
-                                </tr>
-                                <?php $no++; endforeach; ?>
+                                    <tr>
+                                        <td class="text-center"><?= $no ?></td>
+                                        <td>
+                                            <?= $j ?>
+                                        </td>
+                                        <td>
+                                            <?= $key ?>
+                                        </td>
+                                    </tr>
+                                    <?php $no++; endforeach; ?>
                             </table>
 
                         </div>

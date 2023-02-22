@@ -173,7 +173,8 @@
                         </div>
                         <div class="col-12 mt-1">
                             <div class="alert alert-default-info">
-                                Jika keteragan pembuatan soal sudah <b>SELESAI</b> tapi tidak muncul di akun siswa, klik tombol
+                                Jika keteragan pembuatan soal sudah <b>SELESAI</b> tapi tidak muncul di akun siswa, klik
+                                tombol
                                 <span class="badge badge-btn badge-primary">
                                 <i class="fa fa-save"></i> <span class="d-none d-md-inline-block ml-1">Simpan Soal Terpilih</span>
                             </span>
@@ -605,7 +606,8 @@
                                                     ?>
                                                     <div class="mb-2 mt-2"><b>Jawaban:</b></div>
                                                     <?php if (isset($jawaban['model']) && $jawaban['model'] == '1') : ?>
-                                                        <div class='list-jodohkan' data-nomor="<?= $s->nomor_soal ?>" data-list='<?= json_encode($jawaban['jawaban']) ?>'>
+                                                        <div class='list-jodohkan' data-nomor="<?= $s->nomor_soal ?>"
+                                                             data-list='<?= json_encode($jawaban['jawaban']) ?>'>
                                                         </div>
                                                     <?php else : ?>
                                                         <table class="table table-bordered">
@@ -854,7 +856,8 @@
                                 <input type="hidden" name="jenis" value="5">
                                 <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
-                                        <input style="width: 24px; height: 24px" class="check-essai-all m-1" id="all-essai"
+                                        <input style="width: 24px; height: 24px" class="check-essai-all m-1"
+                                               id="all-essai"
                                                type="checkbox">
                                         <label for="all-essai" class="align-middle">Pilih Semua Essai</label>
                                     </div>

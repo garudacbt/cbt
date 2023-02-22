@@ -35,7 +35,7 @@ $satuan = [
                         <select name="tahun" id="id-tahun" class="form-control form-control-sm">
                             <?php foreach ($tp as $tahun) :
                                 $selected = isset($tp_selected) && $tahun->id_tp == $tp_selected ? 'selected="selected"' : ''; ?>
-                                <option value="<?= $tahun->id_tp ?>" <?= $selected ?>><?=$tahun->tahun?></option>
+                                <option value="<?= $tahun->id_tp ?>" <?= $selected ?>><?= $tahun->tahun ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -44,7 +44,7 @@ $satuan = [
                         <select name="semester" id="id-smt" class="form-control form-control-sm">
                             <?php foreach ($smt as $sm) :
                                 $selected = isset($smt_selected) && $sm->id_smt == $smt_selected ? 'selected="selected"' : ''; ?>
-                                <option value="<?= $sm->id_smt ?>" <?= $selected ?>><?=$sm->smt?></option>
+                                <option value="<?= $sm->id_smt ?>" <?= $selected ?>><?= $sm->smt ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -62,19 +62,20 @@ $satuan = [
                         <div class="card-header bg-light">
                             <h3 class="card-title">Pilih Siswa</h3>
                         </div>
-                        <div class="card-body p-0" style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
+                        <div class="card-body p-0"
+                             style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
                             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
                                 <?php
                                 if (isset($siswas)) :
                                     $n = 1;
-                                foreach ($siswas as $siswa): ?>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
-                                           onclick="preview(<?= $siswa->id_siswa ?>)">
-                                            <?= $n . '. ' . $siswa->nama ?>
-                                        </a>
-                                    </li>
-                                    <?php $n++; endforeach; endif;?>
+                                    foreach ($siswas as $siswa): ?>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
+                                               onclick="preview(<?= $siswa->id_siswa ?>)">
+                                                <?= $n . '. ' . $siswa->nama ?>
+                                            </a>
+                                        </li>
+                                        <?php $n++; endforeach; endif; ?>
                             </ul>
                         </div>
                     </div>
@@ -99,7 +100,8 @@ $satuan = [
                         </div>
                         <div class="card-body bg-gray-light p-1">
                             <div class="row mb-1 ml-1 mr-1 d-flex flex-wrap">
-                                <button id="cetak-sampul" class="btn btn-primary btn-sm ml-1 mb-1" onclick="cetakSampul()"
+                                <button id="cetak-sampul" class="btn btn-primary btn-sm ml-1 mb-1"
+                                        onclick="cetakSampul()"
                                         disabled>
                                     <i class="fa fa-print mr-1"></i>Sampul
                                 </button>
@@ -407,7 +409,7 @@ $satuan = [
 
     function createPageInfo() {
         var arrInfoTitle = [
-            'Nama '+namaSatuanPend, 'NPSN', 'NIS/NSS/NDS', 'Alamat',
+            'Nama ' + namaSatuanPend, 'NPSN', 'NIS/NSS/NDS', 'Alamat',
             'Kelurahan/Desa', 'Kecamatan', 'Kota/Kabupaten', 'Provinsi',
             'Kode Pos', 'No. Telepon', 'Faksimili', 'Websita', 'Email'];
         var arrInfoVal = [
@@ -418,13 +420,13 @@ $satuan = [
 
         var splited = satuanPend[setting.jenjang][setting.satuan_pendidikan].split('(');
         var title1 = splited[0];
-        var title2 = '('+splited[1];
+        var title2 = '(' + splited[1];
         var infoSekolah = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0; margin-top: 100px">' +
             '    <div class="judul" style="text-align: center;font-family: \'Arial\';font-size: 20pt;font-weight: bold">' +
             '        <p style="margin-bottom: 0">RAPOR</p>' +
-            '        <p style="margin-bottom: 0">'+title1+'</p>' +
-            '        <p style="margin-bottom: 0">'+title2+'</p>' +
+            '        <p style="margin-bottom: 0">' + title1 + '</p>' +
+            '        <p style="margin-bottom: 0">' + title2 + '</p>' +
             '    </div>' +
             '    <br>' +
             '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 300px;font-family: \'Tahoma\';font-size: 14pt;">' +
@@ -465,8 +467,8 @@ $satuan = [
             '', '', '', '', '', '', '', '', '13.', '', '', '', '',];
         var arrIdTitle = [
             'Nama Lengkap Peserta Didik', 'NIS / NISN', 'Tempat Tanggal Lahir', 'Jenis Kelamin', 'Agama',
-            'Status dalam Keluarga', 'Anak ke', 'Alamat Peserta Didik', 'Nomor Telepon Rumah', namaSatuanPend+' Asal',
-            'Diterima di '+namaSatuanPend+' ini', 'a. Di kelas', 'b. Pada tanggal', 'Orang Tua', 'a. Nama Ayah',
+            'Status dalam Keluarga', 'Anak ke', 'Alamat Peserta Didik', 'Nomor Telepon Rumah', namaSatuanPend + ' Asal',
+            'Diterima di ' + namaSatuanPend + ' ini', 'a. Di kelas', 'b. Pada tanggal', 'Orang Tua', 'a. Nama Ayah',
             'b. Pekerjaan', 'c. Nomor Telepon/HP', 'd. Alamat', 'e. Nama Ibu', 'f. Pekerjaan', 'g. Nomor Telepon/HP',
             'h. Alamat', 'Wali', 'a. Nama Wali', 'b. Pekerjaan', 'c. Nomor Telpon/HP', 'd. Alamat'];
         var arrIdVal = [
@@ -534,7 +536,7 @@ $satuan = [
             '<table style="width: 100%;">' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
             '<td style="text-align: end;">iii</td>' +
             '</tr>' +
             '</table>' +
@@ -562,7 +564,7 @@ $satuan = [
             '            <td><b>' + smt.nama_smt + '</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;vertical-align: top">' +
-            '            <td>Nama '+ namaSatuanPend +'</td>' +
+            '            <td>Nama ' + namaSatuanPend + '</td>' +
             '            <td>:</td>' +
             '            <td><b>' + setting.sekolah + '</b></td>' +
             '            <td>Tahun Pelajaran</td>' +
@@ -586,6 +588,7 @@ $satuan = [
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x));
     let posAlpha = 0;
+
     //console.log(alphabet[0]);
 
     function createPageSikap(idSiswa, siswa) {
@@ -600,7 +603,7 @@ $satuan = [
             '    <hr>' + headerPage(siswa) +
             '<br>' +
             '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. SIKAP</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. SIKAP</b></span>' +
             '<br>' +
             '<br>' +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>1. Sikap Spiritual</b></span>' +
@@ -639,7 +642,7 @@ $satuan = [
             '</table>' +
             '</div>' +
             '</div>';
-        posAlpha ++;
+        posAlpha++;
 
         //footer
         tableSikap += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
@@ -647,7 +650,7 @@ $satuan = [
             '<table style="width: 100%;">' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
             '<td class="hal" style="text-align: end;"></td>' +
             '</tr>' +
             '</table>' +
@@ -725,12 +728,12 @@ $satuan = [
         var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0;">' +
             headerPage(siswa) +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PENGETAHUAN</b></span>';
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. PENGETAHUAN</b></span>';
         if (raporSetting.kkm_tunggal == '1') {
             tableNilai += '<br>' +
-                '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+raporSetting.kkm+'</b></span>';
+                '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>' + raporSetting.kkm + '</b></span>';
         }
-        posAlpha ++;
+        posAlpha++;
         var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
         var collSpan = raporSetting.kkm_tunggal == '1' ? 5 : 6;
         tableNilai += '<br>' +
@@ -738,7 +741,7 @@ $satuan = [
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td rowspan="2" style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
-            '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;'+display+'"><b>KKM</b></td>' +
+            '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;' + display + '"><b>KKM</b></td>' +
             '            <td colspan="3" style="height:25px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
@@ -753,8 +756,12 @@ $satuan = [
         var abjad = ['', 'a', 'b', 'c', 'd'];
         var pos = 0;
 
-        var arr = Object.keys(arrKelompokMapel).map(function (key) { return arrKelompokMapel[key]; });
-        var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
+        var arr = Object.keys(arrKelompokMapel).map(function (key) {
+            return arrKelompokMapel[key];
+        });
+        var indexPAI = arr.map(function (kel) {
+            return kel.kategori;
+        }).indexOf('PAI (Kemenag)');
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
@@ -763,10 +770,10 @@ $satuan = [
                 var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
                 var ppred = nilai[idSiswa][mapel.id_mapel].predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].predikat;
                 var pdesk = nilai[idSiswa][mapel.id_mapel].p_deskripsi;
-                pos ++;
+                pos++;
                 htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;' + display + '"><b>' + kkmMapel + '</b></td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
@@ -778,8 +785,8 @@ $satuan = [
 
         if (pos > 0) {
             tablePai = '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '            <td rowspan="'+(pos+1)+'" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
-                '            <td colspan="'+(collSpan-1)+'" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
+                '            <td rowspan="' + (pos + 1) + '" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
+                '            <td colspan="' + (collSpan - 1) + '" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
                 '                Pendidikan Agama Islam' +
                 '            </td>' +
                 '</tr>' + htmlPai;
@@ -805,7 +812,7 @@ $satuan = [
                         htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + mapel.nama_mapel + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;' + display + '"><b>' + kkmMapel + '</b></td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pnilai + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + ppred + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
@@ -825,23 +832,23 @@ $satuan = [
                     }
                 });
                 tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+parent+'</b></td>' +
+                    '            <td colspan="' + collSpan + '" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>' + parent + '</b></td>' +
                     '        </tr>';
             }
 
             if (no > 0) {
                 if (index == 0) {
                     tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
-                        '        </tr>' + tablePai +htmlTr;
+                        '            <td colspan="' + collSpan + '" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>' + val.nama_kel_mapel + '</b></td>' +
+                        '        </tr>' + tablePai + htmlTr;
                 } else {
                     tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
+                        '            <td colspan="' + collSpan + '" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>' + val.nama_kel_mapel + '</b></td>' +
                         '        </tr>' + htmlTr;
                 }
             }
 
-            index ++;
+            index++;
         });
 
         if (trCount == 0) {
@@ -850,7 +857,7 @@ $satuan = [
                 '        </tr>';
         }
 
-        tableNilai += '</table>' ;
+        tableNilai += '</table>';
         tableNilai += tableKkm() + '</div>';
 
         tableNilai += '<div class="" style="width: 100%; color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
@@ -858,7 +865,7 @@ $satuan = [
             '<table style="width: 100%;">' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
             '<td class="hal" style="text-align: end;"></td>' +
             '</tr>' +
             '</table>' +
@@ -871,12 +878,12 @@ $satuan = [
         var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0;">' +
             headerPage(siswa) +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETERAMPILAN</b></span>';
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. KETERAMPILAN</b></span>';
         if (raporSetting.kkm_tunggal == '1') {
             tableNilai += '<br>' +
-                '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>'+raporSetting.kkm+'</b></span>';
+                '    <span style="font-family: \'Tahoma\';font-size: 10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kreteria Ketuntasan Minimal: <b>' + raporSetting.kkm + '</b></span>';
         }
-        posAlpha ++;
+        posAlpha++;
         var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
         var collSpan = raporSetting.kkm_tunggal == '1' ? 5 : 6;
         tableNilai += '<br>' +
@@ -884,7 +891,7 @@ $satuan = [
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td rowspan="2" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td rowspan="2" style="width:25%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
-            '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;'+display+'"><b>KKM</b></td>' +
+            '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;' + display + '"><b>KKM</b></td>' +
             '            <td colspan="3" style="height:25px;border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
@@ -899,8 +906,12 @@ $satuan = [
         var abjad = ['', 'a', 'b', 'c', 'd'];
         var pos = 0;
 
-        var arr = Object.keys(arrKelompokMapel).map(function (key) { return arrKelompokMapel[key]; });
-        var indexPAI = arr.map(function (kel) { return kel.kategori; }).indexOf('PAI (Kemenag)');
+        var arr = Object.keys(arrKelompokMapel).map(function (key) {
+            return arrKelompokMapel[key];
+        });
+        var indexPAI = arr.map(function (kel) {
+            return kel.kategori;
+        }).indexOf('PAI (Kemenag)');
         var pai = arr[indexPAI];
         $.each(arrMapel, function (k, mapel) {
             if (pai != null && pai.kode_kel_mapel != null && nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
@@ -908,10 +919,10 @@ $satuan = [
                 var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
                 var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
                 var kdesk = nilai[idSiswa][mapel.id_mapel].k_deskripsi;
-                pos ++;
+                pos++;
                 htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;' + display + '"><b>' + kkmMapel + '</b></td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
@@ -923,8 +934,8 @@ $satuan = [
 
         if (pos > 0) {
             tablePai = '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '            <td rowspan="'+(pos+1)+'" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
-                '            <td colspan="'+(collSpan-1)+'" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
+                '            <td rowspan="' + (pos + 1) + '" style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: top; padding: 6px">1</td>' +
+                '            <td colspan="' + (collSpan - 1) + '" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 6px">' +
                 '                Pendidikan Agama Islam' +
                 '            </td>' +
                 '</tr>' + htmlPai;
@@ -950,7 +961,7 @@ $satuan = [
                         htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px">' + mapel.nama_mapel + '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;'+display+'"><b>' + kkmMapel + '</b></td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;' + display + '"><b>' + kkmMapel + '</b></td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + knilai + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + kpred + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; padding: 2px 4px 2px 4px;font-size: 8pt;line-height: 1.3;text-align: justify">' +
@@ -970,23 +981,23 @@ $satuan = [
                     }
                 });
                 tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                    '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+parent+'</b></td>' +
+                    '            <td colspan="' + collSpan + '" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>' + parent + '</b></td>' +
                     '        </tr>';
             }
 
             if (no > 0) {
                 if (index == 0) {
                     tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
-                        '        </tr>' + tablePai +htmlTr;
+                        '            <td colspan="' + collSpan + '" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>' + val.nama_kel_mapel + '</b></td>' +
+                        '        </tr>' + tablePai + htmlTr;
                 } else {
                     tableNilai += '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                        '            <td colspan="'+collSpan+'" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>'+val.nama_kel_mapel+'</b></td>' +
+                        '            <td colspan="' + collSpan + '" style="border: 1px solid black; border-collapse: collapse; padding: 2px 8px 2px 8px;background:#F1F3F4"><b>' + val.nama_kel_mapel + '</b></td>' +
                         '        </tr>' + htmlTr;
                 }
             }
 
-            index ++;
+            index++;
         });
 
         if (trCount == 0) {
@@ -1002,7 +1013,7 @@ $satuan = [
             '<table style="width: 100%;">' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
             '<td class="hal" style="text-align: end;"></td>' +
             '</tr>' +
             '</table>' +
@@ -1080,7 +1091,7 @@ $satuan = [
         console.log('ekstra', ekstra);
         var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0cm;">' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. EKSTRAKURIKULER</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. EKSTRAKURIKULER</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
@@ -1089,7 +1100,7 @@ $satuan = [
             '            <td style="width:15%;height:35px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
             '            <td style="width:45%;border: 1px solid black; border-collapse: collapse"><b>Keterangan</b></td>' +
             '        </tr>';
-        posAlpha ++;
+        posAlpha++;
         var no = 1;
         $.each(arrekstra, function (k, v) {
             if (k != '') {
@@ -1118,7 +1129,7 @@ $satuan = [
         tableNilai += '</table><br>';
 
         //prestasi
-        tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. PRESTASI</b></span>' +
+        tableNilai += '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. PRESTASI</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 2px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
@@ -1126,7 +1137,7 @@ $satuan = [
             '            <td style="width:35%;border: 1px solid black; border-collapse: collapse"><b>Jenis Kegiatan</b></td>' +
             '            <td style="width:60%;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
             '        </tr>';
-        posAlpha ++;
+        posAlpha++;
 
         no = 1;
         for (let i = 0; i < 3; i++) {
@@ -1144,14 +1155,14 @@ $satuan = [
             var sehat = ['Pendengaran', 'Penglihatan', 'Gigi', 'Lain-lain'];
             var kondisi = [fisik[idSiswa].kondisi.telinga, fisik[idSiswa].kondisi.mata, fisik[idSiswa].kondisi.gigi, fisik[idSiswa].kondisi.lain];
             tableNilai += '<br>' +
-                '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KONDISI KESEHATAN DAN FISIK</b></span>' +
+                '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. KONDISI KESEHATAN DAN FISIK</b></span>' +
                 '<div style="display: flex">' +
                 '<table style="width: 58%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
                 '        <tr style="font-family: \'Tahoma\';font-size: 9pt;background: #E6E7E9;text-align: center">' +
                 '            <td style="border: 1px solid black; border-collapse: collapse;height:35px"><b>Aspek yang Dinilai</b></td>' +
                 '            <td style="border: 1px solid black; border-collapse: collapse"><b>Keterangan</b></td>' +
                 '        </tr>';
-            posAlpha ++;
+            posAlpha++;
 
             for (let i = 0; i < sehat.length; i++) {
                 tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
@@ -1196,7 +1207,7 @@ $satuan = [
         var sizin = absensi[idSiswa].nilai.i == '' ? '0' : absensi[idSiswa].nilai.i;
         var salpa = absensi[idSiswa].nilai.a == '' ? '0' : absensi[idSiswa].nilai.a;
         tableNilai += '<br>' +
-            '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. KETIDAKHADIRAN</b></span>' +
+            '<span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. KETIDAKHADIRAN</b></span>' +
             '    <table style="width: 50%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">Sakit</td>' +
@@ -1217,12 +1228,12 @@ $satuan = [
             '</td>' +
             '        </tr>' +
             '</table>';
-        posAlpha ++;
+        posAlpha++;
 
         //catatan walikelas
         var sRank = parseInt(deskripsi[idSiswa].ranking) > 5 ? '--' : deskripsi[idSiswa].ranking;
         tableNilai += '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. CATATAN WALI KELAS</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. CATATAN WALI KELAS</b></span>' +
             '<br>' +
             '    <table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
@@ -1240,16 +1251,16 @@ $satuan = [
             '           </td>' +
             '       </tr>' +
             '   </table>';
-        posAlpha ++;
+        posAlpha++;
 
         tableNilai += '<br>' +
-            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>'+alphabet[posAlpha]+'. TANGGAPAN ORANG TUA/WALI</b></span>' +
+            '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. TANGGAPAN ORANG TUA/WALI</b></span>' +
             '<table style="width: 100%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
             '<tr>' +
             '    <td style="width:100%;height: 40px;border: 1px solid black; border-collapse: collapse"></td>' +
             '</tr>' +
             '</table>';
-        posAlpha ++;
+        posAlpha++;
 
         tableNilai += '<br>' +
             '<div style="display: flex; align-items: flex-start;">' +
@@ -1327,7 +1338,7 @@ $satuan = [
             '<table style="width: 100%;">' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas +  ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nama_kelas + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + '</td>' +
             '<td class="hal" style="text-align: end;"></td>' +
             '</tr>' +
             '</table>' +
@@ -1522,8 +1533,8 @@ $satuan = [
         function getDataKelas(tahun, smt) {
             if (tahun != null && smt != null) {
                 console.log('jabatan', isAdmin == '1' ? 'admin' : jabatanGuru[tahun][smt]);
-                var idKelas = isAdmin == '1' ? '' : '&kls='+jabatanGuru[tahun][smt];
-                var url = base_url + "bukurapor/getdatakelas?tp="+tahun+"&smt="+smt+idKelas;
+                var idKelas = isAdmin == '1' ? '' : '&kls=' + jabatanGuru[tahun][smt];
+                var url = base_url + "bukurapor/getdatakelas?tp=" + tahun + "&smt=" + smt + idKelas;
                 //console.log('url', url);
                 $.ajax({
                     url: url,
@@ -1534,7 +1545,7 @@ $satuan = [
                         console.log('jabatan', isAdmin == '1' ? 'admin' : jabatanGuru[tahun][smt]);
                         var opts = '<option value="0" selected="selected" disabled="disabled">Pilih Kelas</option>';
                         $.each(data.kelas, function (i, v) {
-                            opts += '<option value="'+i+'">'+v+'</option>';
+                            opts += '<option value="' + i + '">' + v + '</option>';
                         });
                         opsiKelas.html(opts);
                     }, error: function (xhr, status, error) {
@@ -1549,7 +1560,7 @@ $satuan = [
             var n = 0;
             halamanAwal = parseInt($(this).val());
             $.each($('.hal'), function () {
-                $(this).text((halamanAwal+n));
+                $(this).text((halamanAwal + n));
                 n++;
             })
         });

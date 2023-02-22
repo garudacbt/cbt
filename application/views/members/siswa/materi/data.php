@@ -102,7 +102,8 @@
                                                             <div class="small-box bg-gradient-<?= $jenis == '1' ? 'success' : 'indigo' ?> mb-0">
                                                                 <div class="inner">
                                                                     <h3><?= $materi[$jamke]->kode_materi ?></h3>
-                                                                    <span class="nama-mapel d-inline-block text-truncate" style="width: 300px">
+                                                                    <span class="nama-mapel d-inline-block text-truncate"
+                                                                          style="width: 300px">
                                                                 <?= $materi[$jamke]->nama_mapel ?></span>
                                                                     <br>
                                                                     <span><?= $materi[$jamke]->nama_guru ?></span>
@@ -121,23 +122,30 @@
                                                                 if (count($log) > 0) :
                                                                     if (isset($log[$materi[$jamke]->id_kjm]) && $log[$materi[$jamke]->id_kjm]->finish_time != null) :
                                                                         if ($log[$materi[$jamke]->id_kjm]->nilai != '0') :?>
-                                                                            <span class="small-box-footer p-2" data-nilai="<?= $log[$materi[$jamke]->id_kjm]->nilai ?>"
+                                                                            <span class="small-box-footer p-2"
+                                                                                  data-nilai="<?= $log[$materi[$jamke]->id_kjm]->nilai ?>"
                                                                                   data-text="<?= $log[$materi[$jamke]->id_kjm]->catatan ?>"
                                                                                   onclick="showDialog(this)"><b>SELESAI</b></span>
                                                                         <?php else : ?>
-                                                                            <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>ULANGI <?= strtoupper($judul) ?>
-                                                                                <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
+                                                                            <a href="<?= $href ?>"
+                                                                               class="small-box-footer p-2" <?= $disabled ?>>ULANGI <?= strtoupper($judul) ?>
+                                                                                <i class="fas fa-arrow-circle-right ml-3"></i><span
+                                                                                        class="ml-2"></span>
                                                                             </a>
                                                                         <?php endif; ?>
                                                                     <?php else : ?>
-                                                                        <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>Belum
+                                                                        <a href="<?= $href ?>"
+                                                                           class="small-box-footer p-2" <?= $disabled ?>>Belum
                                                                             Selesai
-                                                                            <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
+                                                                            <i class="fas fa-arrow-circle-right ml-3"></i><span
+                                                                                    class="ml-2"></span>
                                                                         </a>
                                                                     <?php endif; ?>
                                                                 <?php else : ?>
-                                                                    <a href="<?= $href ?>" class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul) ?>
-                                                                        <i class="fas fa-arrow-circle-right ml-3"></i><span class="ml-2"></span>
+                                                                    <a href="<?= $href ?>"
+                                                                       class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul) ?>
+                                                                        <i class="fas fa-arrow-circle-right ml-3"></i><span
+                                                                                class="ml-2"></span>
                                                                     </a>
                                                                 <?php endif; ?>
                                                             </div>
@@ -197,8 +205,10 @@
                                         $selected = $tgl == $today ? 'true' : 'false';
                                         ?>
                                         <li class="nav-item" role="presentation">
-                                            <a type="button" class="btn nav-link seminggu <?= $active ?>" id="<?= $tgl ?>"
-                                               data-toggle="pill" data-target="#tab-<?= $tgl ?>" type="button" role="tab" aria-controls="<?= $tgl ?>" aria-selected="<?= $selected ?>">
+                                            <a type="button" class="btn nav-link seminggu <?= $active ?>"
+                                               id="<?= $tgl ?>"
+                                               data-toggle="pill" data-target="#tab-<?= $tgl ?>" type="button"
+                                               role="tab" aria-controls="<?= $tgl ?>" aria-selected="<?= $selected ?>">
                                                 <?= str_replace(',', '<br>', singkat_tanggal(date('D, d M', strtotime($tgl)))) ?>
                                             </a>
                                         </li>
@@ -220,7 +230,8 @@
                                         $jamMulai->setDate($y, $m, $d);
                                         $jamSampai->setDate($y, $m, $d);
                                         ?>
-                                        <div class="tab-pane fade <?= $show ?>" id="tab-<?= $tg ?>" role="tabpanel" aria-labelledby="tab-<?= $tg ?>-tab">
+                                        <div class="tab-pane fade <?= $show ?>" id="tab-<?= $tg ?>" role="tabpanel"
+                                             aria-labelledby="tab-<?= $tg ?>-tab">
                                             <?php
                                             $log = isset($logs[$tg]) ? $logs[$tg] : [];
                                             ?>
@@ -278,7 +289,8 @@
                                                                 </small>
                                                             </td>
                                                             <td class="align-middle"><?= $mat[$jamke]->nama_mapel ?></td>
-                                                            <td class="align-middle" style="line-height: 1"><?= $mat[$jamke]->kode_materi ?>
+                                                            <td class="align-middle"
+                                                                style="line-height: 1"><?= $mat[$jamke]->kode_materi ?>
                                                                 <br>
                                                                 <small><?= $mat[$jamke]->judul_materi ?></small>
                                                             </td>

@@ -3,11 +3,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><?= $judul . $kelas['nama_kelas']?></h1>
+                    <h1><?= $judul . $kelas['nama_kelas'] ?></h1>
                 </div>
                 <div class="col-6">
                     <button onclick="window.history.back();" type="button" class="btn btn-sm btn-danger float-right">
-                        <i class="fas fa-arrow-circle-left"></i><span class="d-none d-sm-inline-block ml-1">Kembali</span>
+                        <i class="fas fa-arrow-circle-left"></i><span
+                                class="d-none d-sm-inline-block ml-1">Kembali</span>
                     </button>
                 </div>
             </div>
@@ -19,48 +20,51 @@
             <div class="card my-shadow mb-4">
                 <div class="card-header py-3">
                     <div class="card-title">
-                        <h6><b><?=$mapel['nama_mapel']?></b></h6>
+                        <h6><b><?= $mapel['nama_mapel'] ?></b></h6>
                     </div>
                 </div>
                 <div class="card-body">
                     <?php if ($kkm == null): ?>
                         <div class="alert alert-default-danger align-content-center" role="alert">
-                            Download template tidak tersedia, Anda harus mengisi KKM terlebih dahulu di menu <b>DATA RAPOR > KKM DAN BOBOT</b>
+                            Download template tidak tersedia, Anda harus mengisi KKM terlebih dahulu di menu <b>DATA
+                                RAPOR > KKM DAN BOBOT</b>
                         </div>
                     <?php else: ?>
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <a href="<?=base_url('rapor/downloadtemplatepas/'.$mapel['id_mapel'].'/'.$kelas['id_kelas'])?>" id="download" type="button" class="btn btn-primary w-100">
-                                <i class="fa fa-download"></i> <span class="ml-1">Download Template</span>
-                            </a>
-                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <a href="<?= base_url('rapor/downloadtemplatepas/' . $mapel['id_mapel'] . '/' . $kelas['id_kelas']) ?>"
+                                   id="download" type="button" class="btn btn-primary w-100">
+                                    <i class="fa fa-download"></i> <span class="ml-1">Download Template</span>
+                                </a>
+                            </div>
 
-                        <div class="col-md-8">
-                            <?= form_open_multipart('', array('id'=>'uploadpas')); ?>
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="custom-file">
-                                        <input type="file" name="upload_file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Pilih file excel</label>
+                            <div class="col-md-8">
+                                <?= form_open_multipart('', array('id' => 'uploadpas')); ?>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="custom-file">
+                                            <input type="file" name="upload_file" class="custom-file-input"
+                                                   id="customFile">
+                                            <label class="custom-file-label" for="customFile">Pilih file excel</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <button id="upload" type="submit" class="btn btn-success w-100">
+                                            <i class="fa fa-upload"></i> <span class="ml-1">Upload</span>
+                                        </button>
                                     </div>
                                 </div>
-
-                                <div class="col-4">
-                                    <button id="upload" type="submit" class="btn btn-success w-100">
-                                        <i class="fa fa-upload"></i> <span class="ml-1">Upload</span>
-                                    </button>
-                                </div>
+                                <?= form_close(); ?>
                             </div>
-                            <?= form_close(); ?>
                         </div>
-                    </div>
-                    <hr>
-                    <?php
-                    if ($kkm==null) :?>
-                        <div class="alert alert-default-warning shadow align-content-center" role="alert">
-                            KKM dan Bobot belum diatur
-                        </div>
-                    <?php endif; ?>
+                        <hr>
+                        <?php
+                        if ($kkm == null) :?>
+                            <div class="alert alert-default-warning shadow align-content-center" role="alert">
+                                KKM dan Bobot belum diatur
+                            </div>
+                        <?php endif; ?>
                         <?php
                         $multi = $setting_rapor->kkm_tunggal == "0" ? "MULTI" : "TUNGGAL";
                         $isi = $kkm->kkm;
@@ -81,37 +85,38 @@
                                 <td style="width: 20%">Bobot Nilai PAS</td>
                             </tr>
                             <tr class="text-center text-md text-dark">
-                                <td><?=$kkm->kkm?></td>
-                                <td><?=$multi?></td>
+                                <td><?= $kkm->kkm ?></td>
+                                <td><?= $multi ?></td>
                                 <td>
                                     <span class="bg-danger badge p-1">0 ~ <?= $dsd ?> : D</span>
                                     <span class="bg-warning badge p-1"><?= $c . ' ~ ' . $csd ?> : C</span>
-                                    <span class="bg-blue badge p-1"><?= $b . ' ~ ' .  $bsd ?> : B</span>
+                                    <span class="bg-blue badge p-1"><?= $b . ' ~ ' . $bsd ?> : B</span>
                                     <span class="bg-success badge p-1"><?= $a ?> ~ 100 : A</span>
                                 </td>
-                                <td><?=$kkm->bobot_pas?> %</td>
+                                <td><?= $kkm->bobot_pas ?> %</td>
                             </tr>
                         </table>
-                    <div id="t-siswa" class="w-100"></div>
-                    <?= form_open('', array('id' => 'uploadnilai')) ?>
-                        <input type="hidden" name="id_kelas" class="form-control" value="<?=$mapel['id_mapel']?>">
-                        <input type="hidden" name="id_mapel" class="form-control" value="<?=$kelas['id_kelas']?>">
+                        <div id="t-siswa" class="w-100"></div>
+                        <?= form_open('', array('id' => 'uploadnilai')) ?>
+                        <input type="hidden" name="id_kelas" class="form-control" value="<?= $mapel['id_mapel'] ?>">
+                        <input type="hidden" name="id_mapel" class="form-control" value="<?= $kelas['id_kelas'] ?>">
                         <div class="row mt-3 mb-3">
                             <div class="col-12 text-right">
                                 <button type="submit" class="btn btn-primary mt-3 mb-3">
-                                    <i class="fa fa-save mr-1"></i>Simpan</button>
+                                    <i class="fa fa-save mr-1"></i>Simpan
+                                </button>
                             </div>
                         </div>
                         <div id="for-upload" class="d-none row"></div>
-                    <?= form_close() ?>
+                        <?= form_close() ?>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jexcel.js"></script>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jsuites.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswa)?>));
     var arrNilai = JSON.parse(JSON.stringify(<?= json_encode($nilai)?>));
@@ -144,14 +149,14 @@
     var pre_a = pre_bsd + 1;
     var pre_asd = 100;
 
-    var arrIndic = ["P1","P2","P3","P4","P5","P6","P7","P8"];
+    var arrIndic = ["P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8"];
     var cols = [];
 
     $(function () {
         bsCustomFileInput.init();
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         console.log('a:' + pre_a + ' b:' + pre_b + ' bd:' + pre_bsd + ' c:' + pre_c + ' cd:' + pre_csd + ' dd:' + pre_dsd);
         console.log('ph:' + bobotPH + ' PTS:' + bobotPTS + ' pas:' + bobotPAS);
         var dataSiswa = [];
@@ -162,8 +167,8 @@
             dataSiswa.push(
                 [
                     noInduk, v.nama, nilai.nhar, nilai.npts, nilai.npas,
-                    '=IFERROR(ROUND((((C'+row+'*'+bobotPH+')/100)+((D'+row+'*'+bobotPTS+')/100)+((E'+row+'*'+bobotPAS+')/100)),0),"")',
-                    '=IF(F'+row+'>'+pre_bsd+',"A",IF(F'+row+'>'+pre_csd+',"B",IF(F'+row+'>'+pre_dsd+',"C",IF(F'+row+'<'+pre_c+',"D",""))))',
+                    '=IFERROR(ROUND((((C' + row + '*' + bobotPH + ')/100)+((D' + row + '*' + bobotPTS + ')/100)+((E' + row + '*' + bobotPAS + ')/100)),0),"")',
+                    '=IF(F' + row + '>' + pre_bsd + ',"A",IF(F' + row + '>' + pre_csd + ',"B",IF(F' + row + '>' + pre_dsd + ',"C",IF(F' + row + '<' + pre_c + ',"D",""))))',
                     nilai.p_deskripsi, nilai.k_rata_rata, nilai.k_predikat, nilai.k_deskripsi, v.id_siswa
                 ]
             );
@@ -176,44 +181,44 @@
 
         var pno = 1;
         var kno = 1;
-        var char= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         for (let i = 0; i < 12; i++) {
             var item = {};
 
             if (i === 0) {
-                item['title'] = 'NIS/NISN\n'+char.charAt(i);
+                item['title'] = 'NIS/NISN\n' + char.charAt(i);
                 item['width'] = 160;
             } else if (i === 1) {
-                item['title'] = 'NAMA SISWA\n'+char.charAt(i);
+                item['title'] = 'NAMA SISWA\n' + char.charAt(i);
                 item['width'] = 250;
             } else if (i === 2) {
-                item['title'] = 'RPH\n'+char.charAt(i);
+                item['title'] = 'RPH\n' + char.charAt(i);
                 item['width'] = 50;
                 pno++;
             } else if (i === 3) {
-                item['title'] = 'PTS\n'+char.charAt(i);
+                item['title'] = 'PTS\n' + char.charAt(i);
                 item['width'] = 50;
             } else if (i === 4) {
-                item['title'] = 'PAS\n'+char.charAt(i);
+                item['title'] = 'PAS\n' + char.charAt(i);
                 item['width'] = 50;
             } else if (i === 5) {
-                item['title'] = 'AKHIR\n'+char.charAt(i);
+                item['title'] = 'AKHIR\n' + char.charAt(i);
                 item['width'] = 70;
             } else if (i === 6) {
-                item['title'] = 'PRED\n'+char.charAt(i);
+                item['title'] = 'PRED\n' + char.charAt(i);
                 item['width'] = 70;
             } else if (i === 7) {
-                item['title'] = 'DESKRIPSI\n'+char.charAt(i);
+                item['title'] = 'DESKRIPSI\n' + char.charAt(i);
                 item['width'] = 300;
                 item['wordWrap'] = true;
             } else if (i === 8) {
-                item['title'] = 'NILAI\n'+char.charAt(i);
+                item['title'] = 'NILAI\n' + char.charAt(i);
                 item['width'] = 50;
             } else if (i === 9) {
-                item['title'] = 'PRED\n'+char.charAt(i);
+                item['title'] = 'PRED\n' + char.charAt(i);
                 item['width'] = 50;
             } else if (i === 10) {
-                item['title'] = 'DESKRIPSI\n'+char.charAt(i);
+                item['title'] = 'DESKRIPSI\n' + char.charAt(i);
                 item['width'] = 300;
                 item['wordWrap'] = true;
             } else if (i === 11) {
@@ -226,13 +231,13 @@
         }
 
         tableSiswa.jexcel({
-            data:dataSiswa,
-            minDimensions:[12],
+            data: dataSiswa,
+            minDimensions: [12],
             //defaultColWidth: 100,
             tableOverflow: true,
-            tableWidth: ''+tableSiswa.width()+'px',
-            tableHeight: (80*dataSiswa.length)+'px',
-            search:true,
+            tableWidth: '' + tableSiswa.width() + 'px',
+            tableHeight: (80 * dataSiswa.length) + 'px',
+            search: true,
             freezeColumns: 2,
             //rowResize: true,
             columnResize: false,
@@ -240,7 +245,7 @@
             /*[
             {width: 100},
             {width: 300},       ],*/
-            nestedHeaders:[
+            nestedHeaders: [
                 [
                     {
                         title: 'DATA SISWA',
@@ -256,7 +261,7 @@
                     },
                 ],
             ],
-            updateTable:function(instance, cell, col, row, val, label, cellName) {
+            updateTable: function (instance, cell, col, row, val, label, cellName) {
                 if (col === 0) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
@@ -293,7 +298,7 @@
                     cell.style.fontWeight = '600'
                 }
             },
-            onchange: function(instance, cell, col, row, value, label) {
+            onchange: function (instance, cell, col, row, value, label) {
                 //var cellName = jexcel.getColumnNameFromId([col,row]);
                 //console.log(col, cell);
             }
@@ -303,7 +308,7 @@
             var x = cel.replace(/[A-Za-z]/g, "");
             x = x.charCodeAt(0) - 65;
             var y = cel.replace(/\D/g, "");
-            y = y -1;
+            y = y - 1;
 
             return x + "," + y;
         }
@@ -317,7 +322,7 @@
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: base_url + 'rapor/uploadpas/'+idMapel+'/'+idKelas,
+                url: base_url + 'rapor/uploadpas/' + idMapel + '/' + idKelas,
                 data: form,
                 processData: false,
                 contentType: false,
@@ -325,7 +330,7 @@
                 timeout: 600000,
                 success: function (data) {
                     console.log(data);
-                    window.location.href = base_url + 'rapor/inputpas/'+idMapel+'/'+idKelas
+                    window.location.href = base_url + 'rapor/inputpas/' + idMapel + '/' + idKelas
                 },
                 error: function (e) {
                     console.log("error", e.responseText);
@@ -350,8 +355,8 @@
                     swal.showLoading();
                 }
             });
-            var tbl = $('table.jexcel tr').get().map(function(row) {
-                return $(row).find('td').get().map(function(cell) {
+            var tbl = $('table.jexcel tr').get().map(function (row) {
+                return $(row).find('td').get().map(function (cell) {
                     return $(cell).html();
                 });
             });
@@ -360,15 +365,15 @@
             var inputs = '';
             $.each(tbl, function (idx, s) {
                 var idSiswa = s[12];
-                inputs += '<input type="text" name="siswa['+idSiswa+'][id_nilai_akhir]" value="'+idMapel+idKelas+idSiswa+tpActive+smtActive+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][id_siswa]" value="'+idSiswa+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][id_tp]" value="'+tpActive+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][id_smt]" value="'+smtActive+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][id_mapel]" value="'+idMapel+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][id_kelas]" value="'+idKelas+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][nilai]" value="'+s[5]+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][akhir]" value="'+s[6]+'" class="form-control col-1">';
-                inputs += '<input type="text" name="siswa['+idSiswa+'][predikat]" value="'+s[7]+'" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][id_nilai_akhir]" value="' + idMapel + idKelas + idSiswa + tpActive + smtActive + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][id_siswa]" value="' + idSiswa + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][id_tp]" value="' + tpActive + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][id_smt]" value="' + smtActive + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][id_mapel]" value="' + idMapel + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][id_kelas]" value="' + idKelas + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][nilai]" value="' + s[5] + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][akhir]" value="' + s[6] + '" class="form-control col-1">';
+                inputs += '<input type="text" name="siswa[' + idSiswa + '][predikat]" value="' + s[7] + '" class="form-control col-1">';
             });
             $('#for-upload').html(inputs);
 
@@ -381,14 +386,14 @@
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil disimpan",
+                        html: "<b>" + data + "<b> nilai berhasil disimpan",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
                         confirmButtonText: "OK"
                     }).then(result => {
                         if (result.value) {
-                            window.location.href = base_url + 'rapor/inputpas/'+idMapel+'/'+idKelas
+                            window.location.href = base_url + 'rapor/inputpas/' + idMapel + '/' + idKelas
                         }
                     });
                 },

@@ -36,7 +36,8 @@
                                 </ul>
                             </span>
                             <div class="col-12 text-right">
-                                <button type="button" data-toggle="modal" data-target="#beforeModal" class="btn btn-success btn-sm">
+                                <button type="button" data-toggle="modal" data-target="#beforeModal"
+                                        class="btn btn-success btn-sm">
                                     Lihat jabatan sebelumnya
                                 </button>
                             </div>
@@ -111,7 +112,8 @@
                                     </div>
                                     <div class="card card-light border border-light">
                                         <div class="card-header">
-                                            <span id="keterangan" class="card-title text-bold">Tentukan Kelas Mapel</span>
+                                            <span id="keterangan"
+                                                  class="card-title text-bold">Tentukan Kelas Mapel</span>
                                         </div>
                                         <div class="card-body" id="input-mapel"></div>
                                     </div>
@@ -145,8 +147,9 @@
     </section>
 </div>
 
-<?= form_open('dataguru/saveJabatan', array('id' => 'copyjabatan'), array('id_guru' => $guru->id_guru, 'copy'=>'copy')) ?>
-<div class="modal fade" id="beforeModal" tabindex="-1" role="dialog" aria-labelledby="beforeModalLabel" aria-hidden="true">
+<?= form_open('dataguru/saveJabatan', array('id' => 'copyjabatan'), array('id_guru' => $guru->id_guru, 'copy' => 'copy')) ?>
+<div class="modal fade" id="beforeModal" tabindex="-1" role="dialog" aria-labelledby="beforeModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -180,7 +183,7 @@
                                     $idklsm,
                                     'class="guru2 select2 form-control form-control-sm" multiple="multiple"'
                                 );
-                                echo '<input type="hidden" name="nama_mapel'.$val->id_mapel.'" value="'.$val->nama_mapel.'">';
+                                echo '<input type="hidden" name="nama_mapel' . $val->id_mapel . '" value="' . $val->nama_mapel . '">';
                             }
                             foreach ($guru2->ekstra_kelas as $val) {
                                 array_push($jke2, $val->id_ekstra);
@@ -196,7 +199,7 @@
                                     $idklse,
                                     'class="guru2 select2 form-control form-control-sm" multiple="multiple"'
                                 );
-                                echo '<input type="hidden" name="nama_ekstra'.$val->id_ekstra.'" value="'.$val->nama_ekstra.'">';
+                                echo '<input type="hidden" name="nama_ekstra' . $val->id_ekstra . '" value="' . $val->nama_ekstra . '">';
                             }
                             echo form_dropdown(
                                 'mapel[]',

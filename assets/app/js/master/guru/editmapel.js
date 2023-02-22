@@ -161,16 +161,16 @@ function createDropdownKelasWali() {
 
 		var arrSelect = [];
 		$.each(kelas, function (key, entry) {
-			var guru = '';
+			var nguru = '';
 			var selected = [];
-			if (jabatanTerisi[4][entry.id_kelas] != undefined) {
+			if (jabatanTerisi[4] !== undefined && jabatanTerisi[4][entry.id_kelas] !== undefined) {
 				var idg = jabatanTerisi[4][entry.id_kelas].id;
-				guru = guru_id != idg ? ' - - ( '+jabatanTerisi[4][entry.id_kelas].nama + ' )' : '';
+				nguru = guru_id != idg ? ' - - ( '+jabatanTerisi[4][entry.id_kelas].nama + ' )' : '';
 				selected = entry.id_kelas == kelas_id ? 'selected="selected" ' : '';
 				arrSelect.push(entry.id_kelas == kelas_id);
 			}
-			var disabl = guru !='' ? 'disabled="disabled"': '';
-			sel.append($('<option value="'+entry.id_kelas+'" '+ selected + disabl+'>'+entry.nama_kelas+guru+'</option>'));
+			var disabl = nguru !=='' ? 'disabled="disabled"': '';
+			sel.append($('<option value="'+entry.id_kelas+'" '+ selected + disabl+'>'+entry.nama_kelas+nguru+'</option>'));
 		});
 		var isSelected = inArrayKelas(true, arrSelect) ? '' : 'selected="selected"';
 		sel.prepend($('<option value="" '+isSelected+' disabled>Pilih Kelas</option>'));
@@ -408,15 +408,15 @@ $(document).ready(function () {
 			div1.appendTo(inputgroup);
 
 			$.each(kelas, function (key, entry) {
-				var guru = '';
+				var nguru = '';
 				var selected = '';
-				if (jabatanTerisi[4][entry.id_kelas] != undefined) {
+				if (jabatanTerisi[4] !== undefined && jabatanTerisi[4][entry.id_kelas] !== undefined) {
 					var idg = jabatanTerisi[4][entry.id_kelas].id;
-					guru = guru_id != idg ? ' - - ( '+jabatanTerisi[4][entry.id_kelas].nama + ' )' : '';
+					nguru = guru_id != idg ? ' - - ( '+jabatanTerisi[4][entry.id_kelas].nama + ' )' : '';
 					selected = entry.id_kelas == kelas_id ? 'selected="selected" ' : '';
 				}
-				var disabl = guru !='' ? '' : 'disabled="disabled"';
-				sel.append($('<option value="'+entry.id_kelas+'" '+ selected + disabl+'>'+entry.nama_kelas+guru+'</option>'));
+				var disabl = nguru !=='' ? 'disabled="disabled"': '';
+				sel.append($('<option value="'+entry.id_kelas+'" '+ selected + disabl+'>'+entry.nama_kelas+nguru+'</option>'));
 			});
 			sel.prepend($('<option value="" selected="selected" disabled>Pilih Kelas</option>'));
 

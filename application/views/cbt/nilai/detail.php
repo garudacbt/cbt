@@ -112,523 +112,542 @@
             </div>
 
             <div id="konten-soal">
-            <?php if (isset($soal[1]) && count($soal[1]) > 0) : ?>
-                <div class="card card-default my-shadow mb-4 collapsed-card">
-                    <div class="card-header">
-                        <h6 class="card-title"><b>I. PILIHAN GANDA</b></h6>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-plus"></i>
-                            </button>
+                <?php if (isset($soal[1]) && count($soal[1]) > 0) : ?>
+                    <div class="card card-default my-shadow mb-4 collapsed-card">
+                        <div class="card-header">
+                            <h6 class="card-title"><b>I. PILIHAN GANDA</b></h6>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-default-success" role="alert">
-                            <ul>
-                                <li>Bobot soal: <b><?= $info->bobot_pg ?></b>. Jumlah soal:
-                                    <b><?= $info->tampil_pg ?></b>. Max point persoal:
-                                    <b><?= round($info->bobot_pg / $info->tampil_pg, 2) ?></b>.
-                                </li>
-                                <li>Point soal PG tidak bisa diedit</li>
-                            </ul>
-                        </div>
-                        <table id="table-pg"
-                               class="w-100 table table-striped table-bordered border-success nowrap">
-                            <thead>
-                            <tr>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
-                                <th class="text-center align-middle bg-blue">Soal</th>
-                                <th class="text-center align-middle bg-blue">Pilihan</th>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
-                                <th class="text-center align-middle bg-teal d-none" style="width: 50px">No. Acak
-                                </th>
-                                <th class="text-center align-middle bg-teal d-none">Pilihan Acak</th>
-                                <th class="text-center align-middle bg-teal d-none" style="width: 50px">Jawaban
-                                    Siswa Acak
-                                </th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Point<br>Max. <?= round($info->bobot_pg / $info->tampil_pg, 2) ?></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $ns = 1;
-                            foreach ($soal[1] as $s) :
-                                $arrAlias = [
-                                    ['valAlias' => $s->opsi_alias_a, 'opsi' => $s->opsi_a, 'value' => 'A'],
-                                    ['valAlias' => $s->opsi_alias_b, 'opsi' => $s->opsi_b, 'value' => 'B'],
-                                ];
+                        <div class="card-body">
+                            <div class="alert alert-default-success" role="alert">
+                                <ul>
+                                    <li>Bobot soal: <b><?= $info->bobot_pg ?></b>. Jumlah soal:
+                                        <b><?= $info->tampil_pg ?></b>. Max point persoal:
+                                        <b><?= round($info->bobot_pg / $info->tampil_pg, 2) ?></b>.
+                                    </li>
+                                    <li>Point soal PG tidak bisa diedit</li>
+                                </ul>
+                            </div>
+                            <table id="table-pg"
+                                   class="w-100 table table-striped table-bordered border-success nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
+                                    <th class="text-center align-middle bg-blue">Soal</th>
+                                    <th class="text-center align-middle bg-blue">Pilihan</th>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
+                                    <th class="text-center align-middle bg-teal d-none" style="width: 50px">No. Acak
+                                    </th>
+                                    <th class="text-center align-middle bg-teal d-none">Pilihan Acak</th>
+                                    <th class="text-center align-middle bg-teal d-none" style="width: 50px">Jawaban
+                                        Siswa Acak
+                                    </th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">
+                                        Point<br>Max. <?= round($info->bobot_pg / $info->tampil_pg, 2) ?></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $ns = 1;
+                                foreach ($soal[1] as $s) :
+                                    $arrAlias = [
+                                        ['valAlias' => $s->opsi_alias_a, 'opsi' => $s->opsi_a, 'value' => 'A'],
+                                        ['valAlias' => $s->opsi_alias_b, 'opsi' => $s->opsi_b, 'value' => 'B'],
+                                    ];
 
-                                if ($info->opsi == 3) {
-                                    array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
-                                } elseif ($info->opsi == 4) {
-                                    array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
-                                    array_push($arrAlias, ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D']);
-                                } else {
-                                    array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
-                                    array_push($arrAlias, ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D']);
-                                    array_push($arrAlias, ['valAlias' => $s->opsi_alias_e, 'opsi' => $s->opsi_e, 'value' => 'E']);
-                                }
-                                array_multisort(array_column($arrAlias, 'valAlias'), SORT_ASC, $arrAlias);
-                                ?>
+                                    if ($info->opsi == 3) {
+                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
+                                    } elseif ($info->opsi == 4) {
+                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
+                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D']);
+                                    } else {
+                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
+                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D']);
+                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_e, 'opsi' => $s->opsi_e, 'value' => 'E']);
+                                    }
+                                    array_multisort(array_column($arrAlias, 'valAlias'), SORT_ASC, $arrAlias);
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"><?= $ns ?></td>
+                                        <td><?= $s->soal ?></td>
+                                        <td>
+                                            <ol type="A">
+                                                <li>
+                                                    <?= $s->opsi_a ?>
+                                                </li>
+                                                <li>
+                                                    <?= $s->opsi_b ?>
+                                                </li>
+                                                <?php if ($info->opsi == 3) : ?>
+                                                    <li>
+                                                        <?= $s->opsi_c ?>
+                                                    </li>
+                                                <?php elseif ($info->opsi == 4) : ?>
+                                                    <li>
+                                                        <?= $s->opsi_c ?>
+                                                    </li>
+                                                    <li>
+                                                        <?= $s->opsi_d ?>
+                                                    </li>
+                                                <?php else : ?>
+                                                    <li>
+                                                        <?= $s->opsi_c ?>
+                                                    </li>
+                                                    <li>
+                                                        <?= $s->opsi_d ?>
+                                                    </li>
+                                                    <li>
+                                                        <?= $s->opsi_e ?>
+                                                    </li>
+                                                <?php endif; ?>
+                                            </ol>
+                                        </td>
+                                        <td class="text-center"><?= strtoupper($s->jawaban) ?></td>
+                                        <td class="text-center d-none"><?= $s->no_soal_alias ?></td>
+                                        <td class="d-none">
+                                            <ol type="A">
+                                                <?php foreach ($arrAlias as $alias) : ?>
+                                                    <li>
+                                                        <?= $alias['opsi'] ?>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ol>
+                                        </td>
+                                        <td class="text-center d-none"><?= strtoupper($s->jawaban_alias) ?></td>
+                                        <td class="text-center"><?= strtoupper($s->jawaban_siswa) ?></td>
+                                        <td class="text-center"><?= $s->analisa ?></td>
+                                        <td class="text-center"><?= $s->point ?></td>
+                                    </tr>
+                                    <?php $ns++; endforeach; ?>
                                 <tr>
-                                    <td class="text-center"><?= $ns ?></td>
-                                    <td><?= $s->soal ?></td>
+                                    <td colspan="6" class="text-right text-bold">TOTAL SCORE PILIHAN GANDA</td>
+                                    <td class="text-center text-bold"><?= round($skor->skor_pg, 2) ?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="overlay d-none" id="loading-pg">
+                            <div class="spinner-grow"></div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if (isset($soal[2]) && count($soal[2]) > 0) : ?>
+                    <div class="card card-default my-shadow mb-4">
+                        <div class="card-header">
+                            <h6 class="card-title"><b>II. PILIHAN GANDA KOMPLEKS</b></h6>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-default-success" role="alert">
+                                <ul>
+                                    <li>Bobot soal: <b><?= $info->bobot_kompleks ?></b>. Jumlah soal:
+                                        <b><?= $info->tampil_kompleks ?></b>. Max point persoal:
+                                        <b><?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?></b>.
+                                    </li>
+                                    <li>Point soal PG Kompleks bisa diedit</li>
+                                    <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
+                                    <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
+                                                class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
+                                    </li>
+                                    <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
+                                </ul>
+                            </div>
+                            <table id="table-pg2"
+                                   class="w-100 table table-striped table-bordered border-success nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
+                                    <th class="text-center align-middle bg-blue">Soal</th>
+                                    <th class="text-center align-middle bg-blue">Pilihan</th>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">
+                                        Point<br>Max. <?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?>
+                                    </th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $ns = 1;
+                                foreach ($soal[2] as $s) :?>
+                                    <tr>
+                                        <td class="text-center"><?= $ns ?></td>
+                                        <td><?= $s->soal ?></td>
+                                        <td>
+                                            <ol type="A">
+                                                <?php foreach ($s->opsi_a as $abc => $opsi) : ?>
+                                                    <li>
+                                                        <?= $opsi ?>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ol>
+                                        </td>
+                                        <td class="text-center"><?= strtoupper(implode(", ", $s->jawaban_benar)) ?></td>
+                                        <td class="text-center"><?= $s->jawaban_siswa ? strtoupper(implode(", ", $s->jawaban_siswa)) : '' ?></td>
+                                        <td class="text-center"><?= $s->analisa ?></td>
+                                        <td class="text-center">
+                                            <input id="input<?= $s->id_soal_siswa ?>"
+                                                   name="input<?= $s->id_soal_siswa ?>"
+                                                   value="<?= $s->point ?>"
+                                                   type="number" min="0"
+                                                   max="<?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?>"
+                                                   step="0.1"
+                                                   style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
+                                            <span class="pg2" data-idsoal="<?= $s->id_soal_siswa ?>"
+                                                  id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
+                                        </td>
+                                        <td>
+                                            <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="edit(<?= $s->id_soal_siswa ?>)"><i
+                                                        class="fa fa-pencil"></i>
+                                            </button>
+                                            <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)">
+                                                <i
+                                                        class="fa fa-undo"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php $ns++; endforeach; ?>
+                                <tr>
+                                    <td colspan="6" class="text-right text-bold">TOTAL SCORE PILIHAN GANDA KOMPLEKS</td>
+                                    <td class="text-center text-bold"><?= round($skor->skor_kompleks, 2) ?></td>
                                     <td>
-                                        <ol type="A">
-                                            <li>
-                                                <?= $s->opsi_a ?>
-                                            </li>
-                                            <li>
-                                                <?= $s->opsi_b ?>
-                                            </li>
-                                            <?php if ($info->opsi == 3) : ?>
-                                                <li>
-                                                    <?= $s->opsi_c ?>
-                                                </li>
-                                            <?php elseif ($info->opsi == 4) : ?>
-                                                <li>
-                                                    <?= $s->opsi_c ?>
-                                                </li>
-                                                <li>
-                                                    <?= $s->opsi_d ?>
-                                                </li>
-                                            <?php else : ?>
-                                                <li>
-                                                    <?= $s->opsi_c ?>
-                                                </li>
-                                                <li>
-                                                    <?= $s->opsi_d ?>
-                                                </li>
-                                                <li>
-                                                    <?= $s->opsi_e ?>
-                                                </li>
+                                        <button id="pg2"
+                                                data-max="<?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?>"
+                                                class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="overlay d-none" id="loading-pg2">
+                            <div class="spinner-grow"></div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if (isset($soal[3]) && count($soal[3]) > 0) : ?>
+                    <div class="card card-default my-shadow mb-4">
+                        <div class="card-header">
+                            <h6 class="card-title"><b>III. MENJODOHKAN</b></h6>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-default-success" role="alert">
+                                <ul>
+                                    <li>Bobot soal: <b><?= $info->bobot_jodohkan ?></b>. Jumlah soal:
+                                        <b><?= $info->tampil_jodohkan ?></b>. Max point persoal:
+                                        <b><?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?></b>.
+                                    </li>
+                                    <li>Point soal menjodohkan bisa diedit</li>
+                                    <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
+                                    <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
+                                                class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
+                                    </li>
+                                    <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
+                                </ul>
+                            </div>
+                            <table id="table-jodohkan"
+                                   class="w-100 table table-striped table-bordered border-success nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
+                                    <th class="text-center align-middle bg-blue">Soal</th>
+                                    <th class="text-center align-middle bg-blue">Jawaban Benar</th>
+                                    <th class="text-center align-middle bg-teal">Jawaban Siswa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">
+                                        Point<br>Max. <?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?>
+                                    </th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $ns = 1;
+                                foreach ($soal[3] as $s) :?>
+                                    <tr>
+                                        <td class="text-center"><?= $ns ?></td>
+                                        <td><?= $s->soal ?></td>
+                                        <td>
+                                            <?php if ($s->type_soal == '1') :
+                                                foreach ($s->tabel_soal as $jwb) :?>
+                                                    <span><?= $jwb->title ?></span>
+                                                    <?php if (isset($jwb->subtitle)) : ?>
+                                                        <ul>
+                                                            <?php foreach ($jwb->subtitle as $sub) : ?>
+                                                                <li><?= $sub ?></li>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    <?php else: ?>
+                                                        <br>--
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php else:
+                                                foreach ($s->tabel_soal as $jwb) :?>
+                                                    <p><?= $jwb->title ?>
+                                                        <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '' ?></p>
+                                                <?php endforeach; ?>
                                             <?php endif; ?>
-                                        </ol>
-                                    </td>
-                                    <td class="text-center"><?= strtoupper($s->jawaban) ?></td>
-                                    <td class="text-center d-none"><?= $s->no_soal_alias ?></td>
-                                    <td class="d-none">
-                                        <ol type="A">
-                                            <?php foreach ($arrAlias as $alias) : ?>
-                                                <li>
-                                                    <?= $alias['opsi'] ?>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ol>
-                                    </td>
-                                    <td class="text-center d-none"><?= strtoupper($s->jawaban_alias) ?></td>
-                                    <td class="text-center"><?= strtoupper($s->jawaban_siswa) ?></td>
-                                    <td class="text-center"><?= $s->analisa ?></td>
-                                    <td class="text-center"><?= $s->point ?></td>
-                                </tr>
-                                <?php $ns++; endforeach; ?>
-                            <tr>
-                                <td colspan="6" class="text-right text-bold">TOTAL SCORE PILIHAN GANDA</td>
-                                <td class="text-center text-bold"><?= round($skor->skor_pg, 2) ?></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="overlay d-none" id="loading-pg">
-                        <div class="spinner-grow"></div>
-                    </div>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($soal[2]) && count($soal[2]) > 0) : ?>
-                <div class="card card-default my-shadow mb-4">
-                    <div class="card-header">
-                        <h6 class="card-title"><b>II. PILIHAN GANDA KOMPLEKS</b></h6>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-default-success" role="alert">
-                            <ul>
-                                <li>Bobot soal: <b><?= $info->bobot_kompleks ?></b>. Jumlah soal:
-                                    <b><?= $info->tampil_kompleks ?></b>. Max point persoal:
-                                    <b><?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?></b>.
-                                </li>
-                                <li>Point soal PG Kompleks bisa diedit</li>
-                                <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
-                                <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
-                                            class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
-                                </li>
-                                <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
-                            </ul>
-                        </div>
-                        <table id="table-pg2"
-                               class="w-100 table table-striped table-bordered border-success nowrap">
-                            <thead>
-                            <tr>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
-                                <th class="text-center align-middle bg-blue">Soal</th>
-                                <th class="text-center align-middle bg-blue">Pilihan</th>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?></th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $ns = 1;
-                            foreach ($soal[2] as $s) :?>
+                                        </td>
+                                        <td>
+                                            <?php if ($s->type_soal == '1') :
+                                                foreach ($s->tabel_jawab as $jwb) :?>
+                                                    <span><?= $jwb->title ?></span>
+                                                    <?php if (isset($jwb->subtitle)) : ?>
+                                                        <ul>
+                                                            <?php foreach ($jwb->subtitle as $sub) : ?>
+                                                                <li><?= $sub ?></li>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    <?php else: ?>
+                                                        <br>--
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php else:
+                                                foreach ($s->tabel_jawab as $jwb) :?>
+                                                    <p><?= $jwb->title ?>
+                                                        <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="text-center"><?= $s->analisa ?></td>
+                                        <td class="text-center">
+                                            <input id="input<?= $s->id_soal_siswa ?>"
+                                                   name="input<?= $s->id_soal_siswa ?>"
+                                                   value="<?= $s->point ?>"
+                                                   type="number" min="0"
+                                                   max="<?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?>"
+                                                   step="0.10"
+                                                   style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
+                                            <span class="jodohkan" data-idsoal="<?= $s->id_soal_siswa ?>"
+                                                  id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
+                                        </td>
+                                        <td>
+                                            <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="edit(<?= $s->id_soal_siswa ?>)"><i
+                                                        class="fa fa-pencil"></i>
+                                            </button>
+                                            <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)">
+                                                <i
+                                                        class="fa fa-undo"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php $ns++; endforeach; ?>
                                 <tr>
-                                    <td class="text-center"><?= $ns ?></td>
-                                    <td><?= $s->soal ?></td>
+                                    <td colspan="5" class="text-right text-bold">TOTAL SCORE MENJODOHKAN</td>
+                                    <td class="text-center text-bold"><?= round($skor->skor_jodohkan, 2) ?></td>
                                     <td>
-                                        <ol type="A">
-                                            <?php foreach ($s->opsi_a as $abc => $opsi) : ?>
-                                                <li>
-                                                    <?= $opsi ?>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ol>
-                                    </td>
-                                    <td class="text-center"><?= strtoupper(implode(", ", $s->jawaban_benar)) ?></td>
-                                    <td class="text-center"><?= $s->jawaban_siswa ? strtoupper(implode(", ", $s->jawaban_siswa)) : '' ?></td>
-                                    <td class="text-center"><?= $s->analisa ?></td>
-                                    <td class="text-center">
-                                        <input id="input<?= $s->id_soal_siswa ?>" name="input<?= $s->id_soal_siswa ?>"
-                                               value="<?= $s->point ?>"
-                                               type="number" min="0"
-                                               max="<?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?>"
-                                               step="0.1"
-                                               style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
-                                        <span class="pg2" data-idsoal="<?= $s->id_soal_siswa ?>"
-                                              id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
-                                    </td>
-                                    <td>
-                                        <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="edit(<?= $s->id_soal_siswa ?>)"><i class="fa fa-pencil"></i>
+                                        <button id="jodohkan"
+                                                data-max="<?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?>"
+                                                class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
                                         </button>
-                                        <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)"><i
-                                                    class="fa fa-undo"></i></button>
                                     </td>
                                 </tr>
-                                <?php $ns++; endforeach; ?>
-                            <tr>
-                                <td colspan="6" class="text-right text-bold">TOTAL SCORE PILIHAN GANDA KOMPLEKS</td>
-                                <td class="text-center text-bold"><?= round($skor->skor_kompleks, 2) ?></td>
-                                <td>
-                                    <button id="pg2"
-                                            data-max="<?= round($info->bobot_kompleks / $info->tampil_kompleks, 2) ?>"
-                                            class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="overlay d-none" id="loading-pg2">
-                        <div class="spinner-grow"></div>
-                    </div>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($soal[3]) && count($soal[3]) > 0) : ?>
-                <div class="card card-default my-shadow mb-4">
-                    <div class="card-header">
-                        <h6 class="card-title"><b>III. MENJODOHKAN</b></h6>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="overlay d-none" id="loading-jodohkan">
+                            <div class="spinner-grow"></div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="alert alert-default-success" role="alert">
-                            <ul>
-                                <li>Bobot soal: <b><?= $info->bobot_jodohkan ?></b>. Jumlah soal:
-                                    <b><?= $info->tampil_jodohkan ?></b>. Max point persoal:
-                                    <b><?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?></b>.
-                                </li>
-                                <li>Point soal menjodohkan bisa diedit</li>
-                                <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
-                                <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
-                                            class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
-                                </li>
-                                <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
-                            </ul>
+                <?php endif; ?>
+                <?php if (isset($soal[4]) && count($soal[4]) > 0) : ?>
+                    <div class="card card-default my-shadow mb-4">
+                        <div class="card-header">
+                            <h6 class="card-title"><b>IV. ISIAN SINGKAT</b></h6>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                        <table id="table-jodohkan"
-                               class="w-100 table table-striped table-bordered border-success nowrap">
-                            <thead>
-                            <tr>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
-                                <th class="text-center align-middle bg-blue">Soal</th>
-                                <th class="text-center align-middle bg-blue">Jawaban Benar</th>
-                                <th class="text-center align-middle bg-teal">Jawaban Siswa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?></th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $ns = 1;
-                            foreach ($soal[3] as $s) :?>
+                        <div class="card-body">
+                            <div class="alert alert-default-success" role="alert">
+                                <ul>
+                                    <li>Bobot soal: <b><?= $info->bobot_isian ?></b>. Jumlah soal:
+                                        <b><?= $info->tampil_isian ?></b>. Max point persoal:
+                                        <b><?= round($info->bobot_isian / $info->tampil_isian, 2) ?></b>.
+                                    </li>
+                                    <li>Point soal isian singkat bisa diedit</li>
+                                    <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
+                                    <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
+                                                class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
+                                    </li>
+                                    <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
+                                </ul>
+                            </div>
+                            <table id="table-isian"
+                                   class="w-100 table table-striped table-bordered border-success nowrap">
+                                <thead>
                                 <tr>
-                                    <td class="text-center"><?= $ns ?></td>
-                                    <td><?= $s->soal ?></td>
-                                    <td>
-                                        <?php if ($s->type_soal == '1') :
-                                            foreach ($s->tabel_soal as $jwb) :?>
-                                                <span><?= $jwb->title ?></span>
-                                                <?php if (isset($jwb->subtitle)) : ?>
-                                                    <ul>
-                                                        <?php foreach ($jwb->subtitle as $sub) : ?>
-                                                            <li><?= $sub ?></li>
-                                                        <?php endforeach; ?>
-                                                    </ul>
-                                                <?php else: ?>
-                                                    <br>--
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        <?php else:
-                                            foreach ($s->tabel_soal as $jwb) :?>
-                                                <p><?= $jwb->title ?>
-                                                    <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '' ?></p>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <?php if ($s->type_soal == '1') :
-                                            foreach ($s->tabel_jawab as $jwb) :?>
-                                                <span><?= $jwb->title ?></span>
-                                                <?php if (isset($jwb->subtitle)) : ?>
-                                                    <ul>
-                                                        <?php foreach ($jwb->subtitle as $sub) : ?>
-                                                            <li><?= $sub ?></li>
-                                                        <?php endforeach; ?>
-                                                    </ul>
-                                                <?php else: ?>
-                                                    <br>--
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        <?php else:
-                                            foreach ($s->tabel_jawab as $jwb) :?>
-                                                <p><?= $jwb->title ?>
-                                                    <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td class="text-center"><?= $s->analisa ?></td>
-                                    <td class="text-center">
-                                        <input id="input<?= $s->id_soal_siswa ?>" name="input<?= $s->id_soal_siswa ?>"
-                                               value="<?= $s->point ?>"
-                                               type="number" min="0"
-                                               max="<?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?>"
-                                               step="0.10"
-                                               style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
-                                        <span class="jodohkan" data-idsoal="<?= $s->id_soal_siswa ?>"
-                                              id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
-                                    </td>
-                                    <td>
-                                        <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="edit(<?= $s->id_soal_siswa ?>)"><i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)"><i
-                                                    class="fa fa-undo"></i></button>
-                                    </td>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
+                                    <th class="text-center align-middle bg-blue">Soal</th>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">
+                                        Point<br>Max. <?= round($info->bobot_isian / $info->tampil_isian, 2) ?></th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
                                 </tr>
-                                <?php $ns++; endforeach; ?>
-                            <tr>
-                                <td colspan="5" class="text-right text-bold">TOTAL SCORE MENJODOHKAN</td>
-                                <td class="text-center text-bold"><?= round($skor->skor_jodohkan, 2) ?></td>
-                                <td>
-                                    <button id="jodohkan"
-                                            data-max="<?= round($info->bobot_jodohkan / $info->tampil_jodohkan, 2) ?>"
-                                            class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="overlay d-none" id="loading-jodohkan">
-                        <div class="spinner-grow"></div>
-                    </div>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($soal[4]) && count($soal[4]) > 0) : ?>
-                <div class="card card-default my-shadow mb-4">
-                    <div class="card-header">
-                        <h6 class="card-title"><b>IV. ISIAN SINGKAT</b></h6>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-default-success" role="alert">
-                            <ul>
-                                <li>Bobot soal: <b><?= $info->bobot_isian ?></b>. Jumlah soal:
-                                    <b><?= $info->tampil_isian ?></b>. Max point persoal:
-                                    <b><?= round($info->bobot_isian / $info->tampil_isian, 2) ?></b>.
-                                </li>
-                                <li>Point soal isian singkat bisa diedit</li>
-                                <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
-                                <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
-                                            class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
-                                </li>
-                                <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
-                            </ul>
-                        </div>
-                        <table id="table-isian"
-                               class="w-100 table table-striped table-bordered border-success nowrap">
-                            <thead>
-                            <tr>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
-                                <th class="text-center align-middle bg-blue">Soal</th>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_isian / $info->tampil_isian, 2) ?></th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $ns = 1;
-                            foreach ($soal[4] as $s) :?>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $ns = 1;
+                                foreach ($soal[4] as $s) :?>
+                                    <tr>
+                                        <td class="text-center"><?= $ns ?></td>
+                                        <td><?= $s->soal ?></td>
+                                        <td class="text-center"><?= $s->jawaban_benar ?></td>
+                                        <td class="text-center"><?= $s->jawaban_siswa ?></td>
+                                        <td class="text-center"><?= $s->analisa ?></td>
+                                        <td class="text-center">
+                                            <input id="input<?= $s->id_soal_siswa ?>"
+                                                   name="input<?= $s->id_soal_siswa ?>"
+                                                   value="<?= $s->point ?>"
+                                                   type="number" min="0"
+                                                   max="<?= round($info->bobot_isian / $info->tampil_isian, 2) ?>"
+                                                   step="0.1"
+                                                   style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
+                                            <span class="isian" data-idsoal="<?= $s->id_soal_siswa ?>"
+                                                  id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
+                                        </td>
+                                        <td>
+                                            <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="edit(<?= $s->id_soal_siswa ?>)"><i
+                                                        class="fa fa-pencil"></i>
+                                            </button>
+                                            <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)">
+                                                <i
+                                                        class="fa fa-undo"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php $ns++; endforeach; ?>
                                 <tr>
-                                    <td class="text-center"><?= $ns ?></td>
-                                    <td><?= $s->soal ?></td>
-                                    <td class="text-center"><?= $s->jawaban_benar ?></td>
-                                    <td class="text-center"><?= $s->jawaban_siswa ?></td>
-                                    <td class="text-center"><?= $s->analisa ?></td>
-                                    <td class="text-center">
-                                        <input id="input<?= $s->id_soal_siswa ?>" name="input<?= $s->id_soal_siswa ?>"
-                                               value="<?= $s->point ?>"
-                                               type="number" min="0"
-                                               max="<?= round($info->bobot_isian / $info->tampil_isian, 2) ?>"
-                                               step="0.1"
-                                               style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
-                                        <span class="isian" data-idsoal="<?= $s->id_soal_siswa ?>"
-                                              id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
-                                    </td>
+                                    <td colspan="5" class="text-right text-bold">TOTAL SCORE ISIAN SINGKAT</td>
+                                    <td class="text-center text-bold"><?= round($skor->skor_isian, 2) ?></td>
                                     <td>
-                                        <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="edit(<?= $s->id_soal_siswa ?>)"><i class="fa fa-pencil"></i>
+                                        <button id="isian"
+                                                data-max="<?= round($info->bobot_isian / $info->tampil_isian, 2) ?>"
+                                                class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
                                         </button>
-                                        <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)"><i
-                                                    class="fa fa-undo"></i></button>
                                     </td>
                                 </tr>
-                                <?php $ns++; endforeach; ?>
-                            <tr>
-                                <td colspan="5" class="text-right text-bold">TOTAL SCORE ISIAN SINGKAT</td>
-                                <td class="text-center text-bold"><?= round($skor->skor_isian, 2) ?></td>
-                                <td>
-                                    <button id="isian"
-                                            data-max="<?= round($info->bobot_isian / $info->tampil_isian, 2) ?>"
-                                            class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="overlay d-none" id="loading-isian">
-                        <div class="spinner-grow"></div>
-                    </div>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($soal[5]) && count($soal[5]) > 0) : ?>
-                <div class="card card-default my-shadow mb-4">
-                    <div class="card-header">
-                        <h6 class="card-title"><b>V. URAIAN</b></h6>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="overlay d-none" id="loading-isian">
+                            <div class="spinner-grow"></div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="alert alert-default-success" role="alert">
-                            <ul>
-                                <li>Bobot soal: <b><?= $info->bobot_esai ?></b>. Jumlah soal:
-                                    <b><?= $info->tampil_esai ?></b>. Max point persoal:
-                                    <b><?= round($info->bobot_esai / $info->tampil_esai) ?></b>.
-                                </li>
-                                <li>Point soal uraian bisa diedit</li>
-                                <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
-                                <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
-                                            class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
-                                </li>
-                                <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
-                            </ul>
+                <?php endif; ?>
+                <?php if (isset($soal[5]) && count($soal[5]) > 0) : ?>
+                    <div class="card card-default my-shadow mb-4">
+                        <div class="card-header">
+                            <h6 class="card-title"><b>V. URAIAN</b></h6>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                        <table id="table-essai"
-                               class="w-100 table table-striped table-bordered border-success nowrap">
-                            <thead>
-                            <tr>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
-                                <th class="text-center align-middle bg-blue">Soal</th>
-                                <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Point<br>Max. <?= round($info->bobot_esai / $info->tampil_esai) ?></th>
-                                <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $ns = 1;
-                            foreach ($soal[5] as $s) :?>
+                        <div class="card-body">
+                            <div class="alert alert-default-success" role="alert">
+                                <ul>
+                                    <li>Bobot soal: <b><?= $info->bobot_esai ?></b>. Jumlah soal:
+                                        <b><?= $info->tampil_esai ?></b>. Max point persoal:
+                                        <b><?= round($info->bobot_esai / $info->tampil_esai) ?></b>.
+                                    </li>
+                                    <li>Point soal uraian bisa diedit</li>
+                                    <li>Utamakan mengkoreksi hasil analisa yang berwarna kuning</li>
+                                    <li>Klik <i class="fa fa-pencil"></i> untuk mengedit point. Klik <i
+                                                class="fa fa-undo"></i> untuk mengembalikan ke point otomatis
+                                    </li>
+                                    <li>Klik tobol <b>SIMPAN</b> untuk menyimpan perubahan point</li>
+                                </ul>
+                            </div>
+                            <table id="table-essai"
+                                   class="w-100 table table-striped table-bordered border-success nowrap">
+                                <thead>
                                 <tr>
-                                    <td class="text-center"><?= $ns ?></td>
-                                    <td><?= $s->soal ?></td>
-                                    <td class="text-center"><?= $s->jawaban_benar ?></td>
-                                    <td class="text-center"><?= $s->jawaban_siswa ?></td>
-                                    <td class="text-center"><?= $s->analisa ?></td>
-                                    <td class="text-center">
-                                        <input id="input<?= $s->id_soal_siswa ?>" name="input<?= $s->id_soal_siswa ?>"
-                                               value="<?= $s->point ?>"
-                                               type="number" min="0"
-                                               max="<?= round($info->bobot_esai / $info->tampil_esai, 2) ?>" step="0.10"
-                                               style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
-                                        <span class="essai" data-idsoal="<?= $s->id_soal_siswa ?>"
-                                              id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
-                                    </td>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">No. Soal</th>
+                                    <th class="text-center align-middle bg-blue">Soal</th>
+                                    <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">
+                                        Point<br>Max. <?= round($info->bobot_esai / $info->tampil_esai) ?></th>
+                                    <th class="text-center align-middle bg-teal" style="width: 80px">Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $ns = 1;
+                                foreach ($soal[5] as $s) :?>
+                                    <tr>
+                                        <td class="text-center"><?= $ns ?></td>
+                                        <td><?= $s->soal ?></td>
+                                        <td class="text-center"><?= $s->jawaban_benar ?></td>
+                                        <td class="text-center"><?= $s->jawaban_siswa ?></td>
+                                        <td class="text-center"><?= $s->analisa ?></td>
+                                        <td class="text-center">
+                                            <input id="input<?= $s->id_soal_siswa ?>"
+                                                   name="input<?= $s->id_soal_siswa ?>"
+                                                   value="<?= $s->point ?>"
+                                                   type="number" min="0"
+                                                   max="<?= round($info->bobot_esai / $info->tampil_esai, 2) ?>"
+                                                   step="0.10"
+                                                   style="width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; display: none"/>
+                                            <span class="essai" data-idsoal="<?= $s->id_soal_siswa ?>"
+                                                  id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
+                                        </td>
+                                        <td>
+                                            <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="edit(<?= $s->id_soal_siswa ?>)"><i
+                                                        class="fa fa-pencil"></i>
+                                            </button>
+                                            <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
+                                                    onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)">
+                                                <i class="fa fa-undo"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php $ns++; endforeach; ?>
+                                <tr>
+                                    <td colspan="5" class="text-right text-bold">TOTAL SCORE URAIAN</td>
+                                    <td class="text-center text-bold"><?= round($skor->skor_essai, 2) ?></td>
                                     <td>
-                                        <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="edit(<?= $s->id_soal_siswa ?>)"><i class="fa fa-pencil"></i>
+                                        <button id="essai"
+                                                data-max="<?= round($info->bobot_esai / $info->tampil_esai, 2) ?>"
+                                                class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
                                         </button>
-                                        <button id="undo<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
-                                                onclick="undo(<?= $s->id_soal_siswa ?>, <?= $s->point_otomatis ?>)">
-                                            <i class="fa fa-undo"></i></button>
                                     </td>
                                 </tr>
-                                <?php $ns++; endforeach; ?>
-                            <tr>
-                                <td colspan="5" class="text-right text-bold">TOTAL SCORE URAIAN</td>
-                                <td class="text-center text-bold"><?= round($skor->skor_essai, 2) ?></td>
-                                <td>
-                                    <button id="essai"
-                                            data-max="<?= round($info->bobot_esai / $info->tampil_esai, 2) ?>"
-                                            class="btn btn-sm btn-primary" onclick="simpan(this)">Simpan
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="overlay d-none" id="loading-essai">
+                            <div class="spinner-grow"></div>
+                        </div>
                     </div>
-                    <div class="overlay d-none" id="loading-essai">
-                        <div class="spinner-grow"></div>
-                    </div>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
             </div>
         </div>
     </section>

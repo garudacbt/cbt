@@ -316,7 +316,7 @@ $allBanksIds = [];
                                     ?>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="card border mb-4">
-                                            <div class="card-header border-bottom-0 <?=$bgRandom?>">
+                                            <div class="card-header border-bottom-0 <?= $bgRandom ?>">
                                                 <h3 class="card-title mt-1"><b><?= $bank->bank_kode ?></b></h3>
                                                 <div class="card-tools">
 									<span data-toggle="tooltip" title="Edit Bank Soal">

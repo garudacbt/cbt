@@ -103,14 +103,16 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label>Jml. Soal</label>
-                                                <input id="jml-pg" type='number' name='tampil_pg' class='form-control form-control-sm'
+                                                <input id="jml-pg" type='number' name='tampil_pg'
+                                                       class='form-control form-control-sm'
                                                        value="<?= $bank->tampil_pg ?>" required/>
                                             </div>
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label>Bobot %</label>
-                                                <input id="bobot-pg" type='number' name='bobot_pg' class='form-control form-control-sm'
+                                                <input id="bobot-pg" type='number' name='bobot_pg'
+                                                       class='form-control form-control-sm'
                                                        value="<?= $bank->bobot_pg ?>"
                                                        required/>
                                             </div>
@@ -139,14 +141,16 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>Jml. Soal</label>
-                                                <input id="jml-pg2" type='number' name='tampil_kompleks' class='form-control form-control-sm'
+                                                <input id="jml-pg2" type='number' name='tampil_kompleks'
+                                                       class='form-control form-control-sm'
                                                        value="<?= $bank->tampil_kompleks ?>" required/>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>Bobot %</label>
-                                                <input id="bobot-pg2" type='number' name='bobot_kompleks' class='form-control form-control-sm'
+                                                <input id="bobot-pg2" type='number' name='bobot_kompleks'
+                                                       class='form-control form-control-sm'
                                                        value="<?= $bank->bobot_kompleks ?>"
                                                        required/>
                                             </div>
@@ -167,15 +171,16 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                                             <div class="form-group">
                                                 <label>Jml. Soal</label>
                                                 <input id="jml-jodohkan" type='number' name='tampil_jodohkan'
-                                               class='form-control form-control-sm'
-                                               value="<?= $bank->tampil_jodohkan ?>" required/>
+                                                       class='form-control form-control-sm'
+                                                       value="<?= $bank->tampil_jodohkan ?>" required/>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>Bobot %</label>
-                                                <input id="bobot-jodohkan" type='number' name='bobot_jodohkan' class='form-control form-control-sm'
-                                               value="<?= $bank->bobot_jodohkan ?>" required/>
+                                                <input id="bobot-jodohkan" type='number' name='bobot_jodohkan'
+                                                       class='form-control form-control-sm'
+                                                       value="<?= $bank->bobot_jodohkan ?>" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +203,8 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>Bobot %</label>
-                                                <input id="bobot-isian" type='number' name='bobot_isian' class='form-control form-control-sm'
+                                                <input id="bobot-isian" type='number' name='bobot_isian'
+                                                       class='form-control form-control-sm'
                                                        value="<?= $bank->bobot_isian ?>" required/>
                                             </div>
                                         </div>
@@ -222,7 +228,8 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>Bobot %</label>
-                                                <input id="bobot-essai" type='number' name='bobot_esai' class='form-control form-control-sm'
+                                                <input id="bobot-essai" type='number' name='bobot_esai'
+                                                       class='form-control form-control-sm'
                                                        value="<?= $bank->bobot_esai ?>" required/>
                                             </div>
                                         </div>
@@ -323,7 +330,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                     url: base_url + "cbtbanksoal/getgurumapel?id_mapel=" + mapel,
                     type: "GET",
                     success: function (data) {
-                        console.log('guru',data);
+                        console.log('guru', data);
                         var opts = '';
                         selGuru.html(opts);
                         $.each(data, function (k, v) {

@@ -71,7 +71,7 @@ $nowDate = strtotime(date('Y-m-d'));
 $nowHour = strtotime(date('H:i'));
 $today = new DateTime();
 
-$tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
+$tempIdSelected = $id_kelas . $tp_active->id_tp . $smt_active->id_smt;
 ?>
 <div class="content-wrapper bg-white">
     <section class="content-header">
@@ -100,7 +100,8 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                         <div class="col-12 p-0">
                             <div class="alert alert-default-warning align-content-center" role="alert">
                                 <b>Info</b>
-                                <br> Jika jadwal materi/tugas sudah diatur di menu Materi dan menu Tugas, maka abaikan halaman ini.
+                                <br> Jika jadwal materi/tugas sudah diatur di menu Materi dan menu Tugas, maka abaikan
+                                halaman ini.
                             </div>
                         </div>
                         Pilih Kelas:
@@ -108,7 +109,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                         <?php
                         if (count($kelas) > 0) :
                             foreach ($kelas as $key => $value) :?>
-                                <a href="<?= base_url('kelasmaterijadwal/kelas?kelas=' . $key . '&date=' . $date_selected. '&tahun='. $tp_active->tahun .'&bulan='. date('m', strtotime($date_selected))) ?>"
+                                <a href="<?= base_url('kelasmaterijadwal/kelas?kelas=' . $key . '&date=' . $date_selected . '&tahun=' . $tp_active->tahun . '&bulan=' . date('m', strtotime($date_selected))) ?>"
                                    class="mt-1 btn <?= $id_kelas == $key ? 'btn-success' : 'btn-outline-success' ?>"
                                    id="btn-<?= $key ?>"><?= $value ?>
                                 </a>
@@ -176,10 +177,11 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                     <select class="form-control" name="year" id="year">
                                         <?php foreach ($tp as $thn) :
                                             if ($thn->tahun == $thn_selected) :
-                                            //$selected = $thn->tahun == $thn_selected ? 'selected="selected"' : "";
-                                            ?>
-                                            <option value="<?= $thn->tahun ?>" selected="selected"><?= $thn->tahun ?></option>
-                                        <?php endif; endforeach; ?>
+                                                //$selected = $thn->tahun == $thn_selected ? 'selected="selected"' : "";
+                                                ?>
+                                                <option value="<?= $thn->tahun ?>"
+                                                        selected="selected"><?= $thn->tahun ?></option>
+                                            <?php endif; endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="col-md-3 col-4">
@@ -201,14 +203,16 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                             <?php endforeach; endif; ?>
                                     </select>
                                 </div>
-                                <button class="col-2 col-md-1 btn btn-outline-primary" id="prevweek" onclick="prevweek()">
+                                <button class="col-2 col-md-1 btn btn-outline-primary" id="prevweek"
+                                        onclick="prevweek()">
                                     <i class="fa fa-angle-left"></i>
                                 </button>
                                 <button class="border border-primary col-4 d-none d-md-block text-primary">
                                     <b><?= singkat_tanggal(date('d M Y', strtotime($week[0]))) ?></b>
-                                    sd <b><?= singkat_tanggal(date('d M Y', strtotime($week[count($week)-1]))) ?></b>
+                                    sd <b><?= singkat_tanggal(date('d M Y', strtotime($week[count($week) - 1]))) ?></b>
                                 </button>
-                                <button class="col-2 col-md-1 btn btn-outline-primary" id="nextweek" onclick="nextweek()">
+                                <button class="col-2 col-md-1 btn btn-outline-primary" id="nextweek"
+                                        onclick="nextweek()">
                                     <i class="fa fa-angle-right"></i>
                                 </button>
                             </div>
@@ -245,92 +249,93 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
                                     $jamMulai->setDate($y, $m, $d);
                                     $jamSampai->setDate($y, $m, $d);
 
-                                for ($i = 0; $i < $jadwal_kbm->kbm_jml_mapel_hari; $i++):
-                                    $jamke = $i + 1;?>
-                                    <tr>
-                                        <td class="text-center align-middle text-bold tanggal">
-                                            <?= buat_tanggal(date('D, d M Y', strtotime($jh))) ?>
-                                        </td>
-                                        <td class="border text-center align-middle jam-ke" data-tgl="<?= $jh ?>"><?=$jamke?></td>
-                                        <?php if (in_array($jamke, $arrIst)) :
-                                            $jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M')); ?>
-                                            <td class="border text-center align-middle waktu">
-                                                <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
+                                    for ($i = 0; $i < $jadwal_kbm->kbm_jml_mapel_hari; $i++):
+                                        $jamke = $i + 1; ?>
+                                        <tr>
+                                            <td class="text-center align-middle text-bold tanggal">
+                                                <?= buat_tanggal(date('D, d M Y', strtotime($jh))) ?>
                                             </td>
-                                            <td class="border align-middle mapel" data-id="">ISTIRAHAT</td>
-                                            <td class="border text-center align-middle materi">ISTIRAHAT</td>
-                                            <td class="border text-center align-middle tugas">ISTIRAHAT</td>
-                                            <?php
-                                            $jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
-                                        else:
-                                            $jamSampai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M')); ?>
-                                            <td class="align-middle text-center">
-                                                <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
-                                            </td>
-                                            <td title="<?= $arrRes[$idHari][$jamke]['nama_mapel'] ?>"
-                                                class="border align-middle mapel"
-                                                data-id="<?= $arrRes[$idHari][$jamke]['id_mapel'] ?>">
-                                                <?= $arrRes[$idHari][$jamke]['kode'] ?>
-                                            </td>
-                                            <td class="border materi">
+                                            <td class="border text-center align-middle jam-ke"
+                                                data-tgl="<?= $jh ?>"><?= $jamke ?></td>
+                                            <?php if (in_array($jamke, $arrIst)) :
+                                                $jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M')); ?>
+                                                <td class="border text-center align-middle waktu">
+                                                    <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
+                                                </td>
+                                                <td class="border align-middle mapel" data-id="">ISTIRAHAT</td>
+                                                <td class="border text-center align-middle materi">ISTIRAHAT</td>
+                                                <td class="border text-center align-middle tugas">ISTIRAHAT</td>
                                                 <?php
-                                                $id_mpl = $arrRes[$idHari][$jamke]['id_mapel'];
-                                                $opsis = [0 => "--Pilih Materi--"];
-                                                if (isset($opsi_materi[$id_mpl]) && isset($opsi_materi[$id_mpl][1])) {
-                                                    $opsis = $opsis + $opsi_materi[$id_mpl][1];
-                                                }
-                                                if ($this->ion_auth->is_admin()) {
-                                                    $ada_mapel = true;
-                                                } elseif ($this->ion_auth->in_group('guru')) {
-                                                    $ada_mapel = isset($arr_id_kelas_guru[$id_mpl]) && isset($guru) && $ada_kelas;
-                                                } else {
-                                                    $ada_mapel = false;
-                                                }
-                                                //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
-                                                $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
-                                                $tempId = $tempIdSelected . str_replace('-','', $jh) .$jamke. '1';
+                                                $jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
+                                            else:
+                                                $jamSampai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M')); ?>
+                                                <td class="align-middle text-center">
+                                                    <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
+                                                </td>
+                                                <td title="<?= $arrRes[$idHari][$jamke]['nama_mapel'] ?>"
+                                                    class="border align-middle mapel"
+                                                    data-id="<?= $arrRes[$idHari][$jamke]['id_mapel'] ?>">
+                                                    <?= $arrRes[$idHari][$jamke]['kode'] ?>
+                                                </td>
+                                                <td class="border materi">
+                                                    <?php
+                                                    $id_mpl = $arrRes[$idHari][$jamke]['id_mapel'];
+                                                    $opsis = [0 => "--Pilih Materi--"];
+                                                    if (isset($opsi_materi[$id_mpl]) && isset($opsi_materi[$id_mpl][1])) {
+                                                        $opsis = $opsis + $opsi_materi[$id_mpl][1];
+                                                    }
+                                                    if ($this->ion_auth->is_admin()) {
+                                                        $ada_mapel = true;
+                                                    } elseif ($this->ion_auth->in_group('guru')) {
+                                                        $ada_mapel = isset($arr_id_kelas_guru[$id_mpl]) && isset($guru) && $ada_kelas;
+                                                    } else {
+                                                        $ada_mapel = false;
+                                                    }
+                                                    //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
+                                                    $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
+                                                    $tempId = $tempIdSelected . str_replace('-', '', $jh) . $jamke . '1';
 
-                                                echo form_dropdown(
-                                                    'select-materi',
-                                                    $opsis,
-                                                    isset($detail_jadwal_materi[$tempId]) ? $detail_jadwal_materi[$tempId]->id_materi : '',
-                                                    'class="select2 dropdown-materi form-control" data-name="select-materi"'//. $disableSelect
-                                                ); ?>
-                                            </td>
-                                            <td class="border tugas">
+                                                    echo form_dropdown(
+                                                        'select-materi',
+                                                        $opsis,
+                                                        isset($detail_jadwal_materi[$tempId]) ? $detail_jadwal_materi[$tempId]->id_materi : '',
+                                                        'class="select2 dropdown-materi form-control" data-name="select-materi"'//. $disableSelect
+                                                    ); ?>
+                                                </td>
+                                                <td class="border tugas">
+                                                    <?php
+                                                    $id_mpl = $arrRes[$idHari][$jamke]['id_mapel'];
+                                                    $opsis = [0 => "--Pilih Tugas--"];
+                                                    if (isset($opsi_materi[$id_mpl]) && isset($opsi_materi[$id_mpl][2])) {
+                                                        $opsis = $opsis + $opsi_materi[$id_mpl][2];
+                                                    }
+                                                    if ($this->ion_auth->is_admin()) {
+                                                        $ada_mapel = true;
+                                                    } elseif ($this->ion_auth->in_group('guru')) {
+                                                        $ada_mapel = isset($arr_id_kelas_guru[$id_mpl]) && isset($guru) && $ada_kelas;
+                                                    } else {
+                                                        $ada_mapel = false;
+                                                    }
+                                                    //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
+                                                    $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
+                                                    $tempId = $tempIdSelected . str_replace('-', '', $jh) . $jamke . '2';
+
+                                                    echo form_dropdown(
+                                                        'select-tugas',
+                                                        $opsis,
+                                                        isset($detail_jadwal_tugas[$tempId]) ? $detail_jadwal_tugas[$tempId]->id_materi : '',
+                                                        'class="select2 dropdown-tugas form-control" data-name="select-tugas"'//. $disableSelect
+                                                    ); ?>
+                                                </td>
                                                 <?php
-                                                $id_mpl = $arrRes[$idHari][$jamke]['id_mapel'];
-                                                $opsis = [0 => "--Pilih Tugas--"];
-                                                if (isset($opsi_materi[$id_mpl]) && isset($opsi_materi[$id_mpl][2])) {
-                                                    $opsis = $opsis + $opsi_materi[$id_mpl][2];
-                                                }
-                                                if ($this->ion_auth->is_admin()) {
-                                                    $ada_mapel = true;
-                                                } elseif ($this->ion_auth->in_group('guru')) {
-                                                    $ada_mapel = isset($arr_id_kelas_guru[$id_mpl]) && isset($guru) && $ada_kelas;
-                                                } else {
-                                                    $ada_mapel = false;
-                                                }
-                                                //$disableSelect = $ada_mapel && $today < $jamMulai ? '' : 'disabled="disabled"';
-                                                $disableSelect = $ada_mapel ? '' : 'disabled="disabled"';
-                                                $tempId = $tempIdSelected . str_replace('-','', $jh) . $jamke . '2';
-
-                                                echo form_dropdown(
-                                                    'select-tugas',
-                                                    $opsis,
-                                                    isset($detail_jadwal_tugas[$tempId]) ? $detail_jadwal_tugas[$tempId]->id_materi : '',
-                                                    'class="select2 dropdown-tugas form-control" data-name="select-tugas"'//. $disableSelect
-                                                ); ?>
-                                            </td>
-                                            <?php
-                                            $jamMulai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M'));
-                                        endif; ?>
-                                    </tr>
-                                    <?php if ($jamke == $jadwal_kbm->kbm_jml_mapel_hari) :?>
-                                    <tr class="alert alert-default-secondary">
-                                        <td colspan="6"></td>
-                                    </tr>
-                                <?php endif; endfor;
+                                                $jamMulai->add(new DateInterval('PT' . $jadwal_kbm->kbm_jam_pel . 'M'));
+                                            endif; ?>
+                                        </tr>
+                                        <?php if ($jamke == $jadwal_kbm->kbm_jml_mapel_hari) : ?>
+                                        <tr class="alert alert-default-secondary">
+                                            <td colspan="6"></td>
+                                        </tr>
+                                    <?php endif; endfor;
                                     $idHari++; endforeach; ?>
                             </table>
 
@@ -414,7 +419,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
         //if ((next.getMonth() + 1) == bound) {
         //    return null;
         //} else {
-            return next.getFullYear() + "-" + ("0" + (next.getMonth() + 1)).slice(-2) + "-" + ("0" + next.getDate()).slice(-2);
+        return next.getFullYear() + "-" + ("0" + (next.getMonth() + 1)).slice(-2) + "-" + ("0" + next.getDate()).slice(-2);
         //}
     }
 
@@ -428,18 +433,18 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
         //if ((prev.getMonth() + 1) == bound) {
         //    return null;
         //} else {
-            return prev.getFullYear() + "-" + ("0" + (prev.getMonth() + 1)).slice(-2) + "-" + ("0" + prev.getDate()).slice(-2);
+        return prev.getFullYear() + "-" + ("0" + (prev.getMonth() + 1)).slice(-2) + "-" + ("0" + prev.getDate()).slice(-2);
         //}
     }
 
     function nextweek() {
         var datestring = calculateNextWeek(tglSelected);
-        if (datestring != null) window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + klsSelected + '&date=' + datestring  + '&tahun=' + thnSelected + '&bulan='+ blnSelected;
+        if (datestring != null) window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + klsSelected + '&date=' + datestring + '&tahun=' + thnSelected + '&bulan=' + blnSelected;
     }
 
     function prevweek() {
         var datestring = calculatePrevWeek(tglSelected);
-        if (datestring != null) window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + klsSelected + '&date=' + datestring  + '&tahun=' + thnSelected + '&bulan='+ blnSelected;
+        if (datestring != null) window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + klsSelected + '&date=' + datestring + '&tahun=' + thnSelected + '&bulan=' + blnSelected;
     }
 
     $(document).ready(function () {
@@ -453,7 +458,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
             //console.log(thn, month);
 
             var day = new Date(tglSelected);
-            var tgl = thn + "-" +  + "-" + ("0" + day.getDate()).slice(-2);
+            var tgl = thn + "-" + +"-" + ("0" + day.getDate()).slice(-2);
             //reload(klsSelected, tgl, thnSelected, blnSelected);
         });
 
@@ -493,7 +498,7 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
 
                 const $tugasSelect = $(row).find('select[data-name="select-tugas"]');
                 const idTugas = $tugasSelect.val();
-                var isIst = jQuery.inArray(''+$jamke, ists) > -1;
+                var isIst = jQuery.inArray('' + $jamke, ists) > -1;
 
                 let itemm = {};
                 if (!isDisabled && $mapel != "" && $jamke != "" && !isIst) {
@@ -570,6 +575,6 @@ $tempIdSelected = $id_kelas.$tp_active->id_tp.$smt_active->id_smt;
     });
 
     function reload(kelas, tgl, tahun, bulan) {
-        window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + kelas + '&date=' + tgl + '&tahun=' + tahun + '&bulan='+ bulan;
+        window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + kelas + '&date=' + tgl + '&tahun=' + tahun + '&bulan=' + bulan;
     }
 </script>

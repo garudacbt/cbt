@@ -260,14 +260,14 @@
                 for (let i = 0; i < val.file.length; i++) {
                     var file = val.file[i];
                     var fsrc = file.src.split('.');
-                    var ext = fsrc[fsrc.length -1];
+                    var ext = fsrc[fsrc.length - 1];
                     if (file.type.match('image')) {
                         html = '<div class="col-3 mb-3">' +
                             '<img data-enlargeable src="' + base_url + '/' + file.src + '" alt="" class="img-thumbnail"></div>';
                     } else if (file.type.match('video')) {
                         html = '<div class="col-3 mb-3">' +
-                            '<img src="'+base_url+'/assets/app/img/icon_play_black.png'+'" class="img-thumbnail"' +
-                            ' onClick="parent.open(\''+base_url +'/'+ file.src+'\')">' +
+                            '<img src="' + base_url + '/assets/app/img/icon_play_black.png' + '" class="img-thumbnail"' +
+                            ' onClick="parent.open(\'' + base_url + '/' + file.src + '\')">' +
                             '</div>';
                     } else {
                         var icon = base_url;
@@ -283,7 +283,7 @@
                             style = "style='padding: 10px'";
                         }
                         html = '<div class="col-3 mb-3">' +
-                            '<a href="'+base_url+'/'+file.src+'"><img src="' + icon + '" alt="" class="img-thumbnail" onclick="dialogDownload()">' +
+                            '<a href="' + base_url + '/' + file.src + '"><img src="' + icon + '" alt="" class="img-thumbnail" onclick="dialogDownload()">' +
                             '</a></div>';
                         //html = '<div class="col-3 mb-3"><img src="'+base_url+'/assets/app/img/document-icon.svg" class="img-thumbnail"></div>';
                     }
@@ -404,7 +404,7 @@
                     const date = stringToDate(arrKelasMateri[kelas][j].jadwal);
                     tanggalSingkat = dateToString(date);
                     tanggalLengkap = dateToStringDay(date);
-                    dropMateri.append('<option value="' + arrKelasMateri[kelas][j].id_kjm + '">' + arrKelasMateri[kelas][j].kode + ' ' + tanggalSingkat +'</option>');
+                    dropMateri.append('<option value="' + arrKelasMateri[kelas][j].id_kjm + '">' + arrKelasMateri[kelas][j].kode + ' ' + tanggalSingkat + '</option>');
                     //arrJadwal[arrKelasMateri[kelas][j].id_kjm] = tgl;
                 }
             } else {
@@ -417,7 +417,7 @@
                     const date = stringToDate(arrKelasTugas[kelas][k].jadwal);
                     tanggalSingkat = dateToString(date);
                     tanggalLengkap = dateToStringDay(date);
-                    dropMateri.append('<option value="' + arrKelasTugas[kelas][k].id_kjm + '">' + arrKelasTugas[kelas][k].kode + ' ' + tanggalSingkat +'</option>');
+                    dropMateri.append('<option value="' + arrKelasTugas[kelas][k].id_kjm + '">' + arrKelasTugas[kelas][k].kode + ' ' + tanggalSingkat + '</option>');
                 }
             } else {
                 dropMateri.append('<option value="">Belum ada tugas</option>');
@@ -598,7 +598,7 @@
         const time = waktu.split(":");
 
         var tanggal = date[2];
-        var bulan = date[1]-1;
+        var bulan = date[1] - 1;
         var tahun = date[0];
 
         var jam = time[0];

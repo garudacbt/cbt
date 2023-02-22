@@ -21,9 +21,10 @@
                             </div>
                         <?php else: ?>
                             <div class="col-12 alert alert-default-info align-content-center" role="alert">
-                                <span class="badge badge-primary"><i class="fas fa-tools mr-1"></i> Kenaikan Kelas</span>
-                                    digunakan untuk mengatur kenaikan kelas, siswa akan otomatis dipindahkan ke
-                                    tahun pelajaran berikutnya sesuai kelasnya
+                                <span class="badge badge-primary"><i
+                                            class="fas fa-tools mr-1"></i> Kenaikan Kelas</span>
+                                digunakan untuk mengatur kenaikan kelas, siswa akan otomatis dipindahkan ke
+                                tahun pelajaran berikutnya sesuai kelasnya
                             </div>
                         <?php endif; ?>
                         <div>
@@ -31,20 +32,23 @@
                                data-toggle="tooltip" title="Reload"><i class="fa fa-sync ml-1 mr-1"></i> Reload
                             </a>
                             <span data-toggle="tooltip" title="Tambah Kelas">
-                                <a href="<?= base_url('datakelas/add') ?>" type="button" class="btn btn-success mr-2 mb-3">
+                                <a href="<?= base_url('datakelas/add') ?>" type="button"
+                                   class="btn btn-success mr-2 mb-3">
                                     <i class="fas fa-plus mr-1"></i> Rombel Baru
                                 </a>
                             </span>
                             <?php if ($smt_active->id_smt == '2') : ?>
                                 <span data-toggle="tooltip" title="Manajemen Kelas">
-                                    <a href="<?= base_url('datakelas/manage') ?>" type="button" class="btn btn-primary mr-2 mb-3">
+                                    <a href="<?= base_url('datakelas/manage') ?>" type="button"
+                                       class="btn btn-primary mr-2 mb-3">
                                         <i class="fas fa-tools mr-1"></i> Atur Kelas Semester
                                     </a>
                                 </span>
                             <?php endif; ?>
                             <?php if ($smt_active->id_smt == '1') : ?>
                                 <span data-toggle="tooltip" title="Kenaikan Kelas">
-                                    <a href="<?= base_url('datakelas/kenaikan') ?>" type="button" class="btn btn-primary mr-2 mb-3">
+                                    <a href="<?= base_url('datakelas/kenaikan') ?>" type="button"
+                                       class="btn btn-primary mr-2 mb-3">
                                         <i class="fas fa-tools mr-1"></i> Kenaikan Kelas
                                     </a>
                                 </span>
@@ -126,7 +130,8 @@
                                     </td>
                                 </tr>
                                 <?php
-                                $no++; endforeach; endif;?>
+                                $no++; endforeach;
+                            endif; ?>
                             </thead>
                         </table>
                     </div>
@@ -135,8 +140,8 @@
             <!--
             <div class="row" id="konten">
                 <?php
-                //var_dump($jml);
-                if (count($kelas) === 0) : ?>
+            //var_dump($jml);
+            if (count($kelas) === 0) : ?>
                     <div class="col-12">
                         <div class="alert alert-default-warning shadow align-content-center" role="alert">
                             Belum ada data kelas untuk Tahun Pelajaran <b><?= $tp_active->tahun ?></b> Semester:

@@ -49,15 +49,19 @@
                                     <th class="text-center align-middle bg-blue" style="width: 50px">Jawaban Benar</th>
                                     <th class="text-center align-middle bg-teal" style="width: 50px">No. Acak</th>
                                     <th class="text-center align-middle bg-teal">Pilihan Acak</th>
-                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa Acak</th>
-                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Sebenarnya</th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban Siswa
+                                        Acak
+                                    </th>
+                                    <th class="text-center align-middle bg-teal" style="width: 50px">Jawaban
+                                        Sebenarnya
+                                    </th>
                                     <th class="text-center align-middle bg-teal" style="width: 50px">Analisa</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php foreach ($soal as $s) :
                                     if ($s->jenis_soal == '1') :
-                                        if ($setting->jenjang =='3') {
+                                        if ($setting->jenjang == '3') {
                                             $arrAlias = [
                                                 ['valAlias' => $s->opsi_alias_a, 'opsi' => $s->opsi_a, 'value' => 'A'],
                                                 ['valAlias' => $s->opsi_alias_b, 'opsi' => $s->opsi_b, 'value' => 'B'],
@@ -105,9 +109,9 @@
                                             <td>
                                                 <ol type="a">
                                                     <?php foreach ($arrAlias as $alias) : ?>
-                                                    <li>
-                                                        <?=$alias['opsi']?>
-                                                    </li>
+                                                        <li>
+                                                            <?= $alias['opsi'] ?>
+                                                        </li>
                                                     <?php endforeach; ?>
                                                 </ol>
                                             </td>

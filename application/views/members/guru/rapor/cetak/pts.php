@@ -40,10 +40,10 @@ $satuan = [
                                 <?php $n = 1;
                                 foreach ($siswas as $siswa): ?>
                                     <li class="nav-item">
-<a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
-   onclick="preview(<?= $siswa->id_siswa ?>)">
-    <?= $n . '. ' . $siswa->nama ?>
-</a>
+                                        <a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
+                                           onclick="preview(<?= $siswa->id_siswa ?>)">
+                                            <?= $n . '. ' . $siswa->nama ?>
+                                        </a>
                                     </li>
                                     <?php $n++; endforeach; ?>
                             </ul>
@@ -699,12 +699,12 @@ $satuan = [
                 htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;' + display + '"><b>' + kkmMapel + '</b></td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ npeng.nilai +'</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ npeng.pred +'</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ nketr.nilai +'</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ nketr.pred +'</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ pts +'</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+createPredikat([pts], mapel.id_mapel)+'</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + npeng.nilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + npeng.pred + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nketr.nilai + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nketr.pred + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pts + '</td>' +
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + createPredikat([pts], mapel.id_mapel) + '</td>' +
                     '</tr>';
 
                 //arrN.push(pts);
@@ -761,12 +761,12 @@ $satuan = [
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + mapel.nama_mapel + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center; ' + display + '"><b>' + kkmMapel + '</b></td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ npeng.nilai +'</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ npeng.pred +'</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ nketr.nilai +'</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ nketr.pred +'</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+ pts +'</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+createPredikat([pts], mapel.id_mapel)+'</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + npeng.nilai + '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + npeng.pred + '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nketr.nilai + '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nketr.pred + '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + pts + '</td>' +
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + createPredikat([pts], mapel.id_mapel) + '</td>' +
                             '</tr>';
 
                         /*
@@ -1255,7 +1255,7 @@ $satuan = [
             $(this).toggleClass('active');
         });
 
-        $('#model-selector button').click(function() {
+        $('#model-selector button').click(function () {
             $(this).addClass('active').siblings().addClass('btn-outline-success').removeClass('active btn-success');
             model = $(this).data('id');
             if (siswaActive != '') preview(siswaActive);

@@ -31,7 +31,9 @@
                                     <th class="text-center align-middle border-danger" style="width: 50px">NO</th>
                                     <th class="border-danger">
                                         <span class="pl-2 align-middle">Edit Pilihan Deskripsi Spiritual</span>
-                                        <button id="btn1" class="btn btn-sm btn-danger float-right btn-save" data-jenis="1">Simpan</button>
+                                        <button id="btn1" class="btn btn-sm btn-danger float-right btn-save"
+                                                data-jenis="1">Simpan
+                                        </button>
                                     </th>
                                 </tr>
                                 </thead>
@@ -54,7 +56,9 @@
                                     <th class="text-center align-middle border-danger" style="width: 50px">NO</th>
                                     <th class="border-danger">
                                         <span class="pl-2 align-middle">Edit Pilihan Deskripsi Sosial</span>
-                                        <button id="btn2" class="btn btn-sm btn-danger float-right btn-save" data-jenis="2">Simpan</button>
+                                        <button id="btn2" class="btn btn-sm btn-danger float-right btn-save"
+                                                data-jenis="2">Simpan
+                                        </button>
                                     </th>
                                 </tr>
                                 </thead>
@@ -80,7 +84,7 @@
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
     $(document).ready(function () {
-        $('.editable').attr('contentEditable',true);
+        $('.editable').attr('contentEditable', true);
 
         $('.btn-save').click(function (e) {
             e.stopPropagation();

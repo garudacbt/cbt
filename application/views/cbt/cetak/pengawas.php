@@ -1,5 +1,6 @@
 <?php
-function date_sort($a, $b) {
+function date_sort($a, $b)
+{
     return strtotime($a) - strtotime($b);
 }
 
@@ -106,8 +107,10 @@ $allowedDates = [];
                                                     Tahun Pelajaran: <?= $tp_active->tahun ?></div>
                                             </td>
                                             <td style="width:15%;">
-                                                <img alt="logo kanan" id="prev-logo-kiri-print" src="<?= isset($setting->logo_kanan) ? base_url() . $setting->logo_kanan : '' ?>"
-                                                     width="85" height="85" style="width:85px; height:85px; margin: 6px; border-style: none">
+                                                <img alt="logo kanan" id="prev-logo-kiri-print"
+                                                     src="<?= isset($setting->logo_kanan) ? base_url() . $setting->logo_kanan : '' ?>"
+                                                     width="85" height="85"
+                                                     style="width:85px; height:85px; margin: 6px; border-style: none">
                                             </td>
                                         </tr>
                                     </table>

@@ -16,7 +16,8 @@
                 </div>
                 <div class="col-6">
                     <button onclick="window.history.back();" type="button" class="btn btn-sm btn-danger float-right">
-                        <i class="fas fa-arrow-circle-left"></i><span class="d-none d-sm-inline-block ml-1">Kembali</span>
+                        <i class="fas fa-arrow-circle-left"></i><span
+                                class="d-none d-sm-inline-block ml-1">Kembali</span>
                     </button>
                 </div>
             </div>
@@ -27,8 +28,9 @@
         <div class="container-fluid">
             <div class="card card-default my-shadow mb-4">
                 <div class="card-header">
-                    <h6 class="card-title">Catatan Untuk <b><?=$siswa->nama?></b></h6>
-                    <button type="button" class="btn btn-sm btn-primary card-tools" data-toggle="modal" data-target="#daftarModal">
+                    <h6 class="card-title">Catatan Untuk <b><?= $siswa->nama ?></b></h6>
+                    <button type="button" class="btn btn-sm btn-primary card-tools" data-toggle="modal"
+                            data-target="#daftarModal">
                         <i class="fa fa-plus"></i> <span class="ml-1">Buat Catatan</span>
                     </button>
                 </div>
@@ -50,7 +52,7 @@
                             foreach ($catatan_siswa as $key => $value) : ?>
                                 <tr>
                                     <td class="text-center">
-                                        <?= ($key+1) ?>
+                                        <?= ($key + 1) ?>
                                     </td>
                                     <td class="text-center">
                                         <?= $value->tgl ?>
@@ -62,7 +64,8 @@
                                         <?= $value->text ?>
                                     </td>
                                     <td width="100" class="text-center">
-                                        <button type="button" class="btn btn-sm btn-danger" data-id="<?=$value->id_catatan?>" onclick="hapus(this)">
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                data-id="<?= $value->id_catatan ?>" onclick="hapus(this)">
                                             <i class="fa fa-trash"></i> <span class="ml-1">Hapus</span>
                                         </button>
                                     </td>
@@ -85,7 +88,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="daftarLabel">Catatan Untuk <b><?=$siswa->nama?></b></h5>
+                <h5 class="modal-title" id="daftarLabel">Catatan Untuk <b><?= $siswa->nama ?></b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -98,7 +101,7 @@
                             <div class="form-group">
                                 <label>Jenis</label>
                                 <?php
-                                $arrLevel = [1=>'Saran',2=>'Teguran',3=>'Peringatan',4=>'Sangsi'];
+                                $arrLevel = [1 => 'Saran', 2 => 'Teguran', 3 => 'Peringatan', 4 => 'Sangsi'];
                                 echo form_dropdown(
                                     'level',
                                     $arrLevel,
@@ -110,15 +113,16 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label>Catatan</label>
-                                <textarea style="min-height: 200px" class="form-control" name="text" id="input_text" required></textarea>
+                                <textarea style="min-height: 200px" class="form-control" name="text" id="input_text"
+                                          required></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="id_mapel" value="<?=$mapel?>">
-                <input type="hidden" name="id_siswa" value="<?=$siswa->id_siswa?>">
+                <input type="hidden" name="id_mapel" value="<?= $mapel ?>">
+                <input type="hidden" name="id_siswa" value="<?= $siswa->id_siswa ?>">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Simpan
@@ -130,7 +134,7 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $('#formcatatan').submit('click', function (e) {
             e.preventDefault();

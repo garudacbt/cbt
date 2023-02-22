@@ -66,14 +66,16 @@
                             <div class="form-group">
                                 <label>Pengawas</label>
                                 <input id="input-pengawas-1" class="form-control" name="pengawas_1"
-                                       placeholder="Pengawas 1" value="<?= isset($kop->pengawas_1) ? $kop->pengawas_1 : '' ?>">
+                                       placeholder="Pengawas 1"
+                                       value="<?= isset($kop->pengawas_1) ? $kop->pengawas_1 : '' ?>">
                             </div>
                         </div>
                         <div class="col-md-4 d-none">
                             <div class="form-group">
                                 <label>Pengawas 2</label>
                                 <input id="input-pengawas-2" class="form-control" name="pengawas_2"
-                                       placeholder="Pengawas 2" value="<?= isset($kop->pengawas_2) ? $kop->pengawas_2 : '' ?>">
+                                       placeholder="Pengawas 2"
+                                       value="<?= isset($kop->pengawas_2) ? $kop->pengawas_2 : '' ?>">
                             </div>
                         </div>
                     </div>
@@ -171,7 +173,7 @@
 
     function handleTanggal(tgl) {
         var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
-        var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+        var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         var ttl = '';
         if (handleNull(tgl) != '-') {
             var d = new Date(tgl);
@@ -211,7 +213,7 @@
         //var kelasVal = printBy === 2 ? $("#kelas option:selected").text() + '/' + sesiSelected : $("#ruang option:selected").text() + '/' + sesiSelected;
         //var sesi = data.info.sesi.nama_sesi;
         var kelasVal = printBy === 2 ? data.info.kelas.nama_kelas : data.info.ruang.nama_ruang + ' (' + data.info.ruang.kode_ruang + ')';
-        document.title = 'Daftar Hadir '+ data.info.jadwal.kode + ' ' + kelasVal + ' ' + sesi;
+        document.title = 'Daftar Hadir ' + data.info.jadwal.kode + ' ' + kelasVal + ' ' + sesi;
         var pengawas1 = '';
         var pengawas2 = '';
         if ($.isArray(data.info.pengawas[0])) {
@@ -252,13 +254,13 @@
                 '<table style="width: 100%; border: 0;">' +
                 '<tbody>' +
                 '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                '<td>'+ kelasTitle +'</td><td>:</td><td>'+ kelasVal +'</td>' +
+                '<td>' + kelasTitle + '</td><td>:</td><td>' + kelasVal + '</td>' +
                 '</tr>' +
                 '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                '<td>Sesi</td><td>:</td><td>'+ sesi +'</td>' +
+                '<td>Sesi</td><td>:</td><td>' + sesi + '</td>' +
                 '</tr>' +
                 '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                '<td>Waktu</td><td>:</td><td>'+ data.info.sesi.waktu_mulai + ' s/d ' + data.info.sesi.waktu_akhir +'</td>' +
+                '<td>Waktu</td><td>:</td><td>' + data.info.sesi.waktu_mulai + ' s/d ' + data.info.sesi.waktu_akhir + '</td>' +
                 '</tr>' +
                 '</tbody>' +
                 '</table>' +
@@ -267,7 +269,7 @@
                 '<table style="width: 100%; border: 0;">' +
                 '<tbody>' +
                 '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
-                '<td>Hari/Tanggal</td><td>:</td><td>'+ handleTanggal(data.info.jadwal.tgl_mulai) +'</td>' +
+                '<td>Hari/Tanggal</td><td>:</td><td>' + handleTanggal(data.info.jadwal.tgl_mulai) + '</td>' +
                 '</tr>' +
                 '<tr style="line-height: 1.1;font-family: \'Times New Roman\';">' +
                 '<td>Mata Pelajaran</td><td>:</td><td>' + data.info.jadwal.nama_mapel + '</td>' +
@@ -302,7 +304,7 @@
                     '</tr>';
             }
             card += '</table>';
-            if (a === (pages-1)) {
+            if (a === (pages - 1)) {
                 card += '</table>' +
                     '<br>' +
                     '<br>' +

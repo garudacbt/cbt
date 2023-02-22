@@ -1,27 +1,28 @@
 <div class="content-wrapper bg-white">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card card-default my-shadow">
-				<div class="card-header with-border">
-					<h3 class="card-title"><?= $subjudul ?></h3>
-				</div>
-				<div class="card-body">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default my-shadow">
+                <div class="card-header with-border">
+                    <h3 class="card-title"><?= $subjudul ?></h3>
+                </div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-6">
                             <p><b>Catatan Untuk Semua Siswa</b></p>
                         </div>
                         <div class="col-6">
-                            <button type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#daftarModal">
+                            <button type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal"
+                                    data-target="#daftarModal">
                                 <i class="fa fa-plus"></i> <span class="ml-1">Buat Catatan Kelas</span>
                             </button>
                         </div>
@@ -40,33 +41,34 @@
                         <?php
                         $arrLvl = ['Tidak ada', 'Saran', 'Teguran', 'Peringatan', 'Sangsi'];
                         if (count($catatan_kelas) > 0) :
-                        foreach ($catatan_kelas as $key => $value) :
-                            $jenis = $value->level ?>
+                            foreach ($catatan_kelas as $key => $value) :
+                                $jenis = $value->level ?>
+                                <tr>
+                                    <td class="text-center">
+                                        <?= ($key + 1) ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?= $value->tgl ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?= $arrLvl[$value->level] ?>
+                                    </td>
+                                    <td>
+                                        <?= $value->text ?>
+                                    </td>
+                                    <td width="100" class="text-center">
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                data-id="<?= $value->id_catatan ?>" onclick="hapus(this)">
+                                            <i class="fa fa-trash"></i> <span class="ml-1">Hapus</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach;
+                        else: ?>
                             <tr>
-                                <td class="text-center">
-                                    <?= ($key+1) ?>
-                                </td>
-                                <td class="text-center">
-                                    <?= $value->tgl ?>
-                                </td>
-                                <td class="text-center">
-                                    <?= $arrLvl[$value->level] ?>
-                                </td>
-                                <td>
-                                    <?= $value->text ?>
-                                </td>
-                                <td width="100" class="text-center">
-                                    <button type="button" class="btn btn-sm btn-danger" data-id="<?=$value->id_catatan?>" onclick="hapus(this)">
-                                        <i class="fa fa-trash"></i> <span class="ml-1">Hapus</span>
-                                    </button>
+                                <td colspan="5" class="text-center">Belum ada catatan
                                 </td>
                             </tr>
-                        <?php endforeach;
-                        else: ?>
-                        <tr>
-                            <td colspan="5" class="text-center">Belum ada catatan
-                            </td>
-                        </tr>
                         <?php endif; ?>
                         </tbody>
                     </table>
@@ -95,7 +97,7 @@
                         foreach ($catatan_siswa as $key => $value) :?>
                             <tr>
                                 <td class="text-center">
-                                    <?= ($key+1) ?>
+                                    <?= ($key + 1) ?>
                                 </td>
                                 <td class="text-center">
                                     <?= $value->nis ?>
@@ -104,7 +106,9 @@
                                     <?= $value->nama ?>
                                 </td>
                                 <td class="text-center">
-                                    <button onclick="loadCatatanSiswa(<?=$value->id_siswa?>)" class="btn btn-xs btn-success"><b><?= $value->jml_catatan ?></b> catatan</button>
+                                    <button onclick="loadCatatanSiswa(<?= $value->id_siswa ?>)"
+                                            class="btn btn-xs btn-success"><b><?= $value->jml_catatan ?></b> catatan
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -115,8 +119,8 @@
                     <div class="spinner-grow"></div>
                 </div>
             </div>
-		</div>
-	</section>
+        </div>
+    </section>
 </div>
 
 <div class="modal fade" id="daftarModal" tabindex="-1" role="dialog" aria-labelledby="daftarLabel" aria-hidden="true">
@@ -136,7 +140,7 @@
                             <div class="form-group">
                                 <label>Jenis</label>
                                 <?php
-                                $arrLevel = [1=>'Saran',2=>'Teguran',3=>'Peringatan',4=>'Sangsi'];
+                                $arrLevel = [1 => 'Saran', 2 => 'Teguran', 3 => 'Peringatan', 4 => 'Sangsi'];
                                 echo form_dropdown(
                                     'level',
                                     $arrLevel,
@@ -148,7 +152,8 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label>Catatan</label>
-                                <textarea style="min-height: 200px" class="form-control" name="text" id="input_text" required></textarea>
+                                <textarea style="min-height: 200px" class="form-control" name="text" id="input_text"
+                                          required></textarea>
                             </div>
                         </div>
                     </div>
@@ -167,11 +172,12 @@
 
 <script type="text/javascript">
     var idKelas = '<?=$guru->wali_kelas?>';
+
     function loadCatatanSiswa(id) {
-        window.location.href = base_url +'walicatatan/siswa?id_siswa='+id+'&id_kelas='+ idKelas;
+        window.location.href = base_url + 'walicatatan/siswa?id_siswa=' + id + '&id_kelas=' + idKelas;
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         ajaxcsrf();
 
         $('#daftarModal').on('show.bs.modal', function (e) {
@@ -203,7 +209,7 @@
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                window.location.href = base_url +'walicatatan';
+                                window.location.href = base_url + 'walicatatan';
                             }
                         });
                     } else {
@@ -252,7 +258,7 @@
                     success: function (respon) {
                         console.log(respon);
                         if (respon) {
-                            window.location.href = base_url +'walicatatan';
+                            window.location.href = base_url + 'walicatatan';
                         } else {
                             swal.fire({
                                 title: "Gagal",

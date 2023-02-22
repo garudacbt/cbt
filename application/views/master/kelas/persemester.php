@@ -25,7 +25,8 @@
                 </div>
                 <div class="card-body">
                     <div class="alert alert-default-info align-content-center" role="alert">
-                        Fitur ini digunakan untuk menyalin semua siswa TP:<?=$tp_active->tahun?> dari semester 1 ke semester 2
+                        Fitur ini digunakan untuk menyalin semua siswa TP:<?= $tp_active->tahun ?> dari semester 1 ke
+                        semester 2
                         <br>
                         <ul>
                             <li>
@@ -41,10 +42,10 @@
                         <div class="col-md-3 mb-2">
                             <label>Kelas SMT I</label>
                             <select name="kelas_lama" id="opsi-kelas1" class="form-control">
-                                <?php foreach ($kelas as $key=>$kls) :
+                                <?php foreach ($kelas as $key => $kls) :
                                     if (!in_array($kls, $kelas2)) :?>
-                                    <option value="<?= $key ?>"><?=$kls?></option>
-                                <?php endif; endforeach; ?>
+                                        <option value="<?= $key ?>"><?= $kls ?></option>
+                                    <?php endif; endforeach; ?>
                             </select>
                             <?php
                             //echo form_dropdown('kelas_lama', $kelas, null, 'id="opsi-kelas1" class="form-control"');
@@ -52,10 +53,11 @@
                         </div>
                         <div class='col-md-3 mb-3'>
                             <label>Kelas SMT II</label>
-                            <input id="kelas-baru" type='text' name='kelas_baru' class='form-control' readonly />
+                            <input id="kelas-baru" type='text' name='kelas_baru' class='form-control' readonly/>
                         </div>
                         <div class='col-md-3 mb-3 align-self-end'>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i><span class="ml-1">Simpan</span></button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i><span class="ml-1">Simpan</span>
+                            </button>
                         </div>
                     </div>
                     <?= form_close(); ?>
@@ -70,7 +72,7 @@
                 </div>
                 <div class="card-body">
                     <div class="alert alert-default-info align-content-center" role="alert">
-                        Fitur ini digunakan untuk menyalin beberapa siswa TP:<?=$tp_active->tahun?> dari semester ganjil ke semester genap
+                        Fitur ini digunakan untuk menyalin beberapa siswa TP:<?= $tp_active->tahun ?> dari semester ganjil ke semester genap
                         <br>
                         <ul>
                             <li>
@@ -85,12 +87,12 @@
                         <div class="col-md-3 mb-2">
                             <label>Kelas SMT I</label>
                             <?php
-                            echo form_dropdown(
-                                'kelas',
-                                $kelas,
-                                null,
-                                'id="opsi-kelas2" class="form-control"'
-                            ); ?>
+            echo form_dropdown(
+                'kelas',
+                $kelas,
+                null,
+                'id="opsi-kelas2" class="form-control"'
+            ); ?>
                         </div>
                         <div class="col-md-9 mb-2">
                             <div id="info-pindah" class="alert alert-default-info align-content-center d-none" role="alert">
@@ -112,7 +114,7 @@
 
 <script>
     var arrKelas = JSON.parse(JSON.stringify(<?= json_encode($kelas)?>));
-    $(document).ready(function() {
+    $(document).ready(function () {
         console.log(arrKelas);
         var selKelas = $('#opsi-kelas2');
         $('#opsi-kelas1').prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
@@ -135,12 +137,12 @@
             var sudahPindah = 0;
             var tbody = '';
             for (let i = 0; i < smt1.length; i++) {
-                if ($.inArray(smt1[i].id_siswa, smt2) > -1){
+                if ($.inArray(smt1[i].id_siswa, smt2) > -1) {
                     sudahPindah++;
                 } else {
-                    tbody += '<tr data-siswa="'+smt1[i].id_siswa+'">' +
+                    tbody += '<tr data-siswa="' + smt1[i].id_siswa + '">' +
                         '<td class="text-center align-middle">' +
-                        (i+1) +
+                        (i + 1) +
                         '</td>' +
                         '<td class="text-center align-middle">' +
                         smt1[i].nis +
@@ -156,7 +158,7 @@
                         '<option disabled="disabled" selected="selected">Pilih Kelas SMT II</option>';
                     $.each(arrKelas, function (k, v) {
                         //var selected = k == smt1[i].id_kelas ? 'selected="selected"' : '';
-                        tbody += '<option value="'+k+'">'+v+'</option>';
+                        tbody += '<option value="' + k + '">' + v + '</option>';
                     });
                     tbody += '</select></td></tr>';
                 }
@@ -180,23 +182,23 @@
         function reloadKelas(kelas) {
             console.log('change');
             $.ajax({
-                url: base_url + 'datakelas/getfromsmt1/'+kelas,
-                type:"GET",
-                success: function(data) {
+                url: base_url + 'datakelas/getfromsmt1/' + kelas,
+                type: "GET",
+                success: function (data) {
                     console.log(data);
                     createTSiswa(data);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log(xhr.responseText);
                 }
             });
         }
 
-        selKelas.change(function(){
+        selKelas.change(function () {
             reloadKelas($(this).val());
         });
 
-        $('#opsi-kelas1').change(function(){
+        $('#opsi-kelas1').change(function () {
             $('#kelas-baru').val($('#opsi-kelas1 option:selected').text());
         });
 
@@ -206,13 +208,13 @@
 
             $.ajax({
                 url: base_url + 'datakelas/copyfromsmt1',
-                type:"POST",
+                type: "POST",
                 data: $(this).serialize(),
-                success: function(data) {
+                success: function (data) {
                     window.location.href = base_url + 'datakelas/manage';
                     console.log(data);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log(xhr.responseText);
                 }
             });
@@ -241,12 +243,12 @@
             if (jsonKelas.length > 0) {
                 $.ajax({
                     url: base_url + 'datakelas/copysiswafromsmt1',
-                    type:"POST",
+                    type: "POST",
                     data: dataPost,
-                    success: function(data) {
+                    success: function (data) {
                         console.log(data);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.log(xhr.responseText);
                     }
                 });

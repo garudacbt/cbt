@@ -8,35 +8,35 @@
 ?>
 
 <div class="content-wrapper bg-white">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card card-default my-shadow mb-4">
-				<div class="card-header">
-					<h6 class="card-title"><?= $subjudul ?></h6>
-				</div>
-				<div class="card-body">
-					<?php
-					//echo '<pre>';
-					//var_dump($guru);
-					//echo '</pre>';
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default my-shadow mb-4">
+                <div class="card-header">
+                    <h6 class="card-title"><?= $subjudul ?></h6>
+                </div>
+                <div class="card-body">
+                    <?php
+                    //echo '<pre>';
+                    //var_dump($guru);
+                    //echo '</pre>';
                     $naik = 'Naik';
                     $tdkNaik = 'Tidak Naik';
                     if ($guru->level == '6' || $guru->level == '9' || $guru->level == '12') {
                         $naik = 'Lulus';
                         $tdkNaik = 'Tidak Lulus';
                     }
-					$naiks = ['1'=>$naik, '0'=>$tdkNaik];
-					?>
+                    $naiks = ['1' => $naik, '0' => $tdkNaik];
+                    ?>
 
                     <table class="table table-striped table-bordered table-hover" id="tbl-siswa">
                         <thead>
@@ -52,19 +52,19 @@
                         <?php
                         $no = 1;
                         foreach ($siswas as $siswa) :
-                        ?>
-                        <tr>
-                            <td class="d-none id-siswa"><?=$siswa->id_siswa?></td>
-                            <td class="text-center"><?=$no?></td>
-                            <td class="text-center"><?=$siswa->nisn?></td>
-                            <td class="text-center"><?=$siswa->nis?></td>
-                            <td><?=$siswa->nama?></td>
-                            <td>
-                                <?php
-                                echo form_dropdown('naik', $naiks, $siswa->naik != null ? $siswa->naik : '', 'class="form-control form-control-sm naik"'); ?>
-                            </td>
-                        </tr>
-                        <?php $no++; endforeach; ?>
+                            ?>
+                            <tr>
+                                <td class="d-none id-siswa"><?= $siswa->id_siswa ?></td>
+                                <td class="text-center"><?= $no ?></td>
+                                <td class="text-center"><?= $siswa->nisn ?></td>
+                                <td class="text-center"><?= $siswa->nis ?></td>
+                                <td><?= $siswa->nama ?></td>
+                                <td>
+                                    <?php
+                                    echo form_dropdown('naik', $naiks, $siswa->naik != null ? $siswa->naik : '', 'class="form-control form-control-sm naik"'); ?>
+                                </td>
+                            </tr>
+                            <?php $no++; endforeach; ?>
                         </tbody>
                     </table>
 
@@ -75,13 +75,13 @@
                     <?= form_close() ?>
 
                 </div>
-			</div>
-		</div>
-	</section>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#formkenaikan').submit('click', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();

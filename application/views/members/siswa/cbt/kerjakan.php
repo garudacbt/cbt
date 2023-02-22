@@ -38,7 +38,9 @@
                 </div>
             </div>
         </div>
-        <div class="container" style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" unselectable="on">
+        <div class="container"
+             style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"
+             unselectable="on">
             <div class="row">
                 <div class="col-12">
                     <div class="card my-shadow">
@@ -150,23 +152,23 @@
 <script src="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/redirect.js"></script>
 <script>
-    var elem= document.documentElement;
+    var elem = document.documentElement;
     history.pushState(null, null, '<?php echo $_SERVER["REQUEST_URI"]; ?>');
-    window.addEventListener('popstate', function(event) {
+    window.addEventListener('popstate', function (event) {
         loadSoalNomor(1);
     });
     const infoJadwal = JSON.parse(JSON.stringify(<?= json_encode($jadwal) ?>));
     let elapsed = '0';
     var timer = '0';
     let idDurasi;
-    let h,m,s, th, tm, ts;
+    let h, m, s, th, tm, ts;
     var interval = null;
 
     let nomorSoal = 0;
     let idSoal, idSoalSiswa, jenisSoal, modelSoal, typeSoal;
     let jawabanSiswa, jawabanBaru = null, jsonJawaban;
     let nav = 0;
-    let soalTerjawab = 0, soalTotal =0;
+    let soalTerjawab = 0, soalTotal = 0;
     var message = "Jangan menggunakan klik kanan!";
 
     $(document).ready(function () {
@@ -208,8 +210,8 @@
             });
         });
 
-        $("#plus").click(function() {
-            $(".konten-soal-jawab").find('*').each(function() {
+        $("#plus").click(function () {
+            $(".konten-soal-jawab").find('*').each(function () {
                 var size = parseInt($(this).css("font-size"));
                 if (size < 30) {
                     size = (size + 1) + "px";
@@ -218,8 +220,8 @@
             });
         });
 
-        $("#minus").click(function(){
-            $(".konten-soal-jawab").find('*').each(function() {
+        $("#minus").click(function () {
+            $(".konten-soal-jawab").find('*').each(function () {
                 var size = parseInt($(this).css("font-size"));
                 if (size > 12) {
                     size = (size - 1) + "px";
@@ -241,10 +243,10 @@
         nav = $(datas).data('nomorsoal');
         var jwb1 = jawabanSiswa;
         var jwb2 = jawabanBaru;
-        if ($.isArray(jwb1) || jwb1 instanceof jQuery){
+        if ($.isArray(jwb1) || jwb1 instanceof jQuery) {
             jwb1 = JSON.stringify(jwb1)
         }
-        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)){
+        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)) {
             jwb2 = JSON.stringify(jwb2)
         }
 
@@ -256,17 +258,17 @@
     }
 
     function loadSoalNomor(nomor) {
-        if (nomor == nomorSoal ) {
+        if (nomor == nomorSoal) {
             return;
         }
 
-        if (soalTotal===0 || nomor <= parseInt(soalTotal)) {
+        if (soalTotal === 0 || nomor <= parseInt(soalTotal)) {
             if (interval != null) clearInterval(interval);
             //$('#loading').removeClass('d-none');
             $.ajax({
                 type: 'POST',
                 url: base_url + 'siswa/loadsoal',
-                data: $('#up').serialize() + '&nomor='+nomor+'&elapsed='+elapsed+'&timer='+timer,
+                data: $('#up').serialize() + '&nomor=' + nomor + '&elapsed=' + elapsed + '&timer=' + timer,
                 success: function (data) {
                     //console.log(data);
                     $('#loading').addClass('d-none');
@@ -302,7 +304,7 @@
         jawabanSiswa = data.soal_jawaban_siswa != null ? data.soal_jawaban_siswa : '';
         if ($.isArray(jawabanSiswa)) jawabanSiswa.sort();
 
-        if (nomorSoal === 1){
+        if (nomorSoal === 1) {
             $('#prev').attr('disabled', 'disabled');
         } else {
             $('#prev').removeAttr('disabled');
@@ -314,17 +316,17 @@
         var html = '';
         if (jenis == "1") {
             $.each(data.soal_opsi, function (key, opsis) {
-                if (opsis.valAlias != "" ) {
-                    html+= '<label class="container-jawaban font-weight-normal">'+opsis.opsi +
+                if (opsis.valAlias != "") {
+                    html += '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
                         '<input type="radio"' +
                         ' name="jawaban"' +
-                        ' value="'+opsis.value.toUpperCase()+'"' +
-                        ' data-jawabansiswa="'+opsis.value.toUpperCase()+'"' +
-                        ' data-jawabanalias="'+opsis.valAlias.toUpperCase()+'"' +
+                        ' value="' + opsis.value.toUpperCase() + '"' +
+                        ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
+                        ' data-jawabanalias="' + opsis.valAlias.toUpperCase() + '"' +
                         //' data-nomor="'+nomorSoal+'"' +
                         //' data-jenis="'+data.soal_jenis+'"' +
-                        ' onclick="submitJawaban(this)" '+opsis.checked+'>' +
-                        '<span class="checkmark shadow text-center align-middle">'+opsis.valAlias.toUpperCase()+'</span>' +
+                        ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
+                        '<span class="checkmark shadow text-center align-middle">' + opsis.valAlias.toUpperCase() + '</span>' +
                         '</label>';
                 }
             });
@@ -332,12 +334,12 @@
         } else if (jenis == "2") {
             $.each(data.soal_opsi, function (key, opsis) {
                 //console.log(key, opsis);
-                html+= '<label class="container-jawaban font-weight-normal">'+opsis.opsi +
+                html += '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
                     '<input type="checkbox"' +
                     ' name="jawaban"' +
-                    ' value="'+opsis.value.toUpperCase()+'"' +
-                    ' data-jawabansiswa="'+opsis.value.toUpperCase()+'"' +
-                    ' onclick="submitJawaban(this)" '+opsis.checked+'>' +
+                    ' value="' + opsis.value.toUpperCase() + '"' +
+                    ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
+                    ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
                     //'<i class="fa fa-2x icon-checkbox"></i>' +
                     '<span class="boxmark"></span>' +
                     '</label>';
@@ -352,8 +354,7 @@
                 $('#konten-jawaban').html(html);
                 var mode = datalist.type == '2' ? "oneToOne" : "manyToMany";
                 var inputs = {
-                    "localization": {
-                    },
+                    "localization": {},
                     "options": {
                         "associationMode": mode, // oneToOne,manyToMany
                         "lineStyle": "square-ends",
@@ -364,11 +365,11 @@
                     },
                     "Lists": [
                         {
-                            "name": "baris-kiri"+data.soal_nomor_asli,
+                            "name": "baris-kiri" + data.soal_nomor_asli,
                             "list": datalist.jawaban[0]
                         },
                         {
-                            "name": "baris-kanan"+data.soal_nomor_asli,
+                            "name": "baris-kanan" + data.soal_nomor_asli,
                             "list": datalist.jawaban[1],
                             //"mandatories": ["last_name", "email_adress"]
                         }
@@ -379,17 +380,17 @@
 
                 fieldLinks = $("#original").fieldsLinker("init", inputs);
 
-                $(`ul[data-col="baris-kanan${data.soal_nomor_asli}"] li`).click(function(e) {
+                $(`ul[data-col="baris-kanan${data.soal_nomor_asli}"] li`).click(function (e) {
                     submitJawaban(null);
                 });
             } else {
-                html += '<table id="table-jodohkan" class="table table-bordered" data-type="'+data.soal_opsi.type+'">';
+                html += '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
                 html += '<tr class="text-center">';
                 $.each(data.soal_opsi.thead, function (key, val) {
                     if (key === 0) {
-                        html += '<th class="text-white">'+val+'</th>';
+                        html += '<th class="text-white">' + val + '</th>';
                     } else {
-                        html += '<th class="text-center">'+val+'</th>';
+                        html += '<th class="text-center">' + val + '</th>';
                     }
                 });
                 html += '</tr>';
@@ -397,12 +398,12 @@
                     html += '<tr class="text-center">';
                     $.each(v, function (t, i) {
                         if (t === 0) {
-                            html += '<td class="baris text-bold">' +i+'</td>';
+                            html += '<td class="baris text-bold">' + i + '</td>';
                         } else {
                             const checked = i == '1' ? ' checked' : '';
                             const type = data.soal_opsi.type != '2' ? 'checkbox' : 'radio';
                             html += '<td>' +
-                                '<input class="check" type="'+type+'" name="check'+k+'" style="height: 20px; width: 20px"'+checked+'>' +
+                                '<input class="check" type="' + type + '" name="check' + k + '" style="height: 20px; width: 20px"' + checked + '>' +
                                 '</td>';
                         }
                     });
@@ -415,7 +416,7 @@
             html += '<div class="pr-4">' +
                 '<span class="">JAWABAN:</span><br>' +
                 '<input id="jawaban-essai" class="pl-1" type="text"' +
-                ' name="jawaban" value="'+jawabanSiswa+'"' +
+                ' name="jawaban" value="' + jawabanSiswa + '"' +
                 ' placeholder="Tulis jawaban disini"/><br>' +
                 '</div>';
             $('#konten-jawaban').html(html);
@@ -424,7 +425,7 @@
                 '<label>JAWABAN:</label><br>' +
                 '<textarea id="jawaban-essai" class="w-100 pl-1" type="text"' +
                 ' name="jawaban" rows="4"' +
-                ' placeholder="Tulis jawaban disini">'+jawabanSiswa+'</textarea><br>' +
+                ' placeholder="Tulis jawaban disini">' + jawabanSiswa + '</textarea><br>' +
                 '</div>';
             $('#konten-jawaban').html(html);
         }
@@ -446,7 +447,7 @@
                 $(this).attr('src', newSrc);
             }
             //$(this).removeAttr('style');
-            $(this).on('load', function() {
+            $(this).on('load', function () {
                 console.log('size', $(this).height() + 'x' + $(this).width());
                 if ($(this).height() > 50) {
                     $(this).addClass('img-fluid');
@@ -480,7 +481,7 @@
             submitJawaban(null);
         });
 
-        $("#jawaban-essai").on('change keyup paste', function() {
+        $("#jawaban-essai").on('change keyup paste', function () {
             submitJawaban(null);
         });
 
@@ -506,10 +507,10 @@
         nav = (nomorSoal + 1);
         var jwb1 = jawabanSiswa;
         var jwb2 = jawabanBaru;
-        if ($.isArray(jwb1) || jwb1 instanceof jQuery){
+        if ($.isArray(jwb1) || jwb1 instanceof jQuery) {
             jwb1 = JSON.stringify(jwb1)
         }
-        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)){
+        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)) {
             jwb2 = JSON.stringify(jwb2)
         }
 
@@ -526,10 +527,10 @@
         nav = (nomorSoal - 1);
         var jwb1 = jawabanSiswa;
         var jwb2 = jawabanBaru;
-        if ($.isArray(jwb1) || jwb1 instanceof jQuery){
+        if ($.isArray(jwb1) || jwb1 instanceof jQuery) {
             jwb1 = JSON.stringify(jwb1)
         }
-        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)){
+        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)) {
             jwb2 = JSON.stringify(jwb2)
         }
 
@@ -549,7 +550,7 @@
             if (badges.length) {
                 $(`#badge${nomorSoal}`).text(jwb)
             } else {
-                var badge = '<div id="badge'+nomorSoal+'" class="badge badge-pill badge-success border border-dark text-yellow"' +
+                var badge = '<div id="badge' + nomorSoal + '" class="badge badge-pill badge-success border border-dark text-yellow"' +
                     ' style="font-size:12pt; width: 30px; height: 30px; margin-top: -60px; margin-left: 30px;">' +
                     jwb +
                     '</div>';
@@ -557,7 +558,7 @@
             }
         } else {
             if (!badges.length) {
-                var badge = '<div id="badge'+nomorSoal+'" class="badge badge-pill badge-success border border-dark"' +
+                var badge = '<div id="badge' + nomorSoal + '" class="badge badge-pill badge-success border border-dark"' +
                     ' style="font-size:12pt; width: 30px; height: 30px; margin-top: -60px; margin-left: 30px;">' +
                     '&check;</div>';
                 $(`#box${nomorSoal}`).append(badge);
@@ -566,13 +567,13 @@
     }
 
     function submitJawaban(opsi) {
-        var jawaban_Siswa='', jawaban_Alias='';
+        var jawaban_Siswa = '', jawaban_Alias = '';
         if (jenisSoal == 1) {
             jawaban_Siswa = $(opsi).data('jawabansiswa');
             jawaban_Alias = $(opsi).data('jawabanalias');
         } else if (jenisSoal == 2) {
             var selected = [];
-            $('#konten-jawaban input:checked').each(function() {
+            $('#konten-jawaban input:checked').each(function () {
                 selected.push($(this).val());
             });
             jawaban_Siswa = selected;
@@ -615,16 +616,16 @@
     }
 
     function getDataTable() {
-        var tbl = $('#table-jodohkan tr').get().map(function(row) {
+        var tbl = $('#table-jodohkan tr').get().map(function (row) {
             var $tables = [];
 
-            $(row).find('th').get().map(function(cell) {
+            $(row).find('th').get().map(function (cell) {
                 var klm = $(cell).text().trim();
                 $tables.push(klm == "" ? "#" : klm);
             });
 
-            $(row).find('td').get().map(function(cell) {
-                if($(cell).children('input').length > 0) {
+            $(row).find('td').get().map(function (cell) {
+                if ($(cell).children('input').length > 0) {
                     $tables.push($(cell).find('input').prop("checked") === true ? "1" : "0");
                 } else {
                     $tables.push($(cell).text().trim())
@@ -697,14 +698,14 @@
 
     function countdown() {
         getElapsewdTimer();
-        ts --;
+        ts--;
         if (ts < 0) {
             ts = 59;
-            tm --;
+            tm--;
         }
         if (tm < 0) {
             tm = 59;
-            th --;
+            th--;
         }
 
         if (th === 0 && tm === 0 && ts === 0) {
@@ -761,13 +762,13 @@
         s++;
         if (s > 59) {
             s = 0;
-            m ++;
+            m++;
         }
         if (m > 59) {
             m = 0;
-            h ++;
+            h++;
         }
-        elapsed = (h < 10 ? '0'+h : h) + ":" + (m < 10 ? '0'+m : m) + ":" + (s < 10 ? '0'+s : s);
+        elapsed = (h < 10 ? '0' + h : h) + ":" + (m < 10 ? '0' + m : m) + ":" + (s < 10 ? '0' + s : s);
     }
 
     function secondsToHMS(s) {
@@ -776,7 +777,7 @@
         var m = Math.floor(s / 60);
         s -= m * 60;
 
-        return (h < 10 ? '0'+h : h) + ":" + (m < 10 ? '0'+m : m) + ":" + (s < 10 ? '0'+s : s);
+        return (h < 10 ? '0' + h : h) + ":" + (m < 10 ? '0' + m : m) + ":" + (s < 10 ? '0' + s : s);
     }
 
     function convertTableToList(data) {
@@ -791,7 +792,7 @@
         var linked = [];
         $.each(data.tbody, function (n, arv) {
             $.each(arv, function (t, v) {
-                if (v == '1' ) {
+                if (v == '1') {
                     var it = {};
                     it['from'] = kiri[n];
                     it['to'] = kanan[t];
@@ -810,10 +811,10 @@
     function getListData() {
         var kolom = [];
         var baris = [];
-        $(".FL-left li").each(function() {
+        $(".FL-left li").each(function () {
             baris.push($(this).text());
         });
-        $(".FL-right li").each(function() {
+        $(".FL-right li").each(function () {
             kolom.push($(this).text());
         });
         return [kolom, baris];
@@ -861,13 +862,15 @@
         //return item;
     }
 
-    function rtclickcheck(keyp){
-        if (navigator.appName == "Netscape" && keyp.which == 3){
-            alert(message); return false;
+    function rtclickcheck(keyp) {
+        if (navigator.appName == "Netscape" && keyp.which == 3) {
+            alert(message);
+            return false;
         }
 
-        if (navigator.appVersion.indexOf("MSIE") != -1 && event.button ==2){
-            alert(message); return false;
+        if (navigator.appVersion.indexOf("MSIE") != -1 && event.button == 2) {
+            alert(message);
+            return false;
         }
     }
 

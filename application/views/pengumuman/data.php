@@ -26,38 +26,38 @@
                 $col = '';
                 if ($this->ion_auth->is_admin()) :
                     $col = 'col-md-7';
-                ?>
-                <div class="col-12 col-md-5 mb-4">
-                    <div class="card my-shadow border">
-                        <div class="card-header">
-                            Running Text
-                        </div>
-                        <div class="card-body">
-                            <div class="alert alert-default-info align-content-center" role="alert">
-                                RUNNING TEXT akan muncul di bagian bawah layar siswa.
+                    ?>
+                    <div class="col-12 col-md-5 mb-4">
+                        <div class="card my-shadow border">
+                            <div class="card-header">
+                                Running Text
                             </div>
+                            <div class="card-body">
+                                <div class="alert alert-default-info align-content-center" role="alert">
+                                    RUNNING TEXT akan muncul di bagian bawah layar siswa.
+                                </div>
 
-                            <table id="tb-text" class="table mb-2 table-bordered">
-                                <?php
-                                for ($i=0;$i<5;$i++) :
-                                $text = isset($running_text[$i]) ? $running_text[$i]->text : '';
-                                    ?>
-                                    <tr>
-                                        <td width="30" class="text-sm text-center"><?= $i+1 ?></td>
-                                        <td class="text-sm editable"><?= $text ?></td>
-                                    </tr>
-                                <?php endfor; ?>
-                            </table>
-                            <?= form_open('', array('id' => 'formrunningtext')) ?>
-                            <button type="submit" class="btn btn-primary float-right">
-                                <i class="fa fa-save"></i> Simpan
-                            </button>
-                            <?= form_close(); ?>
+                                <table id="tb-text" class="table mb-2 table-bordered">
+                                    <?php
+                                    for ($i = 0; $i < 5; $i++) :
+                                        $text = isset($running_text[$i]) ? $running_text[$i]->text : '';
+                                        ?>
+                                        <tr>
+                                            <td width="30" class="text-sm text-center"><?= $i + 1 ?></td>
+                                            <td class="text-sm editable"><?= $text ?></td>
+                                        </tr>
+                                    <?php endfor; ?>
+                                </table>
+                                <?= form_open('', array('id' => 'formrunningtext')) ?>
+                                <button type="submit" class="btn btn-primary float-right">
+                                    <i class="fa fa-save"></i> Simpan
+                                </button>
+                                <?= form_close(); ?>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <?php endif; ?>
-                <div class="col-12 <?=$col?> mb-4">
+                <div class="col-12 <?= $col ?> mb-4">
                     <div class="card my-shadow border">
                         <?= form_open('', array('id' => 'formpengumuman')) ?>
                         <div class="card-header">
@@ -182,22 +182,27 @@
                                         <div class="text-muted">
                                             <button type="button" class="btn btn-default btn-sm mr-2 btn-toggle"
                                                     data-id="<?= $pengumuman->id_post ?>" data-toggle="modal"
-                                                    data-target="#komentarModal"><i class="fas fa-reply mr-1"></i> Tulis komentar
+                                                    data-target="#komentarModal"><i class="fas fa-reply mr-1"></i> Tulis
+                                                komentar
                                             </button>
-                                            <button type="button" id="trigger<?= $pengumuman->id_post ?>" class="btn btn-default btn-sm mr-2 action-collapse"
+                                            <button type="button" id="trigger<?= $pengumuman->id_post ?>"
+                                                    class="btn btn-default btn-sm mr-2 action-collapse"
                                                     data-toggle="collapse" aria-expanded="true"
                                                     aria-controls="collapse-<?= $pengumuman->id_post ?>"
                                                     href="#collapse-<?= $pengumuman->id_post ?>">
                                                 <i class="fa fa-commenting-o mr-1"></i><?= $pengumuman->jml ?> komentar
                                             </button>
-                                            <button type="button" class="btn btn-default btn-sm" onclick="hapusPost(<?= $pengumuman->id_post ?>)" data-id="<?= $pengumuman->id_post ?>">
+                                            <button type="button" class="btn btn-default btn-sm"
+                                                    onclick="hapusPost(<?= $pengumuman->id_post ?>)"
+                                                    data-id="<?= $pengumuman->id_post ?>">
                                                 <i class="fa fa-trash mr-1"></i> Hapus
                                             </button>
 
                                         </div>
                                     </div>
                                     <div id="collapse-<?= $pengumuman->id_post ?>" class="p-2 collapse toggle-comment"
-                                         data-id="<?= $pengumuman->id_post ?>" data-parent="#parent<?= $pengumuman->id_post ?>">
+                                         data-id="<?= $pengumuman->id_post ?>"
+                                         data-parent="#parent<?= $pengumuman->id_post ?>">
                                         <hr class="m-0">
                                         <div id="konten<?= $pengumuman->id_post ?>" class="p-4">
                                         </div>
@@ -288,6 +293,7 @@
 
 <script>
     var guru = '<?=isset($guru) ? $guru->id_guru : ""?>';
+
     function createTime(d) {
         var date = new Date(d);
 
@@ -341,25 +347,25 @@
                 '        </div>' +
                 '        <div class="ml-2">' +
                 '            <span class="btn-sm mr-2 text-muted">' + createTime(v.tanggal) + '</span>' +
-                '            <span id="trigger-reply'+v.id_comment+'" class="btn btn-sm mr-2 text-muted action-collapse" data-toggle="collapse" aria-expanded="true"' +
+                '            <span id="trigger-reply' + v.id_comment + '" class="btn btn-sm mr-2 text-muted action-collapse" data-toggle="collapse" aria-expanded="true"' +
                 '                              aria-controls="collapse-reply' + v.id_comment + '"' +
                 '                              href="#collapse-reply' + v.id_comment + '"><b>' + v.jml + ' balasan</b></span>' +
                 '            <span class="btn btn-sm mr-2 text-muted btn-toggle-reply"' +
                 '                  data-id="' + v.id_comment + '" data-toggle="modal" data-target="#balasanModal">' +
-                '                <i class="fas fa-reply"></i> <b>Balas</b></span>'+
-                '<span class="btn btn-sm text-muted" onclick="hapusKomentar('+v.id_comment+')" data-id="'+v.id_comment+'"><i class="fa fa-trash mr-1"></i> Hapus</span>'+
+                '                <i class="fas fa-reply"></i> <b>Balas</b></span>' +
+                '<span class="btn btn-sm text-muted" onclick="hapusKomentar(' + v.id_comment + ')" data-id="' + v.id_comment + '"><i class="fa fa-trash mr-1"></i> Hapus</span>' +
                 '</div>' +
                 '<div id="collapse-reply' + v.id_comment + '" class="p-2 collapse toggle-reply" data-id="' + v.id_comment + '" data-parent="#parent-reply' + v.id_comment + '">';
             if (v.jml != '0') {
-                comm += '<div id="konten-reply' + v.id_comment + '"></div>'+
-                    '<div id="loadmore-reply' + v.id_comment + '" onclick="getReplies('+v.id_comment+')" class="text-center mb-3 loadmore-reply">' +
+                comm += '<div id="konten-reply' + v.id_comment + '"></div>' +
+                    '<div id="loadmore-reply' + v.id_comment + '" onclick="getReplies(' + v.id_comment + ')" class="text-center mb-3 loadmore-reply">' +
                     '       <div class="btn btn-default">Muat balasan lainnya ...</div>' +
                     '</div>';
             }
             comm += '    <div id="loading-reply' + v.id_comment + '" class="text-center d-none">' +
                 '        <div class="spinner-grow"></div>' +
                 '    </div>' +
-                '</div>'+
+                '</div>' +
                 '    </div>' +
                 '</div>';
         });
@@ -389,19 +395,19 @@
                     (v.foto_siswa != null ? base_url + v.foto_siswa : base_url + 'assets/img/siswa.png');
                 var avatar = v.dari == '0' ? '<div class="btn-circle-sm btn-success media-left pt-1 mr-2" style="width: 37px">A</div>' : '<img class="img-circle mr-2 border" src="' + foto + '" alt="Img" width="35px" height="35px">';
                 repl +=
-                    '<div class="media mt-1 media'+v.id_reply+'">'
+                    '<div class="media mt-1 media' + v.id_reply + '">'
                     + avatar +
                     '    <div class="w-100">' +
                     '        <div class="media-body border pl-3" style="border-radius: 17px; background-color: #dee2e6">' +
-                    '            <span class="text-xs text-muted"><b>'+dari+'</b></span>' +
+                    '            <span class="text-xs text-muted"><b>' + dari + '</b></span>' +
                     '            <div class="comment-text">' + v.text +
                     '            </div>' +
                     '        </div>' +
                     '        <div class="ml-2">' +
-                    '            <small class="btn-sm mr-2 text-muted">'+createTime(v.tanggal)+'</small>' +
-                    '            <span class="btn btn-sm text-muted" onclick="hapusReply('+v.id_reply+')" data-id="'+v.id_reply+'">' +
+                    '            <small class="btn-sm mr-2 text-muted">' + createTime(v.tanggal) + '</small>' +
+                    '            <span class="btn btn-sm text-muted" onclick="hapusReply(' + v.id_reply + ')" data-id="' + v.id_reply + '">' +
                     '                <i class="fa fa-trash mr-1"></i> Hapus' +
-                    '            </span>'+
+                    '            </span>' +
                     '        </div>' +
                     '    </div>' +
                     '</div>';
@@ -413,7 +419,7 @@
         } else {
             $(`#konten-reply${id}`).prepend(repl);
         }
-        console.log('added', 'reply'+id);
+        console.log('added', 'reply' + id);
     }
 
     function getComments(id) {
@@ -486,7 +492,7 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "pengumuman/hapuspost/"+idPost,
+                    url: base_url + "pengumuman/hapuspost/" + idPost,
                     type: "GET",
                     success: function (data) {
                         console.log("result", data);
@@ -533,7 +539,7 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "pengumuman/hapuskomentar/"+idKomentar,
+                    url: base_url + "pengumuman/hapuskomentar/" + idKomentar,
                     type: "GET",
                     success: function (data) {
                         console.log("result", data);
@@ -579,7 +585,7 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "pengumuman/hapusbalasan/"+idReply,
+                    url: base_url + "pengumuman/hapusbalasan/" + idReply,
                     type: "GET",
                     success: function (data) {
                         console.log("result", data);
@@ -630,15 +636,15 @@
     }
     */
 
-    function createListText(data){
+    function createListText(data) {
         var html = '<table class="table w-100">';
         if (data.running_text.length > 0) {
             $.each(data.running_text, function (i, v) {
                 html += '<tr> ' +
-                    '<td>'+ v.text +'</td>' +
+                    '<td>' + v.text + '</td>' +
                     '<td>' +
-                    '<button class="btn btn-default btn-circle-micro" data-id="'+v.id_text+'" onclick="edit(this)"><i class="fa fa-pencil"></i></button>' +
-                    '<button class="btn btn-default btn-circle-micro" data-id="'+v.id_text+'" onclick="hapusText(this)"><i class="fa fa-trash"></i></button>' +
+                    '<button class="btn btn-default btn-circle-micro" data-id="' + v.id_text + '" onclick="edit(this)"><i class="fa fa-pencil"></i></button>' +
+                    '<button class="btn btn-default btn-circle-micro" data-id="' + v.id_text + '" onclick="hapusText(this)"><i class="fa fa-trash"></i></button>' +
                     '</td> ' +
                     '</tr>';
             });
@@ -652,7 +658,7 @@
         console.log(id);
 
         $.ajax({
-            url: base_url + "pengumuman/hapusrunningtext/"+id,
+            url: base_url + "pengumuman/hapusrunningtext/" + id,
             type: "GET",
             success: function (response) {
                 console.log('page', response);
@@ -669,8 +675,8 @@
     }
 
     $(document).ready(function () {
-        $('.editable').attr('contentEditable',true);
-        console.log('guru',guru);
+        $('.editable').attr('contentEditable', true);
+        console.log('guru', guru);
         $('.select2').select2();
 
         $('#text-pengumuman').summernote({
@@ -743,7 +749,7 @@
             var id = $(e.relatedTarget).data('id');
             $("#id-comment").val(id);
 
-            var isVisible = $(`#collapse-reply${id}`).hasClass('show' );
+            var isVisible = $(`#collapse-reply${id}`).hasClass('show');
             if (!isVisible) {
                 $(`#trigger-reply${id}`).click();
             }
@@ -826,7 +832,7 @@
                 item ["id_text"] = no;
                 item ["text"] = text;
                 jsonObj.push(item);
-                no ++;
+                no++;
             });
 
             var dataPost = $(this).serialize() + "&text=" + JSON.stringify(jsonObj);
@@ -839,7 +845,7 @@
                 success: function (response) {
                     console.log('updates', response);
                     if (response.status[0]) {
-                       window.location.reload();
+                        window.location.reload();
                         //loadListText();
                         //$('#textarea-running').val('');
                     } else {

@@ -46,33 +46,42 @@ $satuan = [
                         <span><b>TAPILKAN NIP</b></span>
                         <ul class="m-0">
                             <li>
-                                Pilih <b>YA</b>  jika NIP kepala sekolah / walikelas diisi NIP
+                                Pilih <b>YA</b> jika NIP kepala sekolah / walikelas diisi NIP
                             </li>
                             <li>
-                                Jika NIP kepala sekolah / walikelas diisi NUPTK atau nomor lain selain NIP maka sebaiknya pilih <b>TIDAK</b> ditampilkan
+                                Jika NIP kepala sekolah / walikelas diisi NUPTK atau nomor lain selain NIP maka
+                                sebaiknya pilih <b>TIDAK</b> ditampilkan
                             </li>
                         </ul>
                     </div>
                     <hr>
-                    <?=form_open('edit', array('id'=>'editsetting'), array('id_setting' => $rapor !=null ? $rapor->id_setting : ''))?>
+                    <?= form_open('edit', array('id' => 'editsetting'), array('id_setting' => $rapor != null ? $rapor->id_setting : '')) ?>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-5 col-form-label">Tgl Rapor PTS</label>
                                 <div class="col-7">
-                                    <input type="text" name="tgl_rapor_pts" value="<?=$rapor !=null ? $rapor->tgl_rapor_pts : ''?>" class="form-control tgl" autocomplete="off" required>
+                                    <input type="text" name="tgl_rapor_pts"
+                                           value="<?= $rapor != null ? $rapor->tgl_rapor_pts : '' ?>"
+                                           class="form-control tgl" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-5 col-form-label">Tgl Rapor Akhir Kls <?=$satuan[$setting->jenjang][0]?></label>
+                                <label class="col-5 col-form-label">Tgl Rapor Akhir
+                                    Kls <?= $satuan[$setting->jenjang][0] ?></label>
                                 <div class="col-7">
-                                    <input type="text" name="tgl_rapor_akhir" value="<?=$rapor !=null ? $rapor->tgl_rapor_akhir : ''?>" class="form-control tgl" autocomplete="off" required>
+                                    <input type="text" name="tgl_rapor_akhir"
+                                           value="<?= $rapor != null ? $rapor->tgl_rapor_akhir : '' ?>"
+                                           class="form-control tgl" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-5 col-form-label">Tgl Rapor Akhir Kls <?=$satuan[$setting->jenjang][1]?></label>
+                                <label class="col-5 col-form-label">Tgl Rapor Akhir
+                                    Kls <?= $satuan[$setting->jenjang][1] ?></label>
                                 <div class="col-7">
-                                    <input type="text" name="tgl_rapor_kelas_akhir" value="<?=$rapor !=null ? $rapor->tgl_rapor_kelas_akhir : ''?>" class="form-control tgl" autocomplete="off" required>
+                                    <input type="text" name="tgl_rapor_kelas_akhir"
+                                           value="<?= $rapor != null ? $rapor->tgl_rapor_kelas_akhir : '' ?>"
+                                           class="form-control tgl" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -82,7 +91,7 @@ $satuan = [
                                     echo form_dropdown(
                                         'nip_kepsek',
                                         $kkm_drop,
-                                        $rapor !=null && isset($rapor->nip_kepsek) ? $rapor->nip_kepsek : '',
+                                        $rapor != null && isset($rapor->nip_kepsek) ? $rapor->nip_kepsek : '',
                                         'class="form-control" required'
                                     ); ?>
                                 </div>
@@ -94,7 +103,7 @@ $satuan = [
                                     echo form_dropdown(
                                         'nip_walikelas',
                                         $kkm_drop,
-                                        $rapor !=null && isset($rapor->nip_walikelas) ? $rapor->nip_walikelas : '',
+                                        $rapor != null && isset($rapor->nip_walikelas) ? $rapor->nip_walikelas : '',
                                         'class="form-control" required'
                                     ); ?>
                                 </div>
@@ -109,7 +118,7 @@ $satuan = [
                                     echo form_dropdown(
                                         'kkm_tunggal',
                                         $kkm_drop,
-                                        $rapor !=null ? $rapor->kkm_tunggal : '',
+                                        $rapor != null ? $rapor->kkm_tunggal : '',
                                         'id="tunggal" class="form-control" required'
                                     ); ?>
                                 </div>
@@ -117,33 +126,42 @@ $satuan = [
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">KKM</label>
                                 <div class="col-8">
-                                    <input type="number" name="kkm" value="<?=$rapor !=null ? $rapor->kkm : ''?>" class="form-control kkm" required>
+                                    <input type="number" name="kkm" value="<?= $rapor != null ? $rapor->kkm : '' ?>"
+                                           class="form-control kkm" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Bobot PH</label>
                                 <div class="col-8">
-                                    <input type="number" name="bobot_ph" value="<?=$rapor !=null ? $rapor->bobot_ph : ''?>" class="form-control kkm" required>
+                                    <input type="number" name="bobot_ph"
+                                           value="<?= $rapor != null ? $rapor->bobot_ph : '' ?>"
+                                           class="form-control kkm" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Bobot PTS</label>
                                 <div class="col-8">
-                                    <input type="number" name="bobot_pts" value="<?=$rapor !=null ? $rapor->bobot_pts : ''?>" class="form-control kkm" required>
+                                    <input type="number" name="bobot_pts"
+                                           value="<?= $rapor != null ? $rapor->bobot_pts : '' ?>"
+                                           class="form-control kkm" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Bobot PAS</label>
                                 <div class="col-8">
-                                    <input type="number" name="bobot_pas" value="<?=$rapor !=null ? $rapor->bobot_pas : ''?>" class="form-control kkm" required>
+                                    <input type="number" name="bobot_pas"
+                                           value="<?= $rapor != null ? $rapor->bobot_pas : '' ?>"
+                                           class="form-control kkm" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-12 text-right">
-                            <button type="submit" class='btn btn-success btn-sm float-right'><i class='fa fa-save'></i> Simpan</button>
+                            <button type="submit" class='btn btn-success btn-sm float-right'><i class='fa fa-save'></i>
+                                Simpan
+                            </button>
                         </div>
                     </div>
-                    <?=form_close()?>
+                    <?= form_close() ?>
                 </div>
                 <div class="overlay d-none" id="loading">
                     <div class="spinner-grow"></div>
@@ -187,8 +205,8 @@ $satuan = [
                     previous: 'fa fa-angle-left'
                 },
             timepicker: false,
-            scrollInput : false,
-            scrollMonth : false,
+            scrollInput: false,
+            scrollMonth: false,
             format: 'Y-m-d',
             disabledWeekDays: [0],
             widgetPositioning: {

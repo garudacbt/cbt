@@ -22,17 +22,17 @@
                         <label>Pilih Tahun Pelajaran</label>
                         <select name="tahun" id="id-tahun" class="form-control form-control-sm">
                             <?php
-                                foreach ($tahun as $key=>$value) :
-                                    $selected = isset($tahun_selected) && $key == $tahun_selected ? 'selected="selected"' : ''; ?>
-                                    <option value="<?= $key ?>" <?= $selected ?>><?= $value ?></option>
-                                <?php endforeach; ?>
+                            foreach ($tahun as $key => $value) :
+                                $selected = isset($tahun_selected) && $key == $tahun_selected ? 'selected="selected"' : ''; ?>
+                                <option value="<?= $key ?>" <?= $selected ?>><?= $value ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label>Pilih Semester</label>
                         <select name="semester" id="id-smt" class="form-control form-control-sm">
                             <?php
-                            foreach ($semester as $key=>$value) :
+                            foreach ($semester as $key => $value) :
                                 $selected = isset($smt_selected) && $key == $smt_selected ? 'selected="selected"' : ''; ?>
                                 <option value="<?= $key ?>" <?= $selected ?>><?= $value ?></option>
                             <?php endforeach; ?>
@@ -52,33 +52,34 @@
                         <div class="card-header bg-light">
                             <h3 class="card-title">Pilih Siswa</h3>
                         </div>
-                        <div class="card-body p-0" style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
+                        <div class="card-body p-0"
+                             style="height: 400px;overflow-y:auto;-webkit-overflow-scrolling: touch">
                             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview">
                                 <?php
                                 if (isset($siswas)) :
                                     $n = 1;
-                                foreach ($siswas as $siswa): ?>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
-                                           onclick="preview(<?= $siswa->id_siswa ?>)">
-                                            <?= $n . '. ' . $siswa->nama ?>
-                                        </a>
-                                    </li>
-                                    <?php $n++; endforeach; endif;?>
+                                    foreach ($siswas as $siswa): ?>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0)" class="nav-link pt-1 pb-1 pl-2 text-sm siswa"
+                                               onclick="preview(<?= $siswa->id_siswa ?>)">
+                                                <?= $n . '. ' . $siswa->nama ?>
+                                            </a>
+                                        </li>
+                                        <?php $n++; endforeach; endif; ?>
                             </ul>
                         </div>
                     </div>
                     <!--
                     <div class="row p-3">
-                        <?php $dis = isset($tahun_selected) && isset($smt_selected) &&isset($kelas_selected) ? '' : ' disabled' ?>
+                        <?php $dis = isset($tahun_selected) && isset($smt_selected) && isset($kelas_selected) ? '' : ' disabled' ?>
                         <div class="col-md-12 col-4 p-2">
-                            <button class="btn btn-sm btn-warning btn-block"<?=$dis?>><i class="fa fa-pencil"></i> Edit</button>
+                            <button class="btn btn-sm btn-warning btn-block"<?= $dis ?>><i class="fa fa-pencil"></i> Edit</button>
                         </div>
                         <div class="col-md-12 col-4 p-2">
-                            <button class="btn btn-sm btn-primary btn-block"<?=$dis?>><i class="fa fa-book"></i> Ledger</button>
+                            <button class="btn btn-sm btn-primary btn-block"<?= $dis ?>><i class="fa fa-book"></i> Ledger</button>
                         </div>
                         <div class="col-md-12 col-4 p-2">
-                            <button class="btn btn-sm btn-primary btn-block"<?=$dis?>><i class="fa fa-book"></i> D K N</button>
+                            <button class="btn btn-sm btn-primary btn-block"<?= $dis ?>><i class="fa fa-book"></i> D K N</button>
                         </div>
                     </div>
                     -->
@@ -94,7 +95,8 @@
                                         </span>
                                     </li>
                                     <li>
-                                        Untuk mengumpulkan semua nilai siswa pada tahun pelajaran sebelumnya silhkan klik tombol sebelah kanan
+                                        Untuk mengumpulkan semua nilai siswa pada tahun pelajaran sebelumnya silhkan
+                                        klik tombol sebelah kanan
                                     </li>
                                     <li>
                                         Opsi ini akan menghapus semua nilai rapor dan memindahkannya ke halaman ini.
@@ -102,7 +104,9 @@
                                 </ul>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-info" onclick="restoreNilai()">Pindahkan Semua Nilai ke Kumpulan Nilai</button>
+                                <button class="btn btn-info" onclick="restoreNilai()">Pindahkan Semua Nilai ke Kumpulan
+                                    Nilai
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -111,7 +115,7 @@
                     <div class="card">
                         <div class="card-header bg-light">
                             <div class="card-title">
-                                <h6><?=$subjudul?></h6>
+                                <h6><?= $subjudul ?></h6>
                             </div>
                         </div>
 
@@ -138,7 +142,8 @@
                                     <i class="fa fa-print mr-1"></i>Semua Halaman
                                 </button>
                             </div>
-                            <div class="d-flex justify-content-center bg-gray-light pb-5 pt-3" style="height: 300mm; overflow-y: auto">
+                            <div class="d-flex justify-content-center bg-gray-light pb-5 pt-3"
+                                 style="height: 300mm; overflow-y: auto">
                                 <div id="zoom" style="transform: scale(0.9); transform-origin: top center">
                                     <div id="print-preview">
                                         <div id="empty"
@@ -158,7 +163,7 @@
                                                     <p style="margin-bottom: 0">LAPORAN HASIL BELAJAR</p>
                                                     <?php
                                                     $header_rapor = '';
-                                                    if ($setting->jenjang == '1'){
+                                                    if ($setting->jenjang == '1') {
                                                         $header_rapor = 'MADRASAH IBTIDAIYAH (MI)';
                                                     } elseif ($setting->jenjang == '2') {
                                                         $header_rapor = 'MADRASAH TSANAWIYAH (MTS)';
@@ -166,7 +171,7 @@
                                                         $header_rapor = 'MADRASAH ALIYAH (MA)';
                                                     }
                                                     ?>
-                                                    <p style="margin-bottom: 0"><?=$header_rapor?></p>
+                                                    <p style="margin-bottom: 0"><?= $header_rapor ?></p>
                                                     <p style="margin-bottom: 0;font-family: 'Arial';font-size: 24pt;"><?= $setting->sekolah ?></p>
                                                 </div>
                                                 <div class="judul"
@@ -256,7 +261,7 @@
     var setting = JSON.parse(JSON.stringify(<?= json_encode($setting) ?>));
     let header_rapor = '';
     let subHeader = '';
-    if (setting.jenjang == '1'){
+    if (setting.jenjang == '1') {
         header_rapor = 'MADRASAH IBTIDAIYAH';
         subHeader = '(MI)';
     } else if (setting.jenjang == '2') {
@@ -406,19 +411,19 @@
     function handleAlamat(almt, rt, rw, kelurahan, kecamatan, kabupaten, provinsi) {
         var alamat = '';
         alamat += handleNull(almt);
-        if (handleNull(rt)!= '-' && handleNull(rw) != '-') {
+        if (handleNull(rt) != '-' && handleNull(rw) != '-') {
             alamat += ' RT/RW: ' + handleNull(rt) + '/' + handleNull(rw);
         }
-        if (handleNull(kelurahan)!= '-') {
+        if (handleNull(kelurahan) != '-') {
             alamat += ' Desa/Kel. ' + handleNull(kelurahan);
         }
-        if (handleNull(kecamatan)!= '-') {
+        if (handleNull(kecamatan) != '-') {
             alamat += ' Kec. ' + handleNull(kecamatan);
         }
-        if (handleNull(kabupaten)!= '-') {
+        if (handleNull(kabupaten) != '-') {
             alamat += ' Kota/Kab. ' + handleNull(kabupaten);
         }
-        if (handleNull(provinsi)!= '-') {
+        if (handleNull(provinsi) != '-') {
             alamat += ' ' + handleNull(provinsi);
         }
 
@@ -454,7 +459,7 @@
     }
 
     function handleTanggal(tgl) {
-        var bulans = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+        var bulans = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         var ttl = '';
         if (handleNull(tgl) != '-') {
             var tanggal = tgl.split("-")[2];
@@ -467,13 +472,13 @@
     }
 
     function handleStatusKeluarga(value) {
-        var list = ["", "Anak Kandung","Anak Tiri", "Anak Angkat"];
-        if (value == null || value == '-' || value =="") return '-';
+        var list = ["", "Anak Kandung", "Anak Tiri", "Anak Angkat"];
+        if (value == null || value == '-' || value == "") return '-';
         else return list[value];
     }
 
     function handleTitiMangsa(tgl) {
-        var bulans = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+        var bulans = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         var ttl = '';
         if (handleNull(tgl) != '-') {
             var splitted = tgl.split("-");
@@ -546,8 +551,8 @@
         var infoSekolah = '<div style="padding: 0.5cm; margin-top: 100px">' +
             '    <div class="judul" style="text-align: center;font-family: \'Arial\';font-size: 20pt;font-weight: bold">' +
             '        <p style="margin-bottom: 0">LAPORAN HASIL BELAJAR</p>' +
-            '        <p style="margin-bottom: 0">'+header_rapor+'</p>' +
-            '        <p style="margin-bottom: 0">'+subHeader+'</p>' +
+            '        <p style="margin-bottom: 0">' + header_rapor + '</p>' +
+            '        <p style="margin-bottom: 0">' + subHeader + '</p>' +
             '    </div>' +
             '    <br>' +
             '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 300px;font-family: \'Tahoma\';font-size: 14pt;">' +
@@ -623,18 +628,18 @@
         identitas += '<table style="width: 100%">' +
             '<tr style="font-family: \'Tahoma\';font-size: 12pt;">' +
             '<td style="width: 35%;padding-left: 100px;">' +
-            '<img src='+base_url+'"/assets/app/img/bg_frame.jpg"></td>' +
+            '<img src=' + base_url + '"/assets/app/img/bg_frame.jpg"></td>' +
             '</td>' +
             '<td style="width: 30%;">' +
             '<td style="width: 35%">' +
-            setting.kota+',  ' + handleTanggal(siswa.tahun_masuk) +
+            setting.kota + ',  ' + handleTanggal(siswa.tahun_masuk) +
             '    <br>' +
             '    Kepala Madrasah' +
             '    <br>' +
             '    <br>' +
             '    <br>' +
             '    <br>' +
-            '    <u>'+setting.kepsek+'</u>' +
+            '    <u>' + setting.kepsek + '</u>' +
             '    <br>' +
             '    Nip:' +
             '</td>' +
@@ -690,24 +695,24 @@
             '<br>' +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>1. Sikap Spiritual</b></span>' +
             '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 4px;">' +
-            '        <table style="width: 100%; border: 2px solid black; border-collapse: collapse">'+
+            '        <table style="width: 100%; border: 2px solid black; border-collapse: collapse">' +
             '<tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center">' +
             '    <td style="width: 20%;height:20px;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Predikat</b></td>' +
             '    <td style="width:80%;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Deskripsi</b></td>' +
             '</tr>' +
             '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-            '    <td style="width: 30%;min-height:80px;border: 1px solid black; border-collapse: collapse;text-align: center"><b>'+
+            '    <td style="width: 30%;min-height:80px;border: 1px solid black; border-collapse: collapse;text-align: center"><b>' +
             handlePredikat(siswaSelected.spritual.nilai) +
             '</b></td>' +
             '    <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding: 6px">' +
             siswaSelected.spritual.desk +
             '</td>' +
             '</tr>' +
-            '</table></div>'+
+            '</table></div>' +
             '<br>' +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>2. Sikap Sosial</b></span>' +
             '    <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 4px;">' +
-            '        <table style="width: 100%; border: 2px solid black; border-collapse: collapse">'+
+            '        <table style="width: 100%; border: 2px solid black; border-collapse: collapse">' +
             '<tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center">' +
             '    <td style="width: 20%;height:20px;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Predikat</b></td>' +
             '    <td style="width:80%;border: 1px solid black; border-collapse: collapse;background: #E6E7E9"><b>Deskripsi</b></td>' +
@@ -721,7 +726,7 @@
             '</td>' +
             '</tr>' +
             '</table>' +
-            '</div>'+
+            '</div>' +
             '</div>';
 
         tableSikap += '<div class="d-none" style="width: 100%; position: fixed; bottom: 0;color: #000000; font-family: \'Tahoma\';font-size: 9pt;">' +
@@ -729,7 +734,7 @@
             '<table>' +
             '<tr>' +
             '<td style="width:20px;background: #BEBFC1">' + '</td>' +
-            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + ' | '  + tp + ' | '  + smt + ' | ' + setting.sekolah + '</td>' +
+            '<td style="padding-left: 6px;">' + siswa.nama + ' | ' + siswa.nis + ' | ' + handleNull(siswa.nisn) + ' | ' + tp + ' | ' + smt + ' | ' + setting.sekolah + '</td>' +
             '</tr>' +
             '</table>' +
             '</div>';
@@ -977,7 +982,7 @@
             '            <td colspan="3" style="border: 1px solid black; border-collapse: collapse; vertical-align: top; padding: 4px">' +
             '                Pendidikan Agama Islam' +
             '            </td>'
-            +'</tr>';
+            + '</tr>';
 
         var no = 2;
         var abjad = ['a', 'b', 'c', 'd'];
@@ -1104,49 +1109,49 @@
 
         switch (level) {
             case '1':
-                text = naikStrike1 + 'naik ke kelas   II  ( dua )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  I ( satu )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   II  ( dua )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  I ( satu )' + tnaikStrike2 + '<br>';
                 break;
             case '2':
-                text = naikStrike1 + 'naik ke kelas   III  ( tiga )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  II ( dua )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   III  ( tiga )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  II ( dua )' + tnaikStrike2 + '<br>';
                 break;
             case '3':
-                text = naikStrike1 + 'naik ke kelas   IV  ( empat )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  III ( tiga )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   IV  ( empat )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  III ( tiga )' + tnaikStrike2 + '<br>';
                 break;
             case '4':
-                text = naikStrike1 + 'naik ke kelas  V  ( lima )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  IV ( empat )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas  V  ( lima )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  IV ( empat )' + tnaikStrike2 + '<br>';
                 break;
             case '5':
-                text = naikStrike1 + 'naik ke kelas   VI  ( enam )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  V ( lima )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   VI  ( enam )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  V ( lima )' + tnaikStrike2 + '<br>';
                 break;
             case '6':
-                text = naikStrike1 + 'Lulus'+ naikStrike2 +' / '+ tnaikStrike1 + 'Tidak Lulus'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'Lulus' + naikStrike2 + ' / ' + tnaikStrike1 + 'Tidak Lulus' + tnaikStrike2 + '<br>';
                 break;
             case '7':
-                text = naikStrike1 + 'naik ke kelas   VIII  ( delapan )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  VII ( tujuh )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   VIII  ( delapan )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  VII ( tujuh )' + tnaikStrike2 + '<br>';
                 break;
             case '8':
-                text = naikStrike1 + 'naik ke kelas   IX  ( sembilan )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  VIII ( delapan )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   IX  ( sembilan )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  VIII ( delapan )' + tnaikStrike2 + '<br>';
                 break;
             case '9':
-                text = naikStrike1 + 'Lulus'+ naikStrike2 +' / '+ tnaikStrike1 + 'Tidak Lulus'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'Lulus' + naikStrike2 + ' / ' + tnaikStrike1 + 'Tidak Lulus' + tnaikStrike2 + '<br>';
                 break;
             case '10':
-                text = naikStrike1 + 'naik ke kelas   XI  ( sebelas )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  X ( sepuluh )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   XI  ( sebelas )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  X ( sepuluh )' + tnaikStrike2 + '<br>';
                 break;
             case '11':
-                text = naikStrike1 + 'naik ke kelas   XII  ( duabelas )'+ naikStrike2 +'<br>' +
-                    tnaikStrike1 + 'tinggal di kelas  XI ( sebelas )'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'naik ke kelas   XII  ( duabelas )' + naikStrike2 + '<br>' +
+                    tnaikStrike1 + 'tinggal di kelas  XI ( sebelas )' + tnaikStrike2 + '<br>';
                 break;
             case '12':
-                text = naikStrike1 + 'Lulus'+ naikStrike2 +' / '+ tnaikStrike1 + 'Tidak Lulus'+ tnaikStrike2 +'<br>';
+                text = naikStrike1 + 'Lulus' + naikStrike2 + ' / ' + tnaikStrike1 + 'Tidak Lulus' + tnaikStrike2 + '<br>';
         }
 
         return text;
@@ -1172,22 +1177,22 @@
             var nilaiEkstra = v.pred;
             var nilaiDesk = v.desk;
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+no+'</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">'+v.nama_ekstra+'</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+nilaiEkstra+'</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">'+nilaiDesk+'</td>' +
+                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
+                '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">' + v.nama_ekstra + '</td>' +
+                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilaiEkstra + '</td>' +
+                '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 4px">' + nilaiDesk + '</td>' +
                 '</tr>';
-            no ++;
+            no++;
         });
 
         for (let i = no; i < 4; i++) {
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+no+'</td>' +
+                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;"></td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;"></td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;"></td>' +
                 '</tr>';
-            no ++;
+            no++;
         }
         tableNilai += '</table><br>';
 
@@ -1204,11 +1209,11 @@
         var arrPrestasi = siswa.prestasi;
         $.each(arrPrestasi, function (pos, val) {
             tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">'+no+'</td>' +
+                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;">' + val.nilai + '</td>' +
                 '<td style="border: 1px solid black; border-collapse: collapse;">' + val.desk + '</td>' +
                 '</tr>';
-            no ++;
+            no++;
         });
         tableNilai += '</table><br>';
 
@@ -1315,20 +1320,20 @@
             '    <table style="width: 45%;border: 1px solid black; border-collapse: collapse;margin-top: 6px">' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="width:70%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">Sakit</td>' +
-            '            <td style="width:30%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">'+
-            ssakit +' hari' +
+            '            <td style="width:30%;border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
+            ssakit + ' hari' +
             '</td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">Izin</td>' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
-            sizin +' hari' +
+            sizin + ' hari' +
             '</td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">Tanpa Keterangan</td>' +
             '            <td style="border: 1px solid black; border-collapse: collapse;padding-left: 6px">' +
-            salpa +' hari' +
+            salpa + ' hari' +
             '</td>' +
             '        </tr>' +
             '</table>' +

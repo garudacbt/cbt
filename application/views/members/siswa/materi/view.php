@@ -61,7 +61,8 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                             <?php if ($ada_nilai) : ?>
                                 <div class="col-lg-12 p-0">
                                     <div class="alert align-content-center alert-default-warning" role="alert">
-                                        <?=$judul?> ini sudah dikerjakan dan sudah mendapat nilai, tidak bisa dikerjakan ulang!
+                                        <?= $judul ?> ini sudah dikerjakan dan sudah mendapat nilai, tidak bisa
+                                        dikerjakan ulang!
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -87,7 +88,9 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                                     //echo $extension;
                                     if ($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif') :?>
                                         <li>
-                                            <img src="<?= base_url() . $file["src"] ?>" data-target="#view-modal" data-toggle="modal" data-src="<?= base_url() . $file["src"] ?>" data-type="<?= $file["type"] ?>"/>
+                                            <img src="<?= base_url() . $file["src"] ?>" data-target="#view-modal"
+                                                 data-toggle="modal" data-src="<?= base_url() . $file["src"] ?>"
+                                                 data-type="<?= $file["type"] ?>"/>
                                             <div class="title-thumb"><?= $file["name"] ?></div>
                                         </li>
                                     <?php elseif ($extension == 'mpeg' || $extension == 'mpg' || $extension == 'mp4' || $extension == 'avi'): ?>
@@ -100,28 +103,32 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                                         <?php if ($extension == 'xls' || $extension == 'xlsx') : ?>
                                             <li>
                                                 <a href="<?= base_url() . $file["src"] ?>">
-                                                    <img src="<?= base_url() . '/assets/app/img/excel-icon.png' ?> " onclick="dialogDownload()">
+                                                    <img src="<?= base_url() . '/assets/app/img/excel-icon.png' ?> "
+                                                         onclick="dialogDownload()">
                                                     <div class="title-thumb"><?= $file["name"] ?></div>
                                                 </a>
                                             </li>
                                         <?php elseif ($extension == 'doc' || $extension == 'docx') : ?>
                                             <li>
                                                 <a href="<?= base_url() . $file["src"] ?>">
-                                                    <img src="<?= base_url() . '/assets/app/img/word-icon.png' ?> " onclick="dialogDownload()">
+                                                    <img src="<?= base_url() . '/assets/app/img/word-icon.png' ?> "
+                                                         onclick="dialogDownload()">
                                                     <div class="title-thumb"><?= $file["name"] ?></div>
                                                 </a>
                                             </li>
                                         <?php elseif ($extension == 'pdf') : ?>
                                             <li>
                                                 <a href="<?= base_url() . $file["src"] ?>">
-                                                    <img src="<?= base_url() . '/assets/app/img/pdf-icon.png' ?> " onclick="dialogDownload()">
+                                                    <img src="<?= base_url() . '/assets/app/img/pdf-icon.png' ?> "
+                                                         onclick="dialogDownload()">
                                                     <div class="title-thumb"><?= $file["name"] ?></div>
                                                 </a>
                                             </li>
                                         <?php else : ?>
                                             <li>
                                                 <a href="<?= base_url() . $file["src"] ?>">
-                                                    <img src="<?= base_url() . '/assets/app/img/document-icon.svg' ?> " style="padding: 8px" onclick="dialogDownload()">
+                                                    <img src="<?= base_url() . '/assets/app/img/document-icon.svg' ?> "
+                                                         style="padding: 8px" onclick="dialogDownload()">
                                                     <div class="title-thumb"><?= $file["name"] ?></div>
                                                 </a>
                                             </li>
@@ -138,7 +145,7 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                             <div id="input-materi" class="row">
                                 <div class="col-12 mb-3">
                                     <?= form_open('', array('id' => 'formhasil')) ?>
-                                    <label>Hasil <?=$judul?></label>
+                                    <label>Hasil <?= $judul ?></label>
                                     <textarea id="text-materi" name='isi_materi' class='editor'
                                               data-id="<?= $this->security->get_csrf_hash() ?>"
                                               data-name="<?= $this->security->get_csrf_token_name() ?>"
@@ -171,7 +178,8 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                                             <?= form_close(); ?>
                                         </div>
                                         <div class="card-footer">
-                                            <i class="fa fa-info-circle"></i> File yang akan ditambahkan harus diberi nama siswa!
+                                            <i class="fa fa-info-circle"></i> File yang akan ditambahkan harus diberi
+                                            nama siswa!
                                             <br>File yang bisa ditambahkan:
                                             <br>
                                             <table class="ml-4">

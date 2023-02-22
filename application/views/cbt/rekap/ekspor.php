@@ -9,24 +9,24 @@
 ?>
 
 <div class="content-wrapper bg-white pt-4">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
                 <div class="col-6">
-                    <a href="<?=base_url('cbtrekap')?>" type="button" class="btn btn-sm btn-danger float-right">
+                    <a href="<?= base_url('cbtrekap') ?>" type="button" class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-arrow-circle-left"></i><span
                                 class="d-none d-sm-inline-block ml-1">Kembali</span>
                     </a>
                 </div>
-			</div>
-		</div>
-	</section>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
+    <section class="content">
+        <div class="container-fluid">
             <div class="card card-default my-shadow mb-4">
                 <div class="card-header">
                     <h6 class="card-title"><?= $subjudul ?></h6>
@@ -111,7 +111,8 @@
                         <div class="row d-none" id="info">
                             <div class="col-12 mb-3">
                                 <div class="float-right">
-                                    <button type="button" id="rollback" class="btn btn-warning align-text-bottom d-none">
+                                    <button type="button" id="rollback"
+                                            class="btn btn-warning align-text-bottom d-none">
                                         <i class="fa fa-undo ml-1 mr-1"></i> Nilai Asli
                                     </button>
                                     <button type="button" id="convert" class="btn btn-danger align-text-bottom"
@@ -136,7 +137,8 @@
                             <table class="table" id="preview" style="font-size: 11pt; width: 100%;">
                             </table>
                         </div>
-                        <table class="table d-none" id="table-status" style="font-size: 11pt; width: 100%;" data-cols-width="5,15,35,10">
+                        <table class="table d-none" id="table-status" style="font-size: 11pt; width: 100%;"
+                               data-cols-width="5,15,35,10">
                         </table>
                     <?php endif; ?>
                 </div>
@@ -144,8 +146,8 @@
                     <div class="spinner-grow"></div>
                 </div>
             </div>
-		</div>
-	</section>
+        </div>
+    </section>
 </div>
 <div class="modal fade" id="perbaikanModal" tabindex="-1" role="dialog" aria-labelledby="perbaikanModalLabel"
      aria-hidden="true">
@@ -177,13 +179,15 @@
                 <div class="form-group row mt-4">
                     <label class="col-md-4 col-form-label">KKM</label>
                     <div class="col-md-8">
-                        <input type="text" id="kkm" class="form-control" name="kkm" value="70" placeholder="KKM" required>
+                        <input type="text" id="kkm" class="form-control" name="kkm" value="70" placeholder="KKM"
+                               required>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="btn-convert"><i class="fa fa-arrow-right"></i> Konversi
+                <button type="button" class="btn btn-primary" id="btn-convert"><i class="fa fa-arrow-right"></i>
+                    Konversi
                 </button>
             </div>
         </div>
@@ -214,6 +218,7 @@
 
     var jeniss = <?= json_encode($jenis) ?>;
     var kelass = <?= json_encode($kelas) ?>;
+
     function createPreview(data, convert) {
         if (convert) {
             $('#rollback').removeClass('d-none');
@@ -235,7 +240,7 @@
             var opsis = '<option value="0" selected="selected">Semua Mapel</option>';
             for (let i = 0; i < arrMapel.length; i++) {
                 var selected = mplSelected == arrMapel[i].id_mapel ? 'selected' : '';
-                opsis += '<option value="'+arrMapel[i].id_mapel+'" '+selected+'>'+arrMapel[i].kode+'</option>';
+                opsis += '<option value="' + arrMapel[i].id_mapel + '" ' + selected + '>' + arrMapel[i].kode + '</option>';
             }
             $('#opsi-mapel').html(opsis);
         }
@@ -244,43 +249,43 @@
         var rows = arrMapel.length > 1 ? '2' : '1';
         var namaMpl = arrMapel.length > 1 ? '' : arrMapel[0].nama_mapel;
 
-        var tinfo =  '<table><tr>' +
+        var tinfo = '<table><tr>' +
             '     <td colspan="2" style="width: 120px">Jenis Ujian</td>' +
-            '     <td colspan="5">: '+$("#jenis option:selected").text()+'</td>' +
+            '     <td colspan="5">: ' + $("#jenis option:selected").text() + '</td>' +
             ' </tr>' +
             ' <tr>' +
             '     <td colspan="2">Mata Pelajaran</td>' +
-            '     <td colspan="5">: '+mpl+'</td>' +
+            '     <td colspan="5">: ' + mpl + '</td>' +
             ' </tr>' +
             ' <tr>' +
             '     <td colspan="2">Kelas</td>' +
-            '     <td colspan="5">: '+$("#kelas option:selected").text()+'</td>' +
+            '     <td colspan="5">: ' + $("#kelas option:selected").text() + '</td>' +
             ' </tr>' +
             ' <tr></tr></table>';
         $('#for-word').prepend(tinfo);
 
         var thead = '<tr>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="width:40px; border: 1px solid black;border-collapse: collapse; text-align: center;font-weight: bold;background-color: lightgrey;">No.</th>'+
-            '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">No. Peserta</th>' +
-            '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nama</th>';
+            '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="width:40px; border: 1px solid black;border-collapse: collapse; text-align: center;font-weight: bold;background-color: lightgrey;">No.</th>' +
+            '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">No. Peserta</th>' +
+            '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nama</th>';
 
         if (rows > 1) {
-            thead +='<th colspan="'+arrMapel.length+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nilai</th>' +
-                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Jumlah</th>' +
-                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Rata-rata</th>' +
-                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Rank</th>' +
-                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Ket.</th>' +
+            thead += '<th colspan="' + arrMapel.length + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nilai</th>' +
+                '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Jumlah</th>' +
+                '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Rata-rata</th>' +
+                '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Rank</th>' +
+                '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Ket.</th>' +
                 '</tr>';
         } else {
-            thead +='<th colspan="'+arrMapel.length+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nilai</th>' +
-                '<th rowspan="'+rows+'" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Ket.</th>' +
+            thead += '<th colspan="' + arrMapel.length + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Nilai</th>' +
+                '<th rowspan="' + rows + '" class="text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">Ket.</th>' +
                 '</tr>';
         }
 
         if (arrMapel.length > 1) {
             thead += '<tr class="head">';
             for (let m = 0; m < arrMapel.length; m++) {
-                thead += '<th class="p-1 text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">'+arrMapel[m].kode+'</th>';
+                thead += '<th class="p-1 text-center align-middle" data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true" style="border: 1px solid black;border-collapse: collapse; text-align: center; font-weight: bold;background-color: lightgrey;">' + arrMapel[m].kode + '</th>';
             }
             thead += '</tr>';
         }
@@ -292,9 +297,9 @@
             var jumlahNilai = 0;
             var i = v.id_siswa;
             tbody += '<tr>' +
-                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">'+nos+'</td>' +
-                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">'+v.nomor_peserta+'</td>' +
-                '<td data-a-v="middle" data-a-h="left" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;">'+v.nama+'</td>';
+                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">' + nos + '</td>' +
+                '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">' + v.nomor_peserta + '</td>' +
+                '<td data-a-v="middle" data-a-h="left" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;">' + v.nama + '</td>';
             $.each(arrMapel, function (key, val) {
                 var nn = data.nilai[i][val.id_mapel];
                 var nilaiPg = nn == null ? 0 : parseFloat(nn.nilai_pg);
@@ -305,7 +310,7 @@
                 var skor = nilaiPg + nilaiPg2 + nilaiJod + nilaiIs + nilaiEs;
                 if (convert) {
                     if (skor > 0)
-                        skor = (((hasil_max - hasil_min) / 100)* decimalFixed(skor)) + hasil_min;
+                        skor = (((hasil_max - hasil_min) / 100) * decimalFixed(skor)) + hasil_min;
                 } else {
                     if (decimalFixed(skor) > nilai_max) {
                         nilai_max = decimalFixed(skor);
@@ -315,34 +320,34 @@
                     }
                 }
                 jumlahNilai += decimalFixed(skor);
-                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" class="text-success" style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b>'+ decimalFixed(skor) +'</b></td>';
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" class="text-success" style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b>' + decimalFixed(skor) + '</b></td>';
             });
 
             var rata2 = decimalFixed(jumlahNilai / arrMapel.length);
             var ketNilai = rata2 == kkm ? 'Tercapai' : (rata2 > kkm ? 'Terlampaui' : 'Remidi');
             if (arrMapel.length > 1) {
-                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">'+decimalFixed(jumlahNilai)+'</td>';
-                tbody += '<td class="total" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"><b>'+decimalFixed(jumlahNilai / arrMapel.length)+'</b></td>';
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">' + decimalFixed(jumlahNilai) + '</td>';
+                tbody += '<td class="total" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"><b>' + decimalFixed(jumlahNilai / arrMapel.length) + '</b></td>';
                 tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"></td>';
             }
-            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">'+ketNilai+'</td>';
+            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">' + ketNilai + '</td>';
             tbody += '</tr>';
-            nos +=1;
+            nos += 1;
         });
 
-        $('#preview').html('<thead>'+thead+'</thead>'+tbody);
+        $('#preview').html('<thead>' + thead + '</thead>' + tbody);
 
         var texcel = ' <tr>' +
             '     <td colspan="2" style="width: 120px">Jenis Ujian</td>' +
-            '     <td colspan="5">:'+$("#jenis option:selected").text()+'</td>' +
+            '     <td colspan="5">:' + $("#jenis option:selected").text() + '</td>' +
             ' </tr>' +
             ' <tr>' +
             '     <td colspan="2">Mata Pelajaran</td>' +
-            '     <td colspan="5">:'+mpl+'</td>' +
+            '     <td colspan="5">:' + mpl + '</td>' +
             ' </tr>' +
             ' <tr>' +
             '     <td colspan="2">Kelas</td>' +
-            '     <td colspan="5">:'+$("#kelas option:selected").text()+'</td>' +
+            '     <td colspan="5">:' + $("#kelas option:selected").text() + '</td>' +
             ' </tr>' +
             ' <tr></tr>';
         texcel += thead + tbody;
@@ -352,12 +357,21 @@
         $('#loading').addClass('d-none');
 
         $(".total")
-            .map(function(){return $(this).text()})
+            .map(function () {
+                return $(this).text()
+            })
             .get()
-            .sort(function(a,b){return a - b })
-            .reduce(function(a, b){ if (b != a[0]) a.unshift(b); return a }, [])
-            .forEach((v,i)=>{
-                $('.total').filter(function() {return $(this).text() == v;}).next().text(i + 1);
+            .sort(function (a, b) {
+                return a - b
+            })
+            .reduce(function (a, b) {
+                if (b != a[0]) a.unshift(b);
+                return a
+            }, [])
+            .forEach((v, i) => {
+                $('.total').filter(function () {
+                    return $(this).text() == v;
+                }).next().text(i + 1);
             });
 
         //console.log(nilai_max, nilai_min);
@@ -369,7 +383,7 @@
         $('#info').addClass('d-none');
         $('#loading').removeClass('d-none');
 
-        setTimeout(function() {
+        setTimeout(function () {
             $.ajax({
                 type: "GET",
                 url: url,
@@ -400,9 +414,9 @@
         opsiJenis.prepend("<option value='' selected='selected'>Pilih Jenis</option>");
 
         function reload(kls, jenis, thn, smt, mpl) {
-            var empty = jenis===''|| kls==='' || thn===''|| smt==='' || jenis==null|| kls==null || thn==null|| smt==null;
-            var dataPost = 'kelas='+kls+'&jenis='+jenis+'&tahun='+thn+'&smt='+smt+'&mapel='+mpl;
-            newData = 'kelas='+kls+'&jenis='+jenis+'&tahun='+thn+'&smt='+smt;
+            var empty = jenis === '' || kls === '' || thn === '' || smt === '' || jenis == null || kls == null || thn == null || smt == null;
+            var dataPost = 'kelas=' + kls + '&jenis=' + jenis + '&tahun=' + thn + '&smt=' + smt + '&mapel=' + mpl;
+            newData = 'kelas=' + kls + '&jenis=' + jenis + '&tahun=' + thn + '&smt=' + smt;
 
             console.log(dataPost);
             if (!empty) {
@@ -419,7 +433,7 @@
             if (jeniss[thn][smt] != null) {
                 opsiJenis.append("<option value='' selected='selected'>Pilih Jenis</option>");
                 $.each(jeniss[thn][smt], function (k, j) {
-                    opsiJenis.append("<option value='"+k+"'>"+j+"</option>")
+                    opsiJenis.append("<option value='" + k + "'>" + j + "</option>")
                 });
             } else {
                 opsiJenis.append("<option value='' selected='selected'>Tidak ada penilaian</option>");
@@ -431,14 +445,14 @@
             if (jenis != null && kelass[thn][smt][jenis] != null) {
                 opsiKelas.append("<option value='' selected='selected'>Pilih Kelas</option>");
                 $.each(kelass[thn][smt][jenis], function (k, j) {
-                    opsiKelas.append("<option value='"+k+"'>"+j+"</option>")
+                    opsiKelas.append("<option value='" + k + "'>" + j + "</option>")
                 });
             } else {
                 opsiKelas.append("<option value='' selected='selected'>Tidak ada kelas</option>");
             }
         }
 
-        opsiTahun.change(function(){
+        opsiTahun.change(function () {
             $("#opsi-mapel select").val("0");
             changeJenis($(this).val(), opsiSmt.val())
         });

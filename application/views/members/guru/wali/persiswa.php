@@ -8,31 +8,33 @@
 ?>
 
 <div class="content-wrapper bg-white">
-	<section class="content-header">
-		<div class="container-fluid">
+    <section class="content-header">
+        <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-6">
                     <h1><?= $judul ?></h1>
                 </div>
                 <div class="col-6">
                     <button onclick="window.history.back();" type="button" class="btn btn-sm btn-danger float-right">
-                        <i class="fas fa-arrow-circle-left"></i><span class="d-none d-sm-inline-block ml-1">Kembali</span>
+                        <i class="fas fa-arrow-circle-left"></i><span
+                                class="d-none d-sm-inline-block ml-1">Kembali</span>
                     </button>
                 </div>
             </div>
-		</div>
-	</section>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card card-default my-shadow mb-4">
-				<div class="card-header">
-					<h6 class="card-title">Catatan Untuk <b><?=$siswa->nama?></b></h6>
-                    <button type="button" class="btn btn-sm btn-primary card-tools" data-toggle="modal" data-target="#daftarModal">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default my-shadow mb-4">
+                <div class="card-header">
+                    <h6 class="card-title">Catatan Untuk <b><?= $siswa->nama ?></b></h6>
+                    <button type="button" class="btn btn-sm btn-primary card-tools" data-toggle="modal"
+                            data-target="#daftarModal">
                         <i class="fa fa-plus"></i> <span class="ml-1">Buat Catatan</span>
                     </button>
-				</div>
-				<div class="card-body">
+                </div>
+                <div class="card-body">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
@@ -50,7 +52,7 @@
                             foreach ($catatan_siswa as $key => $value) : ?>
                                 <tr>
                                     <td class="text-center">
-                                        <?= ($key+1) ?>
+                                        <?= ($key + 1) ?>
                                     </td>
                                     <td class="text-center">
                                         <?= $value->tgl ?>
@@ -62,7 +64,8 @@
                                         <?= $value->text ?>
                                     </td>
                                     <td width="100" class="text-center">
-                                        <button type="button" class="btn btn-sm btn-danger" data-id="<?=$value->id_catatan?>" onclick="hapus(this)">
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                data-id="<?= $value->id_catatan ?>" onclick="hapus(this)">
                                             <i class="fa fa-trash"></i> <span class="ml-1">Hapus</span>
                                         </button>
                                     </td>
@@ -76,10 +79,10 @@
                         <?php endif; ?>
                         </tbody>
                     </table>
-				</div>
-			</div>
-		</div>
-	</section>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 <div class="modal fade" id="daftarModal" tabindex="-1" role="dialog" aria-labelledby="daftarLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -98,7 +101,7 @@
                             <div class="form-group">
                                 <label>Jenis</label>
                                 <?php
-                                $arrLevel = [1=>'Saran',2=>'Teguran',3=>'Peringatan',4=>'Sangsi'];
+                                $arrLevel = [1 => 'Saran', 2 => 'Teguran', 3 => 'Peringatan', 4 => 'Sangsi'];
                                 echo form_dropdown(
                                     'level',
                                     $arrLevel,
@@ -110,14 +113,15 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label>Catatan</label>
-                                <textarea style="min-height: 200px" class="form-control" name="text" id="input_text" required></textarea>
+                                <textarea style="min-height: 200px" class="form-control" name="text" id="input_text"
+                                          required></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="id_siswa" value="<?=$siswa->id_siswa?>">
+                <input type="hidden" name="id_siswa" value="<?= $siswa->id_siswa ?>">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Simpan
@@ -131,7 +135,7 @@
 <script>
     var idSiswa = <?=$siswa->id_siswa?>;
     var idKelas = <?=$id_kelas?>;
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $('#daftarModal').on('show.bs.modal', function (e) {
             $('#daftarLabel').text('Catatan Untuk Kelas ');
@@ -162,7 +166,7 @@
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                window.location.href = base_url +'walicatatan/siswa?id_siswa='+idSiswa+'&id_kelas='+ idKelas;
+                                window.location.href = base_url + 'walicatatan/siswa?id_siswa=' + idSiswa + '&id_kelas=' + idKelas;
                             }
                         });
                     } else {
@@ -211,7 +215,7 @@
                     success: function (respon) {
                         console.log(respon);
                         if (respon) {
-                            window.location.href = base_url +'walicatatan/siswa?id_siswa='+idSiswa+'&id_kelas='+ idKelas;
+                            window.location.href = base_url + 'walicatatan/siswa?id_siswa=' + idSiswa + '&id_kelas=' + idKelas;
                         } else {
                             swal.fire({
                                 title: "Gagal",

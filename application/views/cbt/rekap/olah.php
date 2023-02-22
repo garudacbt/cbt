@@ -6,7 +6,8 @@
  * Time: 17:20
  */
 
-function unserialize_with_key($serialized) {
+function unserialize_with_key($serialized)
+{
     $arr = unserialize($serialized);
     $result = [];
     foreach ($arr as $value) {
@@ -16,7 +17,7 @@ function unserialize_with_key($serialized) {
 }
 
 if (!isset($rekap)) {
-$rekap = json_decode(json_encode(['kode_jenis'=>'',  'nama_mapel'=> '']));
+    $rekap = json_decode(json_encode(['kode_jenis' => '', 'nama_mapel' => '']));
 }
 
 $XA = isset($convert) ? $convert['xa'] : 0;
@@ -24,10 +25,12 @@ $XB = isset($convert) ? $convert['xb'] : 20;
 $YA = isset($convert) ? $convert['ya'] : 100;
 $YB = isset($convert) ? $convert['yb'] : 60;
 
-$colWidth ='';
-function decimalFixed($num) {
+$colWidth = '';
+function decimalFixed($num)
+{
     return round(($num * 100) / 100, 2);
 }
+
 ?>
 
 <div class="content-wrapper bg-white">
@@ -38,7 +41,7 @@ function decimalFixed($num) {
                     <h1><?= $judul ?></h1>
                 </div>
                 <div class="col-6">
-                    <a href="<?=base_url('cbtrekap')?>" type="button" class="btn btn-sm btn-danger float-right">
+                    <a href="<?= base_url('cbtrekap') ?>" type="button" class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-arrow-circle-left"></i><span
                                 class="d-none d-sm-inline-block ml-1">Kembali</span>
                     </a>
@@ -68,10 +71,10 @@ function decimalFixed($num) {
                                 </div>
                                 <?php
                                 $disable = $kelas ? '' : 'disabled="disabled"';
-                                echo form_dropdown('kelas', $kelas, $kelas_selected, 'id="kelas" class="form-control" '.$disable); ?>
+                                echo form_dropdown('kelas', $kelas, $kelas_selected, 'id="kelas" class="form-control" ' . $disable); ?>
                             </div>
                         </div>
-                        <div class="col-9 <?= $kelas ? 'd-none' : ''?>">
+                        <div class="col-9 <?= $kelas ? 'd-none' : '' ?>">
                             <div class="alert alert-default-warning shadow align-content-center" role="alert">
                                 Tidak bisa ditampilkan, Coba lagi <b>ULANGI REKAP</b> di halaman REKAP
                             </div>
@@ -122,7 +125,8 @@ function decimalFixed($num) {
 
                         <div class="row">
                             <div class="col-12 overflow-auto">
-                                <table class="table" id="table-status" data-cols-width="<?= $colWidth ?>" style="white-space: nowrap;">
+                                <table class="table" id="table-status" data-cols-width="<?= $colWidth ?>"
+                                       style="white-space: nowrap;">
                                     <tr>
                                         <td colspan="2" style="width: 120px">Soal</td>
                                         <td colspan="2"><b><?= $rekap->bank_kode ?></b></td>
@@ -139,7 +143,11 @@ function decimalFixed($num) {
                                         <td colspan="2">Kelas</td>
                                         <td colspan="2"><b><?= $nama_kelas ?></b></td>
                                         <td colspan="8">Waktu Pelaksanaan</td>
-                                        <td colspan="12"><b><?= singkat_tanggal(date('d M Y', strtotime($rekap->tgl_mulai))) ?></b> s/d <b><?= singkat_tanggal(date('d M Y', strtotime($rekap->tgl_selesai))) ?></b></td>
+                                        <td colspan="12">
+                                            <b><?= singkat_tanggal(date('d M Y', strtotime($rekap->tgl_mulai))) ?></b>
+                                            s/d
+                                            <b><?= singkat_tanggal(date('d M Y', strtotime($rekap->tgl_selesai))) ?></b>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">Jumlah Soal</td>
@@ -155,41 +163,50 @@ function decimalFixed($num) {
                                         ?>
                                         <tr>
                                             <th rowspan="2" class="text-center align-middle bg-blue" width="40"
-                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center"
+                                                data-b-a-s="thin"
                                                 data-f-bold="true"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                                 No.
                                             </th>
                                             <th rowspan="2" class="text-center align-middle bg-blue" width="100"
-                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center"
+                                                data-b-a-s="thin"
                                                 data-f-bold="true"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center; padding: 0 20px 0 20px;">
                                                 No. Peserta
                                             </th>
-                                            <th rowspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                            <th rowspan="2" class="text-center align-middle bg-blue"
+                                                data-fill-color="b8daff"
                                                 data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                                 Nama
                                             </th>
-                                            <?php if ($rekap->tampil_pg > 0) :?>
-                                            <th id="no-soal-tile" colspan="<?= $rekap->tampil_pg ?>" class="text-center align-middle bg-blue"
-                                                data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                                data-f-bold="true" data-exclude="false"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                Nomor Soal
-                                            </th>
-                                            <th rowspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                PG Benar
-                                            </th>
+                                            <?php if ($rekap->tampil_pg > 0) : ?>
+                                                <th id="no-soal-tile" colspan="<?= $rekap->tampil_pg ?>"
+                                                    class="text-center align-middle bg-blue"
+                                                    data-fill-color="b8daff" data-a-v="middle" data-a-h="center"
+                                                    data-b-a-s="thin"
+                                                    data-f-bold="true" data-exclude="false"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    Nomor Soal
+                                                </th>
+                                                <th rowspan="2" class="text-center align-middle bg-blue"
+                                                    data-fill-color="b8daff"
+                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                    data-f-bold="true"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    PG Benar
+                                                </th>
                                             <?php endif; ?>
-                                            <th colspan="<?= count($cols) ?>" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                            <th colspan="<?= count($cols) ?>" class="text-center align-middle bg-blue"
+                                                data-fill-color="b8daff"
                                                 data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                                 SKOR
                                             </th>
-                                            <th colspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                            <th colspan="2" class="text-center align-middle bg-blue"
+                                                data-fill-color="b8daff"
                                                 data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                                 Nilai
@@ -197,46 +214,55 @@ function decimalFixed($num) {
                                         </tr>
                                         <tr>
                                             <?php if ($rekap->tampil_pg > 0) :
-                                            for ($s = 0; $s < $rekap->tampil_pg; $s++) : ?>
-                                                <th class="text-center align-middle bg-blue p-1 no-soal" data-fill-color="b8daff"
-                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                    data-exclude="false" style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                    <?= $s + 1 ?>
+                                                for ($s = 0; $s < $rekap->tampil_pg; $s++) : ?>
+                                                    <th class="text-center align-middle bg-blue p-1 no-soal"
+                                                        data-fill-color="b8daff"
+                                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                        data-f-bold="true"
+                                                        data-exclude="false"
+                                                        style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                        <?= $s + 1 ?>
+                                                    </th>
+                                                <?php endfor; ?>
+                                                <th class="text-center align-middle bg-blue p-1"
+                                                    data-fill-color="b8daff"
+                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                    data-f-bold="true"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    PG
                                                 </th>
-                                            <?php endfor; ?>
-                                            <th class="text-center align-middle bg-blue p-1" data-fill-color="b8daff"
-                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                PG
-                                            </th>
                                             <?php endif;
                                             if ($rekap->soal_kompleks->tampil > 0) :?>
-                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                PGK
-                                            </th>
+                                                <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                    data-f-bold="true"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    PGK
+                                                </th>
                                             <?php endif;
                                             if ($rekap->soal_jodohkan->tampil > 0) :?>
-                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                JOD
-                                            </th>
+                                                <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                    data-f-bold="true"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    JOD
+                                                </th>
                                             <?php endif;
                                             if ($rekap->soal_isian->tampil > 0) :?>
-                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                IS
-                                            </th>
+                                                <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                    data-f-bold="true"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    IS
+                                                </th>
                                             <?php endif;
                                             if ($rekap->soal_essai->tampil > 0) :?>
-                                            <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                                data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                ES
-                                            </th>
+                                                <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                                    data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                    data-f-bold="true"
+                                                    style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                                    ES
+                                                </th>
                                             <?php endif; ?>
                                             <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
                                                 data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
@@ -260,7 +286,7 @@ function decimalFixed($num) {
                                             $nilai_convert = decimalFixed($total);
                                             if (isset($convert)) {
                                                 //((YA-YB)/(XA-XB))*(NX-XB)+YB
-                                                $nilai_convert = decimalFixed(((($YA-$YB)/100)* $nilai_convert) + $YB);
+                                                $nilai_convert = decimalFixed(((($YA - $YB) / 100) * $nilai_convert) + $YB);
                                             } else {
                                                 if ($nilai_convert > $XA) {
                                                     $XA = $nilai_convert;
@@ -295,46 +321,48 @@ function decimalFixed($num) {
                                                             if (strtoupper($benar) == strtoupper($jwb_pgs[$key])) {
                                                                 $bg1 = '#00E676';
                                                                 $bg2 = 'data-fill-color="00E676"';
-                                                                $benar_pg ++;
+                                                                $benar_pg++;
                                                             } else {
-                                                                $salah_pg ++;
+                                                                $salah_pg++;
                                                             }
                                                         }
                                                         ?>
-                                                        <td class="no-soal-siswa" <?= $bg2 ?> data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                                            data-exclude="false" style="background-color: <?= $bg1 ?>;border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $jwbn ?></td>
+                                                        <td class="no-soal-siswa" <?= $bg2 ?> data-a-v="middle"
+                                                            data-a-h="center" data-b-a-s="thin"
+                                                            data-exclude="false"
+                                                            style="background-color: <?= $bg1 ?>;border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $jwbn ?></td>
                                                     <?php endforeach; ?>
-                                                <td data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $benar_pg ?></td>
-                                                <td class="text-center text-success align-middle" data-a-v="middle"
-                                                    data-a-h="center" data-b-a-s="thin"
-                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                                    <b><?= $siswa->nilai_pg ?></b></td>
-                                            <?php endif;
-                                            if ($rekap->soal_kompleks->tampil > 0) :?>
-                                                <td class="text-center text-success align-middle" data-a-v="middle"
-                                                    data-a-h="center" data-b-a-s="thin"
-                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                                    <b><?= $siswa->soal_kompleks->nilai ?></b></td>
-                                            <?php endif;
-                                            if ($rekap->soal_jodohkan->tampil > 0) :?>
-                                                <td class="text-center text-success align-middle" data-a-v="middle"
-                                                    data-a-h="center" data-b-a-s="thin"
-                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                                    <b><?= $siswa->soal_jodohkan->nilai ?></b></td>
-                                            <?php endif;
-                                            if ($rekap->soal_isian->tampil > 0) :?>
-                                                <td class="text-center text-success align-middle" data-a-v="middle"
-                                                    data-a-h="center" data-b-a-s="thin"
-                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                                    <b><?= $siswa->soal_isian->nilai ?></b></td>
-                                            <?php endif;
-                                            if ($rekap->soal_essai->tampil > 0) :?>
-                                                <td class="text-center text-success align-middle" data-a-v="middle"
-                                                    data-a-h="center" data-b-a-s="thin"
-                                                    style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
-                                                    <b><?= $siswa->soal_essai->nilai ?></b></td>
-                                            <?php endif; ?>
+                                                    <td data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;"><?= $benar_pg ?></td>
+                                                    <td class="text-center text-success align-middle" data-a-v="middle"
+                                                        data-a-h="center" data-b-a-s="thin"
+                                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                        <b><?= $siswa->nilai_pg ?></b></td>
+                                                <?php endif;
+                                                if ($rekap->soal_kompleks->tampil > 0) :?>
+                                                    <td class="text-center text-success align-middle" data-a-v="middle"
+                                                        data-a-h="center" data-b-a-s="thin"
+                                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                        <b><?= $siswa->soal_kompleks->nilai ?></b></td>
+                                                <?php endif;
+                                                if ($rekap->soal_jodohkan->tampil > 0) :?>
+                                                    <td class="text-center text-success align-middle" data-a-v="middle"
+                                                        data-a-h="center" data-b-a-s="thin"
+                                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                        <b><?= $siswa->soal_jodohkan->nilai ?></b></td>
+                                                <?php endif;
+                                                if ($rekap->soal_isian->tampil > 0) :?>
+                                                    <td class="text-center text-success align-middle" data-a-v="middle"
+                                                        data-a-h="center" data-b-a-s="thin"
+                                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                        <b><?= $siswa->soal_isian->nilai ?></b></td>
+                                                <?php endif;
+                                                if ($rekap->soal_essai->tampil > 0) :?>
+                                                    <td class="text-center text-success align-middle" data-a-v="middle"
+                                                        data-a-h="center" data-b-a-s="thin"
+                                                        style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
+                                                        <b><?= $siswa->soal_essai->nilai ?></b></td>
+                                                <?php endif; ?>
                                                 <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
                                                     data-b-a-s="thin"
                                                     style="border: 1px solid grey;border-collapse: collapse; text-align: center;">
@@ -345,7 +373,7 @@ function decimalFixed($num) {
                                                     <b><?= $nilai_convert ?></b></td>
                                             </tr>
 
-                                            <?php $no++; endforeach; endif;?>
+                                            <?php $no++; endforeach; endif; ?>
                                 </table>
                             </div>
                         </div>
@@ -390,13 +418,13 @@ function decimalFixed($num) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" id="convert">Katrol  <i class="fa fa-arrow-right"></i>
+                <button type="submit" class="btn btn-primary" id="convert">Katrol <i class="fa fa-arrow-right"></i>
                 </button>
             </div>
         </div>
     </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
@@ -490,9 +518,9 @@ function decimalFixed($num) {
             $(".no-soal-siswa").toggleClass('d-none');
 
             var exluded = $('#no-soal-tile').attr('data-exclude') == 'true';
-            $('#no-soal-tile').attr('data-exclude', ''+!exluded);
-            $('.no-soal').attr('data-exclude', ''+!exluded);
-            $('.no-soal-siswa').attr('data-exclude', ''+!exluded);
+            $('#no-soal-tile').attr('data-exclude', '' + !exluded);
+            $('.no-soal').attr('data-exclude', '' + !exluded);
+            $('.no-soal-siswa').attr('data-exclude', '' + !exluded);
 
             var width = $('#table-status').attr('data-cols-width');
             console.log('attr', width);

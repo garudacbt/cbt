@@ -32,11 +32,12 @@
                             <i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
                         </button>
                         <?php $disable = $jumlah_lulus > 0 ? '' : 'disabled="disabled"'; ?>
-                        <button type="button" class="btn btn-sm btn-primary" onclick="generate()" <?=$disable?>>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="generate()" <?= $disable ?>>
                             <i class="fa fa-gear"></i>
                             <span class="d-none d-sm-inline-block ml-1">Generate Alumni</span>
                         </button>
-                        <button type="button" data-toggle="modal" data-target="#createAlumniModal" class="btn btn-sm btn-primary">
+                        <button type="button" data-toggle="modal" data-target="#createAlumniModal"
+                                class="btn btn-sm btn-primary">
                             <i class="fas fa-plus"></i>
                             <span class="d-none d-sm-inline-block ml-1">Tambah Alumni</span>
                         </button>
@@ -53,12 +54,13 @@
                 //$idTpActive = $tp[$searchId];
                 if ($searchId > 0) :
                     $tpBefore = $tp[$searchId - 1];
-                if ($jumlah_lulus > 0) :?>
-                    <div class="alert alert-default-warning align-content-center" role="alert">
-                        Ada <?= $jumlah_lulus ?> Siswa yang LULUS pada Tahun Pelajaran <?= $tpBefore->tahun ?>,
-                        silahkan klik tombol <b><i class="fa fa-gear"></i> Generate Alumni</b> untuk memindahkan siswa lulus ke data alumni.
-                    </div>
-                <?php endif; endif; ?>
+                    if ($jumlah_lulus > 0) :?>
+                        <div class="alert alert-default-warning align-content-center" role="alert">
+                            Ada <?= $jumlah_lulus ?> Siswa yang LULUS pada Tahun Pelajaran <?= $tpBefore->tahun ?>,
+                            silahkan klik tombol <b><i class="fa fa-gear"></i> Generate Alumni</b> untuk memindahkan
+                            siswa lulus ke data alumni.
+                        </div>
+                    <?php endif; endif; ?>
                 <div class="card-body">
                     <div class="alert alert-default-info align-content-center" role="alert">
                         <ul>
@@ -66,13 +68,15 @@
                             $sebelumnya = $searchId > 0 ? $tpBefore->tahun : "sebelumnya";
                             ?>
                             <li>
-                                <b><i class="fa fa-gear"></i> Generate Alumni</b> untuk membuat data alumni secara otomatis berdasarkan hasil RAPOR tahun <?= $sebelumnya ?> pada semester GENAP
+                                <b><i class="fa fa-gear"></i> Generate Alumni</b> untuk membuat data alumni secara
+                                otomatis berdasarkan hasil RAPOR tahun <?= $sebelumnya ?> pada semester GENAP
                             </li>
                             <li>
                                 <b><i class="fas fa-plus"></i> Tambah Alumni</b> untuk menambah data alumni satu persatu
                             </li>
                             <li>
-                                <b><i class="fas fa-upload"></i> Import</b> untuk mengimpor data dari template file Excel yang disediakan
+                                <b><i class="fas fa-upload"></i> Import</b> untuk mengimpor data dari template file
+                                Excel yang disediakan
                             </li>
                         </ul>
                     </div>
@@ -84,13 +88,13 @@
                             <select name="tahun" id="opsi-tahun" class="form-control">
                                 <?php
                                 if (count($tahun_lulus) > 0) :
-                                foreach ($tahun_lulus as $key=>$value) :
+                                    foreach ($tahun_lulus as $key => $value) :
                                         $selected = $key == $tahun_selected ? 'selected="selected"' : ''; ?>
                                         <option value="<?= $key ?>" <?= $selected ?>><?= $value ?></option>
                                     <?php endforeach;
-                                    else: ?>
-                                        <option value="0" disabled>Tidak ada data alumni</option>
-                                    <?php endif;?>
+                                else: ?>
+                                    <option value="0" disabled>Tidak ada data alumni</option>
+                                <?php endif; ?>
                             </select>
                         </div>
                         <div class="col-md-3 col-6 mb-2">
@@ -103,10 +107,10 @@
                                     <?php endforeach;
                                 else: ?>
                                     <option value="0" disabled>Tidak ada data alumni</option>
-                                <?php endif;?>
+                                <?php endif; ?>
                             </select>
                         </div>
-                   </div>
+                    </div>
                     <?php
                     if (isset($alumnis)) :
                         //echo '<pre>';
@@ -142,7 +146,8 @@
                                             <td class="text-center align-middle"><?= $alumni->tahun_lulus ?></td>
                                             <td class="text-center align-middle"><?= $alumni->no_ijazah ?></td>
                                             <td class="text-center">
-                                                <a class="btn btn-xs btn-warning" href="<?=base_url().'dataalumni/edit?id='.$alumni->id_siswa?>">
+                                                <a class="btn btn-xs btn-warning"
+                                                   href="<?= base_url() . 'dataalumni/edit?id=' . $alumni->id_siswa ?>">
                                                     <i class="fa fa-pencil-alt"></i> Edit
                                                 </a>
                                             </td>
@@ -159,8 +164,9 @@
     </section>
 </div>
 
-<?=form_open('', array('id'=>'formalumni'));?>
-<div class="modal fade" id="createAlumniModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+<?= form_open('', array('id' => 'formalumni')); ?>
+<div class="modal fade" id="createAlumniModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -179,7 +185,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input id="nama_alumni" type="text" class="form-control" name="nama_alumni" placeholder="Nama Alumni" required>
+                            <input id="nama_alumni" type="text" class="form-control" name="nama_alumni"
+                                   placeholder="Nama Alumni" required>
                         </div>
                     </div>
                 </div>
@@ -218,7 +225,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
                             </div>
-                            <select class="form-control" id="kelas_awal" data-placeholder="Jenis Kelamin" name="jenis_kelamin" required>
+                            <select class="form-control" id="kelas_awal" data-placeholder="Jenis Kelamin"
+                                    name="jenis_kelamin" required>
                                 <option value="">Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-laki</option>
                                 <option value="P">Perempuan</option>
@@ -235,7 +243,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-calendar-check"></i></span>
                             </div>
-                            <input id="tahun-lulus" type="number" class="form-control" name="tahun_lulus" placeholder="Tahun Lulus" required>
+                            <input id="tahun-lulus" type="number" class="form-control" name="tahun_lulus"
+                                   placeholder="Tahun Lulus" required>
                         </div>
                     </div>
                 </div>
@@ -248,7 +257,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-school"></i></span>
                             </div>
-                            <input id="kelas-akhir" class="form-control" name="kelas_akhir" placeholder="Kelas Akhir" required>
+                            <input id="kelas-akhir" class="form-control" name="kelas_akhir" placeholder="Kelas Akhir"
+                                   required>
                         </div>
                     </div>
                 </div>
@@ -261,7 +271,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                             </div>
-                            <input type="text" id="nomor-ijazah" class="form-control" name="no_ijazah" placeholder="Nomor Ijazah">
+                            <input type="text" id="nomor-ijazah" class="form-control" name="no_ijazah"
+                                   placeholder="Nomor Ijazah">
                         </div>
                     </div>
                 </div>
@@ -279,7 +290,7 @@
         </div>
     </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
 <script>
     var thnSelected = '<?= isset($tahun_selected) ? $tahun_selected : '';?>';

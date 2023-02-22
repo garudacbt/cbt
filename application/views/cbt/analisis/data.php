@@ -95,7 +95,8 @@
                                                 <tr>
                                                     <th class="text-center" style="width: 40px">NO.</th>
                                                     <th>SOAL</th>
-                                                    <th colspan="2" class="text-center" style="width: 300px">ANALISA</th>
+                                                    <th colspan="2" class="text-center" style="width: 300px">ANALISA
+                                                    </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -215,7 +216,7 @@
                             </div>
                         <?php endif;
                         if (isset($soals[2])) : ?>
-                        <!-- Todo analisis pg kompleks
+                            <!-- Todo analisis pg kompleks
                             <div class="card card-success col-md-12 p-0">
                                 <div class="card-header">
                                     <h3 class="card-title">Soal Pilihan Ganda Kompleks</h3>
@@ -241,18 +242,18 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $no = 1;
-                                        foreach ($soals[2] as $soal) :
-                                            $soal->opsi_a = @unserialize($soal->opsi_a);
-                                            $soal->jawaban = @unserialize($soal->jawaban);
-                                            ?>
+                            $no = 1;
+                            foreach ($soals[2] as $soal) :
+                                $soal->opsi_a = @unserialize($soal->opsi_a);
+                                $soal->jawaban = @unserialize($soal->jawaban);
+                                ?>
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td>
                                                     <?= $soal->soal ?>
                                                     <br>
                                                     <ol type="A">
-                                                        <?php foreach ($soal->opsi_a as $abc => $opsi) :?>
+                                                        <?php foreach ($soal->opsi_a as $abc => $opsi) : ?>
                                                             <li>
                                                                 <?= $opsi ?>
                                                             </li>
@@ -273,15 +274,15 @@
                             -->
                         <?php endif;
                         if (isset($soals[3])) :
-                        foreach ($soals[2] as $soal) :
-                            $soal->jawaban_siswa = @unserialize($soal->jawaban_siswa);
-                            $soal->jawaban_benar = @unserialize($soal->jawaban_benar);
+                            foreach ($soals[2] as $soal) :
+                                $soal->jawaban_siswa = @unserialize($soal->jawaban_siswa);
+                                $soal->jawaban_benar = @unserialize($soal->jawaban_benar);
 
-                            $soal->jawaban_siswa = json_decode(json_encode($soal->jawaban_siswa));
-                            $soal->jawaban_benar = json_decode(json_encode($soal->jawaban_benar));
-                            ?>
-                            <!-- Todo analisis menjodohkan -->
-                        <?php endforeach; endif;
+                                $soal->jawaban_siswa = json_decode(json_encode($soal->jawaban_siswa));
+                                $soal->jawaban_benar = json_decode(json_encode($soal->jawaban_benar));
+                                ?>
+                                <!-- Todo analisis menjodohkan -->
+                            <?php endforeach; endif;
                         if (isset($soals[4])) : ?>
                             <!-- Todo analisis isian singkat -->
                         <?php endif;

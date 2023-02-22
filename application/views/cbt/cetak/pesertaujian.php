@@ -53,26 +53,26 @@
                                     <span class="input-group-text">Level Kelas</span>
                                 </div>
                                 <?php
-                                $arrLevel[0] = 'Pilih Level Kelas';
-                                if ($setting->jenjang == "1") {
-                                    for ($i = 1; $i < 7; $i++) {
-                                        $arrLevel[$i] = $i;
-                                    }
-                                } else if ($setting->jenjang == "2") {
-                                    for ($j = 7; $j < 10; $j++) {
-                                        $arrLevel[$j] = $j;
-                                    }
-                                } else {
-                                    for ($k = 10; $k < 13; $k++) {
-                                        $arrLevel[$k] = $k;
-                                    }
-                                }
-                                echo form_dropdown(
-                                    'level',
-                                    $arrLevel,
-                                    null,
-                                    'id="level" class="form-control"'
-                                ); ?>
+                        $arrLevel[0] = 'Pilih Level Kelas';
+                        if ($setting->jenjang == "1") {
+                            for ($i = 1; $i < 7; $i++) {
+                                $arrLevel[$i] = $i;
+                            }
+                        } else if ($setting->jenjang == "2") {
+                            for ($j = 7; $j < 10; $j++) {
+                                $arrLevel[$j] = $j;
+                            }
+                        } else {
+                            for ($k = 10; $k < 13; $k++) {
+                                $arrLevel[$k] = $k;
+                            }
+                        }
+                        echo form_dropdown(
+                            'level',
+                            $arrLevel,
+                            null,
+                            'id="level" class="form-control"'
+                        ); ?>
                             </div>
                         </div>
                         -->
@@ -139,17 +139,17 @@
                                                 <table>
                                                     <tr>
                                                         <td style="width: 100px">RUANG</td>
-                                                        <td> : </td>
+                                                        <td> :</td>
                                                         <td> <?= $sis[0]->nama_ruang ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>SESI</td>
-                                                        <td> : </td>
-                                                        <td><?=$nama_sesi?></td>
+                                                        <td> :</td>
+                                                        <td><?= $nama_sesi ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>WAKTU</td>
-                                                        <td> : </td>
+                                                        <td> :</td>
                                                         <td>
                                                             <?= date('H:i', strtotime($mulai_sesi)) ?>
                                                             sampai
@@ -196,7 +196,8 @@
                                         </div>
                                         <div style="page-break-after: always"></div>
                                     <?php endforeach; ?>
-                                <?php endforeach; else:
+                                <?php endforeach;
+                            else:
                                 foreach ($siswa as $kelas => $sis): ?>
                                     <div class="border my-shadow mb-3 p-4 bg-white">
                                         <div class="pt-4"
@@ -231,21 +232,21 @@
                                             <table>
                                                 <tr>
                                                     <td style="width: 100px">Kelas</td>
-                                                    <td> : </td>
+                                                    <td> :</td>
                                                     <td> <?= $sis[0]->nama_kelas ?></td>
                                                 </tr>
-                                                <?php foreach ($sesis as $sss) :?>
-                                                <tr>
-                                                    <td><?=$sss->nama_sesi?></td>
-                                                    <td> : </td>
-                                                    <td>
-                                                        <?php
-                                                        //var_dump($sss);
-                                                        ?>
-                                                        <?= date('H:i', strtotime($sss->waktu_mulai)) ?>
-                                                        sampai
-                                                        <?= date('H:i', strtotime($sss->waktu_akhir)) ?>
-                                                </tr>
+                                                <?php foreach ($sesis as $sss) : ?>
+                                                    <tr>
+                                                        <td><?= $sss->nama_sesi ?></td>
+                                                        <td> :</td>
+                                                        <td>
+                                                            <?php
+                                                            //var_dump($sss);
+                                                            ?>
+                                                            <?= date('H:i', strtotime($sss->waktu_mulai)) ?>
+                                                            sampai
+                                                            <?= date('H:i', strtotime($sss->waktu_akhir)) ?>
+                                                    </tr>
                                                 <?php endforeach; ?>
                                             </table>
                                             <table style="width: 100%; border: 1px solid black;border-collapse: collapse; font-size: 10pt">
@@ -286,7 +287,7 @@
                                         </div>
                                     </div>
                                     <div style="page-break-after: always"></div>
-                            <?php endforeach; endif; ?>
+                                <?php endforeach; endif; ?>
                         </div>
                     </div>
                     <div class="overlay d-none" id="loading">

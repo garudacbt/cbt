@@ -8,111 +8,117 @@
 ?>
 
 <div class="content-wrapper bg-white">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1><?= $judul ?></h1>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><?= $judul ?></h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="card card-default my-shadow mb-4">
-				<div class="card-header">
-					<h6 class="card-title"><?= $subjudul ?></h6>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default my-shadow mb-4">
+                <div class="card-header">
+                    <h6 class="card-title"><?= $subjudul ?></h6>
                     <button class="card-tools btn btn-default btn-sm mr-2 btn-toggle" data-toggle="modal"
                             data-target="#infoModal"><i class="fas fa-info-circle mr-1"></i> Info Error
                     </button>
                 </div>
-				<div class="card-body">
-					<div class="row">
+                <div class="card-body">
+                    <div class="row">
                         <div class="col-12 mb-3">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-center">TOKEN</span>
                                 </div>
-                                <input id="token-view" class="form-control text-bold text-center" value="<?=isset($token) ? $token->token : '- - - - - -'?>" readonly="readonly" />
+                                <input id="token-view" class="form-control text-bold text-center"
+                                       value="<?= isset($token) ? $token->token : '- - - - - -' ?>"
+                                       readonly="readonly"/>
                                 <div class="input-group-append">
                                     <span id="interval" class="input-group-text text-xs">-- : --</span>
                                 </div>
                             </div>
                         </div>
-						<div class="col-12 col-md-6 mb-3">
-							<div class="input-group">
-								<div class="input-group-prepend w-30">
-									<span class="input-group-text">Jadwal</span>
-								</div>
-								<?php
-								echo form_dropdown(
-									'jadwal',
-									$jadwal,
-									null,
-									'id="jadwal" class="form-control"'
-								); ?>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 mb-3" id="by-kelas">
-							<div class="input-group">
-								<div class="input-group-prepend w-30">
-									<span class="input-group-text">Kelas</span>
-								</div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Jadwal</span>
+                                </div>
+                                <?php
+                                echo form_dropdown(
+                                    'jadwal',
+                                    $jadwal,
+                                    null,
+                                    'id="jadwal" class="form-control"'
+                                ); ?>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3" id="by-kelas">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Kelas</span>
+                                </div>
                                 <select name="kelas" id="kelas" class="form-control">
                                 </select>
-							</div>
-						</div>
-						<div class="col-3 d-none mb-3" id="by-ruang">
-							<div class="input-group">
-								<div class="input-group-prepend w-30">
-									<span class="input-group-text">Ruang</span>
-								</div>
-								<?php
-								echo form_dropdown(
-									'ruang',
-									$ruang,
-									null,
-									'id="ruang" class="form-control"'
-								); ?>
-							</div>
-						</div>
-						<div class="col-3 d-none mb-3">
-							<div class="input-group">
-								<div class="input-group-prepend w-30">
-									<span class="input-group-text">Sesi</span>
-								</div>
-								<?php
-								echo form_dropdown(
-									'sesi',
-									$sesi,
-									null,
-									'id="sesi" class="form-control"'
-								); ?>
-							</div>
-						</div>
-					</div>
-					<hr>
-					<div class="row d-none" id="info">
-						<div class="col-md-4">
-							<div class="alert alert-default-success border-success">
+                            </div>
+                        </div>
+                        <div class="col-3 d-none mb-3" id="by-ruang">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Ruang</span>
+                                </div>
+                                <?php
+                                echo form_dropdown(
+                                    'ruang',
+                                    $ruang,
+                                    null,
+                                    'id="ruang" class="form-control"'
+                                ); ?>
+                            </div>
+                        </div>
+                        <div class="col-3 d-none mb-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend w-30">
+                                    <span class="input-group-text">Sesi</span>
+                                </div>
+                                <?php
+                                echo form_dropdown(
+                                    'sesi',
+                                    $sesi,
+                                    null,
+                                    'id="sesi" class="form-control"'
+                                ); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-none" id="info">
+                        <div class="col-md-4">
+                            <div class="alert alert-default-success border-success">
                                 <h6><i class="icon fas fa-check"></i> Info Ujian</h6>
                                 <div id="info-ujian"></div>
-							</div>
-						</div>
+                            </div>
+                        </div>
                         <div class="col-md-8">
                             <div class="alert alert-default-info border-info">
                                 <div id="info-penggunaan">
                                     <ul>
                                         <li>
-                                            Gunakan tombol <span class="badge badge-success pt-1 pb-1"><i class="fa fa-sync ml-1 mr-1"></i> Refresh</span>
+                                            Gunakan tombol <span class="badge badge-success pt-1 pb-1"><i
+                                                        class="fa fa-sync ml-1 mr-1"></i> Refresh</span>
                                             untuk merefresh halaman
                                         </li>
                                         <li>
-                                            <b>RESET WAKTU.</b> Jika siswa logout sebelum selesai dan tidak melanjutkan sampai waktu ujian habis maka akan ditolak, jika ingin melanjutkan maka harus reset waktu.
+                                            <b>RESET WAKTU.</b> Jika siswa logout sebelum selesai dan tidak melanjutkan
+                                            sampai waktu ujian habis maka akan ditolak, jika ingin melanjutkan maka
+                                            harus reset waktu.
                                         </li>
                                         <li>
-                                            Aksi <b>RESET IZIN</b> untuk mengizinkkan siswa mengerjakan ujian di perangkat berbeda.
+                                            Aksi <b>RESET IZIN</b> untuk mengizinkkan siswa mengerjakan ujian di
+                                            perangkat berbeda.
                                         </li>
                                         <li>
                                             Aksi <b>PAKSA SELESAI</b> untuk memaksa siswa menyelesaikan ujian.
@@ -138,28 +144,28 @@
                             <?php
                             $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
                             ?>
-                            <button type="button" class="btn btn-success align-bottom mb-2 float-right <?=$dnone?>"
+                            <button type="button" class="btn btn-success align-bottom mb-2 float-right <?= $dnone ?>"
                                     onclick="terapkanAksi()"
                                     data-toggle="tooltip"
                                     title="Terapkan Aksi pada siswa terpilih">
                                 <i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi
                             </button>
                         </div>
-					</div>
-					<div class="table-responsive">
-						<table class="table table-bordered" id="table-status">
-						</table>
-					</div>
-				</div>
-				<div class="overlay d-none" id="loading">
-					<div class="spinner-grow"></div>
-				</div>
-			</div>
-		</div>
-	</section>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="table-status">
+                        </table>
+                    </div>
+                </div>
+                <div class="overlay d-none" id="loading">
+                    <div class="spinner-grow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
-<?=form_open('', array('id'=>'reset'))?>
+<?= form_open('', array('id' => 'reset')) ?>
 <div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="resetLabel" aria-hidden="true">
     <div class="modal-dialog modal-xs" role="document">
         <div class="modal-content">
@@ -188,7 +194,7 @@
         </div>
     </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoLabel" aria-hidden="true">
     <div class="modal-dialog modal-xs" role="document">
@@ -243,13 +249,13 @@
 <script>
     let timerTokenView;
     var dnone = '<?= $this->ion_auth->is_admin() ? "" : "d-none" ?>';
-	var printBy = 1;
-	var url = '';
+    var printBy = 1;
+    var url = '';
 
-	var kelas;
-	var jadwal;
+    var kelas;
+    var jadwal;
 
-	function terapkanAksi() {
+    function terapkanAksi() {
         const $rows = $('#table-status').find('tr'), headers = $rows.splice(0, 2);
         let item = {};
         item ["reset"] = [];
@@ -265,16 +271,16 @@
             const $colForce = $(row).find('.input-force');
             const $colUlang = $(row).find('.input-ulang');
             if ($colReset.prop("checked") === true) {
-                item ["reset"].push(siswa_id+''+jadwal+'1');
+                item ["reset"].push(siswa_id + '' + jadwal + '1');
                 //item ["id_logs"].push(siswa_id+''+jadwal);
             }
             if ($colForce.prop("checked") === true) {
-                item ["force"].push(siswa_id+''+jadwal);
+                item ["force"].push(siswa_id + '' + jadwal);
                 item ["log"].push(siswa_id);
             }
             if ($colUlang.prop("checked") === true) {
                 item ["ulang"].push(siswa_id);
-                item ["hapus"].push(siswa_id+''+jadwal);
+                item ["hapus"].push(siswa_id + '' + jadwal);
             }
         });
 
@@ -317,7 +323,7 @@
 
     }
 
-	function paksaSelesai(id) {
+    function paksaSelesai(id) {
         var idSiswa = $(`#paksa-${id}`).attr('data-siswa');
         var idJadwal = $(`#paksa-${id}`).attr('data-jadwal');
 
@@ -334,7 +340,7 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "siswa/selesaiujian/" + idSiswa+'/'+idJadwal,
+                    url: base_url + "siswa/selesaiujian/" + idSiswa + '/' + idJadwal,
                     type: 'GET',
                     success: function (data) {
                         console.log(data.status);
@@ -348,12 +354,12 @@
         });
     }
 
-	function ulangiSiswa(id) {
+    function ulangiSiswa(id) {
         var idSiswa = $(`#ulangi-${id}`).attr('data-siswa');
         var idJadwal = $(`#ulangi-${id}`).attr('data-jadwal');
         var idBank = $(`#ulangi-${id}`).attr('data-bank');
 
-        console.log('jadwal:' + idSiswa +idJadwal, 'bank:' + idBank);
+        console.log('jadwal:' + idSiswa + idJadwal, 'bank:' + idBank);
 
         swal.fire({
             title: "Mengulang",
@@ -366,7 +372,7 @@
         }).then(result => {
             if (result.value) {
                 $.ajax({
-                    url: base_url + "siswa/ulangiujian/" + idSiswa+''+idJadwal + "/" + idBank,
+                    url: base_url + "siswa/ulangiujian/" + idSiswa + '' + idJadwal + "/" + idBank,
                     type: 'GET',
                     success: function (data) {
                         console.log(data);
@@ -378,82 +384,82 @@
                 });
             }
         });
-	}
+    }
 
-	function refreshStatus() {
-		$('#loading').removeClass('d-none');
-		setTimeout(function () {
-			$.ajax({
-				type: "GET",
-				url: url,
-				success: function (response) {
-					console.log(response);
-					createPreview(response)
-				}
-			});
-		}, 500);
-	}
+    function refreshStatus() {
+        $('#loading').removeClass('d-none');
+        setTimeout(function () {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (response) {
+                    console.log(response);
+                    createPreview(response)
+                }
+            });
+        }, 500);
+    }
 
-	function createPreview(data) {
-		var tbody = '<thead class="alert-primary">' +
-			'<tr>' +
-			'<th rowspan="2" class="text-center align-middle" width="40">No.</th>' +
-			'<th rowspan="2" class="text-center align-middle" width="100">No. Peserta</th>' +
-			'<th rowspan="2" class="text-center align-middle">Nama</th>' +
+    function createPreview(data) {
+        var tbody = '<thead class="alert-primary">' +
+            '<tr>' +
+            '<th rowspan="2" class="text-center align-middle" width="40">No.</th>' +
+            '<th rowspan="2" class="text-center align-middle" width="100">No. Peserta</th>' +
+            '<th rowspan="2" class="text-center align-middle">Nama</th>' +
             '<th rowspan="2" class="text-center align-middle">Ruang</th>' +
             '<th rowspan="2" class="text-center align-middle">Sesi</th>' +
-			'<th colspan="2" class="text-center align-middle">Status</th>' +
-            '<th rowspan="2" class="text-center align-middle '+dnone+'">Reset<br>Waktu</th>' +
-			'<th colspan="3" class="text-center align-middle '+dnone+'">Aksi</th>' +
-			'</tr>' +
-			'<tr>' +
-			'<th class="text-center align-middle p-1">Mulai</th>' +
+            '<th colspan="2" class="text-center align-middle">Status</th>' +
+            '<th rowspan="2" class="text-center align-middle ' + dnone + '">Reset<br>Waktu</th>' +
+            '<th colspan="3" class="text-center align-middle ' + dnone + '">Aksi</th>' +
+            '</tr>' +
+            '<tr>' +
+            '<th class="text-center align-middle p-1">Mulai</th>' +
             '<th class="text-center align-middle">Durasi</th>' +
-            '<th class="text-center align-middle '+dnone+'">Reset<br>Izin</th>' +
-            '<th class="text-center align-middle '+dnone+'">Paksa<br>Selesai</th>' +
-            '<th class="text-center align-middle '+dnone+'">Ulang</th>' +
-			'</tr></thead><tbody>';
+            '<th class="text-center align-middle ' + dnone + '">Reset<br>Izin</th>' +
+            '<th class="text-center align-middle ' + dnone + '">Paksa<br>Selesai</th>' +
+            '<th class="text-center align-middle ' + dnone + '">Ulang</th>' +
+            '</tr></thead><tbody>';
 
-		for (let i = 0; i < data.siswa.length; i++) {
-			var idSiswa = data.siswa[i].id_siswa;
-			var durasi = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.lama_ujian : ' - -';
+        for (let i = 0; i < data.siswa.length; i++) {
+            var idSiswa = data.siswa[i].id_siswa;
+            var durasi = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.lama_ujian : ' - -';
 
-			/*
-			var jawaban = data.durasi[idSiswa].jawab;
-			var benar = 0;
-			var salah = 0;
-			for (let j = 0; j < jawaban.length; j++) {
-				if (jawaban[j] != null && jawaban[j].jawaban_siswa != null) {
-					if (jawaban[j].jawaban_siswa.toUpperCase() === jawaban[j].jawaban_benar.toUpperCase()) {
-						benar += 1;
-					} else {
-						salah += 1;
-					}
-				}
-			}
-			*/
+            /*
+            var jawaban = data.durasi[idSiswa].jawab;
+            var benar = 0;
+            var salah = 0;
+            for (let j = 0; j < jawaban.length; j++) {
+                if (jawaban[j] != null && jawaban[j].jawaban_siswa != null) {
+                    if (jawaban[j].jawaban_siswa.toUpperCase() === jawaban[j].jawaban_benar.toUpperCase()) {
+                        benar += 1;
+                    } else {
+                        salah += 1;
+                    }
+                }
+            }
+            */
 
-			var logging = data.durasi[idSiswa].log;
-			var mulai = '- -  :  - -';
-			var selesai = '- -  :  - -';
+            var logging = data.durasi[idSiswa].log;
+            var mulai = '- -  :  - -';
+            var selesai = '- -  :  - -';
             var reset = null;
-			for (let k = 0; k < logging.length; k++) {
-				if (logging[k].log_type === '1') {
-					if (logging[k] != null) {
-					    reset = logging[k].reset;
-						var t = logging[k].log_time.split(/[- :]/);
-						//var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
-						mulai = t[3] + ':' + t[4];
-					}
-				} else {
-					if (logging[k] != null) {
-						var ti = logging[k].log_time.split(/[- :]/);
-						selesai = ti[3] + ':' + ti[4];
-					}
-				}
-			}
+            for (let k = 0; k < logging.length; k++) {
+                if (logging[k].log_type === '1') {
+                    if (logging[k] != null) {
+                        reset = logging[k].reset;
+                        var t = logging[k].log_time.split(/[- :]/);
+                        //var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
+                        mulai = t[3] + ':' + t[4];
+                    }
+                } else {
+                    if (logging[k] != null) {
+                        var ti = logging[k].log_time.split(/[- :]/);
+                        selesai = ti[3] + ':' + ti[4];
+                    }
+                }
+            }
 
-			//var reset = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.reset : '0';
+            //var reset = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.reset : '0';
             var belumUjian = data.durasi[idSiswa].dur == null;
             var sudahSelesai = !belumUjian && data.durasi[idSiswa].dur.selesai != null;
             var loading = belumUjian ? '' : (sudahSelesai ? "" : '<i class="fa fa-spinner fa-spin mr-2"></i>');
@@ -465,60 +471,60 @@
             var sesi = data.siswa[i].kode_sesi;
             var ruang = data.siswa[i].kode_ruang;
 
-            tbody += '<tr data-id="'+idSiswa+'">' +
-				'<td class="text-center align-middle">' + (i + 1) + '</td>' +
-				'<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
-				'<td class="align-middle">' + data.siswa[i].nama + '</td>' +
+            tbody += '<tr data-id="' + idSiswa + '">' +
+                '<td class="text-center align-middle">' + (i + 1) + '</td>' +
+                '<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
+                '<td class="align-middle">' + data.siswa[i].nama + '</td>' +
                 '<td class="text-center align-middle">' + ruang + '</td>' +
                 '<td class="text-center align-middle">' + sesi + '</td>' +
-				'<td class="text-center align-middle">' + mulai + '</td>' +
+                '<td class="text-center align-middle">' + mulai + '</td>' +
                 '<td class="text-center align-middle">' + loading + durasi + '</td>' +
                 '<td class="text-center align-middle">' +
                 '	<button type="button" class="btn btn-default" ' +
-                'data-siswa="'+idSiswa+'" data-jadwal="'+data.info.id_jadwal+'" ' +
-                'data-toggle="modal" data-target="#resetModal" '+disabledReset+'><i class="fa fa-refresh"></i></button>' +
+                'data-siswa="' + idSiswa + '" data-jadwal="' + data.info.id_jadwal + '" ' +
+                'data-toggle="modal" data-target="#resetModal" ' + disabledReset + '><i class="fa fa-refresh"></i></button>' +
                 '</td>' +
-				'<td class="text-center text-success align-middle '+dnone+'">' +
-                '<input class="check input-reset" type="checkbox" '+disabledReset+'>' +
+                '<td class="text-center text-success align-middle ' + dnone + '">' +
+                '<input class="check input-reset" type="checkbox" ' + disabledReset + '>' +
                 '</td>' +
-				'<td class="text-center text-danger align-middle '+dnone+'">' +
-                '<input class="check input-force" type="checkbox" '+disabledSelesai+'>' +
+                '<td class="text-center text-danger align-middle ' + dnone + '">' +
+                '<input class="check input-force" type="checkbox" ' + disabledSelesai + '>' +
                 '</td>' +
-                '<td class="text-center text-danger align-middle '+dnone+'">' +
-                '<input class="check input-ulang" type="checkbox" '+disabledUlang+'>' +
+                '<td class="text-center text-danger align-middle ' + dnone + '">' +
+                '<input class="check input-ulang" type="checkbox" ' + disabledUlang + '>' +
                 '</td>' +
-				'</tr>';
-		}
+                '</tr>';
+        }
 
-		tbody += '</tbody>';
-		$('#table-status').html(tbody);
-		$('#info').removeClass('d-none');
+        tbody += '</tbody>';
+        $('#table-status').html(tbody);
+        $('#info').removeClass('d-none');
 
-		var infoJadwal = '<div class="row">' +
+        var infoJadwal = '<div class="row">' +
             '<div class="col-4">Mapel</div>' +
             '<div class="col-8">' +
-            '<b>'+data.info.nama_mapel+'</b>' +
+            '<b>' + data.info.nama_mapel + '</b>' +
             '</div>' +
             '<div class="col-4">Guru</div>' +
             '<div class="col-8">' +
-            '<b>'+data.info.nama_guru+'</b>' +
+            '<b>' + data.info.nama_guru + '</b>' +
             '</div>' +
             '<div class="col-4">Jml. Soal</div>' +
             '<div class="col-8">' +
-            '<b>'+ (parseInt(data.info.tampil_pg) + parseInt(data.info.tampil_kompleks) +
+            '<b>' + (parseInt(data.info.tampil_pg) + parseInt(data.info.tampil_kompleks) +
                 parseInt(data.info.tampil_jodohkan) + parseInt(data.info.tampil_isian) +
-                parseInt(data.info.tampil_esai)) +'</b>' +
+                parseInt(data.info.tampil_esai)) + '</b>' +
             '</div>' +
             '</div>';
 
-		$('#info-ujian').html(infoJadwal);
-		$('#loading').addClass('d-none');
-	}
+        $('#info-ujian').html(infoJadwal);
+        $('#loading').addClass('d-none');
+    }
 
     function getDetailJadwal(idJadwal, hari) {
         $.ajax({
             type: "GET",
-            url: base_url + "cbtstatus/getjadwalujianbyjadwal?id_jadwal="+idJadwal+"&hari="+hari,
+            url: base_url + "cbtstatus/getjadwalujianbyjadwal?id_jadwal=" + idJadwal + "&hari=" + hari,
             cache: false,
             success: function (response) {
                 console.log(response);
@@ -527,7 +533,7 @@
                 selKelas.append('<option value="">Pilih Kelas</option>');
                 $.each(response, function (k, v) {
                     if (v != null) {
-                        selKelas.append('<option value="'+k+'">'+v+'</option>');
+                        selKelas.append('<option value="' + k + '">' + v + '</option>');
                     }
                 });
             }
@@ -535,74 +541,74 @@
     }
 
     $(document).ready(function () {
-		ajaxcsrf();
+        ajaxcsrf();
 
         var opsiHari = $("#hari");
-		var opsiJadwal = $("#jadwal");
-		var opsiRuang = $("#ruang");
-		var opsiSesi = $("#sesi");
-		var opsiKelas = $("#kelas");
+        var opsiJadwal = $("#jadwal");
+        var opsiRuang = $("#ruang");
+        var opsiSesi = $("#sesi");
+        var opsiKelas = $("#kelas");
 
-		opsiJadwal.prepend("<option value='' selected='selected'>Pilih Jadwal</option>");
-		opsiRuang.prepend("<option value='' selected='selected'>Pilih Ruang</option>");
-		opsiSesi.prepend("<option value='' selected='selected'>Pilih Sesi</option>");
-		opsiKelas.prepend("<option value='' selected='selected'>Pilih Kelas</option>");
+        opsiJadwal.prepend("<option value='' selected='selected'>Pilih Jadwal</option>");
+        opsiRuang.prepend("<option value='' selected='selected'>Pilih Ruang</option>");
+        opsiSesi.prepend("<option value='' selected='selected'>Pilih Sesi</option>");
+        opsiKelas.prepend("<option value='' selected='selected'>Pilih Kelas</option>");
 
-		function loadSiswaRuang(ruang, sesi, jadwal) {
-			var empty = ruang === '' || sesi === '' || jadwal === '';
+        function loadSiswaRuang(ruang, sesi, jadwal) {
+            var empty = ruang === '' || sesi === '' || jadwal === '';
             //var empty = ruang === '' || jadwal === '';
             if (!empty) {
-				url = base_url + "cbtstatus/getsiswaruang?ruang=" + ruang + '&sesi=' + sesi + '&jadwal=' + jadwal;
-				refreshStatus();
-			} else {
-				console.log('empty')
-			}
-		}
+                url = base_url + "cbtstatus/getsiswaruang?ruang=" + ruang + '&sesi=' + sesi + '&jadwal=' + jadwal;
+                refreshStatus();
+            } else {
+                console.log('empty')
+            }
+        }
 
-		function loadSiswaKelas(kelas, jadwal) {
+        function loadSiswaKelas(kelas, jadwal) {
             var empty = kelas === '' || jadwal === '';
-			if (!empty) {
-				//url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&sesi=' + sesi + '&jadwal=' + jadwal;
+            if (!empty) {
+                //url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&sesi=' + sesi + '&jadwal=' + jadwal;
                 url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&jadwal=' + jadwal;
-				refreshStatus();
-			} else {
-				console.log('empty')
-			}
-		}
+                refreshStatus();
+            } else {
+                console.log('empty')
+            }
+        }
 
-		opsiKelas.change(function () {
-		    kelas = $(this).val();
-		    jadwal = opsiJadwal.val();
-			loadSiswaKelas(kelas, jadwal)
-		});
+        opsiKelas.change(function () {
+            kelas = $(this).val();
+            jadwal = opsiJadwal.val();
+            loadSiswaKelas(kelas, jadwal)
+        });
 
-		opsiRuang.change(function () {
-			loadSiswaRuang($(this).val(), opsiSesi.val(), opsiJadwal.val())
-		});
+        opsiRuang.change(function () {
+            loadSiswaRuang($(this).val(), opsiSesi.val(), opsiJadwal.val())
+        });
 
-		opsiJadwal.change(function () {
-		    getDetailJadwal($(this).val(), opsiHari.val());
-		    /*
-			if (printBy === 1) {
-				loadSiswaKelas(opsiKelas.val(), opsiSesi.val(), $(this).val())
-			} else {
-				loadSiswaRuang(opsiRuang.val(), opsiSesi.val(), $(this).val())
-			}*/
-		});
+        opsiJadwal.change(function () {
+            getDetailJadwal($(this).val(), opsiHari.val());
+            /*
+            if (printBy === 1) {
+                loadSiswaKelas(opsiKelas.val(), opsiSesi.val(), $(this).val())
+            } else {
+                loadSiswaRuang(opsiRuang.val(), opsiSesi.val(), $(this).val())
+            }*/
+        });
 
-		$('#selector button').click(function () {
-			$(this).addClass('active').siblings().addClass('btn-outline-primary').removeClass('active btn-primary');
+        $('#selector button').click(function () {
+            $(this).addClass('active').siblings().addClass('btn-outline-primary').removeClass('active btn-primary');
 
-			if (!$('#by-kelas').is(':hidden')) {
-				$('#by-kelas').addClass('d-none');
-				$('#by-ruang').removeClass('d-none');
-				printBy = 2;
-			} else {
-				$('#by-kelas').removeClass('d-none');
-				$('#by-ruang').addClass('d-none');
-				printBy = 1;
-			}
-		});
+            if (!$('#by-kelas').is(':hidden')) {
+                $('#by-kelas').addClass('d-none');
+                $('#by-ruang').removeClass('d-none');
+                printBy = 2;
+            } else {
+                $('#by-kelas').removeClass('d-none');
+                $('#by-ruang').addClass('d-none');
+                printBy = 1;
+            }
+        });
 
         var idSiswa = '';
         var idJadwal = '';
@@ -625,7 +631,7 @@
             $.ajax({
                 url: base_url + "siswa/resettimer",
                 type: 'POST',
-                data: $(this).serialize() + '&id_durasi=' + idSiswa+''+idJadwal,
+                data: $(this).serialize() + '&id_durasi=' + idSiswa + '' + idJadwal,
                 success: function (data) {
                     console.log(data.status);
                     if (data.status) refreshStatus();
@@ -652,14 +658,14 @@
         $('#token-view').val(result.token);
         if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
             $('#interval').removeClass('d-none');
-            var mulai = result.updated == null ? new Date(): new Date(result.updated);
+            var mulai = result.updated == null ? new Date() : new Date(result.updated);
             const now = getDiffMinutes(mulai);
             var mnt = Number(result.jarak);
 
             mnt = mnt - now.m;
             var scn = 60 - now.s;
             if (scn > 0) {
-                mnt = mnt -1;
+                mnt = mnt - 1;
             }
 
             if (timerTokenView) {
@@ -669,7 +675,9 @@
             timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
                 if (isOver) {
                     block.html('<b>-- : --</b>');
-                    setTimeout(function(){getGlobalToken()}, 300);
+                    setTimeout(function () {
+                        getGlobalToken()
+                    }, 300);
                 }
             })
         } else {

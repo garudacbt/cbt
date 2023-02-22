@@ -26,7 +26,8 @@
 
             <div class="card my-shadow mb-4">
                 <div class="card-header">
-                    <h6 class="card-title"><b>Upload Soal <?= $bank->nama_mapel." kelas ".$bank->bank_level ?></b></h6>
+                    <h6 class="card-title"><b>Upload Soal <?= $bank->nama_mapel . " kelas " . $bank->bank_level ?></b>
+                    </h6>
                     <input type="hidden" name="bank_id" id="formInput" class="form-control">
                 </div>
                 <div class="card-body">
@@ -43,7 +44,8 @@
                                 <div class="col-8">
                                     <?= form_open_multipart('', array('id' => 'formPreviewWord')); ?>
                                     <div class="custom-file">
-                                        <input type="file" name="upload_file" class="custom-file-input input-sm" id="upload-word" accept=".doc, .docx">
+                                        <input type="file" name="upload_file" class="custom-file-input input-sm"
+                                               id="upload-word" accept=".doc, .docx">
                                         <label class="custom-file-label" for="upload-word">Upload Soal</label>
                                     </div>
                                     <?= form_close(); ?>
@@ -72,7 +74,8 @@
 <div id="input-soal-word" class="d-none"></div>
 <?= form_close() ?>
 
-<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-cell.js"></script>
+<script type="text/javascript"
+        src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-cell.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-row.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/mammoth.browser.min.js"></script>
@@ -89,7 +92,7 @@
     $(document).ready(function () {
         ajaxcsrf();
 
-        $('#upload-word').on('change', function(e){
+        $('#upload-word').on('change', function (e) {
             var form = new FormData($("#formPreviewWord")[0]);
             filename = $("#formPreviewWord").text();
             //preview(base_url + 'cbtbanksoal/previewword/'+bank_id, form, filename);
@@ -117,7 +120,7 @@
         var file = files[0];
         console.time();
         var reader = new FileReader();
-        reader.onloadend = function(event) {
+        reader.onloadend = function (event) {
             var arrayBuffer = reader.result;
             mammoth.convertToHtml({arrayBuffer: arrayBuffer}).then(function (resultObject) {
                 $(showDiv).html(resultObject.value);
@@ -181,7 +184,12 @@
                             var arabic = /[\u0600-\u06FF]/;
                             var string = $(this).text();
                             if (arabic.test(string)) {
-                                $(this).css({'font-size': '22pt', 'font-family':'"uthmanic"', 'direction':'rtl', 'text-align':'justify'});
+                                $(this).css({
+                                    'font-size': '22pt',
+                                    'font-family': '"uthmanic"',
+                                    'direction': 'rtl',
+                                    'text-align': 'justify'
+                                });
                             }
                         });
                     });
@@ -197,7 +205,7 @@
 
                     var numing = 1;
                     $('#file-preview img').each(function () {
-                        today = yyyy+''+mm+''+dd+''+h+''+m+''+s;
+                        today = yyyy + '' + mm + '' + dd + '' + h + '' + m + '' + s;
 
                         var curSrc = $(this).attr('src');
                         var block = curSrc.split(";");
@@ -205,8 +213,8 @@
                         var contentData = block[1].split(",")[1];
                         var id = 'img_' + bank_id + today + numing;
                         $(this).attr('id', id);
-                        numing ++;
-                        appendFileAndSubmit('#'+id, contentData, id + '.' + contentType);
+                        numing++;
+                        appendFileAndSubmit('#' + id, contentData, id + '.' + contentType);
                     });
 
                     var attrId = document.getElementById("formInput");
@@ -281,15 +289,15 @@
                         var knc = $(items[5]).text().trim();
 
                         if (soalCek != "") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no+'][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no + '][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no+'][opsi]['+ops+']" value="' + encodeURIComponent(removeUrl(items[4])) + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no + '][opsi][' + ops + ']" value="' + encodeURIComponent(removeUrl(items[4])) + '">');
 
                             if (knc != "" && knc.toUpperCase() == "V") {
-                                $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                    '['+no+'][kunci][]" value="' + ops + '">');
+                                $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                    '[' + no + '][kunci][]" value="' + ops + '">');
                             }
                         }
                     } else {
@@ -298,13 +306,13 @@
                         myRows[j]['JENIS'] = tempJenis;
                         var ops1 = $(items[0]).text().trim();
 
-                        $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                            '[' + no1 + '][opsi]['+ops1+']" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
+                        $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                            '[' + no1 + '][opsi][' + ops1 + ']" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                         var knc1 = $(items[2]).text().trim();
                         if (knc1 != "" && knc1.toUpperCase() == "V") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no1+'][kunci][]" value="' + ops1 + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no1 + '][kunci][]" value="' + ops1 + '">');
                         }
                     }
                 } else if (tempJenis == '3') {
@@ -314,25 +322,25 @@
                         var kd_baris = $(items[3]).text().trim();
                         var kd_kolom = $(items[5]).text().trim();
                         var kd_kunci = $(items[7]).text().trim();
-                        $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                            '['+no3+'][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
+                        $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                            '[' + no3 + '][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                         var brs = $(items[4]).text().trim();
                         if (brs != "") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no3+'][baris]['+kd_baris+']" value="' + brs + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no3 + '][baris][' + kd_baris + ']" value="' + brs + '">');
                         }
 
                         var klm = $(items[6]).text().trim();
                         if (klm != "") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no3+'][kolom]['+kd_kolom+']" value="' + klm + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no3 + '][kolom][' + kd_kolom + ']" value="' + klm + '">');
                         }
 
                         var kncs = $(items[8]).text().trim();
                         if (kncs != "") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no3+'][kunci]['+kd_kunci+']" value="' + kncs + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no3 + '][kunci][' + kd_kunci + ']" value="' + kncs + '">');
                         }
                     } else {
                         var kd_baris1 = $(items[0]).text().trim();
@@ -341,33 +349,33 @@
 
                         var brs1 = $(items[1]).text().trim();
                         if (brs1 != "") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no3+'][baris]['+kd_baris1+']" value="' + brs1 + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no3 + '][baris][' + kd_baris1 + ']" value="' + brs1 + '">');
                         }
 
                         var klm1 = $(items[3]).text().trim();
                         if (klm1 != "") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no3+'][kolom]['+kd_kolom1+']" value="' + klm1 + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no3 + '][kolom][' + kd_kolom1 + ']" value="' + klm1 + '">');
                         }
 
                         var kncs1 = $(items[5]).text().trim();
                         if (kncs1 != "") {
-                            $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                                '['+no3+'][kunci]['+kd_kunci1+']" value="' + kncs1 + '">');
+                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                                '[' + no3 + '][kunci][' + kd_kunci1 + ']" value="' + kncs1 + '">');
                         }
                     }
                 } else {
                     var no4 = $(items[0]).text().trim();
-                    $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                        '['+no4+'][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
+                    $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                        '[' + no4 + '][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
-                    $('#input-soal-word').append('<input type="text" name="soal[' +tempJenis+ ']' +
-                        '['+no4+'][kunci]" value="' + encodeURIComponent(removeUrl(items[3])) + '">');
+                    $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
+                        '[' + no4 + '][kunci]" value="' + encodeURIComponent(removeUrl(items[3])) + '">');
                 }
                 tbls[tempJenis] = myRows;
             }
-            index ++;
+            index++;
         });
 
         setTimeout(function () {
@@ -386,7 +394,7 @@
                 console.log("result", result);
                 swal.fire({
                     title: "Sukses",
-                    html: "Total isi soal: <b>" + result.total + "</b><br>Total soal diimport: <b>" + result.insert +"</b>",
+                    html: "Total isi soal: <b>" + result.total + "</b><br>Total soal diimport: <b>" + result.insert + "</b>",
                     icon: "success",
                     showCancelButton: false,
                     confirmButtonColor: "#3085d6",
@@ -403,21 +411,21 @@
         });
     }
 
-    function appendFileAndSubmit(id, imageURL, fileName){
+    function appendFileAndSubmit(id, imageURL, fileName) {
         var datapost = $('#grouping').serialize() + "&src=" + imageURL.replace(/\+/g, "%2B") + "&name=" + fileName;
         $.ajax({
             url: base_url + "cbtbanksoal/uploadsoalimage",
             data: datapost,
-            type:"POST",
-            error:function(err){
+            type: "POST",
+            error: function (err) {
                 console.error(err);
             },
-            success:function(data){
+            success: function (data) {
                 $(id).attr('src', base_url + data.src);
                 //$(id).attr('data-imgsrc', data.src);
                 //console.log(data);
             },
-            complete:function(){
+            complete: function () {
                 //console.log("Request finished.");
             }
         });

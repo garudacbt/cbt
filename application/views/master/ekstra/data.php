@@ -50,29 +50,29 @@
                                 <div class="card-body">
                                     <?php
                                     if (count($kelas) > 0) :
-                                    foreach ($kelas as $key => $kls) :
-                                        $ids_selected = [];
-                                        if ($ekskul_kelas[$key] != null) {
-                                            $ids = unserialize($ekskul_kelas[$key][0]->ekstra);
-                                            foreach ($ids as $id) {
-                                                array_push($ids_selected, $id['ekstra']);
+                                        foreach ($kelas as $key => $kls) :
+                                            $ids_selected = [];
+                                            if ($ekskul_kelas[$key] != null) {
+                                                $ids = unserialize($ekskul_kelas[$key][0]->ekstra);
+                                                foreach ($ids as $id) {
+                                                    array_push($ids_selected, $id['ekstra']);
+                                                }
                                             }
-                                        }
 
-                                        ?>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Kelas <?= $kls ?></span>
+                                            ?>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Kelas <?= $kls ?></span>
+                                                </div>
+                                                <?php
+                                                echo form_dropdown(
+                                                    'ekskul' . $key . '[]',
+                                                    $ekskul,
+                                                    $ids_selected,
+                                                    'id="ekskul' . $key . '" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Ekskul"'
+                                                ); ?>
                                             </div>
-                                            <?php
-                                            echo form_dropdown(
-                                                'ekskul' . $key . '[]',
-                                                $ekskul,
-                                                $ids_selected,
-                                                'id="ekskul' . $key . '" class="select2 form-control form-control-sm" multiple="multiple" data-placeholder="Pilih Ekskul"'
-                                            ); ?>
-                                        </div>
-                                    <?php endforeach;
+                                        <?php endforeach;
                                     else: ?>
                                         <div class="alert alert-default-warning" role="alert">Belum ada data kelas</div>
                                     <?php endif; ?>

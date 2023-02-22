@@ -1,6 +1,6 @@
 <?php
 $fotoSiswa = $siswa->foto;
-if (!file_exists(FCPATH.$siswa->foto)) {
+if (!file_exists(FCPATH . $siswa->foto)) {
     $fotoSiswa = str_replace('profiles', 'foto_siswa', $siswa->foto);
 }
 ?>
@@ -34,7 +34,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                             <div class="box-info text-center user-profile-2">
                                 <div class="user-profile-inner">
                                     <?php
-                                    if (!file_exists(FCPATH.$fotoSiswa)): ?>
+                                    if (!file_exists(FCPATH . $fotoSiswa)): ?>
                                         <?php if ($siswa->jenis_kelamin == 'L'): ?>
                                             <img src="<?= base_url() ?>/assets/img/siswa-l.png"
                                                  class="img-circle profile-avatar mt-2" alt="User avatar">
@@ -50,19 +50,22 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                                     <div class="user-button">
                                         <div class="row">
                                             <div class="col-6">
-                                                <button type="button" data-toggle="modal" data-target="#editFotoModal" class="btn btn-sm btn-primary btn-block"><i
+                                                <button type="button" data-toggle="modal" data-target="#editFotoModal"
+                                                        class="btn btn-sm btn-primary btn-block"><i
                                                             class="fas fa-image"></i> Ganti Foto
                                                 </button>
                                             </div>
                                             <div class="col-6">
-                                                <button type="button" class="btn btn-danger btn-sm btn-block" onclick="deleteImage(true)"><i
+                                                <button type="button" class="btn btn-danger btn-sm btn-block"
+                                                        onclick="deleteImage(true)"><i
                                                             class="fa fa-trash"></i> Hapus Foto
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-12">
-                                                <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#editLoginModal"><i
+                                                <button type="button" class="btn btn-warning btn-block"
+                                                        data-toggle="modal" data-target="#editLoginModal"><i
                                                             class="fa fa-pencil"></i> Edit Username / Password
                                                 </button>
                                             </div>
@@ -115,7 +118,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                                                                         class="<?= $data->icon ?>"></i></span>
                                                         </div>
                                                         <select class="form-control" data-placeholder="Jenis Kelamin"
-                                                                name="jenis_kelamin" <?=$data->req?>>
+                                                                name="jenis_kelamin" <?= $data->req ?>>
                                                             <option value="0" disabled>Pilih Jenis Kelamin</option>
                                                             <?php
                                                             $arrJk = ["L" => "Laki-laki", "P" => "Perempuan"];
@@ -139,7 +142,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                                                                         class="<?= $data->icon ?>"></i></span>
                                                         </div>
                                                         <select class="form-control" data-placeholder="Kelas Awal"
-                                                                name="kelas_awal" <?=$data->req?>>
+                                                                name="kelas_awal" <?= $data->req ?>>
                                                             <option value="0" disabled>Kelas Awal</option>
                                                             <?php
                                                             if ($setting->jenjang == 1) {
@@ -182,7 +185,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                                                                class="form-control <?= $data->class ?>"
                                                                name="<?= $data->name ?>"
                                                                placeholder="<?= $data->label ?>" autocomplete="off"
-                                                            <?=$data->req?>>
+                                                            <?= $data->req ?>>
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,7 +218,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                                                     </div>
                                                 </div>
                                             </div>
-                                        <?php elseif($bio->name == 'status_keluarga'): ?>
+                                        <?php elseif ($bio->name == 'status_keluarga'): ?>
                                             <div class="form-group row">
                                                 <div class="col-md-4 mb-sm-0">
                                                     <label for="<?= $bio->name ?>"
@@ -224,13 +227,14 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                                                 <div class="col-md-8 mb-sm-0">
                                                     <div class="input-group">
                                                         <?php
-                                                        $arrStatus = ["1"=>"Anak Kandung", "2"=>"Anak Tiri", "3"=>"Anak Angkat"];
+                                                        $arrStatus = ["1" => "Anak Kandung", "2" => "Anak Tiri", "3" => "Anak Angkat"];
                                                         ?>
                                                         <select class="form-control" id="status_keluarga"
-                                                                data-placeholder="Pilih Status Keluarga" name="status_keluarga">
+                                                                data-placeholder="Pilih Status Keluarga"
+                                                                name="status_keluarga">
                                                             <option value="0">Pilih Status Anak
                                                             </option>
-                                                            <?php foreach ($arrStatus as $k=>$status) : ?>
+                                                            <?php foreach ($arrStatus as $k => $status) : ?>
                                                                 <option value="<?= $k ?>" <?= $k == $bio->value ? 'selected' : '' ?>><?= $status ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
@@ -240,7 +244,8 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                                         <?php else: ?>
                                             <div class="form-group row">
                                                 <div class="col-md-4 mb-sm-0">
-                                                    <label for="<?= $bio->name ?>" class="control-label"><?= $bio->label ?></label>
+                                                    <label for="<?= $bio->name ?>"
+                                                           class="control-label"><?= $bio->label ?></label>
                                                 </div>
                                                 <div class="col-md-8 mb-sm-0">
                                                     <div class="input-group">
@@ -315,7 +320,8 @@ if (!file_exists(FCPATH.$siswa->foto)) {
     </section>
 </div>
 
-<div class="modal fade" id="editFotoModal" tabindex="-1" role="dialog" aria-labelledby="editFotoLabel" aria-hidden="true">
+<div class="modal fade" id="editFotoModal" tabindex="-1" role="dialog" aria-labelledby="editFotoLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -331,7 +337,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                     <input type="file" id="foto-profile" name="foto" class="dropify"
                            data-max-file-size-preview="2M"
                            data-allowed-file-extensions="jpg jpeg png"
-                           data-default-file="<?= base_url().$fotoSiswa ?>"/>
+                           data-default-file="<?= base_url() . $fotoSiswa ?>"/>
                 </div>
                 <?= form_close() ?>
             </div>
@@ -342,8 +348,9 @@ if (!file_exists(FCPATH.$siswa->foto)) {
     </div>
 </div>
 
-<?=form_open('', array('id'=>'updatelogin'),  array('id_siswa' => $siswa->id_siswa))?>
-<div class="modal fade" id="editLoginModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<?= form_open('', array('id' => 'updatelogin'), array('id_siswa' => $siswa->id_siswa)) ?>
+<div class="modal fade" id="editLoginModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -357,13 +364,15 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Username</span>
                     </div>
-                    <input type="text" class="form-control" name="username" value="<?= $siswa->username ?>" placeholder="Username">
+                    <input type="text" class="form-control" name="username" value="<?= $siswa->username ?>"
+                           placeholder="Username">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Password Lama</span>
                     </div>
-                    <input class="form-control" name="old" value="<?= $siswa->password ?>" placeholder="Username" readonly>
+                    <input class="form-control" name="old" value="<?= $siswa->password ?>" placeholder="Username"
+                           readonly>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend w-40">
@@ -375,7 +384,8 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                     <div class="input-group-prepend w-40">
                         <span class="input-group-text">Konfirmasi Password</span>
                     </div>
-                    <input type="text" name="new_confirm" class="form-control" placeholder="Konfirmasi Password Baru" required>
+                    <input type="text" name="new_confirm" class="form-control" placeholder="Konfirmasi Password Baru"
+                           required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -385,7 +395,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
         </div>
     </div>
 </div>
-<?=form_close()?>
+<?= form_close() ?>
 
 <script>
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($input_data)?>));
@@ -404,8 +414,8 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                     previous: 'fa fa-angle-left'
                 },
             timepicker: false,
-            scrollInput : false,
-            scrollMonth : false,
+            scrollInput: false,
+            scrollMonth: false,
             format: 'Y-m-d',
             disabledWeekDays: [0],
             widgetPositioning: {
@@ -535,23 +545,23 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {
-                            if(result.value) {
+                            if (result.value) {
                                 window.location.reload();
                             }
                         })
                     } else {
                         var html = '<ul>';
-                        if (data.errors.username !=null && data.errors.username !=="") {
-                            html += '<li>' +data.errors.username+ '</li>';
+                        if (data.errors.username != null && data.errors.username !== "") {
+                            html += '<li>' + data.errors.username + '</li>';
                         }
-                        if (data.errors.old !=null && data.errors.old !=="") {
-                            html += '<li>' +data.errors.old+ '</li>';
+                        if (data.errors.old != null && data.errors.old !== "") {
+                            html += '<li>' + data.errors.old + '</li>';
                         }
-                        if (data.errors.new !=null && data.errors.new !=="") {
-                            html += '<li>' +data.errors.new+ '</li>';
+                        if (data.errors.new != null && data.errors.new !== "") {
+                            html += '<li>' + data.errors.new + '</li>';
                         }
-                        if (data.errors.new_confirm !=null && data.errors.new_confirm !=="") {
-                            html += '<li>' +data.errors.new_confirm+ '</li>';
+                        if (data.errors.new_confirm != null && data.errors.new_confirm !== "") {
+                            html += '<li>' + data.errors.new_confirm + '</li>';
                         }
                         html += '</ul>';
                         swal.fire({
@@ -612,7 +622,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
                 reader.readAsDataURL(input.files[0]);
 
                 var form = new FormData($('#set-foto-profile')[0]);
-                uploadAttach(base_url + 'datasiswa/uploadfile/'+idSiswa, form);
+                uploadAttach(base_url + 'datasiswa/uploadfile/' + idSiswa, form);
             }
         });
 
@@ -623,7 +633,7 @@ if (!file_exists(FCPATH.$siswa->foto)) {
         $.ajax({
             data: {src: src},
             type: "POST",
-            url: base_url + "datasiswa/deletefile/"+idSiswa,
+            url: base_url + "datasiswa/deletefile/" + idSiswa,
             cache: false,
             success: function (response) {
                 console.log(response);

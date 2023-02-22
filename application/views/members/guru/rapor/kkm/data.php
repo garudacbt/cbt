@@ -18,88 +18,91 @@
                         <br>
                         - Jangan lupa untuk menyimpan perubahan
                     </div>
-                    <?php if (count($mapel)>0) :
+                    <?php if (count($mapel) > 0) :
                         foreach ($mapel as $key => $mpl) : ?>
-                        <div class="card border border-primary">
-                            <div class="card-header alert-default-secondary">
-                                <div class="card-title">
-                                    <b><?= $mpl ?></b>
-                                </div>
-                                <div class="card-tools">
-                                    <button id="btn<?= $key ?>" type="button" class="btn btn-sm btn-primary btn-save"
-                                            disabled><i
-                                                class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Bobot dan KKM</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                Kelas:
-                                <?php foreach ($kelas[$key] as $k => $kls) :
-                                    if ($kls['id_kelas'] != null) :?>
-                                        <button class="btn btn-outline-success btn-kelas m<?= $key ?>"
-                                                data-mapel="<?= $key ?>"
-                                                data-kelas="<?= $kls['id_kelas'] ?>"><?= $kls['nama_kelas'] ?></button>
-                                    <?php endif; endforeach; ?>
-                                <div id="alert<?= $key ?>"
-                                     class="mt-3 alert alert-default-warning align-content-center"
-                                     role="alert">
-                                    Silahklan pilih kelas
-                                </div>
-                                <div id="konten-kkm<?= $key ?>" class="mt-3">
-                                </div>
-                            </div>
-                            <div class="overlay d-none" id="loading<?= $key ?>">
-                                <div class="spinner-grow"></div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?> <?php else: ?>
-                        <div class="shadow alert alert-default-warning align-content-center" role="alert">
-                            Tidak ada Mata Pelajaran diampu
-                            <br> Hubungi Admin
-                        </div>
-                    <?php endif;?>
-                    <?php
-                    if (count($ekstra) > 0) : ?>
-                        <hr>
-                        <p><b>Ekstrakurikuler</b></p>
-                    <div class="row">
-                        <?php
-                        foreach ($ekstra as $key => $eks) : ?>
-                        <div class="col-md-6">
                             <div class="card border border-primary">
                                 <div class="card-header alert-default-secondary">
                                     <div class="card-title">
-                                        <b><?= $eks ?></b>
+                                        <b><?= $mpl ?></b>
                                     </div>
                                     <div class="card-tools">
-                                        <button id="btnekstra<?= $key ?>" type="button"
-                                                class="btn btn-sm btn-primary btnekstra-save" disabled><i
-                                                    class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan KKM</span>
+                                        <button id="btn<?= $key ?>" type="button"
+                                                class="btn btn-sm btn-primary btn-save"
+                                                disabled><i
+                                                    class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Bobot dan KKM</span>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     Kelas:
-                                    <?php foreach ($kelas_ekstra[$key] as $k => $kls) :
+                                    <?php foreach ($kelas[$key] as $k => $kls) :
                                         if ($kls['id_kelas'] != null) :?>
-                                            <button class="btn btn-outline-success btn-kelas-ekstra e<?= $key ?>"
-                                                    data-ekstra="<?= $key ?>"
+                                            <button class="btn btn-outline-success btn-kelas m<?= $key ?>"
+                                                    data-mapel="<?= $key ?>"
                                                     data-kelas="<?= $kls['id_kelas'] ?>"><?= $kls['nama_kelas'] ?></button>
                                         <?php endif; endforeach; ?>
-                                    <div id="alert-ekstra<?= $key ?>"
+                                    <div id="alert<?= $key ?>"
                                          class="mt-3 alert alert-default-warning align-content-center"
                                          role="alert">
                                         Silahklan pilih kelas
                                     </div>
-                                    <div id="konten-kkm-ekstra<?= $key ?>" class="mt-3">
+                                    <div id="konten-kkm<?= $key ?>" class="mt-3">
                                     </div>
                                 </div>
-                                <div class="overlay d-none" id="loading-ekstra<?= $key ?>">
+                                <div class="overlay d-none" id="loading<?= $key ?>">
                                     <div class="spinner-grow"></div>
                                 </div>
                             </div>
+                        <?php endforeach; ?><?php else: ?>
+                        <div class="shadow alert alert-default-warning align-content-center" role="alert">
+                            Tidak ada Mata Pelajaran diampu
+                            <br> Hubungi Admin
                         </div>
-                        <?php endforeach; endif; ?>
+                    <?php endif; ?>
+                    <?php
+                    if (count($ekstra) > 0) : ?>
+                    <hr>
+                    <p><b>Ekstrakurikuler</b></p>
+                    <div class="row">
+                        <?php
+                        foreach ($ekstra as $key => $eks) : ?>
+                            <div class="col-md-6">
+                                <div class="card border border-primary">
+                                    <div class="card-header alert-default-secondary">
+                                        <div class="card-title">
+                                            <b><?= $eks ?></b>
+                                        </div>
+                                        <div class="card-tools">
+                                            <button id="btnekstra<?= $key ?>" type="button"
+                                                    class="btn btn-sm btn-primary btnekstra-save" disabled><i
+                                                        class="fa fa-save"></i> <span
+                                                        class="d-none d-sm-inline-block ml-1">Simpan KKM</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        Kelas:
+                                        <?php foreach ($kelas_ekstra[$key] as $k => $kls) :
+                                            if ($kls['id_kelas'] != null) :?>
+                                                <button class="btn btn-outline-success btn-kelas-ekstra e<?= $key ?>"
+                                                        data-ekstra="<?= $key ?>"
+                                                        data-kelas="<?= $kls['id_kelas'] ?>"><?= $kls['nama_kelas'] ?></button>
+                                            <?php endif; endforeach; ?>
+                                        <div id="alert-ekstra<?= $key ?>"
+                                             class="mt-3 alert alert-default-warning align-content-center"
+                                             role="alert">
+                                            Silahklan pilih kelas
+                                        </div>
+                                        <div id="konten-kkm-ekstra<?= $key ?>" class="mt-3">
+                                        </div>
+                                    </div>
+                                    <div class="overlay d-none" id="loading-ekstra<?= $key ?>">
+                                        <div class="spinner-grow"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach;
+                        endif; ?>
                     </div>
                 </div>
             </div>

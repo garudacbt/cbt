@@ -6,7 +6,8 @@
  * Time: 23:18
  */
 
-function format_interval(DateInterval $interval) {
+function format_interval(DateInterval $interval)
+{
     $result = "";
     if ($interval->y) {
         $result .= $interval->format("%y tahun ");
@@ -185,7 +186,8 @@ $arrBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
                                         if ($hari != 7 && (int)$tgl <= (int)$tanggal) :
                                             ?>
                                             <tr class="group bg-secondary">
-                                                <td class="pl-2 border" colspan="2"><?= $tgl . ' ' . $arrBulan[(int)$bulan] ?></td>
+                                                <td class="pl-2 border"
+                                                    colspan="2"><?= $tgl . ' ' . $arrBulan[(int)$bulan] ?></td>
                                                 <th class="text-center align-middle">Status</th>
                                                 <th class="text-center align-middle">Keterangan</th>
                                                 <th class="text-center align-middle">Status</th>

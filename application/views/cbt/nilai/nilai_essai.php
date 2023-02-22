@@ -34,7 +34,8 @@
                                 Halaman ini digunakan jika ingin menginput nilai tanpa koreksi.
                             </li>
                             <li>
-                                Jika hasil siswa sudah dikoreksi dan diberi nilai, maka nilai di halaman ini akan mengganti nilai hasil koreksi.
+                                Jika hasil siswa sudah dikoreksi dan diberi nilai, maka nilai di halaman ini akan
+                                mengganti nilai hasil koreksi.
                             </li>
                             <li>
                                 Nilai 0 di halaman ini tidak akan mengganti nilai hasil koreksi.
@@ -100,27 +101,32 @@
                                     <tr>
                                         <?php if ($jadwal->tampil_pg != '0') : ?>
                                             <td class="text-center" style="border-color:black;">
-                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_pg ?></span>
+                                                <span class="text-bold"
+                                                      style="font-size: 20pt"><?= $jadwal->tampil_pg ?></span>
                                             </td>
                                         <?php endif;
                                         if ($jadwal->tampil_kompleks != '0') :?>
                                             <td class="text-center" style="border-color:black;">
-                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_kompleks ?></span>
+                                                <span class="text-bold"
+                                                      style="font-size: 20pt"><?= $jadwal->tampil_kompleks ?></span>
                                             </td>
                                         <?php endif;
                                         if ($jadwal->tampil_jodohkan != '0') :?>
                                             <td class="text-center" style="border-color:black;">
-                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_jodohkan ?></span>
+                                                <span class="text-bold"
+                                                      style="font-size: 20pt"><?= $jadwal->tampil_jodohkan ?></span>
                                             </td>
                                         <?php endif;
                                         if ($jadwal->tampil_isian != '0') :?>
                                             <td class="text-center" style="border-color:black;">
-                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_isian ?></span>
+                                                <span class="text-bold"
+                                                      style="font-size: 20pt"><?= $jadwal->tampil_isian ?></span>
                                             </td>
                                         <?php endif;
                                         if ($jadwal->tampil_esai != '0') :?>
                                             <td class="text-center" style="border-color:black;">
-                                                <span class="text-bold" style="font-size: 20pt"><?= $jadwal->tampil_esai ?></span>
+                                                <span class="text-bold"
+                                                      style="font-size: 20pt"><?= $jadwal->tampil_esai ?></span>
                                             </td>
                                         <?php endif; ?>
                                     </tr>

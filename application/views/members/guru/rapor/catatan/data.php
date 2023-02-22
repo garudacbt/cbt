@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><?= $judul . $kelas->nama_kelas?></h1>
+                    <h1><?= $judul . $kelas->nama_kelas ?></h1>
                 </div>
             </div>
         </div>
@@ -30,7 +30,9 @@
                                     <table id="tbl2" class="table table-bordered border-success">
                                         <thead>
                                         <tr class="alert-default-danger">
-                                            <th class="text-center align-middle border-danger" style="width: 50px">Opsi</th>
+                                            <th class="text-center align-middle border-danger" style="width: 50px">
+                                                Opsi
+                                            </th>
                                             <th class="border-danger">
                                                 <span class="pl-2 align-middle">Edit Catatan dan Saran</span>
                                             </th>
@@ -38,7 +40,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        for ($i=0;$i<count($deskCatatan);$i++):
+                                        for ($i = 0; $i < count($deskCatatan); $i++):
                                             $skp = $deskCatatan[$i]; ?>
                                             <tr>
                                                 <td class="text-sm text-center border-success kode pt-0 pb-0"><?= $skp->kode ?></td>
@@ -52,7 +54,9 @@
                                     <table id="tbl1" class="table table-bordered">
                                         <thead>
                                         <tr class="alert-default-danger">
-                                            <th class="text-center align-middle border-danger" style="width: 100px">Tidak Hadir</th>
+                                            <th class="text-center align-middle border-danger" style="width: 100px">
+                                                Tidak Hadir
+                                            </th>
                                             <th class="border-danger">
                                                 <span class="pl-2 align-middle">Edit Peringatan Ketidakhadiran</span>
                                             </th>
@@ -60,7 +64,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        for ($i=0;$i<count($deskAbsensi);$i++):
+                                        for ($i = 0; $i < count($deskAbsensi); $i++):
                                             $skp = $deskAbsensi[$i]; ?>
                                             <tr>
                                                 <td class="text-sm text-center border-success rank pt-0 pb-0"><?= $skp->rank ?></td>
@@ -102,8 +106,8 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jexcel.js"></script>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jsuites.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswa)?>));
     var arrNilai = JSON.parse(JSON.stringify(<?= json_encode($nilai)?>));
@@ -120,20 +124,20 @@
             return (n !== '' && n != null);
         });
 
-        if (desk.length===0) return '';
+        if (desk.length === 0) return '';
 
         var result = '';
         if (type === 1) {
             for (let i = 0; i < desk.length; i++) {
                 var key = desk[i];
                 if ($.isNumeric(key)) {
-                    var kode = parseInt(key)-1;
-                    if (i>0) {
+                    var kode = parseInt(key) - 1;
+                    if (i > 0) {
                         result += ' ';
                     }
 
                     if (arrCatatan[kode] != null) {
-                        result +=arrCatatan[kode].deskripsi;
+                        result += arrCatatan[kode].deskripsi;
                     } else {
                         showDangerToast('Hanya untuk pengisian angka 1 s/d 6!');
                         return '#ERROR';
@@ -147,22 +151,22 @@
             for (let i = 0; i < arrAbsensi.length; i++) {
                 var abs = parseInt(desk[0]);
                 var n1 = parseInt(arrAbsensi[i].kode);
-                var n2 = arrAbsensi[(i+1)] != null  && arrAbsensi[(i+1)].kode != null ? parseInt(arrAbsensi[(i+1)].kode) : (n1+100);
-                if (inRange(abs, n1, (n2-1))) {
-                    result += '\n'+arrAbsensi[i].deskripsi;
+                var n2 = arrAbsensi[(i + 1)] != null && arrAbsensi[(i + 1)].kode != null ? parseInt(arrAbsensi[(i + 1)].kode) : (n1 + 100);
+                if (inRange(abs, n1, (n2 - 1))) {
+                    result += '\n' + arrAbsensi[i].deskripsi;
                 }
             }
         }
         return result;
     }
 
-    $(document).ready(function() {
-        console.log('siswa',arrSiswa);
-        console.log('nilai',arrNilai);
-        console.log('cat',arrCatatan);
-        console.log('absen',arrAbsensi);
+    $(document).ready(function () {
+        console.log('siswa', arrSiswa);
+        console.log('nilai', arrNilai);
+        console.log('cat', arrCatatan);
+        console.log('absen', arrAbsensi);
 
-        $('.editable').attr('contentEditable',true);
+        $('.editable').attr('contentEditable', true);
         var tableSize = $('#t-siswa');
         var dataSiswa = [];
         var row = 1;
@@ -177,7 +181,7 @@
             dataSiswa.push(
                 [
                     noInduk, v.nama,
-                    n1,n2,n3,n4,n5,n6,
+                    n1, n2, n3, n4, n5, n6,
                     setDesk([n1, n2, n3], 1) + setDesk([n6], 2),
                     v.id_siswa,
                 ]
@@ -221,13 +225,13 @@
         }
 
         var tableSiswa = $('#t-siswa').jexcel({
-            data:dataSiswa,
-            minDimensions:[10],
+            data: dataSiswa,
+            minDimensions: [10],
             //defaultColWidth: 100,
             tableOverflow: true,
-            tableWidth: ''+tableSize.width()+'px',
-            tableHeight: (80*dataSiswa.length)+'px',
-            search:true,
+            tableWidth: '' + tableSize.width() + 'px',
+            tableHeight: (80 * dataSiswa.length) + 'px',
+            search: true,
             freezeColumns: 2,
             //rowResize: true,
             columnResize: false,
@@ -235,7 +239,7 @@
             /*[
             {width: 100},
             {width: 300},       ],*/
-            nestedHeaders:[
+            nestedHeaders: [
                 [
                     {title: 'DATA SISWA', colspan: '2'},
                     {title: 'OPSI\nSARAN', colspan: '3'},
@@ -243,7 +247,7 @@
                     {title: 'SARAN-SARAN', colspan: '2'},
                 ]
             ],
-            updateTable:function(instance, cell, col, row, val, label, cellName) {
+            updateTable: function (instance, cell, col, row, val, label, cellName) {
                 if (col === 0 || col === 1) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
@@ -252,11 +256,11 @@
                     //cell.style.border = 'black';
                 }
 
-                if (col === 2||col === 3||col === 4) {
+                if (col === 2 || col === 3 || col === 4) {
                     cell.style.backgroundColor = '#b9f6ca';
                 }
 
-                if (col === 5||col === 6||col === 7) {
+                if (col === 5 || col === 6 || col === 7) {
                     cell.style.backgroundColor = '#e0f7fa';
                 }
 
@@ -268,11 +272,11 @@
                     cell.style.textAlign = 'left';
                 }
             },
-            onchange: function(instance, cell, col, row, value, label) {
-                var cellName = jexcel.getColumnNameFromId([col,row]);
+            onchange: function (instance, cell, col, row, value, label) {
+                var cellName = jexcel.getColumnNameFromId([col, row]);
                 if (inRange(col, 2, 7)) {
                     if (cellName != 'I' + row) {
-                        console.log(cellName + ', val:' + value + 'col:' + col + 'row:'+row);
+                        console.log(cellName + ', val:' + value + 'col:' + col + 'row:' + row);
                         //changed(parseInt(row)+1);
                         changed(parseInt(row));
                     }
@@ -291,7 +295,7 @@
             console.log(d1);
             var values2 = $(`td[data-x="7"][data-y="${row}"]`).text();
             console.log(values2);
-            tableSiswa.setValue('I'+(row+1), setDesk(d1, 1) + setDesk([values2], 2), true);
+            tableSiswa.setValue('I' + (row + 1), setDesk(d1, 1) + setDesk([values2], 2), true);
         }
 
         $('#uploadcatatan').submit('click', function (e) {
@@ -303,7 +307,7 @@
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: base_url + 'rapor/uploadcatatan/'+idKelas,
+                url: base_url + 'rapor/uploadcatatan/' + idKelas,
                 data: form,
                 processData: false,
                 contentType: false,
@@ -313,14 +317,14 @@
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil diupdate",
+                        html: "<b>" + data + "<b> nilai berhasil diupdate",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
                         confirmButtonText: "OK"
                     }).then(result => {
                         if (result.value) {
-                            window.location.href = base_url + 'rapor/raporcatatan/'+idKelas
+                            window.location.href = base_url + 'rapor/raporcatatan/' + idKelas
                         }
                     });
                 },
@@ -335,32 +339,32 @@
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            var tbl = $('table.jexcel tr').get().map(function(row) {
-                return $(row).find('td').get().map(function(cell) {
+            var tbl = $('table.jexcel tr').get().map(function (row) {
+                return $(row).find('td').get().map(function (cell) {
                     return $(cell).html();
                 });
             });
             tbl.shift();
             tbl.shift();
-            console.log($(this).serialize() + '&nilai='+JSON.stringify(tbl));
+            console.log($(this).serialize() + '&nilai=' + JSON.stringify(tbl));
 
             $.ajax({
                 type: "POST",
-                url: base_url + 'rapor/importcatatan/'+idKelas,
-                data: $(this).serialize() + '&nilai='+JSON.stringify(tbl),
+                url: base_url + 'rapor/importcatatan/' + idKelas,
+                data: $(this).serialize() + '&nilai=' + JSON.stringify(tbl),
                 cache: false,
                 success: function (data) {
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil disimpan",
+                        html: "<b>" + data + "<b> nilai berhasil disimpan",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
                         confirmButtonText: "OK"
                     }).then(result => {
                         if (result.value) {
-                            window.location.href = base_url + 'rapor/raporcatatan/'+idKelas
+                            window.location.href = base_url + 'rapor/raporcatatan/' + idKelas
                         }
                     });
                 },
@@ -371,14 +375,14 @@
             });
         });
 
-        $('#editdeskripsi').on('submit',function (e) {
+        $('#editdeskripsi').on('submit', function (e) {
             e.stopPropagation();
             e.preventDefault();
             e.stopImmediatePropagation();
 
             var jsonObj = [];
 
-            var table1 =$('#tbl1');
+            var table1 = $('#tbl1');
             const $rows1 = table1.find('tr'), headers1 = $rows1.splice(0, 1);
             $rows1.each((i, row) => {
                 const desk = $(row).find('.editable').text();
@@ -428,7 +432,7 @@
                     console.log("response:", data);
                     if (data.status) {
                         //showSuccessToast('Data berhasil disimpan')
-                        window.location.href = base_url + 'rapor/raporcatatan/'+idKelas
+                        window.location.href = base_url + 'rapor/raporcatatan/' + idKelas
                     } else {
                         showDangerToast('gagal disimpan')
                     }

@@ -58,7 +58,8 @@ foreach ($soal_ada as $key => $value) {
         <div class="container-fluid">
             <div class="d-sm-flex justify-content-between mb-2">
                 <h1><?= $subjudul ?></h1>
-                <a href="<?= base_url('cbtbanksoal/detail/'.$bank->id_bank)?>" type="button" class="btn btn-sm btn-danger float-right">
+                <a href="<?= base_url('cbtbanksoal/detail/' . $bank->id_bank) ?>" type="button"
+                   class="btn btn-sm btn-danger float-right">
                     <i class="fas fa-arrow-circle-left"></i><span
                             class="d-none d-sm-inline-block ml-1">Kembali</span>
                 </a>
@@ -82,15 +83,20 @@ foreach ($soal_ada as $key => $value) {
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link <?= $tab_active == '1' ? 'active' : '' ?>"
-                                                href="<?= base_url('cbtbanksoal/buatsoal/'.$bank->id_bank.'?tab=1')?>">Pilihan Ganda</a></li>
+                                                href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?tab=1') ?>">Pilihan
+                                Ganda</a></li>
                         <li class="nav-item"><a class="nav-link <?= $tab_active == '2' ? 'active' : '' ?>"
-                                                href="<?= base_url('cbtbanksoal/buatsoal/'.$bank->id_bank.'?tab=2')?>">Pilihan Ganda Kompleks</a></li>
+                                                href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?tab=2') ?>">Pilihan
+                                Ganda Kompleks</a></li>
                         <li class="nav-item"><a class="nav-link <?= $tab_active == '3' ? 'active' : '' ?>"
-                                                href="<?= base_url('cbtbanksoal/buatsoal/'.$bank->id_bank.'?tab=3')?>">Menjodohkan</a></li>
+                                                href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?tab=3') ?>">Menjodohkan</a>
+                        </li>
                         <li class="nav-item"><a class="nav-link <?= $tab_active == '4' ? 'active' : '' ?>"
-                                                href="<?= base_url('cbtbanksoal/buatsoal/'.$bank->id_bank.'?tab=4')?>">Isian Singkat</a></li>
+                                                href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?tab=4') ?>">Isian
+                                Singkat</a></li>
                         <li class="nav-item"><a class="nav-link <?= $tab_active == '5' ? 'active' : '' ?>"
-                                                href="<?= base_url('cbtbanksoal/buatsoal/'.$bank->id_bank.'?tab=5')?>">Essai/Uraian</a></li>
+                                                href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?tab=5') ?>">Essai/Uraian</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="card-body">
@@ -209,11 +215,11 @@ foreach ($soal_ada as $key => $value) {
             </div>
 
             <?php
-            $pg_none        = $tab_active == '1' ? '' : 'd-none';
-            $pg2_none       = $tab_active == '2' ? '' : 'd-none';
-            $jodohkan_none  = $tab_active == '3' ? '' : 'd-none';
-            $isian_none     = $tab_active == '4' ? '' : 'd-none';
-            $essai_none     = $tab_active == '5' ? '' : 'd-none';
+            $pg_none = $tab_active == '1' ? '' : 'd-none';
+            $pg2_none = $tab_active == '2' ? '' : 'd-none';
+            $jodohkan_none = $tab_active == '3' ? '' : 'd-none';
+            $isian_none = $tab_active == '4' ? '' : 'd-none';
+            $essai_none = $tab_active == '5' ? '' : 'd-none';
             ?>
             <div class="alert alert-default-info" id="empty-soal">
                 <span>Belum ada soal</span>
@@ -260,7 +266,7 @@ foreach ($soal_ada as $key => $value) {
                                     $rangeAbjad = range('a', 'c');
                                 };
                                 ?>
-                                <div id="root-opsi-pg" class="<?= $pg_none?>">
+                                <div id="root-opsi-pg" class="<?= $pg_none ?>">
                                     <?php
                                     foreach ($rangeAbjad as $abjad) :
                                         ?>
@@ -273,10 +279,12 @@ foreach ($soal_ada as $key => $value) {
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
-                                <div id="root-opsi-pg2"  class="<?= $pg2_none?>">
+                                <div id="root-opsi-pg2" class="<?= $pg2_none ?>">
                                     <div id="opsi-pg2"></div>
                                     <div class="mb-3 ml-3">
-                                        <button id="tambah-jawaban-pg2" type="button" class="btn btn-success">Tambah Jawaban</button>
+                                        <button id="tambah-jawaban-pg2" type="button" class="btn btn-success">Tambah
+                                            Jawaban
+                                        </button>
                                     </div>
                                 </div>
 
@@ -289,7 +297,8 @@ foreach ($soal_ada as $key => $value) {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Model</span>
                                                 </div>
-                                                <select name="model_opsi" class="form-control" id="model-opsi" disabled="disabled">
+                                                <select name="model_opsi" class="form-control" id="model-opsi"
+                                                        disabled="disabled">
                                                     <option value="0" selected="selected">-pilihan model-</option>
                                                     <option value="1">List</option>
                                                     <option value="2">Table</option>
@@ -302,7 +311,8 @@ foreach ($soal_ada as $key => $value) {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Tipe</span>
                                                 </div>
-                                                <select name="type_opsi" class="form-control" id="type-opsi" disabled="disabled">
+                                                <select name="type_opsi" class="form-control" id="type-opsi"
+                                                        disabled="disabled">
                                                     <option value="0" selected="selected">-pilihan tipe-</option>
                                                     <option value="2">1 baris 1 jawaban</option>
                                                     <option value="1">1 baris banyak jawaban</option>
@@ -312,7 +322,8 @@ foreach ($soal_ada as $key => $value) {
 
                                         <div id="btn-table" class="text-right col-md-5 mb-2">
                                             <button type="button" class="btn btn-success" onclick="addColumn()">
-                                                <i class="fa fa-plus"></i> Tambah Kolom</button>
+                                                <i class="fa fa-plus"></i> Tambah Kolom
+                                            </button>
                                         </div>
                                     </div>
                                     <div id="jawaban-jodohkan">
@@ -321,7 +332,7 @@ foreach ($soal_ada as $key => $value) {
 
                                 <div class="mt-1 ml-3" id="jawaban-benar">
                                     <label>Jawaban Benar</label>
-                                    <div id="root-jawaban-pg"  class="<?= $pg_none ?>">
+                                    <div id="root-jawaban-pg" class="<?= $pg_none ?>">
                                         <?php
                                         echo form_dropdown(
                                             'jawaban_pg',
@@ -467,7 +478,7 @@ foreach ($soal_ada as $key => $value) {
     var adaJodohkan = JSON.parse('<?= json_encode($soal_jodohkan_ada)?>');
     var adaIsian = JSON.parse('<?= json_encode($soal_isian_ada)?>');
     var adaEssai = JSON.parse('<?= json_encode($soal_esai_ada)?>');
-    console.log('adaPg',adaIsian);
+    console.log('adaPg', adaIsian);
 
     $(function () {
         bsCustomFileInput.init();

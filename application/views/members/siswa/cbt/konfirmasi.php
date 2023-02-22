@@ -96,7 +96,7 @@
                                         <ul>
                                             <?php
                                             foreach ($pengawas as $pws) :?>
-                                                <li><?=$pws->nama_guru?></li>
+                                                <li><?= $pws->nama_guru ?></li>
                                             <?php endforeach; ?>
                                         </ul>
                                     </div>
@@ -198,7 +198,7 @@
                                 // admin harus reset waktu
                                 swal.fire({
                                     "title": "Error",
-                                    "html": data.warn.msg+"<br>Hubungi proktor<br>003",
+                                    "html": data.warn.msg + "<br>Hubungi proktor<br>003",
                                     "icon": "error"
                                 });
                             }
@@ -233,6 +233,7 @@
     });
 
     console.log('mnt', getMinutes('2023-01-30 11:30:30'));
+
     function getMinutes(d) {
         var startTime = new Date(d);
         var endTime = new Date();
@@ -240,7 +241,7 @@
         endTime.setMinutes(endTime.getMinutes() - startTime.getMinutes());
         endTime.setSeconds(endTime.getSeconds() - startTime.getSeconds());
 
-        return {h:endTime.getHours(), m:endTime.getMinutes(), s:endTime.getSeconds()}
+        return {h: endTime.getHours(), m: endTime.getMinutes(), s: endTime.getSeconds()}
     }
 
 </script>

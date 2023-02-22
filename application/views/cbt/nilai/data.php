@@ -24,7 +24,7 @@ $XB = isset($convert) ? $convert['xb'] : 20;  // nilai terkecil
 $YA = isset($convert) ? $convert['ya'] : 100; // hasil terbesar
 $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
 
-$colWidth ='';
+$colWidth = '';
 ?>
 
 <div class="content-wrapper bg-white">
@@ -70,11 +70,11 @@ $colWidth ='';
                         if ($isadmin) :?>
                         <?php endif; ?>
                         <div class="col-4 mb-3">
-                        <button type="button" id="import-essai" class="btn btn-info align-text-bottom mr-2"
-                                data-toggle="tooltip"
-                                title="Import Nilai Essai">
-                            <i class="fa fa-pencil ml-1 mr-1"></i> Input Nilai
-                        </button>
+                            <button type="button" id="import-essai" class="btn btn-info align-text-bottom mr-2"
+                                    data-toggle="tooltip"
+                                    title="Import Nilai Essai">
+                                <i class="fa fa-pencil ml-1 mr-1"></i> Input Nilai
+                            </button>
                         </div>
                     </div>
                     <hr>
@@ -328,7 +328,8 @@ $colWidth ='';
                                                 $nilaiTerrendah = round($siswa->skor_total, 2);
                                             }
                                             ?>
-                                            <td class="no-soal-siswa d-none" <?= $bg ?> data-a-v="middle" data-a-h="center"
+                                            <td class="no-soal-siswa d-none" <?= $bg ?> data-a-v="middle"
+                                                data-a-h="center"
                                                 data-b-a-s="thin"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $jwb['jawaban'] ?></td>
                                         <?php endforeach; ?>
@@ -376,13 +377,15 @@ $colWidth ='';
                                         <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
                                             data-b-a-s="thin"
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                            <b> <?= $disable ? '' : ($siswa->skor_katrol == '' ? '' : round($siswa->skor_katrol, 2)) ?> </b></td>
+                                            <b> <?= $disable ? '' : ($siswa->skor_katrol == '' ? '' : round($siswa->skor_katrol, 2)) ?> </b>
+                                        </td>
                                         <td class="text-center align-middle" data-exclude="true" data-a-v="middle"
                                             data-a-h="center" data-b-a-s="thin"
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;">
                                             <button type="button" class="btn btn-xs bg-success mb-1 <?= $disabled ?>"
                                                     onclick="lihatJawaban(<?= $siswa->id_siswa ?>)"
-                                                    data-toggle="tooltip" title="Detail Jawaban Siswa" <?= $disabled ?>>Koreksi
+                                                    data-toggle="tooltip" title="Detail Jawaban Siswa" <?= $disabled ?>>
+                                                Koreksi
                                             </button>
                                         </td>
                                     </tr>
@@ -591,9 +594,9 @@ $colWidth ='';
             } else {
             }
             var exluded = this.checked;
-            $('#no-soal-tile').attr('data-exclude', ''+!exluded);
-            $('.no-soal').attr('data-exclude', ''+!exluded);
-            $('.no-soal-siswa').attr('data-exclude', ''+!exluded);
+            $('#no-soal-tile').attr('data-exclude', '' + !exluded);
+            $('.no-soal').attr('data-exclude', '' + !exluded);
+            $('.no-soal-siswa').attr('data-exclude', '' + !exluded);
 
             var width = $('#table-status').attr('data-cols-width');
             $('#table-status').attr('data-cols-width', width == colWidth ? colWidthMin : colWidth)

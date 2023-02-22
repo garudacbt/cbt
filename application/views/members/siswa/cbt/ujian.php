@@ -38,7 +38,9 @@
                 </div>
             </div>
         </div>
-        <div class="container" style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" unselectable="on">
+        <div class="container"
+             style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"
+             unselectable="on">
             <div class="row">
                 <div class="col-12">
                     <div class="card my-shadow">
@@ -194,7 +196,7 @@
                 let markup = '';
 
                 for (let i = 0; i < timer.length; i++) {
-                    markup +=  timer[i];
+                    markup += timer[i];
                     markup += i != timer.length - 1 ? ':' : '';
                 }
 
@@ -230,9 +232,9 @@
     }
 </script>
 <script>
-    var elem= document.documentElement;
+    var elem = document.documentElement;
     history.pushState(null, null, '<?php echo $_SERVER["REQUEST_URI"]; ?>');
-    window.addEventListener('popstate', function(event) {
+    window.addEventListener('popstate', function (event) {
         loadSoalNomor(1);
     });
     const infoJadwal = JSON.parse(JSON.stringify(<?= json_encode($jadwal) ?>));
@@ -245,7 +247,7 @@
     let timerSelesai;
     //const durasi = JSON.parse(JSON.stringify(<?= json_encode($elapsed) ?>));
     let elapsed = '0';
-    let h,m,s;
+    let h, m, s;
     var message = "Jangan menggunakan klik kanan!";
 
     let tick = 0;
@@ -303,8 +305,8 @@
             });
         });
 
-        $("#plus").click(function() {
-            $(".konten-soal-jawab").find('*').each(function() {
+        $("#plus").click(function () {
+            $(".konten-soal-jawab").find('*').each(function () {
                 var size = parseInt($(this).css("font-size"));
                 if (size < 30) {
                     size = (size + 1) + "px";
@@ -313,8 +315,8 @@
             });
         });
 
-        $("#minus").click(function(){
-            $(".konten-soal-jawab").find('*').each(function() {
+        $("#minus").click(function () {
+            $(".konten-soal-jawab").find('*').each(function () {
                 var size = parseInt($(this).css("font-size"));
                 if (size > 12) {
                     size = (size - 1) + "px";
@@ -327,12 +329,12 @@
     });
 
     function loadSoalNomor(nomor) {
-        if (nomor == nomorSoal ) {
+        if (nomor == nomorSoal) {
             return;
         }
-        var dataPost = $('#up').serialize() + '&nomor='+nomor+'&timer='+$('#timer').text()+'&elapsed='+elapsed;
+        var dataPost = $('#up').serialize() + '&nomor=' + nomor + '&timer=' + $('#timer').text() + '&elapsed=' + elapsed;
         //console.log(dataPost);
-        if (soalTotal===0 || nomor <= parseInt(soalTotal)) {
+        if (soalTotal === 0 || nomor <= parseInt(soalTotal)) {
             $.ajax({
                 type: 'POST',
                 url: base_url + 'siswa/loadnomorsoal',
@@ -360,10 +362,10 @@
         nav = $(datas).data('nomorsoal');
         var jwb1 = jawabanSiswa;
         var jwb2 = jawabanBaru;
-        if ($.isArray(jwb1) || jwb1 instanceof jQuery){
+        if ($.isArray(jwb1) || jwb1 instanceof jQuery) {
             jwb1 = JSON.stringify(jwb1)
         }
-        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)){
+        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)) {
             jwb2 = JSON.stringify(jwb2)
         }
 
@@ -388,7 +390,7 @@
         jawabanSiswa = data.soal_jawaban_siswa != null ? data.soal_jawaban_siswa : '';
         if ($.isArray(jawabanSiswa)) jawabanSiswa.sort();
 
-        if (nomorSoal === 1){
+        if (nomorSoal === 1) {
             $('#prev').attr('disabled', 'disabled');
         } else {
             $('#prev').removeAttr('disabled');
@@ -400,28 +402,28 @@
         var html = '';
         if (jenis == "1") {
             $.each(data.soal_opsi, function (key, opsis) {
-                if (opsis.valAlias != "" ) {
-                    html+= '<label class="container-jawaban font-weight-normal">'+opsis.opsi +
+                if (opsis.valAlias != "") {
+                    html += '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
                         '<input type="radio"' +
                         ' name="jawaban"' +
-                        ' value="'+opsis.value.toUpperCase()+'"' +
-                        ' data-jawabansiswa="'+opsis.value.toUpperCase()+'"' +
-                        ' data-jawabanalias="'+opsis.valAlias.toUpperCase()+'"' +
-                        ' onclick="submitJawaban(this)" '+opsis.checked+'>' +
-                        '<span class="checkmark shadow text-center align-middle">'+opsis.valAlias.toUpperCase()+'</span>' +
+                        ' value="' + opsis.value.toUpperCase() + '"' +
+                        ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
+                        ' data-jawabanalias="' + opsis.valAlias.toUpperCase() + '"' +
+                        ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
+                        '<span class="checkmark shadow text-center align-middle">' + opsis.valAlias.toUpperCase() + '</span>' +
                         '</label>';
                 }
             });
             $('#konten-jawaban').html(html);
         } else if (jenis == "2") {
             $.each(data.soal_opsi, function (key, opsis) {
-                html+= '<label class="container-jawaban font-weight-normal">'+opsis.opsi +
+                html += '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
                     '<input type="checkbox" class="check2"' +
                     ' name="jawaban"' +
-                    ' value="'+opsis.value.toUpperCase()+'"' +
-                    ' data-max="'+data.max_jawaban[0]+'"' +
-                    ' data-jawabansiswa="'+opsis.value.toUpperCase()+'"' +
-                    ' onclick="submitJawaban(this)" '+opsis.checked+'>' +
+                    ' value="' + opsis.value.toUpperCase() + '"' +
+                    ' data-max="' + data.max_jawaban[0] + '"' +
+                    ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
+                    ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
                     '<span class="boxmark"></span>' +
                     '</label>';
             });
@@ -435,8 +437,7 @@
                 $('#konten-jawaban').html(html);
                 var mode = datalist.type == '2' ? "oneToOne" : "manyToMany";
                 var inputs = {
-                    "localization": {
-                    },
+                    "localization": {},
                     "options": {
                         "associationMode": mode, // oneToOne,manyToMany
                         "lineStyle": "square-ends",
@@ -447,11 +448,11 @@
                     },
                     "Lists": [
                         {
-                            "name": "baris-kiri"+data.soal_nomor_asli,
+                            "name": "baris-kiri" + data.soal_nomor_asli,
                             "list": datalist.jawaban[0]
                         },
                         {
-                            "name": "baris-kanan"+data.soal_nomor_asli,
+                            "name": "baris-kanan" + data.soal_nomor_asli,
                             "list": datalist.jawaban[1],
                         }
                     ],
@@ -459,17 +460,17 @@
                 };
                 fieldLinks = $("#original").fieldsLinker("init", inputs);
 
-                $(`ul[data-col="baris-kanan${data.soal_nomor_asli}"] li`).click(function(e) {
+                $(`ul[data-col="baris-kanan${data.soal_nomor_asli}"] li`).click(function (e) {
                     submitJawaban(null);
                 });
             } else {
-                html += '<table id="table-jodohkan" class="table table-bordered" data-type="'+data.soal_opsi.type+'">';
+                html += '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
                 html += '<tr class="text-center">';
                 $.each(data.soal_opsi.thead, function (key, val) {
                     if (key === 0) {
-                        html += '<th class="text-white">'+val+'</th>';
+                        html += '<th class="text-white">' + val + '</th>';
                     } else {
-                        html += '<th class="text-center">'+val+'</th>';
+                        html += '<th class="text-center">' + val + '</th>';
                     }
                 });
                 html += '</tr>';
@@ -477,12 +478,12 @@
                     html += '<tr class="text-center">';
                     $.each(v, function (t, i) {
                         if (t === 0) {
-                            html += '<td class="baris text-bold">' +i+'</td>';
+                            html += '<td class="baris text-bold">' + i + '</td>';
                         } else {
                             const checked = i == '1' ? ' checked' : '';
                             const type = data.soal_opsi.type != '2' ? 'checkbox' : 'radio';
                             html += '<td>' +
-                                '<input class="check"  data-max="'+data.max_jawaban[v[0]]+'" type="'+type+'" name="check'+k+'" style="height: 20px; width: 20px"'+checked+'>' +
+                                '<input class="check"  data-max="' + data.max_jawaban[v[0]] + '" type="' + type + '" name="check' + k + '" style="height: 20px; width: 20px"' + checked + '>' +
                                 '</td>';
                         }
                     });
@@ -495,7 +496,7 @@
             html += '<div class="pr-4">' +
                 '<span class="">JAWABAN:</span><br>' +
                 '<input id="jawaban-essai" class="pl-1" type="text"' +
-                ' name="jawaban" value="'+jawabanSiswa+'"' +
+                ' name="jawaban" value="' + jawabanSiswa + '"' +
                 ' placeholder="Tulis jawaban disini"/><br>' +
                 '</div>';
             $('#konten-jawaban').html(html);
@@ -504,7 +505,7 @@
                 '<label>JAWABAN:</label><br>' +
                 '<textarea id="jawaban-essai" class="w-100 pl-1" type="text"' +
                 ' name="jawaban" rows="4"' +
-                ' placeholder="Tulis jawaban disini">'+jawabanSiswa+'</textarea><br>' +
+                ' placeholder="Tulis jawaban disini">' + jawabanSiswa + '</textarea><br>' +
                 '</div>';
             $('#konten-jawaban').html(html);
         }
@@ -524,7 +525,7 @@
                 newSrc = base_url + pathUpload + forReplace[1];
                 $(this).attr('src', newSrc);
             }
-            $(this).on('load', function() {
+            $(this).on('load', function () {
                 if ($(this).height() > 50) {
                     $(this).addClass('img-fluid');
                 }
@@ -566,7 +567,7 @@
                 $(e.target).prop('checked', !$(this).prop('checked'));
                 $.toast({
                     heading: 'Warning',
-                    text: 'Maksimal <b>'+max+' jawaban',
+                    text: 'Maksimal <b>' + max + ' jawaban',
                     showHideTransition: 'slide',
                     icon: 'error',
                     loaderBg: '#f2a654',
@@ -577,7 +578,7 @@
             }
         });
 
-        $("#jawaban-essai").on('change keyup paste', function() {
+        $("#jawaban-essai").on('change keyup paste', function () {
             submitJawaban(null);
         });
 
@@ -601,7 +602,7 @@
                     url: base_url + 'siswa/savejawaban',
                     method: 'POST',
                     data: $('#jawab').serialize() + '&jadwal=' + jadwal + '&siswa=' + siswa + '&bank=' + bank +
-                        '&waktu='+$('#timer').text()+'&elapsed='+elapsed + '&data=' + JSON.stringify(jsonJawaban),
+                        '&waktu=' + $('#timer').text() + '&elapsed=' + elapsed + '&data=' + JSON.stringify(jsonJawaban),
                     success: function (response) {
                         $('.konten-soal-jawab').html('');
                         dialogWaktu();
@@ -620,10 +621,10 @@
         nav = (nomorSoal + 1);
         var jwb1 = jawabanSiswa;
         var jwb2 = jawabanBaru;
-        if ($.isArray(jwb1) || jwb1 instanceof jQuery){
+        if ($.isArray(jwb1) || jwb1 instanceof jQuery) {
             jwb1 = JSON.stringify(jwb1)
         }
-        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)){
+        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)) {
             jwb2 = JSON.stringify(jwb2)
         }
 
@@ -635,7 +636,7 @@
     }
 
     function setTimerSelesai(next, durasi) {
-        var mulai = durasi.mulai == null || durasi.mulai == '0' ? new Date(): new Date(durasi.mulai);
+        var mulai = durasi.mulai == null || durasi.mulai == '0' ? new Date() : new Date(durasi.mulai);
         const now = getMinutes(mulai);
         console.log('now', now);
         var mnt = Number(infoJadwal.jarak);
@@ -643,9 +644,9 @@
         mnt = mnt - now.m;
         var scn = 60 - now.s;
         if (scn > 0) {
-            mnt = mnt -1;
+            mnt = mnt - 1;
         }
-        timerSelesai = set_timer($('#text-next'), [0, 0, mnt, scn], function(block, isOver) {
+        timerSelesai = set_timer($('#text-next'), [0, 0, mnt, scn], function (block, isOver) {
             if (isOver) {
                 next.removeAttr('disabled');
                 block.html('<b>Selesai</b>');
@@ -661,10 +662,10 @@
         nav = (nomorSoal - 1);
         var jwb1 = jawabanSiswa;
         var jwb2 = jawabanBaru;
-        if ($.isArray(jwb1) || jwb1 instanceof jQuery){
+        if ($.isArray(jwb1) || jwb1 instanceof jQuery) {
             jwb1 = JSON.stringify(jwb1)
         }
-        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)){
+        if (jwb2 != null && ($.isArray(jwb2) || jwb2 instanceof jQuery)) {
             jwb2 = JSON.stringify(jwb2)
         }
 
@@ -684,7 +685,7 @@
             if (badges.length) {
                 $(`#badge${nomorSoal}`).text(jwb)
             } else {
-                var badge = '<div id="badge'+nomorSoal+'" class="badge badge-pill badge-success border border-dark text-yellow"' +
+                var badge = '<div id="badge' + nomorSoal + '" class="badge badge-pill badge-success border border-dark text-yellow"' +
                     ' style="font-size:12pt; width: 30px; height: 30px; margin-top: -60px; margin-left: 30px;">' +
                     jwb +
                     '</div>';
@@ -692,7 +693,7 @@
             }
         } else {
             if (!badges.length) {
-                var badge = '<div id="badge'+nomorSoal+'" class="badge badge-pill badge-success border border-dark"' +
+                var badge = '<div id="badge' + nomorSoal + '" class="badge badge-pill badge-success border border-dark"' +
                     ' style="font-size:12pt; width: 30px; height: 30px; margin-top: -60px; margin-left: 30px;">' +
                     '&check;</div>';
                 $(`#box${nomorSoal}`).append(badge);
@@ -701,7 +702,7 @@
     }
 
     function submitJawaban(opsi) {
-        var jawaban_Siswa='', jawaban_Alias='';
+        var jawaban_Siswa = '', jawaban_Alias = '';
         if (jenisSoal == 1) {
             jawaban_Siswa = $(opsi).data('jawabansiswa');
             jawaban_Alias = $(opsi).data('jawabanalias');
@@ -714,7 +715,7 @@
                 $(opsi).prop('checked', !$(opsi).prop('checked'));
                 $.toast({
                     heading: 'Warning',
-                    text: 'Maksimal <b>'+max+' jawaban',
+                    text: 'Maksimal <b>' + max + ' jawaban',
                     showHideTransition: 'slide',
                     icon: 'error',
                     loaderBg: '#f2a654',
@@ -723,7 +724,7 @@
                 return;
             } else {
                 var selected = [];
-                $('#konten-jawaban input:checked').each(function() {
+                $('#konten-jawaban input:checked').each(function () {
                     selected.push($(this).val());
                 });
                 jawaban_Siswa = selected;
@@ -767,16 +768,16 @@
     }
 
     function getDataTable() {
-        var tbl = $('#table-jodohkan tr').get().map(function(row) {
+        var tbl = $('#table-jodohkan tr').get().map(function (row) {
             var $tables = [];
 
-            $(row).find('th').get().map(function(cell) {
+            $(row).find('th').get().map(function (cell) {
                 var klm = $(cell).text().trim();
                 $tables.push(klm == "" ? "#" : klm);
             });
 
-            $(row).find('td').get().map(function(cell) {
-                if($(cell).children('input').length > 0) {
+            $(row).find('td').get().map(function (cell) {
+                if ($(cell).children('input').length > 0) {
                     $tables.push($(cell).find('input').prop("checked") === true ? "1" : "0");
                 } else {
                     $tables.push($(cell).text().trim())
@@ -800,7 +801,7 @@
         var linked = [];
         $.each(data.tbody, function (n, arv) {
             $.each(arv, function (t, v) {
-                if (v == '1' ) {
+                if (v == '1') {
                     var it = {};
                     it['from'] = kiri[n];
                     it['to'] = kanan[t];
@@ -819,10 +820,10 @@
     function getListData() {
         var kolom = [];
         var baris = [];
-        $(".FL-left li").each(function() {
+        $(".FL-left li").each(function () {
             baris.push($(this).text());
         });
-        $(".FL-right li").each(function() {
+        $(".FL-right li").each(function () {
             kolom.push($(this).text());
         });
         return [kolom, baris];
@@ -938,13 +939,15 @@
         });
     }
 
-    function rtclickcheck(keyp){
-        if (navigator.appName == "Netscape" && keyp.which == 3){
-            alert(message); return false;
+    function rtclickcheck(keyp) {
+        if (navigator.appName == "Netscape" && keyp.which == 3) {
+            alert(message);
+            return false;
         }
 
-        if (navigator.appVersion.indexOf("MSIE") != -1 && event.button ==2){
-            alert(message); return false;
+        if (navigator.appVersion.indexOf("MSIE") != -1 && event.button == 2) {
+            alert(message);
+            return false;
         }
     }
 
@@ -964,11 +967,11 @@
         }
     }
 
-    $(window).on('beforeunload', function(){
+    $(window).on('beforeunload', function () {
         $.ajax({
             type: 'POST',
             url: base_url + 'siswa/savetimer',
-            data: $('#up').serialize() + '&elapsed='+elapsed,
+            data: $('#up').serialize() + '&elapsed=' + elapsed,
             success: function (data) {
             }, error: function (xhr, error, status) {
             }
@@ -981,7 +984,7 @@
         endTime.setMinutes(endTime.getMinutes() - startTime.getMinutes());
         endTime.setSeconds(endTime.getSeconds() - startTime.getSeconds());
 
-        return {h:endTime.getHours(), m:endTime.getMinutes(), s:endTime.getSeconds()}
+        return {h: endTime.getHours(), m: endTime.getMinutes(), s: endTime.getSeconds()}
     }
 
     function createTimerCountdown(durasi, elapsed, func) {
@@ -1006,18 +1009,18 @@
             const t_remaining = t_dur - elapsedMicro;
             if (t_remaining <= 0) {
                 if (func && (typeof func == "function")) {
-                    func(true, 'Waktu habis', zeroPad(t_jam)+':'+zeroPad(t_mnt)+':'+zeroPad(t_dtk));
+                    func(true, 'Waktu habis', zeroPad(t_jam) + ':' + zeroPad(t_mnt) + ':' + zeroPad(t_dtk));
                 }
             } else {
                 // elapsed
                 t_dtk++;
                 if (t_dtk > 59) {
                     t_dtk = 0;
-                    t_mnt ++;
+                    t_mnt++;
                 }
                 if (t_mnt > 59) {
                     t_mnt = 0;
-                    t_jam ++;
+                    t_jam++;
                 }
 
                 // remaining
@@ -1027,8 +1030,8 @@
 
                 if (func && (typeof func == "function")) {
                     func(false,
-                        zeroPad(r_jam)+':'+zeroPad(r_mnt)+':'+zeroPad(r_dtk),
-                        zeroPad(t_jam)+':'+zeroPad(t_mnt)+':'+zeroPad(t_dtk)
+                        zeroPad(r_jam) + ':' + zeroPad(r_mnt) + ':' + zeroPad(r_dtk),
+                        zeroPad(t_jam) + ':' + zeroPad(t_mnt) + ':' + zeroPad(t_dtk)
                     );
                 }
                 timerOut = setTimeout(testTimer, 1000);
@@ -1036,7 +1039,7 @@
         }
 
         function zeroPad(no) {
-            return no < 10 ? '0'+no : no;
+            return no < 10 ? '0' + no : no;
         }
     }
 </script>

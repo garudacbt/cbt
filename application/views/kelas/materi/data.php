@@ -35,10 +35,10 @@ foreach ($materi as $k => $m) {
     <section class="content">
         <div class="container-fluid">
             <?php
-            $days = [0,1,2,3,4,5,6];
+            $days = [0, 1, 2, 3, 4, 5, 6];
             $disabledDay = [];
-            foreach ($jadwal_mapel as $km=>$vm) {
-                foreach ($vm as $kk=>$vk) {
+            foreach ($jadwal_mapel as $km => $vm) {
+                foreach ($vm as $kk => $vk) {
                     $disabledDay[$km][$kk] = $days;
                     foreach ($vk as $ih) {
                         unset($disabledDay[$km][$kk][$ih->id_hari]);
@@ -50,21 +50,24 @@ foreach ($materi as $k => $m) {
                 <div class="card-header">
                     <h6 class="card-title"><?= $subjudul ?></h6>
                     <div class="card-tools">
-                        <a href="<?= base_url('kelasmateri/'.$urlJenis.'?id=' . $id_guru) ?>" type="button" onclick=""
+                        <a href="<?= base_url('kelasmateri/' . $urlJenis . '?id=' . $id_guru) ?>" type="button"
+                           onclick=""
                            class="btn btn-sm btn-default">
                             <i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
                         </a>
-                        <a href="<?= base_url('kelasmateri/add/'.$jenis) ?>" type="button" class="btn btn-primary btn-sm ml-1">
-                            <i class="fas fa-plus-circle"></i> Buat <?=$subjudul?>
+                        <a href="<?= base_url('kelasmateri/add/' . $jenis) ?>" type="button"
+                           class="btn btn-primary btn-sm ml-1">
+                            <i class="fas fa-plus-circle"></i> Buat <?= $subjudul ?>
                         </a>
-                        <button type="button" data-toggle="modal" data-target="#openAll<?=$subjudul?>"
-                                class="btn btn-sm btn-success"><i class="fa fa-copy"></i> Copy <?=$subjudul?>
+                        <button type="button" data-toggle="modal" data-target="#openAll<?= $subjudul ?>"
+                                class="btn btn-sm btn-success"><i class="fa fa-copy"></i> Copy <?= $subjudul ?>
                         </button>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-default-info align-content-center" role="alert">
-                        Untuk mengcopy <?=$subjudul?> dari tahun atau semester sebelumnya <b>ke TP <?= $tp_active->tahun ?>
+                        Untuk mengcopy <?= $subjudul ?> dari tahun atau semester sebelumnya <b>ke
+                            TP <?= $tp_active->tahun ?>
                             SMT <?= $smt_active->nama_smt ?></b>,
                         <ul>
                             <?php if ($this->ion_auth->is_admin()) : ?>
@@ -73,10 +76,10 @@ foreach ($materi as $k => $m) {
                                 </li>
                             <?php endif; ?>
                             <li>
-                                Klik <b><i class="fa fa-copy"></i> Copy <?=$subjudul?></b>
+                                Klik <b><i class="fa fa-copy"></i> Copy <?= $subjudul ?></b>
                             </li>
                             <li>
-                                Klik Aksi <b>Copy</b> untuk <?=$subjudul?> yang akan dicopy
+                                Klik Aksi <b>Copy</b> untuk <?= $subjudul ?> yang akan dicopy
                             </li>
                         </ul>
                     </div>
@@ -97,7 +100,8 @@ foreach ($materi as $k => $m) {
                         </div>
                         <div class="col-6 <?= $left ?> <?= $btnNone ?>">
                             <button type="button" id="delete-all" data-count="<?= count($curr_materi) ?>"
-                                    class="btn btn-sm btn-danger mb-3"><i class="fa fa-trash"></i> Hapus Semua <?=$subjudul?>
+                                    class="btn btn-sm btn-danger mb-3"><i class="fa fa-trash"></i> Hapus
+                                Semua <?= $subjudul ?>
                             </button>
                         </div>
                     </div>
@@ -105,141 +109,148 @@ foreach ($materi as $k => $m) {
                         <?php
                         $arrIds = [];
                         if (count($curr_materi) > 0) :?>
-                        <div class="col-12 table-responsive">
-                            <table class="w-100 table table-bordered">
-                                <tr class="alert alert-success">
-                                    <th rowspan="2" class="text-center align-middle">No.</th>
-                                    <th rowspan="2" class="text-center align-middle">Guru<br>Mapel</th>
-                                    <th colspan="3" class="text-center align-middle"><?=$subjudul?></th>
-                                    <th rowspan="2" class="text-center align-middle" style="width: 200px">Tanggal</th>
-                                    <th rowspan="2" class="text-center align-middle">Status</th>
-                                    <th rowspan="2" class="text-center align-middle" style="width: 100px">Aksi</th>
-                                </tr>
-                                <tr class="alert alert-success">
-                                    <th class="text-center align-middle">Kode</th>
-                                    <th class="text-center align-middle">Judul</th>
-                                    <th class="text-center align-middle">Kelas</th>
-                                </tr>
-                                <?php
-                                $no = 1;
-                                foreach ($curr_materi as $key => $value) :
-                                    $arr = unserialize($value->materi_kelas);
-                                    $arrIds[] = $value->id_materi;
-                                    $rows = count($arr) > 1 ? count($arr) : '1';
-                                    ?>
-                                    <tr>
-                                        <td rowspan="<?=$rows?>" class="text-center align-middle"><?= $no ?></td>
-                                        <td rowspan="<?=$rows?>" class="align-middle">
-                                            <?= $value->nama_guru ?><br><b><?= $value->kode ?></b>
-                                        </td>
-                                        <td rowspan="<?=$rows?>" class="align-middle"><?= $value->kode_materi ?></td>
-                                        <td rowspan="<?=$rows?>" class="align-middle"><?= $value->judul_materi ?></td>
-                                        <td class="text-center align-middle">
-                                            <b><?= isset($kelas_materi[$value->id_materi]) && isset($kelas_materi[$value->id_materi][$arr[0]])
+                            <div class="col-12 table-responsive">
+                                <table class="w-100 table table-bordered">
+                                    <tr class="alert alert-success">
+                                        <th rowspan="2" class="text-center align-middle">No.</th>
+                                        <th rowspan="2" class="text-center align-middle">Guru<br>Mapel</th>
+                                        <th colspan="3" class="text-center align-middle"><?= $subjudul ?></th>
+                                        <th rowspan="2" class="text-center align-middle" style="width: 200px">Tanggal
+                                        </th>
+                                        <th rowspan="2" class="text-center align-middle">Status</th>
+                                        <th rowspan="2" class="text-center align-middle" style="width: 100px">Aksi</th>
+                                    </tr>
+                                    <tr class="alert alert-success">
+                                        <th class="text-center align-middle">Kode</th>
+                                        <th class="text-center align-middle">Judul</th>
+                                        <th class="text-center align-middle">Kelas</th>
+                                    </tr>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($curr_materi as $key => $value) :
+                                        $arr = unserialize($value->materi_kelas);
+                                        $arrIds[] = $value->id_materi;
+                                        $rows = count($arr) > 1 ? count($arr) : '1';
+                                        ?>
+                                        <tr>
+                                            <td rowspan="<?= $rows ?>" class="text-center align-middle"><?= $no ?></td>
+                                            <td rowspan="<?= $rows ?>" class="align-middle">
+                                                <?= $value->nama_guru ?><br><b><?= $value->kode ?></b>
+                                            </td>
+                                            <td rowspan="<?= $rows ?>"
+                                                class="align-middle"><?= $value->kode_materi ?></td>
+                                            <td rowspan="<?= $rows ?>"
+                                                class="align-middle"><?= $value->judul_materi ?></td>
+                                            <td class="text-center align-middle">
+                                                <b><?= isset($kelas_materi[$value->id_materi]) && isset($kelas_materi[$value->id_materi][$arr[0]])
                                                         ? $kelas_materi[$value->id_materi][$arr[0]]
                                                         : '' ?></b>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <?php
-                                            $arrtgl = '';
-                                            $disableDates = [];
-                                            if (isset($jadwal_materi[$value->id_materi][$arr[0]])) {
-                                                if (count($jadwal_materi[$value->id_materi][$arr[0]])>0) {
-                                                    foreach ($jadwal_materi[$value->id_materi][$arr[0]] as $jtgl) {
-                                                        $disabledBtn = $jtgl->jml_siswa == '0' ? '' : 'disabled';
-                                                        $disableDates[] = $jtgl->jadwal_materi;
-                                                        $jam = substr($jtgl->id_kjm, strlen($jtgl->id_kjm) -2, 1);
-                                                        $ctgl = singkat_tanggal(date('d M Y', strtotime($jtgl->jadwal_materi)));
-                                                        $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">'.$ctgl.' jam:'.$jam
-                                                            .'<button class="btn btn-sm" data-tgl="'.$ctgl.'" data-id="'.$jtgl->id_kjm.'" onclick="hapusTgl(this)" '.$disabledBtn.'><i class="fa fa-times-circle-o"></i></button></span></div>';
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <?php
+                                                $arrtgl = '';
+                                                $disableDates = [];
+                                                if (isset($jadwal_materi[$value->id_materi][$arr[0]])) {
+                                                    if (count($jadwal_materi[$value->id_materi][$arr[0]]) > 0) {
+                                                        foreach ($jadwal_materi[$value->id_materi][$arr[0]] as $jtgl) {
+                                                            $disabledBtn = $jtgl->jml_siswa == '0' ? '' : 'disabled';
+                                                            $disableDates[] = $jtgl->jadwal_materi;
+                                                            $jam = substr($jtgl->id_kjm, strlen($jtgl->id_kjm) - 2, 1);
+                                                            $ctgl = singkat_tanggal(date('d M Y', strtotime($jtgl->jadwal_materi)));
+                                                            $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">' . $ctgl . ' jam:' . $jam
+                                                                . '<button class="btn btn-sm" data-tgl="' . $ctgl . '" data-id="' . $jtgl->id_kjm . '" onclick="hapusTgl(this)" ' . $disabledBtn . '><i class="fa fa-times-circle-o"></i></button></span></div>';
+                                                        }
                                                     }
                                                 }
-                                            }
+                                                ?>
+                                                <?= $arrtgl ?>
+                                                <button class="btn btn-sm btn-default m-2"
+                                                        data-toggle="modal"
+                                                        data-target="#openCalendar"
+                                                        data-dis="<?= implode(',', $disableDates) ?>"
+                                                        data-jenis="<?= $jenis ?>"
+                                                        data-materi="<?= $value->id_materi ?>"
+                                                        data-mapel="<?= $value->id_mapel ?>"
+                                                        data-kelas="<?= $arr[0] ?>">
+                                                    <i class="fa fa-calendar-check-o"></i>
+                                                </button>
+                                            </td>
+                                            <?php
+                                            $stt = $value->status == '1' ? 'Aktif' : 'Non Aktif';
+                                            $btn_bg = $value->status == '1' ? 'bg-success' : 'bg-warning';
                                             ?>
-                                            <?= $arrtgl ?>
-                                            <button class="btn btn-sm btn-default m-2"
-                                                    data-toggle="modal"
-                                                    data-target="#openCalendar"
-                                                    data-dis="<?= implode(',' , $disableDates) ?>"
-                                                    data-jenis="<?= $jenis ?>"
-                                                    data-materi="<?= $value->id_materi ?>"
-                                                    data-mapel="<?= $value->id_mapel ?>"
-                                                    data-kelas="<?= $arr[0]?>">
-                                                <i class="fa fa-calendar-check-o"></i>
-                                            </button>
-                                        </td>
-                                        <?php
-                                        $stt = $value->status == '1' ? 'Aktif' : 'Non Aktif';
-                                        $btn_bg = $value->status == '1' ? 'bg-success' : 'bg-warning';
-                                        ?>
-                                        <td rowspan="<?=$rows?>" class="text-center align-middle">
-                                            <button
-                                                    class="btn btn-xs <?= $btn_bg ?>"
-                                                    onclick="aktifkanMateri(<?= $value->id_materi ?>, <?= $value->status ?>)">
-                                                <?= $stt ?>
-                                            </button>
-                                        </td>
-                                        <td rowspan="<?=$rows?>" class="text-center align-middle">
-                                            <a type="button" class="btn btn-sm btn-warning" title="Edit <?=$subjudul?>"
-                                               href="<?= base_url('kelasmateri/add/'. $jenis. '/' . $value->id_materi) ?>">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>
-                                            <button onclick="hapus(<?= $value->id_materi ?>)" type="button"
-                                                    class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                    title="Hapus <?=$subjudul?>">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                <?php for ($k = 1; $k < count($arr); $k++) : ?>
-                                <tr>
-                                    <td class="text-center align-middle">
-                                        <b><?= isset($kelas_materi[$value->id_materi]) && isset($kelas_materi[$value->id_materi][$arr[$k]])
-                                                ? $kelas_materi[$value->id_materi][$arr[$k]]
-                                                : '' ?></b>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <?php
-                                        $arrtgl = '';
-                                        $disableDates = [];
-                                        if (isset($jadwal_materi[$value->id_materi][$arr[$k]])) {
-                                            if (count($jadwal_materi[$value->id_materi][$arr[$k]])>0) {
-                                                foreach ($jadwal_materi[$value->id_materi][$arr[$k]] as $jtgl) {
-                                                    $disabledBtn = $jtgl->jml_siswa == '0' ? '' : 'disabled';
-                                                    $disableDates[] = $jtgl->jadwal_materi;
-                                                    $ctgl = singkat_tanggal(date('d M Y', strtotime($jtgl->jadwal_materi)));
-                                                    $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">'. $ctgl
-                                                        .'<button class="btn btn-sm" data-tgl="'.$ctgl.'" data-id="'.$jtgl->id_kjm.'" onclick="hapusTgl(this)" '.$disabledBtn.'><i class="fa fa-times-circle-o"></i></button></span></div>';
+                                            <td rowspan="<?= $rows ?>" class="text-center align-middle">
+                                                <button
+                                                        class="btn btn-xs <?= $btn_bg ?>"
+                                                        onclick="aktifkanMateri(<?= $value->id_materi ?>, <?= $value->status ?>)">
+                                                    <?= $stt ?>
+                                                </button>
+                                            </td>
+                                            <td rowspan="<?= $rows ?>" class="text-center align-middle">
+                                                <a type="button" class="btn btn-sm btn-warning"
+                                                   title="Edit <?= $subjudul ?>"
+                                                   href="<?= base_url('kelasmateri/add/' . $jenis . '/' . $value->id_materi) ?>">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                </a>
+                                                <button onclick="hapus(<?= $value->id_materi ?>)" type="button"
+                                                        class="btn btn-sm btn-danger" data-toggle="tooltip"
+                                                        title="Hapus <?= $subjudul ?>">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <?php for ($k = 1; $k < count($arr); $k++) : ?>
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                <b><?= isset($kelas_materi[$value->id_materi]) && isset($kelas_materi[$value->id_materi][$arr[$k]])
+                                                        ? $kelas_materi[$value->id_materi][$arr[$k]]
+                                                        : '' ?></b>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <?php
+                                                $arrtgl = '';
+                                                $disableDates = [];
+                                                if (isset($jadwal_materi[$value->id_materi][$arr[$k]])) {
+                                                    if (count($jadwal_materi[$value->id_materi][$arr[$k]]) > 0) {
+                                                        foreach ($jadwal_materi[$value->id_materi][$arr[$k]] as $jtgl) {
+                                                            $disabledBtn = $jtgl->jml_siswa == '0' ? '' : 'disabled';
+                                                            $disableDates[] = $jtgl->jadwal_materi;
+                                                            $ctgl = singkat_tanggal(date('d M Y', strtotime($jtgl->jadwal_materi)));
+                                                            $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">' . $ctgl
+                                                                . '<button class="btn btn-sm" data-tgl="' . $ctgl . '" data-id="' . $jtgl->id_kjm . '" onclick="hapusTgl(this)" ' . $disabledBtn . '><i class="fa fa-times-circle-o"></i></button></span></div>';
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                        }
-                                        ?>
-                                        <?= $arrtgl ?>
-                                        <button class="btn btn-default"
-                                                data-toggle="modal"
-                                                data-target="#openCalendar"
-                                                data-dis="<?= implode(',' , $disableDates) ?>"
-                                                data-jenis="<?= $jenis ?>"
-                                                data-materi="<?= $value->id_materi ?>"
-                                                data-mapel="<?= $value->id_mapel ?>"
-                                                data-kelas="<?= $arr[$k]?>">
-                                            <i class="fa fa-calendar-check-o"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <?php endfor; $no++; endforeach; ?>
-                            </table>
-                        </div>
+                                                ?>
+                                                <?= $arrtgl ?>
+                                                <button class="btn btn-default"
+                                                        data-toggle="modal"
+                                                        data-target="#openCalendar"
+                                                        data-dis="<?= implode(',', $disableDates) ?>"
+                                                        data-jenis="<?= $jenis ?>"
+                                                        data-materi="<?= $value->id_materi ?>"
+                                                        data-mapel="<?= $value->id_mapel ?>"
+                                                        data-kelas="<?= $arr[$k] ?>">
+                                                    <i class="fa fa-calendar-check-o"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php endfor;
+                                        $no++; endforeach; ?>
+                                </table>
+                            </div>
                         <?php else: ?>
                             <div class="col-12 p-0">
                                 <div class="alert alert-default-warning align-content-center" role="alert">
-                                    Belum ada <?=$subjudul?>
+                                    Belum ada <?= $subjudul ?>
                                 </div>
                             </div>
                         <?php endif; ?>
                     </div>
                 </div>
-                <div id="loading" class="overlay d-none"><div class="spinner-grow"></div></div>
+                <div id="loading" class="overlay d-none">
+                    <div class="spinner-grow"></div>
+                </div>
             </div>
             <div class="card card-default my-shadow mb-4 <?= count($jadwal_mapel) == 0 ? '' : 'd-none' ?>">
                 <div class="card-header">
@@ -257,12 +268,13 @@ foreach ($materi as $k => $m) {
     </section>
 </div>
 
-<div class="modal fade" id="openAll<?=$subjudul?>" tabindex="-1" role="dialog" aria-labelledby="open<?=$subjudul?>Label"
+<div class="modal fade" id="openAll<?= $subjudul ?>" tabindex="-1" role="dialog"
+     aria-labelledby="open<?= $subjudul ?>Label"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="open<?=$subjudul?>Label">Semua <?=$subjudul?></h5>
+                <h5 class="modal-title" id="open<?= $subjudul ?>Label">Semua <?= $subjudul ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -370,7 +382,7 @@ foreach ($materi as $k => $m) {
 <?= form_open('', array('id' => 'up')) ?>
 <?= form_close() ?>
 
-<script src="<?=base_url()?>/assets/plugins/pignose/js/pignose.calendar.full.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/pignose/js/pignose.calendar.full.js"></script>
 <script>
     var jmlGuru = <?=count($gurus)?>;
     var idGuru = '<?=$id_guru?>';
@@ -383,8 +395,9 @@ foreach ($materi as $k => $m) {
     const days = JSON.parse('<?= json_encode($disabledDay) ?>');
     $(document).ready(function () {
         ajaxcsrf();
+
         function getMateriGuru() {
-            window.location.href = base_url + 'kelasmateri/'+ urlJenis +'?id=' + idGuru;
+            window.location.href = base_url + 'kelasmateri/' + urlJenis + '?id=' + idGuru;
         }
 
         $('#guru option[value="0"]').attr("disabled", "disabled");
@@ -438,13 +451,13 @@ foreach ($materi as $k => $m) {
                                         icon: "success"
                                     }).then(result => {
                                         if (result.value) {
-                                            window.location.href = base_url + 'kelasmateri/'+urlJenis+'?id=' + idGuru;
+                                            window.location.href = base_url + 'kelasmateri/' + urlJenis + '?id=' + idGuru;
                                         }
                                     })
                                 } else {
                                     swal.fire({
                                         title: "Gagal",
-                                        text: "Tidak bisa menghapus "+ urlJenis,
+                                        text: "Tidak bisa menghapus " + urlJenis,
                                         icon: "error"
                                     });
                                 }
@@ -490,7 +503,9 @@ foreach ($materi as $k => $m) {
                 $('#empty').addClass('d-none');
                 $('.xdsoft_datetimepicker').removeClass('d-none');
                 $('#btn-result').removeAttr('disabled');
-                var values = Object.keys(dis).map(function (key) { return dis[key]; });
+                var values = Object.keys(dis).map(function (key) {
+                    return dis[key];
+                });
                 //let today = new Date().toISOString().slice(0, 10);
                 //$("input[name='jadwal_materi']").val(oldTime);
 
@@ -512,7 +527,7 @@ foreach ($materi as $k => $m) {
                 console.log('selected', vals);
                 var values = '';
                 $.each(vals, function (ind, val) {
-                    values += '<option value="'+val+'">'+val+'</option>';
+                    values += '<option value="' + val + '">' + val + '</option>';
                 });
                 $('#jam-ke').html(values);
 
@@ -600,7 +615,7 @@ foreach ($materi as $k => $m) {
                                 icon: "success"
                             }).then(result => {
                                 if (result.value) {
-                                    window.location.href = base_url + 'kelasmateri/'+urlJenis+'?id=' + idGuru;
+                                    window.location.href = base_url + 'kelasmateri/' + urlJenis + '?id=' + idGuru;
                                 }
                             })
                         } else {
@@ -646,7 +661,7 @@ foreach ($materi as $k => $m) {
                                 icon: "success"
                             }).then(result => {
                                 if (result.value) {
-                                    window.location.href = base_url + 'kelasmateri/'+urlJenis+'?id=' + idGuru;
+                                    window.location.href = base_url + 'kelasmateri/' + urlJenis + '?id=' + idGuru;
                                     //window.location.href = base_url + 'kelasmateri/getmateriguru?id='+idGuru;
                                 }
                             })
@@ -733,7 +748,7 @@ foreach ($materi as $k => $m) {
             if (result.value) {
                 $('#loading').removeClass('d-none');
                 $.ajax({
-                    url: base_url + "kelasmateri/hapusjadwal/"+$(btn).data('id'),
+                    url: base_url + "kelasmateri/hapusjadwal/" + $(btn).data('id'),
                     type: "GET",
                     success: function (data) {
                         console.log("result", data);

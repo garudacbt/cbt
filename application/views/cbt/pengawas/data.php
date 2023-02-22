@@ -24,117 +24,98 @@
                                 echo form_dropdown('jenis', $jenis, $jenis_selected, 'id="jenis" class="form-control"'); ?>
                             </div>
                         </div>
+                        <!--
                         <div class="col-md-3 col-4">
                             <div class="form-group">
                                 <label for="jenis">Ruang</label>
                                 <?php
-                                echo form_dropdown('ruang', $ruang, $ruang_selected, 'id="ruang" class="form-control"'); ?>
+                                echo form_dropdown('ruang', $ruang, '', 'id="ruang" class="form-control"'); ?>
                             </div>
                         </div>
                         <div class="col-md-3 col-4">
                             <div class="form-group">
                                 <label for="jenis">Sesi</label>
                                 <?php
-                                echo form_dropdown('sesi', $sesi, $sesi_selected, 'id="sesi" class="form-control"'); ?>
+                                echo form_dropdown('sesi', $sesi, '', 'id="sesi" class="form-control"'); ?>
                             </div>
                         </div>
+                        -->
                     </div>
 
-                    <?php
-                    if (count($tgl_jadwals) > 0) : ?>
-                        <table class="table table-bordered" id="tbl-pengawas">
-                            <thead>
-                            <tr>
-                                <th style="width: 40px" class="text-center align-middle">No.</th>
-                                <th class="text-center align-middle">Hari / Tanggal</th>
-                                <th class="text-center align-middle">Ruang</th>
-                                <th class="text-center align-middle">Sesi</th>
-                                <!--
-                                <th class="text-center align-middle">Kelas Peserta</th>
-                                -->
-                                <th class="text-center align-middle">Mata Pelajaran</th>
-                                <th class="text-center align-middle">Pengawas</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($tgl_jadwals as $tgl => $jadwal):
-                                $listMapel = array_keys($jadwal);
-                                $listIdJad = [];
-                                if (isset($jadwal[$listMapel[0]])) {
-                                    foreach ($jadwal[$listMapel[0]] as $ids) {
-                                        $listIdJad[] = $ids->id_jadwal;
-                                    }
-                                }
-                                ?>
+                    <div class="table-responsive">
+                        <?php
+                        //echo '<pre>';
+                        //var_dump($tgl_jadwals);
+                        //echo '</pre>';
+                        if (count($tgl_jadwals) > 0) : ?>
+                            <table class="table table-bordered" id="tbl-pengawas">
+                                <thead>
                                 <tr>
-                                    <td rowspan="<?= count($listMapel) ?>"
-                                        class="text-center align-middle"><?= $no ?></td>
-                                    <td rowspan="<?= count($listMapel) ?>"
-                                        class="text-center align-middle"><?= buat_tanggal(date('D, d M Y', strtotime($tgl))) ?></td>
-                                    <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
-                                    <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
-                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[0] ?></td>
-                                    <td class="text-center align-middle">
-                                        <?php
-                                        $sel = '';
-                                        if (isset($listMapel[0]) && isset($jadwal[$listMapel[0]]) && isset($jadwal[$listMapel[0]][0])) {
-                                            $idJad = $jadwal[$listMapel[0]][0]->id_jadwal;
-                                            $sel = isset($pengawas[$idJad]) &&
-                                            isset($pengawas[$idJad][$ruang_selected]) &&
-                                            isset($pengawas[$idJad][$ruang_selected][$sesi_selected])
-                                                ? explode(',', $pengawas[$idJad][$ruang_selected][$sesi_selected]->id_guru) : [];
-                                        }
-                                        echo form_dropdown(
-                                            'pengawas[]',
-                                            $gurus,
-                                            $sel,
-                                            'style="width: 100%" class="select2 form-control form-control-sm pengawas" multiple="multiple" data-placeholder="Pilih Pengawas" required'
-                                        ); ?>
-                                    </td>
+                                    <th class="text-center align-middle">Hari / Tanggal</th>
+                                    <th class="text-center align-middle">Ruang</th>
+                                    <th class="text-center align-middle">Sesi</th>
+                                    <!--
+                                    <th class="text-center align-middle">Kelas Peserta</th>
+                                    -->
+                                    <th class="text-center align-middle">Mata Pelajaran</th>
+                                    <th class="text-center align-middle">Pengawas</th>
                                 </tr>
-                                <?php for ($i = 1; $i < count($listMapel); $i++) :
-                                $listIdJad = [];
-                                foreach ($jadwal[$listMapel[$i]] as $ids) {
-                                    $listIdJad[] = $ids->id_jadwal;
-                                }
-                                ?>
-                                <tr>
-                                    <td class="text-center align-middle"><?= $ruang[$ruang_selected] ?></td>
-                                    <td class="text-center align-middle"><?= $sesi[$sesi_selected] ?></td>
-                                    <td class="text-center align-middle jadwal" data-id="[<?= implode(',', $listIdJad) ?>]"><?= $listMapel[$i] ?></td>
-                                    <td class="text-center align-middle">
-                                        <?php
-                                        $sel = '';
-                                        if (isset($listMapel[$i]) && isset($jadwal[$listMapel[$i]]) && isset($jadwal[$listMapel[$i]][0])) {
-                                            $idJad = $jadwal[$listMapel[$i]][0]->id_jadwal;
-                                            $sel = isset($pengawas[$idJad]) &&
-                                            isset($pengawas[$idJad][$ruang_selected]) &&
-                                            isset($pengawas[$idJad][$ruang_selected][$sesi_selected])
-                                                ? explode(',', $pengawas[$idJad][$ruang_selected][$sesi_selected]->id_guru) : [];
-                                        }
-                                        echo form_dropdown(
-                                            'pengawas[]',
-                                            $gurus,
-                                            $sel,
-                                            'style="width: 100%" class="select2 form-control form-control-sm pengawas" multiple="multiple" data-placeholder="Pilih Pengawas" required'
-                                        ); ?>
-                                    </td>
-                                </tr>
-                            <?php
-                            endfor;
-                                $no++; endforeach; ?>
-                            </tbody>
-                        </table>
-                        <?= form_open('', array('id' => 'savepengawas')) ?>
-                        <button type="submit" class="btn btn-primary card-tools mt-3 float-right">
-                            <i class="fas fa-save mr-2"></i>Simpan
-                        </button>
-                        <?= form_close() ?>
-                    <?php else: ?>
-                        <div></div>
-                    <?php endif; ?>
+                                </thead>
+                                <tbody>
+                                <?php
+                                foreach ($ruangs as $ruang => $sesis) :
+                                    foreach ($sesis as $sesi) :
+                                        foreach ($tgl_jadwals as $idmpl => $jadwal):
+                                            $listIdJad = [];
+                                            $total_peserta = 0;
+                                            foreach ($jadwal as $jdw) {
+                                                $listIdJad[] = $jdw->id_jadwal;
+                                                $bank_kelass = $jdw->bank_kelas;
+                                                foreach ($bank_kelass as $bank_kelas) {
+                                                    $cnt = isset($jdw->peserta[$ruang]) && isset($jdw->peserta[$ruang][$sesi->sesi_id]) ?
+                                                        count($jdw->peserta[$ruang][$sesi->sesi_id]) : 0;
+                                                    if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
+                                                        $total_peserta += $cnt;
+                                                    }
+                                                }
+                                            }
+                                            if ($total_peserta > 0) :
+                                            ?>
+                                            <tr>
+                                                <td class="text-center align-middle"><?= buat_tanggal(date('D, d M Y', strtotime($jadwal[0]->tgl_mulai))) ?></td>
+                                                <td class="text-center align-middle"><?= $sesi->nama_ruang ?></td>
+                                                <td class="text-center align-middle"><?= $sesi->nama_sesi ?></td>
+                                                <td class="text-center align-middle jadwal"
+                                                    data-ruang="<?=$ruang?>" data-sesi="<?=$sesi->sesi_id?>"
+                                                    data-id="[<?= implode(',', $listIdJad) ?>]"><?= $jadwal[0]->nama_mapel ?></td>
+                                                <td class="text-center align-middle">
+                                                    <?php
+                                                    $sel = '';
+                                                    $idJad = $jadwal[0]->id_jadwal;
+                                                    $sel = isset($pengawas[$idJad]) &&
+                                                    isset($pengawas[$idJad][$ruang]) &&
+                                                    isset($pengawas[$idJad][$ruang][$sesi->sesi_id])
+                                                        ? explode(',', $pengawas[$idJad][$ruang][$sesi->sesi_id]->id_guru) : [];
+                                                    echo form_dropdown(
+                                                        'pengawas[]',
+                                                        $gurus,
+                                                        $sel,
+                                                        'style="width: 100%" class="select2 form-control form-control-sm pengawas" multiple="multiple" data-placeholder="Pilih Pengawas" required'
+                                                    ); ?>
+                                                </td>
+                                            </tr>
+                                        <?php endif; endforeach; endforeach; endforeach;?>
+                                </tbody>
+                            </table>
+                            <?= form_open('', array('id' => 'savepengawas')) ?>
+                            <button type="submit" class="btn btn-primary card-tools mb-3 mt-3 float-right">
+                                <i class="fas fa-save mr-2"></i>Simpan
+                            </button>
+                            <?= form_close() ?>
+                        <?php else: ?>
+                            <div></div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,39 +123,43 @@
 </div>
 <script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script>
-    var rSelected = <?= $ruang_selected == null ? 0 : 1?>;
-    var sSelected = <?= $sesi_selected == null ? 0 : 1?>;
+    var rSelected = <?= isset($ruang_selected) && $ruang_selected == null ? 0 : 1?>;
+    var sSelected = <?= isset($sesi_selected) && $sesi_selected == null ? 0 : 1?>;
     $(document).ready(function () {
         ajaxcsrf();
-        $("#tbl").rowspanizer({columns: [0, 1, 2]});
+        $("#tbl-pengawas").rowspanizer({columns: [0,1,2]});
         $('.select2').select2();
         var opsiJenis = $("#jenis");
-        var opsiRuang = $("#ruang");
-        var opsiSesi = $("#sesi");
+        //var opsiRuang = $("#ruang");
+        //var opsiSesi = $("#sesi");
 
+        /*
         var selectedr = rSelected === 0 ? "selected='selected'" : "";
         opsiRuang.prepend("<option value='' " + selectedr + ">Pilih Ruang</option>");
 
         var selecteds = sSelected === 0 ? "selected='selected'" : "";
         opsiSesi.prepend("<option value='' " + selecteds + ">Pilih Sesi</option>");
+         */
 
 
         opsiJenis.change(function () {
             getAllJadwal();
         });
+        /*
         opsiRuang.change(function () {
             getAllJadwal();
         });
         opsiSesi.change(function () {
             getAllJadwal();
         });
+         */
 
         function getAllJadwal() {
             var jenis = opsiJenis.val();
-            var ruang = opsiRuang.val();
-            var sesi = opsiSesi.val();
-            var kosong = ruang == '' || sesi == "" || jenis == "";
-            var url = base_url + 'cbtpengawas?jenis=' + jenis + '&ruang=' + ruang + '&sesi=' + sesi;
+            //var ruang = opsiRuang.val();
+            //var sesi = opsiSesi.val();
+            var kosong = jenis == "";// || ruang == '' || sesi == "";
+            var url = base_url + 'cbtpengawas?jenis=' + jenis;// + '&ruang=' + ruang + '&sesi=' + sesi;
             console.log(url);
             if (!kosong) {
                 window.location.href = url;
@@ -186,18 +171,19 @@
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            var kosong = ruang == '' || sesi == "" || jenis == "";
+            var jenis = opsiJenis.val();
+            var kosong = jenis == ""; //ruang == '' || sesi == "" ||
             if (kosong) return;
 
             const $rows1 = $('#tbl-pengawas').find('tr'), headers1 = $rows1.splice(0, 1);
             var jsonObj = [];
             $rows1.each((i, row) => {
-                const ruang = opsiRuang.val();
-                const sesi = opsiSesi.val();
+                const ruang = $(row).find('.jadwal').data('ruang');//opsiRuang.val();
+                const sesi = $(row).find('.jadwal').data('sesi');//opsiSesi.val();
                 const jadwal = $(row).find('.jadwal').data('id');
                 const guru = $(row).find('.pengawas').val();
 
-                for (i=0; i<jadwal.length; i++) {
+                for (i = 0; i < jadwal.length; i++) {
                     let item = {};
                     item ["jadwal"] = jadwal[i];
                     item ["ruang"] = ruang;
@@ -210,7 +196,7 @@
 
 
             var dataPost = $(this).serialize() + "&data=" + JSON.stringify(jsonObj);
-            //console.log('table 1', dataPost);
+            //console.log('table', dataPost);
             $.ajax({
                 url: base_url + "cbtpengawas/savepengawas",
                 type: "POST",

@@ -144,7 +144,7 @@ if (isset($jadwal_ujian)) {
                                             foreach ($jumlahKelas as $j) {
                                                 foreach ($kelas as $k) {
                                                     if ($j->kelas_id === $k->id_kelas) {
-                                                        $kelasbank .= ' <span class="badge badge-btn badge-info">'.$k->nama_kelas.'</span> ';
+                                                        $kelasbank .= ' <span class="badge badge-btn badge-info">' . $k->nama_kelas . '</span> ';
                                                         $no++;
                                                     }
                                                 }
@@ -191,42 +191,50 @@ if (isset($jadwal_ujian)) {
                                             <?php
                                             if ($currTgl != $jadwal->tgl_mulai) :
                                                 $currTgl = $jadwal->tgl_mulai; ?>
-                                                <td colspan="7" class="align-middle bg-gray-light pl-3 text-bold"><?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?></td>
+                                                <td colspan="7"
+                                                    class="align-middle bg-gray-light pl-3 text-bold"><?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?></td>
                                                 </tr>
                                                 <tr>
                                             <?php endif; ?>
-                                            <td class="text-center align-middle p-0"><?=$nomer?></td>
+                                            <td class="text-center align-middle p-0"><?= $nomer ?></td>
                                             <td class="align-middle d-none"><?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?></td>
-                                                <td class="align-middle"><i class="fas fa-square mr-1 text-lg <?=$bgRandom?>"></i><?= $jadwal->bank_kode ?></td>
+                                            <td class="align-middle"><i
+                                                        class="fas fa-square mr-1 text-lg <?= $bgRandom ?>"></i><?= $jadwal->bank_kode ?>
+                                            </td>
                                             <td class="align-middle"><?= $jadwal->nama_mapel ?></td>
-                                                <td class="align-middle"><?= $kelasbank ?></td>
-                                                <td class="text-center align-middle p-0"><?= ($jadwal->status === '0') ? '<span class="badge badge-btn badge-secondary">Non Aktif</span>' : '<span class="badge badge-btn badge-success">Aktif</span>' ?></td>
-                                                <td class="text-center align-middle">
-                                                    <a type="button" class="btn btn-primary btn-sm ml-1 text-white"
-                                                       data-toggle="modal" data-target="#detailModal"
-                                                       data-jenis="<?= $jadwal->kode_jenis ?>" data-kode="<?= $jadwal->bank_kode ?>"
-                                                       data-mulai="<?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?>"
-                                                       data-sampai="<?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_selesai))) ?>"
-                                                       data-durasi="<?= $jadwal->durasi_ujian ?>"
-                                                       data-acaksoal="<?= $jadwal->acak_soal == '1' ? 'Ya' : 'Tidak' ?>"
-                                                       data-acakjawaban="<?= $jadwal->acak_opsi == '1' ? 'Ya' : 'Tidak' ?>"
-                                                       data-hasiltampil="<?= $jadwal->hasil_tampil == '1' ? 'Ya' : 'Tidak' ?>"
-                                                       data-token="<?= $jadwal->token == '1' ? 'Ya' : 'Tidak' ?>"
-                                                       data-reset="<?= $jadwal->reset_login == '1' ? 'Ya' : 'Tidak' ?>"
-                                                       data-status="<?= ($jadwal->status === '0') ? 'Non Aktif' : 'Aktif' ?>"
-                                                       data-rekap="<?= $jadwal->rekap == '1' ? 'Sudah' : 'Belum' ?>"
-                                                       data-total="<?= isset($total_siswa[$jadwal->id_jadwal]) ? $total_siswa[$jadwal->id_jadwal] : '0'; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <a href="<?= $enableEdit ? base_url('cbtjadwal/add/' . $jadwal->id_jadwal . '?enable=' . $sedangdikerjakan) : '#' ?>"
-                                                       class="btn btn-warning btn-sm <?= $enableEdit ? '' : 'btn-disabled' ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                    <button class="btn btn-danger btn-sm" onclick="hapus(<?= $jadwal->id_jadwal ?>)"><i class="fas fa-trash"></i></button>
-                                                </td>
-                                                <td class="text-center align-middle p-0" style="width: 50px">
-                                                    <input name="checked[]" value="<?= $jadwal->id_jadwal ?>" class="check-jadwal" type="checkbox">
-                                                </td>
+                                            <td class="align-middle"><?= $kelasbank ?></td>
+                                            <td class="text-center align-middle p-0"><?= ($jadwal->status === '0') ? '<span class="badge badge-btn badge-secondary">Non Aktif</span>' : '<span class="badge badge-btn badge-success">Aktif</span>' ?></td>
+                                            <td class="text-center align-middle">
+                                                <a type="button" class="btn btn-primary btn-sm ml-1 text-white"
+                                                   data-toggle="modal" data-target="#detailModal"
+                                                   data-jenis="<?= $jadwal->kode_jenis ?>"
+                                                   data-kode="<?= $jadwal->bank_kode ?>"
+                                                   data-mulai="<?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_mulai))) ?>"
+                                                   data-sampai="<?= singkat_tanggal(date('D, d M Y', strtotime($jadwal->tgl_selesai))) ?>"
+                                                   data-durasi="<?= $jadwal->durasi_ujian ?>"
+                                                   data-acaksoal="<?= $jadwal->acak_soal == '1' ? 'Ya' : 'Tidak' ?>"
+                                                   data-acakjawaban="<?= $jadwal->acak_opsi == '1' ? 'Ya' : 'Tidak' ?>"
+                                                   data-hasiltampil="<?= $jadwal->hasil_tampil == '1' ? 'Ya' : 'Tidak' ?>"
+                                                   data-token="<?= $jadwal->token == '1' ? 'Ya' : 'Tidak' ?>"
+                                                   data-reset="<?= $jadwal->reset_login == '1' ? 'Ya' : 'Tidak' ?>"
+                                                   data-status="<?= ($jadwal->status === '0') ? 'Non Aktif' : 'Aktif' ?>"
+                                                   data-rekap="<?= $jadwal->rekap == '1' ? 'Sudah' : 'Belum' ?>"
+                                                   data-total="<?= isset($total_siswa[$jadwal->id_jadwal]) ? $total_siswa[$jadwal->id_jadwal] : '0'; ?>">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="<?= $enableEdit ? base_url('cbtjadwal/add/' . $jadwal->id_jadwal . '?enable=' . $sedangdikerjakan) : '#' ?>"
+                                                   class="btn btn-warning btn-sm <?= $enableEdit ? '' : 'btn-disabled' ?>"><i
+                                                            class="fas fa-pencil-alt"></i></a>
+                                                <button class="btn btn-danger btn-sm"
+                                                        onclick="hapus(<?= $jadwal->id_jadwal ?>)"><i
+                                                            class="fas fa-trash"></i></button>
+                                            </td>
+                                            <td class="text-center align-middle p-0" style="width: 50px">
+                                                <input name="checked[]" value="<?= $jadwal->id_jadwal ?>"
+                                                       class="check-jadwal" type="checkbox">
+                                            </td>
                                             </tr>
-                                        <?php $nomer++; endforeach; ?>
+                                            <?php $nomer++; endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -415,7 +423,8 @@ if (isset($jadwal_ujian)) {
     </section>
 </div>
 
-<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -428,7 +437,8 @@ if (isset($jadwal_ujian)) {
                 <table class="table table-borderless table-striped">
                     <tr>
                         <td>Jenis</td>
-                        <td id="modal_kode_jenis"</td>
+                        <td id="modal_kode_jenis"
+                        </td>
                     </tr>
                     <tr>
                         <td>Kode Soal</td>
@@ -582,8 +592,8 @@ if (isset($jadwal_ujian)) {
                     previous: 'fa fa-angle-left'
                 },
             timepicker: false,
-            scrollInput : false,
-            scrollMonth : false,
+            scrollInput: false,
+            scrollMonth: false,
             format: 'Y-m-d',
             disabledWeekDays: [0],
             widgetPositioning: {
@@ -712,19 +722,19 @@ if (isset($jadwal_ujian)) {
             var rekap = $(e.relatedTarget).data('rekap');
             var total = $(e.relatedTarget).data('total');
 
-            $('#modal_kode_jenis').html('<b>'+jenis+'</b>');
-            $('#modal_bank_kode').html('<b>'+kode+'</b>');
-            $('#modal_mulai').html('<b>'+mulai+'</b>');
-            $('#modal_sampai').html('<b>'+sampai+'</b>');
-            $('#modal_durasi').html('<b>'+durasi + ' menit</b>');
-            $('#modal_acak_soal').html('<b>'+acak_soal+'</b>');
-            $('#modal_acak_opsi').html('<b>'+acak_jawaban+'</b>');
-            $('#modal_hasil_tampil').html('<b>'+hasil_tampil+'</b>');
-            $('#modal_token').html('<b>'+token+'</b>');
-            $('#modal_reset').html('<b>'+reset+'</b>');
-            $('#modal_status').html('<b>'+status+'</b>');
-            $('#modal_rekap').html('<b>'+rekap+'</b>');
-            $('#modal_total').html('<b>'+total+'</b>');
+            $('#modal_kode_jenis').html('<b>' + jenis + '</b>');
+            $('#modal_bank_kode').html('<b>' + kode + '</b>');
+            $('#modal_mulai').html('<b>' + mulai + '</b>');
+            $('#modal_sampai').html('<b>' + sampai + '</b>');
+            $('#modal_durasi').html('<b>' + durasi + ' menit</b>');
+            $('#modal_acak_soal').html('<b>' + acak_soal + '</b>');
+            $('#modal_acak_opsi').html('<b>' + acak_jawaban + '</b>');
+            $('#modal_hasil_tampil').html('<b>' + hasil_tampil + '</b>');
+            $('#modal_token').html('<b>' + token + '</b>');
+            $('#modal_reset').html('<b>' + reset + '</b>');
+            $('#modal_status').html('<b>' + status + '</b>');
+            $('#modal_rekap').html('<b>' + rekap + '</b>');
+            $('#modal_total').html('<b>' + total + '</b>');
         });
     })
 

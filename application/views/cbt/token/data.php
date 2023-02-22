@@ -33,7 +33,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="alert border border-success alert-default-success">
-                                Token akan digenerate otomatis jika pilihan <b>Otomatis: YA</b> dan ada jadwal ujian pada hari ini.
+                                Token akan digenerate otomatis jika pilihan <b>Otomatis: YA</b> dan ada jadwal ujian
+                                pada hari ini.
                             </div>
                         </div>
                         <div class="col-12 col-md-6 p-1">
@@ -52,8 +53,10 @@
                                     </div>
                                     <div class="col-6">
                                         <label>Interval (menit)</label>
-                                        <input id="jarak" type="number" class="form-control" name="jarak" value="<?=$token->jarak?>" <?=$token->auto == '0' ? 'disabled="disabled"' : ''?>>
-                                        <button class="float-right mt-3 btn btn-info" onclick="simpanToken()">Simpan</button>
+                                        <input id="jarak" type="number" class="form-control" name="jarak"
+                                               value="<?= $token->jarak ?>" <?= $token->auto == '0' ? 'disabled="disabled"' : '' ?>>
+                                        <button class="float-right mt-3 btn btn-info" onclick="simpanToken()">Simpan
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -62,8 +65,9 @@
                         <div class="col-12 col-md-6 p-1">
                             <div class="card card-light p-4">
                                 <span class="text-center">TOKEN SAAT INI</span>
-                                <h1 class="text-center" id="token-view"><?=$token->token?></h1>
-                                <small id="info-interval" class="mt-3 text-center">Token akan dibuat otomatis dalam <b id="interval">-- : --</b></small>
+                                <h1 class="text-center" id="token-view"><?= $token->token ?></h1>
+                                <small id="info-interval" class="mt-3 text-center">Token akan dibuat otomatis dalam <b
+                                            id="interval">-- : --</b></small>
                             </div>
                         </div>
                     </div>
@@ -75,6 +79,7 @@
 
 <script>
     let timerTokenView;
+
     function simpanToken() {
         var auto = $('#auto').val();
         var jarak = $('#jarak').val();
@@ -118,14 +123,14 @@
         $('#token-view').text(result.token);
         if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
             $('#info-interval').removeClass('invisible');
-            var mulai = result.updated == null ? new Date(): new Date(result.updated);
+            var mulai = result.updated == null ? new Date() : new Date(result.updated);
             const now = getDiffMinutes(mulai);
             var mnt = Number(result.jarak);
 
             mnt = mnt - now.m;
             var scn = 60 - now.s;
             if (scn > 0) {
-                mnt = mnt -1;
+                mnt = mnt - 1;
             }
 
             if (timerTokenView) {
@@ -135,7 +140,9 @@
             timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
                 if (isOver) {
                     block.html('<b>Memuat token baru</b>');
-                    setTimeout(function(){getGlobalToken()}, 300);
+                    setTimeout(function () {
+                        getGlobalToken()
+                    }, 300);
                 }
             })
         } else {

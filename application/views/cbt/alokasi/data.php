@@ -23,16 +23,19 @@
                                 Mengatur urutan aktif jadwal ujian sesuai urutan jam
                             </li>
                             <li>
-                                Contoh <b>Jam ke</b> 2, maka jadwal mapel akan aktif setelah jam pertama selesai dikerjakan oleh siswa
+                                Contoh <b>Jam ke</b> 2, maka jadwal mapel akan aktif setelah jam pertama selesai
+                                dikerjakan oleh siswa
                             </li>
                             <li>
-                                Jika semua <b>Jam ke</b> diatur ke 0 atau 1 maka semua jadwal yang aktif akan bisa dikerjakan oleh siswa
+                                Jika semua <b>Jam ke</b> diatur ke 0 atau 1 maka semua jadwal yang aktif akan bisa
+                                dikerjakan oleh siswa
                             </li>
                             <li>
                                 Halaman ini berlaku jika semua jadwal telah diaktifkan
                             </li>
                             <li>
-                                Jika halaman ini tidak diatur/tidak disimpan, maka jadwal ujian mengikuti aturan di MENU <b>JADWAL</b>
+                                Jika halaman ini tidak diatur/tidak disimpan, maka jadwal ujian mengikuti aturan di MENU
+                                <b>JADWAL</b>
                             </li>
                         </ol>
                     </div>
@@ -56,15 +59,15 @@
                                 <?php echo form_dropdown('filter', $filter, $filter_selected, 'id="filter" class="form-control"'); ?>
                             </div>
                         </div>
-                        <?php $dnone = $filter_selected == '0' ? 'd-none' : ''?>
-                        <div class='col-md-2 col-4 <?=$dnone?>' id="tgl-dari">
+                        <?php $dnone = $filter_selected == '0' ? 'd-none' : '' ?>
+                        <div class='col-md-2 col-4 <?= $dnone ?>' id="tgl-dari">
                             <div class="form-group">
                                 <label for="dari">Dari</label>
                                 <input type='text' id="dari" name='dari' value="<?= $dari_selected ?>"
                                        class='tgl form-control' autocomplete='off'/>
                             </div>
                         </div>
-                        <div class='col-md-2 col-4 <?=$dnone?>' id="tgl-sampai">
+                        <div class='col-md-2 col-4 <?= $dnone ?>' id="tgl-sampai">
                             <div class="form-group">
                                 <label for="sampai">Sampai</label>
                                 <input type='text' id="sampai" name='sampai'
@@ -115,10 +118,11 @@
                                             <?= $jadwal->bank_level ?> (<?= $kelasbank ?>)
                                         </td>
                                         <td class="border text-center align-middle">
-                                            <?=$jadwal->bank_kode.' ('.$jadwal->nama_mapel.')'?>
+                                            <?= $jadwal->bank_kode . ' (' . $jadwal->nama_mapel . ')' ?>
                                         </td>
-                                        <td class="text-center border jam-ke" data-id="<?=$jadwal->id_jadwal?>">
-                                            <input class="form-control" type="number" min="1" name="jamke" value="<?=$jadwal->jam_ke?>">
+                                        <td class="text-center border jam-ke" data-id="<?= $jadwal->id_jadwal ?>">
+                                            <input class="form-control" type="number" min="1" name="jamke"
+                                                   value="<?= $jadwal->jam_ke ?>">
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -139,7 +143,7 @@
 <script>
     $(document).ready(function () {
         ajaxcsrf();
-        $("#tbl").rowspanizer({columns: [0]});
+        $("#tbl").rowspanizer({columns: [0,1]});
 
         var opsiLevel = $("#level");
         var opsiJenis = $("#jenis");
@@ -154,7 +158,7 @@
                 $('#tgl-sampai').addClass('d-none');
                 var jenis = opsiJenis.val();
                 var level = opsiLevel.val();
-                var url =  base_url + 'cbtalokasi?jenis=' + jenis + '&level=' + level + '&filter=0';
+                var url = base_url + 'cbtalokasi?jenis=' + jenis + '&level=' + level + '&filter=0';
                 if (jenis != "" && level != "0") {
                     window.location.href = url;
                 }
@@ -167,8 +171,8 @@
         opsiLevel.change(function () {
             //var lvl = $(this).val();
             //if (lvl != "" && lvl !== old) {
-                getAllJadwal();
-                //window.location.href = base_url + 'cbtalokasi?jenis=' + opsiJenis.val() + '&level=' + lvl;
+            getAllJadwal();
+            //window.location.href = base_url + 'cbtalokasi?jenis=' + opsiJenis.val() + '&level=' + lvl;
             //}
         });
 

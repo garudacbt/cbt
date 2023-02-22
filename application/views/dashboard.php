@@ -1,7 +1,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper bg-white">
-	<section class="content-header p-0 d-flex align-items-end" style="height: 400px; background: url('<?=base_url('assets/img/wall2.png')?>')">
-		<div class="container-fluid pl-0 pr-0 pb-0 pt-4" style="background-color: rgba(255,255,255,0.7)">
+    <section class="content-header p-0 d-flex align-items-end"
+             style="height: 400px; background: url('<?= base_url('assets/img/wall2.png') ?>')">
+        <div class="container-fluid pl-0 pr-0 pb-0 pt-4" style="background-color: rgba(255,255,255,0.7)">
             <div class="row m-0">
                 <?php foreach ($info_box as $info) : ?>
                     <div class="col-md-2 col-3">
@@ -21,10 +22,10 @@
                 <?php endforeach; ?>
             </div>
         </div>
-	</section>
-	<!-- Main content -->
-	<section class="content mt-4">
-		<div class="container-fluid">
+    </section>
+    <!-- Main content -->
+    <section class="content mt-4">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
                     <div class="card card-primary my-shadow">
@@ -33,7 +34,7 @@
                                 JADWAL HARI INI
                             </div>
                             <div class="card-tools">
-                                <a href="<?=base_url('kelasjadwal')?>" type="button" onclick="" class="btn btn-sm">
+                                <a href="<?= base_url('kelasjadwal') ?>" type="button" onclick="" class="btn btn-sm">
                                     <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -44,84 +45,88 @@
                                     <ul class="nav nav-pills p-2">
                                         <?php
                                         $no = 1;
-                                        foreach ($kelases as $ky=>$kelas) :
+                                        foreach ($kelases as $ky => $kelas) :
                                             $active = $no == 1 ? 'active' : '';
-                                        ?>
-                                        <li class="nav-item"><a class="nav-link <?=$active?>" href="#tab_<?=$ky?>" data-toggle="tab"><?=$kelas?></a></li>
-                                        <?php $no++; endforeach; ?>
+                                            ?>
+                                            <li class="nav-item"><a class="nav-link <?= $active ?>"
+                                                                    href="#tab_<?= $ky ?>"
+                                                                    data-toggle="tab"><?= $kelas ?></a></li>
+                                            <?php $no++; endforeach; ?>
                                     </ul>
                                 </div>
                                 <?php
-                                if (count($jadwals)>0 && count($kbms)>0):?>
-                                <div class="card-body p-0">
-                                    <div class="tab-content">
-                                        <?php
-                                        $no = 1;
-                                        foreach ($kelases as $ky=>$kelas) :
-                                            $arrIst = [];
-                                        if (isset($kbms[$ky]->istirahat)) {
-                                            foreach ($kbms[$ky]->istirahat as $istirahat) {
-                                                array_push($arrIst, $istirahat['ist']);
-                                                $arrDur[$istirahat['ist']] = $istirahat['dur'];
-                                            }
-                                        }
-                                            $active = $no == 1 ? 'active' : '';
-                                            ?>
-                                            <div class="tab-pane <?=$active?>" id="tab_<?=$ky?>">
-                                                <?php if (isset($kbms[$ky])) : ?>
-                                                <div class="table-responsive">
-                                                    <table class="w-100 table">
-                                                        <tbody>
-                                                        <?php
-                                                        $jamMulai = new DateTime($kbms[$ky]->kbm_jam_mulai);
-                                                        $jamSampai = new DateTime($kbms[$ky]->kbm_jam_mulai);
-                                                        for ($i = 0; $i < $kbms[$ky]->kbm_jml_mapel_hari; $i++) :
-                                                            $jamke = $i + 1;
-                                                            if (in_array($jamke, $arrIst)) :
-                                                                $jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
-                                                                ?>
-                                                                <tr class="jam" data-jamke="<?= $jamke ?>">
-                                                                    <td class="align-middle" width="150">
-                                                                        <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
-                                                                    </td>
-                                                                    <td class="align-middle">ISTIRAHAT</td>
-                                                                </tr>
+                                if (count($jadwals) > 0 && count($kbms) > 0):?>
+                                    <div class="card-body p-0">
+                                        <div class="tab-content">
+                                            <?php
+                                            $no = 1;
+                                            foreach ($kelases as $ky => $kelas) :
+                                                $arrIst = [];
+                                                if (isset($kbms[$ky]->istirahat)) {
+                                                    foreach ($kbms[$ky]->istirahat as $istirahat) {
+                                                        array_push($arrIst, $istirahat['ist']);
+                                                        $arrDur[$istirahat['ist']] = $istirahat['dur'];
+                                                    }
+                                                }
+                                                $active = $no == 1 ? 'active' : '';
+                                                ?>
+                                                <div class="tab-pane <?= $active ?>" id="tab_<?= $ky ?>">
+                                                    <?php if (isset($kbms[$ky])) : ?>
+                                                        <div class="table-responsive">
+                                                            <table class="w-100 table">
+                                                                <tbody>
                                                                 <?php
-                                                                $jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
-                                                            else :
-                                                                $jamSampai->add(new DateInterval('PT' . $kbms[$ky]->kbm_jam_pel . 'M'));
-                                                                ?>
-                                                                <tr class="jam" data-jamke="<?= $jamke ?>">
-                                                                    <td class="align-middle">
-                                                                        <?= $jamMulai->format('H:i') ?> - <?= $jamSampai->format('H:i') ?>
-                                                                    </td>
-                                                                    <td class="align-middle">
-                                                                        <?= $jadwals[$ky][$jamke]->kode != null ? $jadwals[$ky][$jamke]->kode : '--' ?>
-                                                                    </td>
-                                                                </tr>
+                                                                $jamMulai = new DateTime($kbms[$ky]->kbm_jam_mulai);
+                                                                $jamSampai = new DateTime($kbms[$ky]->kbm_jam_mulai);
+                                                                for ($i = 0; $i < $kbms[$ky]->kbm_jml_mapel_hari; $i++) :
+                                                                    $jamke = $i + 1;
+                                                                    if (in_array($jamke, $arrIst)) :
+                                                                        $jamSampai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
+                                                                        ?>
+                                                                        <tr class="jam" data-jamke="<?= $jamke ?>">
+                                                                            <td class="align-middle" width="150">
+                                                                                <?= $jamMulai->format('H:i') ?>
+                                                                                - <?= $jamSampai->format('H:i') ?>
+                                                                            </td>
+                                                                            <td class="align-middle">ISTIRAHAT</td>
+                                                                        </tr>
+                                                                        <?php
+                                                                        $jamMulai->add(new DateInterval('PT' . $arrDur[$jamke] . 'M'));
+                                                                    else :
+                                                                        $jamSampai->add(new DateInterval('PT' . $kbms[$ky]->kbm_jam_pel . 'M'));
+                                                                        ?>
+                                                                        <tr class="jam" data-jamke="<?= $jamke ?>">
+                                                                            <td class="align-middle">
+                                                                                <?= $jamMulai->format('H:i') ?>
+                                                                                - <?= $jamSampai->format('H:i') ?>
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                <?= $jadwals[$ky][$jamke]->kode != null ? $jadwals[$ky][$jamke]->kode : '--' ?>
+                                                                            </td>
+                                                                        </tr>
 
-                                                                <?php
-                                                                $jamMulai->add(new DateInterval('PT' . $kbms[$ky]->kbm_jam_pel . 'M'));
-                                                            endif;
-                                                        endfor; ?>
-                                                        </tbody>
-                                                    </table>
+                                                                        <?php
+                                                                        $jamMulai->add(new DateInterval('PT' . $kbms[$ky]->kbm_jam_pel . 'M'));
+                                                                    endif;
+                                                                endfor; ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    <?php else: ?>
+                                                        <div class="m-4">
+                                                            Jadwal untuk kelas <?= $kelas ?> belum dibuat
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
-                                        <?php else: ?>
-                                                    <div class="m-4">
-                                                        Jadwal untuk kelas <?= $kelas ?> belum dibuat
-                                                    </div>
-                                        <?php endif; ?>
-                                            </div>
-                                            <?php $no++; endforeach; ?>
+                                                <?php $no++; endforeach; ?>
+                                        </div>
                                     </div>
-                                </div>
                                 <?php
                                 else:
-                                ?>
-                                <div class="card-body">
-                                    Tidak ada jadwal hari ini
-                                </div>
+                                    ?>
+                                    <div class="card-body">
+                                        Tidak ada jadwal hari ini
+                                    </div>
                                 <?php
                                 endif;
                                 ?>
@@ -152,7 +157,7 @@
                             <div class="row">
                                 <?php foreach ($ujian_box as $info) : ?>
                                     <div class="col-md-4 col-6" style="min-height: 60px">
-                                        <a href="<?=base_url().$info->url?>">
+                                        <a href="<?= base_url() . $info->url ?>">
                                             <div class="info-box border p-1" style="min-height: 60px">
                                                 <div class="info-box-content p-1 text-danger">
                                                     <span class="info-box-text"><?= $info->title; ?></span>
@@ -163,11 +168,13 @@
                                     </div>
                                 <?php endforeach; ?>
                                 <div class="col-md-4 col-6" style="min-height: 60px">
-                                    <a href="<?=base_url('cbttoken')?>">
+                                    <a href="<?= base_url('cbttoken') ?>">
                                         <div class="info-box border p-1" style="min-height: 60px">
                                             <div class="info-box-content p-1 text-danger">
-                                                <span class="info-box-text">Token <small class="float-right" id="interval">-- : --</small></span>
-                                                <h5 class="info-box-number m-0" id="token-view"><?= $token->token != null ? $token->token : '- - - - - -' ?></h5>
+                                                <span class="info-box-text">Token <small class="float-right"
+                                                                                         id="interval">-- : --</small></span>
+                                                <h5 class="info-box-number m-0"
+                                                    id="token-view"><?= $token->token != null ? $token->token : '- - - - - -' ?></h5>
                                             </div>
                                         </div>
                                     </a>
@@ -180,49 +187,77 @@
                                 </div>
                                 <div class="col-12 table-responsive">
                                     <?php
+                                    //echo '<pre>';
+                                    //var_dump($kelas_ujian);
+                                    //echo '</pre>';
                                     $no = 1;
-                                    if (count($jadwal_ujian) > 0) : ?>
-                                    <table id="tbl-penilaian" class="table table-bordered">
-                                        <tr>
-                                            <th class="text-center align-middle">NO</th>
-                                            <th class="text-center align-middle">RUANG</th>
-                                            <th class="text-center align-middle">SESI</th>
-                                            <th class="text-center align-middle">JAM KE</th>
-                                            <th class="text-center align-middle">MATA PELAJARAN</th>
-                                            <th class="text-center align-middle">PENGAWAS</th>
-                                        </tr>
-                                        <?php
-                                        foreach ($ruangs as $ruang=>$sesis) :
-                                        foreach ($sesis as $sesi) :
-                                            $kelas_ruang_sesi = $kelas_ujian[$ruang][$sesi->sesi_id];
-                                        foreach ($jadwal_ujian as $jadwal) :
-                                            $id_guru = isset($pengawas[$jadwal[0]->id_jadwal])
-                                                && isset($pengawas[$jadwal[0]->id_jadwal][$ruang]) &&
-                                                isset($pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id])
-                                                ? explode(',', $pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
-                                                : [];
-                                            $bank_kelass = unserialize($jadwal[0]->bank_kelas);
-                                            $badge_kelas = '';
-                                            foreach ($bank_kelass as $bank_kelas) {
-                                                $badge_kelas .= '<span class="badge badge-info">'.$bank_kelas['kelas_id'].'</span>';
-                                            }
-                                            ?>
-                                        <tr>
-                                            <td class="text-center align-middle"><?=$no?></td>
-                                            <td class="text-center align-middle"><?=$sesi->nama_ruang?></td>
-                                            <td class="text-center align-middle"><?=$sesi->nama_sesi?></td>
-                                            <td class="text-center align-middle"><?=$jadwal[0]->jam_ke?></td>
-                                            <td class="text-center align-middle"><?=$jadwal[0]->kode?></td>
-                                            <td class="align-middle crop-text-table">
-                                                <?php foreach ($id_guru as $ig) {
-                                                    echo isset($gurus[$ig]) ? '<p class="p-0 m-0">'.$gurus[$ig].'</p>' : '';
-                                                } ?>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; endforeach; $no ++; endforeach; ?>
-                                    </table>
+                                    if (count($jadwals_ujian) > 0) : ?>
+                                        <table id="tbl-penilaian" class="table table-bordered table-sm">
+                                            <tr>
+                                                <th class="text-center align-middle">NO</th>
+                                                <th class="text-center align-middle">RUANG</th>
+                                                <th class="text-center align-middle">SESI</th>
+                                                <!--
+                                                <th class="text-center align-middle">JAM KE</th>
+                                                -->
+                                                <th class="text-center align-middle">MATA PELAJARAN</th>
+                                                <th class="text-center align-middle">PENGAWAS</th>
+                                            </tr>
+                                            <?php
+                                            $jadwal_ujian = $jadwals_ujian[date('Y-m-d')] ?? [];
+                                            foreach ($ruangs as $ruang => $sesis) :
+                                                foreach ($sesis as $sesi) :
+                                                    foreach ($jadwal_ujian as $jadwal) :
+                                                        $id_guru = isset($pengawas[$jadwal[0]->id_jadwal])
+                                                        && isset($pengawas[$jadwal[0]->id_jadwal][$ruang]) &&
+                                                        isset($pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id])
+                                                            ? explode(',', $pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
+                                                            : [];
+
+                                                        $badge_kelas = '';
+                                                        $total_peserta = 0;
+                                                        foreach ($jadwal as $jdw) {
+                                                            $bank_kelass = $jdw->bank_kelas;
+                                                            foreach ($bank_kelass as $bank_kelas) {
+                                                                $cnt = isset($jdw->peserta[$ruang]) && isset($jdw->peserta[$ruang][$sesi->sesi_id]) ?
+                                                                    count($jdw->peserta[$ruang][$sesi->sesi_id]) : 0;
+                                                                if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
+                                                                    $total_peserta += $cnt;
+                                                                    $badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                }
+                                                            }
+                                                        }
+
+                                                        if ($total_peserta > 0) :
+                                                            ?>
+                                                            <tr>
+                                                                <td class="text-center align-middle"><?= $no ?></td>
+                                                                <td class="text-center align-middle"><?= $sesi->nama_ruang ?></td>
+                                                                <td class="text-center align-middle"><?= $sesi->nama_sesi ?></td>
+                                                                <!--
+                                                                <td class="text-center align-middle"><?= $jadwal[0]->jam_ke ?></td>
+                                                                -->
+                                                                <td class="text-center align-middle"><?= $jadwal[0]->kode ?>
+                                                                    <!--
+                                                                    <br>
+                                                                    <?= $badge_kelas ?>
+                                                                    -->
+                                                                </td>
+                                                                <td class="align-middle crop-text-table">
+                                                                    <?php foreach ($id_guru as $ig) {
+                                                                        echo isset($gurus[$ig]) ? '<p class="p-0 m-0">' . $gurus[$ig] . '</p>' : '';
+                                                                    } ?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endif; endforeach; endforeach;
+                                                $no++; endforeach; ?>
+                                        </table>
                                     <?php else: ?>
-                                        <table class="w-100 table-bordered"><tr><td class="text-center">Tidak ada jadwal penilaian</td></tr></table>
+                                        <table class="w-100 table-bordered">
+                                            <tr>
+                                                <td class="text-center">Tidak ada jadwal penilaian</td>
+                                            </tr>
+                                        </table>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -247,7 +282,7 @@
                     </div>
                 </div>
             </div>
-	</section>
+    </section>
 </div>
 
 <div class="modal fade" id="komentarModal" tabindex="-1" role="dialog" aria-labelledby="komentarLabel">

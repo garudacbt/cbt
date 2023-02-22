@@ -28,7 +28,8 @@
                 </div>
                 <div class="card-body">
                     <div class="alert alert-default-warning mb-0">
-                        <p><i class="fa fa-warning"></i> Anda akan menghapus data <b><?= $guru['detail']->nama_guru ?>.</b></p>
+                        <p><i class="fa fa-warning"></i> Anda akan menghapus data <b><?= $guru['detail']->nama_guru ?>
+                                .</b></p>
                         <div class="row">
                             <div class="col-md-5">
                                 <p><b>PENTING</b></p>
@@ -63,7 +64,7 @@
                         <?php
                         $tahuns = [];
                         $tahun_ids = [];
-                        foreach ($guru['jabatan'] as $t=>$s) {
+                        foreach ($guru['jabatan'] as $t => $s) {
                             $searchTp = array_search($t, array_column($tp, 'id_tp'));
                             array_push($tahun_ids, $tp[$searchTp]->id_tp);
                             array_push($tahuns, $tp[$searchTp]->tahun);
@@ -83,28 +84,28 @@
                                     Smt 1
                                     <?php
                                     if (isset($guru['jabatan'][$tahun_ids[0]][1])) :
-                                    ?>
-                                    <ul>
-                                        <li><?=$guru['jabatan'][$tahun_ids[0]][1]->level. ' ' .$guru['jabatan'][$tahun_ids[0]][1]->nama_kelas?></li>
-                                        <li>
-                                            Pengampu
-                                            <ul>
-                                                <?php
+                                        ?>
+                                        <ul>
+                                            <li><?= $guru['jabatan'][$tahun_ids[0]][1]->level . ' ' . $guru['jabatan'][$tahun_ids[0]][1]->nama_kelas ?></li>
+                                            <li>
+                                                Pengampu
+                                                <ul>
+                                                    <?php
                                                     $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[0]][1]->mapel_kelas)));
                                                     foreach ($mapels as $mapel) :
                                                         $kls = '';
                                                         foreach ($mapel->kelas_mapel as $mk) {
                                                             if (isset($kelas[$tahun_ids[0]][1][$mk->kelas])) {
-                                                                $kls .= '<span class="badge badge-btn badge-primary">'.$kelas[$tahun_ids[0]][1][$mk->kelas]->nama_kelas.'</span> ';
+                                                                $kls .= '<span class="badge badge-btn badge-primary">' . $kelas[$tahun_ids[0]][1][$mk->kelas]->nama_kelas . '</span> ';
                                                             }
                                                         }
                                                         ?>
-                                                        <li><?= $mapel->nama_mapel ?><br><?=$kls?>
+                                                        <li><?= $mapel->nama_mapel ?><br><?= $kls ?>
                                                         </li>
                                                     <?php endforeach; ?>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -113,27 +114,27 @@
                                     Smt 2
                                     <?php
                                     if (isset($guru['jabatan'][$tahun_ids[0]][2])) :?>
-                                    <ul>
-                                        <li><?=$guru['jabatan'][$tahun_ids[0]][2]->level. ' ' .$guru['jabatan'][$tahun_ids[0]][2]->nama_kelas?></li>
-                                        <li>
-                                            Pengampu
-                                            <ul>
-                                                <?php
+                                        <ul>
+                                            <li><?= $guru['jabatan'][$tahun_ids[0]][2]->level . ' ' . $guru['jabatan'][$tahun_ids[0]][2]->nama_kelas ?></li>
+                                            <li>
+                                                Pengampu
+                                                <ul>
+                                                    <?php
                                                     $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[0]][2]->mapel_kelas)));
                                                     foreach ($mapels as $mapel) :
                                                         $kls = '';
                                                         foreach ($mapel->kelas_mapel as $mk) {
                                                             if (isset($kelas[$tahun_ids[0]][2][$mk->kelas])) {
-                                                                $kls .= '<span class="badge badge-btn badge-primary">'.$kelas[$tahun_ids[0]][2][$mk->kelas]->nama_kelas.'</span> ';
+                                                                $kls .= '<span class="badge badge-btn badge-primary">' . $kelas[$tahun_ids[0]][2][$mk->kelas]->nama_kelas . '</span> ';
                                                             }
                                                         }
                                                         ?>
-                                                        <li><?= $mapel->nama_mapel ?><br><?=$kls?>
+                                                        <li><?= $mapel->nama_mapel ?><br><?= $kls ?>
                                                         </li>
                                                     <?php endforeach; ?>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -143,56 +144,56 @@
                                     <td rowspan="2"><?= $tahuns[$i] ?></td>
                                     <td>
                                         Smt 1
-                                        <?php if (isset($guru['jabatan'][$tahun_ids[$i]][1])) :?>
-                                        <ul>
-                                            <li><?=$guru['jabatan'][$tahun_ids[$i]][1]->level. ' ' .$guru['jabatan'][$tahun_ids[$i]][1]->nama_kelas?></li>
-                                            <li>
-                                                Pengampu
-                                                <ul>
-                                                    <?php
+                                        <?php if (isset($guru['jabatan'][$tahun_ids[$i]][1])) : ?>
+                                            <ul>
+                                                <li><?= $guru['jabatan'][$tahun_ids[$i]][1]->level . ' ' . $guru['jabatan'][$tahun_ids[$i]][1]->nama_kelas ?></li>
+                                                <li>
+                                                    Pengampu
+                                                    <ul>
+                                                        <?php
                                                         $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[$i]][1]->mapel_kelas)));
                                                         foreach ($mapels as $mapel) :
                                                             $kls = '';
                                                             foreach ($mapel->kelas_mapel as $mk) {
                                                                 if (isset($kelas[$tahun_ids[$i]][1][$mk->kelas])) {
-                                                                    $kls .= '<span class="badge badge-btn badge-primary">'.$kelas[$tahun_ids[$i]][1][$mk->kelas]->nama_kelas.'</span> ';
+                                                                    $kls .= '<span class="badge badge-btn badge-primary">' . $kelas[$tahun_ids[$i]][1][$mk->kelas]->nama_kelas . '</span> ';
                                                                 }
                                                             }
                                                             ?>
-                                                            <li><?= $mapel->nama_mapel ?><br><?=$kls?>
+                                                            <li><?= $mapel->nama_mapel ?><br><?= $kls ?>
                                                             </li>
                                                         <?php endforeach; ?>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                                    </ul>
+                                                </li>
+                                            </ul>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="">
                                         Smt 2
-                                        <?php if (isset($guru['jabatan'][$tahun_ids[$i]][2])) :?>
-                                        <ul>
-                                            <li><?=$guru['jabatan'][$tahun_ids[$i]][2]->level. ' ' .$guru['jabatan'][$tahun_ids[$i]][2]->nama_kelas?></li>
-                                            <li>
-                                                Pengampu
-                                                <ul>
-                                                    <?php
+                                        <?php if (isset($guru['jabatan'][$tahun_ids[$i]][2])) : ?>
+                                            <ul>
+                                                <li><?= $guru['jabatan'][$tahun_ids[$i]][2]->level . ' ' . $guru['jabatan'][$tahun_ids[$i]][2]->nama_kelas ?></li>
+                                                <li>
+                                                    Pengampu
+                                                    <ul>
+                                                        <?php
                                                         $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[$i]][2]->mapel_kelas)));
                                                         foreach ($mapels as $mapel) :
                                                             $kls = '';
                                                             foreach ($mapel->kelas_mapel as $mk) {
                                                                 if (isset($kelas[$tahun_ids[$i]][2][$mk->kelas])) {
-                                                                    $kls .= '<span class="badge badge-btn badge-primary">'.$kelas[$tahun_ids[$i]][2][$mk->kelas]->nama_kelas.'</span> ';
+                                                                    $kls .= '<span class="badge badge-btn badge-primary">' . $kelas[$tahun_ids[$i]][2][$mk->kelas]->nama_kelas . '</span> ';
                                                                 }
                                                             }
                                                             ?>
-                                                            <li><?= $mapel->nama_mapel ?><br><?=$kls?>
+                                                            <li><?= $mapel->nama_mapel ?><br><?= $kls ?>
                                                             </li>
                                                         <?php endforeach; ?>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                                    </ul>
+                                                </li>
+                                            </ul>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -200,37 +201,44 @@
                         <tr>
                             <td class="align-top">Materi Siswa</td>
                             <td <?= count($tahuns) > 0 ? 'colspan="2" ' : '' ?>class="">
-                                <b><?= $guru['materi'] ?></b> materi</td>
+                                <b><?= $guru['materi'] ?></b> materi
+                            </td>
                         </tr>
                         <tr>
                             <td class="align-top">Catatan Siswa</td>
                             <td <?= count($tahuns) > 0 ? 'colspan="2" ' : '' ?>class="">
-                                <b><?= $guru['catatan_mapel'] ?></b> catatan</td>
+                                <b><?= $guru['catatan_mapel'] ?></b> catatan
+                            </td>
                         </tr>
                         <tr>
                             <td class="align-top">Bank Soal</td>
                             <td <?= count($tahuns) > 0 ? 'colspan="2" ' : '' ?>class="">
-                                <b><?= $guru['bank_soal'] ?></b> bank soal</td>
+                                <b><?= $guru['bank_soal'] ?></b> bank soal
+                            </td>
                         </tr>
                         <tr>
                             <td class="align-top">Pengawas</td>
                             <td <?= count($tahuns) > 0 ? 'colspan="2" ' : '' ?>class="">
-                                <b><?= $guru['pengawas'] ?></b> jadwal</td>
+                                <b><?= $guru['pengawas'] ?></b> jadwal
+                            </td>
                         </tr>
                         <tr>
                             <td class="align-top">Pengumuman</td>
                             <td <?= count($tahuns) > 0 ? 'colspan="2" ' : '' ?>class="">
-                                <b><?= $guru['posts'] ?></b> post</td>
+                                <b><?= $guru['posts'] ?></b> post
+                            </td>
                         </tr>
                         <tr>
                             <td class="align-top">Komentar</td>
                             <td <?= count($tahuns) > 0 ? 'colspan="2" ' : '' ?>class="">
-                                <b><?= $guru['comments'] ?></b> komentar</td>
+                                <b><?= $guru['comments'] ?></b> komentar
+                            </td>
                         </tr>
                         <tr>
                             <td class="align-top">Balasan Komentar</td>
                             <td <?= count($tahuns) > 0 ? 'colspan="2" ' : '' ?>class="">
-                                <b><?= $guru['replies'] ?></b> balasan</td>
+                                <b><?= $guru['replies'] ?></b> balasan
+                            </td>
                         </tr>
                     </table>
 
@@ -238,7 +246,7 @@
                         <a href="<?= base_url('dataguru') ?>" type="button" class="btn btn-success">
                             <i class="fas fa-arrow-left"></i> Batalkan Penghapusan
                         </a>
-                        <button class="btn btn-outline-danger" onclick="hapus('<?=$id_guru?>')">
+                        <button class="btn btn-outline-danger" onclick="hapus('<?= $id_guru ?>')">
                             <i class="fa fa-trash mr-1"></i>Lanjutkan Penghapusan
                         </button>
                     </div>
@@ -246,7 +254,7 @@
                     //$searchId = array_search('1', array_column($tp, 'id_tp'));
                     //echo '<pre>';
                     //var_dump($tahuns);
-                   // var_dump($tp);
+                    // var_dump($tp);
                     //echo '<br>';
                     //var_dump($kelas);
                     //echo '<br>';

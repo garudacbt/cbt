@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><?= $judul . $kelas->nama_kelas?></h1>
+                    <h1><?= $judul . $kelas->nama_kelas ?></h1>
                 </div>
             </div>
         </div>
@@ -30,7 +30,9 @@
                                     <table id="tbl1" class="table table-bordered">
                                         <thead>
                                         <tr class="alert-default-danger">
-                                            <th class="text-center align-middle border-danger" style="width: 50px">Poin</th>
+                                            <th class="text-center align-middle border-danger" style="width: 50px">
+                                                Poin
+                                            </th>
                                             <th class="border-danger">
                                                 <span class="pl-2 align-middle">Edit Deskripsi Berdasarkan Poin</span>
                                             </th>
@@ -38,7 +40,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        for ($i=0;$i<5;$i++):
+                                        for ($i = 0; $i < 5; $i++):
                                             $skp = $spiritual[$i]; ?>
                                             <tr>
                                                 <td class="text-sm text-center border-success nomor pt-0 pb-0"><?= $skp->kode ?></td>
@@ -52,7 +54,9 @@
                                     <table id="tbl2" class="table table-bordered border-success">
                                         <thead>
                                         <tr class="alert-default-danger">
-                                            <th class="text-center align-middle border-danger" style="width: 50px">Point</th>
+                                            <th class="text-center align-middle border-danger" style="width: 50px">
+                                                Point
+                                            </th>
                                             <th class="border-danger">
                                                 <span class="pl-2 align-middle">Edit Deskripsi Berdasarkan Point</span>
                                             </th>
@@ -60,7 +64,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        for ($i=5;$i<count($spiritual);$i++):
+                                        for ($i = 5; $i < count($spiritual); $i++):
                                             $skp = $spiritual[$i]; ?>
                                             <tr>
                                                 <td class="text-sm text-center border-success nomor pt-0 pb-0"><?= $skp->kode ?></td>
@@ -106,8 +110,8 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jexcel.js"></script>
-<script type="text/javascript" src="<?=base_url()?>/assets/plugins/jexcel/js/jsuites.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
     var arrSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswa)?>));
     var arrSpiritual = JSON.parse(JSON.stringify(<?= json_encode($spiritual)?>));
@@ -123,31 +127,31 @@
             return (n !== '' && n != null);
         });
 
-        if (desk.length===0) return '';
+        if (desk.length === 0) return '';
 
         var result;
-        if (type === 1) result ='selalu ';
-        else result =' Sedangkan sikap ';
+        if (type === 1) result = 'selalu ';
+        else result = ' Sedangkan sikap ';
 
         for (let i = 0; i < desk.length; i++) {
             var key = desk[i];
             if ($.isNumeric(key)) {
-                var kode = parseInt(key)-1;
-                if (i>0) {
-                    if (i<(desk.length-1)) {
+                var kode = parseInt(key) - 1;
+                if (i > 0) {
+                    if (i < (desk.length - 1)) {
                         result += ', ';
                     } else {
                         result += ' dan ';
                     }
                 }
                 if (arrSpiritual[kode] != null) {
-                    result +=arrSpiritual[kode].sikap;
+                    result += arrSpiritual[kode].sikap;
                 } else {
                     showDangerToast('Hanya untuk pengisian angka!');
                     return '#ERROR';
                 }
 
-                if (i === (desk.length-1)) {
+                if (i === (desk.length - 1)) {
                     if (type === 1) result += '.';
                     else result += ' mulai berkembang.';
                 }
@@ -159,12 +163,12 @@
         return result;
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         //console.log('siswa',arrSiswa);
         //console.log('nilai',arrNilai);
         //console.log('spirit',arrSpiritual);
 
-        $('.editable').attr('contentEditable',true);
+        $('.editable').attr('contentEditable', true);
         var tableSize = $('#t-siswa');
         var dataSiswa = [];
         var row = 1;
@@ -180,7 +184,7 @@
                 [
                     noInduk, v.nama,
                     arrNilai[v.id_siswa].predikat,
-                    n1,n2,n3,n4,n5,n6,
+                    n1, n2, n3, n4, n5, n6,
                     v.nama + ' ' + setDesk([n1, n2, n3], 1) + setDesk([n4, n5, n6], 2),
                     v.id_siswa,
                 ]
@@ -215,13 +219,13 @@
         }
 
         var tableSiswa = $('#t-siswa').jexcel({
-            data:dataSiswa,
-            minDimensions:[11],
+            data: dataSiswa,
+            minDimensions: [11],
             //defaultColWidth: 100,
             tableOverflow: true,
-            tableWidth: ''+tableSize.width()+'px',
-            tableHeight: (80*(dataSiswa.length+2))+'px',
-            search:true,
+            tableWidth: '' + tableSize.width() + 'px',
+            tableHeight: (80 * (dataSiswa.length + 2)) + 'px',
+            search: true,
             freezeColumns: 2,
             //rowResize: true,
             columnResize: false,
@@ -229,7 +233,7 @@
             /*[
             {width: 100},
             {width: 300},       ],*/
-            nestedHeaders:[
+            nestedHeaders: [
                 [
                     {title: 'DATA SISWA', colspan: '2',},
                     {title: 'DESKRIPSI SPIRITUAL SISWA YANG MENONJOL', colspan: '9'},
@@ -243,7 +247,7 @@
                     {title: 'DESKRIPSI', colspan: '2'},
                 ]
             ],
-            updateTable:function(instance, cell, col, row, val, label, cellName) {
+            updateTable: function (instance, cell, col, row, val, label, cellName) {
                 if (col === 0 || col === 1) {
                     cell.className = '';
                     cell.style.backgroundColor = '#f8d7da';
@@ -255,11 +259,11 @@
                     cell.style.backgroundColor = '#f3e5f5';
                 }
 
-                if (col === 3||col === 4||col === 5) {
+                if (col === 3 || col === 4 || col === 5) {
                     cell.style.backgroundColor = '#b9f6ca';
                 }
 
-                if (col === 6||col === 7||col === 8) {
+                if (col === 6 || col === 7 || col === 8) {
                     cell.style.backgroundColor = '#e0f7fa';
                 }
 
@@ -271,11 +275,11 @@
                     cell.style.textAlign = 'left';
                 }
             },
-            onchange: function(instance, cell, col, row, value, label) {
-                var cellName = jexcel.getColumnNameFromId([col,row]);
+            onchange: function (instance, cell, col, row, value, label) {
+                var cellName = jexcel.getColumnNameFromId([col, row]);
                 if (inRange(col, 3, 8)) {
                     if (cellName != 'J' + row) {
-                        console.log(cellName + ', val:' + value + 'col:' + col + 'row:'+row);
+                        console.log(cellName + ', val:' + value + 'col:' + col + 'row:' + row);
                         //changed(parseInt(row)+1);
                         changed(parseInt(row));
                     }
@@ -300,7 +304,7 @@
             }
             console.log(d1);
             console.log(d2);
-            tableSiswa.setValue('J'+(row+1), tableSiswa.getValue('B'+(row+1)) + ' ' + setDesk(d1, 1) + setDesk(d2, 2), true);
+            tableSiswa.setValue('J' + (row + 1), tableSiswa.getValue('B' + (row + 1)) + ' ' + setDesk(d1, 1) + setDesk(d2, 2), true);
         }
 
         $('#uploadspiritual').submit('click', function (e) {
@@ -312,7 +316,7 @@
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: base_url + 'rapor/uploadspiritual/'+idKelas,
+                url: base_url + 'rapor/uploadspiritual/' + idKelas,
                 data: form,
                 processData: false,
                 contentType: false,
@@ -322,14 +326,14 @@
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil diupdate",
+                        html: "<b>" + data + "<b> nilai berhasil diupdate",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
                         confirmButtonText: "OK"
                     }).then(result => {
                         if (result.value) {
-                            window.location.href = base_url + 'rapor/raporspiritual/'+idKelas
+                            window.location.href = base_url + 'rapor/raporspiritual/' + idKelas
                         }
                     });
                 },
@@ -344,33 +348,33 @@
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            var tbl = $('table.jexcel tr').get().map(function(row) {
-                return $(row).find('td').get().map(function(cell) {
+            var tbl = $('table.jexcel tr').get().map(function (row) {
+                return $(row).find('td').get().map(function (cell) {
                     return $(cell).html();
                 });
             });
             tbl.shift();
             tbl.shift();
             tbl.shift();
-            console.log($(this).serialize() + '&nilai='+JSON.stringify(tbl));
+            console.log($(this).serialize() + '&nilai=' + JSON.stringify(tbl));
 
             $.ajax({
                 type: "POST",
-                url: base_url + 'rapor/importspiritual/'+idKelas,
-                data: $(this).serialize() + '&nilai='+JSON.stringify(tbl),
+                url: base_url + 'rapor/importspiritual/' + idKelas,
+                data: $(this).serialize() + '&nilai=' + JSON.stringify(tbl),
                 cache: false,
                 success: function (data) {
                     console.log(data);
                     swal.fire({
                         title: "Sukses",
-                        html: "<b>"+data+"<b> nilai berhasil disimpan",
+                        html: "<b>" + data + "<b> nilai berhasil disimpan",
                         icon: "success",
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
                         confirmButtonText: "OK"
                     }).then(result => {
                         if (result.value) {
-                            window.location.href = base_url + 'rapor/raporspiritual/'+idKelas
+                            window.location.href = base_url + 'rapor/raporspiritual/' + idKelas
                         }
                     });
                 },
@@ -381,7 +385,7 @@
             });
         });
 
-        $('#editsikap').on('submit',function (e) {
+        $('#editsikap').on('submit', function (e) {
             e.stopPropagation();
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -432,7 +436,7 @@
                     console.log("response:", data);
                     if (data.status) {
                         //showSuccessToast('Data berhasil disimpan')
-                        window.location.href = base_url + 'rapor/raporspiritual/'+idKelas
+                        window.location.href = base_url + 'rapor/raporspiritual/' + idKelas
                     } else {
                         showDangerToast('gagal disimpan')
                     }
