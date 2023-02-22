@@ -83,27 +83,36 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                         <div class="col-md-4 mb-4">
                             <label>Alamat *</label>
                             <br>
-                            <textarea class="w-100 p-2 required" name="alamat"
+                            <textarea class="w-100 p-2 required" name="alamat" rows="5"
                                       required><?= $setting->alamat ?></textarea>
                         </div>
-                        <div class="col-md-3 mb-4">
-                            <label>Kecamatan *</label>
-                            <input type="text" name="kec" class="form-control required"
-                                   value="<?= $setting->kecamatan ?>" required>
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <label>Kabupaten/Kota *</label>
-                            <input type="text" name="kota" class="form-control required" value="<?= $setting->kota ?>"
-                                   required>
-                        </div>
-                        <div class="col-md-2 mb-4">
-                            <label>Kode Pos</label>
-                            <input type="number" name="kode_pos" class="form-control" value="<?= $setting->kode_pos ?>">
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <label>Provinsi *</label>
-                            <input type="text" name="provinsi" class="form-control required"
-                                   value="<?= $setting->provinsi ?>" required>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label>Desa/Kelurahan *</label>
+                                    <input type="text" name="desa" class="form-control required"
+                                           value="<?= $setting->desa ?>" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label>Kecamatan *</label>
+                                    <input type="text" name="kec" class="form-control required"
+                                           value="<?= $setting->kecamatan ?>" required>
+                                </div>
+                                <div class="col-md-5 mb-4">
+                                    <label>Kabupaten/Kota *</label>
+                                    <input type="text" name="kota" class="form-control required" value="<?= $setting->kota ?>"
+                                           required>
+                                </div>
+                                <div class="col-md-2 mb-4">
+                                    <label>Kode Pos</label>
+                                    <input type="number" name="kode_pos" class="form-control" value="<?= $setting->kode_pos ?>">
+                                </div>
+                                <div class="col-md-5 mb-4">
+                                    <label>Provinsi *</label>
+                                    <input type="text" name="provinsi" class="form-control required"
+                                           value="<?= $setting->provinsi ?>" required>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-3 mb-4">
                             <label>Faksimili</label>

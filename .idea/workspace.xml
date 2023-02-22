@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="version 1.4.4">
+    <list default="true" id="67d905fd-5cb6-4551-93b7-d5ad0645d1cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -202,15 +202,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\xampp73\htdocs\garudacbt" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\laragon\www\garudacbt\application\views\members\guru\templates" />
       <recent name="C:\laragon\www\garudacbt\application\views\cbt\cetak" />
       <recent name="C:\laragon\www\garudacbt\application\controllers" />
       <recent name="C:\laragon\www\garudacbt\application\views\install" />
       <recent name="C:\laragon\www\garudacbt\application\views\kelas\materi" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\garudacbt\application\models" />
+      <recent name="C:\laragon\www\garudacbt\application\controllers" />
+      <recent name="D:\xampp73\htdocs\garudacbt" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -289,20 +291,7 @@
       <workItem from="1675739435582" duration="760000" />
       <workItem from="1676013746566" duration="163000" />
       <workItem from="1676954454308" duration="2175000" />
-    </task>
-    <task id="LOCAL-00048" summary="fix minor bug cetak">
-      <created>1646283143835</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1646283143835</updated>
-    </task>
-    <task id="LOCAL-00049" summary="readme">
-      <created>1646362477100</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1646362477100</updated>
+      <workItem from="1677083874293" duration="972000" />
     </task>
     <task id="LOCAL-00050" summary="fix guru">
       <created>1646362734622</created>
@@ -633,7 +622,21 @@
       <option name="project" value="LOCAL" />
       <updated>1676955436656</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="version 1.4.5">
+      <created>1677084123213</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1677084123213</updated>
+    </task>
+    <task id="LOCAL-00098" summary="version 1.4.5">
+      <created>1677084134886</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1677084134886</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -697,7 +700,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="versi 1.2-beta" />
     <MESSAGE value="fix minor bug" />
     <MESSAGE value="fix minor bug cetak" />
     <MESSAGE value="readme" />
@@ -722,7 +724,8 @@
     <MESSAGE value="version 1.4.2" />
     <MESSAGE value="version 1.4.3" />
     <MESSAGE value="version 1.4.4" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 1.4.4" />
+    <MESSAGE value="version 1.4.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.4.5" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/models/add.php" />
