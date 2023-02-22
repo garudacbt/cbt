@@ -546,6 +546,6 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['app_version']	= '1.4.4';
+$config['app_version']	= '1.4.5';
 $config['min_password_length']  = 6;
 $config['max_password_length'] = 20;
