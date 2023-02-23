@@ -249,7 +249,8 @@
         var rows = arrMapel.length > 1 ? '2' : '1';
         var namaMpl = arrMapel.length > 1 ? '' : arrMapel[0].nama_mapel;
 
-        var tinfo = '<table><tr>' +
+        $('.table-header').remove();
+        var tinfo = '<table class="table-header"><tr>' +
             '     <td colspan="2" style="width: 120px">Jenis Ujian</td>' +
             '     <td colspan="5">: ' + $("#jenis option:selected").text() + '</td>' +
             ' </tr>' +
