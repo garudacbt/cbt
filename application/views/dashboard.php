@@ -191,7 +191,8 @@
                                     //var_dump($kelas_ujian);
                                     //echo '</pre>';
                                     $no = 1;
-                                    if (count($jadwals_ujian) > 0) : ?>
+                                    $jadwal_ujian = $jadwals_ujian[date('Y-m-d')] ?? [];
+                                    if (count($jadwal_ujian) > 0) : ?>
                                         <table id="tbl-penilaian" class="table table-bordered table-sm">
                                             <tr>
                                                 <th class="text-center align-middle">NO</th>
@@ -204,7 +205,6 @@
                                                 <th class="text-center align-middle">PENGAWAS</th>
                                             </tr>
                                             <?php
-                                            $jadwal_ujian = $jadwals_ujian[date('Y-m-d')] ?? [];
                                             foreach ($ruangs as $ruang => $sesis) :
                                                 foreach ($sesis as $sesi) :
                                                     foreach ($jadwal_ujian as $jadwal) :
@@ -275,7 +275,7 @@
                                 <div id="loadmore-post"
                                      onclick="getPosts()"
                                      class="text-center mt-4 loadmore d-none">
-                                    <div class="btn btn-default">Muat Timeline lainnya ...</div>
+                                    <div class="btn btn-default">Muat Pengumuman lainnya ...</div>
                                 </div>
                             </div>
                         </div>

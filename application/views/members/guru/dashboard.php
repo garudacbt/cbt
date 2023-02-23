@@ -176,46 +176,66 @@
                                 <div class="col-12 table-responsive">
                                     <?php
                                     $no = 1;
+                                    $jadwal_ujian = $jadwals_ujian[date('Y-m-d')] ?? [];
                                     if (count($jadwal_ujian) > 0) : ?>
                                         <table id="tbl-penilaian" class="table table-bordered">
                                             <tr>
                                                 <th class="text-center align-middle">NO</th>
                                                 <th class="text-center align-middle">RUANG</th>
                                                 <th class="text-center align-middle">SESI</th>
+                                                <!--
                                                 <th class="text-center align-middle">JAM KE</th>
+                                                -->
                                                 <th class="text-center align-middle">MATA PELAJARAN</th>
                                                 <th class="text-center align-middle">PENGAWAS</th>
                                             </tr>
                                             <?php
                                             foreach ($ruangs as $ruang => $sesis) :
                                                 foreach ($sesis as $sesi) :
-                                                    $kelas_ruang_sesi = $kelas_ujian[$ruang][$sesi->sesi_id];
                                                     foreach ($jadwal_ujian as $jadwal) :
                                                         $id_guru = isset($pengawas[$jadwal[0]->id_jadwal])
                                                         && isset($pengawas[$jadwal[0]->id_jadwal][$ruang]) &&
                                                         isset($pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id])
                                                             ? explode(',', $pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
                                                             : [];
-                                                        $bank_kelass = unserialize($jadwal[0]->bank_kelas);
+
                                                         $badge_kelas = '';
-                                                        foreach ($bank_kelass as $bank_kelas) {
-                                                            $badge_kelas .= '<span class="badge badge-info">' . $bank_kelas['kelas_id'] . '</span>';
+                                                        $total_peserta = 0;
+                                                        foreach ($jadwal as $jdw) {
+                                                            $bank_kelass = $jdw->bank_kelas;
+                                                            foreach ($bank_kelass as $bank_kelas) {
+                                                                $cnt = isset($jdw->peserta[$ruang]) && isset($jdw->peserta[$ruang][$sesi->sesi_id]) ?
+                                                                    count($jdw->peserta[$ruang][$sesi->sesi_id]) : 0;
+                                                                if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
+                                                                    $total_peserta += $cnt;
+                                                                    $badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                }
+                                                            }
                                                         }
-                                                        ?>
-                                                        <tr>
-                                                            <td class="text-center align-middle"><?= $no ?></td>
-                                                            <td class="text-center align-middle"><?= $sesi->nama_ruang ?></td>
-                                                            <td class="text-center align-middle"><?= $sesi->nama_sesi ?></td>
-                                                            <td class="text-center align-middle"><?= $jadwal[0]->jam_ke ?></td>
-                                                            <td class="text-center align-middle"><?= $jadwal[0]->kode ?></td>
-                                                            <td class="align-middle crop-text-table">
-                                                                <?php foreach ($id_guru as $ig) {
-                                                                    echo isset($gurus[$ig]) ? '<p class="p-0 m-0">' . $gurus[$ig] . '</p>' : '';
-                                                                } ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php endforeach; endforeach;
-                                                $no++; endforeach; ?>
+
+                                                        if ($total_peserta > 0) :
+                                                            ?>
+                                                            <tr>
+                                                                <td class="text-center align-middle"><?= $no ?></td>
+                                                                <td class="text-center align-middle"><?= $sesi->nama_ruang ?></td>
+                                                                <td class="text-center align-middle"><?= $sesi->nama_sesi ?></td>
+                                                                <!--
+                                                                <td class="text-center align-middle"><?= $jadwal[0]->jam_ke ?></td>
+                                                                -->
+                                                                <td class="text-center align-middle"><?= $jadwal[0]->kode ?>
+                                                                    <!--
+                                                                    <br>
+                                                                    <?= $badge_kelas ?>
+                                                                    -->
+                                                                </td>
+                                                                <td class="align-middle crop-text-table">
+                                                                    <?php foreach ($id_guru as $ig) {
+                                                                        echo isset($gurus[$ig]) ? '<p class="p-0 m-0">' . $gurus[$ig] . '</p>' : '';
+                                                                    } ?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endif; endforeach; endforeach;
+                                                $no++; endforeach;?>
                                         </table>
                                     <?php else: ?>
                                         <table class="w-100 table-bordered">

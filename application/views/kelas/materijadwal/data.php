@@ -90,7 +90,7 @@ $tempIdSelected = $id_kelas . $tp_active->id_tp . $smt_active->id_smt;
                 <div class="card-header">
                     <h6 class="card-title"><?= $subjudul ?></h6>
                     <div class="card-tools">
-                        <button type="button" onclick="reload()" class="btn btn-sm btn-default">
+                        <button type="button" onclick="refreshPage()" class="btn btn-sm btn-default">
                             <i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
                         </button>
                     </div>
@@ -573,6 +573,14 @@ $tempIdSelected = $id_kelas . $tp_active->id_tp . $smt_active->id_smt;
             });
         });
     });
+
+    function refreshPage() {
+        if (klsSelected == '0') {
+            window.location.href = base_url + 'kelasmaterijadwal';
+        } else {
+            reload(klsSelected, tglSelected, thnSelected, blnSelected);
+        }
+    }
 
     function reload(kelas, tgl, tahun, bulan) {
         window.location.href = base_url + 'kelasmaterijadwal/kelas?kelas=' + kelas + '&date=' + tgl + '&tahun=' + tahun + '&bulan=' + bulan;
