@@ -84,10 +84,6 @@
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/bootstrap-icon/bootstrap-icons.css">
 
     <link href="<?= base_url() ?>/assets/plugins/ios-switch/component-custom-switch.min.css" rel="stylesheet">
-    <!--
-	<link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/file-uploader/src/image-uploader.css">
-	<!--
-	<link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/advanced-file-uploader/docs/assets/demo.css">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -130,8 +126,11 @@
 </head>
 <script>
     let base_url = '<?=base_url()?>';
+    let globalToken;
+    let forceGenerate = 0;
+    let adaJadwalUjian;
 </script>
-<script src="<?= base_url() ?>/assets/app/js/generate.js"></script>
+<script type="module" src="<?= base_url() ?>/assets/app/js/generate.js"></script>
 <script type="text/javascript">
     let tp_active = '<?= $tp_active->tahun ?>';
     let smt_active = '<?= $smt_active->smt ?>';
