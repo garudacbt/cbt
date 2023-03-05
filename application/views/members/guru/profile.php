@@ -404,12 +404,13 @@
                     if (data.status) {
                         swal.fire({
                             title: "Sukses",
-                            text: data.text,
+                            html: data.text,
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                window.location.href = base_url + 'guruview';
+                                window.location.href = base_url + "logout";
+                                //window.location.href = base_url + 'guruview';
                             }
                         })
                     } else {

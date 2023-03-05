@@ -310,16 +310,43 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
             e.preventDefault();
             e.stopImmediatePropagation();
             console.log("data:", $(this).serialize());
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + "cbtbanksoal/saveBank",
                 type: "POST",
                 dataType: "JSON",
                 data: $(this).serialize(),
                 success: function (data) {
-                    window.history.back();
+                    swal.fire({
+                        title: "Sukses",
+                        html: 'Bank soal berhasil disimpan',
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    }).then(result => {
+                        if (result.value) {
+                            window.history.back();
+                        }
+                    });
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);
-                    showDangerToast();
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         });

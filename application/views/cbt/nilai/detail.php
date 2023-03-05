@@ -725,6 +725,17 @@
 
         if (json.length > 0) {
             loading.removeClass('d-none');
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + "cbtnilai/simpankoreksi",
                 type: "POST",
@@ -732,15 +743,32 @@
                 success: function (data) {
                     console.log(data);
                     if (data.success > 0) {
-                        window.location.reload();
+                        swal.fire({
+                            title: "Berhasil",
+                            text: "Koreksi nilai berhasil disimpan",
+                            icon: "success"
+                        }).then(result => {
+                            if (result.value) {
+                                window.location.reload();
+                            }
+                        });
                     } else {
                         loading.addClass('d-none');
-                        showWarningToast('Tidak ada nilai yang disimpan')
+                        swal.fire({
+                            title: "Gagal",
+                            text: 'Tidak ada nilai yang disimpan',
+                            icon: "error"
+                        });
                     }
                 }, error: function (xhr, status, error) {
                     loading.addClass('d-none');
                     console.log("error", xhr.responseText);
-                    showDangerToast('Error');
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         }
@@ -761,6 +789,17 @@
         $('#btn-marked').on('click', function () {
             $(this).attr('disabled', 'disabled');
             var dataPost = $('#koreksi').serialize() + '&siswa=<?=$siswa->id_siswa?>&jadwal=<?=$info->id_jadwal?>';
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + "cbtnilai/tandaikoreksi",
                 type: "POST",
@@ -769,14 +808,27 @@
                     $('#btn-marked').removeAttr('disabled');
                     console.log(data);
                     if (data.success) {
-                        showSuccessToast('Jawaban berhasil ditandai')
+                        swal.fire({
+                            title: "Berhasil",
+                            text: "Jawaban berhasil ditandai",
+                            icon: "success"
+                        });
                     } else {
-                        showWarningToast('Tidak bisa menandai')
+                        swal.fire({
+                            title: "Gagal",
+                            text: 'Tidak bisa menandai',
+                            icon: "error"
+                        });
                     }
                 }, error: function (xhr, status, error) {
                     $('#btn-marked').removeAttr('disabled');
                     console.log("error", xhr.responseText);
-                    showDangerToast('Error');
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         })

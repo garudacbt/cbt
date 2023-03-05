@@ -283,16 +283,43 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                     icon: "error"
                 });
             } else {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + 'settings/savesetting',
                     type: 'POST',
                     data: $(this).serialize() + '&logo_kanan=' + logoKanan + '&logo_kiri=' + logoKiri + '&tanda_tangan=' + tandatangan,
                     success: function (response) {
                         console.log(response);
-                        window.location.href = base_url + 'settings';
+                        swal.fire({
+                            title: "Sukses",
+                            html: "Berhasil menyimpan pengaturan",
+                            icon: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                        }).then(result => {
+                            if (result.value) {
+                                window.location.href = base_url + 'settings';
+                            }
+                        });
                     },
                     error: function (xhr, error, status) {
                         console.log(xhr.responseText);
+                        const err = JSON.parse(xhr.responseText)
+                        swal.fire({
+                            title: "Error",
+                            text: err.Message,
+                            icon: "error"
+                        });
                     }
                 });
             }

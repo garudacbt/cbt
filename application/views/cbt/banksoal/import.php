@@ -386,6 +386,17 @@
     }
 
     function sendData(datapost) {
+        swal.fire({
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
         $.ajax({
             url: base_url + "cbtbanksoal/uploadsoal",
             method: "POST",
@@ -404,9 +415,13 @@
                     }
                 });
             }, error: function (xhr, status, error) {
-                swal.close();
                 console.log("error", xhr.responseText);
-                showDangerToast('ERROR!!');
+                const err = JSON.parse(xhr.responseText)
+                swal.fire({
+                    title: "Error",
+                    text: err.Message,
+                    icon: "error"
+                });
             }
         });
     }

@@ -138,17 +138,38 @@
 <script>
     $(document).ready(function () {
         function submitajax(url, data, msg, btn) {
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: url,
                 data: data,
                 type: 'POST',
                 success: function (response) {
                     if (response.status) {
-                        showSuccessToast(msg);
+                        swal.fire({
+                            title: "Sukses",
+                            text: msg,
+                            icon: "success",
+                        });
+                        //showSuccessToast(msg);
                         //$('form#change_password').trigger('reset');
                     } else {
                         if (response.errors) {
-                            showDangerToast('Gagal edit admin')
+                            swal.fire({
+                                title: "Gagal",
+                                text: 'Gagal edit admin',
+                                icon: "error"
+                            });
+                            //showDangerToast('Gagal edit admin')
                             /*
                             $.each(response.errors, function (key, val) {
                                 $('[name="' + key + '"]').closest('.form-group').addClass('has-error');
@@ -161,10 +182,22 @@
                             */
                         }
                         if (response.msg) {
-                            showDangerToast("Password lama tidak benar");
+                            swal.fire({
+                                title: "Gagal",
+                                text: 'Password lama tidak benar',
+                                icon: "error"
+                            });
+                            //showDangerToast("Password lama tidak benar");
                         }
                     }
                     //btn.removeAttr('disabled').text('Ganti Password');
+                }, error: function (xhr, status, error) {
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         }
@@ -302,16 +335,12 @@
                         console.log(data.src);
                         fprofil = data.src;
                     },
-                    error: function (e) {
-                        console.log("error", e.responseText);
-                        $.toast({
-                            heading: "ERROR!!",
-                            text: "file tidak terbaca",
-                            icon: 'error',
-                            showHideTransition: 'fade',
-                            allowToastClose: true,
-                            hideAfter: 5000,
-                            position: 'top-right'
+                    error: function (xhr, status, error) {
+                        const err = JSON.parse(xhr.responseText)
+                        swal.fire({
+                            title: "Error",
+                            text: err.Message,
+                            icon: "error"
                         });
                     }
                 });
@@ -335,32 +364,34 @@
         function simpanProfile() {
             var namaLengkap = $('#nama-lengkap').val();
             var jabatan = $('#jabatan').val();
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 data: {foto: fprofil, nama_lengkap: namaLengkap, jabatan: jabatan},
                 type: "POST",
                 url: base_url + "useradmin/saveprofile",
                 success: function (response) {
-                    console.log(response);
-                    $.toast({
-                        heading: "SUKSES",
+                    //console.log(response);
+                    swal.fire({
+                        title: "Sukses",
                         text: "Profile berhasil disimpan",
-                        icon: 'success',
-                        showHideTransition: 'fade',
-                        allowToastClose: true,
-                        hideAfter: 5000,
-                        position: 'top-right'
+                        icon: "success",
                     });
-                },
-                error: function (e) {
-                    console.log("error", e.responseText);
-                    $.toast({
-                        heading: "ERROR!!",
-                        text: "Profile gagal disimpan",
-                        icon: 'error',
-                        showHideTransition: 'fade',
-                        allowToastClose: true,
-                        hideAfter: 5000,
-                        position: 'top-right'
+                }, error: function (xhr, status, error) {
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });

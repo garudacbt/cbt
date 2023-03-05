@@ -180,21 +180,48 @@ $dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unseriali
             var update = logSelesai === '' ? '0' : '1';
             var dataUpload = $(this).serialize() + '&update=' + update + '&id_siswa=' + idSiswa + '&id_kjm=' + idKjt + '&jamke=' + jamKe + '&attach=' + JSON.stringify(dataFiles);
 
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 type: 'POST',
                 url: base_url + 'siswa/savefiletugasselesai',
                 data: dataUpload,
                 success: function (data) {
                     if (data.status === 'error') {
-                        showDangerToast(data.status);
+                        swal.fire({
+                            title: "Gagal",
+                            text: data.status,
+                            icon: "error"
+                        });
                     } else {
-                        setTimeout(function () {
-                            window.history.back();
-                        }, 1000);
+                        swal.fire({
+                            title: "Sukses",
+                            html: 'Berhasil disimpan',
+                            icon: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                        }).then(result => {
+                            if (result.value) {
+                                window.history.back();
+                            }
+                        });
                     }
-                }, error: function (data) {
-                    showDangerToast('Gagal membuat tugas');
-                    console.log(data);
+                }, error: function (xhr, status, error) {
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         });

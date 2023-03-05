@@ -491,6 +491,17 @@
             confirmButtonText: "HAPUS"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + "pengumuman/hapuspost/" + idPost,
                     type: "GET",
@@ -517,11 +528,11 @@
                         }
                     }, error: function (xhr, status, error) {
                         console.log("error", xhr.responseText);
+                        const err = JSON.parse(xhr.responseText)
                         swal.fire({
-                            title: "ERROR",
-                            text: "Pengumuman tidak dihapus",
-                            icon: "error",
-                            showCancelButton: false,
+                            title: "Error",
+                            text: err.Message,
+                            icon: "error"
                         });
                     }
                 });
@@ -538,6 +549,17 @@
             confirmButtonText: "HAPUS"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + "pengumuman/hapuskomentar/" + idKomentar,
                     type: "GET",
@@ -563,11 +585,11 @@
                         }
                     }, error: function (xhr, status, error) {
                         console.log("error", xhr.responseText);
+                        const err = JSON.parse(xhr.responseText)
                         swal.fire({
-                            title: "ERROR",
-                            text: "Komentar tidak dihapus",
-                            icon: "error",
-                            showCancelButton: false,
+                            title: "Error",
+                            text: err.Message,
+                            icon: "error"
                         });
                     }
                 });
@@ -584,6 +606,17 @@
             confirmButtonText: "HAPUS"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + "pengumuman/hapusbalasan/" + idReply,
                     type: "GET",
@@ -609,11 +642,11 @@
                         }
                     }, error: function (xhr, status, error) {
                         console.log("error", xhr.responseText);
+                        const err = JSON.parse(xhr.responseText)
                         swal.fire({
-                            title: "ERROR",
-                            text: "Balasan tidak dihapus",
-                            icon: "error",
-                            showCancelButton: false,
+                            title: "Error",
+                            text: err.Message,
+                            icon: "error"
                         });
                     }
                 });
@@ -697,6 +730,17 @@
             e.stopImmediatePropagation();
             console.log("data:", $(this).serialize());
 
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + "pengumuman/save",
                 type: "POST",
@@ -725,11 +769,11 @@
                     }
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
                     swal.fire({
-                        title: "ERROR",
-                        text: "Pengumuman Tidak Tersimpan",
-                        icon: "error",
-                        showCancelButton: false,
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });

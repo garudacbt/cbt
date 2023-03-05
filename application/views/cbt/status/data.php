@@ -34,11 +34,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-center">TOKEN</span>
                                 </div>
-                                <input id="token-view" class="form-control text-bold text-center"
-                                       value="<?= isset($token) ? $token->token : '- - - - - -' ?>"
-                                       readonly="readonly"/>
-                                <div class="input-group-append">
-                                    <span id="interval" class="input-group-text text-xs">-- : --</span>
+                                <input id="token-input" class="form-control text-bold text-center" readonly="readonly"/>
+                                <div class="input-group-append" id="kolom-kanan">
+                                    <span id="interval" class="input-group-text text-xs d-none">-- : -- : --</span>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +245,7 @@
 </div>
 
 <script>
-    let timerTokenView;
+    var isAdmin = '<?= $this->ion_auth->is_admin() ?>';
     var dnone = '<?= $this->ion_auth->is_admin() ? "" : "d-none" ?>';
     var printBy = 1;
     var url = '';
@@ -323,6 +321,7 @@
 
     }
 
+    /*
     function paksaSelesai(id) {
         var idSiswa = $(`#paksa-${id}`).attr('data-siswa');
         var idJadwal = $(`#paksa-${id}`).attr('data-jadwal');
@@ -385,6 +384,7 @@
             }
         });
     }
+     */
 
     function refreshStatus() {
         $('#loading').removeClass('d-none');
@@ -640,49 +640,31 @@
                     console.log('error');
                 }
             });
-
         });
 
-        setTimeout(function () {
-            getGlobalToken();
-        }, 1000);
-    });
+        if (!isAdmin) {
+            $('#kolom-kanan').html('<button class="btn btn-default" id="refresh-token"><i class="fa fa-refresh"></i> </button>');
 
-    function getGlobalToken() {
-        if (globalToken != null) {
-            createViewToken(globalToken);
-        }
-    }
+            getToken(function (result) {
+                getGlobalToken();
+            });
 
-    function createViewToken(result) {
-        $('#token-view').val(result.token);
-        if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
-            $('#interval').removeClass('d-none');
-            var mulai = result.updated == null ? new Date() : new Date(result.updated);
-            const now = getDiffMinutes(mulai);
-            var mnt = Number(result.jarak);
+            $('#refresh-token').click(function () {
+                getToken(function (result) {
+                    getGlobalToken();
+                });
+            });
 
-            mnt = mnt - now.m;
-            var scn = 60 - now.s;
-            if (scn > 0) {
-                mnt = mnt - 1;
-            }
-
-            if (timerTokenView) {
-                clearInterval(timerTokenView);
-                timerTokenView = null;
-            }
-            timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
-                if (isOver) {
-                    block.html('<b>-- : --</b>');
-                    setTimeout(function () {
-                        getGlobalToken()
-                    }, 300);
+            function getGlobalToken() {
+                if (globalToken != null) {
+                    const viewToken = $('#token-input');
+                    if (viewToken.length) viewToken.val(globalToken.token);
+                    if (globalToken.auto == '1' && adaJadwalUjian != '0') {
+                        $('#refresh-token').removeClass('d-none')
+                    }
                 }
-            })
-        } else {
-            $('#interval').addClass('d-none');
+            }
         }
-    }
+    });
 
 </script>

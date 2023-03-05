@@ -256,12 +256,12 @@
                                             <?php endif; ?>
                                             <?php if ($bank->digunakan > 0) : ?>
                                                 <li>
-                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                             <?php if ($total_siswa > 0) : ?>
                                                 <li>
-                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                         </ul>
@@ -276,14 +276,14 @@
                                 <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-pg-all m-1" id="all-pg"
-                                               type="checkbox">
+                                               type="checkbox" <?=$dis?>>
                                         <label for="all-pg" class="align-middle">Pilih Semua PG</label>
                                     </div>
                                     <div>
                                         <span><b>Jumlah PG terpilih: </b></span>
                                         <span id="total-pg" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg">
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg" <?=$dis?>>
                                             <i class="fa fa-save"></i> <span class="d-none d-md-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -298,7 +298,7 @@
                                                 <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-pg mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
-                                                           value="<?= $s->id_soal ?>" <?= $checked ?>>
+                                                           value="<?= $s->id_soal ?>" <?= $checked ?> <?=$dis?>>
                                                 </div>
                                                 <div class="rTableCell align-top text-center" style="width: 40px;">
                                                     <p class="mt-2">
@@ -399,12 +399,12 @@
                                             <?php endif; ?>
                                             <?php if ($bank->digunakan > 0) : ?>
                                                 <li>
-                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                             <?php if ($total_siswa > 0) : ?>
                                                 <li>
-                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                     </td>
@@ -418,14 +418,14 @@
                                 <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-pg2-all m-1" id="all-pg2"
-                                               type="checkbox">
+                                               type="checkbox" <?=$dis?>>
                                         <label for="all-pg2" class="align-middle">Pilih Semua</label>
                                     </div>
                                     <div>
                                         <span><b>Jumlah Soal terpilih: </b></span>
                                         <span id="total-pg2" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg2">
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg2" <?=$dis?>>
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -440,7 +440,7 @@
                                                 <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-pg2 mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
-                                                           value="<?= $s->id_soal ?>" <?= $checked ?>>
+                                                           value="<?= $s->id_soal ?>" <?= $checked ?> <?=$dis?>>
                                                 </div>
                                                 <div class="rTableCell align-top text-center" style="width: 40px;">
                                                     <p class="mt-2">
@@ -546,12 +546,12 @@
                                             <?php endif; ?>
                                             <?php if ($bank->digunakan > 0) : ?>
                                                 <li>
-                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                             <?php if ($total_siswa > 0) : ?>
                                                 <li>
-                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                         </ul>
@@ -566,14 +566,14 @@
                                 <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-jodohkan-all m-1"
-                                               id="all-jodohkan" type="checkbox">
+                                               id="all-jodohkan" type="checkbox" <?=$dis?>>
                                         <label for="all-jodohkan" class="align-middle">Pilih Semua</label>
                                     </div>
                                     <div>
                                         <span><b>Jumlah Soal terpilih: </b></span>
                                         <span id="total-jodohkan" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-jodohkan">
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-jodohkan" <?=$dis?>>
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -588,7 +588,7 @@
                                                 <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-jodohkan mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
-                                                           value="<?= $s->id_soal ?>" <?= $checked ?>>
+                                                           value="<?= $s->id_soal ?>" <?= $checked ?> <?=$dis?>>
                                                 </div>
                                                 <div class="rTableCell align-top text-center" style="width: 40px;">
                                                     <p class="mt-2">
@@ -706,12 +706,12 @@
                                             <?php endif; ?>
                                             <?php if ($bank->digunakan > 0) : ?>
                                                 <li>
-                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                             <?php if ($total_siswa > 0) : ?>
                                                 <li>
-                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                         </ul>
@@ -726,14 +726,14 @@
                                 <div class="d-sm-flex justify-content-between mb-3">
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-isian-all m-1"
-                                               id="all-isian" type="checkbox">
+                                               id="all-isian" type="checkbox" <?=$dis?>>
                                         <label for="all-isian" class="align-middle">Pilih Semua</label>
                                     </div>
                                     <div>
                                         <span><b>Jumlah Soal terpilih: </b></span>
                                         <span id="total-isian" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-isian">
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-isian" <?=$dis?>>
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -748,7 +748,7 @@
                                                 <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-isian mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
-                                                           value="<?= $s->id_soal ?>" <?= $checked ?>>
+                                                           value="<?= $s->id_soal ?>" <?= $checked ?> <?=$dis?>>
                                                 </div>
                                                 <div class="rTableCell align-top text-center" style="width: 40px;">
                                                     <p class="mt-2">
@@ -837,12 +837,12 @@
                                             <?php endif; ?>
                                             <?php if ($bank->digunakan > 0) : ?>
                                                 <li>
-                                                    Soal sudah dijadwalkan, tidak bisa menghapus butir soal.
+                                                    Soal sudah dijadwalkan, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                             <?php if ($total_siswa > 0) : ?>
                                                 <li>
-                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus butir soal.
+                                                    Soal sedang digunakan oleh siswa, tidak bisa menghapus dan memilih ulang butir soal.
                                                 </li>
                                             <?php endif; ?>
                                         </ul>
@@ -858,14 +858,14 @@
                                     <div>
                                         <input style="width: 24px; height: 24px" class="check-essai-all m-1"
                                                id="all-essai"
-                                               type="checkbox">
+                                               type="checkbox" <?=$dis?>>
                                         <label for="all-essai" class="align-middle">Pilih Semua Essai</label>
                                     </div>
                                     <div>
                                         <span><b>Jumlah Essai terpilih: </b></span>
                                         <span id="total-essai" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-essai">
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-essai" <?=$dis?>>
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Essai Terpilih</span>
                                         </button>
                                     </div>
@@ -880,7 +880,7 @@
                                                 <div class="rTableCell align-top text-left" style="width: 40px;">
                                                     <input style="width: 24px; height: 24px" class="check-essai mt-2"
                                                            id="<?= $s->id_soal ?>" type="checkbox" name="soal[]"
-                                                           value="<?= $s->id_soal ?>" <?= $checked ?>>
+                                                           value="<?= $s->id_soal ?>" <?= $checked ?> <?=$dis?>>
                                                 </div>
                                                 <div class="rTableCell align-top text-center" style="width: 40px;">
                                                     <p class="mt-2">
@@ -1670,6 +1670,7 @@
                 dataType: "JSON",
                 data: dataPost,
                 success: function (data) {
+                    /*
                     console.log(data);
                     if (data.check > 0) {
                         //showSuccessToast(`${data.check} Soal terpilih berhasil disimpan`)
@@ -1678,9 +1679,27 @@
                         window.location.reload(true);
                         showSuccessToast('Soal tersimpan = 0')
                     }
+                     */
+                    swal.fire({
+                        title: "Sukses",
+                        html: data.check+' Soal terpilih berhasil disimpan',
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    }).then(result => {
+                        if (result.value) {
+                            window.location.reload();
+                        }
+                    });
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);
-                    showDangerToast('Error');
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         }
@@ -1781,6 +1800,17 @@
             confirmButtonText: "Hapus!"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + "cbtbanksoal/hapussoal",
                     method: "POST",
@@ -1803,7 +1833,12 @@
                         });
                     }, error: function (xhr, status, error) {
                         console.log("error", xhr.responseText);
-                        showDangerToast('ERROR!!');
+                        const err = JSON.parse(xhr.responseText)
+                        swal.fire({
+                            title: "Error",
+                            text: err.Message,
+                            icon: "error"
+                        });
                     }
                 });
             }

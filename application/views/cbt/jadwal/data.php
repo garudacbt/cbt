@@ -529,6 +529,17 @@ if (isset($jadwal_ujian)) {
             confirmButtonText: "Hapus!"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + 'cbtjadwal/deletejadwal?id_jadwal=' + id,
                     type: "GET",
@@ -553,9 +564,10 @@ if (isset($jadwal_ujian)) {
                         }
                     },
                     error: function () {
+                        const err = JSON.parse(xhr.responseText)
                         swal.fire({
-                            title: "Gagal",
-                            text: "Ada data yang sedang digunakan",
+                            title: "Error",
+                            text: err.Message,
                             icon: "error"
                         });
                     }
@@ -670,6 +682,17 @@ if (isset($jadwal_ujian)) {
                 confirmButtonText: "Hapus!"
             }).then(result => {
                 if (result.value) {
+                    swal.fire({
+                        text: "Silahkan tunggu....",
+                        button: false,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        onOpen: () => {
+                            swal.showLoading();
+                        }
+                    });
                     $.ajax({
                         url: base_url + 'cbtjadwal/deletealljadwal',
                         type: "POST",
@@ -696,9 +719,10 @@ if (isset($jadwal_ujian)) {
                         },
                         error: function (xhr) {
                             console.log(xhr.responseText)
+                            const err = JSON.parse(xhr.responseText)
                             swal.fire({
-                                title: "Gagal",
-                                text: "Ada data yang sedang digunakan",
+                                title: "Error",
+                                text: err.Message,
                                 icon: "error"
                             });
                         }

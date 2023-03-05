@@ -514,16 +514,43 @@
             e.stopImmediatePropagation();
 
             console.log($(this).serialize());
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + 'cbtcetak/savekop',
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function (response) {
                     console.log(response);
-                    window.location.href = base_url + 'cbtcetak/absenpeserta'
+                    swal.fire({
+                        title: 'Sukses',
+                        text: "Template KOP berhasil disimpan",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                    }).then(result => {
+                        if (result.value) {
+                            window.location.href = base_url + 'cbtcetak/absenpeserta'
+                        }
+                    });
                 },
                 error: function (xhr, error, status) {
                     console.log(xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         });

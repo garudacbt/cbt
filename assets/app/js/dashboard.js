@@ -1,5 +1,4 @@
-let timerTokenView;
-var halaman = 0;
+let halaman = 0;
 
 function createTime(d) {
     var date = new Date(d);
@@ -712,43 +711,4 @@ $(document).ready(function(){
 		$('.live-clock').html(time);
 	}, 1000);
 	*/
-
-    setTimeout(function () {
-        getGlobalToken();
-    }, 1000);
 });
-
-function getGlobalToken() {
-    if (globalToken != null) {
-        createViewToken(globalToken);
-    }
-}
-
-function createViewToken(result) {
-    $('#token-view').text(result.token);
-    if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
-        $('#interval').removeClass('d-none');
-        var mulai = result.updated == null ? new Date(): new Date(result.updated);
-        const now = getDiffMinutes(mulai);
-        var mnt = Number(result.jarak);
-
-        mnt = mnt - now.m;
-        var scn = 60 - now.s;
-        if (scn > 0) {
-            mnt = mnt -1;
-        }
-
-        if (timerTokenView) {
-            clearInterval(timerTokenView);
-            timerTokenView = null;
-        }
-        timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
-            if (isOver) {
-                block.html('<b>-- : --</b>');
-                setTimeout(function(){getGlobalToken()}, 300);
-            }
-        })
-    } else {
-        $('#interval').addClass('d-none');
-    }
-}

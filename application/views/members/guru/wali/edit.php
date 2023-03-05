@@ -494,7 +494,7 @@ if (!file_exists(FCPATH . $siswa->foto)) {
                     if (data.insert) {
                         swal.fire({
                             "title": "Sukses",
-                            "text": data.text,
+                            "html": data.text,
                             "icon": "success",
                             "type": "success"
                         }).then((result) => {
@@ -541,7 +541,7 @@ if (!file_exists(FCPATH . $siswa->foto)) {
                     if (data.status) {
                         swal.fire({
                             title: "Sukses",
-                            text: data.text,
+                            html: data.text,
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {

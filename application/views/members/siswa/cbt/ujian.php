@@ -102,6 +102,7 @@
                                     </button>
                                 </div>
                                 <div class="bd-highlight">
+                                    <button class="btn btn-oval-sm btn-danger btn-disabled d-none" id="timer-selesai" disabled></button>
                                     <button class="btn btn-oval-sm" id="next" onclick="nextSoal()">
                                         <span id="text-next" class="mr-2 d-none d-md-inline-block"></span>
                                     </button>
@@ -148,89 +149,6 @@
 
 <script src="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/redirect.js"></script>
-<script>
-    function set_timer(block, time_end, function_result) {
-        let timer,
-            start,
-            end,
-            _second = 1000,
-            _minute = _second * 60,
-            _hour = _minute * 60,
-            _day = _hour * 24,
-            now,
-            set_storage = () => {
-                //if (!localStorage.getItem('timer_start_' + set_timer.count)) {
-                //    let now = new Date();
-
-                //    localStorage.setItem('timer_start_' + set_timer.count, Math.round(now.getTime() / 1000));
-                //}
-                let n = new Date();
-                now = Math.round(n.getTime() / 1000);
-            },
-            update_settings = () => {
-                //start = end = localStorage.getItem('timer_start_' + set_timer.count);
-                start = end = now;
-
-                end = new Date(+end * 1000);
-                end.setDate(end.getDate() + time_end[0]);
-                end.setHours(end.getHours() + time_end[1]);
-                end.setMinutes(end.getMinutes() + time_end[2]);
-                end.setSeconds(end.getSeconds() + time_end[3]);
-                end = +end;
-            },
-            get_timer = function (distance) {
-                let days = Math.floor(distance / _day),
-                    hours = Math.floor((distance % _day) / _hour),
-                    minutes = Math.floor((distance % _hour) / _minute),
-                    seconds = Math.floor((distance % _minute) / _second);
-
-                if (days < 10) days = '0' + days;
-                if (hours < 10) hours = '0' + hours;
-                if (minutes < 10) minutes = '0' + minutes;
-                if (seconds < 10) seconds = '0' + seconds;
-
-                //return [days, hours, minutes, seconds];
-                return [hours, minutes, seconds];
-            },
-            create_markup = (timer) => {
-                let markup = '';
-
-                for (let i = 0; i < timer.length; i++) {
-                    markup += timer[i];
-                    markup += i != timer.length - 1 ? ':' : '';
-                }
-
-                return markup;
-            },
-            set_values = () => {
-                let now = new Date(),
-                    distance = end - +now;
-
-                if (distance <= 0) {
-                    function_result(block, true);
-                    clearInterval(timer);
-                } else {
-                    let timer = get_timer(distance),
-                        markup = create_markup(timer);
-                    block.html(markup);
-                    function_result(markup, false);
-                }
-            },
-            init = () => {
-                //set_timer.count = 1;
-                set_timer.count == undefined ? set_timer.count = 1 : set_timer.count++;
-
-                set_storage();
-                update_settings();
-
-                timer = setInterval(set_values, 1000);
-
-                return timer;
-            };
-
-        return init();
-    }
-</script>
 <script>
     var elem = document.documentElement;
     history.pushState(null, null, '<?php echo $_SERVER["REQUEST_URI"]; ?>');
@@ -333,14 +251,14 @@
             return;
         }
         var dataPost = $('#up').serialize() + '&nomor=' + nomor + '&timer=' + $('#timer').text() + '&elapsed=' + elapsed;
-        //console.log(dataPost);
+        console.log(dataPost);
         if (soalTotal === 0 || nomor <= parseInt(soalTotal)) {
             $.ajax({
                 type: 'POST',
                 url: base_url + 'siswa/loadnomorsoal',
                 data: dataPost,
                 success: function (data) {
-                    //console.log('load soal', data);
+                    console.log('load soal', data);
                     $('#loading').addClass('d-none');
                     setKonten(data);
                 }, error: function (xhr, error, status) {
@@ -532,31 +450,6 @@
             });
         });
 
-        var next = $('#next');
-        next.removeAttr('disabled');
-        var txtnext = $('#text-next');
-        $('#ic-btn').remove();
-
-        if (timerSelesai) {
-            clearInterval(timerSelesai);
-            timerSelesai = null;
-        }
-        if (soalTotal === nomorSoal) {
-            next.removeClass('btn-primary');
-            next.addClass('btn-success');
-            next.attr('disabled', 'disabled');
-            next.addClass('btn-disabled');
-            txtnext.html('<b>Harap tunggu..</b>');
-            setTimerSelesai(next, data.durasi);
-        } else {
-            next.removeAttr('disabled');
-            next.removeClass('btn-disabled');
-            next.removeClass('btn-success');
-            next.addClass('btn-primary');
-            next.append('<i id="ic-btn" class="fa fa-arrow-circle-right"></i>');
-            txtnext.html('<b>Soal Berikutnya</b>');
-        }
-
         $('video').css({'width': '100%', 'max-height': '100%'});
 
         $('.check').change(function (e) {
@@ -581,8 +474,35 @@
         $("#jawaban-essai").on('change keyup paste', function () {
             submitJawaban(null);
         });
+        if (!data.durasi) {
+            window.location.href = base_url + 'siswa/cbt';
+        } else {
+            setElapsed(data.durasi);
 
-        setElapsed(data.durasi);
+            if (timerSelesai) {
+                clearTimeout(timerSelesai);
+                timerSelesai = null;
+            }
+            var next = $('#next');
+            next.removeAttr('disabled');
+            var txtnext = $('#text-next');
+            $('#ic-btn').remove();
+
+            if (soalTotal === nomorSoal && data.durasi.mulai != null && data.durasi.mulai != '0') {
+                next.removeClass('btn-primary');
+                next.addClass('btn-success');
+                next.append('<i id="ic-btn" class="fa fa-check-circle"></i>');
+                txtnext.html('<b>Selesai</b>');
+                setTimerSelesai(next, data.durasi);
+            } else {
+                $('#timer-selesai').addClass('d-none');
+                next.removeClass('d-none');
+                next.removeClass('btn-success');
+                next.addClass('btn-primary');
+                next.append('<i id="ic-btn" class="fa fa-arrow-circle-right"></i>');
+                txtnext.html('<b>Soal Berikutnya</b>');
+            }
+        }
     }
 
     function setElapsed(durasi) {
@@ -636,24 +556,53 @@
     }
 
     function setTimerSelesai(next, durasi) {
-        var mulai = durasi.mulai == null || durasi.mulai == '0' ? new Date() : new Date(durasi.mulai);
-        const now = getMinutes(mulai);
-        console.log('now', now);
-        var mnt = Number(infoJadwal.jarak);
+        const perdetik = 1000;
+        const permenit = 60 * perdetik;
+        const perjam = 60 * permenit;
+        const t_dur = Number(infoJadwal.jarak) * (1000 * 60);
 
-        mnt = mnt - now.m;
-        var scn = 60 - now.s;
-        if (scn > 0) {
-            mnt = mnt - 1;
-        }
-        timerSelesai = set_timer($('#text-next'), [0, 0, mnt, scn], function (block, isOver) {
-            if (isOver) {
-                next.removeAttr('disabled');
-                block.html('<b>Selesai</b>');
-                next.removeClass('btn-disabled');
-                next.append('<i id="ic-btn" class="fa fa-check-circle"></i>');
+        const elapsed = (durasi.lama_ujian == null || durasi.lama_ujian == '0' ? "00:00:00" : durasi.lama_ujian).split(':');
+        let t_jam = Number(elapsed[0]);
+        let t_mnt = Number(elapsed[1]);
+        let t_dtk = Number(elapsed[2]);
+
+        const btnTimer = $('#timer-selesai');
+        setTimer();
+
+        function setTimer() {
+            if (timerSelesai) {
+                clearTimeout(timerSelesai);
+                timerSelesai = null;
             }
-        })
+
+            const elapsedMicro = (t_jam * perjam) + (t_mnt * permenit) + (t_dtk * perdetik);
+            const t_remaining = t_dur - elapsedMicro;
+            if (t_remaining <= 0) {
+                next.removeClass('d-none');
+                btnTimer.addClass('d-none');
+            } else {
+                // elapsed
+                t_dtk++;
+                if (t_dtk > 59) {
+                    t_dtk = 0;
+                    t_mnt++;
+                }
+                if (t_mnt > 59) {
+                    t_mnt = 0;
+                    t_jam++;
+                }
+
+                // remaining
+                const r_jam = Math.floor(t_remaining / perjam);
+                const r_mnt = Math.floor((t_remaining % perjam) / permenit);
+                const r_dtk = Math.floor((t_remaining % permenit) / perdetik);
+                next.addClass('d-none');
+                btnTimer.removeClass('d-none');
+                btnTimer.html(zeroPad(r_jam) + ':' + zeroPad(r_mnt) + ':' + zeroPad(r_dtk));
+
+                timerSelesai = setTimeout(setTimer, 1000);
+            }
+        }
     }
 
     function prevSoal() {
@@ -1037,9 +986,10 @@
                 timerOut = setTimeout(testTimer, 1000);
             }
         }
-
-        function zeroPad(no) {
-            return no < 10 ? '0' + no : no;
-        }
     }
+
+    function zeroPad(no) {
+        return no < 10 ? '0' + no : no;
+    }
+
 </script>

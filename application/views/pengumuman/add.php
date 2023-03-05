@@ -109,6 +109,17 @@
             e.preventDefault();
             e.stopImmediatePropagation();
             console.log("data:", $(this).serialize());
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
 
             $.ajax({
                 url: base_url + "kelascatatan/savecatatansiswa",
@@ -147,11 +158,11 @@
                         $(this).data('modal', null);
                     });
                     console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
                     swal.fire({
-                        title: "ERROR",
-                        text: "Catatan Tidak Tersimpan",
-                        icon: "error",
-                        showCancelButton: false,
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });

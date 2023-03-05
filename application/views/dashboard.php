@@ -171,8 +171,8 @@
                                     <a href="<?= base_url('cbttoken') ?>">
                                         <div class="info-box border p-1" style="min-height: 60px">
                                             <div class="info-box-content p-1 text-danger">
-                                                <span class="info-box-text">Token <small class="float-right"
-                                                                                         id="interval">-- : --</small></span>
+                                                <span class="info-box-text">Token
+                                                    <small class="float-right d-none" id="interval">-- : -- : --</small></span>
                                                 <h5 class="info-box-number m-0"
                                                     id="token-view"><?= $token->token != null ? $token->token : '- - - - - -' ?></h5>
                                             </div>

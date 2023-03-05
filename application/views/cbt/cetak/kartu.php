@@ -270,6 +270,7 @@
 
     function createPrintPreview(data) {
         //console.log(data);
+        /*
         console.log('data', data.length);
         if (data.length > 150) {
             swal.fire({
@@ -279,6 +280,7 @@
             });
             return;
         }
+         */
         var konten = '';
         if (data.length > 8) {
             var bagi2 = Math.round(data.length / 2);
@@ -651,16 +653,43 @@
             e.preventDefault();
             e.stopImmediatePropagation();
 
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + 'cbtcetak/savekartu',
                 type: 'POST',
                 data: $(this).serialize() + '&logo_kanan=' + logoKanan + '&logo_kiri=' + logoKiri + '&tanda_tangan=' + tandatangan,
                 success: function (response) {
                     console.log(response);
-                    window.location.href = base_url + 'cbtcetak/kartupeserta';
+                    swal.fire({
+                        title: 'Sukses',
+                        text: "Header kartu berhasil disimpan",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                    }).then(result => {
+                        if (result.value) {
+                            window.location.href = base_url + 'cbtcetak/kartupeserta';
+                        }
+                    });
                 },
                 error: function (xhr, error, status) {
                     console.log(xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         });
@@ -687,16 +716,13 @@
                         //console.log('tandatangan', data.src);
                     }
                 },
-                error: function (e) {
-                    console.log("error", e.responseText);
-                    $.toast({
-                        heading: "ERROR!!",
-                        text: "file tidak terbaca",
-                        icon: 'error',
-                        showHideTransition: 'fade',
-                        allowToastClose: true,
-                        hideAfter: 5000,
-                        position: 'top-right'
+                error: function (xhr, error, status) {
+                    console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });

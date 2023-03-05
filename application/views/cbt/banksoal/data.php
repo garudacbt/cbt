@@ -147,11 +147,14 @@ $allBanksIds = [];
                                         }
                                         $terpakai = true;
                                         $bgRandom = 'text-maroon';
+                                        $disable_edit = 'btn-disabled';
                                         if ($bank->digunakan == '0') {
                                             $bgRandom = 'text-gray';
+                                            $disable_edit = '';
                                         } else {
                                             $terpakai = isset($total_siswa[$bank->id_bank]);
                                             $bgRandom = $terpakai ? 'text-maroon' : 'text-yellow';
+                                            $disable_edit = $terpakai ? 'btn-disabled' : $disable_edit;
                                         }
                                         ?>
                                         <tr>
@@ -169,15 +172,20 @@ $allBanksIds = [];
                                             <td class="text-center w-auto">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"
-                                                       href="<?= base_url('cbtbanksoal/editBank?id_bank=' . $bank->id_bank . '&id_guru=' . $bank->id_guru) ?>"
-                                                       class="btn btn-warning btn-sm mb-1"><i
-                                                                class="fa fa-pencil-alt"></i></a>
+                                                       href="<?=$disable_edit == ''
+                                                           ? base_url('cbtbanksoal/editBank?id_bank='
+                                                               . $bank->id_bank . '&id_guru='
+                                                               . $bank->id_guru) : 'javascript:void(0)'?>"
+                                                       class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>"
+                                                       style="<?=$disable_edit == '' ? '' : 'cursor: not-allowed'?>">
+                                                       <i class="fa fa-pencil-alt"></i></a>
                                                 </span>
                                                 <span data-toggle="tooltip" title="Import Soal">
-                                                    <a href="javascript:void(0)" data-total="<?= $bank->total_soal ?>"
+                                                    <button data-total="<?= $bank->total_soal ?>"
                                                        data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                                       type="button" class="btn btn-warning btn-sm mb-1">
-                                                        <i class="fas fa-upload"></i> Import</a>
+                                                       type="button" <?=$disable_edit == '' ? '' : 'disabled'?>
+                                                            class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>">
+                                                        <i class="fas fa-upload"></i> Import</button>
                                                 </span>
                                                 <span data-toggle="tooltip" title="Detail/Buat Soal">
                                         <a href="<?= base_url('cbtbanksoal/detail/' . $bank->id_bank) ?>"
@@ -236,11 +244,14 @@ $allBanksIds = [];
                                         }
                                         $terpakai = true;
                                         $bgRandom = 'bg-gradient-maroon';
+                                        $disable_edit = 'btn-disabled';
                                         if ($bank->digunakan == '0') {
                                             $bgRandom = 'bg-gradient-gray';
+                                            $disable_edit = '';
                                         } else {
                                             $terpakai = isset($total_siswa[$bank->id_bank]);
                                             $bgRandom = $terpakai ? 'bg-gradient-maroon' : 'bg-gradient-yellow';
+                                            $disable_edit = $terpakai ? 'btn-disabled' : $disable_edit;
                                         }
                                         ?>
                                         <tr>
@@ -257,17 +268,22 @@ $allBanksIds = [];
                                             <td class="align-middle">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"
-                                                       href="<?= base_url('cbtbanksoal/editBank?id_bank=' . $bank->id_bank . '&id_guru=' . $bank->id_guru) ?>"
-                                                       class="btn btn-warning btn-sm mr-1"><i
-                                                                class="fa fa-pencil-alt"></i></a>
+                                                       href="<?=$disable_edit == ''
+                                                           ? base_url('cbtbanksoal/editBank?id_bank='
+                                                               . $bank->id_bank . '&id_guru='
+                                                               . $bank->id_guru) : 'javascript:void(0)'?>"
+                                                       class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>"
+                                                       style="<?=$disable_edit == '' ? '' : 'cursor: not-allowed'?>">
+                                                       <i class="fa fa-pencil-alt"></i></a>
                                                 </span>
-                                                <span data-toggle="tooltip" title="Buat Soal">
-											<a href="javascript:void(0)" data-total="<?= $bank->total_soal ?>"
-                                               data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                               type="button" class="btn btn-warning">
-												<i class="fas fa-upload"></i> Import Soal
-											</a>
-										</span>
+                                                <span data-toggle="tooltip" title="Import Soal">
+                                                    <button data-total="<?= $bank->total_soal ?>"
+                                                            data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
+                                                            type="button" <?=$disable_edit == '' ? '' : 'disabled'?>
+                                                            class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>">
+                                                        <i class="fas fa-upload"></i> Import Soal</button>
+                                                </span>
+
                                                 <span data-toggle="tooltip" title="Buat Soal">
                                         <a href="<?= base_url('cbtbanksoal/detail/' . $bank->id_bank) ?>"
                                            type="button" class="btn btn-success">
@@ -307,11 +323,14 @@ $allBanksIds = [];
                                 foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank) :
                                     $terpakai = true;
                                     $bgRandom = 'bg-gradient-maroon';
+                                    $disable_edit = 'btn-disabled';
                                     if ($bank->digunakan == '0') {
                                         $bgRandom = 'bg-gradient-gray';
+                                        $disable_edit = '';
                                     } else {
                                         $terpakai = isset($total_siswa[$bank->id_bank]);
                                         $bgRandom = $terpakai ? 'bg-gradient-maroon' : 'bg-gradient-yellow';
+                                        $disable_edit = $terpakai ? 'btn-disabled' : $disable_edit;
                                     }
                                     ?>
                                     <div class="col-md-6 col-lg-4">
@@ -319,12 +338,16 @@ $allBanksIds = [];
                                             <div class="card-header border-bottom-0 <?= $bgRandom ?>">
                                                 <h3 class="card-title mt-1"><b><?= $bank->bank_kode ?></b></h3>
                                                 <div class="card-tools">
-									<span data-toggle="tooltip" title="Edit Bank Soal">
-										<a href="<?= base_url('cbtbanksoal/editBank?id_bank=' . $bank->id_bank . '&id_guru=' . $bank->id_guru) ?>"
-                                           class="btn btn-default mr-1">
-											<i class="fa fa-pencil"></i>
-										</a>
-									</span>
+
+                                        <span data-toggle="tooltip" title="Edit Bank Soal">
+                                                    <a href="<?=$disable_edit == ''
+                                                        ? base_url('cbtbanksoal/editBank?id_bank='
+                                                            . $bank->id_bank . '&id_guru='
+                                                            . $bank->id_guru) : 'javascript:void(0)'?>"
+                                                       class="btn btn-default mr-1 <?=$disable_edit?>"
+                                                       style="<?=$disable_edit == '' ? '' : 'cursor: not-allowed'?>">
+                                                       <i class="fa fa-pencil-alt"></i></a>
+                                                </span>
                                                     <button class="btn btn-default">
                                                         <input name="checked[]" value="<?= $bank->id_bank ?>"
                                                                class="check-bank float-left" type="checkbox"
@@ -380,11 +403,11 @@ $allBanksIds = [];
                                             <div class="card-footer">
                                                 <div class="row mb-2">
                                         <span class="col-6 text-left" data-toggle="tooltip" title="Buat Soal">
-											<a href="javascript:void(0)" data-total="<?= $bank->total_soal ?>"
-                                               data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                               type="button" class="btn btn-warning">
-												<i class="fas fa-upload"></i> Import Soal
-											</a>
+                                                    <button data-total="<?= $bank->total_soal ?>"
+                                                            data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
+                                                            type="button" <?=$disable_edit == '' ? '' : 'disabled'?>
+                                                            class="btn btn-warning <?=$disable_edit?>">
+                                                        <i class="fas fa-upload"></i> Import Soal</button>
 										</span>
 
                                                     <span class="col-6 text-right" data-toggle="tooltip"
@@ -843,6 +866,18 @@ $allBanksIds = [];
                 confirmButtonText: "Hapus!"
             }).then(result => {
                 if (result.value) {
+                    swal.fire({
+                        text: "Silahkan tunggu....",
+                        button: false,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        onOpen: () => {
+                            swal.showLoading();
+                        }
+                    });
+
                     $.ajax({
                         url: base_url + 'cbtbanksoal/deleteallbank',
                         type: "POST",
@@ -867,9 +902,10 @@ $allBanksIds = [];
                             }
                         },
                         error: function () {
+                            const err = JSON.parse(xhr.responseText)
                             swal.fire({
-                                title: "Gagal",
-                                text: "Ada data yang sedang digunakan",
+                                title: "Error",
+                                text: err.Message,
                                 icon: "error"
                             });
                         }
@@ -1045,9 +1081,10 @@ $allBanksIds = [];
                 }
             },
             error: function () {
+                const err = JSON.parse(xhr.responseText)
                 swal.fire({
-                    title: "Gagal",
-                    text: "Error",
+                    title: "Error",
+                    text: err.Message,
                     icon: "error"
                 });
             }
@@ -1105,6 +1142,17 @@ $allBanksIds = [];
             confirmButtonText: "Hapus!"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + 'cbtbanksoal/deleteBank?id_bank=' + id,
                     //data: {id_bank: id},
@@ -1130,9 +1178,10 @@ $allBanksIds = [];
                         }
                     },
                     error: function () {
+                        const err = JSON.parse(xhr.responseText)
                         swal.fire({
-                            title: "Gagal",
-                            text: "Ada data yang sedang digunakan",
+                            title: "Error",
+                            text: err.Message,
                             icon: "error"
                         });
                     }
@@ -1152,6 +1201,17 @@ $allBanksIds = [];
             confirmButtonText: "Copy"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + 'cbtbanksoal/copybanksoal/' + id,
                     type: "GET",
@@ -1175,9 +1235,10 @@ $allBanksIds = [];
                         }
                     },
                     error: function () {
+                        const err = JSON.parse(xhr.responseText)
                         swal.fire({
-                            title: "Gagal",
-                            text: "Ada data yang sedang digunakan",
+                            title: "Error",
+                            text: err.Message,
                             icon: "error"
                         });
                     }

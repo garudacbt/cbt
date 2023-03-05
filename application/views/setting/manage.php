@@ -99,6 +99,17 @@
             confirmButtonText: "Hapus!"
         }).then(result => {
             if (result.value) {
+                swal.fire({
+                    text: "Silahkan tunggu....",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 $.ajax({
                     url: base_url + 'dbclear/hapustable',
                     type: "POST",
@@ -115,11 +126,12 @@
                             }
                         });
                     },
-                    error: function (xhr) {
+                    error: function (xhr, status, error) {
                         console.log(xhr.responseText);
+                        const err = JSON.parse(xhr.responseText)
                         swal.fire({
-                            title: "Gagal",
-                            text: "Ada data yang sedang digunakan",
+                            title: "Error",
+                            text: err.Message,
                             icon: "error"
                         });
                     }

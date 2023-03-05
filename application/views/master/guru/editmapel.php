@@ -121,7 +121,10 @@
                                 <div class="col-md-6">
                                     <div class="card card-light border border-light">
                                         <div class="card-header">
-                                            <span id="keterangan" class="card-title text-bold">Jabatan Tambahan</span>
+                                            <span id="keterangan" class="card-title text-bold">Jabatan</span>
+                                            <button type="button" data-toggle="modal" data-target="#createJabatanModal"
+                                                    class="card-tools btn btn-xs"><i class="fas fa-plus"></i>
+                                            </button>
                                         </div>
                                         <div class="card-body" id="input-jabatan">
                                             <div class="row mb-4">
@@ -287,6 +290,62 @@
 </div>
 <?= form_close(); ?>
 
+<?= form_open('dataguru/addJabatan', array('id' => 'create')) ?>
+<div class="modal fade" id="createJabatanModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Level <b>Jabatan</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert border border-danger alert-default-warning">
+                    Nomor 1 sampai 5 <b>jangan diubah dan jangan diganti</b>.
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-info add-new float-right"><i class="fa fa-plus"></i> Tambah</button>
+                    </div>
+                </div>
+                <div class="table-responsive" id="table-editable">
+                    <table class="table table-bordered w-100">
+                        <thead>
+                        <tr>
+                            <th class="text-center align-middle" style="width: 80px">No</th>
+                            <th class="align-middle">Jabatan</th>
+                            <th class="text-center align-middle">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($levels as $id=>$level) :
+                            $btn_dis = $id <= 5 ? 'btn-disabled' : '';
+                            $dis = $id <= 5 ? 'disabled' : '';
+                            if ($id != ''):?>
+                                <tr>
+                                    <td class="text-center align-middle p-1 id-level"><?=$id?></td>
+                                    <td class="align-middle p-1"><?=$level?></td>
+                                    <td class="text-center align-middle p-1">
+                                        <button type="button" class="add btn <?=$btn_dis?>" title="Add" style="display: none;" <?=$dis?>><i class="fa fa-check text-success"></i></button>
+                                        <button type="button" class="edit btn <?=$btn_dis?>" title="Edit" <?=$dis?>><i class="fa fa-pencil text-warning"></i></button>
+                                        <button type="button" class="delete btn <?=$btn_dis?>" title="Delete" <?=$dis?>><i class="fa fa-trash text-danger"></i></button>
+                                    </td>
+                                </tr>
+                            <?php endif; endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?= form_close() ?>
+
 <?php
 $ekstra_guru = $guru->ekstra_kelas == null ? [] : unserialize($guru->ekstra_kelas);
 ?>
@@ -298,5 +357,106 @@ $ekstra_guru = $guru->ekstra_kelas == null ? [] : unserialize($guru->ekstra_kela
     var ekstra_guru = '<?= json_encode($ekstra_guru) ?>';
     var guru_before = JSON.parse('<?= json_encode($guru2) ?>');
 </script>
-
 <script src="<?= base_url() ?>/assets/app/js/master/guru/editmapel.js"></script>
+<script>
+    let changed = false;
+    $(document).ready(function(){
+        var actions = '<button type="button" class="add btn"><i class="fa fa-check text-success"></i></button>' +
+            '<button type="button" class="edit btn"><i class="fa fa-pencil text-warning"></i></button>' +
+            '<button type="button" class="delete btn"><i class="fa fa-trash text-danger"></i></button>';
+        //$("#table-editable td:last-child").html();
+
+        // Append table with add row form on add new button click
+        $(".add-new").click(function(){
+            $(this).attr("disabled", "disabled");
+            var index = $("#table-editable table tbody tr:last-child").index();
+            var valId = $("#table-editable table tbody tr").eq(index).find('.id-level').text();
+            var newId = Number(valId) + 1;
+            var row = '<tr>' +
+                '<td class="text-center align-middle p-1 id-level">' +
+                '<input type="number" class="form-control" name="id_level" value="'+ newId +'" readonly>' +
+                '</td>' +
+                '<td class="align-middle p-1">' +
+                '<input type="text" class="form-control" name="level">' +
+                '</td>' +
+                '<td class="text-center align-middle p-1">' + actions + '</td>' +
+                '</tr>';
+            $("#table-editable table").append(row);
+            $("#table-editable table tbody tr").eq(index + 1).find(".edit").toggle();
+        });
+        // Add row on add button click
+        $(document).on("click", ".add", function(){
+            var empty = false;
+            var input = $(this).parents("tr").find('input');
+            input.each(function(){
+                if(!$(this).val()){
+                    $(this).addClass("error");
+                    empty = true;
+                } else{
+                    $(this).removeClass("error");
+                }
+            });
+            $(this).parents("tr").find(".error").first().focus();
+            if(!empty){
+                let spost = '&mode=1';
+                input.each(function(ind, v){
+                    if (ind === 0) {
+                        spost += '&id_level='+$(this).val();
+                    } else {
+                        spost += '&level='+$(this).val();
+                    }
+                    $(this).parent("td").html($(this).val());
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                sendJabatan(spost);
+            }
+        });
+        // Edit row on edit button click
+        $(document).on("click", ".edit", function(){
+            $(this).parents("tr").find("td:not(:last-child)").each(function(ind, v){
+                if (ind === 0) {
+                    $(this).html('<input type="number" class="form-control" value="' + $(this).text() + '" readonly>');
+                } else {
+                    $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+                }
+            });
+            $(this).parents("tr").find(".add, .edit").toggle();
+            $(".add-new").attr("disabled", "disabled");
+        });
+        // Delete row on delete button click
+        $(document).on("click", ".delete", function(){
+            $(this).parents("tr").remove();
+            var sid = $(this).parents("tr").eq(0).find('.id-level').text();
+            sendJabatan('&mode=2&id_level='+sid);
+        });
+
+        $("#createJabatanModal").on("hidden.bs.modal", function () {
+            if (changed) window.location.reload();
+        });
+    });
+
+    function sendJabatan(data) {
+        $(".add-new").html('<i class="spinner-border spinner-border-sm"></i> Saving');
+        console.log($('#create').serialize() + data);
+        $.ajax({
+            url: $('#create').attr('action'),
+            data: $('#create').serialize() + data,
+            type: 'POST',
+            success: function (response) {
+                console.log(response);
+                $(".add-new").removeAttr("disabled");
+                $(".add-new").html('<i class="fa fa-plus"></i> Tambah');
+                if (response.success) {
+                    changed = true;
+                    showSuccessToast(response.msg);
+                } else {
+                    showDangerToast(response.msg);
+                }
+            },
+            error: function (xhr, error, status) {
+                console.log(xhr.responseText);
+                showDangerToast(xhr.responseText);
+            }
+        });
+    }
+</script>

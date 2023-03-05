@@ -527,6 +527,17 @@ if (!file_exists(FCPATH . $siswa->foto)) {
             var btn = $('#submit');
             btn.attr('disabled', 'disabled').text('Wait...');
 
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
@@ -574,6 +585,17 @@ if (!file_exists(FCPATH . $siswa->foto)) {
                 $(this).data('modal', null);
             });
 
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + "datasiswa/editlogin",
                 type: "POST",
@@ -584,7 +606,7 @@ if (!file_exists(FCPATH . $siswa->foto)) {
                     if (data.status) {
                         swal.fire({
                             title: "Sukses",
-                            text: data.text,
+                            html: data.text,
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {
@@ -616,11 +638,11 @@ if (!file_exists(FCPATH . $siswa->foto)) {
                     }
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
                     swal.fire({
-                        title: "ERROR",
-                        text: "Data Tidak Tersimpan",
-                        icon: "error",
-                        showCancelButton: false,
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });

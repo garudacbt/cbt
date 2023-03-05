@@ -410,7 +410,7 @@
                     if (data.status) {
                         swal.fire({
                             title: "Sukses",
-                            text: data.text,
+                            html: data.text,
                             icon: "success",
                             showCancelButton: false,
                         }).then(result => {

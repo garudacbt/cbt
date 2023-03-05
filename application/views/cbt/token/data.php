@@ -32,13 +32,25 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <div class="alert border border-success alert-default-success">
-                                Token akan digenerate otomatis jika pilihan <b>Otomatis: YA</b> dan ada jadwal ujian
-                                pada hari ini.
+                            <div class="alert border border-success alert-default-success pt-3">
+                                <ul>
+                                    <li>
+                                        Jika mengklik <span class="badge badge-btn btn-success"> GENERATE NEW TOKEN</span>
+                                        segera beritahukan guru/admin lain yang sedang login agar merefresh token untuk
+                                        mendapatkan token terbaru.
+                                    </li>
+                                    <li>
+                                        Token akan digenerate otomatis jika pilihan <b>Otomatis: YA</b> dan ada jadwal ujian
+                                        pada hari ini.
+                                    </li>
+                                    <li>
+                                        Jika token otomatis maka guru yang sedang login harus merefresh token untuk melihat token terbaru
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 p-1">
-                            <div class="card border border-light">
+                            <div class="card border border-light" id="card-set">
                                 <div class="row card-body">
                                     <div class="col-6">
                                         <label>Otomatis ?</label>
@@ -63,11 +75,13 @@
                         </div>
 
                         <div class="col-12 col-md-6 p-1">
-                            <div class="card card-light p-4">
-                                <span class="text-center">TOKEN SAAT INI</span>
-                                <h1 class="text-center" id="token-view"><?= $token->token ?></h1>
-                                <small id="info-interval" class="mt-3 text-center">Token akan dibuat otomatis dalam <b
-                                            id="interval">-- : --</b></small>
+                            <div class="card card-light p-4" id="card-view">
+                                <div class="text-center my-auto">
+                                    <span>TOKEN SAAT INI</span>
+                                    <h1 id="token-view"><?= $token->token ?></h1>
+                                    <small id="info-interval" class="mt-3 text-center d-none">Token akan dibuat otomatis dalam <b
+                                                id="interval">-- : -- : --</b></small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -76,11 +90,9 @@
         </div>
     </section>
 </div>
-
-<script>
-    let timerTokenView;
-
-    function simpanToken() {
+<script type="module">
+    import {generateToken} from "./assets/app/js/generate.js";
+    window.simpanToken = ()=> {
         var auto = $('#auto').val();
         var jarak = $('#jarak').val();
         if (auto == '1' && jarak == '0') {
@@ -92,12 +104,12 @@
         } else {
             globalToken.auto = $('#auto').val();
             globalToken.jarak = $('#jarak').val();
-            generateToken(function (result) {
-                createViewToken(result);
-            });
+            forceGenerate = 1;
+            generateToken();
         }
     }
-
+</script>
+<script>
     $(document).ready(function () {
         $('#auto').on('change', function () {
             var idAuto = $(this).val();
@@ -107,46 +119,7 @@
             $('#jarak').attr('disabled', idAuto == '0');
         });
 
-        setTimeout(function () {
-            getGlobalToken();
-        }, 1000);
+        console.log('height', $("#card-set").height());
+        $("#card-view").css({'height':($("#card-set").height()+'px')});
     });
-
-    function getGlobalToken() {
-        if (globalToken != null) {
-            createViewToken(globalToken);
-        }
-    }
-
-    function createViewToken(result) {
-        console.log('ada', adaJadwalUjian);
-        $('#token-view').text(result.token);
-        if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
-            $('#info-interval').removeClass('invisible');
-            var mulai = result.updated == null ? new Date() : new Date(result.updated);
-            const now = getDiffMinutes(mulai);
-            var mnt = Number(result.jarak);
-
-            mnt = mnt - now.m;
-            var scn = 60 - now.s;
-            if (scn > 0) {
-                mnt = mnt - 1;
-            }
-
-            if (timerTokenView) {
-                clearInterval(timerTokenView);
-                timerTokenView = null;
-            }
-            timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
-                if (isOver) {
-                    block.html('<b>Memuat token baru</b>');
-                    setTimeout(function () {
-                        getGlobalToken()
-                    }, 300);
-                }
-            })
-        } else {
-            $('#info-interval').addClass('invisible')
-        }
-    }
 </script>

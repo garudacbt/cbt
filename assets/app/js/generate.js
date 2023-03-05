@@ -1,4 +1,3 @@
-var adaJadwalUjian;
 const cur_url = window.location.href;
 
 if (!localStorage.getItem('ada_jadwal_ujian') && cur_url.indexOf('dashboard') === -1) {
@@ -7,18 +6,24 @@ if (!localStorage.getItem('ada_jadwal_ujian') && cur_url.indexOf('dashboard') ==
     adaJadwalUjian = localStorage.getItem('ada_jadwal_ujian');
 }
 
-let globalToken;
-let timerToken;
+import { getServerDate } from "./serverDate.js";
 
-function getToken(func) {
+let timerTokenRemaining;
+let isIddle = true;
+let intervalSync, intervalUpdate;
+$(document).ready(function () {
+    // cek token
+    loadTokenFromServer();
+});
+
+function loadTokenFromServer() {
     $.ajax({
         url: base_url + "cbttoken/loadtoken",
         type: "GET",
         success: function (response) {
             globalToken = response;
-            if (func && (typeof func == "function")) {
-                func(response);
-            }
+            localStorage.setItem('token', JSON.stringify(response));
+            letInterval();
         },
         error: function (xhr, status, error) {
             console.log(xhr);
@@ -26,67 +31,22 @@ function getToken(func) {
     });
 }
 
-$(document).ready(function () {
-    // cek token
-    if (!localStorage.getItem('token')) {
-        // token tidak ada
-        getToken(function (tokenResult) {
-            globalToken = tokenResult;
-            localStorage.setItem('token', JSON.stringify(tokenResult));
-            createIntervalToken();
-        })
-    } else {
-        // token ada
-        globalToken = JSON.parse(localStorage.getItem('token'));
-        createIntervalToken();
-    }
-});
-
-function createIntervalToken() {
-    if (timerToken) {
-        clearInterval(timerToken);
-    }
-    if (globalToken.auto == '1' && adaJadwalUjian != '0') {
-        var mulai = globalToken.updated == null ? new Date(): new Date(globalToken.updated);
-        const now = getDiffMinutes(mulai);
-        var mnt = Number(globalToken.jarak);
-
-        mnt = mnt - now.m;
-        var scn = 60 - now.s;
-        if (scn > 0) {
-            mnt = mnt -1;
-        }
-        var t_scnd = (mnt * 60000) + (scn * 1000);
-        console.log('w', t_scnd);
-        timerToken = setInterval(function(){
-            generateToken();
-        }, t_scnd);
-    }
+function zeroPad(no) {
+    return no < 10 ? '0' + no : no;
 }
 
-function generateToken(f) {
+export function generateToken() {
     ajaxcsrf();
-    var tokenBaru        = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < 6; i++ ) {
-        tokenBaru += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    globalToken.token = tokenBaru;
-
     $.ajax({
         url: base_url + "cbttoken/generatetoken/",
         type: "GET",
-        data: 'data='+JSON.stringify(globalToken),
+        async: false,
+        cache: false,
+        data: 'data='+JSON.stringify(globalToken)+'&force='+forceGenerate,
         success: function (response) {
-            //console.log('tokenResult', response);
             localStorage.setItem('token', JSON.stringify(response));
             globalToken = response;
-            createIntervalToken();
-            console.log('new_token: generated');
-            if (f && (typeof f == "function")) {
-                f(response);
-            }
+            letInterval();
         },
         error: function (xhr, status, error) {
             console.log(xhr);
@@ -94,87 +54,76 @@ function generateToken(f) {
     });
 }
 
-function setTimerToken(block, time_end, function_result) {
-    let timer,
-        start,
-        end,
-        _second = 1000,
-        _minute = _second * 60,
-        _hour = _minute * 60,
-        _day = _hour * 24,
-        now,
-        set_storage = () => {
-            let n = new Date();
-            now = Math.round(n.getTime() / 1000);
-        },
-        update_settings = () => {
-            start = end = now;
+let lastSample = {};
 
-            end = new Date(+end * 1000);
-            end.setDate(end.getDate() + time_end[0]);
-            end.setHours(end.getHours() + time_end[1]);
-            end.setMinutes(end.getMinutes() + time_end[2]);
-            end.setSeconds(end.getSeconds() + time_end[3]);
-            end = +end;
-        },
-        get_timer = function (distance) {
-            let days = Math.floor(distance / _day),
-                hours = Math.floor((distance % _day) / _hour),
-                minutes = Math.floor((distance % _hour) / _minute),
-                seconds = Math.floor((distance % _minute) / _second);
+const synchronize = async () => {
+    lastSample = await getServerDate();
+};
 
-            if (days < 10) days = '0' + days;
-            if (hours < 10) hours = '0' + hours;
-            if (minutes < 10) minutes = '0' + minutes;
-            if (seconds < 10) seconds = '0' + seconds;
+const perdetik = 1000;
+const permenit = 60 * perdetik;
+const perjam = 60 * permenit;
 
-            //return [days, hours, minutes, seconds];
-            return [minutes, seconds];
-        },
-        create_markup = (timer) => {
-            let markup = '';
+const updateClocks = () => {
+    const { offset, uncertainty } = lastSample;
+    const clientDate = new Date();
+    const serverDate = new Date(clientDate.getTime() + offset);
 
-            for (let i = 0; i < timer.length; i++) {
-                markup +=  timer[i];
-                markup += i != timer.length - 1 ? ':' : '';
+    if (offset != undefined) {
+        var up = new Date(globalToken.updated);
+        const t_dur = Number(globalToken.jarak) * (1000 * 60);
+
+        const t_ongoing = serverDate.getTime()-up.getTime();
+
+        const t_remaining = t_dur - t_ongoing;
+        const r_jam = Math.floor(t_remaining / perjam);
+        const r_mnt = Math.floor((t_remaining % perjam) / permenit);
+        const r_dtk = Math.floor((t_remaining % permenit) / perdetik);
+
+        timerTokenRemaining = zeroPad(r_jam) + ':' + zeroPad(r_mnt) + ':' + zeroPad(r_dtk);
+        const viewTimer = $('#interval');
+        const inputToken = $('#token-input');
+        const viewToken = $('#token-view');
+        const infoTimer = $('#info-interval');
+        if (globalToken.auto == '1' && adaJadwalUjian != '0') {
+            if (infoTimer.length) infoTimer.removeClass('d-none');
+            if (viewTimer.length) viewTimer.removeClass('d-none');
+        }
+        if (t_ongoing >= t_dur) {
+            timerTokenRemaining = '...';
+            if (isIddle) {
+                isIddle = false;
+                forceGenerate = 0;
+                generateToken();
             }
+        }
+        if (viewTimer.length) viewTimer.html(timerTokenRemaining);
+        if (inputToken.length) inputToken.val(globalToken.token);
+        if (viewToken.length) viewToken.text(globalToken.token);
+        isIddle = t_ongoing > 50000;
+    }
+};
 
-            return markup;
-        },
-        set_values = () => {
-            let now = new Date(),
-                distance = end - +now;
+function letInterval() {
+    if (intervalSync) {
+        clearInterval(intervalSync);
+        intervalSync = null;
+    }
+    if (intervalUpdate) {
+        clearInterval(intervalUpdate);
+        intervalUpdate = null;
+    }
 
-            if (distance <= 0) {
-                function_result(block, true);
-                clearInterval(timer);
-            } else {
-                let timer = get_timer(distance),
-                    markup = create_markup(timer);
-                block.html(markup);
-                function_result(markup, false);
-            }
-        },
-        init = () => {
-            //set_timer.count = 1;
-            //set_timer.count == undefined ? set_timer.count = 1 : set_timer.count++;
+    const viewTimer = $('#interval');
+    if (viewTimer.length) viewTimer.addClass('d-none');
+    const infoTimer = $('#info-interval');
+    if (infoTimer.length) infoTimer.addClass('d-none');
 
-            set_storage();
-            update_settings();
-
-            timer = setInterval(set_values, 1000);
-
-            return timer;
-        };
-
-    return init();
+    synchronize();
+    updateClocks();
+    if (globalToken.auto == '1' && adaJadwalUjian != '0') {
+        intervalSync = setInterval(synchronize, 10 * 60 * 1000);
+        intervalUpdate = setInterval(updateClocks, 1000);
+    }
 }
 
-function getDiffMinutes(startTime) {
-    var endTime = new Date();
-    endTime.setHours(endTime.getHours() - startTime.getHours());
-    endTime.setMinutes(endTime.getMinutes() - startTime.getMinutes());
-    endTime.setSeconds(endTime.getSeconds() - startTime.getSeconds());
-
-    return {h:endTime.getHours(), m:endTime.getMinutes(), s:endTime.getSeconds()}
-}

@@ -320,6 +320,14 @@
                         selKelas.append('<option value="' + k + '">' + v + '</option>');
                     }
                 });
+            }, error: function (xhr, status, error) {
+                console.log("response:", xhr.responseText);
+                const err = JSON.parse(xhr.responseText)
+                swal.fire({
+                    title: "Error",
+                    text: err.Message,
+                    icon: "error"
+                });
             }
         });
     }

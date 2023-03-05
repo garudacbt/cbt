@@ -225,6 +225,17 @@
             reEnable(false);
             console.log("data:", $(this).serialize());
 
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + "cbtjadwal/saveJadwal",
                 type: "POST",
@@ -259,11 +270,11 @@
                     }
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
                     swal.fire({
-                        title: "ERROR",
-                        text: "Data Tidak Tersimpan",
-                        icon: "error",
-                        showCancelButton: false,
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });

@@ -680,13 +680,11 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                     var sSoal = $($.parseHTML(checkSoal));
                     sSoal.find(`img`).each(function () {
                         var curSrc = $(this).attr('src');
-                        console.log('src', curSrc);
                         if (curSrc.indexOf("base64") > 0) {
                         } else {
                             var pathUpload = 'uploads';
                             var forReplace = curSrc.split(pathUpload);
                             $(this).attr('src', base_url + pathUpload + forReplace[1]);
-                            console.log('src', base_url + pathUpload + forReplace[1]);
                         }
                     });
 
@@ -719,8 +717,17 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                         $.each(arrJawaban, function (i, item) {
                             var chekJawaban = arrJawaban[i] == null ? '' : arrJawaban[i];
                             var sJawabPg = $($.parseHTML(chekJawaban));
-                            $('#textjawaban_' + arrAbjad[i]).summernote('code', sJawabPg);
+                            sJawabPg.find(`img`).each(function () {
+                                var curSrc = $(this).attr('src');
+                                if (curSrc.indexOf("base64") > 0) {
+                                } else {
+                                    var pathUpload = 'uploads';
+                                    var forReplace = curSrc.split(pathUpload);
+                                    $(this).attr('src', base_url + pathUpload + forReplace[1]);
+                                }
+                            });
 
+                            $('#textjawaban_' + arrAbjad[i]).summernote('code', sJawabPg);
                         });
 
                         var jwb = data.jawaban == null ? '' : $.trim((data.jawaban).toLowerCase());
@@ -734,6 +741,17 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                                 if (inArray(k, data.jawaban)) {
                                     checked = 'checked="checked"';
                                 }
+                                var pv = $($.parseHTML(v));
+                                pv.find(`img`).each(function () {
+                                    var curSrc = $(this).attr('src');
+                                    if (curSrc.indexOf("base64") > 0) {
+                                    } else {
+                                        var pathUpload = 'uploads';
+                                        var forReplace = curSrc.split(pathUpload);
+                                        $(this).attr('src', base_url + pathUpload + forReplace[1]);
+                                    }
+                                })
+
                                 jwb2 += '<div class="pg-kompleks mb-4 ml-3">' +
                                     '    <div class="row mb-2">' +
                                     '       <div class="col-6"><b>Jawaban ' + k.toUpperCase() + '</b></div>' +
@@ -742,7 +760,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                                     '          <input class="check-pg2" type="checkbox" style="width: 24px; height: 24px; margin-left: 8px;" name="jawaban_benar_pg2[]" value="' + k + '" ' + checked + '>' +
                                     '       </div>' +
                                     '    </div>' +
-                                    '    <textarea class="textjawaban2" id="textjawaban2_' + k + '" name="jawaban2_' + k + '" placeholder="Buat jawaban" style="width:100%;">' + v + '</textarea>\n' +
+                                    '    <textarea class="textjawaban2" id="textjawaban2_' + k + '" name="jawaban2_' + k + '" placeholder="Buat jawaban" style="width:100%;">' + pv.html(pv.clone()).html() + '</textarea>\n' +
                                     '</div>';
                             });
                         } else {
@@ -820,6 +838,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                                 '</tr>\n' +
                                 '</table>' +
                                 '<button type="button" class="btn btn-success btn-sm" onclick="addRow()"><i class="fa fa-plus"></i> Tambah Baris</button>';
+
                             $('#jawaban-jodohkan').html(table);
                             $('.editable').attr('contentEditable',true);
 
@@ -835,7 +854,6 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                             $('.hapus-baris').on('click', function() {
                                 $(this).closest('tr').remove();
                             });
-
                         }
                     } else if (jenis_soal === '4') {
                         $('#jawaban-isian').val($.trim(data.jawaban));

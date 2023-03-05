@@ -226,6 +226,17 @@
             var replaced = dataTahun.replace(/Tahun Pelajaran/g, "tp");
 
             //console.log($('#edittp').serialize() + "&active=" + id + "&tahun=" + replaced);
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
             $.ajax({
                 url: base_url + "datatahun/gantitahun",
                 data: $('#edittp').serialize() + "&active=" + id + "&tahun=" + replaced,
@@ -244,6 +255,14 @@
                                 window.location.href = base_url + 'datatahun';
                             }
                         }
+                    });
+                }, error: function (xhr, status, error) {
+                    console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });
@@ -301,6 +320,14 @@
                                     }
                                 }
                             });
+                        }, error: function (xhr, status, error) {
+                            console.log("error", xhr.responseText);
+                            const err = JSON.parse(xhr.responseText)
+                            swal.fire({
+                                title: "Error",
+                                text: err.Message,
+                                icon: "error"
+                            });
                         }
                     });
                 }
@@ -329,6 +356,14 @@
                                 window.location.href = base_url + 'datatahun';
                             }
                         }
+                    });
+                }, error: function (xhr, status, error) {
+                    console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
                     });
                 }
             });
@@ -385,10 +420,19 @@
                             }
                         });
                     } else {
-                        showDangerToast('Gagal menyimpan jumlah hari efektif');
+                        swal.fire({
+                            title: "Gagal",
+                            text: 'Gagal menyimpan jumlah hari efektif',
+                            icon: "error",
+                        });
                     }
                 }, error: function (xhr, status, error) {
-                    showDangerToast('Gagal menyimpan jumlah hari efektif');
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
                 }
             });
         });

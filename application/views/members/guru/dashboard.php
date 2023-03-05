@@ -160,10 +160,12 @@
                                 <div class="col-md-4 col-6" style="min-height: 60px">
                                     <div class="info-box border p-1" style="min-height: 60px">
                                         <div class="info-box-content p-1 text-danger">
-                                            <span class="info-box-text text-sm">Token <small class="float-right"
-                                                                                             id="interval">-- : --</small></span>
-                                            <h5 class="info-box-number"
-                                                id="token-view"><?= $token->token != null ? $token->token : '- - - - - -' ?></h5>
+                                            <span class="info-box-text text-sm">Token</span>
+                                            <div>
+                                                <h5 class="info-box-number"><span id="token-view"><?= $token->token != null ? $token->token : '- - - - - -' ?></span>
+                                                <button class="float-right btn btn-sm btn-default d-none" id="refresh-token"><i class="fa fa-refresh"></i> </button>
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -335,6 +337,7 @@
 <script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script>
     let timerTokenView;
+    let timerTokenRemaining, timerTokenOnGoing;
     var halaman = 0;
     var idGuru = "<?=$guru->id_guru?>";
 
@@ -801,44 +804,21 @@
         getToken(function (result) {
             getGlobalToken();
         });
+
+        $('#refresh-token').click(function () {
+            getToken(function (result) {
+                getGlobalToken();
+            });
+        });
     });
 
     function getGlobalToken() {
         if (globalToken != null) {
-            createViewToken(globalToken);
-        }
-    }
-
-    function createViewToken(result) {
-        $('#token-view').text(result.token);
-        if (result != null && result.auto == '1' && adaJadwalUjian !== '0') {
-            $('#interval').removeClass('d-none');
-            var mulai = result.updated == null ? new Date() : new Date(result.updated);
-            const now = getDiffMinutes(mulai);
-            var mnt = Number(result.jarak);
-
-            mnt = mnt - now.m;
-            var scn = 60 - now.s;
-            if (scn > 0) {
-                mnt = mnt - 1;
+            const viewToken = $('#token-view');
+            if (viewToken.length) viewToken.text(globalToken.token);
+            if (globalToken.auto == '1' && adaJadwalUjian != '0') {
+                $('#refresh-token').removeClass('d-none')
             }
-
-            if (timerTokenView) {
-                clearInterval(timerTokenView);
-                timerTokenView = null;
-            }
-            timerTokenView = setTimerToken($('#interval'), [0, 0, mnt, scn], function (block, isOver) {
-                if (isOver) {
-                    block.html('<b>-- : --</b>');
-                    setTimeout(function () {
-                        getToken(function (result) {
-                            getGlobalToken();
-                        });
-                    }, 300);
-                }
-            })
-        } else {
-            $('#interval').addClass('d-none');
         }
     }
 </script>

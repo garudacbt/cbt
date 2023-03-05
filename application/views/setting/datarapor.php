@@ -392,11 +392,11 @@
                 }
             }, error: function (xhr, status, error) {
                 console.log("error", xhr.responseText);
+                const err = JSON.parse(xhr.responseText)
                 swal.fire({
-                    title: "ERROR",
-                    text: "Data Rapor gagal dipindahkan",
-                    icon: "error",
-                    showCancelButton: false,
+                    title: "Error",
+                    text: err.Message,
+                    icon: "error"
                 });
             }
         });
