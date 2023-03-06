@@ -90,9 +90,9 @@
         </div>
     </section>
 </div>
-<script type="module">
-    import {generateToken} from "./assets/app/js/generate.js";
-    window.simpanToken = ()=> {
+
+<script>
+    function simpanToken() {
         var auto = $('#auto').val();
         var jarak = $('#jarak').val();
         if (auto == '1' && jarak == '0') {
@@ -108,8 +108,7 @@
             generateToken();
         }
     }
-</script>
-<script>
+
     $(document).ready(function () {
         $('#auto').on('change', function () {
             var idAuto = $(this).val();

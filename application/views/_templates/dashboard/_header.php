@@ -127,10 +127,9 @@
 <script>
     let base_url = '<?=base_url()?>';
     let globalToken;
-    let forceGenerate = 0;
     let adaJadwalUjian;
 </script>
-<script type="module" src="<?= base_url() ?>/assets/app/js/generate.js"></script>
+<script src="<?= base_url() ?>/assets/app/js/generate.js"></script>
 <script type="text/javascript">
     let tp_active = '<?= $tp_active->tahun ?>';
     let smt_active = '<?= $smt_active->smt ?>';

@@ -293,20 +293,7 @@
       <workItem from="1677085750277" duration="133000" />
       <workItem from="1677123612938" duration="169000" />
       <workItem from="1677127182402" duration="110000" />
-    </task>
-    <task id="LOCAL-00053" summary="version 1.3.20220405">
-      <created>1649152345432</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1649152345432</updated>
-    </task>
-    <task id="LOCAL-00054" summary="version 1.3.20220405">
-      <created>1649152368943</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1649152368943</updated>
+      <workItem from="1678032881654" duration="1192000" />
     </task>
     <task id="LOCAL-00055" summary="version 1.3.20220406">
       <created>1649245658295</created>
@@ -637,7 +624,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677127279088</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="version 1.4.6">
+      <created>1678032974415</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1678032974415</updated>
+    </task>
+    <task id="LOCAL-00103" summary="version 1.4.6">
+      <created>1678033017012</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1678033017013</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -701,7 +702,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fix minor bug" />
     <MESSAGE value="fix minor bug cetak" />
     <MESSAGE value="readme" />
     <MESSAGE value="fix guru" />
@@ -726,7 +726,8 @@
     <MESSAGE value="version 1.4.3" />
     <MESSAGE value="version 1.4.4" />
     <MESSAGE value="version 1.4.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 1.4.5" />
+    <MESSAGE value="version 1.4.6" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.4.6" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/models/add.php" />
