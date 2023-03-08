@@ -58,6 +58,7 @@ function createIntervalToken() {
 
         const viewTimer = $('#interval');
         if (viewTimer.length) viewTimer.addClass('d-none');
+        if (viewTimer.length) viewTimer.html(timerTokenRemaining);
 
         const inputToken = $('#token-input');
         if (inputToken.length) inputToken.val(globalToken.token);
@@ -67,11 +68,12 @@ function createIntervalToken() {
 
         const infoTimer = $('#info-interval');
         if (infoTimer.length) infoTimer.addClass('d-none');
+
         if (globalToken.auto == '1' && adaJadwalUjian != '0') {
             if (infoTimer.length) infoTimer.removeClass('d-none');
             if (viewTimer.length) viewTimer.removeClass('d-none');
             if (t_remaining < 0) {
-                timerTokenRemaining = 'Membuat token baru...';
+                timerTokenRemaining = 'Membuat token...';
                 generateToken();
             } else {
                 const r_jam = Math.floor(t_remaining / perjam);
@@ -82,7 +84,6 @@ function createIntervalToken() {
                 timerToken = setTimeout(updateViews, 1000);
             }
         }
-        if (viewTimer.length) viewTimer.html(timerTokenRemaining);
     }
 }
 
