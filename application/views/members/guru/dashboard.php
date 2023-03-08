@@ -206,11 +206,13 @@
                                                         foreach ($jadwal as $jdw) {
                                                             $bank_kelass = $jdw->bank_kelas;
                                                             foreach ($bank_kelass as $bank_kelas) {
-                                                                $cnt = isset($jdw->peserta[$ruang]) && isset($jdw->peserta[$ruang][$sesi->sesi_id]) ?
-                                                                    count($jdw->peserta[$ruang][$sesi->sesi_id]) : 0;
-                                                                if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
-                                                                    $total_peserta += $cnt;
-                                                                    $badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                foreach ($jdw->peserta as $peserta) {
+                                                                    $cnt = isset($peserta[$ruang]) && isset($peserta[$ruang][$sesi->sesi_id]) ?
+                                                                        count($peserta[$ruang][$sesi->sesi_id]) : 0;
+                                                                    if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
+                                                                        $total_peserta += $cnt;
+                                                                        $badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                    }
                                                                 }
                                                             }
                                                         }
