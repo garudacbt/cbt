@@ -3,7 +3,7 @@
 
 <!-- Main Footer -->
 <footer class="main-footer">
-    <strong>GarudaCBT</strong> v.<?= config_item('app_version') ?>
+    <strong>GarudaCBT</strong> v.<?= APP_VERSION ?>
     <div class="float-right d-none d-sm-inline-block">
         <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
         <b>V.</b>3.0.5

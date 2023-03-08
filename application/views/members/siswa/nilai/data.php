@@ -23,12 +23,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id='list-nilai-materi'>
+                            <div id="list-nilai-materi" class="table-responsive">
                                 <?php
-                                //echo '<pre>';
-                                //var_dump($nilai_materi);
-                                //echo '</pre>';
-
                                 if (count($nilai_materi) > 0):?>
                                     <table class="table table-hover w-100" style="line-height: 1">
                                         <tr>

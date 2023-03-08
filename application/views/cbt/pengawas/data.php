@@ -47,8 +47,9 @@
                         //echo '<pre>';
                         //var_dump($tgl_jadwals);
                         //echo '</pre>';
-                        if (count($tgl_jadwals) > 0) : ?>
-                            <table class="table table-bordered" id="tbl-pengawas">
+                        if (count($tgl_jadwals) > 0) :
+                            foreach ($tgl_jadwals as $tgl=>$jadwals) :?>
+                            <table class="table table-bordered tbl-pengawas">
                                 <thead>
                                 <tr>
                                     <th class="text-center align-middle">Hari / Tanggal</th>
@@ -65,17 +66,19 @@
                                 <?php
                                 foreach ($ruangs as $ruang => $sesis) :
                                     foreach ($sesis as $sesi) :
-                                        foreach ($tgl_jadwals as $idmpl => $jadwal):
+                                        foreach ($jadwals as $idmpl => $jadwal):
                                             $listIdJad = [];
                                             $total_peserta = 0;
                                             foreach ($jadwal as $jdw) {
                                                 $listIdJad[] = $jdw->id_jadwal;
                                                 $bank_kelass = $jdw->bank_kelas;
                                                 foreach ($bank_kelass as $bank_kelas) {
-                                                    $cnt = isset($jdw->peserta[$ruang]) && isset($jdw->peserta[$ruang][$sesi->sesi_id]) ?
-                                                        count($jdw->peserta[$ruang][$sesi->sesi_id]) : 0;
-                                                    if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
-                                                        $total_peserta += $cnt;
+                                                    foreach ($jdw->peserta as $peserta) {
+                                                        $cnt = isset($peserta[$ruang]) && isset($peserta[$ruang][$sesi->sesi_id]) ?
+                                                            count($peserta[$ruang][$sesi->sesi_id]) : 0;
+                                                        if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
+                                                            $total_peserta += $cnt;
+                                                        }
                                                     }
                                                 }
                                             }
@@ -107,6 +110,7 @@
                                         <?php endif; endforeach; endforeach; endforeach;?>
                                 </tbody>
                             </table>
+                        <?php endforeach; ?>
                             <?= form_open('', array('id' => 'savepengawas')) ?>
                             <button type="submit" class="btn btn-primary card-tools mb-3 mt-3 float-right">
                                 <i class="fas fa-save mr-2"></i>Simpan
@@ -127,7 +131,7 @@
     var sSelected = <?= isset($sesi_selected) && $sesi_selected == null ? 0 : 1?>;
     $(document).ready(function () {
         ajaxcsrf();
-        $("#tbl-pengawas").rowspanizer({columns: [0,1,2]});
+        $(".tbl-pengawas").rowspanizer({columns: [0,1,2]});
         $('.select2').select2();
         var opsiJenis = $("#jenis");
         //var opsiRuang = $("#ruang");
@@ -175,25 +179,27 @@
             var kosong = jenis == ""; //ruang == '' || sesi == "" ||
             if (kosong) return;
 
-            const $rows1 = $('#tbl-pengawas').find('tr'), headers1 = $rows1.splice(0, 1);
+            const $tables = $('.tbl-pengawas');
             var jsonObj = [];
-            $rows1.each((i, row) => {
-                const ruang = $(row).find('.jadwal').data('ruang');//opsiRuang.val();
-                const sesi = $(row).find('.jadwal').data('sesi');//opsiSesi.val();
-                const jadwal = $(row).find('.jadwal').data('id');
-                const guru = $(row).find('.pengawas').val();
+            $tables.each((ind, tbl) => {
+                const $rows1 = $(tbl).find('tr'), headers1 = $rows1.splice(0, 1);
+                $rows1.each((i, row) => {
+                    const ruang = $(row).find('.jadwal').data('ruang');//opsiRuang.val();
+                    const sesi = $(row).find('.jadwal').data('sesi');//opsiSesi.val();
+                    const jadwal = $(row).find('.jadwal').data('id');
+                    const guru = $(row).find('.pengawas').val();
 
-                for (i = 0; i < jadwal.length; i++) {
-                    let item = {};
-                    item ["jadwal"] = jadwal[i];
-                    item ["ruang"] = ruang;
-                    item ["sesi"] = sesi;
-                    item ["guru"] = guru;
+                    for (i = 0; i < jadwal.length; i++) {
+                        let item = {};
+                        item ["jadwal"] = jadwal[i];
+                        item ["ruang"] = ruang;
+                        item ["sesi"] = sesi;
+                        item ["guru"] = guru;
 
-                    jsonObj.push(item);
-                }
+                        jsonObj.push(item);
+                    }
+                });
             });
-
 
             var dataPost = $(this).serialize() + "&data=" + JSON.stringify(jsonObj);
             //console.log('table', dataPost);

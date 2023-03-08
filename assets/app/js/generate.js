@@ -41,7 +41,7 @@ function createIntervalToken() {
 
     let updated = new Date(globalToken.updated);
     let time_c = new Date();
-    let time_s = new Date(globalToken.now.date);
+    let time_s = new Date(globalToken.now);
     let diff = time_s - time_c;
 
     updateViews();
@@ -68,7 +68,6 @@ function createIntervalToken() {
         const infoTimer = $('#info-interval');
         if (infoTimer.length) infoTimer.addClass('d-none');
         if (globalToken.auto == '1' && adaJadwalUjian != '0') {
-            /*
             if (infoTimer.length) infoTimer.removeClass('d-none');
             if (viewTimer.length) viewTimer.removeClass('d-none');
             if (t_remaining < 0) {
@@ -82,7 +81,6 @@ function createIntervalToken() {
                 timerTokenRemaining = zeroPad(r_jam) + ':' + zeroPad(r_mnt) + ':' + zeroPad(r_dtk);
                 timerToken = setTimeout(updateViews, 1000);
             }
-             */
         }
         if (viewTimer.length) viewTimer.html(timerTokenRemaining);
     }

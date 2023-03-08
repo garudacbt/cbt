@@ -198,9 +198,6 @@
                                                 <th class="text-center align-middle">NO</th>
                                                 <th class="text-center align-middle">RUANG</th>
                                                 <th class="text-center align-middle">SESI</th>
-                                                <!--
-                                                <th class="text-center align-middle">JAM KE</th>
-                                                -->
                                                 <th class="text-center align-middle">MATA PELAJARAN</th>
                                                 <th class="text-center align-middle">PENGAWAS</th>
                                             </tr>
@@ -219,11 +216,13 @@
                                                         foreach ($jadwal as $jdw) {
                                                             $bank_kelass = $jdw->bank_kelas;
                                                             foreach ($bank_kelass as $bank_kelas) {
-                                                                $cnt = isset($jdw->peserta[$ruang]) && isset($jdw->peserta[$ruang][$sesi->sesi_id]) ?
-                                                                    count($jdw->peserta[$ruang][$sesi->sesi_id]) : 0;
-                                                                if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
-                                                                    $total_peserta += $cnt;
-                                                                    $badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                foreach ($jdw->peserta as $peserta) {
+                                                                    $cnt = isset($peserta[$ruang]) && isset($peserta[$ruang][$sesi->sesi_id]) ?
+                                                                        count($peserta[$ruang][$sesi->sesi_id]) : 0;
+                                                                    if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
+                                                                        $total_peserta += $cnt;
+                                                                        $badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -234,15 +233,7 @@
                                                                 <td class="text-center align-middle"><?= $no ?></td>
                                                                 <td class="text-center align-middle"><?= $sesi->nama_ruang ?></td>
                                                                 <td class="text-center align-middle"><?= $sesi->nama_sesi ?></td>
-                                                                <!--
-                                                                <td class="text-center align-middle"><?= $jadwal[0]->jam_ke ?></td>
-                                                                -->
-                                                                <td class="text-center align-middle"><?= $jadwal[0]->kode ?>
-                                                                    <!--
-                                                                    <br>
-                                                                    <?= $badge_kelas ?>
-                                                                    -->
-                                                                </td>
+                                                                <td class="text-center align-middle"><?= $jadwal[0]->kode ?></td>
                                                                 <td class="align-middle crop-text-table">
                                                                     <?php foreach ($id_guru as $ig) {
                                                                         echo isset($gurus[$ig]) ? '<p class="p-0 m-0">' . $gurus[$ig] . '</p>' : '';
