@@ -273,63 +273,65 @@
                                 <br>
                                 <br>
                                 <br>
-                                <table style="width:90%; font-family: 'Times New Roman';">
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th style="text-align: center">TTD</th>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 30px;">1.</td>
-                                        <td>Pengawas 1</td>
-                                        <td>:</td>
-                                        <td class="editable bg-lime" id="edit-pengawas1"></td>
-                                        <td style="padding-left: 20px" rowspan="2">1. _________________________</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            NIP/NUPTK
-                                        </td>
-                                        <td>:</td>
-                                        <td class="editable bg-lime">_________________________</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding-top: 12px">2.</td>
-                                        <td style="padding-top: 12px">Pengawas 2</td>
-                                        <td style="padding-top: 12px">:</td>
-                                        <td style="padding-top: 12px" class="editable bg-lime" id="edit-pengawas2"></td>
-                                        <td style="padding-left: 20px" rowspan="2">2. _________________________</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            NIP/NUPTK
-                                        </td>
-                                        <td>:</td>
-                                        <td class="editable bg-lime">_________________________</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding-top: 12px">3.</td>
-                                        <td style="padding-top: 12px">
-                                            Kepala Sekolah
-                                        </td>
-                                        <td style="padding-top: 12px">:</td>
-                                        <td style="padding-top: 12px"
-                                            class="editable bg-lime"><?= isset($kop->kepsek) ? $kop->kepsek : '' ?></td>
-                                        <td style="padding-left: 20px" rowspan="2">3. _________________________</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            NIP/NUPTK
-                                        </td>
-                                        <td>:</td>
-                                        <td class="editable bg-lime"><?= isset($kop->nip) ? $kop->nip : '' ?></td>
-                                    </tr>
-                                </table>
+                                <div id="berita-ttd">
+                                    <table style="width:90%; font-family: 'Times New Roman';">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th style="text-align: center">TTD</th>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 30px;">1.</td>
+                                            <td>Pengawas 1</td>
+                                            <td>:</td>
+                                            <td class="editable bg-lime" id="edit-pengawas1">_________________________</td>
+                                            <td style="padding-left: 20px" rowspan="2">1. _________________________</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                NIP/NUPTK
+                                            </td>
+                                            <td>:</td>
+                                            <td class="editable bg-lime">_________________________</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-top: 12px">2.</td>
+                                            <td style="padding-top: 12px">Pengawas 2</td>
+                                            <td style="padding-top: 12px">:</td>
+                                            <td style="padding-top: 12px" class="editable bg-lime" id="edit-pengawas2">_________________________</td>
+                                            <td style="padding-left: 20px" rowspan="2">2. _________________________</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                NIP/NUPTK
+                                            </td>
+                                            <td>:</td>
+                                            <td class="editable bg-lime">_________________________</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-top: 12px">3.</td>
+                                            <td style="padding-top: 12px">
+                                                Kepala Sekolah
+                                            </td>
+                                            <td style="padding-top: 12px">:</td>
+                                            <td style="padding-top: 12px"
+                                                class="editable bg-lime"><?= isset($kop->kepsek) && $kop->kepsek != '' ? $kop->kepsek : '_________________________' ?></td>
+                                            <td style="padding-left: 20px" rowspan="2">3. _________________________</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                NIP/NUPTK
+                                            </td>
+                                            <td>:</td>
+                                            <td class="editable bg-lime"><?= isset($kop->nip) && $kop->nip != '' ? $kop->nip : '_________________________' ?></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -344,6 +346,8 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
+    const kepsek = "<?= isset($kop->kepsek) && $kop->kepsek != '' ? $kop->kepsek : '_________________________' ?>";
+    const nip = "<?= isset($kop->nip) && $kop->nip != '' ? $kop->kepsek : '_________________________' ?>";
     var oldVal1 = '<?=isset($kop->header_1) ? $kop->header_1 : ""?>';
     var oldVal2 = '<?=isset($kop->header_2) ? $kop->header_2 : ""?>';
     var oldVal3 = '<?=isset($kop->header_3) ? $kop->header_3 : ""?>';
@@ -408,10 +412,14 @@
                         $('#edit-waktu-mulai').html('<b>' + response.info.sesi.waktu_mulai.substring(0, 5) + '</b>');
                         $('#edit-waktu-akhir').html('<b>' + response.info.sesi.waktu_akhir.substring(0, 5) + '</b>');
                         $('#edit-mapel').html('<b>' + response.info.jadwal.nama_mapel + '</b>');
+
+                        previewTTD(response.info.pengawas);
+                        /*
                         var p1 = response.info.pengawas.length > 0 ? response.info.pengawas[0].nama_guru : '_________________________';
                         $('#edit-pengawas1').text(p1);
                         var p2 = response.info.pengawas.length > 1 ? response.info.pengawas[1].nama_guru : '_________________________';
                         $('#edit-pengawas2').text(p2);
+                         */
                         document.title = 'Berita Acara ' + response.info.jadwal.kode + ' ' + $('#edit-ruang').text() + ' ' + $('#edit-sesi').text();
                     }
                 });
@@ -439,11 +447,13 @@
                         $('#edit-waktu-mulai').html('<b>' + response.info.sesi.waktu_mulai.substring(0, 5) + '</b>');
                         $('#edit-waktu-akhir').html('<b>' + response.info.sesi.waktu_akhir.substring(0, 5) + '</b>');
                         $('#edit-mapel').html('<b>' + response.info.jadwal.nama_mapel + '</b>');
-
+                        previewTTD(response.info.pengawas);
+                        /*
                         var p1 = response.info.pengawas.length > 0 && response.info.pengawas[0].length > 0 ? response.info.pengawas[0][0].nama_guru : '';
                         $('#edit-pengawas1').text(p1);
                         var p2 = response.info.pengawas.length > 0 && response.info.pengawas[0].length > 1 ? response.info.pengawas[0][1].nama_guru : '';
                         $('#edit-pengawas2').text(p2);
+                         */
                         document.title = 'Berita Acara ' + response.info.jadwal.kode + ' ' + $('#edit-ruang').text() + ' ' + $('#edit-sesi').text();
                     }
                 });
@@ -590,4 +600,70 @@
         });
 
     })
+
+    function previewTTD(pengawas) {
+        var nomor = 1;
+        var pengawas1 = pengawas.length > 0 ? pengawas[0].nama_guru : '';
+        var pengawas2 = pengawas.length > 1 ? pengawas[1].nama_guru : '';
+        var title_p1 = pengawas2 == '' ? 'Pengawas' : 'Pengawas 1';
+
+        var table = '<table style="width:90%; font-family: \'Times New Roman\';">' +
+        ' <tr>' +
+        ' <th></th>' +
+        ' <th></th>' +
+        ' <th></th> <th></th> <th style="text-align: center">TTD</th>' +
+        ' </tr>' +
+
+        ' <tr>' +
+        ' <td style="width: 30px;">'+nomor+'.</td>' +
+        ' <td>'+title_p1+'</td>' +
+        ' <td>:</td>' +
+        ' <td class="editable bg-lime" id="edit-pengawas1">'+pengawas1+'</td>' +
+        ' <td style="padding-left: 20px" rowspan="2">1. _________________________</td>' +
+        ' </tr>' +
+
+        ' <tr>' +
+        ' <td></td>' +
+        ' <td>NIP/NUPTK </td>' +
+        '         <td>:</td>' +
+        ' <td class="editable bg-lime">_________________________</td>' +
+        ' </tr>';
+        nomor +=1;
+        if (pengawas2 !== '') {
+            table += ' <tr>' +
+                ' <td style="padding-top: 12px">'+nomor+'.</td>' +
+                ' <td style="padding-top: 12px">Pengawas 2</td>' +
+                ' <td style="padding-top: 12px">:</td>' +
+                ' <td style="padding-top: 12px" class="editable bg-lime" id="edit-pengawas2">'+pengawas2+'</td>' +
+                ' <td style="padding-left: 20px" rowspan="2">'+nomor+'. _________________________</td>' +
+                '</tr>' +
+
+                ' <tr>' +
+                ' <td></td>' +
+                ' <td>NIP/NUPTK </td>' +
+                '         <td>:</td>' +
+                ' <td class="editable bg-lime">_________________________</td>' +
+                ' </tr>';
+            nomor +=1;
+        }
+        table += ' <tr>' +
+        ' <td style="padding-top: 12px">'+nomor+'.</td>' +
+        ' <td style="padding-top: 12px">Kepala Sekolah</td>' +
+        '         <td style="padding-top: 12px">:</td>' +
+        ' <td style="padding-top: 12px"class="editable bg-lime">'+kepsek+'</td>' +
+        '         <td style="padding-left: 20px" rowspan="2">'+nomor+'. _________________________</td>' +
+        ' </tr>' +
+
+        ' <tr>' +
+        ' <td></td>' +
+        ' <td>NIP/NUPTK </td>' +
+        '         <td>:</td>' +
+        ' <td class="editable bg-lime">'+nip+'</td>' +
+        ' </tr>' +
+        ' </table>';
+
+        console.log('tbl', table)
+        $('#berita-ttd').html(table)
+        $('.editable').attr('contentEditable', true);
+    }
 </script>

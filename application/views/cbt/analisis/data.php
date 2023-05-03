@@ -274,7 +274,7 @@
                             -->
                         <?php endif;
                         if (isset($soals[3])) :
-                            foreach ($soals[2] as $soal) :
+                            foreach ($soals[3] as $soal) :
                                 $soal->jawaban_siswa = @unserialize($soal->jawaban_siswa);
                                 $soal->jawaban_benar = @unserialize($soal->jawaban_benar);
 

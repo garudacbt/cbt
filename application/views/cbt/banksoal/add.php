@@ -54,7 +54,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Mata Pelajaran</label>
-                                <?php echo form_dropdown('mapel', $mapel, $bank->bank_mapel_id, 'id="select-mapel" class="form-control form-control-sm" required'); ?>
+                                <?php echo form_dropdown('mapel', $mapel, $bank->bank_mapel_id, 'id="select-mapel" class="select2 form-control form-control-sm" required'); ?>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -295,6 +295,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
         var selMapel = $('#select-mapel');
         var selGuru = $('#select-guru');
 
+        selMapel.select2();
         selKelas.select2();
         selGuru.select2();
 

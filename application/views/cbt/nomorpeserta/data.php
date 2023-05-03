@@ -71,8 +71,8 @@
     var tahun = '<?=$tp_active->tahun?>';
 
     function sortByName(a, b) {
-        var aName = a.name.toLowerCase();
-        var bName = b.name.toLowerCase();
+        var aName = a.nama.toLowerCase();
+        var bName = b.nama.toLowerCase();
         return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
     }
 

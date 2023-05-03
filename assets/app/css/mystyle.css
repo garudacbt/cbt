@@ -391,6 +391,32 @@ now override the 3.3 new styles for modern browsers & apply opacity
 	content: "\2713";
 }
 
+.checkbox-lg .custom-control-label::before,
+.checkbox-lg .custom-control-label::after {
+	top: .8rem;
+	width: 1.55rem;
+	height: 1.55rem;
+}
+
+.checkbox-lg .custom-control-label {
+	padding-top: 13px;
+	padding-left: 6px;
+	cursor: pointer;
+}
+
+.checkbox-xl .custom-control-label::before,
+.checkbox-xl .custom-control-label::after {
+	top: 1.2rem;
+	width: 1.85rem;
+	height: 1.85rem;
+}
+
+.checkbox-xl .custom-control-label {
+	padding-top: 23px;
+	padding-left: 20px;
+	cursor: pointer;
+}
+
 ul.media-list li img {
 	width: 100px;
 	height: 100px

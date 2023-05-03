@@ -150,6 +150,11 @@
                             </button>
                         </div>
                     </div>
+                    <?php
+                    //echo '<pre>';
+                    //var_dump($pengawas);
+                    //echo '</pre>';
+                    ?>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="table-status">
                         </table>

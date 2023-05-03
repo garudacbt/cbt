@@ -335,7 +335,19 @@
             $('#konten-jawaban').html(html);
         } else if (jenis == "2") {
             $.each(data.soal_opsi, function (key, opsis) {
-                html += '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
+                html += '<div class="custom-control custom-checkbox checkbox-xl">' +
+                    '<input type="checkbox" class="custom-control-input"' +
+                    'id="check'+key+'"' +
+                    ' name="jawaban"' +
+                    ' value="' + opsis.value.toUpperCase() + '"' +
+                    ' data-max="' + data.max_jawaban[0] + '"' +
+                    ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
+                    ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
+                    '<label class="custom-control-label font-weight-normal" for="check'+key+'">'
+                    + opsis.opsi +'</label>' +
+                    '</div>'
+                    /*
+                    '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
                     '<input type="checkbox" class="check2"' +
                     ' name="jawaban"' +
                     ' value="' + opsis.value.toUpperCase() + '"' +
@@ -344,6 +356,7 @@
                     ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
                     '<span class="boxmark"></span>' +
                     '</label>';
+                     */
             });
             $('#konten-jawaban').html(html);
         } else if (jenis == "3") {
@@ -651,6 +664,7 @@
     }
 
     function submitJawaban(opsi) {
+        console.log('click submit');
         var jawaban_Siswa = '', jawaban_Alias = '';
         if (jenisSoal == 1) {
             jawaban_Siswa = $(opsi).data('jawabansiswa');
