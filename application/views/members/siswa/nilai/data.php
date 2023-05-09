@@ -26,14 +26,16 @@
                             <div id="list-nilai-materi" class="table-responsive">
                                 <?php
                                 if (count($nilai_materi) > 0):?>
-                                    <table class="table table-hover w-100" style="line-height: 1">
+                                    <table class="table table-hover w-100" id="table-nilai-materi" style="line-height: 1">
+                                        <thead>
                                         <tr>
                                             <th class="text-center">NO</th>
                                             <th>Materi</th>
                                             <th>Tanggal</th>
                                             <th class="text-center">Nilai</th>
                                         </tr>
-
+                                        </thead>
+                                        <tbody>
                                         <?php
                                         $no = 1;
                                         foreach ($nilai_materi as $nil) :
@@ -55,6 +57,7 @@
                                                 <td class="text-center text-lg"><b><?= $nil->nilai ?></b></td>
                                             </tr>
                                             <?php $no++; endforeach; ?>
+                                        </tbody>
                                     </table>
                                 <?php else: ?>
                                     <p>Belum ada nilai.</p>
@@ -73,14 +76,16 @@
                         <div class="card-body">
                             <div id='list-nilai-tugas'>
                                 <?php if (count($nilai_tugas) > 0): ?>
-                                    <table class="table table-hover w-100" style="line-height: 1">
+                                    <table class="table table-hover w-100" id="table-nilai-tugas" style="line-height: 1">
+                                        <thead>
                                         <tr>
                                             <th class="text-center">NO</th>
                                             <th>Tugas</th>
                                             <th>Tanggal</th>
                                             <th class="text-center">Nilai</th>
                                         </tr>
-
+                                        </thead>
+                                        <tbody>
                                         <?php
                                         $no = 1;
                                         foreach ($nilai_tugas as $nil) :
@@ -102,6 +107,7 @@
                                                 <td class="text-center text-lg"><b><?= $nil->nilai ?></b></td>
                                             </tr>
                                             <?php $no++; endforeach; ?>
+                                        </tbody>
                                     </table>
                                 <?php else: ?>
                                     <p>Belum ada nilai.</p>
@@ -126,7 +132,8 @@
                                 //var_dump($jadwal);
                                 //echo '</pre>';
                                 ?>
-                                <table class="table w-100 ">
+                                <table class="table w-100" id="table-nilai-ujian">
+                                    <thead>
                                     <tr>
                                         <th class="text-center align-middle">NO</th>
                                         <th>Jenis Penilaian</th>
@@ -135,6 +142,8 @@
                                         <th class="text-center">Nilai</th>
                                         <th class="text-center">Detail</th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <?php
                                     if (count($jadwal) > 0) :
                                         $no = 1;
@@ -172,6 +181,7 @@
                                             </td>
                                         </tr>
                                     <?php endif; ?>
+                                    </tbody>
                                 </table>
                                 <hr>
                                 <span><i>Catatan:</i></span>
@@ -282,6 +292,10 @@
     var jadwals = JSON.parse('<?= json_encode($jadwal)?>');
 
     $(document).ready(function () {
+        $('#table-nilai-materi').DataTable();
+        $('#table-nilai-tugas').DataTable();
+        $('#table-nilai-ujian').DataTable();
+
         $('#detail-nilai').on('show.bs.modal', function (e) {
             var tampilNilai = $(e.relatedTarget).data('tampil');
             var id = $(e.relatedTarget).data('id');

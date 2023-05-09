@@ -283,7 +283,7 @@
                                         <span><b>Jumlah PG terpilih: </b></span>
                                         <span id="total-pg" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg" <?=$dis?>>
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg">
                                             <i class="fa fa-save"></i> <span class="d-none d-md-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -425,7 +425,7 @@
                                         <span><b>Jumlah Soal terpilih: </b></span>
                                         <span id="total-pg2" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg2" <?=$dis?>>
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-pg2">
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -573,7 +573,7 @@
                                         <span><b>Jumlah Soal terpilih: </b></span>
                                         <span id="total-jodohkan" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-jodohkan" <?=$dis?>>
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-jodohkan">
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -733,7 +733,7 @@
                                         <span><b>Jumlah Soal terpilih: </b></span>
                                         <span id="total-isian" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-isian" <?=$dis?>>
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-isian">
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Soal Terpilih</span>
                                         </button>
                                     </div>
@@ -865,7 +865,7 @@
                                         <span><b>Jumlah Essai terpilih: </b></span>
                                         <span id="total-essai" class="text-lg"></span>
 
-                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-essai" <?=$dis?>>
+                                        <button type="button" class="btn btn-sm btn-primary ml-3" id="save-essai">
                                             <i class="fa fa-save"></i> <span class="d-none d-sm-inline-block ml-1">Simpan Essai Terpilih</span>
                                         </button>
                                     </div>
@@ -1141,7 +1141,7 @@
                         $bg = $count % 2 == 0 ? '#FFFFFF' : '#F2F2F2';
 
                         $jawaban = isset($s->jawaban) ? unserialize($s->jawaban) : [];
-                        if ($jawaban['jawaban'] != null) {
+                        if (isset($jawaban['jawaban']) && $jawaban['jawaban'] != null) {
                             foreach ($jawaban['jawaban'] as $kk => $jwbn) {
                                 $jawaban['jawaban'][$kk] = (array)$jwbn;
                             }
@@ -1152,7 +1152,7 @@
                         $rows = $jml_kolom > 0 && $jml_baris > 0 ? max(($jml_kolom - 1), ($jml_baris - 1)) : 5;
 
                         $jwb_benar = [];
-                        if ($jawaban['jawaban'] != null) {
+                        if (isset($jawaban['jawaban']) && $jawaban['jawaban'] != null) {
                             foreach ($jawaban['jawaban'] as $kk => $jb) {
                                 foreach ($jb as $ki => $item) {
                                     if ($item == '1') $jwb_benar[$kk][] = strtoupper(chr($ki + 96));

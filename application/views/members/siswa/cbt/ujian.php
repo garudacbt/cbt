@@ -122,7 +122,7 @@
 
 <div class="modal fade" id="daftarModal" tabindex="-1" role="dialog" aria-labelledby="daftarLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="daftarLabel">Daftar Nomor Soal</h5>
@@ -175,6 +175,7 @@
         _day = _hour * 24;
     const durasiUjian = Number(infoJadwal.durasi_ujian);
     let dif;
+    let fieldLinks;
 
     $(document).ready(function () {
         $(document).keydown(function (event) {
@@ -336,7 +337,7 @@
         } else if (jenis == "2") {
             $.each(data.soal_opsi, function (key, opsis) {
                 html += '<div class="custom-control custom-checkbox checkbox-xl">' +
-                    '<input type="checkbox" class="custom-control-input"' +
+                    '<input type="checkbox" class="check2 custom-control-input"' +
                     'id="check'+key+'"' +
                     ' name="jawaban"' +
                     ' value="' + opsis.value.toUpperCase() + '"' +
@@ -346,17 +347,6 @@
                     '<label class="custom-control-label font-weight-normal" for="check'+key+'">'
                     + opsis.opsi +'</label>' +
                     '</div>'
-                    /*
-                    '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
-                    '<input type="checkbox" class="check2"' +
-                    ' name="jawaban"' +
-                    ' value="' + opsis.value.toUpperCase() + '"' +
-                    ' data-max="' + data.max_jawaban[0] + '"' +
-                    ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
-                    ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
-                    '<span class="boxmark"></span>' +
-                    '</label>';
-                     */
             });
             $('#konten-jawaban').html(html);
         } else if (jenis == "3") {
@@ -395,7 +385,8 @@
                     submitJawaban(null);
                 });
             } else {
-                html += '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
+                html += '<div class="table-responsive">' +
+                    '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
                 html += '<tr class="text-center">';
                 $.each(data.soal_opsi.thead, function (key, val) {
                     if (key === 0) {
@@ -420,7 +411,7 @@
                     });
                     html += '</tr>';
                 });
-                html += '</table>';
+                html += '</table></div>';
                 $('#konten-jawaban').html(html);
             }
         } else if (jenis == "4") {
@@ -670,10 +661,9 @@
             jawaban_Siswa = $(opsi).data('jawabansiswa');
             jawaban_Alias = $(opsi).data('jawabanalias');
         } else if (jenisSoal == 2) {
-            var div = $(opsi).closest('div');
-            var isChecked = $(div).find("input:checked");
+            var isChecked = $('#konten-jawaban').find("input:checked");
             var max = $(opsi).data('max');
-            console.log(max, isChecked.length);
+            console.log('max:'+max, 'checked:'+isChecked.length);
             if (isChecked.length > max) {
                 $(opsi).prop('checked', !$(opsi).prop('checked'));
                 $.toast({

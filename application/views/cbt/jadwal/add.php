@@ -182,12 +182,14 @@
         ajaxcsrf();
         //console.log('used',digunakan);
 
+        $('#jenis-id').select2();
         var selMapel = $('#id-mapel');
+        selMapel.select2();
         var selec = idBank == '' ? 'selected' : '';
         selMapel.prepend('<option value="" ' + selec + '>Pilih Mata Pelajaran</option>');
         var selBank = $('#bank-id');
+        selBank.select2();
 
-        $('.select2').select2();
         $('.tgl').datetimepicker({
             icons:
                 {

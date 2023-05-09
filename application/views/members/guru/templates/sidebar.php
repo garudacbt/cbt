@@ -30,7 +30,7 @@
                 <?php
                 $page = $this->uri->segment(1);
                 $elearning = ["kelasjadwal", "kelasmateri", "kelasmaterijadwal", "kelastugas", "kelasstatus", "kelasabsensiharian", "kelasabsensiharianmapel", "kelasabsensibulanan", "kelasnilai", "kelascatatan"];
-                $cbt = ["cbtbanksoal", "cbtjadwal", "cbttoken", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtanalisis", "cbtrekap"];
+                $cbt = ["cbtbanksoal", "cbtjadwal", "cbtcetak", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtanalisis", "cbtrekap"];
                 $wali = ["walisiswa", "walistruktur", "walicatatan"];
                 ?>
                 <li class="nav-item">
@@ -160,13 +160,20 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('cbtcetak') ?>"
+                               class="nav-link <?= $page === 'cbtcetak' ? "active" : "" ?>">
+                                <i class="fa fa-print nav-icon"></i>
+                                <p>Cetak</p>
+                            </a>
+                        </li>
+                        <!--
+                        <li class="nav-item">
                             <a href="<?= base_url('cbttoken') ?>"
                                class="nav-link <?= $page === 'cbttoken' ? "active" : "" ?>">
                                 <i class="fa fa-key nav-icon"></i>
                                 <p>Token</p>
                             </a>
                         </li>
-                        <!--
 						<li class="nav-item">
 							<a href="<?= base_url('cbtpeserta') ?>" class="nav-link <?= $page === 'cbtpeserta' ? "active" : "" ?>">
                                 <i class="fa fa-list-ol nav-icon"></i>

@@ -347,7 +347,7 @@
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
     const kepsek = "<?= isset($kop->kepsek) && $kop->kepsek != '' ? $kop->kepsek : '_________________________' ?>";
-    const nip = "<?= isset($kop->nip) && $kop->nip != '' ? $kop->kepsek : '_________________________' ?>";
+    const nip = "<?= isset($kop->nip) && $kop->nip != '' ? $kop->nip : '_________________________' ?>";
     var oldVal1 = '<?=isset($kop->header_1) ? $kop->header_1 : ""?>';
     var oldVal2 = '<?=isset($kop->header_2) ? $kop->header_2 : ""?>';
     var oldVal3 = '<?=isset($kop->header_3) ? $kop->header_3 : ""?>';

@@ -162,12 +162,12 @@ $colWidth = '';
                                     <th rowspan="2" class="text-center align-middle bg-blue"
                                         style="border: 1px solid black;border-collapse: collapse; text-align: center;"
                                         data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                        data-f-bold="true">Ruang
+                                        data-f-bold="true">Sesi
                                     </th>
                                     <th rowspan="2" class="text-center align-middle bg-blue"
                                         style="border: 1px solid black;border-collapse: collapse; text-align: center;"
                                         data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
-                                        data-f-bold="true">Sesi
+                                        data-f-bold="true">Ruang
                                     </th>
                                     <th rowspan="2" class="text-center align-middle bg-blue"
                                         style="border: 1px solid black;border-collapse: collapse; text-align: center;"
@@ -298,10 +298,10 @@ $colWidth = '';
                                             style="border: 1px solid black;border-collapse: collapse; padding: 2px 6px"> <?= $siswa->nama ?> </td>
                                         <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
                                             data-b-a-s="thin"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $siswa->kode_ruang ?></td>
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $siswa->kode_sesi ?></td>
                                         <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
                                             data-b-a-s="thin"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $siswa->kode_sesi ?></td>
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $siswa->kode_ruang ?></td>
                                         <td class="text-center align-middle" data-a-v="middle" data-a-h="center"
                                             data-b-a-s="thin"
                                             style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $siswa->mulai_ujian ?></td>

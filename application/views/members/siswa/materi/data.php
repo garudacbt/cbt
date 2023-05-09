@@ -39,8 +39,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <?php
-                                //var_dump($materis["2023-01-23"]);
+                                //var_dump($materis);
                                 $today = date("Y-m-d");
+                                if ($kbm != null) :
                                 $log = isset($logs[$today]) ? $logs[$today] : [];
                                 $materi = isset($materis[$today]) ? $materis[$today] : [];
                                 $jamMulai = new DateTime($kbm->kbm_jam_mulai);
@@ -184,6 +185,13 @@
                                     </div>
                                 <?php endif;
                                 ?>
+                                <?php else: ?>
+                                    <div class="col-12 p-0">
+                                        <div class="alert align-content-center" role="alert">
+                                            Jadwal belum dibuat.
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -217,6 +225,7 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <?php
                                 $hari = date('Y-m-d');
+                                if ($kbm != null) :
                                 $jamMulai = new DateTime($kbm->kbm_jam_mulai);
                                 $jamSampai = new DateTime($kbm->kbm_jam_mulai);
 
@@ -316,7 +325,14 @@
                                                 <?php endfor; ?>
                                             </table>
                                         </div>
-                                    <?php endif; endforeach; ?>
+                                    <?php endif; endforeach;
+                                    else: ?>
+                                        <div class="col-12 p-0">
+                                            <div class="alert align-content-center" role="alert">
+                                                Jadwal belum dibuat.
+                                            </div>
+                                        </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="overlay d-none" id="loading">

@@ -457,6 +457,29 @@ foreach ($soal_ada as $key => $value) {
 </div>
 <?= form_close() ?>
 
+<div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="noteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <h5 id="noteModalLabel">Edit Field</h5>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea id="edit-dialog" style="width:100%;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="simpanValue()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/mediastyler.js"></script>

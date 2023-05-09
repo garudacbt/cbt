@@ -143,7 +143,7 @@
 <script>
     $(document).ready(function () {
         ajaxcsrf();
-        $("#tbl").rowspanizer({columns: [0,1]});
+        $("#tbl").rowspanizer({columns: [0]});
 
         var opsiLevel = $("#level");
         var opsiJenis = $("#jenis");

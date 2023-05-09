@@ -89,9 +89,14 @@
                         <h6>Cetak</h6>
                     </div>
                 </div>
+                <?php
+                $isAdmin = $this->ion_auth->is_admin();
+                $dnone = $isAdmin ? '' : 'd-none';
+                if ($isAdmin || (isset($guru) && isset($ids_pengawas) && in_array($guru->id_guru, $ids_pengawas))) :
+                ?>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-3 col-md-6 <?=$dnone?>">
                             <a href="<?= base_url('cbtcetak/kartupeserta') ?>">
                                 <div class="info-box border">
 								<span class="info-box-icon bg-gradient-primary elevation-1">
@@ -153,7 +158,7 @@
                             </a>
                         </div>
                         -->
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-3 col-md-6 <?=$dnone?>">
                             <a href="<?= base_url('cbtcetak/pengawas') ?>">
                                 <div class="info-box border">
 								<span class="info-box-icon bg-gradient-primary elevation-1">
@@ -167,6 +172,9 @@
                         </div>
                     </div>
                 </div>
+                <?php else: ?>
+                    <div class="card-body"></div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

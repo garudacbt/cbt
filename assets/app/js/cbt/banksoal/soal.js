@@ -188,7 +188,10 @@ $(document).ready(function() {
         //$('.letters').append('<div>' + String.fromCharCode(i) + '</div>');
         $('#opsi-pg2').append('<div class="pg-kompleks mb-4 ml-3">' +
             '    <div class="row mb-2">' +
-            '       <div class="col-6"><b>Jawaban '+alphaCaps+'</b></div>' +
+            '       <div class="col-6">' +
+            '          <button type="button" class="btn btn-sm btn-default mr-4" onclick="deleteOpsiPg2(this)">' +
+            '<i class="fa fa-trash"></i></button>' +
+            '<span class="abjad-pg2"><b>Jawaban ' + alphaCaps + '</b></span></div>' +
             '       <div class="col-6 text-right d-flex justify-content-end">' +
             '          <b>Jawaban banar</b>' +
             '          <input class="check-pg2" type="checkbox" style="width: 24px; height: 24px; margin-left: 8px;" name="jawaban_benar_pg2[]" value="'+lower+'">' +
@@ -290,11 +293,6 @@ $(document).ready(function() {
     }
     getSoalById(idBank, nomor_soal, jenis+''+nomor_soal, jenis);
 });
-
-function inArray(val, array) {
-    var found = $.inArray(val, array);
-    return found >= 0;
-}
 
 function initTextArea() {
     $('.textjawaban2').summernote({
@@ -754,7 +752,10 @@ function getSoalById(id_bank, number, id, jenis_soal) {
 
                                 jwb2 += '<div class="pg-kompleks mb-4 ml-3">' +
                                     '    <div class="row mb-2">' +
-                                    '       <div class="col-6"><b>Jawaban ' + k.toUpperCase() + '</b></div>' +
+                                    '       <div class="col-6">' +
+                                    '          <button type="button" class="btn btn-sm btn-default mr-4" onclick="deleteOpsiPg2(this)">' +
+                                    '<i class="fa fa-trash"></i></button>' +
+                                    '<span class="abjad-pg2"><b>Jawaban ' + k.toUpperCase() + '</b></span></div>' +
                                     '       <div class="col-6 text-right d-flex justify-content-end">' +
                                     '          <b>Jawaban banar</b>' +
                                     '          <input class="check-pg2" type="checkbox" style="width: 24px; height: 24px; margin-left: 8px;" name="jawaban_benar_pg2[]" value="' + k + '" ' + checked + '>' +
@@ -766,7 +767,10 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                         } else {
                             jwb2 += '<div class="pg-kompleks mb-4 ml-3">' +
                                 '    <div class="row mb-2">' +
-                                '       <div class="col-6"><b>Jawaban A</b></div>' +
+                                '       <div class="col-6">' +
+                                '          <button type="button" class="btn btn-sm btn-default mr-4" onclick="deleteOpsiPg2(this)">' +
+                                '<i class="fa fa-trash"></i></button>' +
+                                '<span class="abjad-pg2"><b>Jawaban A</b></span></div>' +
                                 '       <div class="col-6 text-right d-flex justify-content-end">' +
                                 '          <b>Jawaban banar</b>' +
                                 '          <input class="check-pg2" type="checkbox" style="width: 24px; height: 24px; margin-left: 8px;" name="jawaban_benar_pg2[]" value="a">' +
@@ -778,7 +782,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                         $('#opsi-pg2').html(jwb2);
                         initTextArea();
                     } else if (jenis_soal === '3') {
-					    if (data.jawaban && data.jawaban.jawaban.length > 0 && Array.isArray(data.jawaban.jawaban[0])) {
+					    if (data.jawaban && data.jawaban.jawaban && data.jawaban.jawaban.length > 0 && Array.isArray(data.jawaban.jawaban[0])) {
 					        var valModel = data.jawaban.type == null && data.jawaban.model == null ? '0' :
                                 (data.jawaban.type != null && data.jawaban.model == null ? '2' : data.jawaban.model);
 					        if (valModel == '0') {
@@ -799,7 +803,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                         } else {
                             $('#model-opsi').val('0');
                             $('#type-opsi').val('0');
-                            $('#btn-table').addClass('d-none');
+                            //$('#btn-table').addClass('d-none');
 					        var table = '<table id="table-jodohkan" class="table table-sm table-bordered">' +
                                 '<tr class="text-center">\n' +
                                 '    <th class="text-white">#</th>\n' +
@@ -1249,12 +1253,6 @@ function createListJodohkan(data) {
         "existingLinks": data.linked
     };
     //console.log('no-soal', nomor_soal);
-    /*
-    $(".fieldLinkerSave").on("click",function(){
-        var results = fieldLinks.fieldsLinker("getLinks");
-        $("#output").html("output => " + JSON.stringify(results));
-    });
-    */
 
     fieldLinks = $("#original").fieldsLinker("init", inputs);
 
@@ -1265,44 +1263,6 @@ function createListJodohkan(data) {
             fieldLinks.fieldsLinker("changeParameters",{"associationMode": "manyToMany"});
         }
     });
-
-    /* test disable click
-    $(`ul[data-col="baris-kiri${nomor_soal}"] li`).click(function(e) {
-        var from = $(e.target).text();
-        console.log('klik', from);
-        var results = fieldLinks.fieldsLinker("getLinks");
-        console.log('res', results);
-        var count = 0;
-        results.links.forEach(function(e) {
-            if (from == e.from) {
-                count ++;
-            }
-        });
-        console.log('count', count);
-        if (count >= 3) {
-            $(e.target).removeClass('selected');
-            $('.FL-main').trigger('click');
-        }
-    });
-
-    $('.FL-main').on('click', function (e) {
-        console.log('main klik');
-    });
-    */
-
-    /*
-    $("input[name='mobileClickIt']").on("click", function () {
-        let isCheck = $(this).prop("checked");
-        if(isCheck)
-            $(this).addClass("active");
-        else
-            $(this).removeClass("active");
-
-        $("#original").html="";
-        inputOri.options.mobileClickIt = isCheck;
-        fieldLinks=$("#original").fieldsLinker("init",inputOri);
-    });
-    */
 }
 
 function getTableData() {
@@ -1443,8 +1403,6 @@ function convertListToTable(array) {
                     if (isi.from == val) {
                         if (isi.to == kolom[i]) {
                             sv = '1';
-                            //console.log('k', isi.from, val);
-                            //console.log('b', isi.to, kolom[i]);
                         }
                     }
                 });
@@ -1466,11 +1424,55 @@ function convertListToTable(array) {
     return item;
 }
 
-//function replaceAll(str, find, replace) {
-//    return str.replace(new RegExp(find, 'g'), replace);
-//}
-
 function HasArabicCharacters(text){
     var arregex = /[\u0600-\u06FF]/;
     return arregex.test(text);
+}
+
+function deleteOpsiPg2(e) {
+    $(e).closest('.pg-kompleks').remove();
+
+    var opsi2 = $('#opsi-pg2');
+    const $abjads = opsi2.find('.abjad-pg2')
+
+    $abjads.each(function (index, sp) {
+        $(sp).html('<b>Jawaban '+(index + 10).toString(36).toUpperCase()+'</b>')
+    })
+
+    const $teks = opsi2.find('.textjawaban2');
+    $teks.each(function (index, area) {
+        const abc = (index + 10).toString(36).toLowerCase();
+        $(area).prop('id', 'textjawaban2_'+abc).prop('name', 'jawaban2_'+abc)
+    })
+}
+
+function showEditDialog(el) {
+    valSelected = $(el).closest('.float-right').prev();
+    let dialog = $('#noteModal');
+    let editorCode = $('#edit-dialog');
+    dialog.modal('show')
+    editorCode.summernote('code', valSelected.html())
+}
+
+function simpanValue() {
+    let editorCode = $('#edit-dialog');
+    valSelected.html(editorCode.summernote('code'));
+    $('#noteModal').modal('hide');
+}
+
+function deleteOpsiPg2(e) {
+    $(e).closest('.pg-kompleks').remove();
+
+    var opsi2 = $('#opsi-pg2');
+    const $abjads = opsi2.find('.abjad-pg2')
+
+    $abjads.each(function (index, sp) {
+        $(sp).html('<b>Jawaban '+(index + 10).toString(36).toUpperCase()+'</b>')
+    })
+
+    const $teks = opsi2.find('.textjawaban2');
+    $teks.each(function (index, area) {
+        const abc = (index + 10).toString(36).toLowerCase();
+        $(area).prop('id', 'textjawaban2_'+abc).prop('name', 'jawaban2_'+abc)
+    })
 }

@@ -52,9 +52,15 @@
                                     null,
                                     'id="jadwal" class="form-control"'
                                 ); ?>
+                                <div class="input-group-append w-30">
+                                    <select name="printby" id="printby" class="form-control" style="background-color: #e9ecef;">
+                                        <option value="1" selected="selected">By Ruang</option>
+                                        <option value="2">By Kelas</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 mb-3" id="by-kelas">
+                        <div class="col-12 col-md-6 mb-3 d-none" id="by-kelas">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Kelas</span>
@@ -63,32 +69,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3 d-none mb-3" id="by-ruang">
+                        <div class="col-6 mb-3 col-xl-3 by-ruang">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Ruang</span>
                                 </div>
-                                <?php
-                                echo form_dropdown(
-                                    'ruang',
-                                    $ruang,
-                                    null,
-                                    'id="ruang" class="form-control"'
-                                ); ?>
+                                <select name="ruang" id="ruang" class="form-control"></select>
                             </div>
                         </div>
-                        <div class="col-3 d-none mb-3">
+                        <div class="col-6 mb-3 col-xl-3 by-ruang">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Sesi</span>
                                 </div>
-                                <?php
-                                echo form_dropdown(
-                                    'sesi',
-                                    $sesi,
-                                    null,
-                                    'id="sesi" class="form-control"'
-                                ); ?>
+                                <select name="sesi" id="sesi" class="form-control"></select>
                             </div>
                         </div>
                     </div>
@@ -245,13 +239,14 @@
 </div>
 
 <script>
-    var isAdmin = '<?= $this->ion_auth->is_admin() ?>';
+    const ruangs = JSON.parse('<?=json_encode($ruang)?>');
+    const arrRuang = JSON.parse('<?=json_encode($ruangs)?>');
     var dnone = '<?= $this->ion_auth->is_admin() ? "" : "d-none" ?>';
-    var printBy = 1;
+    var printBy = '1';
     var url = '';
 
     var kelas;
-    var jadwal;
+    var jadwal, ruang, sesi;
 
     function terapkanAksi() {
         const $rows = $('#table-status').find('tr'), headers = $rows.splice(0, 2);
@@ -269,16 +264,16 @@
             const $colForce = $(row).find('.input-force');
             const $colUlang = $(row).find('.input-ulang');
             if ($colReset.prop("checked") === true) {
-                item ["reset"].push(siswa_id + '' + jadwal + '1');
+                item ["reset"].push(siswa_id + '0' + jadwal + '1');
                 //item ["id_logs"].push(siswa_id+''+jadwal);
             }
             if ($colForce.prop("checked") === true) {
-                item ["force"].push(siswa_id + '' + jadwal);
+                item ["force"].push(siswa_id + '0' + jadwal);
                 item ["log"].push(siswa_id);
             }
             if ($colUlang.prop("checked") === true) {
                 item ["ulang"].push(siswa_id);
-                item ["hapus"].push(siswa_id + '' + jadwal);
+                item ["hapus"].push(siswa_id + '0' + jadwal);
             }
         });
 
@@ -290,7 +285,7 @@
         var jmlUlang = item.ulang.length === 0 ? '' : '<b>' + item.ulang.length + '</b> siswa akan mengulang ujian';
 
         if (item.reset.length === 0 && item.force.length === 0 && item.ulang.length === 0) {
-            showWarningToast('Silahkan pilih AKSI');
+            showWarningToast('Silahkan pilih siswa terlebih dulu');
             return;
         }
 
@@ -310,72 +305,11 @@
                     data: dataSiswa,
                     success: function (data) {
                         console.log(data);
-                        url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&jadwal=' + jadwal;
-                        refreshStatus();
-                    }, error: function (xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            }
-        });
-
-    }
-
-    /*
-    function paksaSelesai(id) {
-        var idSiswa = $(`#paksa-${id}`).attr('data-siswa');
-        var idJadwal = $(`#paksa-${id}`).attr('data-jadwal');
-
-        console.log('siswa:' + idSiswa, 'jadwal:' + idJadwal);
-
-        swal.fire({
-            title: "Selesaikan",
-            text: "Paksa selesaikan ujian?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Selesaikan!"
-        }).then(result => {
-            if (result.value) {
-                $.ajax({
-                    url: base_url + "siswa/selesaiujian/" + idSiswa + '/' + idJadwal,
-                    type: 'GET',
-                    success: function (data) {
-                        console.log(data.status);
-                        url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&jadwal=' + jadwal;
-                        refreshStatus();
-                    }, error: function (xhr, status, error) {
-                        console.log('error');
-                    }
-                });
-            }
-        });
-    }
-
-    function ulangiSiswa(id) {
-        var idSiswa = $(`#ulangi-${id}`).attr('data-siswa');
-        var idJadwal = $(`#ulangi-${id}`).attr('data-jadwal');
-        var idBank = $(`#ulangi-${id}`).attr('data-bank');
-
-        console.log('jadwal:' + idSiswa + idJadwal, 'bank:' + idBank);
-
-        swal.fire({
-            title: "Mengulang",
-            text: "Ulangi ujian siswa terpilih?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Ulangi"
-        }).then(result => {
-            if (result.value) {
-                $.ajax({
-                    url: base_url + "siswa/ulangiujian/" + idSiswa + '' + idJadwal + "/" + idBank,
-                    type: 'GET',
-                    success: function (data) {
-                        console.log(data);
-                        url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&jadwal=' + jadwal;
+                        if (printBy === '1') {
+                            url = base_url + "cbtstatus/getsiswaruang?ruang=" + ruang + '&sesi=' + sesi + '&jadwal=' + jadwal;
+                        } else {
+                            url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&jadwal=' + jadwal;
+                        }
                         refreshStatus();
                     }, error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -384,7 +318,6 @@
             }
         });
     }
-     */
 
     function refreshStatus() {
         $('#loading').removeClass('d-none');
@@ -401,13 +334,14 @@
     }
 
     function createPreview(data) {
-        var tbody = '<thead class="alert-primary">' +
+        var tbody = '<thead class="alert-light">' +
             '<tr>' +
             '<th rowspan="2" class="text-center align-middle" width="40">No.</th>' +
             '<th rowspan="2" class="text-center align-middle" width="100">No. Peserta</th>' +
             '<th rowspan="2" class="text-center align-middle">Nama</th>' +
-            '<th rowspan="2" class="text-center align-middle">Ruang</th>' +
+            '<th rowspan="2" class="text-center align-middle">Kelas</th>' +
             '<th rowspan="2" class="text-center align-middle">Sesi</th>' +
+            '<th rowspan="2" class="text-center align-middle">Ruang</th>' +
             '<th colspan="2" class="text-center align-middle">Status</th>' +
             '<th rowspan="2" class="text-center align-middle ' + dnone + '">Reset<br>Waktu</th>' +
             '<th colspan="3" class="text-center align-middle ' + dnone + '">Aksi</th>' +
@@ -415,29 +349,14 @@
             '<tr>' +
             '<th class="text-center align-middle p-1">Mulai</th>' +
             '<th class="text-center align-middle">Durasi</th>' +
-            '<th class="text-center align-middle ' + dnone + '">Reset<br>Izin</th>' +
-            '<th class="text-center align-middle ' + dnone + '">Paksa<br>Selesai</th>' +
-            '<th class="text-center align-middle ' + dnone + '">Ulang</th>' +
+            '<th class="text-center align-middle ' + dnone + '">Reset<br>Izin<br><input id="input-reset-all" class="check" type="checkbox"></th>' +
+            '<th class="text-center align-middle ' + dnone + '">Paksa<br>Selesai<br><input id="input-force-all" class="check" type="checkbox"></th>' +
+            '<th class="text-center align-middle ' + dnone + '">Ulang<br><input id="input-ulang-all" class="check" type="checkbox"></th>' +
             '</tr></thead><tbody>';
 
         for (let i = 0; i < data.siswa.length; i++) {
             var idSiswa = data.siswa[i].id_siswa;
             var durasi = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.lama_ujian : ' - -';
-
-            /*
-            var jawaban = data.durasi[idSiswa].jawab;
-            var benar = 0;
-            var salah = 0;
-            for (let j = 0; j < jawaban.length; j++) {
-                if (jawaban[j] != null && jawaban[j].jawaban_siswa != null) {
-                    if (jawaban[j].jawaban_siswa.toUpperCase() === jawaban[j].jawaban_benar.toUpperCase()) {
-                        benar += 1;
-                    } else {
-                        salah += 1;
-                    }
-                }
-            }
-            */
 
             var logging = data.durasi[idSiswa].log;
             var mulai = '- -  :  - -';
@@ -459,7 +378,6 @@
                 }
             }
 
-            //var reset = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.reset : '0';
             var belumUjian = data.durasi[idSiswa].dur == null;
             var sudahSelesai = !belumUjian && data.durasi[idSiswa].dur.selesai != null;
             var loading = belumUjian ? '' : (sudahSelesai ? "" : '<i class="fa fa-spinner fa-spin mr-2"></i>');
@@ -470,13 +388,15 @@
 
             var sesi = data.siswa[i].kode_sesi;
             var ruang = data.siswa[i].kode_ruang;
+            var kelas = data.siswa[i].kode_kelas;
 
             tbody += '<tr data-id="' + idSiswa + '">' +
                 '<td class="text-center align-middle">' + (i + 1) + '</td>' +
                 '<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
                 '<td class="align-middle">' + data.siswa[i].nama + '</td>' +
-                '<td class="text-center align-middle">' + ruang + '</td>' +
+                '<td class="text-center align-middle">' + kelas + '</td>' +
                 '<td class="text-center align-middle">' + sesi + '</td>' +
+                '<td class="text-center align-middle">' + ruang + '</td>' +
                 '<td class="text-center align-middle">' + mulai + '</td>' +
                 '<td class="text-center align-middle">' + loading + durasi + '</td>' +
                 '<td class="text-center align-middle '+dnone+'">' +
@@ -514,21 +434,70 @@
             '<b>' + (parseInt(data.info.tampil_pg) + parseInt(data.info.tampil_kompleks) +
                 parseInt(data.info.tampil_jodohkan) + parseInt(data.info.tampil_isian) +
                 parseInt(data.info.tampil_esai)) + '</b>' +
-            '</div>' +
-            '<div class="col-4">Pengawas</div>' +
-            '<div class="col-8">' +
-            '<b>' + data.info.nama_guru + '</b>' +
-            '</div>' +
             '</div>';
 
         $('#info-ujian').html(infoJadwal);
         $('#loading').addClass('d-none');
+
+        $("#input-reset-all").on("click", function () {
+            if (this.checked) {
+                $(".input-reset").each(function () {
+                    if (!$(this).prop('disabled')) {
+                        this.checked = true;
+                    }
+                    $("#input-reset-all").prop("checked", true);
+                });
+            } else {
+                $(".input-reset").each(function () {
+                    if (!$(this).prop('disabled')) {
+                        this.checked = false;
+                    }
+                    $("#input-reset-all").prop("checked", false);
+                });
+            }
+        });
+
+        $("#input-force-all").on("click", function () {
+            if (this.checked) {
+                $(".input-force").each(function () {
+                    if (!$(this).prop('disabled')) {
+                        this.checked = true;
+                    }
+                    $("#input-force-all").prop("checked", true);
+                });
+            } else {
+                $(".input-force").each(function () {
+                    if (!$(this).prop('disabled')) {
+                        this.checked = false;
+                    }
+                    $("#input-force-all").prop("checked", false);
+                });
+            }
+        });
+
+        $("#input-ulang-all").on("click", function () {
+            if (this.checked) {
+                $(".input-ulang").each(function () {
+                    if (!$(this).prop('disabled')) {
+                        this.checked = true;
+                    }
+                    $("#input-ulang-all").prop("checked", true);
+                });
+            } else {
+                $(".input-ulang").each(function () {
+                    if (!$(this).prop('disabled')) {
+                        this.checked = false;
+                    }
+                    $("#input-ulang-all").prop("checked", false);
+                });
+            }
+        });
     }
 
-    function getDetailJadwal(idJadwal, hari) {
+    function getDetailJadwal(idJadwal) {
         $.ajax({
             type: "GET",
-            url: base_url + "cbtstatus/getjadwalujianbyjadwal?id_jadwal=" + idJadwal + "&hari=" + hari,
+            url: base_url + "cbtstatus/getjadwalujianbyjadwal?id_jadwal=" + idJadwal,
             cache: false,
             success: function (response) {
                 console.log(response);
@@ -547,7 +516,7 @@
     $(document).ready(function () {
         ajaxcsrf();
 
-        var opsiHari = $("#hari");
+        var opsiPrintBy = $("#printby");
         var opsiJadwal = $("#jadwal");
         var opsiRuang = $("#ruang");
         var opsiSesi = $("#sesi");
@@ -560,7 +529,6 @@
 
         function loadSiswaRuang(ruang, sesi, jadwal) {
             var empty = ruang === '' || sesi === '' || jadwal === '';
-            //var empty = ruang === '' || jadwal === '';
             if (!empty) {
                 url = base_url + "cbtstatus/getsiswaruang?ruang=" + ruang + '&sesi=' + sesi + '&jadwal=' + jadwal;
                 refreshStatus();
@@ -572,13 +540,33 @@
         function loadSiswaKelas(kelas, jadwal) {
             var empty = kelas === '' || jadwal === '';
             if (!empty) {
-                //url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&sesi=' + sesi + '&jadwal=' + jadwal;
                 url = base_url + "cbtstatus/getsiswakelas?kelas=" + kelas + '&jadwal=' + jadwal;
                 refreshStatus();
             } else {
                 console.log('empty')
             }
         }
+
+        opsiPrintBy.change(function () {
+            printBy = $(this).val();
+            if (printBy === '1') {
+                $('#by-kelas').addClass('d-none');
+                $('.by-ruang').removeClass('d-none');
+            } else {
+                $('#by-kelas').removeClass('d-none');
+                $('.by-ruang').addClass('d-none');
+            }
+        });
+
+        opsiJadwal.change(function () {
+            getDetailJadwal($(this).val());
+            opsiRuang.html("<option value='' selected='selected'>Pilih Ruang</option>");
+            if ($(this).val()) {
+                $.each(arrRuang, function (k, v) {
+                    opsiRuang.append("<option value='"+k+"'>"+ruangs[k]+"</option>");
+                })
+            }
+        });
 
         opsiKelas.change(function () {
             kelas = $(this).val();
@@ -587,32 +575,20 @@
         });
 
         opsiRuang.change(function () {
-            loadSiswaRuang($(this).val(), opsiSesi.val(), opsiJadwal.val())
-        });
-
-        opsiJadwal.change(function () {
-            getDetailJadwal($(this).val(), opsiHari.val());
-            /*
-            if (printBy === 1) {
-                loadSiswaKelas(opsiKelas.val(), opsiSesi.val(), $(this).val())
-            } else {
-                loadSiswaRuang(opsiRuang.val(), opsiSesi.val(), $(this).val())
-            }*/
-        });
-
-        $('#selector button').click(function () {
-            $(this).addClass('active').siblings().addClass('btn-outline-primary').removeClass('active btn-primary');
-
-            if (!$('#by-kelas').is(':hidden')) {
-                $('#by-kelas').addClass('d-none');
-                $('#by-ruang').removeClass('d-none');
-                printBy = 2;
-            } else {
-                $('#by-kelas').removeClass('d-none');
-                $('#by-ruang').addClass('d-none');
-                printBy = 1;
+            opsiSesi.html("<option value='' selected='selected'>Pilih Sesi</option>");
+            if ($(this).val()) {
+                $.each(arrRuang[$(this).val()], function (k, v) {
+                    opsiSesi.append("<option value='"+k+"'>"+v.nama_sesi+"</option>");
+                })
             }
         });
+
+        opsiSesi.change(function () {
+            sesi = $(this).val();
+            ruang = opsiRuang.val();
+            jadwal = opsiJadwal.val();
+            loadSiswaRuang(ruang, $(this).val(), jadwal)
+        })
 
         var idSiswa = '';
         var idJadwal = '';
@@ -645,30 +621,6 @@
                 }
             });
         });
-
-        if (!isAdmin) {
-            $('#kolom-kanan').html('<button class="btn btn-default" id="refresh-token"><i class="fa fa-refresh"></i> </button>');
-
-            getToken(function (result) {
-                getGlobalToken();
-            });
-
-            $('#refresh-token').click(function () {
-                getToken(function (result) {
-                    getGlobalToken();
-                });
-            });
-
-            function getGlobalToken() {
-                if (globalToken != null) {
-                    const viewToken = $('#token-input');
-                    if (viewToken.length) viewToken.val(globalToken.token);
-                    if (globalToken.auto == '1' && adaJadwalUjian != '0') {
-                        $('#refresh-token').removeClass('d-none')
-                    }
-                }
-            }
-        }
     });
 
 </script>

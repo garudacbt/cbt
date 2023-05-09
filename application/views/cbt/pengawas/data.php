@@ -53,8 +53,8 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center align-middle">Hari / Tanggal</th>
-                                    <th class="text-center align-middle">Ruang</th>
                                     <th class="text-center align-middle">Sesi</th>
+                                    <th class="text-center align-middle">Ruang</th>
                                     <!--
                                     <th class="text-center align-middle">Kelas Peserta</th>
                                     -->
@@ -86,8 +86,8 @@
                                             ?>
                                             <tr>
                                                 <td class="text-center align-middle"><?= buat_tanggal(date('D, d M Y', strtotime($jadwal[0]->tgl_mulai))) ?></td>
-                                                <td class="text-center align-middle"><?= $sesi->nama_ruang ?></td>
                                                 <td class="text-center align-middle"><?= $sesi->nama_sesi ?></td>
+                                                <td class="text-center align-middle"><?= $sesi->nama_ruang ?></td>
                                                 <td class="text-center align-middle jadwal"
                                                     data-ruang="<?=$ruang?>" data-sesi="<?=$sesi->sesi_id?>"
                                                     data-id="[<?= implode(',', $listIdJad) ?>]"><?= $jadwal[0]->nama_mapel ?></td>
