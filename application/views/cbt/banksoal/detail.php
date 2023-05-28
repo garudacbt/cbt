@@ -1346,7 +1346,7 @@
         var $imgs = $('img');
         $.each($imgs, function () {
             var curSrc = $(this).attr('src');
-            if (curSrc.indexOf("base64") > 0) {
+            if (curSrc.indexOf("base64") > 0 || !curSrc.includes("uploads")) {
             } else {
                 var forReplace = curSrc.split(pathUpload);
                 $(this).attr('src', base_url + pathUpload + forReplace[1]);
@@ -1355,7 +1355,7 @@
 
         $.each($(`video`), function () {
             var curSrc = $(this).attr('src');
-            if (curSrc.indexOf("base64") > 0) {
+            if (curSrc.indexOf("base64") > 0 || !curSrc.includes("uploads")) {
             } else {
                 var forReplace = curSrc.split(pathUpload);
                 $(this).attr('src', base_url + pathUpload + forReplace[1]);
@@ -1364,7 +1364,7 @@
 
         $.each($(`audio`), function () {
             var curSrc = $(this).attr('src');
-            if (curSrc.indexOf("base64") > 0) {
+            if (curSrc.indexOf("base64") > 0 || !curSrc.includes("uploads")) {
             } else {
                 var forReplace = curSrc.split(pathUpload);
                 $(this).attr('src', base_url + pathUpload + forReplace[1]);

@@ -678,12 +678,13 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                     var sSoal = $($.parseHTML(checkSoal));
                     sSoal.find(`img`).each(function () {
                         var curSrc = $(this).attr('src');
-                        if (curSrc.indexOf("base64") > 0) {
+                        if (curSrc.indexOf("base64") > 0 || !curSrc.includes("uploads")) {
                         } else {
                             var pathUpload = 'uploads';
                             var forReplace = curSrc.split(pathUpload);
                             $(this).attr('src', base_url + pathUpload + forReplace[1]);
                         }
+						$(this).removeAttr('alt');
                     });
 
                     sSoal.find(`video`).each(function () {
@@ -716,8 +717,9 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                             var chekJawaban = arrJawaban[i] == null ? '' : arrJawaban[i];
                             var sJawabPg = $($.parseHTML(chekJawaban));
                             sJawabPg.find(`img`).each(function () {
+								$(this).removeAttr('alt');
                                 var curSrc = $(this).attr('src');
-                                if (curSrc.indexOf("base64") > 0) {
+                                if (curSrc.indexOf("base64") > 0 || !curSrc.includes("uploads")) {
                                 } else {
                                     var pathUpload = 'uploads';
                                     var forReplace = curSrc.split(pathUpload);
@@ -742,7 +744,7 @@ function getSoalById(id_bank, number, id, jenis_soal) {
                                 var pv = $($.parseHTML(v));
                                 pv.find(`img`).each(function () {
                                     var curSrc = $(this).attr('src');
-                                    if (curSrc.indexOf("base64") > 0) {
+                                    if (curSrc.indexOf("base64") > 0 || !curSrc.includes("uploads")) {
                                     } else {
                                         var pathUpload = 'uploads';
                                         var forReplace = curSrc.split(pathUpload);

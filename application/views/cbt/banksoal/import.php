@@ -120,9 +120,13 @@
         var file = files[0];
         console.time();
         var reader = new FileReader();
+
+        var options = {
+            styleMap: ["u => u", "strike => del"]
+        };
         reader.onloadend = function (event) {
             var arrayBuffer = reader.result;
-            mammoth.convertToHtml({arrayBuffer: arrayBuffer}).then(function (resultObject) {
+            mammoth.convertToHtml({arrayBuffer: arrayBuffer}, options).then(function (resultObject) {
                 $(showDiv).html(resultObject.value);
                 setTimeout(function () {
                     $('#file-preview').children().not("table").remove();
@@ -220,8 +224,8 @@
                     var attrId = document.getElementById("formInput");
                     attrId.setAttribute("value", bank_id);
                     swal.close();
-                }, 500);
 
+                }, 500);
             });
         };
         reader.readAsArrayBuffer(file);
@@ -319,9 +323,9 @@
                     if (items.length === 9) {
                         no3 = $(items[0]).text().trim();
 
-                        var kd_baris = $(items[3]).text().trim();
-                        var kd_kolom = $(items[5]).text().trim();
-                        var kd_kunci = $(items[7]).text().trim();
+                        var kd_baris = $(items[3]).text().trim().toUpperCase();
+                        var kd_kolom = $(items[5]).text().trim().toUpperCase();
+                        var kd_kunci = $(items[7]).text().trim().toUpperCase();
                         $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
                             '[' + no3 + '][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
@@ -337,15 +341,15 @@
                                 '[' + no3 + '][kolom][' + kd_kolom + ']" value="' + klm + '">');
                         }
 
-                        var kncs = $(items[8]).text().trim();
+                        var kncs = $(items[8]).text().trim().toUpperCase();
                         if (kncs != "") {
                             $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
                                 '[' + no3 + '][kunci][' + kd_kunci + ']" value="' + kncs + '">');
                         }
                     } else {
-                        var kd_baris1 = $(items[0]).text().trim();
-                        var kd_kolom1 = $(items[2]).text().trim();
-                        var kd_kunci1 = $(items[4]).text().trim();
+                        var kd_baris1 = $(items[0]).text().trim().toUpperCase();
+                        var kd_kolom1 = $(items[2]).text().trim().toUpperCase();
+                        var kd_kunci1 = $(items[4]).text().trim().toUpperCase();
 
                         var brs1 = $(items[1]).text().trim();
                         if (brs1 != "") {
@@ -359,7 +363,7 @@
                                 '[' + no3 + '][kolom][' + kd_kolom1 + ']" value="' + klm1 + '">');
                         }
 
-                        var kncs1 = $(items[5]).text().trim();
+                        var kncs1 = $(items[5]).text().trim().toUpperCase();
                         if (kncs1 != "") {
                             $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
                                 '[' + no3 + '][kunci][' + kd_kunci1 + ']" value="' + kncs1 + '">');

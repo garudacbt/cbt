@@ -176,6 +176,8 @@
     const durasiUjian = Number(infoJadwal.durasi_ujian);
     let dif;
     let fieldLinks;
+    let zoomClicked = 3;
+    var arrSize = [];
 
     $(document).ready(function () {
         $(document).keydown(function (event) {
@@ -225,23 +227,32 @@
         });
 
         $("#plus").click(function () {
-            $(".konten-soal-jawab").find('*').each(function () {
+            if (zoomClicked > 20) return;
+            $(".konten-soal-jawab").find('*').not('.img-fluid').each(function (idx, v) {
+                console.log(idx, parseInt($(v).css("font-size")));
                 var size = parseInt($(this).css("font-size"));
-                if (size < 30) {
-                    size = (size + 1) + "px";
-                    $(this).css({'font-size': size});
-                }
+                size = (size + 1) + "px";
+                $(this).css({'font-size': size});
             });
+            $('.img-fluid').each(function () {
+                var currWidth = parseInt($(this).css('width'));
+                $(this).css('width', (currWidth + 20) + 'px');
+            });
+            zoomClicked +=1;
         });
 
         $("#minus").click(function () {
-            $(".konten-soal-jawab").find('*').each(function () {
+            if (zoomClicked <= 0) return;
+            $(".konten-soal-jawab").find('*').not('.img-fluid').each(function () {
                 var size = parseInt($(this).css("font-size"));
-                if (size > 12) {
-                    size = (size - 1) + "px";
-                    $(this).css({'font-size': size});
-                }
+                size = (size - 1) + "px";
+                $(this).css({'font-size': size});
             });
+            $('.img-fluid').each(function () {
+                var currWidth = parseInt($(this).css('width'));
+                $(this).css('width', (currWidth - 20) + 'px');
+            });
+            zoomClicked -=1;
         });
 
         loadSoalNomor(1);
@@ -437,6 +448,7 @@
         var $imgs = $('.konten-soal-jawab').find('img');
         $.each($imgs, function () {
             var curSrc = $(this).attr('src');
+            if (!curSrc.includes("uploads")) return;
             var newSrc = '';
             if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
                 newSrc = base_url + curSrc;
@@ -446,6 +458,7 @@
                 var forReplace = curSrc.split(pathUpload);
                 newSrc = base_url + pathUpload + forReplace[1];
                 $(this).attr('src', newSrc);
+				$(this).removeAttr('alt');
             }
             $(this).on('load', function () {
                 if ($(this).height() > 50) {
@@ -507,6 +520,8 @@
                 txtnext.html('<b>Soal Berikutnya</b>');
             }
         }
+
+        arrSize = [];
     }
 
     function setElapsed(durasi) {

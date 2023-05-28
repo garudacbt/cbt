@@ -133,13 +133,12 @@ $allBanksIds = [];
                                     $no = 1;
                                     foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank): ?>
                                         <?php
-                                        $jk = json_decode(json_encode($bank->bank_kelas));
-                                        $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+					$jk = json_decode(json_encode($bank->bank_kelas));                                     $data = @unserialize($jk);
+                                        $jumlahKelas = json_decode(json_encode($data));
                                         $jks = [];
-
-                                        $kelasbank = '';
-                                        foreach ($jumlahKelas as $j) {
-                                            foreach ($kelas as $k) {
+					$kelasbank = '';
+                                        foreach ((array)$jumlahKelas as $j) { 
+                                        foreach ($kelas as $k) {
                                                 if ((isset($j->kelas_id) && isset($k->id_kelas)) && $j->kelas_id === $k->id_kelas) {
                                                     $kelasbank .= '<span class="badge badge-btn badge-primary">' . $k->nama_kelas . '</span> ';
                                                 }

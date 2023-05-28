@@ -162,8 +162,8 @@
                                                     <br>
                                                     <br>
                                                     <br>
-                                                    <br>
-                                                    <span id="prev-kepsek"><?= $setting->kepsek ?></span>
+                                                    <span id="prev-kepsek"><u><?= $setting->kepsek ?></u></span>
+                                                    <p id="prev-nip" style="margin-top: 4px; margin-bottom: 4px">NIP: <?= $setting_rapor != null && $setting_rapor->nip_kepsek == '1' ? $setting->nip : '-' ?></p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -261,8 +261,12 @@
     var logoKiri = '<?=base_url() . $setting->logo_kiri?>';
     var tandatangan = '<?=base_url() . $setting->tanda_tangan?>';
     var kepsek = '<?= $setting->kepsek ?>';
+    var nip = '<?= $setting->nip ?>';
     var satuanPend = '<?= $setting->satuan_pendidikan ?>' === '2' ? 'Madrasah' : 'Sekolah';
     var printBy = 1;
+
+    var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($setting_rapor) ?>));
+    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? nip : ' -';
 
     function submitKartu() {
         $('#set-kartu').submit();
@@ -287,7 +291,7 @@
             var pages = Math.round(bagi2 / 4);
             //console.log('pages', pages);
             for (let a = 0; a < pages; a++) {
-                var card = '<div class="border my-shadow mb-3 pt-4 bg-white"><div class="pt-4" ' +
+                var card = '<div class="border my-shadow mb-3 pt-3 bg-white"><div class="pt-4" ' +
                     'style="display: flex;-webkit-justify-content: center;justify-content: center;background: white;width: 210mm; height: 297mm;padding: 1mm">';
 
                 var tds = [];
@@ -314,8 +318,8 @@
                         '<img id="prev-logo-kiri-print" src="' + logoKiri + '" style="width:55px; height:55px; margin-left: 6px; margin-right: 6px; margin-top:4px;">' +
                         '</td>' +
                         '<td style="width:60%; text-align: center;">' +
-                        '<div style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 9pt">' + oldVal1 + '</div>' +
-                        '<div class="text-center" style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 10pt"><b>' + oldVal2 + '</b></div>' +
+                        '<div style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal1 + '</div>' +
+                        '<div class="text-center" style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 9pt"><b>' + oldVal2 + '</b></div>' +
                         '<div class="text-center" style="line-height: 1.2; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal3 + '</div>' +
                         '<div class="text-center" style="line-height: 1.2; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal4 + '</div>' +
                         '</td>' +
@@ -374,8 +378,8 @@
                         '<br>' +
                         '<br>' +
                         '<br>' +
-                        '<br>' +
                         '<span>' + kepsek + '</span>' +
+                        '<p id="prev-nip" style="margin-top: 4px; margin-bottom: 4px">NIP: '+nipKepsek+'</p>' +
                         '</div>' +
                         '</td>' +
                         '</tr>' +
@@ -398,7 +402,7 @@
                 konten += card + '<div style="page-break-after: always"></div>';
             }
         } else {
-            var card = '<div class="border my-shadow mb-3 pt-4 bg-white"><div class="pt-4" ' +
+            var card = '<div class="border my-shadow mb-3 pt-3 bg-white"><div class="pt-4" ' +
                 'style="display: flex;-webkit-justify-content: flex-start;justify-content: flex-start; align-items: start;background: white;width: 210mm; height: 297mm;padding: 1mm">';
             var tds = [];
             for (let i = 0; i < data.length; i++) {
@@ -417,8 +421,8 @@
                     '<img id="prev-logo-kiri-print" src="' + logoKiri + '" style="width:55px; height:55px; margin-left: 6px; margin-right: 6px; margin-top:4px;">' +
                     '</td>' +
                     '<td style="width:60%; text-align: center;">' +
-                    '<div style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 9pt">' + oldVal1 + '</div>' +
-                    '<div class="text-center" style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 10pt"><b>' + oldVal2 + '</b></div>' +
+                    '<div style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal1 + '</div>' +
+                    '<div class="text-center" style="line-height: 1.1; font-family: \'Times New Roman\'; font-size: 9pt"><b>' + oldVal2 + '</b></div>' +
                     '<div class="text-center" style="line-height: 1.2; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal3 + '</div>' +
                     '<div class="text-center" style="line-height: 1.2; font-family: \'Times New Roman\'; font-size: 8pt">' + oldVal4 + '</div>' +
                     '</td>' +
@@ -477,8 +481,8 @@
                     '<br>' +
                     '<br>' +
                     '<br>' +
-                    '<br>' +
                     '<span>' + kepsek + '</span>' +
+                    '<p id="prev-nip" style="margin-top: 4px; margin-bottom: 4px">NIP: '+nipKepsek+'</p>' +
                     '</div>' +
                     '</td>' +
                     '</tr>' +
