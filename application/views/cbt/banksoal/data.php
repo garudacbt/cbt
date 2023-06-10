@@ -62,55 +62,60 @@ $allBanksIds = [];
                     <hr>
                     <div class="row" id="row-filter">
                         <div class="col-12 col-md-6">
-                            <div class="alert alert-default-info">
-                                <div class="row">
-                                    <span>Filter: </span>
-                                    <div class="col-4">
+                            <table class="w-100">
+                                <tr>
+                                    <td class="pr-2 text-bold">Filter:</td>
+                                    <td>
                                         <?php echo form_dropdown(
                                             'f',
                                             $filters,
                                             $id_filter,
                                             'id="filter" class="form-control"'
                                         ); ?>
-                                    </div>
-                                    <div id="select-guru" class="col-6 d-none">
+                                    </td>
+                                    <td id="select-guru" class="d-none">
                                         <?php echo form_dropdown(
                                             'guru',
                                             $gurus,
                                             $id_guru,
                                             'id="guru" class="sel form-control"'
                                         ); ?>
-                                    </div>
-                                    <div id="select-mapel" class="col-6 d-none">
+                                    </td>
+                                    <td id="select-mapel" class="d-none">
                                         <?php echo form_dropdown(
                                             'mapel',
                                             $mapels,
                                             $id_mapel,
                                             'id="mapel" class="sel form-control"'
                                         ); ?>
-                                    </div>
-                                    <div id="select-level" class="col-6 d-none">
+                                    </td>
+                                    <td id="select-level" class="d-none">
                                         <?php echo form_dropdown(
                                             'level',
                                             $levels,
                                             $id_level,
                                             'id="level" class="sel form-control"'
                                         ); ?>
-                                    </div>
-                                </div>
-                            </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                         <div class="col-12 col-md-6">
-                            <div class="alert alert-default-danger">
-                                <?= form_open('', array('id' => 'hapus_semua')) ?>
-                                <input style="width: 28px; height: 28px" class="check-all" id="check-all"
-                                       type="checkbox">
-                                <label for="check-all" class="align-middle">All</label>
-                                <button type="submit" class="btn btn-danger float-right">
-                                    <i class="far fa-trash-alt"></i> Hapus Bank Soal terpilih
-                                </button>
-                                <?= form_close() ?>
-                            </div>
+                            <?= form_open('', array('id' => 'hapus_semua')) ?>
+                            <table class="table table-borderless table-sm">
+                                <tr>
+                                    <td class="align-middle text-right">
+                                        <button id="submit-hapus" type="submit" class="btn btn-danger" disabled>
+                                            <i class="far fa-trash-alt"></i> Hapus Bank Soal terpilih
+                                        </button>
+                                    </td>
+                                    <td class="align-middle text-center" style="width: 30px">
+                                        <input style="width: 20px; height: 20px" class="check-all" id="check-all"
+                                               type="checkbox">
+                                    </td>
+                                </tr>
+                            </table>
+                            <?= form_close() ?>
                         </div>
                     </div>
                     <div class="row" id="konten">
@@ -120,12 +125,12 @@ $allBanksIds = [];
                                 <table class="w-100 table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th class="text-center align-middle p-0" style="width: 50px"></th>
                                         <th class="text-center align-middle p-0">No.</th>
                                         <th>Kode</th>
                                         <th>Mapel</th>
                                         <th>Kelas</th>
                                         <th class="text-center align-middle p-0"><span>Aksi</span></th>
+                                        <th class="text-center align-middle p-0" style="width: 50px"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -133,12 +138,13 @@ $allBanksIds = [];
                                     $no = 1;
                                     foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank): ?>
                                         <?php
-					$jk = json_decode(json_encode($bank->bank_kelas));                                     $data = @unserialize($jk);
+                                        $jk = json_decode(json_encode($bank->bank_kelas));
+                                        $data = @unserialize($jk);
                                         $jumlahKelas = json_decode(json_encode($data));
                                         $jks = [];
-					$kelasbank = '';
-                                        foreach ((array)$jumlahKelas as $j) { 
-                                        foreach ($kelas as $k) {
+                                        $kelasbank = '';
+                                        foreach ((array)$jumlahKelas as $j) {
+                                            foreach ($kelas as $k) {
                                                 if ((isset($j->kelas_id) && isset($k->id_kelas)) && $j->kelas_id === $k->id_kelas) {
                                                     $kelasbank .= '<span class="badge badge-btn badge-primary">' . $k->nama_kelas . '</span> ';
                                                 }
@@ -157,11 +163,6 @@ $allBanksIds = [];
                                         }
                                         ?>
                                         <tr>
-                                            <td class="text-center align-middle">
-                                                <input name="checked[]" value="<?= $bank->id_bank ?>"
-                                                       class="check-bank" type="checkbox"
-                                                       style="width: 20px;height: 20px">
-                                            </td>
                                             <td class="text-center align-middle"><?= $no ?></td>
                                             <td class="align-middle">
                                                 <i class="fas fa-square text-lg mr-1 <?= $bgRandom ?>"></i><?= $bank->bank_kode ?>
@@ -171,19 +172,19 @@ $allBanksIds = [];
                                             <td class="text-center w-auto">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"
-                                                       href="<?=$disable_edit == ''
+                                                       href="<?= $disable_edit == ''
                                                            ? base_url('cbtbanksoal/editBank?id_bank='
                                                                . $bank->id_bank . '&id_guru='
-                                                               . $bank->id_guru) : 'javascript:void(0)'?>"
-                                                       class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>"
-                                                       style="<?=$disable_edit == '' ? '' : 'cursor: not-allowed'?>">
+                                                               . $bank->id_guru) : 'javascript:void(0)' ?>"
+                                                       class="btn btn-warning btn-sm mb-1 <?= $disable_edit ?>"
+                                                       style="<?= $disable_edit == '' ? '' : 'cursor: not-allowed' ?>">
                                                        <i class="fa fa-pencil-alt"></i></a>
                                                 </span>
                                                 <span data-toggle="tooltip" title="Import Soal">
                                                     <button data-total="<?= $bank->total_soal ?>"
-                                                       data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                                       type="button" <?=$disable_edit == '' ? '' : 'disabled'?>
-                                                            class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>">
+                                                            data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
+                                                            type="button" <?= $disable_edit == '' ? '' : 'disabled' ?>
+                                                            class="btn btn-warning btn-sm mb-1 <?= $disable_edit ?>">
                                                         <i class="fas fa-upload"></i> Import</button>
                                                 </span>
                                                 <span data-toggle="tooltip" title="Detail/Buat Soal">
@@ -204,6 +205,11 @@ $allBanksIds = [];
                                                         class="btn btn-primary btn-sm mb-1">
                                                     <i class="fas fa-download"></i>
                                                 </button>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <input name="checked[]" value="<?= $bank->id_bank ?>"
+                                                       class="check-bank" type="checkbox"
+                                                       style="width: 20px;height: 20px">
                                             </td>
                                         </tr>
                                         <?php
@@ -267,19 +273,19 @@ $allBanksIds = [];
                                             <td class="align-middle">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"
-                                                       href="<?=$disable_edit == ''
+                                                       href="<?= $disable_edit == ''
                                                            ? base_url('cbtbanksoal/editBank?id_bank='
                                                                . $bank->id_bank . '&id_guru='
-                                                               . $bank->id_guru) : 'javascript:void(0)'?>"
-                                                       class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>"
-                                                       style="<?=$disable_edit == '' ? '' : 'cursor: not-allowed'?>">
+                                                               . $bank->id_guru) : 'javascript:void(0)' ?>"
+                                                       class="btn btn-warning btn-sm mb-1 <?= $disable_edit ?>"
+                                                       style="<?= $disable_edit == '' ? '' : 'cursor: not-allowed' ?>">
                                                        <i class="fa fa-pencil-alt"></i></a>
                                                 </span>
                                                 <span data-toggle="tooltip" title="Import Soal">
                                                     <button data-total="<?= $bank->total_soal ?>"
                                                             data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                                            type="button" <?=$disable_edit == '' ? '' : 'disabled'?>
-                                                            class="btn btn-warning btn-sm mb-1 <?=$disable_edit?>">
+                                                            type="button" <?= $disable_edit == '' ? '' : 'disabled' ?>
+                                                            class="btn btn-warning btn-sm mb-1 <?= $disable_edit ?>">
                                                         <i class="fas fa-upload"></i> Import Soal</button>
                                                 </span>
 
@@ -312,9 +318,23 @@ $allBanksIds = [];
                                 </table>
                             <?php else: ?>
                                 <div class="col-12 p-0">
+                                    <?php
+                                    if ($id_filter == '') :?>
+                                        <div class="alert alert-default-warning align-content-center pb-0" role="alert">
+                                            <ul>
+                                                <li>
+                                                    Silakan pilih <b>Filter</b> untuk menampilkan BANK SOAL
+                                                </li>
+                                                <li>
+                                                    Memilih filter <b>SEMUA</b> mungkin akan memakan waktu <span class="text-danger text-bold">lebih lama</span>.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    <?php else: ?>
                                     <div class="alert alert-default-warning align-content-center" role="alert">
                                         Belum ada BANK SOAL
                                     </div>
+                                    <?php endif; ?>
                                 </div>
                             <?php endif;
                         else:
@@ -339,12 +359,12 @@ $allBanksIds = [];
                                                 <div class="card-tools">
 
                                         <span data-toggle="tooltip" title="Edit Bank Soal">
-                                                    <a href="<?=$disable_edit == ''
+                                                    <a href="<?= $disable_edit == ''
                                                         ? base_url('cbtbanksoal/editBank?id_bank='
                                                             . $bank->id_bank . '&id_guru='
-                                                            . $bank->id_guru) : 'javascript:void(0)'?>"
-                                                       class="btn btn-default mr-1 <?=$disable_edit?>"
-                                                       style="<?=$disable_edit == '' ? '' : 'cursor: not-allowed'?>">
+                                                            . $bank->id_guru) : 'javascript:void(0)' ?>"
+                                                       class="btn btn-default mr-1 <?= $disable_edit ?>"
+                                                       style="<?= $disable_edit == '' ? '' : 'cursor: not-allowed' ?>">
                                                        <i class="fa fa-pencil-alt"></i></a>
                                                 </span>
                                                     <button class="btn btn-default">
@@ -404,8 +424,8 @@ $allBanksIds = [];
                                         <span class="col-6 text-left" data-toggle="tooltip" title="Buat Soal">
                                                     <button data-total="<?= $bank->total_soal ?>"
                                                             data-id="<?= $bank->id_bank ?>" onclick="importSoal(this)"
-                                                            type="button" <?=$disable_edit == '' ? '' : 'disabled'?>
-                                                            class="btn btn-warning <?=$disable_edit?>">
+                                                            type="button" <?= $disable_edit == '' ? '' : 'disabled' ?>
+                                                            class="btn btn-warning <?= $disable_edit ?>">
                                                         <i class="fas fa-upload"></i> Import Soal</button>
 										</span>
 
@@ -549,9 +569,23 @@ $allBanksIds = [];
                                 <?php endforeach;
                             else: ?>
                                 <div class="col-12 p-0">
+                                <?php
+                                if ($id_filter == '') :?>
+                                    <div class="alert alert-default-warning align-content-center pb-0" role="alert">
+                                        <ul>
+                                            <li>
+                                                Silakan pilih <b>Filter</b> untuk menampilkan BANK SOAL
+                                            </li>
+                                            <li>
+                                                Memilih filter <b>SEMUA</b> mungkin akan memakan waktu <span class="text-danger text-bold">lebih lama</span>.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php else: ?>
                                     <div class="alert alert-default-warning align-content-center" role="alert">
                                         Belum ada BANK SOAL
                                     </div>
+                                <?php endif; ?>
                                 </div>
                             <?php endif; endif; ?>
                     </div>
@@ -740,10 +774,6 @@ $allBanksIds = [];
         ajaxcsrf();
 
         var count = $('#konten .check-bank').length;
-        if (count == 0) {
-            $('#row-filter').addClass('d-none');
-        }
-
         var selectedF = idFilter == '' ? 'selected' : '';
         var selectedM = idMapel == '' ? 'selected' : '';
         var selectedL = idLevel == '' ? 'selected' : '';
@@ -774,7 +804,7 @@ $allBanksIds = [];
         $('#filter').on('change', function () {
             var type = $(this).val();
             console.log(type);
-            if (idFilter != '' && type == '0') {
+            if (type == '0' && idFilter != '0') {
                 window.location.href = base_url + 'cbtbanksoal?type=0&mode=' + mode;
             } else {
                 onChangeFilter(type);
@@ -800,7 +830,6 @@ $allBanksIds = [];
         function findUnchecked() {
             unchecked = [];
             checked = [];
-            var count = $('#konten .check-bank').length;
 
             $("#konten .check-bank:not(:checked)").each(function () {
                 unchecked.push($(this).val());
@@ -811,11 +840,7 @@ $allBanksIds = [];
             var countChecked = $("#konten .check-bank:checked").length;
             $("#check-all").prop("checked", countChecked == count);
 
-            if (countChecked > 0) {
-                $("#submit-hapus").removeClass('d-none');
-            } else {
-                $("#submit-hapus").addClass('d-none');
-            }
+            $("#submit-hapus").attr('disabled', countChecked == 0);
         }
 
         $("#konten").on("change", ".check-bank", function () {

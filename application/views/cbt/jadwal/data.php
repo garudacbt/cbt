@@ -69,32 +69,90 @@ if (isset($jadwal_ujian)) {
                     </table>
                 </div>
             </div>
-            <div class="alert alert-default-danger" id="bulk-delete">
-                <?= form_open('', array('id' => 'hapus_semua')) ?>
-                <input style="width: 28px; height: 28px" class="check-all m-1" id="check-all" type="checkbox">
-                <label for="check-all" class="align-middle">Pilih Semua</label>
-                <button id="submit-hapus" type="submit" class="btn btn-danger ml-4 d-none">
-                    <i class="far fa-trash-alt"></i> Hapus Jadwal Terpilih
-                </button>
-                <?= form_close() ?>
+
+            <div class="row p-2" id="row-filter">
+                <div class="col-12 col-md-6">
+                    <table class="w-100">
+                        <tr>
+                            <td class="pr-2 text-bold">Filter:</td>
+                            <td>
+                                <?php echo form_dropdown(
+                                    'f',
+                                    $filters,
+                                    $id_filter,
+                                    'id="filter" class="form-control"'
+                                ); ?>
+                            </td>
+                            <td id="select-guru" class="d-none">
+                                <?php echo form_dropdown(
+                                    'guru',
+                                    $gurus,
+                                    $id_guru,
+                                    'id="guru" class="sel form-control"'
+                                ); ?>
+                            </td>
+                            <td id="select-mapel" class="d-none">
+                                <?php echo form_dropdown(
+                                    'mapel',
+                                    $mapels,
+                                    $id_mapel,
+                                    'id="mapel" class="sel form-control"'
+                                ); ?>
+                            </td>
+                            <td id="select-level" class="d-none">
+                                <?php echo form_dropdown(
+                                    'level',
+                                    $levels,
+                                    $id_level,
+                                    'id="level" class="sel form-control"'
+                                ); ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-md-6">
+                    <?= form_open('', array('id' => 'hapus_semua')) ?>
+                    <table class="table table-borderless table-sm">
+                        <tr>
+                            <td class="align-middle text-right">
+                                <button id="submit-hapus" type="submit" class="btn btn-danger" disabled>
+                                    <i class="far fa-trash-alt"></i> Hapus Jadwal Terpilih
+                                </button>
+                            </td>
+                            <td class="align-middle text-center" style="width: 30px">
+                                <input style="width: 20px; height: 20px" class="check-all" id="check-all"
+                                       type="checkbox">
+                            </td>
+                        </tr>
+                    </table>
+                    <?= form_close() ?>
+                </div>
             </div>
 
             <?php
-            if (count($jadwals) === 0) : ?>
-                <div class="card card-default my-shadow mb-4">
-                    <div class="card-body">
-                        <?php if (!isset($tp_active) || !isset($smt_active)) : ?>
-                            <div class="alert alert-default-warning shadow align-content-center" role="alert">
-                                Tahun Pelajaran atau Semester belum di set
-                            </div>
-                        <?php else: ?>
-                            <div class="alert alert-default-warning shadow align-content-center" role="alert">
-                                Belum ada jadwal penilaian untuk Tahun Pelajaran <b><?= $tp_active->tahun ?></b>
-                                Semester: <b><?= $smt_active->smt ?></b>
-                            </div>
-                        <?php endif; ?>
-                    </div>
+            if (!isset($jadwals)) : ?>
+                <div class="alert alert-default-warning align-content-center pb-0 m-2" role="alert">
+                    <ul>
+                        <li>
+                            Silakan pilih <b>Filter</b> untuk menampilkan JADWAL
+                        </li>
+                        <li>
+                            Memilih filter <b>SEMUA</b> mungkin akan memakan waktu <span class="text-danger text-bold">lebih lama</span>.
+                        </li>
+                    </ul>
                 </div>
+            <?php else:
+            if (count($jadwals) === 0) : ?>
+                <?php if (!isset($tp_active) || !isset($smt_active)) : ?>
+                    <div class="alert alert-default-warning align-content-center m-2" role="alert">
+                        Tahun Pelajaran atau Semester belum di set
+                    </div>
+                <?php else: ?>
+                    <div class="alert alert-default-warning align-content-center m-2" role="alert">
+                        Belum ada jadwal penilaian untuk Tahun Pelajaran <b><?= $tp_active->tahun ?></b>
+                        Semester: <b><?= $smt_active->smt ?></b>
+                    </div>
+                <?php endif; ?>
             <?php else:
             ?>
             <div id="konten-jadwal">
@@ -417,7 +475,7 @@ if (isset($jadwal_ujian)) {
                         </div>
                     <?php endforeach;
                 endif;
-                endif; ?>
+                endif;  endif;?>
             </div>
         </div>
     </section>
@@ -511,6 +569,12 @@ if (isset($jadwal_ujian)) {
 </div>
 
 <script>
+    var idFilter = '<?=$id_filter?>';
+    var idMapel = '<?=$id_mapel?>';
+    var idLevel = '<?=$id_level?>';
+    var idGuru = '<?=$id_guru?>';
+    var mode = '<?=$mode?>';
+
     adaJadwalUjian = '<?=count($ada_ujian)?>';
     localStorage.setItem('ada_jadwal_ujian', adaJadwalUjian);
 
@@ -615,9 +679,50 @@ if (isset($jadwal_ujian)) {
         });
 
         var count = $('#konten-jadwal .check-jadwal').length;
-        if (count == 0) {
-            $('#bulk-delete').addClass('d-none');
+
+        var selectedF = idFilter == '' ? 'selected' : '';
+        var selectedM = idMapel == '' ? 'selected' : '';
+        var selectedL = idLevel == '' ? 'selected' : '';
+        $('#filter').prepend("<option value='' " + selectedF + " disabled='disabled'>Filter berdasarkan:</option>");
+        $('#mapel').prepend("<option value='' " + selectedM + " disabled='disabled'>Pilih mapel:</option>");
+        $('#level').prepend("<option value='' " + selectedL + " disabled='disabled'>Pilih level:</option>");
+
+        function onChangeFilter(type) {
+            if (type == '1') {
+                $('#select-guru').removeClass('d-none');
+                $('#select-mapel').addClass('d-none');
+                $('#select-level').addClass('d-none');
+            } else if (type == '2') {
+                $('#select-guru').addClass('d-none');
+                $('#select-mapel').removeClass('d-none');
+                $('#select-level').addClass('d-none');
+            } else if (type == '3') {
+                $('#select-guru').addClass('d-none');
+                $('#select-mapel').addClass('d-none');
+                $('#select-level').removeClass('d-none');
+            } else {
+                $('#select-guru').addClass('d-none');
+                $('#select-mapel').addClass('d-none');
+                $('#select-level').addClass('d-none');
+            }
         }
+
+        $('#filter').on('change', function () {
+            var type = $(this).val();
+            console.log(type);
+            if (type == '0' && idFilter != '0') {
+                window.location.href = base_url + 'cbtjadwal?type=0&mode=' + mode;
+            } else {
+                onChangeFilter(type);
+            }
+        });
+
+        $('.sel').on('change', function () {
+            var id = $(this).val();
+            window.location.href = base_url + 'cbtjadwal?id=' + id + '&type=' + $('#filter').val() + '&mode=' + mode;
+        });
+
+        onChangeFilter($('#filter').val());
 
         var unchecked = [];
         var checked = [];
@@ -636,11 +741,7 @@ if (isset($jadwal_ujian)) {
             var countChecked = $("#konten-jadwal .check-jadwal:checked").length;
             $("#check-all").prop("checked", countChecked == count);
 
-            if (countChecked > 0) {
-                $("#submit-hapus").removeClass('d-none');
-            } else {
-                $("#submit-hapus").addClass('d-none');
-            }
+            $("#submit-hapus").attr('disabled', countChecked == 0);
         }
 
         $("#konten-jadwal").on("change", ".check-jadwal", function () {
