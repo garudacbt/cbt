@@ -20,7 +20,7 @@ function sortByPosition($a, $b)
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-6 col-sm-7 col-lg-9">
                     <h1><?= $judul ?></h1>
                 </div>
             </div>
@@ -45,17 +45,28 @@ function sortByPosition($a, $b)
                     //echo "<pre>";
                     //var_dump($gurus);
                     //echo "</pre>";
-                    if ($mode == null || $mode == '1') :?>
-                        <div class="row">
-                            <?php
-                            if (count($gurus) > 0) :
-                                usort($gurus, 'sortByPosition');
-                                foreach ($gurus as $guru):
-                                    $mapels_guru = json_decode(json_encode(unserialize($guru->mapel_kelas)));
-                                    $ekstras_guru = json_decode(json_encode(unserialize($guru->ekstra_kelas)));
-                                    ?>
-                                    <div class="col-md-6 col-xl-4 d-flex align-items-stretch">
-                                        <div class="card flex-fill">
+                    if (count($gurus) > 0) :
+                        //usort($gurus, 'sortByPosition');
+                        ?>
+                        <table id="list-guru" class="table w-100 dataTable no-footer" role="grid"
+                               aria-describedby="guru_info"
+                               style="width: 0;">
+                            <thead class="alert alert-primary" style="display: none;">
+                            <tr role="row">
+                                <th class="align-middle p-0 sorting_asc" tabindex="0" aria-controls="listguru"
+                                    rowspan="1"
+                                    colspan="1" aria-label="Profil Guru: activate to sort column descending"
+                                    style="width: 0;" aria-sort="ascending">Profil Guru
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="row">
+                            <?php foreach ($gurus as $guru):
+                                $mapels_guru = json_decode(json_encode(unserialize($guru->mapel_kelas)));
+                                $ekstras_guru = json_decode(json_encode(unserialize($guru->ekstra_kelas))); ?>
+                                <tr role="row" class="col-md-6 col-xl-4 p-0 d-flex align-items-stretch">
+                                    <td class="sorting_1 flex-fill">
+                                        <div class="card card-primary card-outline m-0">
                                             <div class="card-body d-flex flex-column justify-content-between">
                                                 <div class="media mb-3">
                                                     <img class="d-flex mr-3 rounded-circle img-thumbnail thumb-lg"
@@ -81,7 +92,7 @@ function sortByPosition($a, $b)
                                                 <?php if ($mapels_guru != null || $ekstras_guru != null): ?>
                                                     <div>
                                                         <span>Pengampu:</span>
-                                                        <table class="table table-bordered table-bordered">
+                                                        <table class="table table-bordered">
                                                             <tr>
                                                                 <th class="text-center">No.</th>
                                                                 <th class="text-center">Mata Pelajaran</th>
@@ -136,34 +147,14 @@ function sortByPosition($a, $b)
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php endforeach;
-                            else: ?>
-                                <div class="alert alert-default-warning align-content-center" role="alert">Belum ada
-                                    data GURU
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    <?php else: ?>
-                        <div class="table-responsive">
-                            <table id="guru" class="table w-100">
-                                <thead class="alert alert-primary">
-                                <tr>
-                                    <th height="50" width="40" class="text-center p-0 align-middle">
-                                        <input type="checkbox" id="select_all">
-                                    </th>
-                                    <th width="50" class="align-middle p-0">No.</th>
-                                    <th class="align-middle p-0">Profil Guru</th>
-                                    <th class="align-middle p-0">TP</th>
-                                    <th class="align-middle p-0">SMT</th>
-                                    <th class="text-center align-middle">Mapel</th>
-                                    <th class="text-center p-0 align-middle"><span>Aksi</span></th>
-                                    <th>Nama</th>
-                                    <th>Jabatan</th>
-                                    <th>Kode</th>
+                                    </td>
                                 </tr>
-                                </thead>
-                            </table>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <div class="alert alert-default-warning align-content-center" role="alert">Belum ada
+                            data GURU
                         </div>
                     <?php endif; ?>
                 </div>
@@ -228,14 +219,19 @@ function sortByPosition($a, $b)
         });
     }
 
-    /*
     $(document).ready(function () {
+        $("#list-guru").DataTable({
+            paging: false,
+            ordering: false,
+            info: false,
+        });
+        /*
         $(`img.avatar`).each(function () {
             $(this).on("error", function () {
                 console.log('foto', $(this).attr('src'));
                 $(this).attr("src", base_url + '/assets/img/siswa.png'); // default foto
             });
         });
+         */
     });
-    */
 </script>

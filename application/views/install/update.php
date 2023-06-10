@@ -116,6 +116,14 @@
                     $('#info-db').html('Database perlu update, silahkan lakukan update ke versi terbaru');
                     $('#update').removeClass('d-none');
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log("error", xhr.responseText);
+                swal.fire({
+                    title: "ERROR",
+                    text: "Ada kesalahan",
+                    icon: "error"
+                });
             }
         });
     }
@@ -139,6 +147,14 @@
                 $('#check').removeAttr('disabled');
                 $('#btn-update').removeAttr('disabled');
                 $('#update').addClass('d-none');
+            },
+            error: function (xhr, status, error) {
+                console.log("error", xhr.responseText);
+                swal.fire({
+                    title: "ERROR",
+                    html: xhr.responseText,
+                    icon: "error"
+                });
             }
         });
     }

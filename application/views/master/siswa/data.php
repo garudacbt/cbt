@@ -15,9 +15,6 @@
                 <div class="card-header">
                     <h6 class="card-title"><?= $subjudul ?></h6>
                     <div class="card-tools">
-                        <button type="button" onclick="reload_ajax()" class="btn btn-sm btn-default">
-                            <i class="fa fa-sync"></i> <span class="d-none d-sm-inline-block ml-1">Reload</span>
-                        </button>
                         <button type="button" data-toggle="modal" data-target="#createSiswaModal"
                                 class="btn btn-sm btn-primary"><i
                                     class="fas fa-plus"></i><span
@@ -31,35 +28,71 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-default-light border border-success align-content-center mb-3" role="alert">
-                        Aktifkan siswa yang tidak muncul di menu <b>User Management -> Siswa</b>
+                    <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length">
+                                    <label>Show
+                                        <select id="users_length" aria-controls="users" class="custom-select custom-select-sm form-control form-control-sm">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_filter">
+                                    <button id="btn-clear" type="button" class="btn btn-sm btn-light m-0" data-toggle="tooltip" title="hapus pencarian" disabled="disabled">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <label>
+                                        <input id="input-search" type="search" class="form-control form-control-sm" placeholder="" aria-controls="users">
+                                    </label>
+                                    <button id="btn-search" type="button" class="btn btn-sm btn-light" data-toggle="tooltip" title="Cari" onclick="applySearch()" disabled="disabled">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-danger" data-toggle="tooltip" title="Hapus Terpilh" disabled="disabled">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <?= form_open('datasiswa/delete', array('id' => 'bulk')); ?>
+                                <div class="table-responsive">
+                                    <table id="table-siswa" class="w-100 table table-striped table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="align-middle text-center p-0">
+                                                <input class="select_all" type="checkbox">
+                                            </th>
+                                            <th class="align-middle text-center p-0">No.</th>
+                                            <th>NAMA & KELAS</th>
+                                            <th>NIS & NISN</th>
+                                            <th class="align-middle text-center p-0">Aksi</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?= form_close() ?>
+                            </div>
+                            <div class="col-12">
+                                <nav aria-label="Page navigation" class="float-right">
+                                    <ul class="pagination" id="pagination"></ul>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
-
-                    <?php
-                    //var_dump($count_siswa);
-                    //echo '<br>';
-                    //var_dump($count_induk);
-                    ?>
-                    <?= form_open('datasiswa/delete', array('id' => 'bulk')); ?>
-                    <div class="table-responsive">
-                        <table id="siswa" class="w-100 table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th width="40" class="align-middle text-center p-0">
-                                    <input class="select_all" type="checkbox">
-                                </th>
-                                <th width="40" class="align-middle text-center p-0">No.</th>
-                                <th>NISN</th>
-                                <th>NIS</th>
-                                <th>Nama</th>
-                                <th>L/P</th>
-                                <th width="80" class="align-middle text-center p-0">Status</th>
-                                <th width="80" class="align-middle text-center p-0">Aksi</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <?= form_close() ?>
+                </div>
+                <div class="overlay" id="loading">
+                    <div class="spinner-grow"></div>
                 </div>
             </div>
         </div>
@@ -127,7 +160,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
                             </div>
-                            <select class="form-control" id="kelas_awal" data-placeholder="Jenis Kelamin"
+                            <select class="form-control" id="jenis_kelamin" data-placeholder="Jenis Kelamin"
                                     name="jenis_kelamin">
                                 <option value="">Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-laki</option>
@@ -239,4 +272,284 @@
 </div>
 <?= form_close() ?>
 
-<script src="<?= base_url() ?>/assets/app/js/master/siswa/crud.js"></script>
+<?= form_open('', array('id' => 'pager')); ?>
+<input type="hidden" id="pager-page" name="page" value="1">
+<input type="hidden" id="pager-limit" name="limit" value="10">
+<?= form_close() ?>
+
+<script src="<?=base_url()?>/assets/app/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<script>
+    let currentPage = 1;
+    let perPage = 10;
+    let $pagination, defaultOpts, query;
+
+    $(document).ready(function () {
+        ajaxcsrf();
+        $pagination = $('#pagination');
+        defaultOpts = {
+            visiblePages: 5,
+            initiateStartPageClick: false,
+            onPageClick: function (event, page) {
+                console.info(page + ' (from options)');
+                currentPage = page;
+                loadSiswa();
+            }
+        };
+        $pagination.twbsPagination(defaultOpts);
+
+        $('#users_length').change(function () {
+            $('#pager-limit').val($(this).val());
+            perPage = $(this).val();
+            currentPage = 1;
+            loadSiswa();
+        });
+
+        $('#input-search').on('change keyup', function () {
+            var val = $(this).val();
+            query = val === "" ? null : val;
+            $('#btn-clear').attr('disabled', query == null)
+            $('#btn-search').attr('disabled', query == null)
+        });
+
+        $('#btn-clear').on('click', function () {
+            query = null;
+            currentPage = 1;
+            $(this).attr('disabled', query == null);
+            $('#btn-search').attr('disabled', query == null);
+            loadSiswa();
+        });
+
+        $(".select_all").on("click", function () {
+            if (this.checked) {
+                $(".check").each(function () {
+                    this.checked = true;
+                    $(".select_all").prop("checked", true);
+                    $('#hapusterpilih').removeAttr('disabled');
+                });
+            } else {
+                $(".check").each(function () {
+                    this.checked = false;
+                    $(".select_all").prop("checked", false);
+                    $('#hapusterpilih').attr('disabled', 'disabled');
+                });
+            }
+        });
+
+        $("#table-siswa tbody").on("click", "tr .check", function () {
+            var check = $("#table-siswa tbody tr .check").length;
+            var checked = $("#table-siswa tbody tr .check:checked").length;
+            if (check === checked) {
+                $(".select_all").prop("checked", true);
+            } else {
+                $(".select_all").prop("checked", false);
+            }
+
+            if (checked === 0) {
+                //$('#hapusterpilih').addClass('d-none');
+                $('#hapusterpilih').attr('disabled', 'disabled');
+            } else {
+                //$('#hapusterpilih').removeClass('d-none');
+                $('#hapusterpilih').removeAttr('disabled');
+            }
+        });
+
+        $("#bulk").on("submit", function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            $.ajax({
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                type: "POST",
+                success: function (respon) {
+                    if (respon.status) {
+                        $(".select_all").prop("checked", false);
+                        $('#hapusterpilih').attr('disabled', 'disabled');
+                        swal.fire({
+                            title: "Berhasil",
+                            text: respon.total + " data berhasil dihapus",
+                            icon: "success"
+                        });
+                        loadSiswa();
+                    } else {
+                        swal.fire({
+                            title: "Gagal",
+                            text: "Tidak ada data yang dipilih",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function () {
+                    swal.fire({
+                        title: "Gagal",
+                        text: "Ada data yang sedang digunakan",
+                        icon: "error"
+                    });
+                }
+            });
+        });
+
+        $('#tahunmasuk').datetimepicker({
+            icons:
+                {
+                    next: 'fa fa-angle-right',
+                    previous: 'fa fa-angle-left'
+                },
+            timepicker: false,
+            format: 'Y-m-d',
+            disabledWeekDays: [0],
+            widgetPositioning: {
+                horizontal: 'left',
+                vertical: 'bottom'
+            }
+        });
+
+        $('#formsiswa').on('submit', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            console.log($(this).serialize());
+            $.ajax({
+                url: base_url + "datasiswa/create",
+                data: $(this).serialize(),
+                dataType: "JSON",
+                type: 'POST',
+                success: function (response) {
+                    console.log("result", response);
+                    $('#createSiswaModal').modal('hide').data('bs.modal', null);
+                    $('#createSiswaModal').on('hidden', function () {
+                        $(this).data('modal', null);  // destroys modal
+                    });
+
+                    if (response.insert) {
+                        showSuccessToast(response.text);
+                        loadSiswa();
+                    } else {
+                        showDangerToast(response.text);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#createSiswaModal').modal('hide').data('bs.modal', null);
+                    $('#createSiswaModal').on('hidden', function () {
+                        $(this).data('modal', null);  // destroys modal
+                    });
+                    showDangerToast("Gagal disimpan");
+                    console.log(xhr.responseText);
+                }
+            })
+        });
+
+        loadSiswa();
+    });
+
+    function loadSiswa() {
+        $('#pager-page').val(currentPage);
+        $('#loading').removeClass('d-none');
+        var cari = query != null ? '&search=' + query : ''
+        var dataPost = $('#pager').serialize() + cari;
+        console.log('post', dataPost);
+        $.ajax({
+            url: base_url + 'datasiswa/list',
+            data: dataPost,
+            type: 'POST',
+            success: function (data) {
+                $('#loading').addClass('d-none');
+                $('#input-search').val(data.search);
+                $pagination.twbsPagination('destroy');
+                $pagination.twbsPagination($.extend({}, defaultOpts, {
+                    startPage: currentPage,
+                    totalPages: data.pages,
+                }));
+                previewData(data);
+            }, error: function (xhr, status, error) {
+                $('#loading').addClass('d-none')
+                console.log("error", xhr.responseText);
+                swal.fire({
+                    title: "ERROR",
+                    text: "Ada kesalahan",
+                    icon: "error"
+                });
+            }
+        });
+    }
+
+    function previewData(data) {
+        console.log(data);
+        $('#input-search').val(data.search);
+        var html = '';
+
+        if (data.lists.length > 0) {
+            $.each(data.lists, function (idx, siswa) {
+                const kls = siswa.nama_kelas != null ? '<span class="badge badge-info">'+siswa.nama_kelas+'</span>' : '';
+                html += '<tr>' +
+                    '   <td class="text-center align-middle">' +
+                    '       <input name="checked[]" class="check" value="'+siswa.id_siswa+'" type="checkbox">' +
+                    '   </td>' +
+                    '   <td class="text-center align-middle">'+ Number((perPage * (currentPage - 1)) + (idx + 1)) +'</td>' +
+                    '   <td>' +
+                    '       <div class="media d-flex h-100">' +
+                    '           <img class="avatar img-circle justify-content-center align-self-center"' +
+                    '                src="'+base_url+siswa.foto+'" width="50" height="50" alt="User Image"> ' +
+                    '           <div class="media-body ml-2 justify-content-center align-self-center">'+siswa.nama+'<br>' + kls +
+                    '               <span class="badge badge-info">'+siswa.jenis_kelamin+'</span>' +
+                    '           </div>' +
+                    '       </div>' +
+                    '   </td>' +
+                    '   <td class=" align-middle">' +
+                    '       <span class="badge badge-light">'+siswa.nis+'</span><br>' +
+                    '       <span class="badge badge-light">'+siswa.nisn+'</span>' +
+                    '   </td>' +
+                    '   <td class=" align-middle">' +
+                    '       <div class="text-center">' +
+                    '           <a class="btn btn-xs btn-warning" href="'+base_url+'datasiswa/edit/'+siswa.id_siswa+'">' +
+                    '               <i class="fa fa-pencil-alt"></i> Edit' +
+                    '           </a>' +
+                    '       </div>' +
+                    '   </td>' +
+                    '</tr>';
+            });
+        } else {
+            html += '<tr><td colspan="5" class="text-center align-middle">Tidak ada data siswa</td><tr>';
+        }
+        $('#table-body').html(html);
+        $(`.avatar`).each(function () {
+            $(this).on("error", function () {
+                var src = $(this).attr('src').replace('profiles', 'foto_siswa');
+                $(this).attr("src", src);
+                $(this).on("error", function () {
+                    $(this).attr("src", base_url + 'assets/img/siswa.png');
+                });
+            });
+        });
+    }
+
+    function applySearch() {
+        query = $('#input-search').val();
+        currentPage = 1;
+        loadSiswa();
+    }
+
+    function bulk_delete() {
+        if ($("#table-siswa tbody tr .check:checked").length == 0) {
+            swal.fire({
+                title: "Gagal",
+                text: "Tidak ada data yang dipilih",
+                icon: "error"
+            });
+        } else {
+            swal.fire({
+                title: "Anda yakin?",
+                text: "Data akan dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Hapus!"
+            }).then(result => {
+                if (result.value) {
+                    $("#bulk").submit();
+                }
+            });
+        }
+    }
+
+</script>

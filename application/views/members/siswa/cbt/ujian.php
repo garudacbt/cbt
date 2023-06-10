@@ -79,7 +79,7 @@
                             <div style="border: 1px solid; border-color: #D3D3D3">
                                 <div class="konten-soal-jawab">
                                     <div class="row p-2 mb-4 ml-1">
-                                        <div id="konten-soal"></div>
+                                        <div id="konten-soal" class="table-responsive"></div>
                                     </div>
                                     <?= form_open('jawab', array('id' => 'jawab')) ?>
                                     <input type="hidden" name="siswa" value="<?= $siswa->id_siswa ?>">

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pt-4">
     <div class="info-box bg-transparent shadow-none">
         <?php
         $logo_app = $setting->logo_kanan == null ? base_url() . 'assets/img/favicon.png' : base_url() . $setting->logo_kanan;

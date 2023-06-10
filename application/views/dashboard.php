@@ -221,7 +221,9 @@
                                                                         count($peserta[$ruang][$sesi->sesi_id]) : 0;
                                                                     if ($bank_kelas['kelas_id'] != null && $cnt > 0) {
                                                                         $total_peserta += $cnt;
-                                                                        $badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                        //$badge_kelas .= ' <span class="badge badge-info">' . $kelases[$bank_kelas['kelas_id']] . ' ' . $cnt . ' siswa</span>';
+                                                                        $nama_kls = isset($kelases[$bank_kelas['kelas_id']]) ? $kelases[$bank_kelas['kelas_id']] : '- -';
+                                                                        $badge_kelas .= ' <span class="badge badge-info">' . $nama_kls . ' ' . $cnt . ' siswa</span>';
                                                                     }
                                                                 }
                                                             }

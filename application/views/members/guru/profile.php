@@ -366,7 +366,7 @@
                     } else {
                         swal.fire({
                             title: "ERROR",
-                            text: "Data Tidak Tersimpan",
+                            html: data.errors.nip + "<br>" + data.errors.nama_guru,
                             icon: "error",
                             showCancelButton: false,
                         });
