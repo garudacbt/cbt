@@ -391,7 +391,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas));
                         var kelas = data.kelas;
                         for (let i = 0; i < kelas.length; i++) {
                             var selected = jQuery.inArray(kelas[i].id_kelas, as) > -1;
-                            selKelas.append(new Option(kelas[i].nama_kelas, kelas[i].id_kelas, false, selected));
+                            selKelas.append(new Option(kelas[i].kode_kelas, kelas[i].id_kelas, false, selected));
                         }
                         selKelas.trigger('change');
                     }, error: function (xhr, status, error) {

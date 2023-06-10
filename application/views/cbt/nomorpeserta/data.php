@@ -139,7 +139,6 @@
                     //data: $(this).serialize() + "&siswa=" + JSON.stringify(arrayNomor),
                     success: function (data) {
                         console.log("response:", data);
-                        console.log(data);
                         if (data.status) {
                             getNomorPeserta(val)
                         } else {
