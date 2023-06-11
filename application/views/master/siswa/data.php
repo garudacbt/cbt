@@ -454,11 +454,16 @@
             success: function (data) {
                 $('#loading').addClass('d-none');
                 $('#input-search').val(data.search);
-                $pagination.twbsPagination('destroy');
-                $pagination.twbsPagination($.extend({}, defaultOpts, {
-                    startPage: currentPage,
-                    totalPages: data.pages,
-                }));
+                if (data.pages > 0) {
+                    $pagination.removeClass('d-none');
+                    $pagination.twbsPagination('destroy');
+                    $pagination.twbsPagination($.extend({}, defaultOpts, {
+                        startPage: currentPage,
+                        totalPages: data.pages,
+                    }));
+                } else {
+                    $pagination.addClass('d-none');
+                }
                 previewData(data);
             }, error: function (xhr, status, error) {
                 $('#loading').addClass('d-none')

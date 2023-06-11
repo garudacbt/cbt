@@ -19,10 +19,10 @@
                                 <?php
                                 $foto = $guru->foto;
                                 if ($foto == '' || $foto == null) {
-                                    $foto = 'assets/img/siswa.jpg';
+                                    $foto = 'assets/img/siswa.png';
                                 }
                                 ?>
-                                <img src="<?= base_url() . $foto ?>"
+                                <img id="foto-guru" src="<?= base_url() . $foto ?>"
                                      class="img-circle profile-avatar mt-2" alt="User avatar">
                                 <h4 class="mt-5"><?= $guru->nama_guru ?></h4>
                                 <h5 class="mb-5"><?= $guru->level . ' ' . $guru->nama_kelas ?></h5>
@@ -490,10 +490,8 @@
             }
         });
 
-        $(`.profile-avatar`).each(function () {
-            $(this).on("error", function () {
-                $(this).attr("src", base_url + 'assets/img/siswa.png'); // default foto
-            });
+        $('#foto-guru').on("error", function () {
+            $(this).attr("src", base_url + 'assets/img/siswa.png');
         });
     });
 

@@ -12,10 +12,10 @@ if (!file_exists(FCPATH . $siswa->foto)) {
                     <h1><?= $judul ?></h1>
                 </div>
                 <div class="col-6">
-                    <a href="<?= base_url('datasiswa') ?>" type="button" class="btn btn-sm btn-danger float-right">
+                    <button onclick="window.history.back();" type="button" class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-arrow-circle-left"></i><span
                                 class="d-none d-sm-inline-block ml-1">Kembali</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>

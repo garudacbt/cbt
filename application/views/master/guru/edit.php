@@ -25,11 +25,10 @@
                                 <?php
                                 $foto = $guru->foto;
                                 if ($foto == '' || $foto == null) {
-                                    $foto = 'assets/img/siswa.jpg';
+                                    $foto = 'assets/img/siswa.png';
                                 }
                                 ?>
-                                <img onerror="this.src='<?= base_url('assets/img/siswa.png') ?>'"
-                                     src="<?= base_url() . $foto ?>"
+                                <img id="foto-guru" src="<?= base_url() . $foto ?>"
                                      class="img-circle profile-avatar mt-2" alt="User avatar">
                                 <h4 class="mt-5"><?= $guru->nama_guru ?></h4>
                                 <h5 class="mb-5"><?= $guru->level . ' ' . $guru->nama_kelas ?></h5>
@@ -301,6 +300,7 @@
             }
         });
 
+        $('#foto-profile').attr("data-default-file", base_url + src);
         var drEvent = $('.dropify').dropify({
             messages: {
                 'default': 'Seret foto kesini atau klik',
@@ -372,7 +372,7 @@
                     } else {
                         swal.fire({
                             title: "ERROR",
-                            text: "Data Tidak Tersimpan",
+                            html: data.errors.nip + "<br>" + data.errors.nama_guru,
                             icon: "error",
                             showCancelButton: false,
                         });
