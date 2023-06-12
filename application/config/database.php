@@ -6,10 +6,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
     'dsn'	=> '',
-    'hostname' => '',
-    'username' => '',
-    'password' => '',
-    'database' => '',
+    'hostname' => 'localhost',
+    'username' => 'root',
+    'password' => 'root',
+    'database' => 'elearning',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,

@@ -2,8 +2,8 @@
   "api_setting": [
     {
       "name": "id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -33,8 +33,8 @@
   "api_token": [
     {
       "name": "id_api",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -85,8 +85,8 @@
   "buku_induk": [
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -413,8 +413,8 @@
   "cbt_bank_soal": [
     {
       "name": "id_bank",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -449,8 +449,8 @@
     },
     {
       "name": "bank_mapel_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -463,8 +463,8 @@
     },
     {
       "name": "bank_guru_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -655,15 +655,15 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_jadwal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -706,8 +706,8 @@
   "cbt_jadwal": [
     {
       "name": "id_jadwal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -728,15 +728,15 @@
     },
     {
       "name": "id_bank",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_jenis",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -842,8 +842,8 @@
   "cbt_jenis": [
     {
       "name": "id_jenis",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -873,8 +873,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -1135,8 +1135,8 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -1216,8 +1216,8 @@
   "cbt_rekap": [
     {
       "name": "id_rekap",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -1437,8 +1437,8 @@
     },
     {
       "name": "id_jadwal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -1486,29 +1486,29 @@
     },
     {
       "name": "id_bank",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": "0",
       "primary_key": 0
     },
@@ -1584,8 +1584,8 @@
     },
     {
       "name": "id_guru",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -1635,8 +1635,8 @@
   "cbt_ruang": [
     {
       "name": "id_ruang",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -1704,15 +1704,15 @@
   "cbt_sesi_siswa": [
     {
       "name": "siswa_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1
     },
     {
       "name": "kelas_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -1748,23 +1748,23 @@
   "cbt_soal": [
     {
       "name": "id_soal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "bank_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "mapel_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": "0",
       "primary_key": 0
     },
@@ -1777,8 +1777,8 @@
     },
     {
       "name": "nomor_soal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": "0",
       "primary_key": 0
     },
@@ -1889,15 +1889,15 @@
     },
     {
       "name": "created_on",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "updated_on",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -1947,29 +1947,29 @@
     },
     {
       "name": "id_bank",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_jadwal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_soal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2081,6 +2081,13 @@
   ],
   "cbt_token": [
     {
+      "name": "id_token",
+      "type": "int",
+      "max_length": 11,
+      "default": null,
+      "primary_key": 1
+    },
+    {
       "name": "token",
       "type": "varchar",
       "max_length": 6,
@@ -2095,13 +2102,6 @@
       "primary_key": 0
     },
     {
-      "name": "id_token",
-      "type": "int",
-      "max_length": 11,
-      "default": null,
-      "primary_key": 1
-    },
-    {
       "name": "jarak",
       "type": "int",
       "max_length": 11,
@@ -2110,11 +2110,10 @@
     },
     {
       "name": "updated",
-      "type": "timestamp",
-      "max_length": null,
-      "default": "CURRENT_TIMESTAMP",
-      "primary_key": 0,
-      "extra": "on update CURRENT_TIMESTAMP"
+      "type": "varchar",
+      "max_length": 20,
+      "default": null,
+      "primary_key": 0
     }
   ],
   "groups": [
@@ -2168,8 +2167,8 @@
     },
     {
       "name": "id_guru",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2182,8 +2181,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": "0",
       "primary_key": 0
     },
@@ -2219,8 +2218,8 @@
   "kelas_catatan_mapel": [
     {
       "name": "id_catatan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -2248,29 +2247,29 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_guru",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2320,8 +2319,8 @@
   "kelas_catatan_wali": [
     {
       "name": "id_catatan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -2364,15 +2363,15 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2429,8 +2428,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2466,8 +2465,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2503,8 +2502,8 @@
   "kelas_jadwal_mapel": [
     {
       "name": "id_jadwal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1
     },
@@ -2524,8 +2523,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2545,8 +2544,8 @@
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     }
@@ -2575,22 +2574,22 @@
     },
     {
       "name": "id_materi",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2612,8 +2611,8 @@
   "kelas_materi": [
     {
       "name": "id_materi",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -2641,8 +2640,8 @@
     },
     {
       "name": "id_guru",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -2655,8 +2654,8 @@
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": "0",
       "primary_key": 0
     },
@@ -2741,8 +2740,8 @@
   "kelas_siswa": [
     {
       "name": "id_kelas_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1
     },
@@ -2762,15 +2761,15 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     }
@@ -2778,128 +2777,128 @@
   "kelas_struktur": [
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "ketua",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "wakil_ketua",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sekretaris_1",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sekretaris_2",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "bendahara_1",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "bendahara_2",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_ekstrakurikuler",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_upacara",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_olahraga",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_keagamaan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_keamanan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_ketertiban",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_kebersihan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_keindahan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_kesehatan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_kekeluargaan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "sie_humas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     }
@@ -2940,8 +2939,8 @@
   "log": [
     {
       "name": "id_log",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -3027,8 +3026,8 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -3048,8 +3047,8 @@
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -3127,8 +3126,8 @@
   "log_ujian": [
     {
       "name": "id_log",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -3142,15 +3141,15 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_jadwal",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -3207,8 +3206,8 @@
   "master_ekstra": [
     {
       "name": "id_ekstra",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -3231,16 +3230,16 @@
   "master_guru": [
     {
       "name": "id_guru",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_user",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -3527,8 +3526,8 @@
   "master_kelas": [
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -3577,15 +3576,15 @@
     },
     {
       "name": "guru_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "siswa_id",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -3607,8 +3606,8 @@
   "master_kelompok_mapel": [
     {
       "name": "id_kel_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -3636,8 +3635,8 @@
     },
     {
       "name": "id_parent",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     }
@@ -3645,8 +3644,8 @@
   "master_mapel": [
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -3725,8 +3724,8 @@
   "master_siswa": [
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -4112,23 +4111,23 @@
   "post": [
     {
       "name": "id_post",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "dari",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "dari_group",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4164,30 +4163,30 @@
   "post_comments": [
     {
       "name": "id_comment",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_post",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "dari",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "dari_group",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4224,30 +4223,30 @@
   "post_reply": [
     {
       "name": "id_reply",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_comment",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "dari",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "dari_group",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4385,8 +4384,8 @@
   "rapor_catatan_wali": [
     {
       "name": "id_catatan_wali",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -4407,15 +4406,15 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4437,8 +4436,8 @@
   "rapor_data_catatan": [
     {
       "name": "id_catatan",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -4459,8 +4458,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4496,8 +4495,8 @@
   "rapor_data_fisik": [
     {
       "name": "id_fisik",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -4518,8 +4517,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4548,8 +4547,8 @@
   "rapor_data_sikap": [
     {
       "name": "id_sikap",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -4570,8 +4569,8 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4600,23 +4599,23 @@
   "rapor_fisik": [
     {
       "name": "id_fisik",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4659,16 +4658,16 @@
   "rapor_kikd": [
     {
       "name": "id_kikd",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_mapel_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4704,8 +4703,8 @@
   "rapor_kkm": [
     {
       "name": "id_kkm",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -4775,15 +4774,15 @@
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     }
@@ -4791,8 +4790,8 @@
   "rapor_naik": [
     {
       "name": "id_naik",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1
     },
@@ -4812,8 +4811,8 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4829,29 +4828,29 @@
     {
       "name": "id_nilai_akhir",
       "type": "bigint",
-      "max_length": 50,
+      "max_length": 20,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4894,30 +4893,30 @@
   "rapor_nilai_ekstra": [
     {
       "name": "id_nilai_ekstra",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_ekstra",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -4968,22 +4967,22 @@
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -5167,29 +5166,29 @@
     {
       "name": "id_nilai_pts",
       "type": "bigint",
-      "max_length": 50,
+      "max_length": 20,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_mapel",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -5225,23 +5224,23 @@
   "rapor_nilai_sikap": [
     {
       "name": "id_nilai_sikap",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -5284,23 +5283,23 @@
   "rapor_prestasi": [
     {
       "name": "id_ranking",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
     },
     {
       "name": "id_kelas",
-      "type": "bigint",
-      "max_length": 100,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
     {
       "name": "id_siswa",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 0
     },
@@ -5378,8 +5377,8 @@
   "running_text": [
     {
       "name": "id_text",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -5395,8 +5394,8 @@
   "setting": [
     {
       "name": "id_setting",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
@@ -5608,8 +5607,8 @@
   "users_profile": [
     {
       "name": "id_user",
-      "type": "bigint",
-      "max_length": 50,
+      "type": "int",
+      "max_length": 11,
       "default": null,
       "primary_key": 1,
       "auto_increment": true
