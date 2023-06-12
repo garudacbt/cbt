@@ -1,7 +1,8 @@
 # GarudaCBT
-##Last version: 1.4.9
 
-####changelog:
+## Last version: 1.4.9
+
+#### changelog:
 - fixed: soal manual tidak tampil di siswa
 - fixed: Soal Jodohkan mode table CELL kosong jika tidak ada jawaban
 - fixed: paksa selesai ujian tidak menyimpan nilai rekap
@@ -19,7 +20,7 @@
 - filter jadwal ujian
 ___________
 
-##NOTE:
+## NOTE:
 Aplikasi ini tidak diperjual belikan alias gratis 100% dengan lisensi MIT yang artinya bebas untuk memodifikasi dengan syarat tetap mencantumkan sumber asal.
 
 Kami selaku pengembang aplikasi ini tidak bertanggung-jawab:
@@ -30,15 +31,15 @@ ______________
 - [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
 
 ____
-##Download
+## Download
 Harap download aplikasi dari tombol [<> Code] -> Download zip
 
 -----
-##VIRTUAL BOX (VHD):
+## VIRTUAL BOX (VHD):
 https://github.com/origrata/garudacbt-vdi
 
 ----
-##Install
+## Install
 * Download Aplikasi dari menu **Code => Download ZIP**
 * Extract di folder **htdocs** jika menggunakan XAMPP, atau folder **www** jika mengonakan Laragon
 * Lengkapnya sialhkan ke [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
