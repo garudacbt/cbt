@@ -28,41 +28,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <?php
-                    //echo '<pre>';
-                    //echo var_dump($all_user);
-                    //echo var_dump($all_user_aktif);
-                    //echo '<br>';
-                    //echo 'Tidak aktif';
-                    //echo '<br>';
-                    //echo var_dump($all_user_nonaktif);
-                    //echo '</pre>';
-                    ?>
-
-                    <div class="alert alert-default-info border border-success align-content-center mb-3 pb-0" role="alert">
-                        <ul>
-                            <li>
-                                Agar tidak terlalu membebani server, tombol
-                                <div class="badge badge-success">
-                                    <i class="fa fa-users m-1"></i><span
-                                            class="d-none d-sm-inline-block ml-1">Aktifkan Semua</span>
-                                </div>
-                                dan
-                                <div class="badge badge-danger">
-                                    <i class="fa fa-ban m-1"></i><span
-                                            class="d-none d-sm-inline-block ml-1">Nonaktifkan Semua</span>
-                                </div>
-                                hanya berlaku untuk siswa yang tampil di halaman saat ini
-                            </li>
-                            <li>
-                                Gunakan tombol <b>pagination</b> di bagian bawah untuk menampilkan siswa lainnya.
-                            </li>
-                            <li>
-                                Siswa yang ditampilkan bisa diubah dengan memilih pilihan <b>Show:</b> 10, 25 dst.
-                            </li>
-                        </ul>
-                    </div>
-
                     <div class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
