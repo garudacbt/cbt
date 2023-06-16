@@ -177,11 +177,11 @@
         });
 
         $("#users").on("click", ".btn-nonaktif", function() {
-            let id = $(this).data("id");
+            let username = $(this).data("username");
             let nama = $(this).data("nama").replace("'", "");
             $('#loading').removeClass('d-none');
             $.ajax({
-                url: base_url + "usersiswa/deactivate/" + id +"/"+nama,
+                url: base_url + "usersiswa/deactivate/" + username +"/"+nama,
                 type: "GET",
                 success: function (response) {
                     $('#loading').addClass('d-none');
@@ -208,8 +208,7 @@
         $(".btn-action").on("click", function() {
             let action = $(this).data("action");
             let uri = action === 'aktifkan' ? base_url + "usersiswa/aktifkansemua" : base_url + "usersiswa/nonaktifkansemua";
-            const dataPost = $('#bulk').serialize();
-            console.log('post', dataPost);
+
             swal.fire({
                 title: action === 'aktifkan' ? "Aktifan semua siswa" : "Nonaktifkan semua siswa",
                 text: "",
@@ -323,10 +322,10 @@
             <td class="align-middle">${siswa.username}</td>
             <td class="align-middle">${siswa.password}</td>
             <td class="text-center align-middle p-1">`;
-                if (siswa.id == null) {
+                if (siswa.aktif == "0") {
                     html += `<span class="badge badge-danger">Nonaktif</span><br><button type="button" class="btn btn-aktif btn-success btn-xs" data-id="${siswa.id_siswa}" data-toggle="tooltip" title="Aktifkan"> <i class="fa fa-user-plus text-xs mr-1 ml-1"></i> </button>`;
                 } else {
-                    html += `<span class="badge badge-success">Aktif</span><br><button type="button" class="btn btn-nonaktif btn-danger btn-xs" data-id="${siswa.id}" data-nama="${siswa.nama}" data-toggle="tooltip" title="Nonaktifkan"> <i class="fa fa-ban text-xs mr-1 ml-1"></i></button>`;
+                    html += `<span class="badge badge-success">Aktif</span><br><button type="button" class="btn btn-nonaktif btn-danger btn-xs" data-username="${siswa.username}" data-nama="${siswa.nama}" data-toggle="tooltip" title="Nonaktifkan"> <i class="fa fa-ban text-xs mr-1 ml-1"></i></button>`;
                 }
             html +=`</td></tr>`;
             });
