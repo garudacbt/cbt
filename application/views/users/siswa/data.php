@@ -246,7 +246,7 @@
             const dataPost = $('#bulk').serialize();
             console.log('post', dataPost);
             swal.fire({
-                title: action === 'aktifkan' ? "Aktifan "+perPage+" Siswa" : "Nonaktifkan "+perPage+" Siswa",
+                title: action === 'aktifkan' ? "Aktifan semua siswa" : "Nonaktifkan semua siswa",
                 text: "",
                 icon: "info",
                 showCancelButton: true,
@@ -256,10 +256,22 @@
             }).then(result => {
                 if (result.value) {
                     $('#loading').removeClass('d-none');
+                    swal.fire({
+                        title: action === 'aktifkan' ? "Mengaktifkan semua siswa" : "Menonaktifkan semua siswa",
+                        text: "Silahkan tunggu....",
+                        button: false,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        onOpen: () => {
+                            swal.showLoading();
+                        }
+                    });
+
                     $.ajax({
                         url: uri,
-                        data: dataPost,
-                        type: "POST",
+                        type: "GET",
                         success: function (response) {
                             $('#loading').addClass('d-none');
                             console.log("result", response);
