@@ -19,7 +19,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for api_setting
 -- ----------------------------
-DROP TABLE IF EXISTS `api_setting`;
+-- DROP TABLE IF EXISTS `api_setting`;
 CREATE TABLE `api_setting`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `auto_sync` int(11) NOT NULL DEFAULT 0,
@@ -35,7 +35,7 @@ CREATE TABLE `api_setting`  (
 -- ----------------------------
 -- Table structure for api_token
 -- ----------------------------
-DROP TABLE IF EXISTS `api_token`;
+-- DROP TABLE IF EXISTS `api_token`;
 CREATE TABLE `api_token`  (
   `id_api` bigint(20) NOT NULL AUTO_INCREMENT,
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -54,7 +54,7 @@ CREATE TABLE `api_token`  (
 -- ----------------------------
 -- Table structure for buku_induk
 -- ----------------------------
-DROP TABLE IF EXISTS `buku_induk`;
+-- DROP TABLE IF EXISTS `buku_induk`;
 CREATE TABLE `buku_induk`  (
   `id_siswa` bigint(20) NOT NULL AUTO_INCREMENT,
   `uid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE `buku_induk`  (
 -- ----------------------------
 -- Table structure for bulan
 -- ----------------------------
-DROP TABLE IF EXISTS `bulan`;
+-- DROP TABLE IF EXISTS `bulan`;
 CREATE TABLE `bulan`  (
   `id_bln` int(11) NOT NULL AUTO_INCREMENT,
   `nama_bln` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -136,7 +136,7 @@ INSERT INTO `bulan` VALUES (12, 'Desember');
 -- ----------------------------
 -- Table structure for cbt_bank_soal
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_bank_soal`;
+-- DROP TABLE IF EXISTS `cbt_bank_soal`;
 CREATE TABLE `cbt_bank_soal`  (
   `id_bank` int(7) NOT NULL AUTO_INCREMENT,
   `bank_jenis_id` int(7) NOT NULL DEFAULT 0,
@@ -183,7 +183,7 @@ CREATE TABLE `cbt_bank_soal`  (
 -- ----------------------------
 -- Table structure for cbt_durasi_siswa
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_durasi_siswa`;
+-- DROP TABLE IF EXISTS `cbt_durasi_siswa`;
 CREATE TABLE `cbt_durasi_siswa`  (
   `id_durasi` int(7) NOT NULL,
   `id_siswa` int(7) NULL DEFAULT NULL,
@@ -206,7 +206,7 @@ CREATE TABLE `cbt_durasi_siswa`  (
 -- ----------------------------
 -- Table structure for cbt_jadwal
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_jadwal`;
+-- DROP TABLE IF EXISTS `cbt_jadwal`;
 CREATE TABLE `cbt_jadwal`  (
   `id_jadwal` int(6) NOT NULL AUTO_INCREMENT,
   `id_tp` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -243,7 +243,7 @@ CREATE TABLE `cbt_jadwal`  (
 -- ----------------------------
 -- Table structure for cbt_jenis
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_jenis`;
+-- DROP TABLE IF EXISTS `cbt_jenis`;
 CREATE TABLE `cbt_jenis`  (
   `id_jenis` int(2) NOT NULL AUTO_INCREMENT,
   `nama_jenis` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -266,7 +266,7 @@ INSERT INTO `cbt_jenis` VALUES (7, 'Simulasi', 'SIML');
 -- ----------------------------
 -- Table structure for cbt_kelas_ruang
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_kelas_ruang`;
+-- DROP TABLE IF EXISTS `cbt_kelas_ruang`;
 CREATE TABLE `cbt_kelas_ruang`  (
   `id_kelas_ruang` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_kelas` bigint(20) NULL DEFAULT NULL,
@@ -285,7 +285,7 @@ CREATE TABLE `cbt_kelas_ruang`  (
 -- ----------------------------
 -- Table structure for cbt_kop_absensi
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_kop_absensi`;
+-- DROP TABLE IF EXISTS `cbt_kop_absensi`;
 CREATE TABLE `cbt_kop_absensi`  (
   `id_kop` int(11) NOT NULL,
   `header_1` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -305,7 +305,7 @@ CREATE TABLE `cbt_kop_absensi`  (
 -- ----------------------------
 -- Table structure for cbt_kop_berita
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_kop_berita`;
+-- DROP TABLE IF EXISTS `cbt_kop_berita`;
 CREATE TABLE `cbt_kop_berita`  (
   `id_kop` int(11) NOT NULL,
   `header_1` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -322,7 +322,7 @@ CREATE TABLE `cbt_kop_berita`  (
 -- ----------------------------
 -- Table structure for cbt_kop_kartu
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_kop_kartu`;
+-- DROP TABLE IF EXISTS `cbt_kop_kartu`;
 CREATE TABLE `cbt_kop_kartu`  (
   `id_set_kartu` int(11) NOT NULL,
   `header_1` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -340,7 +340,7 @@ CREATE TABLE `cbt_kop_kartu`  (
 -- ----------------------------
 -- Table structure for cbt_nilai
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_nilai`;
+-- DROP TABLE IF EXISTS `cbt_nilai`;
 CREATE TABLE `cbt_nilai`  (
   `id_nilai` int(11) NOT NULL,
   `pg_benar` int(11) NULL DEFAULT 0,
@@ -364,7 +364,7 @@ CREATE TABLE `cbt_nilai`  (
 -- ----------------------------
 -- Table structure for cbt_nomor_peserta
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_nomor_peserta`;
+-- DROP TABLE IF EXISTS `cbt_nomor_peserta`;
 CREATE TABLE `cbt_nomor_peserta`  (
   `id_nomor` int(11) NOT NULL,
   `id_siswa` int(7) NULL DEFAULT NULL,
@@ -381,7 +381,7 @@ CREATE TABLE `cbt_nomor_peserta`  (
 -- ----------------------------
 -- Table structure for cbt_pengawas
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_pengawas`;
+-- DROP TABLE IF EXISTS `cbt_pengawas`;
 CREATE TABLE `cbt_pengawas`  (
   `id_pengawas` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_jadwal` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -400,7 +400,7 @@ CREATE TABLE `cbt_pengawas`  (
 -- ----------------------------
 -- Table structure for cbt_rekap
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_rekap`;
+-- DROP TABLE IF EXISTS `cbt_rekap`;
 CREATE TABLE `cbt_rekap`  (
   `id_rekap` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL,
@@ -442,7 +442,7 @@ CREATE TABLE `cbt_rekap`  (
 -- ----------------------------
 -- Table structure for cbt_rekap_nilai
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_rekap_nilai`;
+-- DROP TABLE IF EXISTS `cbt_rekap_nilai`;
 CREATE TABLE `cbt_rekap_nilai`  (
   `id_rekap_nilai` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_jadwal` bigint(20) NULL DEFAULT NULL,
@@ -484,7 +484,7 @@ CREATE TABLE `cbt_rekap_nilai`  (
 -- ----------------------------
 -- Table structure for cbt_ruang
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_ruang`;
+-- DROP TABLE IF EXISTS `cbt_ruang`;
 CREATE TABLE `cbt_ruang`  (
   `id_ruang` bigint(20) NOT NULL AUTO_INCREMENT,
   `nama_ruang` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -504,7 +504,7 @@ INSERT INTO `cbt_ruang` VALUES (5, 'Ruang 5', 'R5');
 -- ----------------------------
 -- Table structure for cbt_sesi
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_sesi`;
+-- DROP TABLE IF EXISTS `cbt_sesi`;
 CREATE TABLE `cbt_sesi`  (
   `id_sesi` int(11) NOT NULL AUTO_INCREMENT,
   `nama_sesi` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -525,7 +525,7 @@ INSERT INTO `cbt_sesi` VALUES (3, 'Sesi 3', 'S3', '10:30:00', '14:00:00', 1);
 -- ----------------------------
 -- Table structure for cbt_sesi_siswa
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_sesi_siswa`;
+-- DROP TABLE IF EXISTS `cbt_sesi_siswa`;
 CREATE TABLE `cbt_sesi_siswa`  (
   `siswa_id` bigint(20) NOT NULL,
   `kelas_id` bigint(20) NULL DEFAULT NULL,
@@ -543,7 +543,7 @@ CREATE TABLE `cbt_sesi_siswa`  (
 -- ----------------------------
 -- Table structure for cbt_soal
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_soal`;
+-- DROP TABLE IF EXISTS `cbt_soal`;
 CREATE TABLE `cbt_soal`  (
   `id_soal` int(11) NOT NULL AUTO_INCREMENT,
   `bank_id` int(7) NULL DEFAULT NULL,
@@ -584,7 +584,7 @@ CREATE TABLE `cbt_soal`  (
 -- ----------------------------
 -- Table structure for cbt_soal_siswa
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_soal_siswa`;
+-- DROP TABLE IF EXISTS `cbt_soal_siswa`;
 CREATE TABLE `cbt_soal_siswa`  (
   `id_soal_siswa` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_bank` int(7) NULL DEFAULT NULL,
@@ -626,7 +626,7 @@ CREATE TABLE `cbt_soal_siswa`  (
 -- ----------------------------
 -- Table structure for cbt_token
 -- ----------------------------
-DROP TABLE IF EXISTS `cbt_token`;
+-- DROP TABLE IF EXISTS `cbt_token`;
 CREATE TABLE `cbt_token`  (
   `token` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `auto` int(11) NOT NULL,
@@ -644,7 +644,7 @@ INSERT INTO `cbt_token` VALUES ('HILZCX', 0, 1, 0, '2022-03-25 08:05:15');
 -- ----------------------------
 -- Table structure for groups
 -- ----------------------------
-DROP TABLE IF EXISTS `groups`;
+-- DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups`  (
   `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -662,7 +662,7 @@ INSERT INTO `groups` VALUES (3, 'siswa', 'Peserta Ujian');
 -- ----------------------------
 -- Table structure for hari
 -- ----------------------------
-DROP TABLE IF EXISTS `hari`;
+-- DROP TABLE IF EXISTS `hari`;
 CREATE TABLE `hari`  (
   `id_hri` int(11) NOT NULL AUTO_INCREMENT,
   `nama_hri` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -683,7 +683,7 @@ INSERT INTO `hari` VALUES (7, 'Minggu');
 -- ----------------------------
 -- Table structure for jabatan_guru
 -- ----------------------------
-DROP TABLE IF EXISTS `jabatan_guru`;
+-- DROP TABLE IF EXISTS `jabatan_guru`;
 CREATE TABLE `jabatan_guru`  (
   `id_jabatan_guru` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_guru` bigint(20) NULL DEFAULT NULL,
@@ -703,7 +703,7 @@ CREATE TABLE `jabatan_guru`  (
 -- ----------------------------
 -- Table structure for kelas_catatan_mapel
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_catatan_mapel`;
+-- DROP TABLE IF EXISTS `kelas_catatan_mapel`;
 CREATE TABLE `kelas_catatan_mapel`  (
   `id_catatan` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL,
@@ -729,7 +729,7 @@ CREATE TABLE `kelas_catatan_mapel`  (
 -- ----------------------------
 -- Table structure for kelas_catatan_wali
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_catatan_wali`;
+-- DROP TABLE IF EXISTS `kelas_catatan_wali`;
 CREATE TABLE `kelas_catatan_wali`  (
   `id_catatan` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL,
@@ -753,7 +753,7 @@ CREATE TABLE `kelas_catatan_wali`  (
 -- ----------------------------
 -- Table structure for kelas_ekstra
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_ekstra`;
+-- DROP TABLE IF EXISTS `kelas_ekstra`;
 CREATE TABLE `kelas_ekstra`  (
   `id_kelas_ekstra` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -770,7 +770,7 @@ CREATE TABLE `kelas_ekstra`  (
 -- ----------------------------
 -- Table structure for kelas_jadwal_kbm
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_jadwal_kbm`;
+-- DROP TABLE IF EXISTS `kelas_jadwal_kbm`;
 CREATE TABLE `kelas_jadwal_kbm`  (
   `id_kbm` bigint(20) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -790,7 +790,7 @@ CREATE TABLE `kelas_jadwal_kbm`  (
 -- ----------------------------
 -- Table structure for kelas_jadwal_mapel
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_jadwal_mapel`;
+-- DROP TABLE IF EXISTS `kelas_jadwal_mapel`;
 CREATE TABLE `kelas_jadwal_mapel`  (
   `id_jadwal` bigint(20) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -809,7 +809,7 @@ CREATE TABLE `kelas_jadwal_mapel`  (
 -- ----------------------------
 -- Table structure for kelas_jadwal_materi
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_jadwal_materi`;
+-- DROP TABLE IF EXISTS `kelas_jadwal_materi`;
 CREATE TABLE `kelas_jadwal_materi`  (
   `id_kjm` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -829,7 +829,7 @@ CREATE TABLE `kelas_jadwal_materi`  (
 -- ----------------------------
 -- Table structure for kelas_materi
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_materi`;
+-- DROP TABLE IF EXISTS `kelas_materi`;
 CREATE TABLE `kelas_materi`  (
   `id_materi` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 1,
@@ -859,7 +859,7 @@ CREATE TABLE `kelas_materi`  (
 -- ----------------------------
 -- Table structure for kelas_siswa
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_siswa`;
+-- DROP TABLE IF EXISTS `kelas_siswa`;
 CREATE TABLE `kelas_siswa`  (
   `id_kelas_siswa` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -881,7 +881,7 @@ CREATE TABLE `kelas_siswa`  (
 -- ----------------------------
 -- Table structure for kelas_struktur
 -- ----------------------------
-DROP TABLE IF EXISTS `kelas_struktur`;
+-- DROP TABLE IF EXISTS `kelas_struktur`;
 CREATE TABLE `kelas_struktur`  (
   `id_kelas` bigint(20) NOT NULL AUTO_INCREMENT,
   `ketua` bigint(20) NULL DEFAULT NULL,
@@ -911,7 +911,7 @@ CREATE TABLE `kelas_struktur`  (
 -- ----------------------------
 -- Table structure for level_guru
 -- ----------------------------
-DROP TABLE IF EXISTS `level_guru`;
+-- DROP TABLE IF EXISTS `level_guru`;
 CREATE TABLE `level_guru`  (
   `id_level` int(11) NOT NULL AUTO_INCREMENT,
   `level` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -930,7 +930,7 @@ INSERT INTO `level_guru` VALUES (5, 'Guru');
 -- ----------------------------
 -- Table structure for level_kelas
 -- ----------------------------
-DROP TABLE IF EXISTS `level_kelas`;
+-- DROP TABLE IF EXISTS `level_kelas`;
 CREATE TABLE `level_kelas`  (
   `id_level` int(11) NOT NULL,
   `level` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -957,7 +957,7 @@ INSERT INTO `level_kelas` VALUES (12, '12');
 -- ----------------------------
 -- Table structure for log
 -- ----------------------------
-DROP TABLE IF EXISTS `log`;
+-- DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log`  (
   `id_log` bigint(20) NOT NULL AUTO_INCREMENT,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -979,7 +979,7 @@ CREATE TABLE `log`  (
 -- ----------------------------
 -- Table structure for log_materi
 -- ----------------------------
-DROP TABLE IF EXISTS `log_materi`;
+-- DROP TABLE IF EXISTS `log_materi`;
 CREATE TABLE `log_materi`  (
   `id_log` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1007,7 +1007,7 @@ CREATE TABLE `log_materi`  (
 -- ----------------------------
 -- Table structure for log_ujian
 -- ----------------------------
-DROP TABLE IF EXISTS `log_ujian`;
+-- DROP TABLE IF EXISTS `log_ujian`;
 CREATE TABLE `log_ujian`  (
   `id_log` bigint(20) NOT NULL AUTO_INCREMENT,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1030,7 +1030,7 @@ CREATE TABLE `log_ujian`  (
 -- ----------------------------
 -- Table structure for login_attempts
 -- ----------------------------
-DROP TABLE IF EXISTS `login_attempts`;
+-- DROP TABLE IF EXISTS `login_attempts`;
 CREATE TABLE `login_attempts`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1046,7 +1046,7 @@ CREATE TABLE `login_attempts`  (
 -- ----------------------------
 -- Table structure for master_ekstra
 -- ----------------------------
-DROP TABLE IF EXISTS `master_ekstra`;
+-- DROP TABLE IF EXISTS `master_ekstra`;
 CREATE TABLE `master_ekstra`  (
   `id_ekstra` bigint(20) NOT NULL AUTO_INCREMENT,
   `nama_ekstra` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1064,7 +1064,7 @@ INSERT INTO `master_ekstra` VALUES (3, 'Tahfidz', 'TFZ');
 -- ----------------------------
 -- Table structure for master_guru
 -- ----------------------------
-DROP TABLE IF EXISTS `master_guru`;
+-- DROP TABLE IF EXISTS `master_guru`;
 CREATE TABLE `master_guru`  (
   `id_guru` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_user` bigint(20) NULL DEFAULT NULL,
@@ -1109,7 +1109,7 @@ CREATE TABLE `master_guru`  (
 -- ----------------------------
 -- Table structure for master_hari_efektif
 -- ----------------------------
-DROP TABLE IF EXISTS `master_hari_efektif`;
+-- DROP TABLE IF EXISTS `master_hari_efektif`;
 CREATE TABLE `master_hari_efektif`  (
   `id_hari_efektif` int(11) NOT NULL AUTO_INCREMENT,
   `jml_hari_efektif` int(11) NOT NULL,
@@ -1123,7 +1123,7 @@ CREATE TABLE `master_hari_efektif`  (
 -- ----------------------------
 -- Table structure for master_jurusan
 -- ----------------------------
-DROP TABLE IF EXISTS `master_jurusan`;
+-- DROP TABLE IF EXISTS `master_jurusan`;
 CREATE TABLE `master_jurusan`  (
   `id_jurusan` int(11) NOT NULL AUTO_INCREMENT,
   `nama_jurusan` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1146,7 +1146,7 @@ INSERT INTO `master_jurusan` VALUES (4, 'KEAGAMAAN', 'AGAMA', NULL, 0, 1);
 -- ----------------------------
 -- Table structure for master_kelas
 -- ----------------------------
-DROP TABLE IF EXISTS `master_kelas`;
+-- DROP TABLE IF EXISTS `master_kelas`;
 CREATE TABLE `master_kelas`  (
   `id_kelas` int(5) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL,
@@ -1172,7 +1172,7 @@ CREATE TABLE `master_kelas`  (
 -- ----------------------------
 -- Table structure for master_kelompok_mapel
 -- ----------------------------
-DROP TABLE IF EXISTS `master_kelompok_mapel`;
+-- DROP TABLE IF EXISTS `master_kelompok_mapel`;
 CREATE TABLE `master_kelompok_mapel`  (
   `id_kel_mapel` bigint(20) NOT NULL AUTO_INCREMENT,
   `kode_kel_mapel` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -1195,7 +1195,7 @@ INSERT INTO `master_kelompok_mapel` VALUES (6, 'PAI', 'PAI', 'PAI (Kemenag)', 0)
 -- ----------------------------
 -- Table structure for master_mapel
 -- ----------------------------
-DROP TABLE IF EXISTS `master_mapel`;
+-- DROP TABLE IF EXISTS `master_mapel`;
 CREATE TABLE `master_mapel`  (
   `id_mapel` bigint(20) NOT NULL AUTO_INCREMENT,
   `nama_mapel` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1260,7 +1260,7 @@ INSERT INTO `master_mapel` VALUES (42, 'Matematika (Peminatan)', 'MTK-P', 'C', 0
 -- ----------------------------
 -- Table structure for master_siswa
 -- ----------------------------
-DROP TABLE IF EXISTS `master_siswa`;
+-- DROP TABLE IF EXISTS `master_siswa`;
 CREATE TABLE `master_siswa`  (
   `id_siswa` int(7) NOT NULL AUTO_INCREMENT,
   `nisn` int(10) UNSIGNED ZEROFILL NOT NULL,
@@ -1322,7 +1322,7 @@ CREATE TABLE `master_siswa`  (
 -- ----------------------------
 -- Table structure for master_smt
 -- ----------------------------
-DROP TABLE IF EXISTS `master_smt`;
+-- DROP TABLE IF EXISTS `master_smt`;
 CREATE TABLE `master_smt`  (
   `id_smt` int(11) NOT NULL AUTO_INCREMENT,
   `smt` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1340,7 +1340,7 @@ INSERT INTO `master_smt` VALUES (2, 'Genap', 'II (dua)', 0);
 -- ----------------------------
 -- Table structure for master_tp
 -- ----------------------------
-DROP TABLE IF EXISTS `master_tp`;
+-- DROP TABLE IF EXISTS `master_tp`;
 CREATE TABLE `master_tp`  (
   `id_tp` int(11) NOT NULL AUTO_INCREMENT,
   `tahun` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1359,7 +1359,7 @@ INSERT INTO `master_tp` VALUES (4, '2023/2024', 0);
 -- ----------------------------
 -- Table structure for post
 -- ----------------------------
-DROP TABLE IF EXISTS `post`;
+-- DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post`  (
   `id_post` bigint(20) NOT NULL AUTO_INCREMENT,
   `dari` bigint(20) NULL DEFAULT NULL,
@@ -1378,7 +1378,7 @@ CREATE TABLE `post`  (
 -- ----------------------------
 -- Table structure for post_comments
 -- ----------------------------
-DROP TABLE IF EXISTS `post_comments`;
+-- DROP TABLE IF EXISTS `post_comments`;
 CREATE TABLE `post_comments`  (
   `id_comment` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_post` bigint(20) NULL DEFAULT NULL,
@@ -1398,7 +1398,7 @@ CREATE TABLE `post_comments`  (
 -- ----------------------------
 -- Table structure for post_reply
 -- ----------------------------
-DROP TABLE IF EXISTS `post_reply`;
+-- DROP TABLE IF EXISTS `post_reply`;
 CREATE TABLE `post_reply`  (
   `id_reply` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_comment` bigint(20) NULL DEFAULT NULL,
@@ -1418,7 +1418,7 @@ CREATE TABLE `post_reply`  (
 -- ----------------------------
 -- Table structure for rapor_admin_setting
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_admin_setting`;
+-- DROP TABLE IF EXISTS `rapor_admin_setting`;
 CREATE TABLE `rapor_admin_setting`  (
   `id_setting` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
@@ -1444,7 +1444,7 @@ CREATE TABLE `rapor_admin_setting`  (
 -- ----------------------------
 -- Table structure for rapor_catatan_wali
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_catatan_wali`;
+-- DROP TABLE IF EXISTS `rapor_catatan_wali`;
 CREATE TABLE `rapor_catatan_wali`  (
   `id_catatan_wali` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
@@ -1463,7 +1463,7 @@ CREATE TABLE `rapor_catatan_wali`  (
 -- ----------------------------
 -- Table structure for rapor_data_catatan
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_data_catatan`;
+-- DROP TABLE IF EXISTS `rapor_data_catatan`;
 CREATE TABLE `rapor_data_catatan`  (
   `id_catatan` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
@@ -1483,7 +1483,7 @@ CREATE TABLE `rapor_data_catatan`  (
 -- ----------------------------
 -- Table structure for rapor_data_fisik
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_data_fisik`;
+-- DROP TABLE IF EXISTS `rapor_data_fisik`;
 CREATE TABLE `rapor_data_fisik`  (
   `id_fisik` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
@@ -1502,7 +1502,7 @@ CREATE TABLE `rapor_data_fisik`  (
 -- ----------------------------
 -- Table structure for rapor_data_sikap
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_data_sikap`;
+-- DROP TABLE IF EXISTS `rapor_data_sikap`;
 CREATE TABLE `rapor_data_sikap`  (
   `id_sikap` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
@@ -1521,7 +1521,7 @@ CREATE TABLE `rapor_data_sikap`  (
 -- ----------------------------
 -- Table structure for rapor_fisik
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_fisik`;
+-- DROP TABLE IF EXISTS `rapor_fisik`;
 CREATE TABLE `rapor_fisik`  (
   `id_fisik` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_kelas` bigint(20) NULL DEFAULT NULL,
@@ -1541,7 +1541,7 @@ CREATE TABLE `rapor_fisik`  (
 -- ----------------------------
 -- Table structure for rapor_kikd
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_kikd`;
+-- DROP TABLE IF EXISTS `rapor_kikd`;
 CREATE TABLE `rapor_kikd`  (
   `id_kikd` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_mapel_kelas` bigint(20) NULL DEFAULT NULL,
@@ -1559,7 +1559,7 @@ CREATE TABLE `rapor_kikd`  (
 -- ----------------------------
 -- Table structure for rapor_kkm
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_kkm`;
+-- DROP TABLE IF EXISTS `rapor_kkm`;
 CREATE TABLE `rapor_kkm`  (
   `id_kkm` bigint(20) NOT NULL AUTO_INCREMENT,
   `kkm` int(11) NULL DEFAULT 0,
@@ -1583,7 +1583,7 @@ CREATE TABLE `rapor_kkm`  (
 -- ----------------------------
 -- Table structure for rapor_naik
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_naik`;
+-- DROP TABLE IF EXISTS `rapor_naik`;
 CREATE TABLE `rapor_naik`  (
   `id_naik` bigint(20) NOT NULL,
   `id_tp` int(11) NOT NULL,
@@ -1600,7 +1600,7 @@ CREATE TABLE `rapor_naik`  (
 -- ----------------------------
 -- Table structure for rapor_nilai_akhir
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_nilai_akhir`;
+-- DROP TABLE IF EXISTS `rapor_nilai_akhir`;
 CREATE TABLE `rapor_nilai_akhir`  (
   `id_nilai_akhir` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_mapel` bigint(20) NULL DEFAULT NULL,
@@ -1621,7 +1621,7 @@ CREATE TABLE `rapor_nilai_akhir`  (
 -- ----------------------------
 -- Table structure for rapor_nilai_ekstra
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_nilai_ekstra`;
+-- DROP TABLE IF EXISTS `rapor_nilai_ekstra`;
 CREATE TABLE `rapor_nilai_ekstra`  (
   `id_nilai_ekstra` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_ekstra` bigint(20) NULL DEFAULT NULL,
@@ -1642,7 +1642,7 @@ CREATE TABLE `rapor_nilai_ekstra`  (
 -- ----------------------------
 -- Table structure for rapor_nilai_harian
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_nilai_harian`;
+-- DROP TABLE IF EXISTS `rapor_nilai_harian`;
 CREATE TABLE `rapor_nilai_harian`  (
   `id_nilai_harian` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_siswa` bigint(20) NULL DEFAULT NULL,
@@ -1683,7 +1683,7 @@ CREATE TABLE `rapor_nilai_harian`  (
 -- ----------------------------
 -- Table structure for rapor_nilai_pts
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_nilai_pts`;
+-- DROP TABLE IF EXISTS `rapor_nilai_pts`;
 CREATE TABLE `rapor_nilai_pts`  (
   `id_nilai_pts` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_mapel` bigint(20) NULL DEFAULT NULL,
@@ -1703,7 +1703,7 @@ CREATE TABLE `rapor_nilai_pts`  (
 -- ----------------------------
 -- Table structure for rapor_nilai_sikap
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_nilai_sikap`;
+-- DROP TABLE IF EXISTS `rapor_nilai_sikap`;
 CREATE TABLE `rapor_nilai_sikap`  (
   `id_nilai_sikap` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_siswa` bigint(20) NULL DEFAULT NULL,
@@ -1723,7 +1723,7 @@ CREATE TABLE `rapor_nilai_sikap`  (
 -- ----------------------------
 -- Table structure for rapor_prestasi
 -- ----------------------------
-DROP TABLE IF EXISTS `rapor_prestasi`;
+-- DROP TABLE IF EXISTS `rapor_prestasi`;
 CREATE TABLE `rapor_prestasi`  (
   `id_ranking` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_kelas` bigint(20) NULL DEFAULT NULL,
@@ -1748,7 +1748,7 @@ CREATE TABLE `rapor_prestasi`  (
 -- ----------------------------
 -- Table structure for running_text
 -- ----------------------------
-DROP TABLE IF EXISTS `running_text`;
+-- DROP TABLE IF EXISTS `running_text`;
 CREATE TABLE `running_text`  (
   `id_text` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -1762,7 +1762,7 @@ CREATE TABLE `running_text`  (
 -- ----------------------------
 -- Table structure for setting
 -- ----------------------------
-DROP TABLE IF EXISTS `setting`;
+-- DROP TABLE IF EXISTS `setting`;
 CREATE TABLE `setting`  (
   `id_setting` bigint(20) NOT NULL AUTO_INCREMENT,
   `kode_sekolah` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -1804,7 +1804,7 @@ CREATE TABLE `setting`  (
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
+-- DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1837,7 +1837,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Table structure for users_groups
 -- ----------------------------
-DROP TABLE IF EXISTS `users_groups`;
+-- DROP TABLE IF EXISTS `users_groups`;
 CREATE TABLE `users_groups`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL,
@@ -1855,7 +1855,7 @@ CREATE TABLE `users_groups`  (
 -- ----------------------------
 -- Table structure for users_profile
 -- ----------------------------
-DROP TABLE IF EXISTS `users_profile`;
+-- DROP TABLE IF EXISTS `users_profile`;
 CREATE TABLE `users_profile`  (
   `id_user` bigint(20) NOT NULL AUTO_INCREMENT,
   `nama_lengkap` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
