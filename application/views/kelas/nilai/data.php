@@ -267,7 +267,9 @@
                             bg = !adaMateri[jj] && !adaTugas[jj] ? 'lightgrey' : 'white';
                             style = !adaMateri[jj] && !adaTugas[jj] ? styleEmpty : styleNormal;
                             if (value.nilai_materi[nbln] != null && value.nilai_materi[nbln][tgl] != null && value.nilai_materi[nbln][tgl][jj] != null && value.nilai_materi[nbln][tgl][jj].nilai != null) {
-                                if (adaMateri[jj]) nilaiMateri += parseInt(value.nilai_materi[nbln][tgl][jj].nilai);
+                                if (adaMateri[jj]) {
+                                    nilaiMateri += parseInt(value.nilai_materi[nbln][tgl][jj].nilai);
+                                }
                             }
                             if (value.nilai_tugas[nbln] != null && value.nilai_tugas[nbln][tgl] != null && value.nilai_tugas[nbln][tgl][jj] != null && value.nilai_tugas[nbln][tgl][jj].nilai != null) {
                                 if (adaTugas[jj]) nilaiTugas += parseInt(value.nilai_tugas[nbln][tgl][jj].nilai);
