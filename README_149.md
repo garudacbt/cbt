@@ -1,8 +1,7 @@
 # GarudaCBT
+##Last version: 1.4.9
 
-## Last version: 1.4.9
-
-#### changelog:
+####changelog:
 - fixed: soal manual tidak tampil di siswa
 - fixed: Soal Jodohkan mode table CELL kosong jika tidak ada jawaban
 - fixed: paksa selesai ujian tidak menyimpan nilai rekap
@@ -20,7 +19,7 @@
 - filter jadwal ujian
 ___________
 
-## NOTE:
+##NOTE:
 Aplikasi ini tidak diperjual belikan alias gratis 100% dengan lisensi MIT yang artinya bebas untuk memodifikasi dengan syarat tetap mencantumkan sumber asal.
 
 Kami selaku pengembang aplikasi ini tidak bertanggung-jawab:
@@ -31,15 +30,15 @@ ______________
 - [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
 
 ____
-## Download
+##Download
 Harap download aplikasi dari tombol [<> Code] -> Download zip
 
 -----
-## VIRTUAL BOX (VHD):
+##VIRTUAL BOX (VHD):
 https://github.com/origrata/garudacbt-vdi
 
 ----
-## Install
+##Install
 * Download Aplikasi dari menu **Code => Download ZIP**
 * Extract di folder **htdocs** jika menggunakan XAMPP, atau folder **www** jika mengonakan Laragon
 * Lengkapnya sialhkan ke [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)
@@ -53,61 +52,61 @@ https://github.com/origrata/garudacbt-vdi
 ______
 ### MENU FITUR
 1. DATA MASTER
-    * Beranda
-    * Data Umum
-        * Tahun Pelajaran
-        * Jurusan
-        * Mata Pelajaran
-        * Ekstrakurikuler
-        * Siswa
-        * Kelas / Rombel
-        * Guru
-    * Data E-Learning
-        * Jadwal Pelajaran
-        * Materi
-        * Tugas
-        * Jadwal Materi/Tugas
-    * Data Ujian
-        * Jenis Ujian
-        * Sesi
-        * Ruang
-        * Atur Ruang dan Sesi
-        * Atur Nomor Peserta
-        * Bank Soal
-        * Jadwal
-        * Alokasi Waktu
-        * Token
-    * Pengumuman
-
+   * Beranda
+   * Data Umum
+     * Tahun Pelajaran
+     * Jurusan
+     * Mata Pelajaran
+     * Ekstrakurikuler
+     * Siswa
+     * Kelas / Rombel
+     * Guru
+   * Data E-Learning
+     * Jadwal Pelajaran
+     * Materi
+     * Tugas
+     * Jadwal Materi/Tugas
+   * Data Ujian
+     * Jenis Ujian
+     * Sesi
+     * Ruang
+     * Atur Ruang dan Sesi
+     * Atur Nomor Peserta
+     * Bank Soal
+     * Jadwal
+     * Alokasi Waktu
+     * Token
+   * Pengumuman
+   
 2. PELAKSANAAN
-    * Hasil E-Learning
-        * Nilai Harian
-        * Kehadiran Harian
-        * Kehadiran Bulanan
-        * Rekap Nilai
-    * Pelaksanaan Ujian
-        * Cetak
-        * Status Siswa
-        * Hasil Ujian
-        * Analisis Soal
-        * Rekap Nilai Ujian
+   * Hasil E-Learning
+     * Nilai Harian
+     * Kehadiran Harian
+     * Kehadiran Bulanan
+     * Rekap Nilai
+   * Pelaksanaan Ujian
+     * Cetak
+     * Status Siswa
+     * Hasil Ujian
+     * Analisis Soal
+     * Rekap Nilai Ujian
 
 3. RAPOR
-    * Setting Rapor
-    * Kumpulan Nilai Rapor
-    * Buku Induk
-    * Alumni
+   * Setting Rapor
+   * Kumpulan Nilai Rapor
+   * Buku Induk
+   * Alumni
 
 4. PENGATURAN
-    * Profile Sekolah
-    * User Management
-        * Administrator
-        * Guru
-        * Siswa
-    * Database
-        * Backup/Restore
-        * Update
-
+   * Profile Sekolah
+   * User Management
+     * Administrator
+     * Guru
+     * Siswa
+   * Database
+     * Backup/Restore
+     * Update
+     
 6. LOGOUT
 ______
 ______

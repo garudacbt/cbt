@@ -174,7 +174,7 @@
         if (data.lists.length > 0) {
             $.each(data.lists, function (idx, siswa) {
                 const kls = siswa.nama_kelas != null ? '<span class="badge badge-pill badge-info">'+siswa.nama_kelas+'</span>' : '';
-                const status = siswa.id != null ? '<div class="badge badge-pill badge-success">Aktif</div>' : '<div class="badge badge-pill badge-danger">Nonaktif</div>';
+                const status = siswa.aktif == "0"  ? '<div class="badge badge-pill badge-danger">Nonaktif</div>' : '<div class="badge badge-pill badge-success">Aktif</div>';
                 html += '<tr>' +
                     '   <td class="text-center align-middle">'+ Number((perPage * (currentPage - 1)) + (idx + 1)) +'</td>' +
                     '   <td>' +

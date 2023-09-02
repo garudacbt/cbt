@@ -485,6 +485,7 @@
         if (data.lists.length > 0) {
             $.each(data.lists, function (idx, siswa) {
                 const kls = siswa.nama_kelas != null ? '<span class="badge badge-info">'+siswa.nama_kelas+'</span>' : '';
+                const status = siswa.aktif == "0" ? '<span class="badge badge-danger">Nonaktif</span>' : '<span class="badge badge-success">Aktif</span>';
                 html += '<tr>' +
                     '   <td class="text-center align-middle">' +
                     '       <input name="checked[]" class="check" value="'+siswa.id_siswa+'" type="checkbox">' +
@@ -495,7 +496,7 @@
                     '           <img class="avatar img-circle justify-content-center align-self-center"' +
                     '                src="'+base_url+siswa.foto+'" width="50" height="50" alt="User Image"> ' +
                     '           <div class="media-body ml-2 justify-content-center align-self-center">'+siswa.nama+'<br>' + kls +
-                    '               <span class="badge badge-info">'+siswa.jenis_kelamin+'</span>' +
+                    '               <span class="badge badge-info mr-1">'+siswa.jenis_kelamin+'</span>' + status +
                     '           </div>' +
                     '       </div>' +
                     '   </td>' +
