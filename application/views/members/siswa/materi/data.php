@@ -87,7 +87,9 @@
                                                             if ($k > 0) {
                                                                 $tkelas .= ', ';
                                                             }
-                                                            $tkelas .= $kelas[$kls];
+                                                            if (isset($kelas[$kls])) {
+                                                                $tkelas .= $kelas[$kls];
+                                                            }
                                                         } ?>
                                                         <div class="card-header">
                                                             <div class="card-title">

@@ -120,19 +120,25 @@
 </head>
 
 <script>
+    let reloadCOunt = 0;
     let base_url = '<?=base_url()?>';
 
     let globalToken;
     var adaJadwalUjian;
 
     function getToken(func) {
-        console.log('getToken');
         $.ajax({
             url: base_url + "dashboard/checktokenjadwal",
             type: "GET",
             success: function (response) {
+                console.log('getToken', response.token);
                 globalToken = response.token;
                 adaJadwalUjian = response.ada_jadwal;
+                if (reloadCOunt > 0) {
+                    showSuccessToast('Token: <b>' + globalToken.token + '</b>');
+                }
+                reloadCOunt ++;
+
                 if (func && (typeof func == "function")) {
                     func(response);
                 }

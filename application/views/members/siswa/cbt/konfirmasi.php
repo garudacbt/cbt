@@ -107,8 +107,8 @@
                                     <?= form_close(); ?>
 
                                 <?php elseif (!$valid) : ?>
-                                    <div class="alert alert-default-danger text-center p-5">
-                                        <h2><i class="icon fas fa-ban"></i> WARNING..!!</h2>
+                                    <div class="alert alert-default-danger text-center p-2">
+                                        <h3><i class="icon fas fa-ban"></i> WARNING..!!</h3>
                                         <div class="text-lg">
                                             Ujian tidak bisa dilanjutkan
                                             <br>
@@ -116,8 +116,8 @@
                                         </div>
                                     </div>
                                 <?php elseif (!$support): ?>
-                                    <div class="alert alert-default-danger text-center p-5">
-                                        <h2><i class="icon fas fa-ban"></i> WARNING..!!</h2>
+                                    <div class="alert alert-default-danger text-center p-2">
+                                        <h3><i class="icon fas fa-ban"></i> WARNING..!!</h3>
                                         <div class="text-lg">
                                             Browser yang digunakan tidak mendukung
                                             <br>

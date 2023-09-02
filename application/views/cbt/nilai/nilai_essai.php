@@ -305,7 +305,7 @@
                     if (data.success > 0) {
                         swal.fire({
                             title: "Berhasil",
-                            text: "Nilai berhasil dihapus",
+                            text: "Nilai berhasil disimapn",
                             icon: "success"
                         }).then(result => {
                             if (result.value) {

@@ -218,6 +218,7 @@
                     '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">' + value.kelas + '</p></td>';
 
                 $.each(idsMapel, function (jamke, idm) {
+                    //console.log(idm, jamke)
                     //var jamke = i;
                     var adaMateri = data.materi[idm] != null && data.materi[idm][jamke] != null && data.materi[idm][jamke][1] != null;
                     if (adaMateri) {

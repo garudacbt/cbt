@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-3">
-                        <div class="col-3">
+                        <div class="col-4">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Tahun</span>
@@ -31,7 +31,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Smt</span>
@@ -44,7 +44,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Jadwal</span>
@@ -58,11 +58,13 @@
                                 ); ?>
                             </div>
                         </div>
+                        <!--
                         <div class="col-3">
                             <?php if (isset($nilai) && count($nilai) == 0) : ?>
                                 <button class="btn btn-primary" id="kalkulasi">Buat Analisa</button>
                             <?php endif; ?>
                         </div>
+                        -->
                     </div>
                     <hr>
                     <?php
