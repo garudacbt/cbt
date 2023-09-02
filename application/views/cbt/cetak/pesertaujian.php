@@ -94,9 +94,6 @@
                     <div class="d-flex justify-content-center bg-gray-light" style="min-height: 300mm">
                         <div id="print-preview" class="m-2">
                             <?php
-                            //echo '<pre>';
-                            //var_dump($siswa['LAB-KOM']);
-                            //echo '</pre>';
                             if ($mode == null || $mode == '1'):
                                 foreach ($siswa as $ruang => $sesi):
                                     foreach ($sesi as $ses => $sis):?>
@@ -132,9 +129,9 @@
                                                 <hr class="m-0">
                                                 <?php
                                                 $se = $sesis[$sis[0]->kode_sesi];
-                                                $nama_sesi = $se->nama_sesi;
-                                                $mulai_sesi = $se->waktu_mulai;
-                                                $akhir_sesi = $se->waktu_akhir;
+                                                $nama_sesi = $se->nama_sesi ?? '';
+                                                $mulai_sesi = $se->waktu_mulai ?? '';
+                                                $akhir_sesi = $se->waktu_akhir ?? '';
                                                 ?>
                                                 <table>
                                                     <tr>

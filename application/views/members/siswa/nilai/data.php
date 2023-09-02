@@ -127,8 +127,7 @@
                             <div id='list-cbt'>
                                 <?php
                                 //echo '<pre>';
-                                //var_dump($durasi);
-                                //var_dump($skor);
+                                //var_dump($kelass);
                                 //var_dump($jadwal);
                                 //echo '</pre>';
                                 ?>

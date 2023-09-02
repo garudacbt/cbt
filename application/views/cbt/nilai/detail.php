@@ -82,7 +82,7 @@
                                 <tr>
                                     <td>PG</td>
                                     <td class="text-center"><?= round($skor->skor_pg, 2) ?></td>
-                                    <td rowspan="5" style="width: 100px" class="text-center">
+                                    <td rowspan="3" style="width: 100px" class="text-center">
                                         <b>NILAI</b>
                                         <br>
                                         <span style="font-size: 40pt"><?= round($skor->skor_total, 2) ?></span>
@@ -99,6 +99,9 @@
                                 <tr>
                                     <td>IS</td>
                                     <td class="text-center"><?= round($skor->skor_isian, 2) ?></td>
+                                    <td rowspan="2" style="width: 100px" class="text-center">
+                                        <b><?=isset($skor->dikoreksi) && $skor->dikoreksi ? "Sudah dikoreksi" : "Belum dikoreksi"?></b>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>ES</td>

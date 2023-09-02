@@ -66,19 +66,26 @@ $colWidth = '';
                             </div>
                         </div>
                         <?php
-                        $isadmin = $this->ion_auth->is_admin() ? '' : ' d-none';
-                        if ($isadmin) :?>
-                        <?php endif; ?>
-                        <div class="col-4 mb-3">
-                            <button type="button" id="import-essai" class="btn btn-info align-text-bottom mr-2"
-                                    data-toggle="tooltip"
-                                    title="Import Nilai Essai">
-                                <i class="fa fa-pencil ml-1 mr-1"></i> Input Nilai
-                            </button>
+                        $isShow = count($siswas) > 0 ? '' : ' d-none';
+                        ?>
+                        <div class="col-md-4 mb-3">
+                            <div class="row">
+                                <button type="button" id="import-essai" class="btn btn-info align-text-bottom btn-disabled col-5"
+                                        data-toggle="tooltip"
+                                        title="Input nilai manual">
+                                    <i class="fa fa-pencil ml-1 mr-1"></i> Input Nilai
+                                </button>
+                                <div class="col-1"></div>
+                                <button type="button" id="mark-all" class="btn btn-success align-text-bottom btn-disabled col-6"
+                                        data-toggle="tooltip"
+                                        title="Tandai semua siswa sudah dikoreksi" disabled>
+                                    <i class="fa fa-check ml-1 mr-1"></i> Tandai semua
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <hr>
-                    <div class="float-right <?= $dnone ?>" id="group-export">
+                    <div class="float-right row <?= $dnone ?>" id="group-export">
                         <?php if (isset($convert)) : ?>
                             <button type="button" id="rollback" class="btn btn-warning align-text-bottom">
                                 <i class="fa fa-undo ml-1 mr-1"></i> Nilai Asli
@@ -86,22 +93,21 @@ $colWidth = '';
                         <?php else: ?>
                             <button type="button" class="btn btn-danger align-text-bottom"
                                     data-toggle="modal" data-target="#perbaikanModal">
-                                <i class="fa fa-balance-scale-right ml-1 mr-1"></i> Katrol Nilai
+                                <i class="fa fa-balance-scale-right ml-1 mr-1"></i> Katrol
                             </button>
                         <?php endif; ?>
-                        <input style="width: 24px; height: 24px" class="ml-4" id="nilai-detail" type="checkbox" checked>
-                        <label for="nilai-detail" class="align-middle">Detail</label>
+                        <input style="width: 24px; height: 24px" class="m-1" id="nilai-detail" type="checkbox" checked>
+                        <label for="nilai-detail" class="mt-1 mr-1">Detail</label>
                         <button type="button" id="download-excel" class="btn btn-success align-text-bottom mr-2"
                                 data-toggle="tooltip"
                                 title="Download Excel">
-                            <i class="fa fa-file-excel ml-1 mr-1"></i> Ekspor ke Excel
+                            <i class="fa fa-file-excel ml-1 mr-1"></i> Ekspor Excel
                         </button>
                     </div>
                     <?php
-                    //var_dump(isset($convert));
                     $nilaiTertinggi = 0;
                     $nilaiTerrendah = -1;
-                    if (isset($siswas)) :
+                    if (count($siswas) > 0) :
                         $cols = [$info->tampil_pg, $info->tampil_kompleks, $info->tampil_jodohkan, $info->tampil_isian, $info->tampil_esai];
                         $cols = array_filter($cols);
                         $rows = count($cols) > 1 ? 1 : 2;
@@ -113,12 +119,12 @@ $colWidth = '';
                         $colWidth .= ',10,10,10';
 
                         $totalSoal = $info->tampil_pg + $info->tampil_kompleks + $info->tampil_jodohkan + $info->tampil_isian + $info->tampil_esai;
-
                         ?>
                         <div class="d-none" id="info">
                             <div id="info-ujian"></div>
                         </div>
                         <div <?= $dnone ?>>
+                            <?= form_open('', array('id' => 'koreksi-semua')) ?>
                             <table class="w-100" id="table-status" data-cols-width="<?= $colWidth ?>">
                                 <tr>
                                     <td colspan="2">Mata Pelajaran</td>
@@ -387,11 +393,19 @@ $colWidth = '';
                                                     data-toggle="tooltip" title="Detail Jawaban Siswa" <?= $disabled ?>>
                                                 Koreksi
                                             </button>
+                                            <?php if (isset($siswa->dikoreksi) && $siswa->dikoreksi) :?>
+                                            <i title="Sudah dikoreksi" class="fa fa-check-circle text-green ml-1"></i>
+                                            <?php else: ?>
+                                            <i title="Belum dikoreksi" class="fa fa-warning text-warning ml-1"></i>
+
+                                                <input type="hidden" name="ids[<?=$idSiswa?>]" value="<?=$disable ? 0 : 1?>">
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
 
                                     <?php $no++; endforeach; ?>
                             </table>
+                            <?= form_close() ?>
                         </div>
                     <?php endif; ?>
                     <!--
@@ -471,7 +485,9 @@ $colWidth = '';
     var colWidth = '<?= $colWidth ?>';
 
     var idJadwal = '<?=$jadwal_selected?>';
-    var isSelected = <?= isset($siswa) ? '1' : '0'?>;
+    var idKelas = '<?=$kelas_selected?>';
+    const arrSiswa = <?= json_encode($siswas) ?>;
+    var isSelected = <?= count($siswas)>0 ? 1 : 0?>;
     var namaMapel = '<?=isset($info) ? $info->kode : ''?>';
     var jenisUjian = '<?=isset($info) ? $info->kode_jenis : ''?>';
 
@@ -520,7 +536,9 @@ $colWidth = '';
                         selJadwal.append('<option value="' + k + '">' + v + '</option>');
                     }
                 });
-
+                const enb = isSelected && $("#jadwal").val() === "<?= $jadwal_selected ?>"
+                $('#import-essai').attr('disabled', !enb);
+                $('#import-essai').toggleClass('btn-disabled', !enb);
             }
         });
     }
@@ -528,12 +546,17 @@ $colWidth = '';
     $(document).ready(function () {
         ajaxcsrf();
 
+        const loading = $('#loading');
         var opsiJadwal = $("#jadwal");
         var opsiKelas = $("#kelas");
 
         var selected = isSelected === 0 ? "selected='selected'" : "";
         opsiJadwal.prepend("<option value='' " + selected + " disabled>Pilih Jadwal</option>");
         opsiKelas.prepend("<option value='' " + selected + " disabled>Pilih Kelas</option>");
+        $('#import-essai').attr('disabled', !isSelected);
+        $('#import-essai').toggleClass('btn-disabled', !isSelected);
+        $('#mark-all').attr('disabled', !isSelected);
+        $('#mark-all').toggleClass('btn-disabled', !isSelected);
 
         function loadSiswaKelas(kelas, jadwal) {
             var empty = jadwal === null;
@@ -552,12 +575,19 @@ $colWidth = '';
 
         opsiKelas.change(function () {
             //loadSiswaKelas($(this).val(), opsiJadwal.val())
+            //console.log(opsiKelas.val(), opsiJadwal.val())
+            //const dis = $(this).val() === "<?= $kelas_selected ?>" && opsiJadwal.val() === "<?= $jadwal_selected ?>"
+            //$('#import-essai').attr('disabled', dis);
+            //$('#import-essai').toggleClass('btn-disabled', dis);
             getKelasJadwal($(this).val());
         });
 
         opsiJadwal.change(function () {
             idJadwal = $(this).val();
             //getDetailJadwal(idJadwal);
+            //const dis = $(this).val() === "<?= $jadwal_selected ?>" && opsiKelas === "<?= $kelas_selected ?>"
+            //$('#import-essai').attr('disabled', dis);
+            //$('#import-essai').toggleClass('btn-disabled', dis);
             loadSiswaKelas(opsiKelas.val(), $(this).val())
         });
 
@@ -587,7 +617,7 @@ $colWidth = '';
             }
         });
 
-        $('#loading').addClass('d-none');
+        loading.addClass('d-none');
 
         $("#nilai-detail").on("click", function () {
             if (this.checked) {
@@ -648,5 +678,57 @@ $colWidth = '';
             }
             window.location.href = base_url + 'cbtnilai/inputessai?kelas=' + opsiKelas.val() + '&jadwal=' + opsiJadwal.val();
         });
+
+        $('#mark-all').on('click', function () {
+            var dataPost = $('#koreksi-semua').serialize()+'&id_jadwal='+idJadwal;
+            console.log('arrSiswa', dataPost)
+            loading.removeClass('d-none');
+            swal.fire({
+                text: "Silahkan tunggu....",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            });
+            $.ajax({
+                url: base_url + "cbtnilai/tandaisemua",
+                type: "POST",
+                data: dataPost,
+                success: function (data) {
+                    console.log(data);
+                    if (data.success > 0) {
+                        swal.fire({
+                            title: "Berhasil",
+                            text: "Koreksi nilai berhasil disimpan",
+                            icon: "success"
+                        }).then(result => {
+                            if (result.value) {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        loading.addClass('d-none');
+                        swal.fire({
+                            title: "Gagal",
+                            text: 'Tidak ada nilai yang disimpan',
+                            icon: "error"
+                        });
+                    }
+                }, error: function (xhr, status, error) {
+                    loading.addClass('d-none');
+                    console.log("error", xhr.responseText);
+                    const err = JSON.parse(xhr.responseText)
+                    swal.fire({
+                        title: "Error",
+                        text: err.Message,
+                        icon: "error"
+                    });
+                }
+            });
+        })
     })
 </script>

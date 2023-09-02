@@ -4,7 +4,7 @@
         resetToastPosition();
         $.toast({
             heading: 'Success',
-            text: msg,
+            html: msg,
             showHideTransition: 'slide',
             icon: 'success',
             loaderBg: '#f96868',
