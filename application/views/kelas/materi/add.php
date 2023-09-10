@@ -266,8 +266,8 @@ $max_size = 2048; // KB
                 },
                 //onChange: function(contents, $editable) {
                 //    console.log('onChange:', contents, $editable);
-                //}
-            }
+                //},
+            },
         });
         var isiMateri = `<?=$materi->isi_materi?>`;
         var checkMateri = isiMateri == null ? '' : isiMateri;
@@ -285,6 +285,10 @@ $max_size = 2048; // KB
         });
 
         $('#text-materi').summernote('code', sMateri);
+
+        $('.note-editable').find('table').each(function () {
+            $(this).addClass('table table-bordered')
+        })
 
         //console.log('kls',arrKelas);
         $('#kelas').select2();

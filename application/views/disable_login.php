@@ -17,7 +17,7 @@
 </head>
 
 <script type="text/javascript">
-    let base_url = 'http://localhost/main/';
+    let base_url = '<?=base_url();?>';
     function logout() {
         location.href=base_url+"logout";
     }

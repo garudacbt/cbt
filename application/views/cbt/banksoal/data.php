@@ -399,7 +399,7 @@ $allBanksIds = [];
                                                         <span class="float-right"><b><?= $bank->nama_guru ?></b></span>
                                                     </li>
                                                     <li class="list-group-item p-1"> Mapel
-                                                        <span class="float-right"><b><?= $bank->kode ?></b></span>
+                                                        <span class="float-right"><b><?= $bank->bank_kode ?></b></span>
                                                     </li>
                                                     <li class="list-group-item p-1"> Kelas
                                                         <span class="float-right"><b><?= $kelasbank ?></b></span>

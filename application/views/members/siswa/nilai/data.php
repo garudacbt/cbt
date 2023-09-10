@@ -310,18 +310,26 @@
             var d = new Date(sp[0], sp[1] - 1, sp[2]);
             $('#jwaktu').html(': ' + arrhari[d.getDay()] + ', ' + sp[2] + ' ' + arrbulan[parseInt(sp[1])] + ' ' + sp[0]);
 
-            if (dur != null && dur.mulai != null && dur.selesai != null && dur.lama_ujian != null) {
+            if (dur != null && dur.mulai != null && dur.selesai != null) {
                 var m = dur.mulai.split(' ')[1].split(':');
                 $('#jmulai').html(': ' + m[0] + ':' + m[1]);
                 var s = dur.selesai.split(' ')[1].split(':');
                 $('#jselesai').html(': ' + s[0] + ':' + s[1]);
-                var l = dur.lama_ujian.split(':');
-                var dr = '';
-                if (l[0] !== '00') {
-                    dr += parseInt(l[0]) + ' jam ';
+                if (dur.lama_ujian != null) {
+                    var l = dur.lama_ujian.split(':');
+                    var dr = '';
+                    if (l[0] !== '00') {
+                        dr += parseInt(l[0]) + ' jam ';
+                    }
+                    dr += parseInt(l[1]) + ' menit';
+                    $('#jdurasi').html(': ' + dr);
+                } else {
+                    var old_date_obj = new Date(dur.mulai).getTime();
+                    var new_date_obj = new Date(dur.selesai).getTime();
+                    let dr = (new_date_obj - old_date_obj)/1000;
+                    dr /= 60;
+                    $('#jdurasi').html(': ' + Math.round(dr) + ' menit');
                 }
-                dr += parseInt(l[1]) + ' menit';
-                $('#jdurasi').html(': ' + dr);
             }
 
             if (tampilNilai == '1') {
