@@ -184,13 +184,13 @@ if (isset($jadwal_kbm)) {
                                 <table id="jadwal-pelajaran" class="w-100 table table-bordered">
                                     <thead class="alert alert-primary">
                                     <tr>
-                                        <th height="50" class="align-middle text-center p-0">WAKTU</th>
-                                        <th class="align-middle text-center p-0">SENIN</th>
-                                        <th class="align-middle text-center p-0">SELASA</th>
-                                        <th class="align-middle text-center p-0">RABU</th>
-                                        <th class="align-middle text-center p-0">KAMIS</th>
-                                        <th class="align-middle text-center p-0">JUM'AT</th>
-                                        <th class="align-middle text-center p-0">SABTU</th>
+                                        <th height="50" class="align-middle text-center p-0" style="min-width: 150px">WAKTU</th>
+                                        <th class="align-middle text-center p-0" style="min-width: 150px">SENIN</th>
+                                        <th class="align-middle text-center p-0" style="min-width: 150px">SELASA</th>
+                                        <th class="align-middle text-center p-0" style="min-width: 150px">RABU</th>
+                                        <th class="align-middle text-center p-0" style="min-width: 150px">KAMIS</th>
+                                        <th class="align-middle text-center p-0" style="min-width: 150px">JUM'AT</th>
+                                        <th class="align-middle text-center p-0" style="min-width: 150px">SABTU</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -268,7 +268,7 @@ if (isset($jadwal_kbm)) {
 </div>
 
 <script>
-    var arrMapel = JSON.parse(JSON.stringify(<?= json_encode($mapels)?>));
+    var arrMapel = JSON.parse(JSON.stringify(<?= isset($mapels) ? json_encode($mapels) : '[]'?>));
     let method = '<?= $method ?>';
     var jmlMapel = 0;
     $(document).ready(function () {
@@ -421,7 +421,7 @@ if (isset($jadwal_kbm)) {
             $("#input_dur" + o).remove();
         }
 
-        var istirahat = JSON.parse('<?= json_encode(unserialize($ist)) ?>');
+        var istirahat = JSON.parse('<?= isset($ist) ? json_encode(unserialize($ist)) : '[]' ?>');
         //jmlMapel = $('#jml-mapel').val();
         console.log(jmlMapel);
 

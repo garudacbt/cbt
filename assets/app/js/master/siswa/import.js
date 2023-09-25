@@ -75,6 +75,17 @@ $(document).ready(function () {
 		console.log("data:", dataPost);
 
 		var url = typeImport === "add" ? "datasiswa/do_import" : "datasiswa/updateall";
+        swal.fire({
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
 
         $.ajax({
             url: base_url + url,
@@ -82,19 +93,44 @@ $(document).ready(function () {
             dataType: "JSON",
             data: dataPost,
             success: function (data) {
-				//console.log("response:", data);
-                window.history.back();
+				console.log("response:", data);
+                //window.history.back();
+                if (data.status) {
+                    swal.fire({
+                        title: "Berhasil",
+                        text: "Data siswa berhasil diimpor",
+                        icon: "success"
+                    }).then(result => {
+                        if (result.value) {
+                            window.history.back();
+                        }
+                    });
+                } else {
+                    let arrNisnDup = [];
+                    let arrNisDup = [];
+                    let arrUserDup = [];
+                    $.each(data.errors, function (idx, o) {
+                        console.log(idx, o);
+                        if (o.nisn !== "") arrNisnDup.push("<br />" + idx + ": " +o.nisn);
+                        if (o.nis !== "") arrNisDup.push("<br />" + idx + ": " +o.nis);
+                        if (o.username !== "") arrUserDup.push("<br />" + idx + ": " +o.username);
+                        });
+                    let err = arrNisnDup.length ? `<b>${arrNisnDup.join("' ")}</b>` : '';
+                    err += arrNisDup.length ? `<br /><b>${arrNisDup.join("' ")}</b>` : '';
+                    err += arrUserDup.length ? `<br /><b>${arrUserDup.join("' ")}</b>` : '';
+                    swal.fire({
+                        title: "Gagal",
+                        html: 'cek kembali siswa berikut: <br />'+err+'',
+                        icon: "error"
+                    }).then(result => {});
+                }
             }, error: function (xhr, status, error) {
 				$('#file-preview').html(xhr.responseText);
-				//console.log("error:", xhr);
-                $.toast({
-                    heading: "ERROR!!",
-                    text: "file tidak terbaca",
-                    icon: 'error',
-                    showHideTransition: 'fade',
-                    allowToastClose: true,
-                    hideAfter: 5000,
-                    position: 'top-right'
+				console.log("error:", xhr);
+                swal.fire({
+                    title: "Gagal",
+                    html: 'Gagal menyimpan data',
+                    icon: "error"
                 });
             }
         });
@@ -133,12 +169,18 @@ function preview(action, data, filename) {
             var i;
             var no = 1;
 
+            let arrNisn = [];
+            let arrNis = [];
+            let arrUser = [];
+            let arrNisnDup = [];
+            let arrNisDup = [];
+            let arrUserDup = [];
             if (filename === "") {
                 html = '<span class="text-center">Pastikan anda telah mengisi format yang telah disediakan.</span>';
             } else {
 				try {
 					dataSiswa = JSON.parse(data);
-                    //console.log("data", dataSiswa);
+                    console.log("data", dataSiswa);
 					html = '<table id="tableprev" class="table table-sm table-striped table-bordered nowrap w-100">' +
 						'        <thead>' +
 						'        <tr>' +
@@ -153,6 +195,22 @@ function preview(action, data, filename) {
 						'        </thead>' +
 						'        <tbody>';
 					for (i = 0; i < dataSiswa.length; i++) {
+					    if (arrNisn.includes(dataSiswa[i].nisn)) {
+                            arrNisnDup.push(dataSiswa[i].nisn)
+                        } else {
+                            arrNisn.push(dataSiswa[i].nisn)
+                        }
+                        if (arrNis.includes(dataSiswa[i].nis)) {
+                            arrNisDup.push(dataSiswa[i].nis)
+                        } else {
+                            arrNis.push(dataSiswa[i].nis)
+                        }
+                        if (arrUser.includes(dataSiswa[i].username)) {
+                            arrUserDup.push(dataSiswa[i].username)
+                        } else {
+                            arrUser.push(dataSiswa[i].username)
+                        }
+
 						html +=
 							'<tr>' +
 							'<td class="text-center">' + no++ + '</td>' +
@@ -170,7 +228,25 @@ function preview(action, data, filename) {
 					showDangerToast(data);
 				}
             }
-            $('#file-preview').html(html);
+            console.log("duplikatNisn", arrNisn);
+            console.log("duplikatNis", arrNis);
+            console.log("duplikatUsername", arrUser);
+            let htmlError = '<div class="alert alert-default-danger align-content-center" role="alert"><b>Error</b><ul>';
+            let invalid = false;
+            if (arrNisnDup.length) {
+                invalid = true;
+                htmlError += `<li>Ada ${arrNisnDup.length} duplikat NISN, silakan cdek kembali NISN berikut: <b>${arrNisnDup.join(", ")}</b></li>`
+            }
+            if (arrNisDup.length) {
+                invalid = true;
+                htmlError += `<li>Ada ${arrNisDup.length} duplikat NIS, silakan cdek kembali NIS berikut: <b>${arrNisnDup.join(", ")}</b></li>`
+            }
+            if (arrUserDup.length) {
+                invalid = true;
+                htmlError += `<li>Ada ${arrUserDup.length} duplikat USERNAME, silakan cdek kembali USERNAME berikut: <b>${arrNisnDup.join(", ")}</b></li>`
+            }
+            htmlError += '</ul></div>';
+            $('#file-preview').html((invalid ? htmlError : '') + html);
             //var attrId = document.getElementById("formInput");
             //attrId.setAttribute("value", data);
 
@@ -180,6 +256,11 @@ function preview(action, data, filename) {
 				"info":     false,
 				"scrollX": 	true
 			});
+			if (invalid) {
+                $('#submit-excel').attr('disabled', 'disabled');
+            } else {
+                $('#submit-excel').removeAttr('disabled');
+            }
 		},
         error: function (e) {
             console.log("error", e.responseText);

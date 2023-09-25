@@ -549,7 +549,7 @@ CREATE TABLE `cbt_soal`  (
   `bank_id` int(7) NULL DEFAULT NULL,
   `mapel_id` int(7) NULL DEFAULT 0,
   `jenis` int(1) NOT NULL COMMENT '1=ganda, 2=ganda kompleks, 3=menjodohkan, 4=isian singkat, 5=uraian',
-  `nomor_soal` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
+  `nomor_soal` int(3) NULL DEFAULT 0,
   `file` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `file1` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `tipe_file` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

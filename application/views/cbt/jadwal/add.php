@@ -283,6 +283,7 @@
         });
 
         function getBankMapel(mapel) {
+            if (!mapel) return
             $.ajax({
                 url: base_url + "cbtjadwal/getbankmapel/" + mapel,
                 type: "GET",

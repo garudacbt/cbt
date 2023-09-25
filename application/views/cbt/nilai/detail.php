@@ -108,7 +108,7 @@
                                     <td class="text-center"><?= round($skor->skor_essai, 2) ?></td>
                                 </tr>
                             </table>
-                            <button class="float-right btn btn-success" id="btn-marked" disabled="<?=!$ada_nilai?>">Tandai Sudah Dikoreksi</button>
+                            <button class="float-right btn btn-success" id="btn-marked">Tandai Sudah Dikoreksi</button>
                         </div>
                     </div>
                 </div>

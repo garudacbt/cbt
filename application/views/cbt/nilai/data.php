@@ -395,14 +395,14 @@ $colWidth = '';
                                                     data-toggle="tooltip" title="Detail Jawaban Siswa" <?= $disabled ?>>
                                                 Koreksi
                                             </button>
-                                            <?php if (isset($siswa->dikoreksi) && $siswa->dikoreksi) : ?>
+                                            <?php if (isset($siswa->dikoreksi) && $siswa->dikoreksi === '1') : ?>
                                                 <i title="Sudah dikoreksi"
                                                    class="fa fa-check-circle text-green ml-1"></i>
                                             <?php else: ?>
                                                 <i title="Belum dikoreksi" class="fa fa-warning text-warning ml-1"></i>
                                             <?php endif; ?>
                                             <input type="hidden" name="ids[<?= $idSiswa ?>]"
-                                                   value="<?= isset($siswa->dikoreksi) && $siswa->dikoreksi ? '1' : '0' ?>">
+                                                   value="<?= $disabled ? '2' : (isset($siswa->dikoreksi) && $siswa->dikoreksi ? '1' : '0') ?>">
                                         </td>
                                     </tr>
 
@@ -683,8 +683,10 @@ $colWidth = '';
         });
 
         $('#mark-all').on('click', function () {
-            var dataPost = $('#koreksi-semua').serialize() + '&id_jadwal=' + idJadwal;
-            console.log('arrSiswa', dataPost)
+            let dataPost = new FormData($('#koreksi-semua')[0])
+            dataPost.append('id_jadwal', idJadwal)
+            //console.log('arrSiswa', dataForm)
+            //var dataPost = $('#koreksi-semua').serialize() + '&id_jadwal=' + idJadwal;
             loading.removeClass('d-none');
             swal.fire({
                 text: "Silahkan tunggu....",
@@ -701,6 +703,8 @@ $colWidth = '';
                 url: base_url + "cbtnilai/tandaisemua",
                 type: "POST",
                 data: dataPost,
+                processData: false,
+                contentType: false,
                 success: function (data) {
                     console.log(data);
                     if (data.success > 0) {

@@ -47,7 +47,8 @@
                         <?= form_open('', array('id' => 'formUpload')); ?>
                         <div class="card-header">
                             <h6 class="card-title">Preview</h6>
-                            <button name="preview" type="submit" class="btn btn-sm btn-primary card-tools">
+                            <button id="submit-excel" name="preview" type="submit"
+                                    class="btn btn-sm btn-primary card-tools" disabled="disabled">
                                 <i class="fas fa-cloud-upload-alt mr-2"></i>Upload
                             </button>
                         </div>

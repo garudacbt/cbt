@@ -316,7 +316,7 @@
                                                                     s/d <?= $jamSampai->format('H:i') ?>
                                                                 </small>
                                                             </td>
-                                                            <td class="align-middle"><?= $mat[$jamke]->nama_mapel ?></td>
+                                                            <td class="align-middle"><?= isset($mat[$jamke]) ? $mat[$jamke]->nama_mapel : '' ?></td>
                                                             <td class="align-middle">-</td>
                                                             <td class="text-center align-middle">-</td>
                                                         </tr>
