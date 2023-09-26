@@ -355,7 +355,7 @@ $ekstra_guru = $guru->ekstra_kelas == null ? [] : unserialize($guru->ekstra_kela
     var level_id = '<?=$guru->id_level?>';
     var mapel_guru = '<?= json_encode(unserialize($guru->mapel_kelas)) ?>';
     var ekstra_guru = '<?= json_encode($ekstra_guru) ?>';
-    var guru_before = JSON.parse('<?= json_encode($guru2) ?>');
+    var guru_before = JSON.parse('<?= str_replace("'", "\'", json_encode($guru2)) ?>');
 </script>
 <script src="<?= base_url() ?>/assets/app/js/master/guru/editmapel.js"></script>
 <script>

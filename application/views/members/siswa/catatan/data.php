@@ -24,11 +24,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <?php
-                            //echo '<pre>';
-                            //var_dump($catatan);
-                            //echo '</pre>';
-                            ?>
                             <div class="row">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card">
@@ -48,8 +43,8 @@
                                                             style="border-bottom: 1px solid rgba(0,0,0,.125);line-height: 1;padding: 10px 0;width: 100%;height: 100%;">
                                                             <a href="javascript:void(0)">
                                                                 <div class="media pl-3 pr-3">
-                                                                    <img class="img-circle media-left"
-                                                                         src="<?= base_url('/assets/img/user.jpg') ?>"
+                                                                    <img id="foto" class="img-circle media-left"
+                                                                         src="<?= base_url($cat->foto_guru) ?>"
                                                                          width="35" height="35"/>
                                                                     <div class="media-body ml-2">
                                                                         <span class="text-dark"><?= $cat->nama_guru ?></span>
@@ -98,7 +93,7 @@
                                     <div id="detail" class="card d-none">
                                         <div class="card-header">
                                             <div class="media" style="line-height: 1.2">
-                                                <img class="img-circle media-left"
+                                                <img id="foto-guru" class="img-circle media-left"
                                                      src="<?= base_url('/assets/img/user.jpg') ?>" width="50"
                                                      height="50"/>
                                                 <div class="media-body ml-4">
@@ -109,7 +104,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <div id="isi" class="text-justify">mdh kjydfkyf uy luy fl yfluyf</div>
+                                            <div id="isi" class="text-justify"></div>
                                         </div>
                                         <div class="overlay d-none">
                                             <div class="spinner-grow"></div>
@@ -136,7 +131,7 @@
             <div class="modal-body">
                 <div class="card-header">
                     <div class="media" style="line-height: 1.2">
-                        <img class="img-circle media-left" src="<?= base_url('/assets/img/user.jpg') ?>" width="50"
+                        <img id="foto-guru-modal" class="img-circle media-left" src="<?= base_url('/assets/img/user.jpg') ?>" width="50"
                              height="50"/>
                         <div class="media-body ml-4">
                             <span id="nama-guru-modal" class="text-lg"><b>Nama Guru</b></span>
@@ -146,7 +141,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="isi-modal" class="text-justify">mdh kjydfkyf uy luy fl yfluyf</div>
+                    <div id="isi-modal" class="text-justify"></div>
                 </div>
                 <div class="overlay d-none">
                     <div class="spinner-grow"></div>
@@ -161,6 +156,7 @@
 
 <script>
     let itemsClicked = [];
+    let fotoGuru;
     $(document).ready(function () {
         function screenSize() {
             var w = $(document).innerWidth();
@@ -177,12 +173,14 @@
                 $('#jabatan-guru-modal').html(mapel);
                 $('#isi-modal').html(detail.text);
                 $('#detailModal').modal('show');
+                $('#foto-guru-modal').attr('src', fotoGuru)
             } else {
                 $('#nama-guru').html(detail.nama_guru);
                 $('#jabatan-guru').html(mapel);
                 $('#isi').html(detail.text);
                 $('#detail').removeClass('d-none');
                 $('.empty').addClass('d-none');
+                $('#foto-guru').attr('src', fotoGuru)
             }
             $('.overlay').addClass('d-none');
 
@@ -208,12 +206,15 @@
                     }
                 });
             }
+
+            console.log('detail', detail);
         }
 
 
         $('ul li').click(function (e) {
             var id = $(this).data('id');
             var table = $(this).data('table');
+            fotoGuru = $('#foto').attr('src')
 
             $.ajax({
                 url: base_url + 'siswa/detailcatatan/' + table + '/' + id,
@@ -232,5 +233,13 @@
             $('.overlay').removeClass('d-none');
             $(this).find('span.isreaded').html('<i>sudah dibaca</i>');
         });
+
     });
+
+    $(`.img-circle`).each(function () {
+        $(this).on("error", function () {
+            $(this).attr("src", base_url + 'assets/img/siswa.png');
+        });
+    });
+
 </script>

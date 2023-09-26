@@ -55,7 +55,6 @@
                     </div>
                 </div>
                 <div class="col-xl-8 col-md-8">
-                    <?= form_open('', array('id' => 'formguru'), array('method' => 'edit', 'id_guru' => $guru->id_guru)); ?>
                     <div class="card card-primary my-shadow card-outline card-outline-tabs">
                         <div class="card-header border-bottom-0 p-0">
                             <div class="card-title">
@@ -74,11 +73,12 @@
                                 </ul>
                             </div>
                             <div class="card-tools">
-                                <button type="submit" id="submit" class="btn btn-sm bg-primary text-white">
+                                <button id="submit-profil" class="btn btn-sm bg-primary text-white">
                                     <i class="fas fa-save"></i><span class="d-none d-sm-inline-block ml-1">Simpan</span>
                                 </button>
                             </div>
                         </div>
+                        <?= form_open('', array('id' => 'formguru'), array('method' => 'edit', 'id_guru' => $guru->id_guru)); ?>
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-four-tabContent">
                                 <div class="tab-pane fade active show" id="custom-tabs-four-home" role="tabpanel"
@@ -184,11 +184,11 @@
                                 </div>
                             </div>
                         </div>
+                        <?= form_close(); ?>
                         <div class="card-footer">
                             <small><b>INFO: </b><i>Semua kolom PROFIL wajib diisi</i></small>
                         </div>
                     </div>
-                    <?= form_close(); ?>
                 </div>
             </div>
         </div>
@@ -340,16 +340,14 @@
             window.location.reload();
         });
 
-        $('#formguru').on('submit', function (e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            console.log("data:", $(this).serialize());
+        $('#submit-profil').click(function () {
+            console.log("data:", $('#formguru').serialize());
 
             $.ajax({
                 url: base_url + "guruview/save",
                 type: "POST",
                 dataType: "JSON",
-                data: $(this).serialize(),
+                data: $('#formguru').serialize(),
                 success: function (data) {
                     console.log(data);
                     if (data.status) {
@@ -360,7 +358,7 @@
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                window.location.href = base_url + 'guruview';
+                                //window.location.href = base_url + 'guruview';
                             }
                         })
                     } else {

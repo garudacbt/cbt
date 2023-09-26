@@ -115,7 +115,7 @@ foreach ($soal_ada as $key => $value) {
                             <span><b>PG NOMOR: </b></span><br>
                             <?php
                             $no = 1;
-                            $tpg = $jml_pg == null || $jml_pg->nomor_soal == null ? 0 : $jml_pg->nomor_soal;
+                            $tpg = !isset($jml_pg) || $jml_pg == null || $jml_pg->nomor_soal == null ? 0 : $jml_pg->nomor_soal;
                             for ($i = 0; $i < $tpg; $i++) : ?>
                                 <a href="javascript:void(0)"
                                    class="mt-1 btn btn-circle-sm <?= !in_array($no, $pg_belum_komplit) ? 'btn-success' : 'btn-outline-danger' ?> <?= is_null($soal) ? ($no == 1 ? 'active' : '') : ($no == $soal->nomor_soal ? 'active' : '') ?>"
@@ -137,7 +137,7 @@ foreach ($soal_ada as $key => $value) {
                             <span><b>SOAL NOMOR: </b></span><br>
                             <?php
 
-                            $tpg2 = $jml_pg2 == null || $jml_pg2->nomor_soal == null ? 0 : $jml_pg2->nomor_soal;
+                            $tpg2 = !isset($jml_pg2) || $jml_pg2 == null || $jml_pg2->nomor_soal == null ? 0 : $jml_pg2->nomor_soal;
                             $no2 = 1;
                             for ($i = 0; $i < $tpg2; $i++) : ?>
                                 <a href="javascript:void(0)"
@@ -159,7 +159,7 @@ foreach ($soal_ada as $key => $value) {
                             </div>
                             <span><b>SOAL NOMOR: </b></span><br>
                             <?php $noj = 1;
-                            $tej = $jml_jodohkan == null || $jml_jodohkan->nomor_soal == null ? 0 : $jml_jodohkan->nomor_soal;
+                            $tej = !isset($jml_jodohkan) || $jml_jodohkan == null || $jml_jodohkan->nomor_soal == null ? 0 : $jml_jodohkan->nomor_soal;
                             for ($i = 0; $i < $tej; $i++) : ?>
                                 <a href="javascript:void(0)"
                                    class="mt-1 btn btn-circle-sm <?= !in_array($noj, $jodohkan_belum_komplit) ? 'btn-primary' : 'btn-outline-danger' ?>"
@@ -178,7 +178,7 @@ foreach ($soal_ada as $key => $value) {
                             </div>
                             <span><b>SOAL NOMOR: </b></span><br>
                             <?php $noi = 1;
-                            $tei = $jml_isian == null || $jml_isian->nomor_soal == null ? 0 : $jml_isian->nomor_soal;
+                            $tei = !isset($jml_isian) || $jml_isian == null || $jml_isian->nomor_soal == null ? 0 : $jml_isian->nomor_soal;
                             for ($i = 0; $i < $tei; $i++) : ?>
                                 <a href="javascript:void(0)"
                                    class="mt-1 btn btn-circle-sm <?= !in_array($noi, $isian_belum_komplit) ? 'btn-primary' : 'btn-outline-danger' ?>"
@@ -197,7 +197,7 @@ foreach ($soal_ada as $key => $value) {
                             </div>
                             <span><b>ESSAI NOMOR: </b></span><br>
                             <?php $noe = 1;
-                            $tes = $jml_essai == null || $jml_essai->nomor_soal == null ? 0 : $jml_essai->nomor_soal;
+                            $tes = !isset($jml_essai) || $jml_essai == null || $jml_essai->nomor_soal == null ? 0 : $jml_essai->nomor_soal;
                             for ($i = 0; $i < $tes; $i++) : ?>
                                 <a href="javascript:void(0)"
                                    class="mt-1 btn btn-circle-sm <?= !in_array($noe, $essai_belum_komplit) ? 'btn-primary' : 'btn-outline-danger' ?>"

@@ -244,14 +244,6 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                             </div>
-                            <!--
-                        <select name="mapel" id="mapel" class="form-control select2" style="width: 100%!important">
-                            <option value="" disabled selected>Pilih Mata Kuliah</option>
-                            <?php foreach ($mapel as $row) : ?>
-                                <option value="<?= $row->id_mapel ?>"><?= $row->nama_mapel ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        -->
                             <input id="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
                     </div>

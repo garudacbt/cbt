@@ -70,13 +70,15 @@ $colWidth = '';
                         ?>
                         <div class="col-md-4 mb-3">
                             <div class="row">
-                                <button type="button" id="import-essai" class="btn btn-info align-text-bottom btn-disabled col-5"
+                                <button type="button" id="import-essai"
+                                        class="btn btn-info align-text-bottom btn-disabled col-5"
                                         data-toggle="tooltip"
                                         title="Input nilai manual">
                                     <i class="fa fa-pencil ml-1 mr-1"></i> Input Nilai
                                 </button>
                                 <div class="col-1"></div>
-                                <button type="button" id="mark-all" class="btn btn-success align-text-bottom btn-disabled col-6"
+                                <button type="button" id="mark-all"
+                                        class="btn btn-success align-text-bottom btn-disabled col-6"
                                         data-toggle="tooltip"
                                         title="Tandai semua siswa sudah dikoreksi" disabled>
                                     <i class="fa fa-check ml-1 mr-1"></i> Tandai semua
@@ -393,13 +395,14 @@ $colWidth = '';
                                                     data-toggle="tooltip" title="Detail Jawaban Siswa" <?= $disabled ?>>
                                                 Koreksi
                                             </button>
-                                            <?php if (isset($siswa->dikoreksi) && $siswa->dikoreksi) :?>
-                                            <i title="Sudah dikoreksi" class="fa fa-check-circle text-green ml-1"></i>
+                                            <?php if (isset($siswa->dikoreksi) && $siswa->dikoreksi === '1') : ?>
+                                                <i title="Sudah dikoreksi"
+                                                   class="fa fa-check-circle text-green ml-1"></i>
                                             <?php else: ?>
-                                            <i title="Belum dikoreksi" class="fa fa-warning text-warning ml-1"></i>
-
-                                                <input type="hidden" name="ids[<?=$idSiswa?>]" value="<?=$disable ? 0 : 1?>">
+                                                <i title="Belum dikoreksi" class="fa fa-warning text-warning ml-1"></i>
                                             <?php endif; ?>
+                                            <input type="hidden" name="ids[<?= $idSiswa ?>]"
+                                                   value="<?= $disabled ? '2' : (isset($siswa->dikoreksi) && $siswa->dikoreksi ? '1' : '0') ?>">
                                         </td>
                                     </tr>
 
@@ -487,7 +490,7 @@ $colWidth = '';
     var idJadwal = '<?=$jadwal_selected?>';
     var idKelas = '<?=$kelas_selected?>';
     const arrSiswa = <?= json_encode($siswas) ?>;
-    var isSelected = <?= count($siswas)>0 ? 1 : 0?>;
+    var isSelected = <?= count($siswas) > 0 ? 1 : 0?>;
     var namaMapel = '<?=isset($info) ? $info->kode : ''?>';
     var jenisUjian = '<?=isset($info) ? $info->kode_jenis : ''?>';
 
@@ -680,8 +683,10 @@ $colWidth = '';
         });
 
         $('#mark-all').on('click', function () {
-            var dataPost = $('#koreksi-semua').serialize()+'&id_jadwal='+idJadwal;
-            console.log('arrSiswa', dataPost)
+            let dataPost = new FormData($('#koreksi-semua')[0])
+            dataPost.append('id_jadwal', idJadwal)
+            //console.log('arrSiswa', dataForm)
+            //var dataPost = $('#koreksi-semua').serialize() + '&id_jadwal=' + idJadwal;
             loading.removeClass('d-none');
             swal.fire({
                 text: "Silahkan tunggu....",
@@ -698,6 +703,8 @@ $colWidth = '';
                 url: base_url + "cbtnilai/tandaisemua",
                 type: "POST",
                 data: dataPost,
+                processData: false,
+                contentType: false,
                 success: function (data) {
                     console.log(data);
                     if (data.success > 0) {

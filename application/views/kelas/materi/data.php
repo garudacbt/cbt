@@ -402,7 +402,7 @@ foreach ($materi as $k => $m) {
         function getMateriGuru() {
             window.location.href = base_url + 'kelasmateri/' + urlJenis + '?id=' + idGuru;
         }
-
+        $('#guru').select2();
         $('#guru option[value="0"]').attr("disabled", "disabled");
         //if (jmlGuru > 1) $('#guru').append('<option value="0">SEMUA GURU</option>');
 

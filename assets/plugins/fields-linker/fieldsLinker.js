@@ -541,7 +541,7 @@ function FieldsLinker(selector){
                 .css({
                     'width': '80%'
                 })
-                .html(item);
+                .html(decodeURIComponent(item));
             /*
             var $eraseIcon = $('<i></i>');
             $eraseIcon
@@ -739,7 +739,7 @@ function FieldsLinker(selector){
                 .css({
                     'width': '80%'
                 })
-                .html(item);
+                .html(decodeURIComponent(item));
             if (isMandatory && self.mandatoryTooltips) {
                 $li
                     .attr('data-placement', 'top')

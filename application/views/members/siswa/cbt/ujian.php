@@ -935,16 +935,16 @@
         }
     }
 
-    $(window).on('beforeunload', function () {
-        $.ajax({
-            type: 'POST',
-            url: base_url + 'siswa/savetimer',
-            data: $('#up').serialize() + '&elapsed=' + elapsed,
-            success: function (data) {
-            }, error: function (xhr, error, status) {
-            }
-        });
-    });
+//    $(window).on('beforeunload', function () {
+//        $.ajax({
+//            type: 'POST',
+//            url: base_url + 'siswa/savetimer',
+//            data: $('#up').serialize() + '&elapsed=' + elapsed,
+//            success: function (data) {
+//           }, error: function (xhr, error, status) {
+//            }
+//        });
+//    });
 
     function getMinutes(startTime) {
         var endTime = new Date();

@@ -1030,8 +1030,9 @@
                             'opsi_a' => serialize(['a' => '', 'b' => '', 'c' => ''])
                         ]));
                         $opsis = unserialize($s->opsi_a);
+                        $opsis = $opsis ? $opsis : ['a'=>'','b'=>'','c'=>''];
                         $rows = $opsis ? count($opsis) : 3;
-                        $jawabs = unserialize($s->jawaban);
+                        $jawabs = $opsis ? unserialize($s->jawaban) : [];
                         $bg = $s->nomor_soal % 2 == 0 ? '#FFFFFF' : '#F2F2F2';
                         //if ($opsis) :
                         ?>
@@ -1052,10 +1053,10 @@
                                 A
                             </td>
                             <td style="border: 1px solid black;vertical-align: top;padding-left: 6px;">
-                                <?= $opsis['a'] ?>
+                                <?= $opsis ? $opsis['a'] : '' ?>
                             </td>
                             <td style="border: 1px solid black;vertical-align: top;text-align: center;">
-                                <?= in_array('a', $jawabs) ? 'v' : '' ?>
+                                <?= $jawabs && in_array('a', $jawabs) ? 'v' : '' ?>
                             </td>
                         </tr>
                         <?php
@@ -1071,7 +1072,7 @@
                                     <?= $opsis[$abjad] ?>
                                 </td>
                                 <td style="border: 1px solid black;vertical-align: top;text-align: center;">
-                                    <?= in_array($abjad, $jawabs) ? 'v' : '' ?>
+                                    <?= $jawabs && in_array($abjad, $jawabs) ? 'v' : '' ?>
                                 </td>
                             </tr>
                             <?php $post_char++; endfor;

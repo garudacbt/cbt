@@ -46,7 +46,7 @@ $jenjang = $setting->jenjang;
                                 'kelas',
                                 $kelass,
                                 $kelas_selected,
-                                'id="dropdown-kelas" class="form-control"'
+                                'id="dropdown-kelas" class="select2 form-control"'
                             ); ?>
                         </div>
                         <?php if (count($siswas) > 0) : ?>
@@ -156,6 +156,9 @@ $jenjang = $setting->jenjang;
         var opsiGruang = $('#g-ruang');
         var opsiGsesi = $('#g-sesi');
 
+        opsiKelas.select2();
+        opsiGruang.select2();
+        opsiGsesi.select2();
         opsiKelas.on('change', function (e) {
             var id = $(this).val();
             console.log(id);

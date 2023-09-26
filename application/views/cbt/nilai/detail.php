@@ -792,6 +792,7 @@
         $('#btn-marked').on('click', function () {
             $(this).attr('disabled', 'disabled');
             var dataPost = $('#koreksi').serialize() + '&siswa=<?=$siswa->id_siswa?>&jadwal=<?=$info->id_jadwal?>';
+            console.log(dataPost)
             swal.fire({
                 text: "Silahkan tunggu....",
                 button: false,
@@ -815,6 +816,10 @@
                             title: "Berhasil",
                             text: "Jawaban berhasil ditandai",
                             icon: "success"
+                        }).then(result => {
+                            if (result.value) {
+                                window.location.reload();
+                            }
                         });
                     } else {
                         swal.fire({

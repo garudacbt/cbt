@@ -1161,12 +1161,12 @@ function createTableJodohkan(data) {
             trs += '<tr class="text-center">';
             $.each(v, function (key, val) {
                 if (key === 0) {
-                    trs += '<th class="text-white">'+val+'</th>';
+                    trs += '<th class="text-white">'+decodeURIComponent(val)+'</th>';
                 } else {
                     trs += '<th class="kolom">' +
                         '<div>' +
-                        '<span class="editable">'+val+'</span>' +
-                        '<span class="float-right hapus-kolom" title="hapus kolom: '+val+'" style="cursor: pointer">&times;</span>' +
+                        '<span class="editable">'+decodeURIComponent(val)+'</span>' +
+                        '<span class="float-right hapus-kolom text-danger" title="hapus kolom: '+decodeURIComponent(val)+'" style="cursor: pointer">&times;</span>' +
                         '</div>' +
                         '</th>';
                 }
@@ -1178,8 +1178,8 @@ function createTableJodohkan(data) {
                 if (t === 0) {
                     trs += '<td class="baris text-bold">' +
                         '<div>' +
-                        '<span class="editable">'+i+'</span>' +
-                        '<span class="float-right hapus-baris" title="hapus baris: '+i+'" style="cursor: pointer">&times;</span>' +
+                        '<span class="editable">'+decodeURIComponent(i)+'</span>' +
+                        '<span class="float-right hapus-baris text-danger" title="hapus baris: '+decodeURIComponent(i)+'" style="cursor: pointer">&times;</span>' +
                         '</div>' +
                         '</td>';
                 } else {
@@ -1273,14 +1273,14 @@ function getTableData() {
 
         $(row).find('th').get().map(function (cell) {
             var klm = $(cell).find('span.editable').text().trim();
-            $tables.push(klm == "" ? "#" : klm);
+            $tables.push(klm == "" ? "#" : encodeURIComponent(klm));
         });
 
         $(row).find('td').get().map(function (cell) {
             if ($(cell).children('input').length > 0) {
                 $tables.push($(cell).find('input').prop("checked") === true ? "1" : "0");
             } else {
-                $tables.push($(cell).find('span.editable').text().trim())
+                $tables.push(encodeURIComponent($(cell).find('span.editable').text().trim()))
             }
         });
 
@@ -1292,10 +1292,10 @@ function getListData() {
     var kolom = [];
     var baris = [];
     $(".FL-left li").each(function() {
-        baris.push($(this).text());
+        baris.push(encodeURIComponent($(this).text()));
     });
     $(".FL-right li").each(function() {
-        kolom.push($(this).text());
+        kolom.push(encodeURIComponent($(this).text()));
     });
     return [kolom, baris];
 }
@@ -1402,7 +1402,7 @@ function convertListToTable(array) {
             var sv = '0';
             if (links.length > 0) {
                 $.each(links, function (p, isi) {
-                    if (isi.from == val) {
+                    if (encodeURIComponent(isi.from) == encodeURIComponent(val)) {
                         if (isi.to == kolom[i]) {
                             sv = '1';
                         }
