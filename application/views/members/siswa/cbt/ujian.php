@@ -188,6 +188,7 @@
             }
         });
 
+        /* sementara
         document.onmousedown = rtclickcheck;
         swal.fire({
             title: 'Peraturan Ujian',
@@ -202,6 +203,7 @@
                 openFullscreen();
             }
         });
+         */
 
         $('#jawab').on('submit', function (e) {
             e.preventDefault();
@@ -307,7 +309,7 @@
     }
 
     function setKonten(data) {
-        //console.log('max_jawaban', data.max_jawaban);
+        console.log('max_jawaban', data.max_jawaban);
         idSoal = data.soal_id;
         idSoalSiswa = data.soal_siswa_id;
         nomorSoal = parseInt(data.soal_nomor);
@@ -364,7 +366,13 @@
             modelSoal = data.soal_opsi.model;
             typeSoal = data.soal_opsi.type;
             if (data.soal_opsi.model == '1') {
-                var datalist = convertTableToList(data.soal_opsi);
+                const dataJawab = data.soal_opsi
+                console.log('data.soal_opsi', data.soal_opsi)
+                //const copy1 = $.extend(true, {}, dataJawab1);
+                const copy = $.extend(true, {}, dataJawab);
+                var datalist = convertTable(copy);
+                //var datalist = convertTableToList(data.soal_opsi);
+                console.log('datalist', datalist)
                 html = '<div class="bonds" id="original" style="display:block;"></div>';
                 $('#konten-jawaban').html(html);
                 var mode = datalist.type == '2' ? "oneToOne" : "manyToMany";
@@ -396,14 +404,26 @@
                     submitJawaban(null);
                 });
             } else {
+                let head = []
+                const body = []
+                $.each(data.soal_opsi.tabel, function (idx, val) {
+                    if (idx === 0) {
+                        head = val
+                    } else {
+                        $.each(val, function (id, vl) {
+                            if (id === 0) body.push(vl)
+                        })
+                    }
+                })
+                console.log('body', body)
                 html += '<div class="table-responsive">' +
                     '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
                 html += '<tr class="text-center">';
                 $.each(data.soal_opsi.thead, function (key, val) {
                     if (key === 0) {
-                        html += '<th class="text-white">' + val + '</th>';
+                        html += '<th class="text-white">' + head[key] + '</th>';
                     } else {
-                        html += '<th class="text-center">' + val + '</th>';
+                        html += '<th class="text-center">' + head[key] + '</th>';
                     }
                 });
                 html += '</tr>';
@@ -411,7 +431,7 @@
                     html += '<tr class="text-center">';
                     $.each(v, function (t, i) {
                         if (t === 0) {
-                            html += '<td class="baris text-bold">' + i + '</td>';
+                            html += '<td class="baris text-bold">' + body[k] + '</td>';
                         } else {
                             const checked = i == '1' ? ' checked' : '';
                             const type = data.soal_opsi.type != '2' ? 'checkbox' : 'radio';
@@ -494,7 +514,8 @@
         if (!data.durasi) {
             window.location.href = base_url + 'siswa/cbt';
         } else {
-            setElapsed(data.durasi);
+            //sementara
+            //setElapsed(data.durasi);
 
             if (timerSelesai) {
                 clearTimeout(timerSelesai);
@@ -510,7 +531,8 @@
                 next.addClass('btn-success');
                 next.append('<i id="ic-btn" class="fa fa-check-circle"></i>');
                 txtnext.html('<b>Selesai</b>');
-                setTimerSelesai(next, data.durasi);
+                //sementara
+                //setTimerSelesai(next, data.durasi);
             } else {
                 $('#timer-selesai').addClass('d-none');
                 next.removeClass('d-none');
@@ -670,7 +692,6 @@
     }
 
     function submitJawaban(opsi) {
-        console.log('click submit');
         var jawaban_Siswa = '', jawaban_Alias = '';
         if (jenisSoal == 1) {
             jawaban_Siswa = $(opsi).data('jawabansiswa');
@@ -699,6 +720,7 @@
             }
         } else if (jenisSoal == 3) {
             var jawaban_json = modelSoal == '1' ? convertListToTable() : getDataTable();
+            console.log('click submit', jawaban_json);
             jawaban_Siswa = {};
             jawaban_Siswa['jawaban'] = jawaban_json;
             jawaban_Siswa['type'] = typeSoal;
@@ -741,14 +763,14 @@
 
             $(row).find('th').get().map(function (cell) {
                 var klm = $(cell).text().trim();
-                $tables.push(klm == "" ? "#" : klm);
+                $tables.push(klm == "" ? "#" : encode(klm));
             });
 
             $(row).find('td').get().map(function (cell) {
                 if ($(cell).children('input').length > 0) {
                     $tables.push($(cell).find('input').prop("checked") === true ? "1" : "0");
                 } else {
-                    $tables.push($(cell).text().trim())
+                    $tables.push(encode($(cell).text().trim()))
                 }
             });
 
@@ -757,12 +779,24 @@
         return tbl;
     }
 
-    function convertTableToList(data) {
+    function convertTable(data) {
+        const head = []
+        const body = []
+        $.each(data.tabel, function (idx, val) {
+            if (idx === 0) {
+                $.each(val, function (id, vl) {
+                    if (vl !== "#") head.push(encode(vl))
+                })
+            } else {
+                $.each(val, function (id, vl) {
+                    if (id === 0) body.push(encode(vl))
+                })
+            }
+        })
         var kanan = data.thead;
-        //console.log('kanan', kanan);
         var kiri = [];
         $.each(data.tbody, function (i, v) {
-            kiri.push(v.shift());
+            kiri.push(encode(v.shift()));
         });
         kanan.shift();
 
@@ -771,8 +805,36 @@
             $.each(arv, function (t, v) {
                 if (v == '1') {
                     var it = {};
-                    it['from'] = kiri[n];
-                    it['to'] = kanan[t];
+                    it['from'] = encode(body[n]);
+                    it['to'] = encode(head[t]);
+                    linked.push(it);
+                }
+            });
+        });
+        var item = {};
+        item['type'] = data.type;
+        item['jawaban'] = [body, head];
+        item['linked'] = linked;
+        return item;
+    }
+
+    function convertTableToList(data) {
+        var kanan = data.thead;
+        //console.log('kanan', kanan);
+        var kiri = [];
+        $.each(data.tbody, function (i, v) {
+            kiri.push(encode(v.shift()));
+        });
+        kanan.shift();
+        //console.log('kiri', kiri);
+
+        var linked = [];
+        $.each(data.tbody, function (n, arv) {
+            $.each(arv, function (t, v) {
+                if (v == '1') {
+                    var it = {};
+                    it['from'] = encode(kiri[n]);
+                    it['to'] = encode(kanan[t]);
                     linked.push(it);
                 }
             });
@@ -789,10 +851,10 @@
         var kolom = [];
         var baris = [];
         $(".FL-left li").each(function () {
-            baris.push($(this).text());
+            baris.push(encode($(this).text()));
         });
         $(".FL-right li").each(function () {
-            kolom.push($(this).text());
+            kolom.push(encode($(this).text()));
         });
         return [kolom, baris];
     }
@@ -807,16 +869,15 @@
         //console.log('kolom', kolom);
         var arrayres = [];
         $.each(array[1], function (ind, val) {
+            //console.log('kolom', kolom);
             var vv = [];
             for (let i = 0; i < kolom.length; i++) {
                 var sv = '0';
                 if (links.length > 0) {
                     $.each(links, function (p, isi) {
-                        if (isi.from == val) {
-                            if (isi.to == kolom[i]) {
+                        if (encode(isi.from) == encode(val)) {
+                            if (encode(isi.to) == encode(kolom[i])) {
                                 sv = '1';
-                                //console.log('k', isi.from, val);
-                                //console.log('b', isi.to, kolom[i]);
                             }
                         }
                     });
@@ -829,7 +890,7 @@
         });
         kolom.unshift('#');
         arrayres.unshift(kolom);
-        //console.log('aray', arrayres);
+        console.log('aray', arrayres);
         return arrayres;
     }
 
@@ -1010,5 +1071,17 @@
     function zeroPad(no) {
         return no < 10 ? '0' + no : no;
     }
+
+    function encode(str) {
+        var decoded = decodeURIComponent(str)
+        var isEncoded = decoded !== str
+        var encoded = encodeURIComponent(str)
+        if (isEncoded) {
+            return str
+        } else {
+            return encoded
+        }
+    }
+
 
 </script>

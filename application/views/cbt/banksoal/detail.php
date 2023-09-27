@@ -1761,6 +1761,8 @@
             kiri.push(v.shift());
         });
         kanan.shift();
+        console.log('kanan', kanan)
+        console.log('kiri', kiri)
 
         var poss = [];
         var linked = [];
