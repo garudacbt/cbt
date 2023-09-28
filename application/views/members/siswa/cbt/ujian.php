@@ -188,7 +188,6 @@
             }
         });
 
-        /* sementara
         document.onmousedown = rtclickcheck;
         swal.fire({
             title: 'Peraturan Ujian',
@@ -203,7 +202,6 @@
                 openFullscreen();
             }
         });
-         */
 
         $('#jawab').on('submit', function (e) {
             e.preventDefault();
@@ -514,8 +512,7 @@
         if (!data.durasi) {
             window.location.href = base_url + 'siswa/cbt';
         } else {
-            //sementara
-            //setElapsed(data.durasi);
+            setElapsed(data.durasi);
 
             if (timerSelesai) {
                 clearTimeout(timerSelesai);
@@ -531,8 +528,7 @@
                 next.addClass('btn-success');
                 next.append('<i id="ic-btn" class="fa fa-check-circle"></i>');
                 txtnext.html('<b>Selesai</b>');
-                //sementara
-                //setTimerSelesai(next, data.durasi);
+                setTimerSelesai(next, data.durasi);
             } else {
                 $('#timer-selesai').addClass('d-none');
                 next.removeClass('d-none');
