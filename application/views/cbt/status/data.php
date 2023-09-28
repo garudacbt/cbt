@@ -69,7 +69,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-6 mb-3 col-xl-3 by-ruang">
+                        <div class="col-6 mb-3 col-md-3 by-ruang">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Ruang</span>
@@ -77,7 +77,7 @@
                                 <select name="ruang" id="ruang" class="form-control"></select>
                             </div>
                         </div>
-                        <div class="col-6 mb-3 col-xl-3 by-ruang">
+                        <div class="col-6 mb-3 col-md-3 by-ruang">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Sesi</span>
