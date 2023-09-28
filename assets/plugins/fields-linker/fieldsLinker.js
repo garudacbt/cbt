@@ -18,39 +18,39 @@ let fieldsLinkerMemory = [];
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
-  }
-  
-;(function($) {
+}
+
+;(function ($) {
     $.fn.fieldsLinker = function (action, input) {
         factory = this;
         if (action == 'init') {
             factory.selector = factory[0];
-            
-            if(!factory.selector.id){
+
+            if (!factory.selector.id) {
                 factory.selector.id = "FLinkerId_" + getRandomInt(1024000000);
             }
-            
+
             factory.work = new FieldsLinker(factory.selector);
-            if(fieldsLinkerMemory.length == 0){
-                fieldsLinkerMemory.push({"selector":factory.selector,"factory":factory});
-            }else{
+            if (fieldsLinkerMemory.length == 0) {
+                fieldsLinkerMemory.push({"selector": factory.selector, "factory": factory});
+            } else {
                 let found = false;
-                fieldsLinkerMemory.forEach(function(x,i){
-                    if(x.selector == factory.selector){
+                fieldsLinkerMemory.forEach(function (x, i) {
+                    if (x.selector == factory.selector) {
                         found = true;
                         fieldsLinkerMemory[i].factory = factory;
                     }
                 });
-                if(!found){
-                    fieldsLinkerMemory.push({"selector":factory.selector,"factory":factory});
+                if (!found) {
+                    fieldsLinkerMemory.push({"selector": factory.selector, "factory": factory});
                 }
             }
             factory.work.init(input);
             factory.work.deduplicate();
             factory.work.setGlobalRedraw();
             factory.work.readUserPreferences();
-            factory.work.fillChosenLists(); 
-            factory.work.makeDropDownForLists(); 
+            factory.work.fillChosenLists();
+            factory.work.makeDropDownForLists();
             factory.work.drawColumnsAtLoadTime();
             factory.work.drawColumnsContentA();
             factory.work.drawColumnsContentB();
@@ -89,11 +89,11 @@ function getRandomInt(max) {
 }(jQuery));
 
 
-function FieldsLinker(selector){
+function FieldsLinker(selector) {
     this.selector = selector;
     this.$root = $(this.selector);
-	this.FL_Factory_Lists = null;
-	this.FL_Original_Factory_Lists = null;
+    this.FL_Factory_Lists = null;
+    this.FL_Original_Factory_Lists = null;
     this.bootstrap_enabled = (typeof $().modal == 'function');
     this.errMsg = 'fieldsLinker error : ';
     this.data = {};
@@ -132,14 +132,14 @@ function FieldsLinker(selector){
     this.that = null;
     this.lineStyle = 'straight'; // straight or square-ends
     //this.handleColor        = '#CF0000,#00AD00,#0000AD,#FF4500,#00ADAD,#AD00AD,#582900,#FFCC00,#000000,#33FFCC'.split(',');
-    this.handleColor        = '#D50000,#33691e,#304FFE,#3E2723,#FF6F00,#64DD17,#4A148C,#FFD600,#263238,#212121'.split(',');
-    this.handleBackground   = '#ffcdd2,#c8e6c9,#90caf9,#d7ccc8,#ffcc80,#ccff90,#e1bee7,#ffff00,#cfd8dc,#e0e0e0'.split(',');
+    this.handleColor = '#D50000,#33691e,#304FFE,#3E2723,#FF6F00,#64DD17,#4A148C,#FFD600,#263238,#212121'.split(',');
+    this.handleBackground = '#ffcdd2,#c8e6c9,#90caf9,#d7ccc8,#ffcc80,#ccff90,#e1bee7,#ffff00,#cfd8dc,#e0e0e0'.split(',');
     this.lineColor = 'black';
     this.associationMode = 'oneToOne';
     this.isDisabled = false;
     this.globalAlpha = 1;
     this.mandatories = [];
-    this.whiteSpace ="nowrap";
+    this.whiteSpace = "nowrap";
     this.hideLink = false;
     this.isTouchScreen = is_touch_device();
     this.mobileClickIt = false;
@@ -147,7 +147,7 @@ function FieldsLinker(selector){
     this.hexc = function (colorval) {
         var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
         if (parts == null) return null;
-        delete(parts[0]);
+        delete (parts[0]);
         for (var i = 1; i <= 3; ++i) {
             parts[i] = parseInt(parts[i]).toString(16);
             if (parts[i].length == 1) parts[i] = '0' + parts[i];
@@ -167,8 +167,8 @@ function FieldsLinker(selector){
             return x.tables == tablesAB;
         });
         links.forEach(function (item, i) {
-			var positionA = self.listA.indexOf(item.from);
-			var positionB = self.listB.indexOf(item.to);
+            var positionA = self.listA.indexOf(item.from);
+            var positionB = self.listB.indexOf(item.to);
 
             if (positionB == -1 || positionA == -1) {
                 console.log('error link names unknown');
@@ -229,23 +229,23 @@ function FieldsLinker(selector){
             var li_kiri = $(`ul[data-col="${self.chosenListB}"]`).find(`li:contains(${ii})`);
             if (vv.length > 1) {
                 var grad = 'to right';
-                var percent = 100/vv.length;
+                var percent = 100 / vv.length;
                 $.each(vv, function (i, c) {
-                    grad += ', '+c+' '+percent*i+'%, '+c+' '+percent*(i+1)+'%' ;
+                    grad += ', ' + c + ' ' + percent * i + '%, ' + c + ' ' + percent * (i + 1) + '%';
                 });
                 li_kiri
-                    .css({'background-color': vv[vv.length-1]})
-                    .css({'background-image': 'linear-gradient('+grad+')'})
+                    .css({'background-color': vv[vv.length - 1]})
+                    .css({'background-image': 'linear-gradient(' + grad + ')'})
                     .addClass('linked');
             } else {
                 li_kiri
                     .css({'background-color': vv[0]})
-                    .css({'background-image': 'linear-gradient('+vv[0]+','+vv[0]+')'})
+                    .css({'background-image': 'linear-gradient(' + vv[0] + ',' + vv[0] + ')'})
                     .addClass('linked');
             }
         })
     }
-   this.makeLink = function (infos) {
+    this.makeLink = function (infos) {
         var self = this;
         var tablesAB = self.chosenListA + '|' + self.chosenListB;
         var already = false;
@@ -328,12 +328,12 @@ function FieldsLinker(selector){
         if (self.data.options.className) {
             self.className = self.data.options.className;
         }
-        if(self.data.options.whiteSpace){
+        if (self.data.options.whiteSpace) {
             self.whiteSpace = self.data.options.whiteSpace;
         }
         if (self.data.options.lineStyle) {
             if (self.data.options.lineStyle == 'square-ends' || self.data.options.lineStyle == 'square-ends-dotted')
-            self.lineStyle = self.data.options.lineStyle;
+                self.lineStyle = self.data.options.lineStyle;
         }
         if (self.data.options.lineColor) {
             self.lineColor = self.data.options.lineColor;
@@ -347,7 +347,7 @@ function FieldsLinker(selector){
         if (self.data.options.mobileClickIt != undefined) {
             self.mobileClickIt = self.data.options.mobileClickIt;
         }
-        if(self.isTouchScreen){
+        if (self.isTouchScreen) {
             self.mobileClickIt = true;
         }
 
@@ -386,7 +386,7 @@ function FieldsLinker(selector){
         self.dropDownForLists = $('<select></select>');
         self.dropDownForLists
             .css('width', '100%');
-            self.listNames.forEach(function (x) {
+        self.listNames.forEach(function (x) {
             var $option = $('<option></option>');
             $option
                 .val(x)
@@ -459,13 +459,13 @@ function FieldsLinker(selector){
             })
             .append(self.dropDownForLists.clone());
 
-		if (self.data.options.buttonErase) {
+        if (self.data.options.buttonErase) {
             self.$btn = $('<button></button>');
             self.$btn
                 .appendTo(self.$root.find('.FL-main'))
                 .attr('type', 'button')
                 .addClass('btn btn-default btn-sm eraseLink')
-				.attr("style","position:absolute;top:-6px;right:0;opacity:0.9;")
+                .attr("style", "position:absolute;top:-6px;right:0;opacity:0.9;")
                 .html(self.data.options.buttonErase);
         }
 
@@ -488,9 +488,9 @@ function FieldsLinker(selector){
     }
     this.computeListHeight = function (li) {
         // outerHeight(true) adds margins too, full step is simply full outerHeight / 2 between li siblings
-        if(!$(li).hasClass('hidden')){
+        if (!$(li).hasClass('hidden')) {
             var step = Math.ceil($(li).outerHeight(true) / 2);
-            return  Math.floor($(li).position().top + step);
+            return Math.floor($(li).position().top + step);
         }
     }
     this.drawColumnsContentA = function () {
@@ -685,9 +685,9 @@ function FieldsLinker(selector){
                 if (self.isDisabled) return;
                 let el = $(this);
                 var handleCurrentColor = self.handleBackground[el.index() % self.handleBackground.length];
-                $(self.$root).find('.selected').removeClass('selected').css({'background-color' : '#fff'});
+                $(self.$root).find('.selected').removeClass('selected').css({'background-color': '#fff'});
                 el.addClass('selected');
-                el.css({'background-color' : handleCurrentColor});
+                el.css({'background-color': handleCurrentColor});
                 self.move = {};
                 self.move.offsetA = el.data('offset');
                 self.move.nameA = el.data('name');
@@ -702,8 +702,8 @@ function FieldsLinker(selector){
             self.draw();
         });
     }
-   this.drawColumnsContentB = function () {
-       var self = this;
+    this.drawColumnsContentB = function () {
+        var self = this;
         if (self.$ulRight.length == 1) {
             self.$ulRight.empty();
         } else {
@@ -717,7 +717,7 @@ function FieldsLinker(selector){
                 'text-align': 'left',
                 'list-style': 'none'
             });
-       self.listB.forEach(function (x, i) {
+        self.listB.forEach(function (x, i) {
             let item = x;
             let id = x;
             var isMandatory = (self.mandatories.indexOf(x) != -1);
@@ -728,7 +728,7 @@ function FieldsLinker(selector){
                 .attr('data-name', id)
                 .attr('data-mandatory', isMandatory)
                 .attr('draggable', 'true');
-                //.css({'background-color' : handleCurrentColor});
+            //.css({'background-color' : handleCurrentColor});
             var $div = $('<div></div>');
             $div
                 .appendTo($li)
@@ -837,7 +837,7 @@ function FieldsLinker(selector){
         self.canvasWidth = w;
         self.canvasHeight = h;
         self.canvasPtr = document.getElementById(self.canvasId);
-        if(self.canvasPtr){
+        if (self.canvasPtr) {
             self.canvasPtr.width = self.canvasWidth;
             self.canvasPtr.height = self.canvasHeight;
             self.canvasCtx = self.canvasPtr.getContext("2d");
@@ -926,7 +926,7 @@ function FieldsLinker(selector){
             self.draw();
         });
     }
-    this.setGlobalRedraw = function(){
+    this.setGlobalRedraw = function () {
         var self = this;
         $(self.selector).on('LM_Message_Redraw', function () {
             self.mandatories = [];
@@ -934,7 +934,7 @@ function FieldsLinker(selector){
             self.listA = [];
             self.listB = [];
             self.FL_Factory_Lists.Lists.forEach(function (x) {
-                if (x.name ==  self.chosenListA) {
+                if (x.name == self.chosenListA) {
                     let dict = {};
                     x.list.forEach(function (y) {
                         if (!dict[y]) {
@@ -958,12 +958,12 @@ function FieldsLinker(selector){
             self.draw();
         });
     }
-    this.setError = function(message){
+    this.setError = function (message) {
         var self = this;
         self.onError = true;
         throw self.errMsg + message;
     }
-    this.init = function(input,onFilter){
+    this.init = function (input, onFilter) {
 
         var self = this;
         if (!input) {
@@ -973,46 +973,46 @@ function FieldsLinker(selector){
         self.FL_Factory_Lists = self.data;
 
         if (!onFilter) {
-            self.FL_Original_Factory_Lists = JSON.parse(JSON.stringify( self.data ));
+            self.FL_Original_Factory_Lists = JSON.parse(JSON.stringify(self.data));
         }
         if (!self.data.Lists || self.data.Lists.length < 2) {
             self.setError('provide at least 2 lists');
         }
     }
-    this.deduplicate = function(){
+    this.deduplicate = function () {
         var self = this;
         self.listsNr = self.data.Lists.length;
 
-		for (let i = 0; i < self.listsNr; i++) {
-			let dict = {};
-			for (let j = 0; j < self.data.Lists[i].list.length; j++) {
-				let val = self.data.Lists[i].list[j];
-				if (!dict[val]) {
-					dict[val] = 1;
-				} else {
-					dict[val] += 1;
-					self.data.Lists[i].list[j] += '(' + dict[val] + ')';
-				}
-			}
-		}
+        for (let i = 0; i < self.listsNr; i++) {
+            let dict = {};
+            for (let j = 0; j < self.data.Lists[i].list.length; j++) {
+                let val = self.data.Lists[i].list[j];
+                if (!dict[val]) {
+                    dict[val] = 1;
+                } else {
+                    dict[val] += 1;
+                    self.data.Lists[i].list[j] += '(' + dict[val] + ')';
+                }
+            }
+        }
     }
-    this.changeSelects = function(){
+    this.changeSelects = function () {
         var self = this;
         $(self.selector)
-        .find('.FL-left select')
-        .trigger('change')
-        .css('border', 'none')
-        .css('appearance', 'none')
-        .attr('disabled', 'true');
+            .find('.FL-left select')
+            .trigger('change')
+            .css('border', 'none')
+            .css('appearance', 'none')
+            .attr('disabled', 'true');
 
         $(self.selector)
-        .find('.FL-right select')
-        .trigger('change')
-        .css('border', 'none')
-        .css('appearance', 'none')
-        .attr('disabled', 'true');
+            .find('.FL-right select')
+            .trigger('change')
+            .css('border', 'none')
+            .css('appearance', 'none')
+            .attr('disabled', 'true');
     }
-    this.manageExistingLinks = function(){
+    this.manageExistingLinks = function () {
         var self = this;
         if (self.data.existingLinks) {
             self.linksByName = self.data.existingLinks;
@@ -1022,7 +1022,7 @@ function FieldsLinker(selector){
             });
         }
     }
-    this.manageResize= function(){
+    this.manageResize = function () {
         var self = this;
         $(window).resize(function () {
             self.canvasWidth = $(self.selector).find('.FL-main .FL-mid').width();
@@ -1031,12 +1031,12 @@ function FieldsLinker(selector){
             self.draw();
         });
     }
-    this.eraseLinks = function(){
+    this.eraseLinks = function () {
         var self = this;
         self.linksByName.length = 0;
         self.draw();
     }
-    this.getLinks = function(){
+    this.getLinks = function () {
         var self = this;
         if (!self.onError) {
             var isMandatoryError = false;
@@ -1076,113 +1076,114 @@ function FieldsLinker(selector){
             }
         } else {
             return [];
+        }
     }
-}
-this.changeParameters = function(input){
-    var self = this;
-    if (!self.onError) {
-       if (input) {
-        var options = JSON.parse(JSON.stringify(input));
-        if (options.className) {
-            self.className = options.className;
-        }
-        if(options.whiteSpace){
-            self.whiteSpace = options.whiteSpace;
-            
-            self.$leftDiv.css("white-space",self.whiteSpace);
-            self.$rightDiv.css("white-space",self.whiteSpace);
-            
-            self.ListHeights1 = [];
-            
-            $(self.$ulLeft).find('li').each(function (i, li) {
-                var val =  self.computeListHeight(li);
-                self.ListHeights1.push(val);
-            });
-            
-            self.ListHeights2 = [];
+    this.changeParameters = function (input) {
+        var self = this;
+        if (!self.onError) {
+            if (input) {
+                var options = JSON.parse(JSON.stringify(input));
+                if (options.className) {
+                    self.className = options.className;
+                }
+                if (options.whiteSpace) {
+                    self.whiteSpace = options.whiteSpace;
 
-            $(self.$ulRight).find('li').each(function (i, li) {
-                var val =  self.computeListHeight(li);
-                self.ListHeights2 .push(val);
-            });
-           
-        }
-        if (options.lineStyle) {
-            self.lineStyle = options.lineStyle;
-        }
-        if (options.lineColor) {
-            self.lineColor = options.lineColor;
-        }
-        if (options.handleColor) {
-            self.handleColor = options.handleColor.split(',');
-        }
-        if (options.associationMode) {
-            let unicityTokenA = '';
-            let unicityTokenB = '';
-            let formerAssociation = self.associationMode;
-            self.associationMode = options.associationMode;
-            if (self.associationMode == 'oneToOne' && formerAssociation == 'manyToMany') {
-                let unicityDict = {};
-                for (var i = self.linksByName.length - 1; i >= 0; i--) {
-                    unicityTokenA = self.linksByName[i].tables + '_A_' + self.linksByName[i]['from'];
-                    unicityTokenB = self.linksByName[i].tables + '_B_' + self.linksByName[i]['to'];
-                    let doDelete = false;
-                    if (!unicityDict[unicityTokenA]) {
-                        unicityDict[unicityTokenA] = true;
-                    } else {
-                        doDelete = true;
-                    }
-                    if (!unicityDict[unicityTokenB]) {
-                        unicityDict[unicityTokenB] = true;
-                    } else {
-                        doDelete = true;
-                    }
-                    if (doDelete) {
-                        self.linksByName.splice(i, 1);
+                    self.$leftDiv.css("white-space", self.whiteSpace);
+                    self.$rightDiv.css("white-space", self.whiteSpace);
+
+                    self.ListHeights1 = [];
+
+                    $(self.$ulLeft).find('li').each(function (i, li) {
+                        var val = self.computeListHeight(li);
+                        self.ListHeights1.push(val);
+                    });
+
+                    self.ListHeights2 = [];
+
+                    $(self.$ulRight).find('li').each(function (i, li) {
+                        var val = self.computeListHeight(li);
+                        self.ListHeights2.push(val);
+                    });
+
+                }
+                if (options.lineStyle) {
+                    self.lineStyle = options.lineStyle;
+                }
+                if (options.lineColor) {
+                    self.lineColor = options.lineColor;
+                }
+                if (options.handleColor) {
+                    self.handleColor = options.handleColor.split(',');
+                }
+                if (options.associationMode) {
+                    let unicityTokenA = '';
+                    let unicityTokenB = '';
+                    let formerAssociation = self.associationMode;
+                    self.associationMode = options.associationMode;
+                    if (self.associationMode == 'oneToOne' && formerAssociation == 'manyToMany') {
+                        let unicityDict = {};
+                        for (var i = self.linksByName.length - 1; i >= 0; i--) {
+                            unicityTokenA = self.linksByName[i].tables + '_A_' + self.linksByName[i]['from'];
+                            unicityTokenB = self.linksByName[i].tables + '_B_' + self.linksByName[i]['to'];
+                            let doDelete = false;
+                            if (!unicityDict[unicityTokenA]) {
+                                unicityDict[unicityTokenA] = true;
+                            } else {
+                                doDelete = true;
+                            }
+                            if (!unicityDict[unicityTokenB]) {
+                                unicityDict[unicityTokenB] = true;
+                            } else {
+                                doDelete = true;
+                            }
+                            if (doDelete) {
+                                self.linksByName.splice(i, 1);
+                            }
+                        }
                     }
                 }
             }
+            self.draw();
         }
     }
-    self.draw();
-}
-}
-this.enable = function(doEnable){
-    var self = this;
-    self.isDisabled = !doEnable;
+    this.enable = function (doEnable) {
+        var self = this;
+        self.isDisabled = !doEnable;
 
-    $(self.$root)
-        .find('.eraseLink')
-        .prop('disabled', self.isDisabled);
-
-     if(doEnable) {
         $(self.$root)
-        .find('li')
-        .removeClass('inactive')
-        .find('div')
-        .prop('draggable',true);
-     }else{
+            .find('.eraseLink')
+            .prop('disabled', self.isDisabled);
+
+        if (doEnable) {
+            $(self.$root)
+                .find('li')
+                .removeClass('inactive')
+                .find('div')
+                .prop('draggable', true);
+        } else {
+            $(self.$root)
+                .find('li')
+                .addClass('inactive')
+                .find('div')
+                .prop('draggable', false);
+        }
+
         $(self.$root)
-        .find('li')
-        .addClass('inactive')
-        .find('div')
-        .prop('draggable',false);
-     }  
+            .find('select')
+            .prop('disabled', self.isDisabled);
 
-    $(self.$root)
-        .find('select')
-        .prop('disabled', self.isDisabled);
+        self.globalAlpha = self.isDisabled ? 0.5 : 1;
 
-    self.globalAlpha = self.isDisabled ? 0.5 : 1;
-
-    self.draw();
+        self.draw();
 
     }
 }
+
 // utils
 function LM_allowDrop(ev) {
-  //  ev.dataTransfer.dropEffect = "none"; // dropping is not allowed
-  console.log(ev.currentTarget);
+    //  ev.dataTransfer.dropEffect = "none"; // dropping is not allowed
+    console.log(ev.currentTarget);
     ev.preventDefault();
 }
 
@@ -1207,11 +1208,11 @@ function LM_drop(ev) {
     let $root = $target.closest(".fieldsLinker").parent();
     let currentDropId = $root.attr("id");
     let factory = null;
-    if($root.length==1){
-      let oneMemory =  fieldsLinkerMemory.filter(function(x,i){
+    if ($root.length == 1) {
+        let oneMemory = fieldsLinkerMemory.filter(function (x, i) {
             return x.selector.id == currentDropId;
         });
-        if(oneMemory.length >0){
+        if (oneMemory.length > 0) {
             factory = oneMemory[0].factory;
         }
 
@@ -1239,7 +1240,6 @@ function LM_drop(ev) {
 
 }
 
-
 function is_touch_device() { // from bolmaster2 - stackoverflow
     var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
     var mq = function (query) {
@@ -1254,4 +1254,15 @@ function is_touch_device() { // from bolmaster2 - stackoverflow
     // https://git.io/vznFH
     var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
     return mq(query);
+}
+
+function encode(str) {
+    var decoded = decodeURIComponent(str)
+    var isEncoded = decoded !== str
+    var encoded = encodeURIComponent(str)
+    if (isEncoded) {
+        return str
+    } else {
+        return encoded
+    }
 }

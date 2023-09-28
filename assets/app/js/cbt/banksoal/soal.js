@@ -1218,6 +1218,7 @@ function createTableJodohkan(data) {
             $('.check').attr('type', 'checkbox');
         }
     });
+    fieldLinks = undefined
 }
 
 function createListJodohkan(data) {
@@ -1231,8 +1232,7 @@ function createListJodohkan(data) {
 
     var mode = data.type == '2' ? "oneToOne" : "manyToMany";
     var inputs = {
-        "localization": {
-        },
+        "localization": {},
         "options": {
             "associationMode": mode, // oneToOne,manyToMany
             "lineStyle": "square-ends",
@@ -1256,15 +1256,17 @@ function createListJodohkan(data) {
     };
     //console.log('no-soal', nomor_soal);
 
-    fieldLinks = $("#original").fieldsLinker("init", inputs);
+    setTimeout(function (){
+        fieldLinks = $("#original").fieldsLinker("init", inputs);
 
-    $('#type-opsi').on('change', function () {
-        if ($(this).val() == '2') {
-            fieldLinks.fieldsLinker("changeParameters",{"associationMode": "oneToOne"});
-        } else {
-            fieldLinks.fieldsLinker("changeParameters",{"associationMode": "manyToMany"});
-        }
-    });
+        $('#type-opsi').on('change', function () {
+            if ($(this).val() == '2') {
+                fieldLinks.fieldsLinker("changeParameters",{"associationMode": "oneToOne"});
+            } else {
+                fieldLinks.fieldsLinker("changeParameters",{"associationMode": "manyToMany"});
+            }
+        });
+    }, 200)
 }
 
 function getTableData() {
@@ -1273,14 +1275,14 @@ function getTableData() {
 
         $(row).find('th').get().map(function (cell) {
             var klm = $(cell).find('span.editable').text().trim();
-            $tables.push(klm == "" ? "#" : encodeURIComponent(klm));
+            $tables.push(klm == "" ? "#" : encode(klm));
         });
 
         $(row).find('td').get().map(function (cell) {
             if ($(cell).children('input').length > 0) {
                 $tables.push($(cell).find('input').prop("checked") === true ? "1" : "0");
             } else {
-                $tables.push(encodeURIComponent($(cell).find('span.editable').text().trim()))
+                $tables.push(encode($(cell).find('span.editable').text().trim()))
             }
         });
 
@@ -1292,10 +1294,10 @@ function getListData() {
     var kolom = [];
     var baris = [];
     $(".FL-left li").each(function() {
-        baris.push(encodeURIComponent($(this).text()));
+        baris.push(encode($(this).text()));
     });
     $(".FL-right li").each(function() {
-        kolom.push(encodeURIComponent($(this).text()));
+        kolom.push(encode($(this).text()));
     });
     return [kolom, baris];
 }
@@ -1391,10 +1393,9 @@ function convertListToTable(array) {
     if (jenisSoal != '3') return;
     var results = fieldLinks.fieldsLinker("getLinks");
     var links = results.links;
-    console.log('linked', links);
+    //console.log('linked', links);
 
     var kolom = array[0];
-    console.log('kolom', kolom);
     var arrayres = [];
     $.each(array[1], function (ind, val) {
         var vv = [];
@@ -1402,8 +1403,8 @@ function convertListToTable(array) {
             var sv = '0';
             if (links.length > 0) {
                 $.each(links, function (p, isi) {
-                    if (encodeURIComponent(isi.from) == encodeURIComponent(val)) {
-                        if (isi.to == kolom[i]) {
+                    if (encode(isi.from) == encode(val)) {
+                        if (encode(isi.to) == encode(kolom[i])) {
                             sv = '1';
                         }
                     }
@@ -1417,7 +1418,7 @@ function convertListToTable(array) {
     });
     kolom.unshift('#');
     arrayres.unshift(kolom);
-    console.log('aray', arrayres);
+    //console.log('aray', arrayres);
 
     var item = {};
     item['model'] = $('#model-opsi').val();
@@ -1477,4 +1478,15 @@ function deleteOpsiPg2(e) {
         const abc = (index + 10).toString(36).toLowerCase();
         $(area).prop('id', 'textjawaban2_'+abc).prop('name', 'jawaban2_'+abc)
     })
+}
+
+function encode(str) {
+    var decoded = decodeURIComponent(str)
+    var isEncoded = decoded !== str
+    var encoded = encodeURIComponent(str)
+    if (isEncoded) {
+        return str
+    } else {
+        return encoded
+    }
 }
