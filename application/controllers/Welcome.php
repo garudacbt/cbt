@@ -4,4 +4,4 @@
     |    https://github.com/garudacbt/cbt    |
     |________________________________________|
 */
- defined("\102\x41\x53\x45\120\101\x54\110") or exit("\116\x6f\40\144\x69\162\x65\143\164\x20\163\x63\162\x69\x70\164\40\x61\x63\143\145\x73\163\x20\141\x6c\x6c\x6f\x77\x65\144"); class Welcome extends CI_Controller { public function index() { $this->load->view("\x77\x65\x6c\x63\x6f\155\x65\x5f\155\145\163\x73\141\x67\x65"); } }
+ defined("\x42\x41\123\105\120\101\x54\x48") or exit("\116\157\x20\144\151\162\x65\x63\164\40\163\x63\x72\151\160\x74\x20\141\x63\x63\x65\x73\163\40\x61\x6c\154\157\167\x65\x64"); class Welcome extends CI_Controller { public function index() { $this->load->view("\167\145\x6c\x63\x6f\x6d\x65\x5f\x6d\x65\163\163\x61\147\x65"); } }

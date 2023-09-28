@@ -365,12 +365,8 @@
             typeSoal = data.soal_opsi.type;
             if (data.soal_opsi.model == '1') {
                 const dataJawab = data.soal_opsi
-                console.log('data.soal_opsi', data.soal_opsi)
-                //const copy1 = $.extend(true, {}, dataJawab1);
                 const copy = $.extend(true, {}, dataJawab);
                 var datalist = convertTable(copy);
-                //var datalist = convertTableToList(data.soal_opsi);
-                console.log('datalist', datalist)
                 html = '<div class="bonds" id="original" style="display:block;"></div>';
                 $('#konten-jawaban').html(html);
                 var mode = datalist.type == '2' ? "oneToOne" : "manyToMany";
