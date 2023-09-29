@@ -409,7 +409,7 @@
                         })
                     }
                 })
-                console.log('body', body)
+                //console.log('body', body)
                 html += '<div class="table-responsive">' +
                     '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
                 html += '<tr class="text-center">';
@@ -421,11 +421,15 @@
                     }
                 });
                 html += '</tr>';
+                const arrKeys = Object.keys(data.soal_opsi.tbody)
+                //console.log('arrkey', arrKeys[0])
                 $.each(data.soal_opsi.tbody, function (k, v) {
+                    const key = arrKeys[0] == '0' ? k : k-1;
+                    //console.log('indexbody', k)
                     html += '<tr class="text-center">';
                     $.each(v, function (t, i) {
                         if (t === 0) {
-                            html += '<td class="baris text-bold">' + body[k] + '</td>';
+                            html += '<td class="baris text-bold">' + body[key] + '</td>';
                         } else {
                             const checked = i == '1' ? ' checked' : '';
                             const type = data.soal_opsi.type != '2' ? 'checkbox' : 'radio';
