@@ -210,7 +210,6 @@
             var siswa = $('#up').find('input[name="siswa"]').val();
             var bank = $('#up').find('input[name="bank"]').val();
             var dataPost = $(this).serialize() + '&siswa=' + siswa + '&bank=' + bank + '&data=' + JSON.stringify(jsonJawaban);
-            //console.log(dataPost);
             $.ajax({
                 url: base_url + 'siswa/savejawaban',
                 method: 'POST',
@@ -409,7 +408,6 @@
                         })
                     }
                 })
-                //console.log('body', body)
                 html += '<div class="table-responsive">' +
                     '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
                 html += '<tr class="text-center">';
@@ -422,10 +420,8 @@
                 });
                 html += '</tr>';
                 const arrKeys = Object.keys(data.soal_opsi.tbody)
-                //console.log('arrkey', arrKeys[0])
                 $.each(data.soal_opsi.tbody, function (k, v) {
                     const key = arrKeys[0] == '0' ? k : k-1;
-                    //console.log('indexbody', k)
                     html += '<tr class="text-center">';
                     $.each(v, function (t, i) {
                         if (t === 0) {
