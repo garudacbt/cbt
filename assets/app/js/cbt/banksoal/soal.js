@@ -1367,17 +1367,20 @@ function convertTableToList(array) {
     var kanan = array.shift();
     var kiri = [];
     $.each(array, function (i, v) {
-        kiri.push(v.shift());
+        kiri.push(decode(v.shift()));
     });
     kanan.shift();
+    $.each(kanan, function (i, v) {
+        kanan[i] = (decode(v));
+    });
 
     var linked = [];
     $.each(array, function (n, arv) {
         $.each(arv, function (t, v) {
             if (v != '0') {
                 var it = {};
-                it['from'] = kiri[n];
-                it['to'] = kanan[t];
+                it['from'] = decode(kiri[n]);
+                it['to'] = decode(kanan[t]);
                 linked.push(it);
             }
         });
@@ -1488,5 +1491,16 @@ function encode(str) {
         return str
     } else {
         return encoded
+    }
+}
+
+function decode(str) {
+    var decoded = decodeURIComponent(str)
+    var encoded = encodeURIComponent(decoded)
+    var isEncoded = encoded === str
+    if (isEncoded) {
+        return decoded
+    } else {
+        return str
     }
 }

@@ -541,7 +541,7 @@ function FieldsLinker(selector) {
                 .css({
                     'width': '80%'
                 })
-                .html(decodeURIComponent(item));
+                .html(item);
             /*
             var $eraseIcon = $('<i></i>');
             $eraseIcon
@@ -739,7 +739,7 @@ function FieldsLinker(selector) {
                 .css({
                     'width': '80%'
                 })
-                .html(decodeURIComponent(item));
+                .html(item);
             if (isMandatory && self.mandatoryTooltips) {
                 $li
                     .attr('data-placement', 'top')
@@ -1254,15 +1254,4 @@ function is_touch_device() { // from bolmaster2 - stackoverflow
     // https://git.io/vznFH
     var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
     return mq(query);
-}
-
-function encode(str) {
-    var decoded = decodeURIComponent(str)
-    var isEncoded = decoded !== str
-    var encoded = encodeURIComponent(str)
-    if (isEncoded) {
-        return str
-    } else {
-        return encoded
-    }
 }

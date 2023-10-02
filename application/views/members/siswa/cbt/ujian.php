@@ -210,6 +210,7 @@
             var siswa = $('#up').find('input[name="siswa"]').val();
             var bank = $('#up').find('input[name="bank"]').val();
             var dataPost = $(this).serialize() + '&siswa=' + siswa + '&bank=' + bank + '&data=' + JSON.stringify(jsonJawaban);
+            //console.log(dataPost);
             $.ajax({
                 url: base_url + 'siswa/savejawaban',
                 method: 'POST',
@@ -365,7 +366,7 @@
             if (data.soal_opsi.model == '1') {
                 const dataJawab = data.soal_opsi
                 const copy = $.extend(true, {}, dataJawab);
-                var datalist = convertTable(copy);
+                var datalist = convertTableToList(data.soal_opsi);
                 html = '<div class="bonds" id="original" style="display:block;"></div>';
                 $('#konten-jawaban').html(html);
                 var mode = datalist.type == '2' ? "oneToOne" : "manyToMany";
@@ -408,6 +409,7 @@
                         })
                     }
                 })
+                //console.log('body', body)
                 html += '<div class="table-responsive">' +
                     '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
                 html += '<tr class="text-center">';
@@ -420,8 +422,10 @@
                 });
                 html += '</tr>';
                 const arrKeys = Object.keys(data.soal_opsi.tbody)
+                //console.log('arrkey', arrKeys[0])
                 $.each(data.soal_opsi.tbody, function (k, v) {
                     const key = arrKeys[0] == '0' ? k : k-1;
+                    //console.log('indexbody', k)
                     html += '<tr class="text-center">';
                     $.each(v, function (t, i) {
                         if (t === 0) {
@@ -815,18 +819,21 @@
         //console.log('kanan', kanan);
         var kiri = [];
         $.each(data.tbody, function (i, v) {
-            kiri.push(encode(v.shift()));
+            kiri.push(decode(v.shift()));
         });
         kanan.shift();
         //console.log('kiri', kiri);
+        $.each(kanan, function (i, v) {
+            kanan[i] = (decode(v));
+        });
 
         var linked = [];
         $.each(data.tbody, function (n, arv) {
             $.each(arv, function (t, v) {
                 if (v == '1') {
                     var it = {};
-                    it['from'] = encode(kiri[n]);
-                    it['to'] = encode(kanan[t]);
+                    it['from'] = decode(kiri[n]);
+                    it['to'] = decode(kanan[t]);
                     linked.push(it);
                 }
             });
@@ -1075,5 +1082,15 @@
         }
     }
 
+    function decode(str) {
+        var decoded = decodeURIComponent(str)
+        var encoded = encodeURIComponent(decoded)
+        var isEncoded = encoded === str
+        if (isEncoded) {
+            return decoded
+        } else {
+            return str
+        }
+    }
 
 </script>

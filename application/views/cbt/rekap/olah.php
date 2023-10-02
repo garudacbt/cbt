@@ -309,7 +309,7 @@ function decimalFixed($num)
                                                 <td class="align-middle" data-a-v="middle" data-b-a-s="thin"
                                                     style="border: 1px solid grey;border-collapse: collapse;"> <?= $siswa->nama ?> </td>
                                                 <?php
-                                                if ($soal_pgs > 0) :
+                                                if ($rekap->tampil_pg > 0) :
                                                     $benar_pg = 0;
                                                     $salah_pg = 0;
                                                     foreach ($soal_pgs as $key => $benar) :
