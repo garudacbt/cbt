@@ -554,9 +554,11 @@
             if (printBy === '1') {
                 $('#by-kelas').addClass('d-none');
                 $('.by-ruang').removeClass('d-none');
+                if (ruang && sesi && jadwal) loadSiswaRuang(ruang, sesi, jadwal)
             } else {
                 $('#by-kelas').removeClass('d-none');
                 $('.by-ruang').addClass('d-none');
+                if (kelas && jadwal) loadSiswaKelas(kelas, jadwal)
             }
         });
 

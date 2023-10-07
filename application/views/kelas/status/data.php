@@ -47,11 +47,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <?php
-                    //echo '<pre>';
-                    //var_dump($materi);
-                    //echo '</pre>';
-                    ?>
                     <?= form_open('', array('id' => 'formselect')) ?>
                     <?= form_close(); ?>
                     <div class="row">
@@ -84,7 +79,7 @@
                                 ); ?>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-2">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Kelas</span>
@@ -114,6 +109,32 @@
                         </div>
                     </div>
                     <hr>
+                    <div id="table-info" class="table-responsive d-none">
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <th colspan="2" class="border-bottom" id="info-judul">MATERI</th>
+                                <th colspan="2" class="border-bottom">PELAKSANAAN</th>
+                            </tr>
+                            <tr>
+                                <td class="text-bold" style="width: 100px">Mapel</td>
+                                <td id="info-mapel">Sejarah</td>
+                                <td class="text-bold" style="width: 100px">Jam ke</td>
+                                <td id="info-jam">....</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold">Guru</td>
+                                <td id="info-guru">....</td>
+                                <td class="text-bold">Dari</td>
+                                <td id="info-dari">....</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold">Kelas</td>
+                                <td id="info-kelas">....</td>
+                                <td class="text-bold">Sampai</td>
+                                <td id="info-sampai">....</td>
+                            </tr>
+                        </table>
+                    </div>
                     <div id="preview" class="table-responsive">
                         <div id="table-title" class="d-none" style="width:100%;">
                             <p id="title-doc" style="text-align:center;font-size:14pt; font-weight: bold"></p>
@@ -431,6 +452,7 @@
         var selKelas = $('#kelas-materi').val();
         if (selKelas === '-' || selKelas == null) {
             $('#log').html('<tr><td>Tidak ada data</td></tr>');
+            $('#table-info').addClass('d-none')
             return;
         }
 
@@ -443,6 +465,14 @@
                 data: form.serialize() + '&id_kjm=' + selMateri + '&id_kelas=' + selKelas + '&label=' + label,  //{id_materi: selMateri, id_kelas: selKelas},
                 success: function (data) {
                     console.log('result', data);
+                    $('#table-info').removeClass('d-none')
+                    $('#info-judul').text(label.toUpperCase()+': '+data.detail.judul)
+                    $('#info-mapel').text(data.detail.mapel || '-')
+                    $('#info-guru').text(data.detail.guru || '-')
+                    $('#info-kelas').text(data.detail.kelas || '-')
+                    $('#info-jam').text(data.detail.jam_ke || '-')
+                    $('#info-dari').text(data.detail.waktu.dari || '-')
+                    $('#info-sampai').text(data.detail.waktu.sampai || '-')
 
                     resultAll = data.log;
                     var table = $('#log');
@@ -484,7 +514,7 @@
                         if (value.mulai != null && value.selesai != null) {
                             nilai = value.nilai == null ? '' : value.nilai;
                             selesai = buatTanggal(value.selesai);
-
+                            /*
                             //calculate jam pelajaran
                             var tgl = value.jadwal_materi;
                             var mulaiKbm = data.jadwal.kbm_jam_mulai;
@@ -509,12 +539,26 @@
                                 }
                             }
                             var jamke = value.jam_ke;
-                            //console.log('jamke', value);
-                            //console.log('items', items);
                             var tglJadwal = items[jamke] !== undefined ? formatDate(items[jamke]) : '';
                             var diff = tglJadwal != '' ? calculateTime(tglJadwal, value.selesai) : '';
                             ketMulai = diff == '' ? '' : 'Selesai, Terlambat <br>' + diff;
-                            //console.log('jadwal:' + tglJadwal + ' selesai:' + value.selesai.log_time + ' diff:' + calculateTime(tglJadwal, value.selesai.log_time));
+                             */
+
+                            //console.log('diff', value.diff)
+                            if (value.diff.total > 0) {
+                                ketMulai = 'Selesai, terlambat ';
+                                if (value.diff.days > 0) {
+                                    ketMulai += value.diff.days + ' hari ';
+                                }
+                                if (value.diff.jam > 0) {
+                                    ketMulai += value.diff.jam + ' jam ';
+                                }
+                                if (value.diff.menit > 0) {
+                                    ketMulai += value.diff.menit + ' mnt';
+                                }
+                            } else {
+                                ketMulai = 'Selesai';
+                            }
                         }
 
                         html +=
@@ -591,8 +635,6 @@
 
         var kalender = string.split(" ")[0];
         var waktu = string.split(" ")[1];
-        //console.log('date', kalender);
-        //console.log('hour', waktu);
 
         const date = kalender.split("-");
         const time = waktu.split(":");
@@ -606,7 +648,6 @@
         var detik = time[2];
 
         var d = new Date(tahun, bulan, tanggal, jam, menit, detik);
-        //console.log('newDate', d.getMonth());
         var curr_day = d.getDay();
         /*
         var curr_date = d.getDate();
@@ -622,9 +663,9 @@
     }
 
     function calculateTime(jadwal, selesai) {
-        var ONE_DAY = 1000 * 60 * 60 * 24;
-        var ONE_HOUR = 1000 * 60 * 60;
         var ONE_MINUTE = 1000 * 60;
+        var ONE_HOUR = ONE_MINUTE * 60;
+        var ONE_DAY = ONE_HOUR * 24;
 
         var old_date = jadwal.replace(" ", "T");//"2010-11-10T07:30:40";
         var new_date = selesai.replace(" ", "T");//"2010-11-15T08:03:22";

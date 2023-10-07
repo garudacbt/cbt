@@ -69,6 +69,7 @@
                                 <th>Kelas</th>
                                 <th>Username</th>
                                 <th>Password</th>
+                                <th class="text-center">Reset Login</th>
                                 <th class="text-center">Status/Aksi</th>
                             </tr>
                             </thead>
@@ -205,6 +206,35 @@
             });
         });
 
+        $("#users").on("click", ".btn-reset", function() {
+            let username = $(this).data("username");
+            let nama = encodeURIComponent($(this).data("nama"));
+            $('#loading').removeClass('d-none');
+            $.ajax({
+                url: base_url + "usersiswa/reset_login/" + username +"/"+nama,
+                type: "GET",
+                success: function (response) {
+                    $('#loading').addClass('d-none');
+                    if (response.msg) {
+                        if (response.status) {
+                            swal.fire({
+                                title: "Sukses",
+                                html: "<b>"+decodeURIComponent(response.msg)+"<b>",
+                                icon: "success"
+                            });
+                            loadSiswa();
+                        } else {
+                            swal.fire({
+                                title: "Error",
+                                html: "<b>"+decodeURIComponent(response.msg)+"<b>",
+                                icon: "error"
+                            });
+                        }
+                    }
+                }
+            });
+        });
+
         $(".btn-action").on("click", function() {
             let action = $(this).data("action");
             let uri = action === 'aktifkan' ? base_url + "usersiswa/aktifkansemua" : base_url + "usersiswa/nonaktifkansemua";
@@ -321,6 +351,9 @@
             <td class="align-middle">${kls}</td>
             <td class="align-middle">${siswa.username}</td>
             <td class="align-middle">${siswa.password}</td>
+            <td class="text-center align-middle">
+                <button type="button" class="btn btn-default btn-xs btn-reset" ${siswa.reset == '0' ? 'disabled' : ''} data-username="${siswa.username}" data-nama="${siswa.nama}" data-toggle="tooltip" title="Reset Login"> <i class="fa fa-sync text-xs mr-1 ml-1"></i></button>
+            </td>
             <td class="text-center align-middle p-1">`;
                 if (siswa.aktif == "0") {
                     html += `<span class="badge badge-danger">Nonaktif</span><br><button type="button" class="btn btn-aktif btn-success btn-xs" data-id="${siswa.id_siswa}" data-toggle="tooltip" title="Aktifkan"> <i class="fa fa-user-plus text-xs mr-1 ml-1"></i> </button>`;
