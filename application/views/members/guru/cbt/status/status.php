@@ -180,6 +180,11 @@
                                 $disabledSelesai = !$sudahSelesai && !$belumUjian ? '' : 'disabled';
                                 $disabledUlang = $belumUjian ? 'disabled' : ($sudahSelesai ? '' : 'disabled');
 
+                                // jika ingin selalu aktif
+                                // $disabledReset = '';
+                                // $disabledSelesai = '';
+                                // $disabledUlang = '';
+
                                 $sesi = $siswa[$i]->kode_sesi;
                                 $ruang = $siswa[$i]->kode_ruang;
                                 $kelas = $siswa[$i]->kode_kelas;

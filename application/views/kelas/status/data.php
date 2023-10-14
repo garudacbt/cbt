@@ -544,8 +544,8 @@
                             ketMulai = diff == '' ? '' : 'Selesai, Terlambat <br>' + diff;
                              */
 
-                            //console.log('diff', value.diff)
-                            if (value.diff.total > 0) {
+                            console.log('diff', value.diff)
+                            if (value.diff.terlambat) {
                                 ketMulai = 'Selesai, terlambat ';
                                 if (value.diff.days > 0) {
                                     ketMulai += value.diff.days + ' hari ';

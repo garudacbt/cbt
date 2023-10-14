@@ -281,7 +281,7 @@
 <script>
     var fotoProfile = '';
     var idGuru = '<?=$id_active?>';
-    var src = '<?=str_replace($guru->foto, "'", "")?>';
+    var src = '<?=$guru->foto?>';
     $(document).ready(function () {
         $('#tgl_lahir').datetimepicker({
             icons:

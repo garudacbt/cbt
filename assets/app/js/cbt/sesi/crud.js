@@ -155,7 +155,7 @@ $(document).ready(function () {
 				$('#createSesiModal').on('hidden', function () {
 					$(this).data('modal', null);  // destroys modal
 				});
-				showToastSukses('Data berhasil disimpan.');
+				showSuccessToast('Data berhasil disimpan.');
 				table.ajax.reload();
 			}, error: function (xhr, status, error) {
 				$('#createSesiModal').modal('hide').data('bs.modal', null);

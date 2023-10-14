@@ -202,6 +202,14 @@
                             });
                         }
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    Swal.fire({
+                        title: "Gagal",
+                        html: xhr.responseText,
+                        icon: "error"
+                    });
                 }
             });
         });
@@ -231,6 +239,14 @@
                             });
                         }
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    Swal.fire({
+                        title: "Gagal",
+                        html: xhr.responseText,
+                        icon: "error"
+                    });
                 }
             });
         });

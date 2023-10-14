@@ -40,6 +40,22 @@ $(document).ready(function() {
 				targets: 5,
 				data: {
 					id : "id",
+					username: "username",
+					nama_guru: "nama_guru",
+					reset: "reset"
+				},
+				render: function(data, type, row, meta) {
+					return `<button type="button" class="btn btn-reset btn-default btn-xs ${data.reset == 0 ? 'btn-disabled' : ''}"
+ 								data-username="${data.username}" data-nama="${data.nama_guru}" data-toggle="tooltip" title="Reset Login"
+								 ${data.reset == 0 ? 'disabled' : ''}><i class="fa fa-sync m-1"></i></button>`;
+				}
+			},
+			{
+				searchable: false,
+				className: "text-center",
+				targets: 6,
+				data: {
+					id : "id",
 					id_guru: "id_guru",
 					nama_guru: "nama_guru",
 					aktif: "aktif"
@@ -142,7 +158,42 @@ $(document).ready(function() {
 		});
 	});
 
-    $(".btn-action").on("click", function() {
+	$("#users").on("click", ".btn-reset", function() {
+		let username = $(this).data("username");
+		let nama = $(this).data("nama");
+		$.ajax({
+			url: base_url + "userguru/reset_login?username="+ username,
+			type: "GET",
+			success: function (response) {
+				if (response.msg) {
+					if (response.status) {
+						swal.fire({
+							title: "Sukses",
+							html: "<b>"+nama+ response.msg+"<b>",
+							icon: "success"
+						});
+						reload_ajax();
+					} else {
+						swal.fire({
+							title: "Error",
+							html: "<b>"+nama + response.msg+"<b>",
+							icon: "error"
+						});
+					}
+				}
+			},
+			error: function(xhr, status, error) {
+				console.log(xhr);
+				Swal.fire({
+					title: "Gagal",
+					html: xhr.responseText,
+					icon: "error"
+				});
+			}
+		});
+	});
+
+	$(".btn-action").on("click", function() {
     	console.log('click');
         let action = $(this).data("action");
         let uri = action === 'aktifkan' ? base_url + "userguru/aktifkansemua" : base_url + "userguru/nonaktifkansemua";

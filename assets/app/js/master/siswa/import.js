@@ -175,12 +175,15 @@ function preview(action, data, filename) {
             let arrNisnDup = [];
             let arrNisDup = [];
             let arrUserDup = [];
+            let arrSiswaDup = [];
             if (filename === "") {
                 html = '<span class="text-center">Pastikan anda telah mengisi format yang telah disediakan.</span>';
             } else {
 				try {
-					dataSiswa = JSON.parse(data);
-                    console.log("data", dataSiswa);
+                    dataResult = JSON.parse(data);
+					dataSiswa = dataResult.siswa;
+                    dataExists = dataResult.exist;
+                    console.log("data", dataResult);
 					html = '<table id="tableprev" class="table table-sm table-striped table-bordered nowrap w-100">' +
 						'        <thead>' +
 						'        <tr>' +
@@ -195,58 +198,83 @@ function preview(action, data, filename) {
 						'        </thead>' +
 						'        <tbody>';
 					for (i = 0; i < dataSiswa.length; i++) {
-					    if (arrNisn.includes(dataSiswa[i].nisn)) {
-                            arrNisnDup.push(dataSiswa[i].nisn)
-                        } else {
-                            arrNisn.push(dataSiswa[i].nisn)
+                        const siswa = dataSiswa[i];
+                        if (dataExists.length) {
+                            const siswaDup = dataExists.find(function (obj) {
+                                return obj.nisn === siswa.nisn || obj.nis === siswa.nis || obj.username === siswa.username
+                            })
+                            if (siswaDup) arrSiswaDup.push(siswaDup.nama);
                         }
-                        if (arrNis.includes(dataSiswa[i].nis)) {
-                            arrNisDup.push(dataSiswa[i].nis)
+					    if (arrNisn.includes(siswa.nisn)) {
+                            arrNisnDup.push(siswa.nisn)
                         } else {
-                            arrNis.push(dataSiswa[i].nis)
+                            arrNisn.push(siswa.nisn)
                         }
-                        if (arrUser.includes(dataSiswa[i].username)) {
-                            arrUserDup.push(dataSiswa[i].username)
+                        if (arrNis.includes(siswa.nis)) {
+                            arrNisDup.push(siswa.nis)
                         } else {
-                            arrUser.push(dataSiswa[i].username)
+                            arrNis.push(siswa.nis)
+                        }
+                        if (arrUser.includes(siswa.username)) {
+                            arrUserDup.push(siswa.username)
+                        } else {
+                            arrUser.push(siswa.username)
                         }
 
 						html +=
 							'<tr>' +
 							'<td class="text-center">' + no++ + '</td>' +
-							'<td>' + dataSiswa[i].nama + '</td>' +
-							'<td>' + dataSiswa[i].nis + '</td>' +
-							'<td>' + dataSiswa[i].nisn + '</td>' +
-							'<td>' + dataSiswa[i].jenis_kelamin + '</td>' +
-							'<td>' + dataSiswa[i].username + '</td>' +
-							'<td>' + dataSiswa[i].password + '</td>' +
+							'<td>' + siswa.nama + '</td>' +
+							'<td>' + siswa.nis + '</td>' +
+							'<td>' + siswa.nisn + '</td>' +
+							'<td>' + siswa.jenis_kelamin + '</td>' +
+							'<td>' + siswa.username + '</td>' +
+							'<td>' + siswa.password + '</td>' +
 							'</tr>';
 					}
 					html +=  '</tbody></table>';
 				} catch (e) {
+                    console.log('error', e)
 					html +=  '<p>Gagal menampilkan data, periksa format file yang diimport</p>' + data;
 					showDangerToast(data);
 				}
             }
-            console.log("duplikatNisn", arrNisn);
-            console.log("duplikatNis", arrNis);
-            console.log("duplikatUsername", arrUser);
-            let htmlError = '<div class="alert alert-default-danger align-content-center" role="alert"><b>Error</b><ul>';
-            let invalid = false;
+            //console.log("duplikatNisn", arrNisnDup);
+            //console.log("duplikatNis", arrNisDup);
+            //console.log("duplikatUsername", arrUserDup);
+            let htmlError = $('<ul><b>DUPLIKAT TEMPLATE</b></ul>');
+            let invalidTemp = false;
             if (arrNisnDup.length) {
-                invalid = true;
-                htmlError += `<li>Ada ${arrNisnDup.length} duplikat NISN, silakan cdek kembali NISN berikut: <b>${arrNisnDup.join(", ")}</b></li>`
+                invalidTemp = true;
+                htmlError.append($(`<li>Ada ${arrNisnDup.length} duplikat NISN, silakan cek kembali NISN berikut: <br /><b>${arrNisnDup.join(", ")}</b></li>`))
             }
             if (arrNisDup.length) {
-                invalid = true;
-                htmlError += `<li>Ada ${arrNisDup.length} duplikat NIS, silakan cdek kembali NIS berikut: <b>${arrNisnDup.join(", ")}</b></li>`
+                invalidTemp = true;
+                htmlError.append($(`<li>Ada ${arrNisDup.length} duplikat NIS, silakan cek kembali NIS berikut: <br /><b>${arrNisDup.join(", ")}</b></li>`))
             }
             if (arrUserDup.length) {
-                invalid = true;
-                htmlError += `<li>Ada ${arrUserDup.length} duplikat USERNAME, silakan cdek kembali USERNAME berikut: <b>${arrNisnDup.join(", ")}</b></li>`
+                invalidTemp = true;
+                htmlError.append($(`<li>Ada ${arrUserDup.length} duplikat USERNAME, silakan cek kembali USERNAME berikut: <br /><b>${arrUserDup.join(", ")}</b></li>`))
             }
-            htmlError += '</ul></div>';
-            $('#file-preview').html((invalid ? htmlError : '') + html);
+
+            let invalidDb = false;
+            let dbError = $('<ul><b>DUPLIKAT DATABASE</b></ul>');
+            if (arrSiswaDup.length > 0) {
+                invalidDb = true;
+                dbError.append($(`<li><b>${arrSiswaDup.length}</b> Siswa menggunakan NISN/NIS/USERNAME yang sudah digunakan dalam DATABASE, silakan cek kembali Siswa berikut: <br /><b>${arrSiswaDup.join(", ")}</b></li>`))
+            }
+
+            let alert = $('<div class="alert alert-default-danger align-content-center" role="alert"></div>');
+            if (invalidTemp) alert.append(htmlError)
+            if (invalidDb) alert.append(dbError)
+
+            const content = $('#file-preview')
+            content.html('')
+            if ((invalidTemp || invalidDb) && typeImport === "add") {
+                content.append(alert)
+            }
+            content.append(html)
+
             //var attrId = document.getElementById("formInput");
             //attrId.setAttribute("value", data);
 
@@ -256,7 +284,7 @@ function preview(action, data, filename) {
 				"info":     false,
 				"scrollX": 	true
 			});
-			if (invalid) {
+			if (typeImport === "add" && (invalidTemp || invalidDb)) {
                 $('#submit-excel').attr('disabled', 'disabled');
             } else {
                 $('#submit-excel').removeAttr('disabled');

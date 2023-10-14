@@ -40,6 +40,7 @@
                                 <th>Username</th>
                                 <th>Password</th>
                                 <th>Jabatan</th>
+                                <th class="text-center">Reset Login</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                             </thead>

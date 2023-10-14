@@ -388,6 +388,12 @@
             var disabledSelesai = !sudahSelesai && !belumUjian ? '' : 'disabled';
             var disabledUlang = belumUjian ? 'disabled' : (sudahSelesai ? '' : 'disabled');
 
+            // jika ingin selalu aktif
+            // var disabledResetWaktu = '';     // reset waktu selalu aktif
+            // var disabledReset = '';          // reset izin selalu aktif
+            // var disabledSelesai = '';        // paksa selesai selalu aktif
+            // var disabledUlang = '';         // ulangi selalu aktif
+
             var sesi = data.siswa[i].kode_sesi;
             var ruang = data.siswa[i].kode_ruang;
             var kelas = data.siswa[i].kode_kelas;
