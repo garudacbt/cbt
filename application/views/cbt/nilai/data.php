@@ -737,5 +737,9 @@ $colWidth = '';
                 }
             });
         })
+
+        opsiKelas.select2({theme: 'bootstrap4'});
+        opsiJadwal.select2({theme: 'bootstrap4'});
+
     })
 </script>

@@ -122,6 +122,11 @@
             width: 29.7cm;
             height: 21cm;
         }
+
+        .linker-list p {
+            margin-bottom: .5rem;
+            margin-top: .5rem;
+        }
     </style>
 </head>
 <script>
@@ -255,7 +260,7 @@ function singkat_tanggal($str)
     $str = str_replace("Thu", "Kamis", $str);
     $str = str_replace("Fri", "Jum'at", $str);
     $str = str_replace("Sat", "Sabtu", $str);
-    $str = str_replace("Sun", "Minngu", $str);
+    $str = str_replace("Sun", "Minggu", $str);
     return $str;
 }
 

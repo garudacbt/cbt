@@ -311,6 +311,8 @@
             $('.jenis-ujian').text($("#jenis option:selected").text().toUpperCase());
         });
 
+        opsiJenis.select2({theme: 'bootstrap4'});
+
         $("#btn-print").click(function () {
             if (opsiJenis.val() === '') {
                 Swal.fire({

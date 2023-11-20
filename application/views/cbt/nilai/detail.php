@@ -384,13 +384,16 @@
                                 <tbody>
                                 <?php
                                 $ns = 1;
-                                foreach ($soal[3] as $s) :?>
+                                foreach ($soal[3] as $s) :
+                                    $rows = count($s->tabel_soal)
+                                    ?>
                                     <tr>
-                                        <td class="text-center"><?= $ns ?></td>
-                                        <td><?= $s->soal ?></td>
+                                        <td class="text-center" rowspan="<?=$rows?>"><?= $ns ?></td>
+                                        <td rowspan="<?=$rows?>"><?= $s->soal ?></td>
                                         <td>
-                                            <?php if ($s->type_soal == '1') :
-                                                foreach ($s->tabel_soal as $jwb) :?>
+                                            <?php
+                                            $jwb = $s->tabel_soal[0];
+                                            if ($s->type_soal == '1') :?>
                                                     <span><?= $jwb->title ?></span>
                                                     <?php if (isset($jwb->subtitle)) : ?>
                                                         <ul>
@@ -401,17 +404,15 @@
                                                     <?php else: ?>
                                                         <br>--
                                                     <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            <?php else:
-                                                foreach ($s->tabel_soal as $jwb) :?>
+                                            <?php else:?>
                                                     <p><?= $jwb->title ?>
                                                         <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '' ?></p>
-                                                <?php endforeach; ?>
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php if ($s->type_soal == '1') :
-                                                foreach ($s->tabel_jawab as $jwb) :?>
+                                            <?php
+                                            $jwb = $s->tabel_jawab[0];
+                                            if ($s->type_soal == '1') :?>
                                                     <span><?= $jwb->title ?></span>
                                                     <?php if (isset($jwb->subtitle)) : ?>
                                                         <ul>
@@ -422,16 +423,13 @@
                                                     <?php else: ?>
                                                         <br>--
                                                     <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            <?php else:
-                                                foreach ($s->tabel_jawab as $jwb) :?>
+                                            <?php else:?>
                                                     <p><?= $jwb->title ?>
                                                         <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
-                                                <?php endforeach; ?>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="text-center"><?= $s->analisa ?></td>
-                                        <td class="text-center">
+                                        <td class="text-center" rowspan="<?=$rows?>"><?= $s->analisa ?></td>
+                                        <td class="text-center" rowspan="<?=$rows?>">
                                             <input id="input<?= $s->id_soal_siswa ?>"
                                                    name="input<?= $s->id_soal_siswa ?>"
                                                    value="<?= $s->point ?>"
@@ -442,7 +440,7 @@
                                             <span class="jodohkan" data-idsoal="<?= $s->id_soal_siswa ?>"
                                                   id="span<?= $s->id_soal_siswa ?>"><?= $s->point ?></span>
                                         </td>
-                                        <td>
+                                        <td rowspan="<?=$rows?>">
                                             <button id="edit<?= $s->id_soal_siswa ?>" type="button" class="btn btn-sm"
                                                     onclick="edit(<?= $s->id_soal_siswa ?>)"><i
                                                         class="fa fa-pencil"></i>
@@ -453,6 +451,48 @@
                                                         class="fa fa-undo"></i></button>
                                         </td>
                                     </tr>
+                                <?php for ($t = 1; $t < count($s->tabel_soal); $t++):?>
+                                <tr>
+                                    <td>
+                                        <?php
+                                        $jwb = $s->tabel_soal[$t];
+                                        if ($s->type_soal == '1') : ?>
+                                                <span><?= $jwb->title ?></span>
+                                                <?php if (isset($jwb->subtitle)) : ?>
+                                                    <ul>
+                                                        <?php foreach ($jwb->subtitle as $sub) : ?>
+                                                            <li><?= $sub ?></li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                <?php else: ?>
+                                                    <br>--
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <p><?= $jwb->title ?>
+                                                    <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '' ?></p>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $jwb = $s->tabel_jawab[$t];
+                                        if ($s->type_soal == '1') : ?>
+                                                <span><?= $jwb->title ?></span>
+                                                <?php if (isset($jwb->subtitle)) : ?>
+                                                    <ul>
+                                                        <?php foreach ($jwb->subtitle as $sub) : ?>
+                                                            <li><?= $sub ?></li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                <?php else: ?>
+                                                    <br>--
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <p><?= $jwb->title ?>
+                                                    <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                    <?php endfor; ?>
                                     <?php $ns++; endforeach; ?>
                                 <tr>
                                     <td colspan="5" class="text-right text-bold">TOTAL SCORE MENJODOHKAN</td>
@@ -780,13 +820,13 @@
     $(document).ready(function () {
         $('#konten-soal tbody tr img').each(function () {
             var curSrc = $(this).attr('src');
-            if (curSrc.indexOf("http") === -1 && curSrc.indexOf("data:image") === -1) {
-                $(this).attr('src', base_url + curSrc);
-            } else if (curSrc.indexOf(base_url) === -1) {
-                var pathUpload = 'uploads';
+            var pathUpload = 'uploads';
+            if (curSrc.indexOf("base64") > 0 || !curSrc.includes("uploads")) {
+            } else {
                 var forReplace = curSrc.split(pathUpload);
                 $(this).attr('src', base_url + pathUpload + forReplace[1]);
             }
+            $(this).css({'max-width': '100px'})
         });
 
         $('#btn-marked').on('click', function () {

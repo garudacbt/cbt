@@ -117,6 +117,12 @@
     <script src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
     <script src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 
+    <style>
+        .linker-list p {
+            margin-bottom: .5rem;
+            margin-top: .5rem;
+        }
+    </style>
 </head>
 
 <script>

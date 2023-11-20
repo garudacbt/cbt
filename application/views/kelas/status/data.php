@@ -47,6 +47,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <?php
+                    //echo '<pre>';
+                    //var_dump($mapel);
+                    //echo '</pre>';
+                    ?>
                     <?= form_open('', array('id' => 'formselect')) ?>
                     <?= form_close(); ?>
                     <div class="row">
@@ -135,6 +140,7 @@
                             </tr>
                         </table>
                     </div>
+                    <hr>
                     <div id="preview" class="table-responsive">
                         <div id="table-title" class="d-none" style="width:100%;">
                             <p id="title-doc" style="text-align:center;font-size:14pt; font-weight: bold"></p>
@@ -228,16 +234,28 @@
     var tanggalLengkap = '';
     var docTitle = '';
     let label = '';
+    const idGuru = '<?=isset($guru) ? $guru->id_guru : ""?>';
 
     $(document).ready(function () {
         form = $('#formselect');
         var dropMapel = $('#dropdown-mapel');
+        dropMapel.select2({
+            theme: "bootstrap4",
+        });
+        var dropKelas = $('#kelas-materi')
+        dropKelas.select2({
+            theme: "bootstrap4",
+        });
+        var dropMateri = $('#dropdown-materi')
+        dropMateri.select2({
+            theme: "bootstrap4",
+        });
 
         dropMapel.on('change', function () {
             //console.log($(this).val());
             $.ajax({
                 method: "GET",
-                url: base_url + "kelasstatus/getmaterimapel?id=" + $(this).val(),
+                url: base_url + "kelasstatus/getmaterimapel?id=" + $(this).val() + '&id_guru='+idGuru,
                 success: function (response) {
                     console.log('response', response);
                     arrKelasMateri = response.materi;
@@ -247,13 +265,13 @@
             });
         });
 
-        $('#kelas-materi').on('change', function () {
+        dropKelas.on('change', function () {
             var val = $(this).val();
             label = $('#kelas-materi :selected').parent().attr('label');
             createDropdownMateri(val);
         });
 
-        $('#dropdown-materi').on('change', function () {
+        dropMateri.on('change', function () {
             getLogSiswa($('#kelas-materi :selected').parent().attr('label'));
         });
 
@@ -411,6 +429,11 @@
             klsTugas.append('<option value="-">- -</option>');
         }
         label = $('#kelas-materi :selected').parent().attr('label');
+
+        var dropKelas = $('#kelas-materi')
+        dropKelas.select2({
+            theme: "bootstrap4",
+        });
         createDropdownMateri($('#kelas-materi').val());
     }
 
@@ -444,6 +467,9 @@
                 dropMateri.append('<option value="">Belum ada tugas</option>');
             }
         }
+        dropMateri.select2({
+            theme: "bootstrap4",
+        });
         getLogSiswa();
     }
 
@@ -587,6 +613,10 @@
                     $('#title-doc').html('NILAI HARIAN ' + namaMapel.toUpperCase() + '<br>KELAS ' + namaKelas + '<br>' + tanggalLengkap);
 
                     $('#loading').addClass('d-none');
+
+                    table.dataTable({
+                        paging: false
+                    })
                 }
             });
         }, 300);

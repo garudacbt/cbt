@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- DROP TABLE IF EXISTS `api_setting`;
 CREATE TABLE `api_setting`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `auto_sync` int(11) NOT NULL DEFAULT 0,
   `edit_profile_siswa` int(11) NOT NULL DEFAULT 0,
   `edit_profile_guru` int(11) NOT NULL DEFAULT 0,
@@ -37,7 +37,7 @@ CREATE TABLE `api_setting`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `api_token`;
 CREATE TABLE `api_token`  (
-  `id_api` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_api` int(11) NOT NULL AUTO_INCREMENT,
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_user` int(11) NOT NULL,
   `address` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE `api_token`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `buku_induk`;
 CREATE TABLE `buku_induk`  (
-  `id_siswa` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_siswa` int(11) NOT NULL AUTO_INCREMENT,
   `uid` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `rombel_awal` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `nama_panggilan` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -143,9 +143,9 @@ CREATE TABLE `cbt_bank_soal`  (
   `bank_kode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0',
   `bank_level` varchar(225) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `bank_kelas` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `bank_mapel_id` bigint(20) NULL DEFAULT NULL,
+  `bank_mapel_id` int(11) NULL DEFAULT NULL,
   `bank_jurusan_id` int(11) NOT NULL DEFAULT 0,
-  `bank_guru_id` bigint(20) NULL DEFAULT NULL,
+  `bank_guru_id` int(11) NULL DEFAULT NULL,
   `bank_nama` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kkm` int(11) NULL DEFAULT 0,
   `jml_soal` int(11) NOT NULL DEFAULT 0,
@@ -269,7 +269,7 @@ INSERT INTO `cbt_jenis` VALUES (7, 'Simulasi', 'SIML');
 -- DROP TABLE IF EXISTS `cbt_kelas_ruang`;
 CREATE TABLE `cbt_kelas_ruang`  (
   `id_kelas_ruang` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `id_ruang` int(11) NOT NULL,
   `id_sesi` int(11) NOT NULL DEFAULT 0,
   `id_tp` int(11) NOT NULL,
@@ -402,7 +402,7 @@ CREATE TABLE `cbt_pengawas`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `cbt_rekap`;
 CREATE TABLE `cbt_rekap`  (
-  `id_rekap` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_rekap` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL,
   `tp` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_smt` int(11) NOT NULL,
@@ -444,18 +444,18 @@ CREATE TABLE `cbt_rekap`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `cbt_rekap_nilai`;
 CREATE TABLE `cbt_rekap_nilai`  (
-  `id_rekap_nilai` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_jadwal` bigint(20) NULL DEFAULT NULL,
+  `id_rekap_nilai` int(11) NOT NULL AUTO_INCREMENT,
+  `id_jadwal` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
   `tp` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_smt` int(11) NOT NULL,
   `smt` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_jenis` int(11) NOT NULL,
   `kode_jenis` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `id_bank` bigint(20) NULL DEFAULT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT 0,
+  `id_bank` int(11) NULL DEFAULT NULL,
+  `id_mapel` int(11) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT 0,
   `kelas` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `mulai` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `selesai` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -466,7 +466,7 @@ CREATE TABLE `cbt_rekap_nilai`  (
   `bobot_esai` int(11) NOT NULL,
   `jawaban_esai` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `nilai_esai` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `id_guru` bigint(20) NULL DEFAULT NULL,
+  `id_guru` int(11) NULL DEFAULT NULL,
   `nama_siswa` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `no_peserta` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `soal_kompleks` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
@@ -486,7 +486,7 @@ CREATE TABLE `cbt_rekap_nilai`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `cbt_ruang`;
 CREATE TABLE `cbt_ruang`  (
-  `id_ruang` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_ruang` int(11) NOT NULL AUTO_INCREMENT,
   `nama_ruang` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kode_ruang` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id_ruang`) USING BTREE
@@ -527,8 +527,8 @@ INSERT INTO `cbt_sesi` VALUES (3, 'Sesi 3', 'S3', '10:30:00', '14:00:00', 1);
 -- ----------------------------
 -- DROP TABLE IF EXISTS `cbt_sesi_siswa`;
 CREATE TABLE `cbt_sesi_siswa`  (
-  `siswa_id` bigint(20) NOT NULL,
-  `kelas_id` bigint(20) NULL DEFAULT NULL,
+  `siswa_id` int(11) NOT NULL,
+  `kelas_id` int(11) NULL DEFAULT NULL,
   `ruang_id` int(11) NOT NULL,
   `sesi_id` int(11) NOT NULL,
   `tp_id` int(11) NOT NULL,
@@ -565,8 +565,8 @@ CREATE TABLE `cbt_soal`  (
   `file_d` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `file_e` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `jawaban` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `created_on` bigint(20) NULL DEFAULT NULL,
-  `updated_on` bigint(20) NULL DEFAULT NULL,
+  `created_on` int(11) NULL DEFAULT NULL,
+  `updated_on` int(11) NULL DEFAULT NULL,
   `tampilkan` int(11) NOT NULL DEFAULT 0,
   `deskripsi` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kesulitan` int(11) NOT NULL DEFAULT 1 COMMENT 'tingkat kesulitan 1-10',
@@ -686,9 +686,9 @@ INSERT INTO `hari` VALUES (7, 'Minggu');
 -- DROP TABLE IF EXISTS `jabatan_guru`;
 CREATE TABLE `jabatan_guru`  (
   `id_jabatan_guru` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `id_guru` bigint(20) NULL DEFAULT NULL,
+  `id_guru` int(11) NULL DEFAULT NULL,
   `id_jabatan` int(11) NOT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT 0,
+  `id_kelas` int(11) NULL DEFAULT 0,
   `mapel_kelas` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `ekstra_kelas` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `id_tp` int(11) NOT NULL,
@@ -705,14 +705,14 @@ CREATE TABLE `jabatan_guru`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `kelas_catatan_mapel`;
 CREATE TABLE `kelas_catatan_mapel`  (
-  `id_catatan` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_catatan` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `type` int(11) NOT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_guru` bigint(20) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
+  `id_mapel` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_guru` int(11) NULL DEFAULT NULL,
   `level` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0',
   `tgl` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `text` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -731,14 +731,14 @@ CREATE TABLE `kelas_catatan_mapel`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `kelas_catatan_wali`;
 CREATE TABLE `kelas_catatan_wali`  (
-  `id_catatan` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_catatan` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `type` int(11) NOT NULL COMMENT '1=semua siswa, 2=per siswa',
   `level` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '1=saran, 2=teguran, 3=peringatan, 4=sangsi',
   `tgl` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `text` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `readed` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0',
   `reading` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
@@ -758,7 +758,7 @@ CREATE TABLE `kelas_ekstra`  (
   `id_kelas_ekstra` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `ekstra` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id_kelas_ekstra`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -772,10 +772,10 @@ CREATE TABLE `kelas_ekstra`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `kelas_jadwal_kbm`;
 CREATE TABLE `kelas_jadwal_kbm`  (
-  `id_kbm` bigint(20) NOT NULL,
+  `id_kbm` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `kbm_jam_pel` int(11) NOT NULL,
   `kbm_jam_mulai` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kbm_jml_mapel_hari` int(11) NOT NULL,
@@ -792,13 +792,13 @@ CREATE TABLE `kelas_jadwal_kbm`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `kelas_jadwal_mapel`;
 CREATE TABLE `kelas_jadwal_mapel`  (
-  `id_jadwal` bigint(20) NOT NULL,
+  `id_jadwal` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `id_hari` int(11) NOT NULL,
   `jam_ke` int(11) NOT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
+  `id_mapel` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_jadwal`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -814,9 +814,9 @@ CREATE TABLE `kelas_jadwal_materi`  (
   `id_kjm` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
-  `id_materi` bigint(20) NULL DEFAULT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_materi` int(11) NULL DEFAULT NULL,
+  `id_mapel` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `jadwal_materi` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `jenis` int(11) NULL DEFAULT NULL COMMENT '1=materi, 2=tugas',
   PRIMARY KEY (`id_kjm`) USING BTREE
@@ -831,13 +831,13 @@ CREATE TABLE `kelas_jadwal_materi`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `kelas_materi`;
 CREATE TABLE `kelas_materi`  (
-  `id_materi` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_materi` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 1,
   `id_smt` int(11) NOT NULL DEFAULT 1,
   `kode_materi` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `id_guru` bigint(20) NULL DEFAULT NULL,
+  `id_guru` int(11) NULL DEFAULT NULL,
   `materi_kelas` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT 0,
+  `id_mapel` int(11) NULL DEFAULT 0,
   `kode_mapel` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `judul_materi` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `isi_materi` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -869,9 +869,7 @@ CREATE TABLE `kelas_siswa`  (
   PRIMARY KEY (`id_kelas_siswa`) USING BTREE,
   UNIQUE INDEX `id_kelas_siswa_idx`(`id_kelas_siswa`) USING BTREE,
   INDEX `id_siswa_idx`(`id_siswa`) USING BTREE,
-  INDEX `Id_kelas`(`id_kelas`) USING BTREE,
-  CONSTRAINT `Id_kelas` FOREIGN KEY (`id_kelas`) REFERENCES `master_kelas` (`id_kelas`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `id_siswa_kls` FOREIGN KEY (`id_siswa`) REFERENCES `master_siswa` (`id_siswa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  INDEX `Id_kelas`(`id_kelas`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -883,24 +881,24 @@ CREATE TABLE `kelas_siswa`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `kelas_struktur`;
 CREATE TABLE `kelas_struktur`  (
-  `id_kelas` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ketua` bigint(20) NULL DEFAULT NULL,
-  `wakil_ketua` bigint(20) NULL DEFAULT NULL,
-  `sekretaris_1` bigint(20) NULL DEFAULT NULL,
-  `sekretaris_2` bigint(20) NULL DEFAULT NULL,
-  `bendahara_1` bigint(20) NULL DEFAULT NULL,
-  `bendahara_2` bigint(20) NULL DEFAULT NULL,
-  `sie_ekstrakurikuler` bigint(20) NULL DEFAULT NULL,
-  `sie_upacara` bigint(20) NULL DEFAULT NULL,
-  `sie_olahraga` bigint(20) NULL DEFAULT NULL,
-  `sie_keagamaan` bigint(20) NULL DEFAULT NULL,
-  `sie_keamanan` bigint(20) NULL DEFAULT NULL,
-  `sie_ketertiban` bigint(20) NULL DEFAULT NULL,
-  `sie_kebersihan` bigint(20) NULL DEFAULT NULL,
-  `sie_keindahan` bigint(20) NULL DEFAULT NULL,
-  `sie_kesehatan` bigint(20) NULL DEFAULT NULL,
-  `sie_kekeluargaan` bigint(20) NULL DEFAULT NULL,
-  `sie_humas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NOT NULL AUTO_INCREMENT,
+  `ketua` int(11) NULL DEFAULT NULL,
+  `wakil_ketua` int(11) NULL DEFAULT NULL,
+  `sekretaris_1` int(11) NULL DEFAULT NULL,
+  `sekretaris_2` int(11) NULL DEFAULT NULL,
+  `bendahara_1` int(11) NULL DEFAULT NULL,
+  `bendahara_2` int(11) NULL DEFAULT NULL,
+  `sie_ekstrakurikuler` int(11) NULL DEFAULT NULL,
+  `sie_upacara` int(11) NULL DEFAULT NULL,
+  `sie_olahraga` int(11) NULL DEFAULT NULL,
+  `sie_keagamaan` int(11) NULL DEFAULT NULL,
+  `sie_keamanan` int(11) NULL DEFAULT NULL,
+  `sie_ketertiban` int(11) NULL DEFAULT NULL,
+  `sie_kebersihan` int(11) NULL DEFAULT NULL,
+  `sie_keindahan` int(11) NULL DEFAULT NULL,
+  `sie_kesehatan` int(11) NULL DEFAULT NULL,
+  `sie_kekeluargaan` int(11) NULL DEFAULT NULL,
+  `sie_humas` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_kelas`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -959,7 +957,7 @@ INSERT INTO `level_kelas` VALUES (12, '12');
 -- ----------------------------
 -- DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log`  (
-  `id_log` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_log` int(11) NOT NULL AUTO_INCREMENT,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_user` int(11) NOT NULL,
   `id_group` int(11) NOT NULL,
@@ -983,10 +981,10 @@ CREATE TABLE `log`  (
 CREATE TABLE `log_materi`  (
   `id_log` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
   `jam_ke` int(11) NOT NULL,
   `id_materi` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
+  `id_mapel` int(11) NULL DEFAULT NULL,
   `log_type` int(11) NOT NULL,
   `log_desc` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `text` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
@@ -1009,10 +1007,10 @@ CREATE TABLE `log_materi`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `log_ujian`;
 CREATE TABLE `log_ujian`  (
-  `id_log` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_log` int(11) NOT NULL AUTO_INCREMENT,
   `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
-  `id_jadwal` bigint(20) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
+  `id_jadwal` int(11) NULL DEFAULT NULL,
   `log_type` int(11) NOT NULL,
   `log_desc` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `address` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1048,7 +1046,7 @@ CREATE TABLE `login_attempts`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `master_ekstra`;
 CREATE TABLE `master_ekstra`  (
-  `id_ekstra` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_ekstra` int(11) NOT NULL AUTO_INCREMENT,
   `nama_ekstra` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kode_ekstra` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id_ekstra`) USING BTREE
@@ -1066,8 +1064,8 @@ INSERT INTO `master_ekstra` VALUES (3, 'Tahfidz', 'TFZ');
 -- ----------------------------
 -- DROP TABLE IF EXISTS `master_guru`;
 CREATE TABLE `master_guru`  (
-  `id_guru` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_user` bigint(20) NULL DEFAULT NULL,
+  `id_guru` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NULL DEFAULT NULL,
   `nip` char(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `nama_guru` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `email` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -1155,8 +1153,8 @@ CREATE TABLE `master_kelas`  (
   `kode_kelas` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `jurusan_id` int(11) NOT NULL,
   `level_id` int(11) NOT NULL,
-  `guru_id` bigint(20) NULL DEFAULT NULL,
-  `siswa_id` bigint(20) NULL DEFAULT NULL,
+  `guru_id` int(11) NULL DEFAULT NULL,
+  `siswa_id` int(11) NULL DEFAULT NULL,
   `jumlah_siswa` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `set_siswa` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
   PRIMARY KEY (`id_kelas`) USING BTREE,
@@ -1174,11 +1172,11 @@ CREATE TABLE `master_kelas`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `master_kelompok_mapel`;
 CREATE TABLE `master_kelompok_mapel`  (
-  `id_kel_mapel` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_kel_mapel` int(11) NOT NULL AUTO_INCREMENT,
   `kode_kel_mapel` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `nama_kel_mapel` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `kategori` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `id_parent` bigint(20) NULL DEFAULT NULL,
+  `id_parent` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_kel_mapel`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -1197,7 +1195,7 @@ INSERT INTO `master_kelompok_mapel` VALUES (6, 'PAI', 'PAI', 'PAI (Kemenag)', 0)
 -- ----------------------------
 -- DROP TABLE IF EXISTS `master_mapel`;
 CREATE TABLE `master_mapel`  (
-  `id_mapel` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_mapel` int(11) NOT NULL AUTO_INCREMENT,
   `nama_mapel` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kode` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `kelompok` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '-',
@@ -1361,9 +1359,9 @@ INSERT INTO `master_tp` VALUES (4, '2023/2024', 0);
 -- ----------------------------
 -- DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post`  (
-  `id_post` bigint(20) NOT NULL AUTO_INCREMENT,
-  `dari` bigint(20) NULL DEFAULT NULL,
-  `dari_group` bigint(20) NULL DEFAULT NULL,
+  `id_post` int(11) NOT NULL AUTO_INCREMENT,
+  `dari` int(11) NULL DEFAULT NULL,
+  `dari_group` int(11) NULL DEFAULT NULL,
   `kepada` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'group',
   `text` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1380,10 +1378,10 @@ CREATE TABLE `post`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `post_comments`;
 CREATE TABLE `post_comments`  (
-  `id_comment` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_post` bigint(20) NULL DEFAULT NULL,
-  `dari` bigint(20) NULL DEFAULT NULL,
-  `dari_group` bigint(20) NULL DEFAULT NULL,
+  `id_comment` int(11) NOT NULL AUTO_INCREMENT,
+  `id_post` int(11) NULL DEFAULT NULL,
+  `dari` int(11) NULL DEFAULT NULL,
+  `dari_group` int(11) NULL DEFAULT NULL,
   `text` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1400,10 +1398,10 @@ CREATE TABLE `post_comments`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `post_reply`;
 CREATE TABLE `post_reply`  (
-  `id_reply` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_comment` bigint(20) NULL DEFAULT NULL,
-  `dari` bigint(20) NULL DEFAULT NULL,
-  `dari_group` bigint(20) NULL DEFAULT NULL,
+  `id_reply` int(11) NOT NULL AUTO_INCREMENT,
+  `id_comment` int(11) NULL DEFAULT NULL,
+  `dari` int(11) NULL DEFAULT NULL,
+  `dari_group` int(11) NULL DEFAULT NULL,
   `text` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1446,11 +1444,11 @@ CREATE TABLE `rapor_admin_setting`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_catatan_wali`;
 CREATE TABLE `rapor_catatan_wali`  (
-  `id_catatan_wali` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_catatan_wali` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
   `nilai` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `deskripsi` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id_catatan_wali`) USING BTREE
@@ -1465,10 +1463,10 @@ CREATE TABLE `rapor_catatan_wali`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_data_catatan`;
 CREATE TABLE `rapor_data_catatan`  (
-  `id_catatan` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_catatan` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `jenis` int(11) NOT NULL COMMENT '1=desk absensi, 2=desk catatan, 3=desk ranking',
   `kode` int(11) NOT NULL,
   `deskripsi` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1485,10 +1483,10 @@ CREATE TABLE `rapor_data_catatan`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_data_fisik`;
 CREATE TABLE `rapor_data_fisik`  (
-  `id_fisik` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_fisik` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `jenis` int(11) NOT NULL COMMENT '1=pendengaran, 2=penglihatan, 3=gigi, 4=lain-lain',
   `kode` int(11) NOT NULL,
   `deskripsi` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1504,10 +1502,10 @@ CREATE TABLE `rapor_data_fisik`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_data_sikap`;
 CREATE TABLE `rapor_data_sikap`  (
-  `id_sikap` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_sikap` int(11) NOT NULL AUTO_INCREMENT,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `jenis` int(11) NOT NULL COMMENT '1=spiritual, 2=sosial',
   `kode` int(11) NOT NULL,
   `sikap` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1523,9 +1521,9 @@ CREATE TABLE `rapor_data_sikap`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_fisik`;
 CREATE TABLE `rapor_fisik`  (
-  `id_fisik` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
+  `id_fisik` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `kondisi` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -1543,8 +1541,8 @@ CREATE TABLE `rapor_fisik`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_kikd`;
 CREATE TABLE `rapor_kikd`  (
-  `id_kikd` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_mapel_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_kikd` int(11) NOT NULL AUTO_INCREMENT,
+  `id_mapel_kelas` int(11) NULL DEFAULT NULL,
   `aspek` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
@@ -1561,7 +1559,7 @@ CREATE TABLE `rapor_kikd`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_kkm`;
 CREATE TABLE `rapor_kkm`  (
-  `id_kkm` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_kkm` int(11) NOT NULL AUTO_INCREMENT,
   `kkm` int(11) NULL DEFAULT 0,
   `bobot_ph` int(11) NULL DEFAULT 0,
   `bobot_pts` int(11) NULL DEFAULT 0,
@@ -1571,8 +1569,8 @@ CREATE TABLE `rapor_kkm`  (
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `jenis` int(11) NOT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_mapel` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_kkm`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -1585,10 +1583,10 @@ CREATE TABLE `rapor_kkm`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_naik`;
 CREATE TABLE `rapor_naik`  (
-  `id_naik` bigint(20) NOT NULL,
+  `id_naik` int(11) NOT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
-  `id_siswa` bigint(20) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
   `naik` int(11) NOT NULL,
   PRIMARY KEY (`id_naik`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -1602,10 +1600,10 @@ CREATE TABLE `rapor_naik`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_nilai_akhir`;
 CREATE TABLE `rapor_nilai_akhir`  (
-  `id_nilai_akhir` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
+  `id_nilai_akhir` int(11) NOT NULL AUTO_INCREMENT,
+  `id_mapel` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `nilai` int(11) NULL DEFAULT 0,
@@ -1623,10 +1621,10 @@ CREATE TABLE `rapor_nilai_akhir`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_nilai_ekstra`;
 CREATE TABLE `rapor_nilai_ekstra`  (
-  `id_nilai_ekstra` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_ekstra` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
+  `id_nilai_ekstra` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ekstra` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `nilai` int(11) NOT NULL,
@@ -1644,10 +1642,10 @@ CREATE TABLE `rapor_nilai_ekstra`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_nilai_harian`;
 CREATE TABLE `rapor_nilai_harian`  (
-  `id_nilai_harian` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_nilai_harian` int(11) NOT NULL AUTO_INCREMENT,
+  `id_siswa` int(11) NULL DEFAULT NULL,
+  `id_mapel` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `p1` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -1685,10 +1683,10 @@ CREATE TABLE `rapor_nilai_harian`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_nilai_pts`;
 CREATE TABLE `rapor_nilai_pts`  (
-  `id_nilai_pts` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_mapel` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
+  `id_nilai_pts` int(11) NOT NULL AUTO_INCREMENT,
+  `id_mapel` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `nilai` int(11) NULL DEFAULT 0,
@@ -1705,9 +1703,9 @@ CREATE TABLE `rapor_nilai_pts`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_nilai_sikap`;
 CREATE TABLE `rapor_nilai_sikap`  (
-  `id_nilai_sikap` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
+  `id_nilai_sikap` int(11) NOT NULL AUTO_INCREMENT,
+  `id_siswa` int(11) NULL DEFAULT NULL,
+  `id_kelas` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL DEFAULT 0,
   `id_smt` int(11) NOT NULL DEFAULT 0,
   `jenis` int(11) NULL DEFAULT NULL,
@@ -1725,9 +1723,9 @@ CREATE TABLE `rapor_nilai_sikap`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `rapor_prestasi`;
 CREATE TABLE `rapor_prestasi`  (
-  `id_ranking` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_kelas` bigint(20) NULL DEFAULT NULL,
-  `id_siswa` bigint(20) NULL DEFAULT NULL,
+  `id_ranking` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kelas` int(11) NULL DEFAULT NULL,
+  `id_siswa` int(11) NULL DEFAULT NULL,
   `id_tp` int(11) NOT NULL,
   `id_smt` int(11) NOT NULL,
   `ranking` int(11) NOT NULL,
@@ -1750,7 +1748,7 @@ CREATE TABLE `rapor_prestasi`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `running_text`;
 CREATE TABLE `running_text`  (
-  `id_text` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_text` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_text`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -1764,7 +1762,7 @@ CREATE TABLE `running_text`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `setting`;
 CREATE TABLE `setting`  (
-  `id_setting` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_setting` int(11) NOT NULL AUTO_INCREMENT,
   `kode_sekolah` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `sekolah` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `npsn` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -1857,7 +1855,7 @@ CREATE TABLE `users_groups`  (
 -- ----------------------------
 -- DROP TABLE IF EXISTS `users_profile`;
 CREATE TABLE `users_profile`  (
-  `id_user` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `nama_lengkap` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `jabatan` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `level_access` int(11) NOT NULL DEFAULT 0,

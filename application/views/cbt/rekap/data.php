@@ -110,103 +110,103 @@ function my_array_unique($array, $keep_key_assoc = false)
                                class="btn btn-success mr-1 float-right"><i class="fa fa-download"></i> <span
                                         class="d-none d-sm-inline-block ml-1">Ekspor Semua</a>
                         </div>
+                    </div>
+                    <table id="jadwal-bank" class="w-100 table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <div class="text-center">
+                                    <input id="check-all" class="check-all" type="checkbox">
+                                </div>
+                            </th>
+                            <th class="text-center align-middle p-0">No.</th>
+                            <th>Bank Soal</th>
+                            <th>Jenis</th>
+                            <th>Mapel</th>
+                            <th>Kelas</th>
+                            <th>Pelaksanaan</th>
+                            <th class="text-center align-middle p-0"><span>Nilai</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                        <table id="jadwal-bank" class="w-100 table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <div class="text-center">
-                                        <input id="check-all" class="check-all" type="checkbox">
-                                    </div>
-                                </th>
-                                <th class="text-center align-middle p-0">No.</th>
-                                <th>Bank Soal</th>
-                                <th>Jenis</th>
-                                <th>Mapel</th>
-                                <th>Kelas</th>
-                                <th>Pelaksanaan</th>
-                                <th class="text-center align-middle p-0"><span>Nilai</span></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
+                        <?php
+                        $urut = 1;
+                        foreach ($rekaps as $jadwal) : ?>
                             <?php
-                            $urut = 1;
-                            foreach ($rekaps as $jadwal) : ?>
-                                <?php
 
-                                $jk = json_decode(json_encode($jadwal->bank_kelas));
-                                $jumlahKelas = $jadwal->bank_kelas == "" ? [] : json_decode(json_encode(unserialize($jk)));
-                                //$jks = [];
+                            $jk = json_decode(json_encode($jadwal->bank_kelas));
+                            $jumlahKelas = $jadwal->bank_kelas == "" ? [] : json_decode(json_encode(unserialize($jk)));
+                            //$jks = [];
 
-                                $kelasbank = '';
-                                $no = 1;
-                                $id_kelases = [];
-                                if (!empty($jumlahKelas)) {
-                                    foreach ($jumlahKelas as $j) {
-                                        foreach ($kelases as $k) {
-                                            if ($j->kelas_id === $k->id_kelas) {
-                                                if ($no > 1) {
-                                                    $kelasbank .= ', ';
-                                                }
-                                                $kelasbank .= $k->nama_kelas;
-                                                array_push($id_kelases, ['id' => $k->id_kelas, 'nama' => $k->nama_kelas]);
-                                                $no++;
+                            $kelasbank = '';
+                            $no = 1;
+                            $id_kelases = [];
+                            if (!empty($jumlahKelas)) {
+                                foreach ($jumlahKelas as $j) {
+                                    foreach ($kelases as $k) {
+                                        if ($j->kelas_id === $k->id_kelas) {
+                                            if ($no > 1) {
+                                                $kelasbank .= ', ';
                                             }
+                                            $kelasbank .= $k->nama_kelas;
+                                            array_push($id_kelases, ['id' => $k->id_kelas, 'nama' => $k->nama_kelas]);
+                                            $no++;
                                         }
                                     }
-                                } else {
-                                    array_push($id_kelases, ['id' => 0, 'nama' => '']);
                                 }
-                                ?>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="text-center">
-                                            <input class="check" value="<?= $jadwal->id_jadwal ?>" type="checkbox">
-                                        </div>
-                                    </td>
-                                    <td class="text-center align-middle"><?= $urut ?></td>
-                                    <td class="align-middle"><?= $jadwal->bank_kode ?></td>
-                                    <td class="align-middle"><?= $jadwal->kode_jenis ?></td>
-                                    <td class="align-middle"><?= $jadwal->kode ?></td>
-                                    <td class="align-middle"><?= $kelasbank ?></td>
-                                    <td class="align-middle"><?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_mulai))) ?>
-                                        sd <?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_selesai))) ?></td>
-                                    <td class="text-center">
-                                        <?php if (isset($jadwal->rekap)) :
-                                            $sudah_rekap = isset($ada_rekap[$jadwal->id_jadwal]);
-                                            if ($sudah_rekap) :?>
-                                                <button class="btn btn-primary btn-sm"
-                                                        onclick="backup(<?= $jadwal->id_jadwal ?>)">ULANGI REKAP
-                                                </button>
-                                                <a type="button" class="btn btn-success btn-sm"
-                                                   href="<?= base_url() . 'cbtrekap/olahnilai?jadwal=' . $jadwal->id_jadwal ?>">DETAIL</a>
-                                            <?php else : ?>
-                                                <button class="btn btn-primary btn-sm"
-                                                        onclick="backup(<?= $jadwal->id_jadwal ?>)">REKAP NILAI
-                                                </button>
-                                            <?php endif; ?>
-                                            <?php if (!$jadwal->hanya_pg) : ?>
-                                            <br>
-                                            <?php
-                                            $badge_jenis = isset($koreksi[$jadwal->id_jadwal][1]) && $jadwal->mengerjakan == count($koreksi[$jadwal->id_jadwal][1]) ? 'badge-success' : 'badge-danger';
-                                            ?>
-                                            <span class="badge badge-btn <?= $badge_jenis ?>">
+                            } else {
+                                array_push($id_kelases, ['id' => 0, 'nama' => '']);
+                            }
+                            ?>
+                            <tr>
+                                <td class="align-middle">
+                                    <div class="text-center">
+                                        <input class="check" value="<?= $jadwal->id_jadwal ?>" type="checkbox">
+                                    </div>
+                                </td>
+                                <td class="text-center align-middle"><?= $urut ?></td>
+                                <td class="align-middle"><?= $jadwal->bank_kode ?></td>
+                                <td class="align-middle"><?= $jadwal->kode_jenis ?></td>
+                                <td class="align-middle"><?= $jadwal->kode ?></td>
+                                <td class="align-middle"><?= $kelasbank ?></td>
+                                <td class="align-middle"><?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_mulai))) ?>
+                                    sd <?= singkat_tanggal(date('d M Y', strtotime($jadwal->tgl_selesai))) ?></td>
+                                <td class="text-center">
+                                    <?php if (isset($jadwal->rekap)) :
+                                        $sudah_rekap = isset($ada_rekap[$jadwal->id_jadwal]);
+                                        if ($sudah_rekap) :?>
+                                            <button class="btn btn-primary btn-sm"
+                                                    onclick="backup(<?= $jadwal->id_jadwal ?>)">ULANGI REKAP
+                                            </button>
+                                            <a type="button" class="btn btn-success btn-sm"
+                                               href="<?= base_url() . 'cbtrekap/olahnilai?jadwal=' . $jadwal->id_jadwal ?>">DETAIL</a>
+                                        <?php else : ?>
+                                            <button class="btn btn-primary btn-sm"
+                                                    onclick="backup(<?= $jadwal->id_jadwal ?>)">REKAP NILAI
+                                            </button>
+                                        <?php endif; ?>
+                                        <?php if (!$jadwal->hanya_pg) : ?>
+                                        <br>
+                                        <?php
+                                        $badge_jenis = isset($koreksi[$jadwal->id_jadwal][1]) && $jadwal->mengerjakan == count($koreksi[$jadwal->id_jadwal][1]) ? 'badge-success' : 'badge-danger';
+                                        ?>
+                                        <span class="badge badge-btn <?= $badge_jenis ?>">
                                                 <?= $jadwal->mengerjakan ?> mengerjakan,
                                                 <?= isset($koreksi[$jadwal->id_jadwal][1]) ? count($koreksi[$jadwal->id_jadwal][1]) : '0' ?> dikoreksi
                                             </span>
-                                        <?php endif; ?>
-                                        <?php else : ?>
-                                            <a type="button" class="btn btn-success btn-sm"
-                                               href="<?= base_url() . 'cbtrekap/olahnilai?jadwal=' . $jadwal->id_jadwal ?>">DETAIL</a>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php $urut++; endforeach;
-                            endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                    <?php endif; ?>
+                                    <?php else : ?>
+                                        <a type="button" class="btn btn-success btn-sm"
+                                           href="<?= base_url() . 'cbtrekap/olahnilai?jadwal=' . $jadwal->id_jadwal ?>">DETAIL</a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <?php $urut++; endforeach;
+                        endif; ?>
+                        </tbody>
+                    </table>
+
                 </div>
                 <div class="overlay d-none" id="loading-atas">
                     <div class="spinner-grow"></div>
@@ -402,6 +402,11 @@ function my_array_unique($array, $keep_key_assoc = false)
 
     $(document).ready(function () {
         ajaxcsrf();
+        $("#jadwal-bank").DataTable({
+            //paging: false,
+            //ordering: false,
+            info: false,
+        });
 
         $("#flashdata").fadeTo(8000, 500).slideUp(500, function () {
             $("#flashdata").slideUp(500);

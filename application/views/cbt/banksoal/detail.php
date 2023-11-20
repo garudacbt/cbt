@@ -188,11 +188,11 @@
             <div class="card card-default my-shadow mb-4">
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link" href="#ganda" data-toggle="tab">Pilihan
+                        <li class="nav-item"><a class="nav-link active" href="#ganda" data-toggle="tab">Pilihan
                                 Ganda <?= $badge_pg ?></a></li>
                         <li class="nav-item"><a class="nav-link" href="#kompleks" data-toggle="tab">Pilihan Ganda
                                 Kompleks <?= $badge_pg2 ?></a></li>
-                        <li class="nav-item"><a class="nav-link active" href="#jodoh"
+                        <li class="nav-item"><a class="nav-link" href="#jodoh"
                                                 data-toggle="tab">Menjodohkan <?= $badge_jodohkan ?></a></li>
                         <li class="nav-item"><a class="nav-link" href="#isian" data-toggle="tab">Isian
                                 Singkat <?= $badge_isian ?></a></li>
@@ -206,7 +206,7 @@
                         $disable_delete = $bank->digunakan > 0 || $total_siswa > 0;
                         $dis = $disable_delete ? 'disabled' : '';
                         ?>
-                        <div class="tab-pane table-responsive" id="ganda">
+                        <div class="tab-pane table-responsive active" id="ganda">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
@@ -315,8 +315,10 @@
                                                         <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_a) ?></li>
                                                         <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_b) ?></li>
                                                         <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_c) ?></li>
+                                                        <?php if ($bank->opsi === '4') : ?>
                                                         <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d) ?></li>
-                                                        <?php if ($setting->jenjang === '3') : ?>
+                                                        <?php endif; ?>
+                                                        <?php if ($bank->opsi === '5') : ?>
                                                             <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_e) ?></li>
                                                         <?php endif; ?>
                                                     </ul>
@@ -496,7 +498,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="tab-pane table-responsive active" id="jodoh">
+                        <div class="tab-pane table-responsive" id="jodoh">
                             <table class="table table-bordered">
                                 <tr class="alert alert-default-dark text-center align-middle">
                                     <th class="border-dark">Jenis Soal</th>
@@ -605,32 +607,9 @@
                                                     if (!isset($jawaban['jawaban'])) $jawaban['jawaban'] = [];
                                                     ?>
                                                     <div class="mb-2 mt-2"><b>Jawaban:</b></div>
-                                                    <?php if (isset($jawaban['model']) && $jawaban['model'] == '1') : ?>
-                                                        <div class='list-jodohkan' data-nomor="<?= $s->nomor_soal ?>"
-                                                             data-list='<?= json_encode($jawaban['jawaban']) ?>'>
-                                                        </div>
-                                                    <?php else : ?>
-                                                        <table class="table table-bordered">
-                                                            <?php
-                                                            foreach ($jawaban['jawaban'] as $nomor => $items) :
-                                                                if ($nomor === 0) : ?>
-                                                                    <tr class="text-center">
-                                                                        <?php foreach ($items as $head) :
-                                                                            $head = $head == "#" ? "" : $head; ?>
-                                                                            <th><?= $head ?></th>
-                                                                        <?php endforeach; ?>
-                                                                    </tr>
-
-                                                                <?php else : ?>
-                                                                    <tr class="text-center">
-                                                                        <?php foreach ($items as $key => $val) :
-                                                                            $jbenar = $val == "0" ? '' : ($val == "1" ? '&#10004;' : '<b>' . $val . '</b>') ?>
-                                                                            <td><?= $jbenar ?></td>
-                                                                        <?php endforeach; ?>
-                                                                    </tr>
-                                                                <?php endif; endforeach; ?>
-                                                        </table>
-                                                    <?php endif; ?>
+                                                    <div class='list-jodohkan' data-nomor="<?= $s->nomor_soal ?>"
+                                                         data-list='<?= json_encode($jawaban) ?>'>
+                                                    </div>
                                                 </div>
                                                 <div class="rTableCell text-right pt-2" style="width: 60px">
                                                     <a href="<?= base_url('cbtbanksoal/buatsoal/' . $bank->id_bank . '?no=' . $s->nomor_soal . '&jns=3') ?>"
@@ -1327,13 +1306,14 @@
 
 <?= form_open('', array('id' => 'up')) ?>
 <?= form_close() ?>
-<!--
-<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/jquery.wordexport.js"></script>
--->
-<script src="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.js"></script>
+
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/convert-area.js"></script>
+
+<script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
+
 <script>
     var jmlPgTampil = '<?=$bank->tampil_pg?>';
     var jmlPg2Tampil = '<?=$bank->tampil_kompleks?>';
@@ -1373,45 +1353,27 @@
         });
 
         var $div_lists = $('.list-jodohkan');
-        $.each($div_lists, function () {
-            var noSoal = $(this).data('nomor');
-            $(this).html('<div class="bonds" id="graph' + noSoal + '" style="display:block;"></div>');
-        });
-
-        $.each($div_lists, function () {
-            var lists = JSON.parse(JSON.stringify($(this).data('list')));
-            var noSoal = $(this).data('nomor');
-            var datas = convertTableToList(noSoal, lists);
-
-            var inputs = {
-                "localization": {},
-                "options": {
-                    "associationMode": "oneToOne", // oneToOne,manyToMany
-                    "lineStyle": "square-ends",
-                    "buttonErase": false,//"Batalkan",
-                    "displayMode": "original",
-                    "whiteSpace": 'normal', //normal,nowrap,pre,pre-wrap,pre-line,break-spaces default => nowrap
-                    "mobileClickIt": false
-                },
-                "Lists": [
-                    {
-                        "name": "baris-kiri" + noSoal,
-                        "list": datas.jawaban[0]
-                    },
-                    {
-                        "name": "baris-kanan" + noSoal,
-                        "list": datas.jawaban[1],
-                        //"mandatories": ["last_name", "email_adress"]
-                    }
-                ],
-                "existingLinks": datas.linked
-            };
-            var fields = $('#graph' + noSoal).fieldsLinker("init", inputs);
-            fields.fieldsLinker('disable');
-            console.log('list', datas);
-        });
-
-        $('.nav-item a[href="#ganda"]').tab('show');
+        let isMounted = false;
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            //e.target // newly activated tab
+            //e.relatedTarget // previous active tab
+            if ($(this).attr('href') === "#jodoh" && !isMounted) {
+                $.each($div_lists, function () {
+                    var noSoal = $(this).data('nomor');
+                    var lists = $(this).data('list');
+                    if ($(this).children().length > 1) return
+                    $(this).linkerList({
+                        enableSelect: false,
+                        enableEditor: false,
+                        data: lists,
+                        id: noSoal,
+                        onInit: function (msg) {
+                            isMounted = true
+                        }
+                    });
+                });
+            }
+        })
 
         var pgCount = $('#table-pg .check-pg').length;
         var pg2Count = $('#table-pg2 .check-pg2').length;
@@ -1419,7 +1381,7 @@
         var isianCount = $('#table-isian .check-isian').length;
         var essaiCount = $('#table-essai .check-essai').length;
 
-        console.log('count', jodohkanCount);
+        //console.log('count', jodohkanCount);
 
         var pgUnchecked = [];
         var pg2Unchecked = [];
@@ -1671,16 +1633,6 @@
                 dataType: "JSON",
                 data: dataPost,
                 success: function (data) {
-                    /*
-                    console.log(data);
-                    if (data.check > 0) {
-                        //showSuccessToast(`${data.check} Soal terpilih berhasil disimpan`)
-                        window.location.reload(true);
-                    } else {
-                        window.location.reload(true);
-                        showSuccessToast('Soal tersimpan = 0')
-                    }
-                     */
                     swal.fire({
                         title: "Sukses",
                         html: data.check+' Soal terpilih berhasil disimpan',
@@ -1709,8 +1661,6 @@
             e.preventDefault();
 
             var contentDocument = $('#for-export').convertToHtmlFile('detail', '');
-            //console.log(contentDocument);
-            //convertImagesToBase64();
 
             var content = '<!DOCTYPE html>' + contentDocument.documentElement.outerHTML;
             var converted = htmlDocx.asBlob(content, {
@@ -1736,57 +1686,7 @@
             });
 
         });
-
-        function convertImagesToBase64() {
-            var regularImages = contentDocument.querySelectorAll("img");
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            [].forEach.call(regularImages, function (imgElement) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                canvas.width = imgElement.width;
-                canvas.height = imgElement.height;
-
-                ctx.drawImage(imgElement, 0, 0);
-                var dataURL = canvas.toDataURL();
-                imgElement.setAttribute('src', dataURL);
-            });
-            canvas.remove();
-        }
     });
-
-    function convertTableToList(num, array) {
-        var kanan = array.shift();
-        var kiri = [];
-        $.each(array, function (i, v) {
-            kiri.push(v.shift());
-        });
-        kanan.shift();
-        console.log('kanan', kanan)
-        console.log('kiri', kiri)
-
-        var poss = [];
-        var linked = [];
-        $.each(array, function (n, arv) {
-            $.each(arv, function (t, v) {
-                if (v != '0') {
-                    var po = {};
-                    po['kiri'] = 'kiri' + num + (n + 1);
-                    po['kanan'] = 'kanan' + num + (t + 1);
-                    poss.push(po);
-
-                    var it = {};
-                    it['from'] = kiri[n];
-                    it['to'] = kanan[t];
-                    linked.push(it);
-                }
-            });
-        });
-        var item = {};
-        item['jawaban'] = [kiri, kanan];
-        item['linked'] = linked;
-        item['pos'] = poss;
-        return item;
-    };
 
     function hapusSoal(btn) {
         const id = $(btn).data('idsoal');

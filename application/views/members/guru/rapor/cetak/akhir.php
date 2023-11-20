@@ -696,7 +696,7 @@ $satuan = [
     }
 
     function createPagePengetahuan(idSiswa, siswa) {
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+        var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0;">' +
             headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. PENGETAHUAN</b></span>';
@@ -714,8 +714,6 @@ $satuan = [
             '            <td rowspan="2" style="width:20%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
             '            <td rowspan="2" style="width:7%;border: 1px solid black; border-collapse: collapse;' + display + '"><b>KKM</b></td>' +
             '            <td colspan="3" style="height:25px;border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
-            //'            <td style="width:9%;border: 1px solid black; border-collapse: collapse"><b>Predikat</b></td>' +
-            //'            <td style="height:35px;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center;background: #E6E7E9">' +
             '            <td style="width:7%;height:25px;border: 1px solid black; border-collapse: collapse"><b>Nilai</b></td>' +
@@ -735,11 +733,10 @@ $satuan = [
         var indexPAI = arr.map(function (kel) {
             return kel.kategori;
         }).indexOf('PAI (Kemenag)');
-        console.log('indexPAI', indexPAI);
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (pai != null && pai.kode_kel_mapel != null && mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 //hasSub = val.id_parent != '0';
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
@@ -780,7 +777,7 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                         var pnilai = nilai[idSiswa][mapel.id_mapel].nilai == '0' ? '' : nilai[idSiswa][mapel.id_mapel].nilai;
@@ -888,7 +885,7 @@ $satuan = [
         }).indexOf('PAI (Kemenag)');
         var pai = arr[indexPAI];
         $.each(arrMapel, function (k, mapel) {
-            if (pai != null && pai.kode_kel_mapel != null && mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                 var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
                 var kpred = nilai[idSiswa][mapel.id_mapel].k_predikat == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_predikat;
@@ -924,7 +921,7 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilai[idSiswa] != null && nilai[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         const kkmMapel = raporSetting.kkm_tunggal == "1" ? raporSetting.kkm : (kkm[1][mapel.id_mapel] == null ? "" : kkm[1][mapel.id_mapel].kkm);
                         var knilai = nilai[idSiswa][mapel.id_mapel].k_rata_rata == '0' ? '' : nilai[idSiswa][mapel.id_mapel].k_rata_rata;
@@ -1054,7 +1051,7 @@ $satuan = [
 
     function createPageekstra(idSiswa, siswa) {
         console.log('ekstra', ekstra);
-        var tableNilai = '<div style="height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
+        var tableNilai = '<div style="min-height: 274mm;display: flex; flex-direction: column; justify-content: space-between;">' +
             '<div style="padding: 0cm;">' +
             headerPage(siswa) +
             '    <span style="font-family: \'Tahoma\';font-size: 10pt;"><b>' + alphabet[posAlpha] + '. EKSTRAKURIKULER</b></span>' +

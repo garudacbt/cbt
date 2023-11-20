@@ -337,6 +337,8 @@
 
             }
         }
+
+        selKelas.select2({theme: 'bootstrap4'});
     });
 
     function buatTanggal(string, singkat) {

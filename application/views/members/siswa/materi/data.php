@@ -281,9 +281,12 @@
                                                         $status = '';
                                                         if (count($log) > 0) {
                                                             if (isset($log[$mat[$jamke]->id_kjm]) && $log[$mat[$jamke]->id_kjm]->finish_time != null) {
+                                                                // $status = '<a href="' . $href . '" class="btn btn-success ' . $disabled . '">Selesai</a>';
+                                                                //========
                                                                 $status = '<span class="btn btn-success"  data-nilai="' . $log[$mat[$jamke]->id_kjm]->nilai . '"
                                                                               data-text="' . $log[$mat[$jamke]->id_kjm]->catatan . '"
                                                                               onclick="showDialog(this)"><b>Selesai</b></span>';
+                                                                //=========
                                                             } else {
                                                                 $status = '<a href="' . $href . '" class="btn btn-warning ' . $disabled . '">Belum Selesai</a>';
                                                             }

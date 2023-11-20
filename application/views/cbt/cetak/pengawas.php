@@ -258,6 +258,8 @@ $allowedDates = [];
             }
         });
 
+        opsiJenis.select2({theme: 'bootstrap4'});
+
         function getAllJadwal() {
             var dari = opsiDari.val();
             var sampai = opsiSampai.val();

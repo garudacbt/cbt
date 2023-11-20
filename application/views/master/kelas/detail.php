@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            <td style="width: 120px">
+                            <td style="width: 160px">
                                 Nama Kelas
                             </td>
                             <td>
@@ -124,12 +124,12 @@
                                 'Sie Kesehatan', 'Sie Kekeluargaan', 'Sie Humas'
                             ];
                             $arrSiswa = [
-                                '', $struktur->ketua, $struktur->wakil_ketua, $struktur->sekretaris_1,
-                                $struktur->sekretaris_2, $struktur->bendahara_1, $struktur->bendahara_2,
-                                $struktur->sie_upacara, $struktur->sie_ekstrakurikuler, $struktur->sie_olahraga,
-                                $struktur->sie_keagamaan, $struktur->sie_keamanan, $struktur->sie_ketertiban,
-                                $struktur->sie_kebersihan, $struktur->sie_keindahan, $struktur->sie_kesehatan,
-                                $struktur->sie_kekeluargaan, $struktur->sie_humas
+                                '', $struktur->ketua, $struktur->wakil_ketua,
+                                $struktur->sekretaris_1, $struktur->sekretaris_2, $struktur->bendahara_1,
+                                $struktur->bendahara_2, $struktur->sie_upacara, $struktur->sie_ekstrakurikuler,
+                                $struktur->sie_olahraga, $struktur->sie_keagamaan, $struktur->sie_keamanan,
+                                $struktur->sie_ketertiban, $struktur->sie_kebersihan, $struktur->sie_keindahan,
+                                $struktur->sie_kesehatan, $struktur->sie_kekeluargaan, $struktur->sie_humas
                             ];
                             ?>
                             <table class="table table-bordered">
@@ -139,17 +139,17 @@
                                     <th class="text-center align-middle">Nama Siswa</th>
                                 </tr>
                                 <?php
-                                $no = 1;
+                                $no = 0;
                                 foreach ($arrJabatan as $j) :
-                                    $key = array_search($arrSiswa[$no - 1], array_column($siswas, 'id_siswa'));
+                                    $key = array_search($arrSiswa[$no], array_column($siswas, 'id_siswa'));
                                     ?>
                                     <tr>
-                                        <td class="text-center"><?= $no ?></td>
+                                        <td class="text-center"><?= $no + 1 ?></td>
                                         <td>
                                             <?= $j ?>
                                         </td>
                                         <td>
-                                            <?= $key ?>
+                                            <?= $key !== false ? $siswas[$key]->nama : ($no === 0 ? $kelas->nama_guru : '') ?>
                                         </td>
                                     </tr>
                                     <?php $no++; endforeach; ?>

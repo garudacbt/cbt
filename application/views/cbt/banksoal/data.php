@@ -964,25 +964,25 @@ $allBanksIds = [];
                     var essais = '';
 
                     var jwbnPgSiswa = '<tr>' +
-                        '    <td colspan="2">Jawaban Pilihan Ganda</td>' +
+                        '    <td colspan="3" class="pt-2">Jawaban Pilihan Ganda</td>' +
                         '</tr>';
                     var jwbnPg2Siswa = '<tr>' +
-                        '    <td colspan="2">Jawaban Pilihan Ganda Kompleks</td>' +
+                        '    <td colspan="3" class="pt-2">Jawaban Pilihan Ganda Kompleks</td>' +
                         '</tr>';
                     var jwbnJodohkanSiswa = '<tr>' +
-                        '    <td colspan="2">Jawaban Menjodohkan</td>' +
+                        '    <td colspan="3">Jawaban Menjodohkan</td>' +
                         '</tr>';
                     var jwbnIsianSiswa = '<tr>' +
-                        '    <td colspan="2">Jawaban Isian Singkat</td>' +
+                        '    <td colspan="3">Jawaban Isian Singkat</td>' +
                         '</tr>';
                     var jwbnEssaiSiswa = '<tr>' +
-                        '    <td colspan="2">Jawaban Uraian</td>' +
+                        '    <td colspan="3">Jawaban Uraian</td>' +
                         '</tr>';
 
                     $.each(respon.soal, function (i, v) {
                         if (v.jenis == '1') {
                             jwbnPgSiswa += '<tr>' +
-                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td class="align-top" style="width: 30px"><b>' + v.nomor_soal + '.</b><td>' +
                                 '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
 
@@ -1000,7 +1000,7 @@ $allBanksIds = [];
 
                         } else if (v.jenis == '2') {
                             jwbnPg2Siswa += '<tr>' +
-                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td class="align-top" style="width: 30px"><b>' + v.nomor_soal + '.</b><td>' +
                                 '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
 
@@ -1011,9 +1011,23 @@ $allBanksIds = [];
                             });
                             pg2 += '</ol>' + '</li>';
                         } else if (v.jenis == '3') {
+                            var jawaban = '<table class="mb-3" style="width:100%; border: 1px solid black; border-collapse: collapse; border-spacing: 0;">';
+                            $.each(v.jawaban.jawaban, function (i, kolom) {
+                                var bgkol = i === 0 ? 'lightgrey' : 'white';
+                                jawaban += '<tr style="background: ' + bgkol + '">';
+                                $.each(kolom, function (row, td) {
+                                    var val = td === "1" ? "✔" : (td === "0" || td === "#" ? "" : td);
+                                    var bg = row === 0 ? ' background: lightgrey;' : '';
+                                    jawaban += '<td style="border: 1px solid black;border-collapse: collapse; text-align: center;' + bg + '">' + val + '</td>';
+                                });
+                                jawaban += '</tr>';
+                            });
+                            jawaban += '</table>';
                             jwbnJodohkanSiswa += '<tr>' +
-                                '<td>' + v.nomor_soal + '<td>' +
-                                '<td>' + v.jawaban + '<td>' +
+                                '<td class="align-top" style="width: 30px"><b>' + v.nomor_soal + '.</b><td>' +
+                                '<td>'
+                                + jawaban +
+                                '<td>' +
                                 '</tr>';
 
                             jodoh += '<li style="padding-bottom: 12px">' + v.soal +
@@ -1031,7 +1045,7 @@ $allBanksIds = [];
                             jodoh += '</table></li>';
                         } else if (v.jenis == '4') {
                             jwbnIsianSiswa += '<tr>' +
-                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td class="align-top" style="width: 30px"><b>' + v.nomor_soal + '.</b><td>' +
                                 '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
                             isian += '<li style="padding-bottom: 12px; display: flex; align-items: baseline;">' +
@@ -1040,7 +1054,7 @@ $allBanksIds = [];
                                 '......................................</span></li>';
                         } else if (v.jenis == '5') {
                             jwbnEssaiSiswa += '<tr>' +
-                                '<td>' + v.nomor_soal + '<td>' +
+                                '<td class="align-top" style="width: 30px"><b>' + v.nomor_soal + '.</b><td>' +
                                 '<td>' + v.jawaban + '<td>' +
                                 '</tr>';
                             essais += '<li style="padding-bottom: 24px;"><section style="display: flex; align-items: baseline; margin-bottom: 8px">' +
@@ -1093,7 +1107,6 @@ $allBanksIds = [];
 
                     setTimeout(function () {
                         $("#for-siswa").wordExport(`Soal ${mapel} Kls ${level}`);
-                        //exportWord(mapel, level);
                     }, 500);
 
                 } else {

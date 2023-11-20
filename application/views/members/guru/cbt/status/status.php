@@ -61,6 +61,10 @@
                                         <div class="col-8">
                                             <b><?= $info->nama_guru ?></b>
                                         </div>
+                                        <div class="col-4">Jenis Ujian</div>
+                                        <div class="col-8">
+                                            <b><?= $info->kode_jenis ?></b>
+                                        </div>
                                         <div class="col-4">Jml. Soal</div>
                                         <div class="col-8">
                                             <b><?= ($info->tampil_pg + $info->tampil_kompleks) +
@@ -69,9 +73,14 @@
                                         </div>
                                         <div class="col-4">Pengawas</div>
                                         <div class="col-8">
-                                            <?php foreach ($pengawas as $p) : ?>
+                                            <?php
+                                            if (count($pengawas) > 0) :
+                                            foreach ($pengawas as $p) : ?>
                                                 <b><?= $p->nama_guru ?></b><br>
-                                            <?php endforeach; ?>
+                                            <?php endforeach;
+                                            else: ?>
+                                            Tidak diatur
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -116,14 +125,21 @@
                                     title="Refresh">
                                 <i class="fa fa-sync ml-1 mr-1"></i> Refresh
                             </button>
-                            <button type="button" class="btn btn-success align-bottom mb-2 float-right <?= $dnone ?>"
-                                    onclick="terapkanAksi()"
-                                    data-toggle="tooltip"
-                                    title="Terapkan Aksi pada siswa terpilih">
-                                <i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi
-                            </button>
+                            <div class="float-right align-bottom mb-2">
+                                <label><input type="search" id="cari-status-siswa"
+                                              class="form-control form-control-sm" placeholder="Cari">
+                                </label>
+                                <button type="button" class="ml-2 btn btn-success <?= $dnone ?>"
+                                        onclick="terapkanAksi()"
+                                        data-toggle="tooltip"
+                                        title="Terapkan Aksi pada siswa terpilih">
+                                    <i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    <?php
+                    if (count($siswa) > 0) : ?>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="table-status">
                             <thead class="alert-light">
@@ -218,6 +234,12 @@
                             </tbody>
                         </table>
                     </div>
+                    <?php else: ?>
+                    <hr />
+                    <div class="alert alert-default-danger border-danger">
+                        Tidak ada siswa yang tergabung dalam jadwal ujian ini
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -305,6 +327,8 @@
     </div>
 </div>
 
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/multiselect/js/jquery.quicksearch.js"></script>
+
 <script>
     var isPengawas = '<?= in_array($guru->id_guru, $ids_pengawas) ? "1" : "0"?>';
     var jadwal = '<?=$info->id_jadwal?>'
@@ -377,12 +401,16 @@
     }
 
     function refreshStatus() {
+        $('#cari-status-siswa').val('')
         window.location.reload()
     }
 
     $(document).ready(function () {
         var idSiswa = '';
         var idJadwal = '';
+
+        $('#cari-status-siswa').quicksearch('#table-status tbody tr');
+
         $('#resetModal').on('show.bs.modal', function (e) {
             idSiswa = $(e.relatedTarget).data('siswa');
             idJadwal = $(e.relatedTarget).data('jadwal');
@@ -402,7 +430,7 @@
             $.ajax({
                 url: base_url + "siswa/resettimer",
                 type: 'POST',
-                data: $(this).serialize() + '&id_durasi=' + idSiswa + '' + idJadwal,
+                data: $(this).serialize() + '&id_durasi=' + idSiswa + '0' + idJadwal,
                 success: function (data) {
                     console.log(data.status);
                     if (data.status) refreshStatus();

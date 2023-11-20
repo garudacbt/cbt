@@ -288,10 +288,10 @@
                 totalMtr += jmlMtrBulan;
                 totalNilai += jmlNilaiBulan;
                 var rtb = jmlMtrBulan == 0 && jmlNilaiBulan == 0 ? '0' : '' + Math.round(jmlNilaiBulan / jmlMtrBulan);
-                konten += '<th style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleRata + '>' + rtb + '</th>';
+                konten += '<td style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleRata + '>' + rtb + '</td>';
             });
             var rts = totalMtr == 0 && totalNilai == 0 ? '0' : '' + Math.round(totalNilai / totalMtr);
-            konten += '<th style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleRata + '>' + rts + '</th>' +
+            konten += '<td style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleRata + '>' + rts + '</td>' +
                 '</tr>';
             no += 1;
         });
@@ -396,6 +396,10 @@
         });
 
         //reload('14', '101', '2', '1');
+        selMapel.select2({theme: 'bootstrap4'});
+        selKelas.select2({theme: 'bootstrap4'});
+        selSmt.select2({theme: 'bootstrap4'});
+        selTahun.select2({theme: 'bootstrap4'});
     });
 
     function print() {

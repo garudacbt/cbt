@@ -23,8 +23,8 @@
     this.$container = $('<div/>', { 'class': "ms-container w-auto" });
     this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
     this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
-    this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
-    this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
+    this.$selectableUl = $('<ul/>', { 'class': "ms-list list-group", 'tabindex' : '-1' });
+    this.$selectionUl = $('<ul/>', { 'class': "ms-list list-group", 'tabindex' : '-1' });
     this.scrollTo = 0;
     this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container,.'+options.disabledClass+')';
   };
@@ -108,19 +108,21 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-      var selectableLi = $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
+      var valSplit = that.escapeHTML($option.text()).split('|')
+      var nis = valSplit.length > 1 ? valSplit[1] : '-'
+      var selectableLi = $('<li '+attributes+'><span>'+valSplit[0]+'</span><span class="ml-3 float-right text-bold">'+nis+'</span></li>'),
           selectedLi = selectableLi.clone(),
           value = $option.val(),
           elementId = that.sanitize(value);
 
       selectableLi
         .data('ms-value', value)
-        .addClass('ms-elem-selectable')
+        .addClass('ms-elem-selectable').addClass('list-group-item')
         .attr('id', elementId+'-selectable');
 
       selectedLi
         .data('ms-value', value)
-        .addClass('ms-elem-selection')
+        .addClass('ms-elem-selection').addClass('list-group-item')
         .attr('id', elementId+'-selection')
         .hide();
 

@@ -775,6 +775,9 @@
             loadSiswaRuang($(this).val());
         });
 
+        $('#kelas').select2({theme: 'bootstrap4'});
+        //$('#ruang').select2({theme: 'bootstrap4'});
+
         $("#btn-print").click(function () {
             if ($('#kelas').val() === '') {
                 Swal.fire({

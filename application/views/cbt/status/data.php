@@ -136,12 +136,17 @@
                             <?php
                             $dnone = $this->ion_auth->is_admin() ? '' : 'd-none';
                             ?>
-                            <button type="button" class="btn btn-success align-bottom mb-2 float-right <?= $dnone ?>"
-                                    onclick="terapkanAksi()"
-                                    data-toggle="tooltip"
-                                    title="Terapkan Aksi pada siswa terpilih">
-                                <i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi
-                            </button>
+                            <div class="float-right align-bottom mb-2">
+                                <label><input type="search" id="cari-status-siswa"
+                                              class="form-control form-control-sm" placeholder="Cari">
+                                </label>
+                                <button type="button" class="btn btn-success ml-2 <?= $dnone ?>"
+                                        onclick="terapkanAksi()"
+                                        data-toggle="tooltip"
+                                        title="Terapkan Aksi pada siswa terpilih">
+                                    <i class="fa fa-check ml-1 mr-1"></i> Terapkan Aksi
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -320,6 +325,7 @@
     }
 
     function refreshStatus() {
+        $('#cari-status-siswa').val('')
         $('#loading').removeClass('d-none');
         setTimeout(function () {
             $.ajax({
@@ -437,6 +443,10 @@
             '<div class="col-8">' +
             '<b>' + data.info.nama_guru + '</b>' +
             '</div>' +
+            '<div class="col-4">Jenis Ujian</div>' +
+            '<div class="col-8">' +
+            '<b>'+data.info.kode_jenis+'</b>' +
+            '</div>' +
             '<div class="col-4">Jml. Soal</div>' +
             '<div class="col-8">' +
             '<b>' + (parseInt(data.info.tampil_pg) + parseInt(data.info.tampil_kompleks) +
@@ -500,6 +510,8 @@
                 });
             }
         });
+
+        $('#cari-status-siswa').quicksearch('#table-status tbody tr');
     }
 
     function getDetailJadwal(idJadwal) {
@@ -631,6 +643,12 @@
                 }
             });
         });
+
+        opsiKelas.select2({theme: 'bootstrap4'});
+        opsiRuang.select2({theme: 'bootstrap4'});
+        opsiSesi.select2({theme: 'bootstrap4'});
+        opsiJadwal.select2({theme: 'bootstrap4'});
+
     });
 
 </script>

@@ -357,6 +357,12 @@
             $('#jenis-ujian').text($("#jenis option:selected").text().toUpperCase());
         });
 
+        opsiKelas.select2({theme: 'bootstrap4'});
+        opsiRuang.select2({theme: 'bootstrap4'});
+        opsiSesi.select2({theme: 'bootstrap4'});
+        opsiJenis.select2({theme: 'bootstrap4'});
+
+
         $("#btn-print").click(function () {
             var kosong = opsiRuang.val() === '';
             if (kosong || opsiJenis.val() === '' || opsiSesi === '') {

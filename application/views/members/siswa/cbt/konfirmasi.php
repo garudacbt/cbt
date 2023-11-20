@@ -115,6 +115,7 @@
                                             hubungi proktor
                                         </div>
                                     </div>
+                                <small>Refresh halaman ini jika sudah diizinkan</small>
                                 <?php elseif (!$support): ?>
                                     <div class="alert alert-default-danger text-center p-2">
                                         <h3><i class="icon fas fa-ban"></i> WARNING..!!</h3>

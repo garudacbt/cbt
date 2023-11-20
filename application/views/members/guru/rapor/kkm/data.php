@@ -35,12 +35,14 @@
                                 </div>
                                 <div class="card-body">
                                     Kelas:
-                                    <?php foreach ($kelas[$key] as $k => $kls) :
+                                    <?php
+                                    if (isset($kelas[$key]) && count($kelas[$key]) > 0) :
+                                    foreach ($kelas[$key] as $k => $kls) :
                                         if ($kls['id_kelas'] != null) :?>
                                             <button class="btn btn-outline-success btn-kelas m<?= $key ?>"
                                                     data-mapel="<?= $key ?>"
                                                     data-kelas="<?= $kls['id_kelas'] ?>"><?= $kls['nama_kelas'] ?></button>
-                                        <?php endif; endforeach; ?>
+                                        <?php endif; endforeach; endif; ?>
                                     <div id="alert<?= $key ?>"
                                          class="mt-3 alert alert-default-warning align-content-center"
                                          role="alert">

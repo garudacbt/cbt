@@ -135,7 +135,6 @@ $satuan = [
     var guru = JSON.parse(JSON.stringify(<?= json_encode($guru)?>));
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
     var namaSatuanPend = setting.satuan_pendidikan == 2 ? 'Madrasah' : 'Sekolah';
-    //console.log('KKM', kkm);
 
     var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? setting.nip : '';
     var nipWalas = raporSetting != null && raporSetting.nip_walikelas === '1' ? guru.nip : '';
@@ -187,9 +186,6 @@ $satuan = [
             jumlah += parseInt(arrN[i]);
         }
         var rata = Math.ceil(jumlah / arrN.length);
-        //console.log('kkm:'+isi +', rata', rata);
-        //console.log('bsd:'+ pre_bsd +', b', pre_b);
-
         if (inRange(rata, pre_a, pre_asd)) {
             return 'A';
         } else if (inRange(rata, pre_b, pre_bsd)) {
@@ -238,7 +234,6 @@ $satuan = [
         } else if (inRange(rata, pre_d, pre_dsd)) {
             p = 'D';
         }
-
         return {nilai: arrN.length > 0 ? rata : '', pred: p};
     }
 
@@ -296,7 +291,7 @@ $satuan = [
         }
 
         var display = raporSetting.kkm_tunggal == '1' ? 'display:none;' : '';
-        var collSpan = raporSetting.kkm_tunggal == '1' ? 15 : 16;
+        var collSpan = raporSetting.kkm_tunggal == '1' ? 19 : 20;
 
         var tableNilai = '<div style="padding: 0.3cm;">' +
             '    <p style="font-family: \'Arial\';text-align: center;font-size: 12pt;"><b>LAPORAN HASIL BELAJAR TENGAH SEMESTER</b></p>' +
@@ -342,15 +337,14 @@ $satuan = [
             '            <td rowspan="3" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td rowspan="3" style="width:30%;border: 1px solid black; border-collapse: collapse"><b>Mata Pelajaran</b></td>' +
             '            <td rowspan="3" style="width:7%;border: 1px solid black; border-collapse: collapse; ' + display + '"><b>KKM</b></td>' +
-            '            <td colspan="10" style="width:38%;border: 1px solid black; border-collapse: collapse">' +
+            '            <td colspan="14" style="width:38%;border: 1px solid black; border-collapse: collapse">' +
             '                <b>Hasil Penilaian Harian (HPH)</b></td>' +
-            '            <td rowspan="3" style="width:7%;border: 1px solid black; border-collapse: collapse"><b>HPTS</b></td>' +
+            '            <td rowspan="3" style="width:6%;border: 1px solid black; border-collapse: collapse"><b>HPTS</b></td>' +
             '            <td rowspan="3" style="width:5%;border: 1px solid black; border-collapse: collapse"><b>PRE</b></td>' +
-            '            <td rowspan="3" style="width:15%;border: 1px solid black; border-collapse: collapse"><b>Keterangan</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center">' +
-            '            <td colspan="5" style="border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
-            '            <td colspan="5" style="border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
+            '            <td colspan="7" style="border: 1px solid black; border-collapse: collapse"><b>Pengetahuan</b></td>' +
+            '            <td colspan="7" style="border: 1px solid black; border-collapse: collapse"><b>Keterampilan</b></td>' +
             '        </tr>' +
             '        <tr style="font-family: \'Tahoma\';font-size: 9pt;text-align: center">';
 
@@ -358,10 +352,14 @@ $satuan = [
             tableNilai += '<td style="border: 1px solid black; border-collapse: collapse;width: 20px">' +
                 '<b>' + (i + 1) + '</b></td>';
         }
+        tableNilai += '<td style="border: 1px solid black; border-collapse: collapse;width: 25px"><b>NR</b></td>';
+        tableNilai += '<td style="border: 1px solid black; border-collapse: collapse;width: 25px"><b>PRE</b></td>';
         for (let i = 0; i < 5; i++) {
             tableNilai += '<td style="border: 1px solid black; border-collapse: collapse;width: 20px">' +
                 '<b>' + (i + 1) + '</b></td>';
         }
+        tableNilai += '<td style="border: 1px solid black; border-collapse: collapse;width: 25px"><b>NR</b></td>';
+        tableNilai += '<td style="border: 1px solid black; border-collapse: collapse;width: 25px"><b>PRE</b></td>';
         tableNilai += '</tr>';
 
         var htmlPai = '';
@@ -378,29 +376,68 @@ $satuan = [
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (pai != null && pai.kode_kel_mapel != null && mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && nilaiPts[idSiswa] != null && nilaiPts[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = kkm[mapel.id_mapel] == null ? "" : kkm[mapel.id_mapel].kkm;
-                var arrN = [];
-                var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+                var pts = nilaiPts[idSiswa][mapel.id_mapel].nilai !== null
+                && nilaiPts[idSiswa][mapel.id_mapel].nilai !== '0' ? parseInt(nilaiPts[idSiswa][mapel.id_mapel].nilai) : '';
 
                 pos++;
                 htmlPai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                     '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + abjad[pos] + '. ' + mapel.nama_mapel + '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;' + display + '"><b>' + kkmMapel + '</b></td>';
 
+                let arrNP = [];
+                let arrNK = [];
+                let countP = 0;
+                let totalP = 0;
+                let countK = 0;
+                let totalK = 0;
+
                 $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                    if (nilai != '') nilai = parseInt(nilai);
-                    htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
-                    arrN.push(nilai);
+                    if (key.startsWith("p")) {
+                        if (nilai != '') {
+                            nilai = parseInt(nilai);
+                            arrNP.push(nilai);
+                            totalP += nilai
+                            countP ++
+                        }
+                        htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
+                    }
                 });
-                arrN.push(pts);
+                const rataP = Math.ceil(totalP / countP)
                 htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    pts +
+                    '<b>'+(rataP > 0 ? rataP : '') + '</b>' +
+                    '</td>'+
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                    '<b>'+createPredikat(arrNP, mapel.id_mapel) + '</b>' +
+                    '</td>';
+
+                $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
+                    if (key.startsWith("k")) {
+                        if (nilai != '') {
+                            nilai = parseInt(nilai);
+                            arrNK.push(nilai);
+                            totalK += nilai
+                            countK ++
+                        }
+                        htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
+                    }
+                });
+                const rataK = Math.ceil(totalK / countK)
+                htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                    '<b>'+(rataK > 0 ? rataK : '') + '</b>' +
+                    '</td>'+
+                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                    '<b>'+createPredikat(arrNK, mapel.id_mapel) + '</b>' +
+                    '</td>';
+
+                //arrN.push(pts);
+                htmlPai += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                    '<b>'+pts + '</b>' +
                     '</td>' +
                     '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                    createPredikat(arrN, mapel.id_mapel) +
+                    '<b>'+createPredikat([pts], mapel.id_mapel) + '</b>' +
                     '</td>' +
-                    '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"></td>' +
                     '</tr>';
             }
         });
@@ -422,30 +459,68 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilaiPts[idSiswa] != null && nilaiPts[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         no++;
-                        var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
-                        var arrN = [];
+                        //var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+                        var pts = nilaiPts[idSiswa][mapel.id_mapel].nilai !== null && nilaiPts[idSiswa][mapel.id_mapel].nilai !== '0' ? parseInt(nilaiPts[idSiswa][mapel.id_mapel].nilai) : '';
+                        //var arrN = [];
                         const kkmMapel = kkm[mapel.id_mapel] == null ? "" : kkm[mapel.id_mapel].kkm;
                         htmlTr += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; padding-left: 6px">' + mapel.nama_mapel + '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center; ' + display + '"><b>' + kkmMapel + '</b></td>';
+                        let arrNP = [];
+                        let arrNK = [];
+                        let countP = 0;
+                        let totalP = 0;
+                        let countK = 0;
+                        let totalK = 0;
                         $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                            if (nilai != '') nilai = parseInt(nilai);
-                            htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
-                            arrN.push(nilai);
+                            if (key.startsWith("p")) {
+                                if (nilai != '') {
+                                    nilai = parseInt(nilai);
+                                    arrNP.push(nilai);
+                                    totalP += nilai
+                                    countP ++
+                                }
+                                htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
+                            }
                         });
-                        arrN.push(pts);
+                        const rataP = Math.ceil(totalP / countP)
                         htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                            pts +
+                            '<b>'+(rataP > 0 ? rataP : '') + '</b>' +
+                            '</td>'+
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                            '<b>'+createPredikat(arrNP, mapel.id_mapel) + '</b>' +
+                            '</td>';
+
+                        $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
+                            if (key.startsWith("k")) {
+                                if (nilai != '') {
+                                    nilai = parseInt(nilai);
+                                    arrNK.push(nilai);
+                                    totalK += nilai
+                                    countK ++
+                                }
+                                htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + nilai + '</td>';
+                            }
+                        });
+                        const rataK = Math.ceil(totalK / countK)
+                        htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                            '<b>'+(rataK > 0 ? rataK : '') + '</b>' +
+                            '</td>'+
+                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                            '<b>'+createPredikat(arrNK, mapel.id_mapel) + '</b>' +
+                            '</td>';
+
+                        //arrN.push(pts);
+                        htmlTr += '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
+                            '<b>'+pts + '</b>' +
                             '</td>' +
                             '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' +
-                            createPredikat(arrN, mapel.id_mapel) +
-                            '</td>' +
-                            '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;"></td>' +
-                            '</tr>';
+                            '<b>'+createPredikat([pts], mapel.id_mapel) + '</b>' +
+                            '</td>';
                     }
                 });
             }
@@ -488,7 +563,7 @@ $satuan = [
                 }
             });
         }
-        //console.log('arrKKM', arrKKM);
+
         let kkmTable = [];
         if (arrKKM.length <= 3) {
             arrKKM.sort();
@@ -499,8 +574,6 @@ $satuan = [
             let halfwayThrough = Math.floor(arrKKM.length / 2);
             let arrayFirstHalf = arrKKM.slice(0, halfwayThrough);
             let arraySecondHalf = arrKKM.slice(halfwayThrough, arrKKM.length);
-            //console.log('first', arrayFirstHalf);
-            //console.log('second', arraySecondHalf);
 
             kkmTable.push(arrayFirstHalf[0]);
             kkmTable.push(arraySecondHalf[0]);
@@ -679,18 +752,21 @@ $satuan = [
         var pai = arr[indexPAI];
 
         $.each(arrMapel, function (k, mapel) {
-            if (pai != null && pai.kode_kel_mapel != null && mapel.kelompok == pai.kode_kel_mapel) {
+            if (pai != null && pai.kode_kel_mapel != null && nilaiPts[idSiswa] != null && nilaiPts[idSiswa][mapel.id_mapel] != null && mapel.kelompok == pai.kode_kel_mapel) {
                 const kkmMapel = kkm[mapel.id_mapel] == null ? "" : kkm[mapel.id_mapel].kkm;
                 var arrNP = [];
                 var arrNK = [];
-                var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+                //var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+                var pts = nilaiPts[idSiswa][mapel.id_mapel].nilai !== null && nilaiPts[idSiswa][mapel.id_mapel].nilai !== '0' ? parseInt(nilaiPts[idSiswa][mapel.id_mapel].nilai) : '';
 
                 $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                    if (nilai != '') nilai = parseInt(nilai);
-                    if (key.startsWith("p")) {
-                        arrNP.push(nilai);
-                    } else {
-                        arrNK.push(nilai);
+                    if (nilai !== '') {
+                        nilai = parseInt(nilai);
+                        if (key.startsWith("p")) {
+                            arrNP.push(nilai);
+                        } else if (key.startsWith("k")) {
+                            arrNK.push(nilai);
+                        }
                     }
                 });
                 var npeng = createNilaiPredikat(arrNP, mapel.id_mapel);
@@ -738,19 +814,22 @@ $satuan = [
 
             if (val.kategori != 'PAI (Kemenag)') {
                 $.each(arrMapel, function (k, mapel) {
-                    if (mapel.kelompok == kel) {
+                    if (nilaiPts[idSiswa] != null && nilaiPts[idSiswa][mapel.id_mapel] != null && mapel.kelompok == kel) {
                         hasSub = val.id_parent != '0';
                         no++;
-                        var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+                        //var pts = nilaiPts[idSiswa][mapel.id_mapel] == '0' ? '' : parseInt(nilaiPts[idSiswa][mapel.id_mapel]);
+                        var pts = nilaiPts[idSiswa][mapel.id_mapel].nilai !== null && nilaiPts[idSiswa][mapel.id_mapel].nilai !== '0' ? parseInt(nilaiPts[idSiswa][mapel.id_mapel].nilai) : '';
                         var arrNP = [];
                         var arrNK = [];
                         const kkmMapel = kkm[mapel.id_mapel] == null ? "" : kkm[mapel.id_mapel].kkm;
                         $.each(nilaiHarian[idSiswa][mapel.id_mapel], function (key, nilai) {
-                            if (nilai != '') nilai = parseInt(nilai);
-                            if (key.startsWith("p")) {
-                                arrNP.push(nilai);
-                            } else {
-                                arrNK.push(nilai);
+                            if (nilai !== '') {
+                                nilai = parseInt(nilai);
+                                if (key.startsWith("p")) {
+                                    arrNP.push(nilai);
+                                } else if (key.startsWith("k")) {
+                                    arrNK.push(nilai);
+                                }
                             }
                         });
 
@@ -827,7 +906,6 @@ $satuan = [
                 }
             });
         }
-        //console.log('arrKKM', arrKKM);
         let kkmTable = [];
         if (arrKKM.length <= 3) {
             arrKKM.sort();
@@ -838,8 +916,6 @@ $satuan = [
             let halfwayThrough = Math.floor(arrKKM.length / 2);
             let arrayFirstHalf = arrKKM.slice(0, halfwayThrough);
             let arraySecondHalf = arrKKM.slice(halfwayThrough, arrKKM.length);
-            //console.log('first', arrayFirstHalf);
-            //console.log('second', arraySecondHalf);
 
             kkmTable.push(arrayFirstHalf[0]);
             kkmTable.push(arraySecondHalf[0]);
@@ -1243,10 +1319,6 @@ $satuan = [
     }
 
     $(document).ready(function () {
-        //console.log('kelMapel', arrKelompokMapel);
-        //console.log('mapel',arrMapel);
-        //console.log('nilai',nilaiHarian);
-        //console.log('setting', raporSetting);
         $('.siswa').click(function (e) {
             e.stopPropagation();
             e.preventDefault();

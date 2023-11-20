@@ -172,7 +172,7 @@
     }
 
     function handleTanggal(tgl) {
-        var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+        var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
         var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         var ttl = '';
         if (handleNull(tgl) != '-') {
@@ -189,7 +189,7 @@
     }
 
     function buatTanggal() {
-        var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+        var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
         var bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
 
         var d = new Date();
@@ -216,12 +216,18 @@
         document.title = 'Daftar Hadir ' + data.info.jadwal.kode + ' ' + kelasVal + ' ' + sesi;
         var pengawas1 = '';
         var pengawas2 = '';
+        var nip1 = '';
+        var nip2 = '';
         if ($.isArray(data.info.pengawas[0])) {
             pengawas1 = data.info.pengawas.length > 0 && data.info.pengawas[0].length > 0 ? data.info.pengawas[0][0].nama_guru : '';
             pengawas2 = data.info.pengawas.length > 0 && data.info.pengawas[0].length > 1 ? data.info.pengawas[0][1].nama_guru : '';
+            nip1 = data.info.pengawas.length > 0 && data.info.pengawas[0].length > 0 ? data.info.pengawas[0][0].nip : '';
+            nip2 = data.info.pengawas.length > 0 && data.info.pengawas[0].length > 1 ? data.info.pengawas[0][1].nip : '';
         } else {
             pengawas1 = data.info.pengawas.length > 0 ? data.info.pengawas[0].nama_guru : '';
             pengawas2 = data.info.pengawas.length > 1 ? data.info.pengawas[1].nama_guru : '';
+            nip1 = data.info.pengawas.length > 0 ? data.info.pengawas[0].nip : '';
+            nip2 = data.info.pengawas.length > 1 ? data.info.pengawas[1].nip : '';
         }
 
         var card = '';
@@ -340,7 +346,7 @@
                         '<br>' +
                         '<u>' + pengawas1 + '</u>' +
                         '<br>' +
-                        'Nip:' +
+                        'Nip:' + nip1 +
                         '</td>';
                 }
                 if (pengawas2 == '') {
@@ -352,7 +358,7 @@
                         '<br>' +
                         '<u>' + pengawas1 + '</u>' +
                         '<br>' +
-                        'Nip:' +
+                        'Nip:' + nip1 +
                         '</td>';
                 } else {
                     card += '<td style="width: 30%">' +
@@ -363,7 +369,7 @@
                         '<br>' +
                         '<u>' + pengawas2 + '</u>' +
                         '<br>' +
-                        'Nip:' +
+                        'Nip:' + nip2 +
                         '</td>';
                 }
                 card += '</tr>' +
@@ -375,8 +381,11 @@
             card += '<div style="page-break-after: always"></div>';
         }
 
-
-        $('#print-preview').html(card);
+        if (data.siswa.length > 0) {
+            $('#print-preview').html(card);
+        } else {
+            $('#print-preview').html('<b>Tidak ada data siswa</b>');
+        }
         $('#loading').addClass('d-none');
 
         if (pages > 1) {
@@ -568,6 +577,11 @@
                 printBy = 2;
             }
         });
+
+        opsiKelas.select2({theme: 'bootstrap4'});
+        opsiRuang.select2({theme: 'bootstrap4'});
+        opsiSesi.select2({theme: 'bootstrap4'});
+        opsiJadwal.select2({theme: 'bootstrap4'});
 
     })
 </script>

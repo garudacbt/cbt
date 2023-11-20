@@ -1,6 +1,10 @@
 $(document).ready(function () {
     ajaxcsrf();
 
+    $('#table-kelas').dataTable({
+        paging: false
+    })
+
     $('.hapuskelas').click(function (e) {
         var kelas = $(this).data('id');
         console.log(kelas);

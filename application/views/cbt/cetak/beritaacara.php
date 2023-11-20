@@ -169,21 +169,21 @@
                                 <br>
                                 <br>
                                 <div style="text-align: justify; font-family: 'Times New Roman'">
-                                    Pada hari ini <span class="editable bg-lime" id="edit-hari"
+                                    Pada hari ini <span class="editable bg-gray-light" id="edit-hari"
                                                         style="display: inline-block;min-width: 20px"><?= buat_tanggal(date('D')) ?></span>
-                                    tanggal <span class="editable bg-lime" id="edit-tanggal"
+                                    tanggal <span class="editable bg-gray-light" id="edit-tanggal"
                                                   style="display: inline-block;min-width: 20px"><?= buat_tanggal(date('d')) ?></span>
-                                    bulan <span class="editable bg-lime" id="edit-bulan"
+                                    bulan <span class="editable bg-gray-light" id="edit-bulan"
                                                 style="display: inline-block;min-width: 20px"><?= buat_tanggal(date('M')) ?></span>
-                                    tahun <span class="editable bg-lime" id="edit-tahun"
+                                    tahun <span class="editable bg-gray-light" id="edit-tahun"
                                                 style="display: inline-block;min-width: 20px"><?= buat_tanggal(date('Y')) ?></span>
-                                    telah diselenggarakan <span class="editable bg-lime" id="edit-jenis-ujian"
+                                    telah diselenggarakan <span class="editable bg-gray-light" id="edit-jenis-ujian"
                                                                 style="display: inline-block;min-width: 20px">............................................</span>
-                                    untuk Mata Pelajaran <span class="editable bg-lime" id="edit-mapel"
+                                    untuk Mata Pelajaran <span class="editable bg-gray-light" id="edit-mapel"
                                                                style="display: inline-block;min-width: 20px">.....................................</span>
-                                    dari pukul <span class="editable bg-lime" id="edit-waktu-mulai"
+                                    dari pukul <span class="editable bg-gray-light" id="edit-waktu-mulai"
                                                      style="display: inline-block;min-width: 20px">.............</span>
-                                    sampai dengan pukul <span class="editable bg-lime" id="edit-waktu-akhir"
+                                    sampai dengan pukul <span class="editable bg-gray-light" id="edit-waktu-akhir"
                                                               style="display: inline-block;min-width: 20px">...........</span>
                                 </div>
                                 <br>
@@ -194,7 +194,7 @@
                                             Pada Sekolah/Madrasah
                                         </td>
                                         <td>:</td>
-                                        <td class="editable bg-lime"
+                                        <td class="editable bg-gray-light"
                                             id="edit-nama_sekolah"><?= isset($kop->sekolah) ? $kop->sekolah : '' ?></td>
                                     </tr>
                                     <tr>
@@ -203,7 +203,7 @@
                                             Ruang
                                         </td>
                                         <td>:</td>
-                                        <td class="editable bg-lime" id="edit-ruang">
+                                        <td class="editable bg-gray-light" id="edit-ruang">
                                             .................................................................
                                         </td>
                                     </tr>
@@ -211,7 +211,7 @@
                                         <td></td>
                                         <td>Sesi</td>
                                         <td>:</td>
-                                        <td class="editable bg-lime" id="edit-sesi">
+                                        <td class="editable bg-gray-light" id="edit-sesi">
                                             .................................................................
                                         </td>
                                     </tr>
@@ -221,7 +221,7 @@
                                             Jumlah Peserta Seharusnya
                                         </td>
                                         <td>:</td>
-                                        <td class="editable bg-lime" id="edit-jml-peserta">
+                                        <td class="editable bg-gray-light" id="edit-jml-peserta">
                                             .................................................................
                                         </td>
                                     </tr>
@@ -231,7 +231,7 @@
                                             Jumlah Peserta Hadir
                                         </td>
                                         <td>:</td>
-                                        <td class="editable bg-lime" id="edit-hadir">
+                                        <td class="editable bg-gray-light" id="edit-hadir">
                                             .................................................................
                                         </td>
                                     </tr>
@@ -241,7 +241,7 @@
                                             Jumlah Peserta Tidak Hadir
                                         </td>
                                         <td>:</td>
-                                        <td class="editable bg-lime" id="edit-tidak-hadir">
+                                        <td class="editable bg-gray-light" id="edit-tidak-hadir">
                                             .................................................................
                                         </td>
                                     </tr>
@@ -251,14 +251,14 @@
                                             Nomor Peserta Tidak Hadir
                                         </td>
                                         <td>:</td>
-                                        <td class="editable bg-lime" id="edit-username">
+                                        <td class="editable bg-gray-light" id="edit-username">
                                             .................................................................
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-top: 12px">2.</td>
                                         <td style="padding-top: 12px" colspan="3">
-                                            Catatan selama <span class="editable bg-lime" id="edit-nama-ujian"
+                                            Catatan selama <span class="editable bg-gray-light" id="edit-nama-ujian"
                                                                  style="display: inline-block;min-width: 20px">.......</span>
                                             berlangsung :
                                         </td>
@@ -266,7 +266,7 @@
                                     <tr>
                                         <td></td>
                                         <td colspan="3" style="height: 100px; border: 1px solid black; padding: 12px"
-                                            class="editable bg-lime" id="edit-catatan"></td>
+                                            class="editable bg-gray-light" id="edit-catatan"></td>
                                     </tr>
                                 </table>
                                 <br>
@@ -286,7 +286,7 @@
                                             <td style="width: 30px;">1.</td>
                                             <td>Pengawas 1</td>
                                             <td>:</td>
-                                            <td class="editable bg-lime" id="edit-pengawas1">_________________________</td>
+                                            <td class="editable bg-gray-light" id="edit-pengawas1">_________________________</td>
                                             <td style="padding-left: 20px" rowspan="2">1. _________________________</td>
                                         </tr>
                                         <tr>
@@ -295,13 +295,13 @@
                                                 NIP/NUPTK
                                             </td>
                                             <td>:</td>
-                                            <td class="editable bg-lime">_________________________</td>
+                                            <td class="editable bg-gray-light">_________________________</td>
                                         </tr>
                                         <tr>
                                             <td style="padding-top: 12px">2.</td>
                                             <td style="padding-top: 12px">Pengawas 2</td>
                                             <td style="padding-top: 12px">:</td>
-                                            <td style="padding-top: 12px" class="editable bg-lime" id="edit-pengawas2">_________________________</td>
+                                            <td style="padding-top: 12px" class="editable bg-gray-light" id="edit-pengawas2">_________________________</td>
                                             <td style="padding-left: 20px" rowspan="2">2. _________________________</td>
                                         </tr>
                                         <tr>
@@ -310,7 +310,7 @@
                                                 NIP/NUPTK
                                             </td>
                                             <td>:</td>
-                                            <td class="editable bg-lime">_________________________</td>
+                                            <td class="editable bg-gray-light">_________________________</td>
                                         </tr>
                                         <tr>
                                             <td style="padding-top: 12px">3.</td>
@@ -319,7 +319,7 @@
                                             </td>
                                             <td style="padding-top: 12px">:</td>
                                             <td style="padding-top: 12px"
-                                                class="editable bg-lime"><?= isset($kop->kepsek) && $kop->kepsek != '' ? $kop->kepsek : '_________________________' ?></td>
+                                                class="editable bg-gray-light"><?= isset($kop->kepsek) && $kop->kepsek != '' ? $kop->kepsek : '_________________________' ?></td>
                                             <td style="padding-left: 20px" rowspan="2">3. _________________________</td>
                                         </tr>
                                         <tr>
@@ -328,7 +328,7 @@
                                                 NIP/NUPTK
                                             </td>
                                             <td>:</td>
-                                            <td class="editable bg-lime"><?= isset($kop->nip) && $kop->nip != '' ? $kop->nip : '_________________________' ?></td>
+                                            <td class="editable bg-gray-light"><?= isset($kop->nip) && $kop->nip != '' ? $kop->nip : '_________________________' ?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -362,7 +362,7 @@
     }
 
     function handleTanggal(tgl) {
-        var hari = ['Minngu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+        var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
         var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         if (handleNull(tgl) != '-') {
             var d = new Date(tgl);
@@ -599,12 +599,19 @@
             }
         });
 
+        opsiKelas.select2({theme: 'bootstrap4'});
+        opsiRuang.select2({theme: 'bootstrap4'});
+        opsiSesi.select2({theme: 'bootstrap4'});
+        opsiJadwal.select2({theme: 'bootstrap4'});
+
     })
 
     function previewTTD(pengawas) {
         var nomor = 1;
         var pengawas1 = pengawas.length > 0 ? pengawas[0].nama_guru : '';
         var pengawas2 = pengawas.length > 1 ? pengawas[1].nama_guru : '';
+        var nip1 = pengawas.length > 0 ? pengawas[0].nip : '_________________________';
+        var nip2 = pengawas.length > 1 ? pengawas[1].nip : '_________________________';
         var title_p1 = pengawas2 == '' ? 'Pengawas' : 'Pengawas 1';
 
         var table = '<table style="width:90%; font-family: \'Times New Roman\';">' +
@@ -618,7 +625,7 @@
         ' <td style="width: 30px;">'+nomor+'.</td>' +
         ' <td>'+title_p1+'</td>' +
         ' <td>:</td>' +
-        ' <td class="editable bg-lime" id="edit-pengawas1">'+pengawas1+'</td>' +
+        ' <td class="editable bg-gray-light" id="edit-pengawas1">'+pengawas1+'</td>' +
         ' <td style="padding-left: 20px" rowspan="2">1. _________________________</td>' +
         ' </tr>' +
 
@@ -626,7 +633,7 @@
         ' <td></td>' +
         ' <td>NIP/NUPTK </td>' +
         '         <td>:</td>' +
-        ' <td class="editable bg-lime">_________________________</td>' +
+        ' <td class="editable bg-gray-light">'+nip1+'</td>' +
         ' </tr>';
         nomor +=1;
         if (pengawas2 !== '') {
@@ -634,7 +641,7 @@
                 ' <td style="padding-top: 12px">'+nomor+'.</td>' +
                 ' <td style="padding-top: 12px">Pengawas 2</td>' +
                 ' <td style="padding-top: 12px">:</td>' +
-                ' <td style="padding-top: 12px" class="editable bg-lime" id="edit-pengawas2">'+pengawas2+'</td>' +
+                ' <td style="padding-top: 12px" class="editable bg-gray-light" id="edit-pengawas2">'+pengawas2+'</td>' +
                 ' <td style="padding-left: 20px" rowspan="2">'+nomor+'. _________________________</td>' +
                 '</tr>' +
 
@@ -642,7 +649,7 @@
                 ' <td></td>' +
                 ' <td>NIP/NUPTK </td>' +
                 '         <td>:</td>' +
-                ' <td class="editable bg-lime">_________________________</td>' +
+                ' <td class="editable bg-gray-light">'+nip2+'</td>' +
                 ' </tr>';
             nomor +=1;
         }
@@ -650,7 +657,7 @@
         ' <td style="padding-top: 12px">'+nomor+'.</td>' +
         ' <td style="padding-top: 12px">Kepala Sekolah</td>' +
         '         <td style="padding-top: 12px">:</td>' +
-        ' <td style="padding-top: 12px"class="editable bg-lime">'+kepsek+'</td>' +
+        ' <td style="padding-top: 12px"class="editable bg-gray-light">'+kepsek+'</td>' +
         '         <td style="padding-left: 20px" rowspan="2">'+nomor+'. _________________________</td>' +
         ' </tr>' +
 
@@ -658,11 +665,11 @@
         ' <td></td>' +
         ' <td>NIP/NUPTK </td>' +
         '         <td>:</td>' +
-        ' <td class="editable bg-lime">'+nip+'</td>' +
+        ' <td class="editable bg-gray-light">'+nip+'</td>' +
         ' </tr>' +
         ' </table>';
 
-        console.log('tbl', table)
+        //console.log('tbl', table)
         $('#berita-ttd').html(table)
         $('.editable').attr('contentEditable', true);
     }

@@ -314,7 +314,6 @@ if (isset($jadwal_ujian)) {
                                     <div class="row mt-2">
                                         <?php foreach ($sjadwal as $jadwal) : ?>
                                             <?php
-
                                             $jk = json_decode(json_encode($jadwal->bank_kelas));
                                             $jumlahKelas = json_decode(json_encode(unserialize($jk)));
                                             //$jks = [];
@@ -624,7 +623,8 @@ if (isset($jadwal_ujian)) {
                             });
                         }
                     },
-                    error: function () {
+                    error: function (xhr, status, error) {
+                        console.log(xhr, status, error)
                         const err = JSON.parse(xhr.responseText)
                         swal.fire({
                             title: "Error",

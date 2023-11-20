@@ -147,8 +147,11 @@
 <input type="hidden" name="bank" value="<?= $jadwal->id_bank ?>">
 <?= form_close() ?>
 
-<script src="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/redirect.js"></script>
+<script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
+
 <script>
     var elem = document.documentElement;
     history.pushState(null, null, '<?php echo $_SERVER["REQUEST_URI"]; ?>');
@@ -209,12 +212,21 @@
 
             var siswa = $('#up').find('input[name="siswa"]').val();
             var bank = $('#up').find('input[name="bank"]').val();
-            var dataPost = $(this).serialize() + '&siswa=' + siswa + '&bank=' + bank + '&data=' + JSON.stringify(jsonJawaban);
+
+            let formData = new FormData($('#jawab')[0]);
+            formData.append('siswa', siswa)
+            formData.append('bank', bank)
+            formData.append('data', JSON.stringify(jsonJawaban))
+
+            //var dataPost = $(this).serialize() + '&siswa=' + siswa + '&bank=' + bank + '&data=' + JSON.stringify(jsonJawaban);
             //console.log(dataPost);
+            console.log(Object.fromEntries(formData))
             $.ajax({
                 url: base_url + 'siswa/savejawaban',
                 method: 'POST',
-                data: dataPost,
+                processData: false,
+                contentType: false,
+                data: formData,
                 success: function (response) {
                     soalTerjawab = response.soal_terjawab;
                     loadSoalNomor(nav);
@@ -363,86 +375,68 @@
         } else if (jenis == "3") {
             modelSoal = data.soal_opsi.model;
             typeSoal = data.soal_opsi.type;
-            if (data.soal_opsi.model == '1') {
-                const dataJawab = data.soal_opsi
-                const copy = $.extend(true, {}, dataJawab);
-                var datalist = convertTableToList(data.soal_opsi);
-                html = '<div class="bonds" id="original" style="display:block;"></div>';
-                $('#konten-jawaban').html(html);
-                var mode = datalist.type == '2' ? "oneToOne" : "manyToMany";
-                var inputs = {
-                    "localization": {},
-                    "options": {
-                        "associationMode": mode, // oneToOne,manyToMany
-                        "lineStyle": "square-ends",
-                        "buttonErase": false,//"Batalkan",
-                        "displayMode": "original",
-                        "whiteSpace": 'normal', //normal,nowrap,pre,pre-wrap,pre-line,break-spaces default => nowrap
-                        "mobileClickIt": true
-                    },
-                    "Lists": [
-                        {
-                            "name": "baris-kiri" + data.soal_nomor_asli,
-                            "list": datalist.jawaban[0]
-                        },
-                        {
-                            "name": "baris-kanan" + data.soal_nomor_asli,
-                            "list": datalist.jawaban[1],
-                        }
-                    ],
-                    "existingLinks": datalist.linked
-                };
-                fieldLinks = $("#original").fieldsLinker("init", inputs);
+            let konten = $('#konten-jawaban')
+            konten.html('');
 
-                $(`ul[data-col="baris-kanan${data.soal_nomor_asli}"] li`).click(function (e) {
-                    submitJawaban(null);
-                });
+            const dataJawab = data.soal_opsi
+            const copy = $.extend(true, {}, dataJawab);
+            console.log('test', copy)
+
+            let arrData = [copy.tabel[0]]
+            if (Array.isArray(copy.tbody)) {
+                for (let i = 0; i < copy.tbody.length; i++) {
+                    let val = copy.tbody[i]
+                    for (let j = 0; j < val.length; j++) {
+                        if (j === 0) val[j] = copy.tabel[i+1][0]
+                    }
+                    arrData.push(val)
+                }
             } else {
-                let head = []
-                const body = []
-                $.each(data.soal_opsi.tabel, function (idx, val) {
-                    if (idx === 0) {
-                        head = val
-                    } else {
-                        $.each(val, function (id, vl) {
-                            if (id === 0) body.push(vl)
-                        })
-                    }
-                })
-                //console.log('body', body)
-                html += '<div class="table-responsive">' +
-                    '<table id="table-jodohkan" class="table table-bordered" data-type="' + data.soal_opsi.type + '">';
-                html += '<tr class="text-center">';
-                $.each(data.soal_opsi.thead, function (key, val) {
-                    if (key === 0) {
-                        html += '<th class="text-white">' + head[key] + '</th>';
-                    } else {
-                        html += '<th class="text-center">' + head[key] + '</th>';
-                    }
-                });
-                html += '</tr>';
-                const arrKeys = Object.keys(data.soal_opsi.tbody)
-                //console.log('arrkey', arrKeys[0])
-                $.each(data.soal_opsi.tbody, function (k, v) {
-                    const key = arrKeys[0] == '0' ? k : k-1;
-                    //console.log('indexbody', k)
-                    html += '<tr class="text-center">';
-                    $.each(v, function (t, i) {
-                        if (t === 0) {
-                            html += '<td class="baris text-bold">' + body[key] + '</td>';
-                        } else {
-                            const checked = i == '1' ? ' checked' : '';
-                            const type = data.soal_opsi.type != '2' ? 'checkbox' : 'radio';
-                            html += '<td>' +
-                                '<input class="check"  data-max="' + data.max_jawaban[v[0]] + '" type="' + type + '" name="check' + k + '" style="height: 20px; width: 20px"' + checked + '>' +
-                                '</td>';
+                for (let i = 0; i < copy.tabel.length; i++) {
+                    let val = copy.tbody[i]
+                    if (val) {
+                        for (let j = 0; j < val.length; j++) {
+                            if (j === 0) val[j] = copy.tabel[i][0]
                         }
-                    });
-                    html += '</tr>';
-                });
-                html += '</table></div>';
-                $('#konten-jawaban').html(html);
+                        arrData.push(val)
+                    }
+                }
             }
+
+            let keys = 0
+            let dataMax = {}
+            $.each(data.max_jawaban, function (key, val) {
+                dataMax[keys] = val
+                keys ++
+            })
+
+            let objJawaban = {
+                jawaban: arrData,
+                max: dataMax,
+                model: modelSoal,
+                type: typeSoal,
+            }
+            console.log('obj', objJawaban)
+            konten.linkerList({
+                enableEditor: false,
+                data: objJawaban,
+                viewMode: '2',
+                id: nomorSoal,
+                callback: function (id, data, hasLinks, isOffset) {
+                    if (isOffset !== '0') {
+                        $.toast({
+                            heading: 'Warning',
+                            text: 'Maksimal <b>' + isOffset + ' jawaban',
+                            showHideTransition: 'slide',
+                            icon: 'error',
+                            loaderBg: '#f2a654',
+                            position: 'bottom-center'
+                        })
+                    } else {
+                        submitJawaban(data)
+                    }
+                }
+            });
         } else if (jenis == "4") {
             html += '<div class="pr-4">' +
                 '<span class="">JAWABAN:</span><br>' +
@@ -518,6 +512,7 @@
                 clearTimeout(timerSelesai);
                 timerSelesai = null;
             }
+
             var next = $('#next');
             next.removeAttr('disabled');
             var txtnext = $('#text-next');
@@ -715,16 +710,18 @@
                 jawaban_Siswa = selected;
             }
         } else if (jenisSoal == 3) {
+            jawaban_Siswa = opsi
+            /*
             var jawaban_json = modelSoal == '1' ? convertListToTable() : getDataTable();
             console.log('click submit', jawaban_json);
             jawaban_Siswa = {};
             jawaban_Siswa['jawaban'] = jawaban_json;
             jawaban_Siswa['type'] = typeSoal;
             jawaban_Siswa['model'] = modelSoal;
+             */
         } else {
             jawaban_Siswa = $('#jawaban-essai').val();
         }
-
         jawabanBaru = jawaban_Siswa;
         if (jenisSoal == 2) {
             if ($.isArray(jawabanBaru)) jawabanBaru.sort();
@@ -858,6 +855,7 @@
         return [kolom, baris];
     }
 
+    /*
     function convertListToTable() {
         var results = fieldLinks.fieldsLinker("getLinks");
         var links = results.links;
@@ -892,6 +890,7 @@
         console.log('aray', arrayres);
         return arrayres;
     }
+     */
 
     function selesai() {
         if (soalTotal === soalTerjawab) {
@@ -995,17 +994,6 @@
         }
     }
 
-//    $(window).on('beforeunload', function () {
-//        $.ajax({
-//            type: 'POST',
-//            url: base_url + 'siswa/savetimer',
-//            data: $('#up').serialize() + '&elapsed=' + elapsed,
-//            success: function (data) {
-//           }, error: function (xhr, error, status) {
-//            }
-//        });
-//    });
-
     function getMinutes(startTime) {
         var endTime = new Date();
         endTime.setHours(endTime.getHours() - startTime.getHours());
@@ -1093,4 +1081,10 @@
         }
     }
 
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            console.log('jadwal', infoJadwal.reset_login)
+            location.href=base_url+"siswa/leavecbt/<?= $jadwal->id_jadwal ?>/<?= $siswa->id_siswa ?>";
+        }
+    });
 </script>

@@ -95,7 +95,7 @@
                                         <td class="text-center align-middle">
                                             <b><?= singkat_tanggal(date('D, d M Y', strtotime($peng->tgl_mulai))) ?></b>
                                             <br>
-                                            <?=$peng->bank_kode?>
+                                            <?=$peng->bank_kode . ' ('. $peng->kode_jenis.')' ?>
                                         </td>
                                         <td class="text-center align-middle"><?=$ruang[$peng->id_ruang]?></td>
                                         <td class="text-center align-middle"><?=$sesi[$peng->id_sesi]?></td>
@@ -230,7 +230,7 @@
 
         $('#detail-pengampu').on('click', function (e) {
             if (opsiRuang.val() && opsiSesi.val() && opsiJadwal.val())
-                window.location.href = base_url + 'cbtstatus/statusRuang?ruang=' + opsiRuang.val()
+                window.location.href = base_url + 'cbtstatus/status_ruang?ruang=' + opsiRuang.val()
                     + '&sesi=' + opsiSesi.val()
                     + '&jadwal=' + opsiJadwal.val();
             else showDangerToast('Pilih dahulu JADWAL, RUANG dan SESI')
@@ -238,7 +238,7 @@
     });
 
     function detail(e) {
-        window.location.href = base_url + 'cbtstatus/statusRuang?ruang=' + $(e).data('ruang')
+        window.location.href = base_url + 'cbtstatus/status_ruang?ruang=' + $(e).data('ruang')
             + '&sesi=' + $(e).data('sesi')
             + '&jadwal=' + $(e).data('id');
     }

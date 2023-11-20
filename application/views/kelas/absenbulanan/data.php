@@ -434,6 +434,11 @@
         $('#reload-page').click(function () {
             reload(selMapel.val(), selKelas.val(), selBulan.val(), selTahun.val(), true);
         })
+
+        selMapel.select2({theme: 'bootstrap4'});
+        selKelas.select2({theme: 'bootstrap4'});
+        selBulan.select2({theme: 'bootstrap4'});
+        selTahun.select2({theme: 'bootstrap4'});
     });
 
     function terlambat(value, jadwal) {

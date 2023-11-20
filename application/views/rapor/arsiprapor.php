@@ -390,6 +390,13 @@ $satuan = [
         if (text == null) {
             return '';
         } else {
+            var limit = 300;
+            if (text.length > limit) {
+                return text.substring(0, limit) + '...';
+            } else {
+                return text;
+            }
+            /*
             var splitted = text.split(',');
             if (splitted.length > 2) {
                 var s1 = splitted[0];
@@ -404,6 +411,7 @@ $satuan = [
             } else {
                 return text;
             }
+            */
         }
     }
 
@@ -1136,21 +1144,28 @@ $satuan = [
             '            <td style="width:5%;height:35px;border: 1px solid black; border-collapse: collapse"><b>NO</b></td>' +
             '            <td style="width:35%;border: 1px solid black; border-collapse: collapse"><b>Jenis Kegiatan</b></td>' +
             '            <td style="width:60%;border: 1px solid black; border-collapse: collapse"><b>Deskripsi</b></td>' +
-            '        </tr>';
-        posAlpha++;
+            '        </tr>' +
+            '       <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td style="border: 1px solid black; border-collapse: collapse; text-align: center;">1</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p1 + '</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p1_desk + '</td>' +
+            '       </tr>' +
+            '            <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td style="border: 1px solid black; border-collapse: collapse; text-align: center;">2</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p2 + '</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p2_desk + '</td>' +
+            '       </tr>' +
+            '       <tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
+            '            <td style="border: 1px solid black; border-collapse: collapse; text-align: center;">3</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p3 + '</td>' +
+            '            <td style="border: 1px solid black; border-collapse: collapse;padding: 2px 4px 2px 4px;">' + deskripsi[idSiswa].p3_desk + '</td>' +
+            '       </tr>';
 
-        no = 1;
-        for (let i = 0; i < 3; i++) {
-            tableNilai += '<tr style="font-family: \'Tahoma\';font-size: 9pt;">' +
-                '<td style="border: 1px solid black; border-collapse: collapse; text-align: center;">' + no + '</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1 + '</td>' +
-                '<td style="border: 1px solid black; border-collapse: collapse;">' + deskripsi[idSiswa].p1_desk + '</td>' +
-                '</tr>';
-            no++;
-        }
+        posAlpha++;
         tableNilai += '</table>';
 
         //fisik
+        /*
         if (setting.jenjang == '1') {
             var sehat = ['Pendengaran', 'Penglihatan', 'Gigi', 'Lain-lain'];
             var kondisi = [fisik[idSiswa].kondisi.telinga, fisik[idSiswa].kondisi.mata, fisik[idSiswa].kondisi.gigi, fisik[idSiswa].kondisi.lain];
@@ -1201,6 +1216,7 @@ $satuan = [
             }
             tableNilai += '</table></div>';
         }
+         */
 
         // absensi
         var ssakit = absensi[idSiswa].nilai.s == '' ? '0' : absensi[idSiswa].nilai.s;

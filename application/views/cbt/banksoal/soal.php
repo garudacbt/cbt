@@ -291,42 +291,10 @@ foreach ($soal_ada as $key => $value) {
                                 <div class="<?= $jodohkan_none ?> mt-4" id="root-opsi-jodohkan">
                                     <hr>
                                     <p><b>Jawaban</b></p>
-                                    <div class="row">
-                                        <div class="col-md-3 mb-2">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Model</span>
-                                                </div>
-                                                <select name="model_opsi" class="form-control" id="model-opsi"
-                                                        disabled="disabled">
-                                                    <option value="0" selected="selected">-pilihan model-</option>
-                                                    <option value="1">List</option>
-                                                    <option value="2">Table</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4 mb-2">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Tipe</span>
-                                                </div>
-                                                <select name="type_opsi" class="form-control" id="type-opsi"
-                                                        disabled="disabled">
-                                                    <option value="0" selected="selected">-pilihan tipe-</option>
-                                                    <option value="2">1 baris 1 jawaban</option>
-                                                    <option value="1">1 baris banyak jawaban</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div id="btn-table" class="text-right col-md-5 mb-2">
-                                            <button type="button" class="btn btn-success" onclick="addColumn()">
-                                                <i class="fa fa-plus"></i> Tambah Kolom
-                                            </button>
-                                        </div>
-                                    </div>
                                     <div id="jawaban-jodohkan">
+                                    </div>
+                                    <div class="alert alert-default-warning">
+                                        Maksimal <b>20 KOLOM</b> dan <b>20 BARIS</b>
                                     </div>
                                 </div>
 
@@ -361,63 +329,6 @@ foreach ($soal_ada as $key => $value) {
                 </div>
             </div>
             <?= form_close() ?>
-
-            <!--
-            <div class="card my-shadow">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span><b>File Pendukung</b></span><br>
-                        <small><i>Hnaya untuk menambahkan file gambar, audio atau video pendek</i></small>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 mb-2">
-                            <div class="card card-success">
-                                <div class="card-body">
-                                    <?= form_open_multipart('', array('id' => 'uploadharian')); ?>
-                                    <div class="row">
-                                        <label>Tambahkan File</label>
-                                        <div class="col-12 mb-3">
-                                            <div class="custom-file">
-                                                <input type="file" name="upload_file" class="custom-file-input"
-                                                       id="customFile">
-                                                <label class="custom-file-label" for="customFile">Pilih file
-                                                    audio</label>
-                                            </div>
-                                        </div>
-                                        <label>Putar</label>
-                                        <div class="col-6">
-                                            <div class="input-group mb-3">
-                                                <input type="number" class="form-control">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">kali</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <button id="upload" type="submit" class="btn btn-success w-100">
-                                                <i class="fa fa-upload"></i> <span class="ml-1">Upload</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <?= form_close(); ?>
-
-                                    <div id="audios">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-8 mb-2">
-                            <div class="card card-primary">
-                                <div id="videos" class="card-body">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
         </div>
     </section>
 </div>
@@ -480,9 +391,12 @@ foreach ($soal_ada as $key => $value) {
     </div>
 </div>
 
-<script src="<?= base_url() ?>/assets/plugins/fields-linker/fieldsLinker.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/mediastyler.js"></script>
+
+<script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
 
 <script type="text/javascript">
     var nomor_soal = '<?=$p_no?>';

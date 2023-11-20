@@ -82,7 +82,7 @@
                         </div>
                     <?php else: ?>
                     <div class="table-responsive">
-                        <table class="w-100 table table-striped table-bordered table-hover">
+                        <table id="table-kelas" class="w-100 table table-striped table-bordered table-hover">
                             <thead>
                             <tr class="alert alert-info">
                                 <th class="text-center align-middle p-0">No.</th>
@@ -95,6 +95,8 @@
                                 <th class="align-middle text-center">Jumlah Siswa</th>
                                 <th class="text-center align-middle p-0" style="width: 180px"><span>Aksi</span></th>
                             </tr>
+                            </thead>
+                            <tbody>
                             <?php
                             $no = 1;
                             foreach ($kelas as $kls) : ?>
@@ -132,7 +134,7 @@
                                 <?php
                                 $no++; endforeach;
                             endif; ?>
-                            </thead>
+                            </tbody>
                         </table>
                     </div>
                 </div>

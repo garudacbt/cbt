@@ -37,6 +37,7 @@
                         }
 
                         foreach ($mapel as $km => $m) :
+                        if (isset($arrLevel[$km]) && count($arrLevel[$km]) > 0) :
                             foreach ($arrLevel[$km] as $lv) : ?>
                                 <div class="col-md-6">
                                     <div class="card border border-primary">
@@ -97,7 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php endforeach; endforeach; ?>
+                            <?php endforeach; endif; endforeach; ?>
                     </div>
                     <?php if (count($ekstra) > 0) : ?>
                         <hr>
