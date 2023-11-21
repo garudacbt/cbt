@@ -108,7 +108,7 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-      var valSplit = that.escapeHTML($option.text()).split('|')
+      var valSplit = that.escapeHTML($option.text()).split('-')
       var nis = valSplit.length > 1 ? valSplit[1] : '-'
       var selectableLi = $('<li '+attributes+'><span>'+valSplit[0]+'</span><span class="ml-3 float-right text-bold">'+nis+'</span></li>'),
           selectedLi = selectableLi.clone(),

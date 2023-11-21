@@ -46,13 +46,13 @@
                                     if (isset($siswa)) {
                                         foreach ($siswa as $key => $row) {
                                             if ($row->id_kelas == null || $row->id_kelas == 0) {
-                                                $siswas [$row->id_siswa] = $row->nama .'|'.$row->nis;
+                                                $siswas [$row->id_siswa] = $row->nama .' - '.$row->nis;
                                             }
                                         }
                                     }
                                     if (isset($siswakelas)) {
                                         foreach ($siswakelas as $key => $row) {
-                                            $siswas [$row->id_siswa] = $row->nama .'|'.$row->nis;
+                                            $siswas [$row->id_siswa] = $row->nama .' - '.$row->nis;
                                         }
                                     }
                                     $oj = json_decode(json_encode($kelas->jumlah_siswa));
@@ -140,18 +140,8 @@
                                         <label for="jumlah_siswa" class="col-md-12 control-label">Daftar Siswa</label>
                                         <div class="col-md-12">
                                             <select name="siswa[]" class="form-control" id="jumlah_siswa" multiple="multiple" required="" style="position: absolute; left: -9999px;">
-                                            <?php
-                                            foreach ($siswas as $id=>$siswa) :
-                                            /*
-                                            echo form_dropdown(
-                                                'siswa[]',
-                                                $siswas,
-                                                $jjs,
-                                                'class="form-control" id="jumlah_siswa" multiple="multiple" required'
-                                            );
-                                            */
-                                            ?>
-                                            <option value="<?= $id ?>" selected="<?= in_array($id, $jjs) ?>"><?=$siswa?></option>
+                                            <?php foreach ($siswas as $id=>$siswa) :?>
+                                            <option value="<?= $id ?>" <?= in_array($id, $jjs) ? 'selected="selected"' : '';?>><?=$siswa?></option>
                                             <?php endforeach; ?>
                                             </select>
                                         </div>
