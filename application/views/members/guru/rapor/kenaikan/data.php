@@ -25,6 +25,14 @@
                     <h6 class="card-title"><?= $subjudul ?></h6>
                 </div>
                 <div class="card-body">
+                    <div class="alert alert-default-danger align-content-center" role="alert">
+                        - Semua siswa otomatis naik
+                        <br />
+                        - Siswa yang tidak naik harus diset manual
+                        <br />
+                        - Jangan lupa <b>simpan</b>
+                    </div>
+
                     <?php
                     //echo '<pre>';
                     //var_dump($guru);
