@@ -1,23 +1,41 @@
 # GarudaCBT
+## Last version: 1.5.2
 
-## Last version: 1.4.9
+-------------
+### CHANGELOG:
 
-#### changelog:
-- fixed: soal manual tidak tampil di siswa
-- fixed: Soal Jodohkan mode table CELL kosong jika tidak ada jawaban
-- fixed: paksa selesai ujian tidak menyimpan nilai rekap
-- fixed: import word text style (italic, underline)
-- fixed: NIP kepsek di kartu ujian
-- fixed: zoom gambar di ujian siswa
-- fixed: zoom soal jodohkan list
-- fixed: reset waktu ujian siswa
-- fixed: alert NIP guru kurang dari 8 karakter
-- add search guru
-- add avatar thumbnail list siswa
-- fixed: load soal siswa
-- manual paging Data Siswa dan User Management Siswa (remove datatables)
-- filter bank soal
-- filter jadwal ujian
+#### Added
+- Soal gambar menjodohkan
+- Soal gambar tanpa text
+- Search/paging rekap nilai
+- Search kelas/rombel
+- Search status ujian
+- NIS list siswa di menu edit kelas
+- Detect new tab ketika siswa sedang ujian
+
+#### Fixed
+- Typo
+- Edit soal gambar hang
+- Gambar soal di menu koreksi
+- Hapus jadwal ujian
+- Hapus siswa dari rombel
+- Download soal ujian KP
+- Edit soal ketika ujian berlangsung
+- Mapel SD/MI
+- Cetak rapor PTS beda predikat
+- Kehadiran rapor di DKN
+- Rapor prestasi berbeda dengan arsip
+- Rapor kesehatan
+- Ttd kepsek rapor akhir
+- Mapel rapor berbeda dengan arsip
+
+- Struktur organisasi #admin
+- Reset waktu ujian siswa #pengawas
+- Search daftar siswa ada siswa lain kelas #wali kelas
+- Tugas/Materi guru membaca kelas lain #guru
+- Semua guru dianggap pengawas #pengawas
+- Soal menjodohkan dianggap terjawab #siswa
+
 ___________
 
 ## NOTE:
