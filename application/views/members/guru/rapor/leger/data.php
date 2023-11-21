@@ -233,10 +233,17 @@
                                     <td rowspan="5" class="text-center border-primary p-0 align-middle"
                                         data-a-v="middle" data-a-h="center"
                                         data-b-a-s="thin"><?= $absensi[$siswa->id_siswa]['a'] ?></td>
-                                    <th rowspan="5" class="border-primary p-0" data-a-v="middle" data-a-h="center"
-                                        data-b-a-s="thin"></th>
-                                    <th rowspan="5" class="border-primary p-0" data-a-v="middle" data-a-h="center"
-                                        data-b-a-s="thin"></th>
+                                    <?php
+                                    $state = $naik[$siswa->id_siswa];
+                                    $text = 'Naik';
+                                    if ($state == '0') {
+                                        $text = 'Tidak naik';
+                                    }
+                                    ?>
+                                    <td rowspan="5" class="text-center align-middle border-primary px-1" data-a-v="middle" data-a-h="center"
+                                        data-b-a-s="thin"><?=$text?></td>
+                                    <td rowspan="5" class="border-primary p-0" data-a-v="middle" data-a-h="center"
+                                        data-b-a-s="thin"></td>
                                 </tr>
                                 <tr>
                                     <td class="text-center border-primary p-0" data-a-v="middle" data-a-h="center"
