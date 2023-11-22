@@ -14,6 +14,8 @@
 - Detect new tab ketika siswa sedang ujian
 
 #### Fixed
+- Rekap nilai 0
+- Detail soal
 - Typo
 - Edit soal gambar hang
 - Gambar soal di menu koreksi
