@@ -1082,8 +1082,7 @@
     }
 
     document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-            console.log('jadwal', infoJadwal.reset_login)
+        if (document.hidden && infoJadwal.reset_login === '1') {
             location.href=base_url+"siswa/leavecbt/<?= $jadwal->id_jadwal ?>/<?= $siswa->id_siswa ?>";
         }
     });
