@@ -128,7 +128,7 @@
                                                 </div>
                                                 <hr class="m-0">
                                                 <?php
-                                                $se = $sesis[$sis[0]->kode_sesi];
+                                                $se = $sesis[$sis[0]->kode_sesi] ?? [];
                                                 $nama_sesi = $se->nama_sesi ?? '';
                                                 $mulai_sesi = $se->waktu_mulai ?? '';
                                                 $akhir_sesi = $se->waktu_akhir ?? '';
