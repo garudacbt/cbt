@@ -54,10 +54,9 @@
     <!-- /texarea editor; -->
 
     <!-- fonts -->
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/montserrat.css">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/scheherazade.css">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/uthmanic.css">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/fonts.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/poppins.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/calibri.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/adminlte.min.css">
 
@@ -155,9 +154,9 @@ $display_logout = $this->uri->segment(2) == "penilaian" ? 'd-none' : '';
 <body class="layout-top-nav layout-navbar-fixed">
 <div class="wrapper">
     <nav class="main-header navbar navbar-expand-md navbar-dark navbar-green border-bottom-0">
-        <ul class="navbar-nav ml-2 <?= $dnone ?>">
+        <ul class="navbar-nav ml-2 <?= $dnone ?>" id="back">
             <li class="nav-item">
-                <a href="<?= base_url('dashboard') ?>" type="button" class="btn btn-success">
+                <a href="<?= base_url('dashboard') ?>" type="button" class="btn btn-success" id="url-back">
                     <i class="fas fa-arrow-left mr-2"></i><span class="d-none d-sm-inline-block ml-1">Beranda</span>
                 </a>
             </li>
@@ -181,3 +180,13 @@ $display_logout = $this->uri->segment(2) == "penilaian" ? 'd-none' : '';
         </ul>
     </nav>
 
+    <script type="text/javascript">
+        const isLogin = localStorage.getItem('garudaCBT.login')
+        const isCbtMode = isLogin ? isLogin === '1' : false
+        if (isCbtMode) {
+            $("a#url-back").attr("href", base_url + 'siswa/cbt');
+            if ('<?= $cbt ?>' === 'cbt') {
+                $('#back').addClass('d-none')
+            }
+        }
+    </script>

@@ -53,7 +53,7 @@
                                         foreach ($kelas as $key => $kls) :
                                             $ids_selected = [];
                                             if ($ekskul_kelas[$key] != null) {
-                                                $ids = unserialize($ekskul_kelas[$key][0]->ekstra);
+                                                $ids = unserialize($ekskul_kelas[$key][0]->ekstra ?? '');
                                                 foreach ($ids as $id) {
                                                     array_push($ids_selected, $id['ekstra']);
                                                 }

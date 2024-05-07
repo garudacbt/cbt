@@ -70,7 +70,7 @@ $allBanksIds = [];
                                             'f',
                                             $filters,
                                             $id_filter,
-                                            'id="filter" class="form-control"'
+                                            'id="filter" class="form-control select2"'
                                         ); ?>
                                     </td>
                                     <td id="select-guru" class="d-none">
@@ -78,7 +78,7 @@ $allBanksIds = [];
                                             'guru',
                                             $gurus,
                                             $id_guru,
-                                            'id="guru" class="sel form-control"'
+                                            'id="guru" class="sel form-control select2"'
                                         ); ?>
                                     </td>
                                     <td id="select-mapel" class="d-none">
@@ -86,7 +86,7 @@ $allBanksIds = [];
                                             'mapel',
                                             $mapels,
                                             $id_mapel,
-                                            'id="mapel" class="sel form-control"'
+                                            'id="mapel" class="sel form-control select2"'
                                         ); ?>
                                     </td>
                                     <td id="select-level" class="d-none">
@@ -94,7 +94,7 @@ $allBanksIds = [];
                                             'level',
                                             $levels,
                                             $id_level,
-                                            'id="level" class="sel form-control"'
+                                            'id="level" class="sel form-control select2"'
                                         ); ?>
                                     </td>
                                 </tr>
@@ -106,7 +106,7 @@ $allBanksIds = [];
                                 <tr>
                                     <td class="align-middle text-right">
                                         <button id="submit-hapus" type="submit" class="btn btn-danger" disabled>
-                                            <i class="far fa-trash-alt"></i> Hapus Bank Soal terpilih
+                                            <i class="far fa-trash-alt"></i> Hapus terpilih
                                         </button>
                                     </td>
                                     <td class="align-middle text-center" style="width: 30px">
@@ -139,7 +139,7 @@ $allBanksIds = [];
                                     foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank): ?>
                                         <?php
                                         $jk = json_decode(json_encode($bank->bank_kelas));
-                                        $data = @unserialize($jk);
+                                        $data = @unserialize($jk ?? '');
                                         $jumlahKelas = json_decode(json_encode($data));
                                         $jks = [];
                                         $kelasbank = '';
@@ -236,7 +236,7 @@ $allBanksIds = [];
                                     foreach ($banks[0][0] as $bank) : ?>
                                         <?php
                                         $jk = json_decode(json_encode($bank->bank_kelas));
-                                        $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                        $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                         $jks = [];
 
                                         $kelasbank = '';
@@ -377,7 +377,7 @@ $allBanksIds = [];
                                             <div class="card-body pt-0">
                                                 <?php
                                                 $jk = json_decode(json_encode($bank->bank_kelas));
-                                                $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                                $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                                 $jks = [];
 
                                                 $kelasbank = '';
@@ -487,7 +487,7 @@ $allBanksIds = [];
                                             <div class="card-body pt-0">
                                                 <?php
                                                 $jk = json_decode(json_encode($bank->bank_kelas));
-                                                $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                                $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                                 $jks = [];
 
                                                 $kelasbank = '';
@@ -607,11 +607,11 @@ $allBanksIds = [];
                                 <b><?= $setting->sekolah ?></b></div>
                             <div class="text-center"
                                  style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 13pt">
-                                <b>KECAMATAN <?= strtoupper($setting->kecamatan) . ' KABUPATEN ' . strtoupper($setting->kota) ?></b>
+                                <b>KECAMATAN <?= strtoupper($setting->kecamatan ?? '') . ' KABUPATEN ' . strtoupper($setting->kota ?? '') ?></b>
                             </div>
                             <div class="text-center"
                                  style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 12pt"><b>TAHUN
-                                    PELAJARAN: <?= strtoupper($tp_active->tahun) . ' SEMESTER ' . strtoupper($smt_active->smt) ?></b>
+                                    PELAJARAN: <?= strtoupper($tp_active->tahun ?? '') . ' SEMESTER ' . strtoupper($smt_active->smt ?? '') ?></b>
                             </div>
                         </td>
                         <td>
@@ -777,9 +777,20 @@ $allBanksIds = [];
         var selectedF = idFilter == '' ? 'selected' : '';
         var selectedM = idMapel == '' ? 'selected' : '';
         var selectedL = idLevel == '' ? 'selected' : '';
-        $('#filter').prepend("<option value='' " + selectedF + " disabled='disabled'>Filter berdasarkan:</option>");
-        $('#mapel').prepend("<option value='' " + selectedM + " disabled='disabled'>Pilih mapel:</option>");
-        $('#level').prepend("<option value='' " + selectedL + " disabled='disabled'>Pilih level:</option>");
+
+        var opsiFilter = $('#filter')
+        var opsiGuru = $('#guru')
+        var opsiMapel = $('#mapel')
+        var opsiLevel = $('#level')
+
+        opsiFilter.select2();
+        opsiGuru.select2();
+        opsiMapel.select2();
+        opsiLevel.select2();
+
+        opsiFilter.prepend("<option value='' " + selectedF + " disabled='disabled'>Filter berdasarkan:</option>");
+        opsiMapel.prepend("<option value='' " + selectedM + " disabled='disabled'>Pilih mapel:</option>");
+        opsiLevel.prepend("<option value='' " + selectedL + " disabled='disabled'>Pilih level:</option>");
 
         function onChangeFilter(type) {
             if (type == '1') {
@@ -801,7 +812,7 @@ $allBanksIds = [];
             }
         }
 
-        $('#filter').on('change', function () {
+        opsiFilter.on('change', function () {
             var type = $(this).val();
             console.log(type);
             if (type == '0' && idFilter != '0') {
@@ -813,7 +824,7 @@ $allBanksIds = [];
 
         $('.sel').on('change', function () {
             var id = $(this).val();
-            window.location.href = base_url + 'cbtbanksoal?id=' + id + '&type=' + $('#filter').val() + '&mode=' + mode;
+            window.location.href = base_url + 'cbtbanksoal?id=' + id + '&type=' + opsiFilter.val() + '&mode=' + mode;
         });
         /*
 		$('#guru').on('change', function () {
@@ -822,7 +833,7 @@ $allBanksIds = [];
 		});
 		*/
 
-        onChangeFilter($('#filter').val());
+        onChangeFilter(opsiFilter.val());
 
         var unchecked = [];
         var checked = [];

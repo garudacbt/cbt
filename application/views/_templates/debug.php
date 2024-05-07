@@ -78,7 +78,7 @@
 							<label>Pilih Kelas</label><br>
 							<?php
 $jk = json_decode(json_encode($bank->bank_kelas));
-$jumlahKelas = json_decode(json_encode(unserialize($jk)));
+$jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
 $jks = [];
 foreach ($jumlahKelas as $j) {
     array_push($jks, $j->kelas_id);

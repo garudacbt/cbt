@@ -2,7 +2,7 @@
 
 if (isset($jadwal_ujian)) {
     $ist = json_decode(json_encode($jadwal_ujian->istirahat));
-    $jmlIst = json_decode(json_encode(unserialize($ist)));
+    $jmlIst = json_decode(json_encode(unserialize($ist ?? '')));
     $jmlMapelPerHari = $jadwal_ujian->jml_mapel_hari;
 } else {
     $jmlMapelPerHari = 0;
@@ -80,7 +80,7 @@ if (isset($jadwal_ujian)) {
                                     'f',
                                     $filters,
                                     $id_filter,
-                                    'id="filter" class="form-control"'
+                                    'id="filter" class="form-control select2"'
                                 ); ?>
                             </td>
                             <td id="select-guru" class="d-none">
@@ -88,7 +88,7 @@ if (isset($jadwal_ujian)) {
                                     'guru',
                                     $gurus,
                                     $id_guru,
-                                    'id="guru" class="sel form-control"'
+                                    'id="guru" class="sel form-control select2"'
                                 ); ?>
                             </td>
                             <td id="select-mapel" class="d-none">
@@ -96,7 +96,7 @@ if (isset($jadwal_ujian)) {
                                     'mapel',
                                     $mapels,
                                     $id_mapel,
-                                    'id="mapel" class="sel form-control"'
+                                    'id="mapel" class="sel form-control select2"'
                                 ); ?>
                             </td>
                             <td id="select-level" class="d-none">
@@ -104,7 +104,7 @@ if (isset($jadwal_ujian)) {
                                     'level',
                                     $levels,
                                     $id_level,
-                                    'id="level" class="sel form-control"'
+                                    'id="level" class="sel form-control select2"'
                                 ); ?>
                             </td>
                         </tr>
@@ -116,7 +116,7 @@ if (isset($jadwal_ujian)) {
                         <tr>
                             <td class="align-middle text-right">
                                 <button id="submit-hapus" type="submit" class="btn btn-danger" disabled>
-                                    <i class="far fa-trash-alt"></i> Hapus Jadwal Terpilih
+                                    <i class="far fa-trash-alt"></i> Hapus Terpilih
                                 </button>
                             </td>
                             <td class="align-middle text-center" style="width: 30px">
@@ -192,7 +192,7 @@ if (isset($jadwal_ujian)) {
                                         foreach ($sjadwal as $jadwal) :?>
                                             <?php
                                             $jk = json_decode(json_encode($jadwal->bank_kelas));
-                                            $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                            $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
 
                                             $kelasbank = '';
                                             $no = 1;
@@ -315,7 +315,7 @@ if (isset($jadwal_ujian)) {
                                         <?php foreach ($sjadwal as $jadwal) : ?>
                                             <?php
                                             $jk = json_decode(json_encode($jadwal->bank_kelas));
-                                            $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                            $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                             //$jks = [];
 
                                             $kelasbank = '';
@@ -680,9 +680,20 @@ if (isset($jadwal_ujian)) {
         var selectedF = idFilter == '' ? 'selected' : '';
         var selectedM = idMapel == '' ? 'selected' : '';
         var selectedL = idLevel == '' ? 'selected' : '';
-        $('#filter').prepend("<option value='' " + selectedF + " disabled='disabled'>Filter berdasarkan:</option>");
-        $('#mapel').prepend("<option value='' " + selectedM + " disabled='disabled'>Pilih mapel:</option>");
-        $('#level').prepend("<option value='' " + selectedL + " disabled='disabled'>Pilih level:</option>");
+
+        var opsiFilter = $('#filter')
+        var opsiGuru = $('#guru')
+        var opsiMapel = $('#mapel')
+        var opsiLevel = $('#level')
+
+        opsiFilter.select2();
+        opsiGuru.select2();
+        opsiMapel.select2();
+        opsiLevel.select2();
+
+        opsiFilter.prepend("<option value='' " + selectedF + " disabled='disabled'>Filter berdasarkan:</option>");
+        opsiMapel.prepend("<option value='' " + selectedM + " disabled='disabled'>Pilih mapel:</option>");
+        opsiLevel.prepend("<option value='' " + selectedL + " disabled='disabled'>Pilih level:</option>");
 
         function onChangeFilter(type) {
             if (type == '1') {
@@ -704,7 +715,7 @@ if (isset($jadwal_ujian)) {
             }
         }
 
-        $('#filter').on('change', function () {
+        opsiFilter.on('change', function () {
             var type = $(this).val();
             console.log(type);
             if (type == '0' && idFilter != '0') {
@@ -716,10 +727,10 @@ if (isset($jadwal_ujian)) {
 
         $('.sel').on('change', function () {
             var id = $(this).val();
-            window.location.href = base_url + 'cbtjadwal?id=' + id + '&type=' + $('#filter').val() + '&mode=' + mode;
+            window.location.href = base_url + 'cbtjadwal?id=' + id + '&type=' + opsiFilter.val() + '&mode=' + mode;
         });
 
-        onChangeFilter($('#filter').val());
+        onChangeFilter(opsiFilter.val());
 
         var unchecked = [];
         var checked = [];

@@ -46,11 +46,11 @@
                         <div class="col-md-7 mb-4 table-responsive">
                             <label>Tahun Pelajaran</label>
                             <?= form_open('', array('id' => 'edittp')) ?>
-                            <table id="tahun" class="table table-striped table-bordered table-hover">
+                            <table id="tahun" class="table table-sm table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th class="d-none">id</th>
-                                    <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
+                                    <th height="50" class="text-center p-0 align-middle">No.</th>
                                     <th class="text-center p-0 align-middle">Tahun Pelajaran</th>
                                     <th class="text-center p-0 align-middle p-0">Status</th>
                                     <th class="text-center p-0 align-middle">Aksi</th>
@@ -65,10 +65,10 @@
                                         <td class="text-center">
                                             <?= ($key + 1) ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle">
                                             <?= $value->tahun ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle">
                                             <?php if ($value->active) : ?>
                                                 <span class="text-success"><i class="fa fa-check mr-2"></i>AKTIF</span>
                                             <?php else : ?>
@@ -98,11 +98,11 @@
                         <div class="col-md-5">
                             <label>Semester</label>
                             <?= form_open('', array('id' => 'editsmt')) ?>
-                            <table id="semester" class="table table-striped table-bordered table-hover">
+                            <table id="semester" class="table table-sm table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th class="d-none">id</th>
-                                    <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
+                                    <th height="50" class="text-center p-0 align-middle">No.</th>
                                     <th class="text-center p-0 align-middle">Semester</th>
                                     <th class="text-center p-0 align-middle p-0">Status</th>
                                 </tr>
@@ -132,6 +132,7 @@
                                 <?php endforeach; ?>
                                 </tbody>
                             </table>
+                            <!--
                             <?= form_close() ?>
                             <?= form_open('', array('id' => 'hariefektif')) ?>
                             <label>Jumlah Hari Efektif Satu Semester</label>
@@ -143,6 +144,7 @@
                                 </div>
                             </div>
                             <?= form_close() ?>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -212,14 +214,8 @@
     </div>
 </div>
 
-<script type="text/javascript"
-        src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-cell.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-row.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson.js"></script>
 <script>
     $(document).ready(function () {
-        ajaxcsrf();
-
         $("#tahun").on("click", ".btn-aktif", function () {
             let id = $(this).data("id");
             var dataTahun = JSON.stringify($('#tahun').tableToJSON());

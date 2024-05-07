@@ -144,11 +144,11 @@
                                 <div class="mt-1 ml-3">
                                     <label>Jawaban Benar</label>
                                     <div id="root-jawaban-pg">
-                                        <?php //var_dump(trim(strtolower($soal->jawaban)));
+                                        <?php
                                         echo form_dropdown(
                                             'jawaban_pg',
                                             $opsis,
-                                            is_null($soal) ? null : trim(strtolower($soal->jawaban)),
+                                            is_null($soal) ? null : trim(strtolower($soal->jawaban ?? '') ?? ''),
                                             'id="jawaban" class="select2 form-control" required'
                                         ); ?>
                                     </div>

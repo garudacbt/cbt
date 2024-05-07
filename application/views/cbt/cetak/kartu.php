@@ -139,12 +139,12 @@
                                         <tr style="line-height: 1; font-family: 'Times New Roman'; font-size: 9pt">
                                             <td style="padding-left:22px;width: 35%">Username</td>
                                             <td>:</td>
-                                            <td>umbk001</td>
+                                            <td><b>umbk001</b></td>
                                         </tr>
                                         <tr style="line-height: 1; font-family: 'Times New Roman'; font-size: 9pt">
                                             <td style="padding-left:22px;width: 35%">Password</td>
                                             <td>:</td>
-                                            <td>umbk001</td>
+                                            <td><b>umbk001</b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"
@@ -251,40 +251,29 @@
 -->
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-    var oldVal1 = '<?= isset($kartu->header_1) ? $kartu->header_1 : "" ?>';
-    var oldVal2 = '<?= isset($kartu->header_2) ? $kartu->header_2 : "" ?>';
-    var oldVal3 = '<?= isset($kartu->header_3) ? $kartu->header_3 : "" ?>';
-    var oldVal4 = '<?= isset($kartu->header_4) ? $kartu->header_4 : "" ?>';
-    var oldTgl = '<?= isset($kartu->tanggal) ? $kartu->tanggal : "" ?>';
-    var oldKota = '<?=$setting->kota?>';
-    var logoKanan = '<?=base_url() . $setting->logo_kanan?>';
-    var logoKiri = '<?=base_url() . $setting->logo_kiri?>';
-    var tandatangan = '<?=base_url() . $setting->tanda_tangan?>';
-    var kepsek = '<?= $setting->kepsek ?>';
-    var nip = '<?= $setting->nip ?>';
-    var satuanPend = '<?= $setting->satuan_pendidikan ?>' === '2' ? 'Madrasah' : 'Sekolah';
+    var oldVal1 = "<?= isset($kartu->header_1) ? $kartu->header_1 : "" ?>";
+    var oldVal2 = "<?= isset($kartu->header_2) ? $kartu->header_2 : "" ?>";
+    var oldVal3 = "<?= isset($kartu->header_3) ? $kartu->header_3 : "" ?>";
+    var oldVal4 = "<?= isset($kartu->header_4) ? $kartu->header_4 : "" ?>";
+    var oldTgl = "<?= isset($kartu->tanggal) ? $kartu->tanggal : "" ?>";
+    var oldKota = "<?=$setting->kota?>";
+    var logoKanan = "<?=base_url() . $setting->logo_kanan?>";
+    var logoKiri = "<?=base_url() . $setting->logo_kiri?>";
+    var tandatangan = "<?=base_url() . $setting->tanda_tangan?>";
+    var kepsek = "<?= $setting->kepsek ?>";
+    var nip = "<?= $setting->nip ?>";
+    var satuanPend = "<?= $setting->satuan_pendidikan ?>" === "2" ? "Madrasah" : "Sekolah";
     var printBy = 1;
 
     var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($setting_rapor) ?>));
-    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? nip : ' -';
+    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === "1" ? nip : " -";
+    console.log('nip', nipKepsek)
 
     function submitKartu() {
         $('#set-kartu').submit();
     }
 
     function createPrintPreview(data) {
-        //console.log(data);
-        /*
-        console.log('data', data.length);
-        if (data.length > 150) {
-            swal.fire({
-                title: "",
-                text: "Data siswa melebihi 150 dikhawatirkan akan membuat lag aplikasi, gunakan print kartu perkelas",
-                icon: "warning"
-            });
-            return;
-        }
-         */
         var konten = '';
         if (data.length > 8) {
             var bagi2 = Math.round(data.length / 2);
@@ -337,7 +326,7 @@
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">Nama</td>' +
                         '<td>:</td>' +
-                        '<td>' + data[i].nama + '</td>' +
+                        '<td><b>' + data[i].nama + '</b></td>' +
                         '</tr>' +
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">NIS / NISN</td>' +
@@ -357,12 +346,12 @@
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">Username</td>' +
                         '<td>:</td>' +
-                        '<td>' + data[i].username + '</td>' +
+                        '<td><b>' + data[i].username + '</b></td>' +
                         '</tr>' +
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">Password</td>' +
                         '<td>:</td>' +
-                        '<td>' + data[i].password + '</td>' +
+                        '<td><b>' + data[i].password + '</b></td>' +
                         '</tr>' +
                         '<tr>' +
                         '<td colspan="2" style="padding-top: 6px; padding-bottom: 6px; padding-left:22px;width: 35%">' +
@@ -520,92 +509,6 @@
     }
 
     $(document).ready(function () {
-        ajaxcsrf();
-
-        var drEvent = $('.dropify').dropify({
-            messages: {
-                'default': 'Seret logo kesini atau klik',
-                'replace': 'Seret atau klik<br>untuk mengganti logo',
-                'remove': 'Hapus',
-                'error': 'Ooops, ada kesalahan!!.'
-            },
-            error: {
-                'fileSize': 'The file size is too big ({{ value }} max).',
-                'minWidth': 'The image width is too small ({{ value }}}px min).',
-                'maxWidth': 'The image width is too big ({{ value }}}px max).',
-                'minHeight': 'The image height is too small ({{ value }}}px min).',
-                'maxHeight': 'The image height is too big ({{ value }}px max).',
-                'imageFormat': 'The image format is not allowed ({{ value }} only).'
-            }
-        });
-
-
-        drEvent.on('dropify.beforeClear', function (event, element) {
-            //return confirm("Hapus logo \"" + element.file.name + "\" ?");
-        });
-
-        drEvent.on('dropify.afterClear', function (event, element) {
-            //console.log(element.element.id);
-            if (element.element.id === 'logo-kanan') {
-                logoKanan = '';
-                $('#prev-logo-kanan').attr('src', '');
-            } else if (element.element.id === 'logo-kiri') {
-                logoKiri = '';
-                $('#prev-logo-kiri').attr('src', '');
-                /*
-            } else if (element.element.id === 'tanda-tangan') {
-                tandatangan = '';
-                $('#prev-tandatangan').css(
-                    {'background': 'url() no-repeat center'},
-                    {'font-family': 'Times New Roman'},
-                    {'font-size': '10pt'},
-                    {'background-size': '100px 60px'}
-                );
-                */
-            }
-        });
-
-        drEvent.on('dropify.errors', function (event, element) {
-            console.log('Has Errors');
-            $.toast({
-                heading: "Error",
-                text: "file rusak",
-                icon: 'warning',
-                showHideTransition: 'fade',
-                allowToastClose: true,
-                hideAfter: 5000,
-                position: 'top-right'
-            });
-        });
-
-        $("#logo-kanan").change(function () {
-            var input = $(this)[0];
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#prev-logo-kanan').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-
-                var form = new FormData($('#set-logo-kanan')[0]);
-                uploadAttach(base_url + 'cbtcetak/uploadfile/logo_kanan', form);
-            }
-        });
-
-        $("#logo-kiri").change(function () {
-            var input = $(this)[0];
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#prev-logo-kiri').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-
-                var form = new FormData($('#set-logo-kiri')[0]);
-                uploadAttach(base_url + 'cbtcetak/uploadfile/logo_kiri', form);
-            }
-        });
-
         $("#header-1").on("change keyup paste", function () {
             var currentVal = $(this).val();
             if (currentVal === oldVal1) {
@@ -668,10 +571,13 @@
                     swal.showLoading();
                 }
             });
+            let form = new FormData($('#set-kartu')[0]);
             $.ajax({
                 url: base_url + 'cbtcetak/savekartu',
                 type: 'POST',
-                data: $(this).serialize() + '&logo_kanan=' + logoKanan + '&logo_kiri=' + logoKiri + '&tanda_tangan=' + tandatangan,
+                processData: false,
+                contentType: false,
+                data: form,
                 success: function (response) {
                     console.log(response);
                     swal.fire({

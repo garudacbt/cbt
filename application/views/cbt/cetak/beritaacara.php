@@ -124,12 +124,9 @@
                                     <span class="input-group-text">Jadwal</span>
                                 </div>
                                 <?php
-                                echo form_dropdown(
-                                    'jadwal',
-                                    $jadwal,
-                                    null,
-                                    'id="jadwal" class="form-control"'
-                                ); ?>
+                                //echo form_dropdown('jadwal', $jadwal, null, 'id="jadwal" class="form-control"');
+                                echo form_dropdown('jadwal', $mapel, null, 'id="jadwal" class="form-control"');
+                                ?>
                             </div>
                         </div>
                         <div class="col-2">
@@ -346,25 +343,25 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-    const kepsek = "<?= isset($kop->kepsek) && $kop->kepsek != '' ? $kop->kepsek : '_________________________' ?>";
-    const nip = "<?= isset($kop->nip) && $kop->nip != '' ? $kop->nip : '_________________________' ?>";
-    var oldVal1 = '<?=isset($kop->header_1) ? $kop->header_1 : ""?>';
-    var oldVal2 = '<?=isset($kop->header_2) ? $kop->header_2 : ""?>';
-    var oldVal3 = '<?=isset($kop->header_3) ? $kop->header_3 : ""?>';
-    var oldVal4 = '<?=isset($kop->header_4) ? $kop->header_4 : ""?>';
+    const kepsek = "<?= isset($kop->kepsek) && $kop->kepsek != "" ? $kop->kepsek : "_________________________" ?>";
+    const nip = "<?= isset($kop->nip) && $kop->nip != "" ? $kop->nip : "_________________________" ?>";
+    var oldVal1 = "<?=isset($kop->header_1) ? $kop->header_1 : ""?>";
+    var oldVal2 = "<?=isset($kop->header_2) ? $kop->header_2 : ""?>";
+    var oldVal3 = "<?=isset($kop->header_3) ? $kop->header_3 : ""?>";
+    var oldVal4 = "<?=isset($kop->header_4) ? $kop->header_4 : ""?>";
     var printBy = 1;
 
     var HARI, TANGGAL, BULAN, TAHUN;
 
     function handleNull(value) {
-        if (value == null || value == '0' || value == '') return '-';
+        if (value == null || value == "0" || value == "") return "-";
         else return value;
     }
 
     function handleTanggal(tgl) {
-        var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
-        var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        if (handleNull(tgl) != '-') {
+        var hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+        var bulans = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        if (handleNull(tgl) != "-") {
             var d = new Date(tgl);
             var curr_day = d.getDay();
             var curr_date = d.getDate();
@@ -395,10 +392,12 @@
         function loadSiswaRuang(ruang, sesi, jadwal) {
             var notempty = ruang && sesi && jadwal;
             if (notempty) {
+                $('#loading').removeClass('d-none');
                 $.ajax({
                     type: "GET",
                     url: base_url + "cbtcetak/getsiswaruang?ruang=" + ruang + '&sesi=' + sesi + '&jadwal=' + jadwal,
                     success: function (response) {
+                        $('#loading').addClass('d-none');
                         console.log('respon', response);
                         handleTanggal(response.info.jadwal.tgl_mulai);
                         $('#edit-hari').html('<b>' + HARI + '</b>');
@@ -421,6 +420,10 @@
                         $('#edit-pengawas2').text(p2);
                          */
                         document.title = 'Berita Acara ' + response.info.jadwal.kode + ' ' + $('#edit-ruang').text() + ' ' + $('#edit-sesi').text();
+                    },
+                    error: function (xhr, status, error) {
+                        $('#loading').addClass('d-none');
+                        console.log("error", xhr.responseText);
                     }
                 });
             }
@@ -429,10 +432,12 @@
         function loadSiswaKelas(kelas, sesi, jadwal) {
             var notempty = kelas && sesi && jadwal;
             if (notempty) {
+                $('#loading').removeClass('d-none');
                 $.ajax({
                     type: "GET",
                     url: base_url + "cbtcetak/getsiswakelas?kelas=" + kelas + '&sesi=' + sesi + '&jadwal=' + jadwal,
                     success: function (response) {
+                        $('#loading').addClass('d-none');
                         console.log('respon', response);
                         handleTanggal(response.info.jadwal.tgl_mulai);
                         $('#edit-hari').html('<b>' + HARI + '</b>');
@@ -455,6 +460,10 @@
                         $('#edit-pengawas2').text(p2);
                          */
                         document.title = 'Berita Acara ' + response.info.jadwal.kode + ' ' + $('#edit-ruang').text() + ' ' + $('#edit-sesi').text();
+                    },
+                    error: function (xhr, status, error) {
+                        $('#loading').addClass('d-none');
+                        console.log("error", xhr.responseText);
                     }
                 });
             }
@@ -553,10 +562,13 @@
                     swal.showLoading();
                 }
             });
+            let form = new FormData($('#set-kop')[0]);
             $.ajax({
                 url: base_url + 'cbtcetak/savekopberita',
                 type: 'POST',
-                data: $(this).serialize(),
+                processData: false,
+                contentType: false,
+                data: form,
                 success: function (response) {
                     console.log(response);
                     swal.fire({
@@ -585,17 +597,19 @@
 
         $('#selector button').click(function () {
             $(this).addClass('active').siblings().addClass('btn-outline-primary').removeClass('active btn-primary');
-
+            console.log('change')
             if (!$('#by-kelas').is(':hidden')) {
                 $('#by-kelas').addClass('d-none');
                 $('#by-ruang').removeClass('d-none');
                 printBy = 1;
                 $('#title-ruang').text('Ruang');
+                loadSiswaRuang(opsiRuang.val(), opsiSesi.val(), opsiJadwal.val())
             } else {
                 $('#by-kelas').removeClass('d-none');
                 $('#by-ruang').addClass('d-none');
                 $('#title-ruang').text('Kelas');
                 printBy = 2;
+                loadSiswaKelas(opsiKelas.val(), opsiSesi.val(), opsiJadwal.val())
             }
         });
 
@@ -607,6 +621,7 @@
     })
 
     function previewTTD(pengawas) {
+        //console.log('tbl', pengawas)
         var nomor = 1;
         var pengawas1 = pengawas.length > 0 ? pengawas[0].nama_guru : '';
         var pengawas2 = pengawas.length > 1 ? pengawas[1].nama_guru : '';
@@ -669,7 +684,6 @@
         ' </tr>' +
         ' </table>';
 
-        //console.log('tbl', table)
         $('#berita-ttd').html(table)
         $('.editable').attr('contentEditable', true);
     }

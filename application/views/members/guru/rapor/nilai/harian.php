@@ -32,30 +32,34 @@
                             </div>
                         <?php else: ?>
                             <div class="col-md-4 mb-3">
+                                <div type="button" class="btn btn-primary w-100" onclick="processDownload(<?= $mapel['id_mapel'] ?>, <?= $kelas['id_kelas'] ?>)">
+                                    <i class="fa fa-download"></i> <span class="ml-1">Download Template</span>
+                                </div>
+                                <!--
                                 <a href="<?= base_url('rapor/downloadtemplateharian/' . $mapel['id_mapel'] . '/' . $kelas['id_kelas']) ?>"
                                    id="download" type="button" class="btn btn-primary w-100">
                                     <i class="fa fa-download"></i> <span class="ml-1">Download Template</span>
                                 </a>
+                                -->
                             </div>
 
                             <div class="col-md-8">
-                                <?= form_open_multipart('', array('id' => 'uploadharian')); ?>
                                 <div class="row">
                                     <div class="col-8">
+                                        <?= form_open_multipart('', array('id' => 'uploadfile')); ?>
                                         <div class="custom-file">
-                                            <input type="file" name="upload_file" class="custom-file-input"
-                                                   id="customFile">
+                                            <input type="file" name="upload_file" class="custom-file-input" id="custom-file">
                                             <label class="custom-file-label" for="customFile">Pilih file excel</label>
                                         </div>
+                                        <?= form_close(); ?>
                                     </div>
 
                                     <div class="col-4">
-                                        <button id="upload" type="submit" class="btn btn-success w-100">
+                                        <button id="upload" class="btn btn-success w-100">
                                             <i class="fa fa-upload"></i> <span class="ml-1">Upload</span>
                                         </button>
                                     </div>
                                 </div>
-                                <?= form_close(); ?>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -191,8 +195,8 @@
                     </table>
                     <div id="t-siswa" class="w-100"></div>
                     <?= form_open('', array('id' => 'uploadnilai')) ?>
-                    <input type="hidden" name="id_kelas" class="form-control" value="<?= $mapel['id_mapel'] ?>">
-                    <input type="hidden" name="id_mapel" class="form-control" value="<?= $kelas['id_kelas'] ?>">
+                    <input type="hidden" name="id_mapel" class="form-control" value="<?= $mapel['id_mapel'] ?>">
+                    <input type="hidden" name="id_kelas" class="form-control" value="<?= $kelas['id_kelas'] ?>">
                     <div class="row mt-3 mb-3">
                         <div class="col-12 text-right">
                             <button type="submit" class="btn btn-primary">
@@ -206,7 +210,16 @@
             </div>
         </div>
     </section>
+
+    <?= form_open('', array('id' => 'uploadharian')); ?>
+    <input type="hidden" name="id_mapel" class="form-control" value="<?= $mapel['id_mapel'] ?>">
+    <input type="hidden" name="id_kelas" class="form-control" value="<?= $kelas['id_kelas'] ?>">
+    <?= form_close(); ?>
 </div>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/excel/exceljs.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/excel/js-excel-template.min.js"></script>
+
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
@@ -218,6 +231,8 @@
     var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
     var idMapel = '<?=$mapel['id_mapel']?>';
     var idKelas = '<?=$kelas['id_kelas']?>';
+    var namaMapel = '<?=$mapel['nama_mapel']?>';
+    var namaKelas = '<?=$kelas['nama_kelas']?>';
 
     var isi = 0;
     if (kkm != null) {
@@ -608,25 +623,7 @@
             search: true,
             freezeColumns: 2,
             columnResize: false,
-            //rowResize: true,
-            /*
-            toolbar:[
-                //{ type:'i', content:'undo', onclick:function() { tableSiswa.undo(); } },
-                //{ type:'i', content:'redo', onclick:function() { tableSiswa.redo(); } },
-                //{ type:'select', k:'font-family', v:['Arial','Verdana'] },
-                //{ type:'select', k:'font-size', v:['9px','10px','11px','12px','13px','14px','15px','16px','17px','18px','19px','20px'] },
-                { type:'i', content:'save', onclick:function () { $('#uploadnilai').submit(); } },
-                //{ type:'i', content:'format_align_left', k:'text-align', v:'left' },
-                //{ type:'i', content:'format_align_center', k:'text-align', v:'center' },
-                //{ type:'i', content:'format_align_right', k:'text-align', v:'right' },
-                //{ type:'i', content:'format_bold', k:'font-weight', v:'bold' },
-                //{ type:'color', content:'format_color_text', k:'color' },
-                //{ type:'color', content:'format_color_fill', k:'background-color' },
-            ],*/
             columns: arrCol,
-            /*[
-            {width: 100},
-            {width: 300},       ],*/
             nestedHeaders: [
                 [
                     {
@@ -702,6 +699,22 @@
             return x + "," + y;
         }
 
+        $('#upload').on('click', function (e) {
+            const input = $('#custom-file')
+            const files = input[0].files
+            console.log('files',files)
+            if (!files.length) {
+                swal.fire({
+                    title: "INFO",
+                    text: 'Tidak ada file untuk diupload',
+                    icon: "info"
+                });
+            } else {
+                parseFile(files[0]);
+            }
+        })
+
+        /*
         $('#uploadharian').submit('click', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -727,6 +740,7 @@
                 }
             });
         });
+         */
 
         $('#uploadnilai').on('submit', function (e) {
             e.preventDefault();
@@ -882,5 +896,173 @@
             });
         });
 
+
+
     });
+
+    async function downloadTemplate(res) {
+        const response = await fetch(base_url + 'uploads/import/format/template_harian_client.xlsx')
+        const arrayBuffer = await response.arrayBuffer()
+        const excelTemplate = await JsExcelTemplate.fromArrayBuffer(arrayBuffer)
+        excelTemplate.set("mapel", namaMapel);
+        excelTemplate.set("kelas", namaKelas);
+        excelTemplate.set("kikd", res.kikd);
+        excelTemplate.set("siswa", res.siswa);
+
+        const blob = await excelTemplate.toBlob()
+        saveAs(blob, `Nilai Harian ${namaMapel} ${namaKelas}.xlsx`);
+    }
+
+    async function processDownload(idMapel, idKelas) {
+        $.ajax({
+            url: base_url + "rapor/downloadnilaiharian/"+idMapel+"/"+idKelas,
+            method: "GET",
+            success: function (result) {
+                console.log("result", result);
+                downloadTemplate(result)
+            }, error: function (xhr, status, error) {
+                console.log("error", xhr.responseText);
+                const err = JSON.parse(xhr.responseText)
+                swal.fire({
+                    title: "Error",
+                    text: err,
+                    icon: "error"
+                });
+            }
+        });
+    }
+
+    function getDataFromExcel(file) {
+        return new Promise((resolve, reject) => {
+            const wb = new ExcelJS.Workbook();
+            const reader = new FileReader()
+            reader.onload = async () => {
+                try {
+                    const buffer = reader.result;
+                    wb.xlsx.load(buffer).then(workbook => {
+                        let dataFiles = {}
+                        workbook.eachSheet((sheet, id) => {
+                            let cols = {
+                                'name': sheet.name,
+                                'header': [],
+                                'rows': []
+                            }
+                            let head = []
+                            sheet.eachRow({includeEmpty: true}, (row, rowIndex) => {
+                                let obj = {}
+                                for (let i = 0; i < row.values.length; i++) {
+                                    if (rowIndex === 2) {
+                                        let val = row.values[i] ? (row.values[i] === 'N I S N' ? 'NISN' : row.values[i].replaceAll(' ', '').replaceAll('.', '')) : ''
+                                        if (val.includes('/')) val = val.split('/')[1]
+                                        head.push(val.toLowerCase())
+                                        if (row.values[i]) {
+                                            let h = {
+                                                label: row.values[i],
+                                                value: val.toLowerCase(),
+                                            }
+                                            cols.header.push(h)
+                                        }
+                                    } else {
+                                        obj[head[i]] = row.values[i]
+                                    }
+                                }
+                                cols.rows.push(obj)
+                            })
+                            cols.rows = removeEmptyObjects(cols.rows)
+                            dataFiles[sheet.name] = cols
+                        })
+                        resolve(dataFiles)
+                    })
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            reader.onerror = (error) => {
+                reject(error)
+            };
+            reader.readAsArrayBuffer(file)
+        });
+    }
+
+    function removeEmptyObjects(array) {
+        return array.filter(element => {
+            //console.log('cols', element)
+            delete element.undefined
+            return Object.keys(element).length !== 0;
+        });
+    }
+
+    function uploadNilaiHarian(jsonData) {
+        swal.fire({
+            title: "Menyimpan nilai harian",
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
+
+        let formData = new FormData($('#uploadharian')[0])
+
+        const nilaiSiswa = jsonData.NILAI.rows
+        nilaiSiswa.forEach(function (siswa, ind) {
+            for (const key in siswa) {
+                if (key && key !== 'no') {
+                    formData.append('siswa['+ind+']['+key+']', siswa[key])
+                }
+            }
+        })
+        const kikd = jsonData.KIKD.rows
+        kikd.forEach(function (kd, ind) {
+            for (const key in kd) {
+                console.log('key', key, kd[key])
+                if (key) {
+                    formData.append('kikd['+ind+']['+key+']', kd[key])
+                }
+            }
+        })
+
+        $.ajax({
+            type: "POST",
+            url: base_url + 'rapor/uploadnilaiharian/',
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                console.log(data);
+                window.location.href = base_url + 'rapor/inputharian/' + idMapel + '/' + idKelas
+            },
+            error: function (e) {
+                console.log("error", e.responseText);
+                showDangerToast(e.responseText);
+            }
+        });
+    }
+
+    async function parseFile(file) {
+        const jsonData = await getDataFromExcel(file)
+        console.log('parse', jsonData)
+        if (jsonData) {
+            swal.fire({
+                title: "UPLOAD",
+                html: "Nilai yang sudah ada akan ditimpa. Lanjutkan?",
+                icon: "warning",
+                showCancelButton: 'Batal',
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            }).then(result => {
+                if (result.value) {
+                    uploadNilaiHarian(jsonData)
+                }
+            });
+        }
+    }
+
+
 </script>

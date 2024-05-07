@@ -211,7 +211,7 @@
                                                 <?php endif; ?>
                                             </ol>
                                         </td>
-                                        <td class="text-center"><?= strtoupper($s->jawaban) ?></td>
+                                        <td class="text-center"><?= strtoupper($s->jawaban ?? '') ?></td>
                                         <td class="text-center d-none"><?= $s->no_soal_alias ?></td>
                                         <td class="d-none">
                                             <ol type="A">
@@ -222,8 +222,8 @@
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
-                                        <td class="text-center d-none"><?= strtoupper($s->jawaban_alias) ?></td>
-                                        <td class="text-center"><?= strtoupper($s->jawaban_siswa) ?></td>
+                                        <td class="text-center d-none"><?= strtoupper($s->jawaban_alias ?? '') ?></td>
+                                        <td class="text-center"><?= strtoupper($s->jawaban_siswa ?? '') ?></td>
                                         <td class="text-center"><?= $s->analisa ?></td>
                                         <td class="text-center"><?= $s->point ?></td>
                                     </tr>
@@ -297,8 +297,8 @@
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
-                                        <td class="text-center"><?= strtoupper(implode(", ", $s->jawaban_benar)) ?></td>
-                                        <td class="text-center"><?= $s->jawaban_siswa ? strtoupper(implode(", ", $s->jawaban_siswa)) : '' ?></td>
+                                        <td class="text-center"><?= strtoupper(implode(", ", $s->jawaban_benar ?? '')) ?></td>
+                                        <td class="text-center"><?= $s->jawaban_siswa ? strtoupper(implode(", ", $s->jawaban_siswa ?? '')) : '' ?></td>
                                         <td class="text-center"><?= $s->analisa ?></td>
                                         <td class="text-center">
                                             <input id="input<?= $s->id_soal_siswa ?>"
@@ -411,7 +411,7 @@
                                         </td>
                                         <td>
                                             <?php
-                                            $jwb = $s->tabel_jawab[0];
+                                            $jwb = isset($s->tabel_jawab[0]) ? $s->tabel_jawab[0] : [];
                                             if ($s->type_soal == '1') :?>
                                                     <span><?= $jwb->title ?></span>
                                                     <?php if (isset($jwb->subtitle)) : ?>
@@ -424,7 +424,7 @@
                                                         <br>--
                                                     <?php endif; ?>
                                             <?php else:?>
-                                                    <p><?= $jwb->title ?>
+                                                    <p><?= isset($jwb->title) ? $jwb->title : '' ?>
                                                         <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
                                             <?php endif; ?>
                                         </td>
@@ -474,7 +474,7 @@
                                     </td>
                                     <td>
                                         <?php
-                                        $jwb = $s->tabel_jawab[$t];
+                                        $jwb = isset($s->tabel_jawab[$t]) ? $s->tabel_jawab[$t] : [];
                                         if ($s->type_soal == '1') : ?>
                                                 <span><?= $jwb->title ?></span>
                                                 <?php if (isset($jwb->subtitle)) : ?>
@@ -487,7 +487,7 @@
                                                     <br>--
                                                 <?php endif; ?>
                                         <?php else: ?>
-                                                <p><?= $jwb->title ?>
+                                                <p><?= isset($jwb->title) ? $jwb->title : '' ?>
                                                     <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
                                         <?php endif; ?>
                                     </td>

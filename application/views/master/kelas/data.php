@@ -53,21 +53,6 @@
                                     </a>
                                 </span>
                             <?php endif; ?>
-                            <!--
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default" data-toggle="tooltip" title="Print">
-                                    <i class="fas fa-print"></i></button>
-                                <button type="button" class="btn btn-default" data-toggle="tooltip"
-                                        title="Export As PDF"><i
-                                            class="fas fa-file-pdf"></i></button>
-                                <button type="button" class="btn btn-default" data-toggle="tooltip"
-                                        title="Export As Word"><i
-                                            class="fa fa-file-word"></i></button>
-                                <button type="button" class="btn btn-default" data-toggle="tooltip"
-                                        title="Export As Excel"><i
-                                            class="fa fa-file-excel"></i></button>
-                            </div>
-                            -->
                         </div>
                     </div>
 
@@ -82,16 +67,16 @@
                         </div>
                     <?php else: ?>
                     <div class="table-responsive">
-                        <table id="table-kelas" class="w-100 table table-striped table-bordered table-hover">
+                        <table id="table-kelas" class="w-100 table table-sm table-striped table-bordered table-hover">
                             <thead>
                             <tr class="alert alert-info">
-                                <th class="text-center align-middle p-0">No.</th>
-                                <th>Nama Kelas</th>
-                                <th>Kode Kelas</th>
+                                <th height="40" class="text-center align-middle p-0">No.</th>
+                                <th class="align-middle">Nama Kelas</th>
+                                <th class="align-middle">Kode Kelas</th>
                                 <?php if ($setting->jenjang == '3') : ?>
                                     <td>Jurusan</td>
                                 <?php endif; ?>
-                                <th>Wali Kelas</th>
+                                <th class="align-middle">Wali Kelas</th>
                                 <th class="align-middle text-center">Jumlah Siswa</th>
                                 <th class="text-center align-middle p-0" style="width: 180px"><span>Aksi</span></th>
                             </tr>
@@ -139,70 +124,6 @@
                     </div>
                 </div>
             </div>
-            <!--
-            <div class="row" id="konten">
-                <?php
-            //var_dump($jml);
-            if (count($kelas) === 0) : ?>
-                    <div class="col-12">
-                        <div class="alert alert-default-warning shadow align-content-center" role="alert">
-                            Belum ada data kelas untuk Tahun Pelajaran <b><?= $tp_active->tahun ?></b> Semester:
-                            <b><?= $smt_active->smt ?></b>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <?php foreach ($kelas as $kls) : ?>
-                        <div class="col-md-4">
-                            <div class="card my-shadow mb-4">
-                                <div class="card-header border-bottom-0">
-                                    <h3 class="card-title mt-1">Kelas: <b><?= $kls->nama_kelas ?></b></h3>
-                                    <div class="card-tools">
-                                        <span data-toggle="tooltip" title="Lihat Detail Kelas">
-										<a type="button" href="<?= base_url('datakelas/detail/' . $kls->id_kelas) ?>"
-                                           class="btn btn-default btn-sm mr-1">
-											<i class="fa fa-eye"></i>
-										</a>
-									</span>
-                                        <span data-toggle="tooltip" title="Edit Kelas">
-										<a type="button" href="<?= base_url('datakelas/edit/' . $kls->id_kelas) ?>"
-                                           class="btn btn-default btn-sm mr-1">
-											<i class="fa fa-pencil-alt"></i>
-										</a>
-									</span>
-                                        <button data-id="<?= $kls->id_kelas ?>" type="button"
-                                                class="btn-sm btn btn-default hapuskelas" data-toggle="tooltip"
-                                                title="Hapus Data Kelas">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <ul class="list-group list-group-unbordered">
-                                        <?php if ($setting->jenjang == '3') : ?>
-                                            <li class="list-group-item">
-                                                <i class="fas fa-inbox"></i> Jurusan
-                                                <span class="float-right"><b><?= $kls->nama_jurusan ?></b></span>
-                                            </li>
-                                        <?php endif; ?>
-                                        <li class="list-group-item">
-                                            <i class="fas fa-inbox"></i> Wali Kelas
-                                            <span class="float-right"><b><?= $kls->nama_guru ?></b></span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="far fa-envelope"></i> Ketua Kelas
-                                            <span class="float-right"><b><?= $kls->nama ?></b></span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="far fa-file-alt"></i> Jumlah Siswa
-                                            <span class="float-right"><b><?= $kls->jml_siswa ?></b></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; endif; ?>
-            </div>
-            -->
         </div>
     </section>
 </div>

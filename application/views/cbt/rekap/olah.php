@@ -8,7 +8,7 @@
 
 function unserialize_with_key($serialized)
 {
-    $arr = unserialize($serialized);
+    $arr = unserialize($serialized ?? '');
     $result = [];
     foreach ($arr as $value) {
         $result[$value['no_soal']] = $value['jawab'];
@@ -318,7 +318,7 @@ function decimalFixed($num)
                                                         $jwbn = '';
                                                         if (isset($jwb_pgs[$key])) {
                                                             $jwbn = isset($jwb_pgs[$key]) ? $jwb_pgs[$key] : '';
-                                                            if (strtoupper($benar) == strtoupper($jwb_pgs[$key])) {
+                                                            if (strtoupper($benar ?? '') == strtoupper($jwb_pgs[$key] ?? '')) {
                                                                 $bg1 = '#00E676';
                                                                 $bg2 = 'data-fill-color="00E676"';
                                                                 $benar_pg++;

@@ -6,12 +6,12 @@
  * Time: 22:29
  */
 
-$kelas_pilih = unserialize($tugas->tugas_kelas);
+$kelas_pilih = unserialize($tugas->tugas_kelas ?? '');
 
 $dataFileAttach = [];
-$att = @unserialize($tugas->file);
+$att = @unserialize($tugas->file ?? '');
 if ($att !== false) {
-    $dataFileAttach = unserialize($tugas->file);
+    $dataFileAttach = unserialize($tugas->file ?? '');
 } else {
     if ($tugas->file != null) {
         $file = $tugas->file;

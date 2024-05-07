@@ -26,10 +26,10 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table id="tableKelompok" class="w-100 table table-striped table-bordered table-hover">
+                                <table id="tableKelompok" class="w-100 table table-sm table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="text-center align-middle">Kategori</th>
+                                        <th height="40" class="text-center align-middle">Kategori</th>
                                         <th class="text-center align-middle">Kode</th>
                                         <th class="align-middle">Nama</th>
                                         <th class="text-center align-middle p-0"><span>Aksi</span></th>
@@ -45,15 +45,15 @@
                                 </div>
                                 <div class="col-6">
                                     <button type="button" data-toggle="modal" data-target="#editSubKelompokModal"
-                                            class="btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i>
+                                            class="btn btn-xs btn-primary float-right"><i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table id="tableSubKelompok" class="table table-striped table-bordered table-hover">
+                                <table id="tableSubKelompok" class="table table-sm table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="text-center align-middle">Kode</th>
+                                        <th height="40" class="text-center align-middle">Kode</th>
                                         <th class="align-middle">Nama</th>
                                         <th class="text-center align-middle">Kel. Utama</th>
                                         <th class="text-center align-middle p-0"><span>Aksi</span></th>
@@ -81,17 +81,17 @@
                     </div>
                     <?= form_open('', array('id' => 'bulk')) ?>
                     <div class="table-responsive">
-                        <table id="tableMapel" class="w-100 table table-striped table-bordered table-hover">
+                        <table id="tableMapel" class="w-100 table table-sm table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th class="text-center align-middle p-0 w-auto">
+                                <th height="40" class="text-center align-middle p-0 w-auto">
                                     <input type="checkbox" class="select_all">
                                 </th>
                                 <th class="text-center align-middle p-0 w-auto">No.Urut Rapor</th>
-                                <th class="text-center">Mata Pelajaran</th>
-                                <th class="text-center">Kode Mata Pelajaran</th>
-                                <th class="text-center">Kelompok</th>
-                                <th class="text-center">Status</th>
+                                <th class="align-middle">Mata Pelajaran</th>
+                                <th class="text-center align-middle">Kode Mata Pelajaran</th>
+                                <th class="text-center align-middle">Kelompok</th>
+                                <th class="text-center align-middle">Status</th>
                                 <th class="text-center align-middle p-0"><span>Aksi</span></th>
                             </tr>
                             </thead>
@@ -357,62 +357,6 @@
         </div>
     </div>
 </div>
-
-<!--
-<div class="modal fade" id="mapelNonAktif" tabindex="-1" role="dialog" aria-labelledby="labelmapelNonAktif" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="labelmapelNonAktif">Edit Mapel Aktif/Nonaktif</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="w-100 table">
-                    <tr>
-                        <th>
-                            No
-                        </th>
-                        <th>
-                            Mata Pelajaran
-                        </th>
-                        <th>
-                            Kelompok
-                        </th>
-                        <th>
-                            Aksi
-                        </th>
-                    </tr>
-                    <?php
-$no = 1;
-foreach ($mapel_non_aktif as $m) :
-    if ($m->status == '0') :?>
-                    <tr>
-                        <td>
-                            <?= $no ?>
-                        </td>
-                        <td>
-                            <?= $m->nama_mapel ?>
-                        </td>
-                        <td>
-                            <?= $m->kelompok ?>
-                        </td>
-                        <td>
-                            <button onclick="aktifkan(this)" class="btn btn-xs btn-danger" data-id="<?= $m->id_mapel ?>">Aktifkan
-                            </button>
-                        </td>
-                    </tr>
-                    <?php $no++; endif; endforeach; ?>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div>
--->
 
 <?= form_open('create', array('id' => 'hapus-kelompok')) ?>
 <?= form_close() ?>

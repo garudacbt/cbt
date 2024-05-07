@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 function tampil_media($file,$width="",$height="") {
 	$ret = '';
 
-	$pc_file = explode(".", $file);
+	$pc_file = explode(".", $file ?? '');
 	$eks = end($pc_file);
 
 	$eks_video = array("mp4","flv","mpeg");

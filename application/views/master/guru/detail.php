@@ -91,7 +91,7 @@
                                                 Pengampu
                                                 <ul>
                                                     <?php
-                                                    $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[0]][1]->mapel_kelas)));
+                                                    $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[0]][1]->mapel_kelas ?? '')));
                                                     foreach ($mapels as $mapel) :
                                                         $kls = '';
                                                         foreach ($mapel->kelas_mapel as $mk) {
@@ -120,7 +120,7 @@
                                                 Pengampu
                                                 <ul>
                                                     <?php
-                                                    $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[0]][2]->mapel_kelas)));
+                                                    $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[0]][2]->mapel_kelas ?? '')));
                                                     foreach ($mapels as $mapel) :
                                                         $kls = '';
                                                         foreach ($mapel->kelas_mapel as $mk) {
@@ -151,7 +151,7 @@
                                                     Pengampu
                                                     <ul>
                                                         <?php
-                                                        $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[$i]][1]->mapel_kelas)));
+                                                        $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[$i]][1]->mapel_kelas ?? '')));
                                                         foreach ($mapels as $mapel) :
                                                             $kls = '';
                                                             foreach ($mapel->kelas_mapel as $mk) {
@@ -179,7 +179,7 @@
                                                     Pengampu
                                                     <ul>
                                                         <?php
-                                                        $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[$i]][2]->mapel_kelas)));
+                                                        $mapels = json_decode(json_encode(unserialize($guru['jabatan'][$tahun_ids[$i]][2]->mapel_kelas ?? '')));
                                                         foreach ($mapels as $mapel) :
                                                             $kls = '';
                                                             foreach ($mapel->kelas_mapel as $mk) {

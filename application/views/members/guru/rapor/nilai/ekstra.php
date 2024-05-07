@@ -32,21 +32,20 @@
                     <?php else: ?>
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <a href="<?= base_url('rapor/downloadtemplateekstra/' . $ekstra['id_ekstra'] . '/' . $kelas['id_kelas']) ?>"
-                                   id="download" type="button" class="btn btn-primary w-100">
+                                <div type="button" class="btn btn-primary w-100" onclick="processDownload(<?= $ekstra['id_ekstra'] ?>, <?= $kelas['id_kelas'] ?>)">
                                     <i class="fa fa-download"></i> <span class="ml-1">Download Template</span>
-                                </a>
+                                </div>
                             </div>
 
                             <div class="col-md-8">
-                                <?= form_open_multipart('', array('id' => 'uploadekstra')); ?>
                                 <div class="row">
                                     <div class="col-8">
+                                        <?= form_open_multipart('', array('id' => 'uploadfile')); ?>
                                         <div class="custom-file">
-                                            <input type="file" name="upload_file" class="custom-file-input"
-                                                   id="customFile">
+                                            <input type="file" name="upload_file" class="custom-file-input" id="custom-file">
                                             <label class="custom-file-label" for="customFile">Pilih file excel</label>
                                         </div>
+                                        <?= form_close(); ?>
                                     </div>
 
                                     <div class="col-4">
@@ -55,7 +54,6 @@
                                         </button>
                                     </div>
                                 </div>
-                                <?= form_close(); ?>
                             </div>
                         </div>
                         <hr>
@@ -80,7 +78,15 @@
             </div>
         </div>
     </section>
+    <?= form_open('', array('id' => 'uploadekstra')); ?>
+    <input type="hidden" name="id_ekstra" class="form-control" value="<?= $ekstra['id_ekstra'] ?>">
+    <input type="hidden" name="id_kelas" class="form-control" value="<?= $kelas['id_kelas'] ?>">
+    <?= form_close(); ?>
 </div>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/excel/exceljs.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/excel/js-excel-template.min.js"></script>
+
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
 <script>
@@ -89,6 +95,8 @@
     var kkm = JSON.parse(JSON.stringify(<?= json_encode($kkm)?>));
     var idMapel = '<?=$ekstra['id_ekstra']?>';
     var idKelas = '<?=$kelas['id_kelas']?>';
+    var namaMapel = '<?=$ekstra['nama_ekstra']?>';
+    var namaKelas = '<?=$kelas['nama_kelas']?>';
     var tpActive = '<?=$tp_active->id_tp?>';
     var smtActive = '<?=$smt_active->id_smt?>';
 
@@ -156,7 +164,7 @@
                 item['title'] = 'NAMA SISWA\n' + char.charAt(i);
                 item['width'] = 250;
             } else if (i === 2) {
-                item['title'] = 'NILAI PTS\n' + char.charAt(i);
+                item['title'] = 'NILAI\n' + char.charAt(i);
                 item['width'] = 100;
             } else if (i === 3) {
                 item['title'] = 'PREDIKAT\n' + char.charAt(i);
@@ -215,6 +223,7 @@
             },
         });
 
+        /*
         $('#uploadekstra').submit('click', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -240,6 +249,7 @@
                 }
             });
         });
+         */
 
         $('#uploadnilai').on('submit', function (e) {
             e.preventDefault();
@@ -312,5 +322,182 @@
                 }
             });
         });
+
+        $('#custom-file').on('change', async function (e) {
+            var files = e.target.files || [];
+            if (!files.length) return;
+
+            const jsonData = await getDataFromExcel(files[0])
+            console.log('parse', jsonData)
+        });
+
+        $('#upload').on('click', function (e) {
+            const input = $('#custom-file')
+            const files = input[0].files
+            if (!files.length) {
+                swal.fire({
+                    title: "INFO",
+                    text: 'Tidak ada file untuk diupload',
+                    icon: "info"
+                });
+            } else {
+                parseFile(files[0]);
+            }
+        })
+
     });
+
+    async function downloadTemplate(res) {
+        const response = await fetch(base_url + 'uploads/import/format/template_ekstra_client.xlsx')
+        const arrayBuffer = await response.arrayBuffer()
+        const excelTemplate = await JsExcelTemplate.fromArrayBuffer(arrayBuffer)
+        excelTemplate.set("mapel", namaMapel);
+        excelTemplate.set("kelas", namaKelas);
+        excelTemplate.set("siswa", res.siswa);
+
+        const blob = await excelTemplate.toBlob()
+        saveAs(blob, `Nilai ${namaMapel} ${namaKelas}.xlsx`);
+    }
+
+    async function processDownload(idMapel, idKelas) {
+        $.ajax({
+            url: base_url + "rapor/downloadtemplateekstra/"+idMapel+"/"+idKelas,
+            method: "GET",
+            success: function (result) {
+                console.log("result", result);
+                downloadTemplate(result)
+            }, error: function (xhr, status, error) {
+                console.log("error", xhr.responseText);
+                const err = JSON.parse(xhr.responseText)
+                swal.fire({
+                    title: "Error",
+                    text: err,
+                    icon: "error"
+                });
+            }
+        });
+    }
+
+    function getDataFromExcel(file) {
+        return new Promise((resolve, reject) => {
+            const wb = new ExcelJS.Workbook();
+            const reader = new FileReader()
+            reader.onload = async () => {
+                try {
+                    const buffer = reader.result;
+                    wb.xlsx.load(buffer).then(workbook => {
+                        let dataFiles = {}
+                        workbook.eachSheet((sheet, id) => {
+                            let cols = {
+                                'name': sheet.name,
+                                'header': [],
+                                'rows': []
+                            }
+                            let head = []
+                            sheet.eachRow({includeEmpty: true}, (row, rowIndex) => {
+                                let obj = {}
+                                for (let i = 0; i < row.values.length; i++) {
+                                    if (rowIndex === 4) {
+                                        let val = row.values[i] ? (row.values[i] === 'N I S N' ? 'NISN' : row.values[i].replaceAll(' ', '').replaceAll('.', '')) : ''
+                                        if (val.includes('/')) val = val.split('/')[1]
+                                        head.push(val.toLowerCase())
+                                        if (row.values[i]) {
+                                            let h = {
+                                                label: row.values[i],
+                                                value: val.toLowerCase(),
+                                            }
+                                            cols.header.push(h)
+                                        }
+                                    } else {
+                                        obj[head[i]] = row.values[i]
+                                    }
+                                }
+                                cols.rows.push(obj)
+                            })
+                            cols.rows = removeEmptyObjects(cols.rows)
+                            dataFiles[sheet.name] = cols
+                        })
+                        resolve(dataFiles)
+                    })
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            reader.onerror = (error) => {
+                reject(error)
+            };
+            reader.readAsArrayBuffer(file)
+        });
+    }
+
+    function removeEmptyObjects(array) {
+        return array.filter(element => {
+            delete element.undefined
+            return Object.keys(element).length !== 0;
+        });
+    }
+
+    function uploadNilaiEkstra(jsonData) {
+        swal.fire({
+            title: "Menyimpan nilai Ekstrakurikuler",
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
+
+        let formData = new FormData($('#uploadekstra')[0])
+
+        const nilaiSiswa = jsonData.NILAI.rows
+        nilaiSiswa.forEach(function (siswa, ind) {
+            for (const key in siswa) {
+                if (key && key !== 'no') {
+                    formData.append('siswa['+ind+']['+key+']', siswa[key])
+                }
+            }
+        })
+
+        $.ajax({
+            type: "POST",
+            url: base_url + 'rapor/uploadnilaiekstra/',
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                console.log(data);
+                window.location.href = base_url + 'rapor/inputekstra/' + idMapel + '/' + idKelas
+            },
+            error: function (e) {
+                console.log("error", e.responseText);
+                showDangerToast(e.responseText);
+            }
+        });
+    }
+
+    async function parseFile(file) {
+        const jsonData = await getDataFromExcel(file)
+        console.log('parse', jsonData)
+        if (jsonData) {
+            swal.fire({
+                title: "UPLOAD",
+                html: "Nilai yang sudah ada akan ditimpa. Lanjutkan?",
+                icon: "warning",
+                showCancelButton: 'Batal',
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            }).then(result => {
+                if (result.value) {
+                    uploadNilaiEkstra(jsonData)
+                }
+            });
+        }
+    }
+
 </script>

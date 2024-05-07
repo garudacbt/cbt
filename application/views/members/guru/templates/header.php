@@ -60,13 +60,14 @@
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
     <!-- fonts -->
-    <!--
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/poppins.css">
-	-->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/calibri.css">
+    <!--
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/montserrat.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/fonts.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/scheherazade.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/uthmanic.css">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/fonts.css">
+	-->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/app/css/show.toast.css">
 
     <!-- Theme style -->
@@ -83,24 +84,6 @@
 
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/bootstrap-icon/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/plugins/pignose/css/pignose.calendar.css">
-    <!--
-	<link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/file-uploader/src/image-uploader.css">
-	<!--
-	<link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/advanced-file-uploader/docs/assets/demo.css">
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-    <!--
-    <link rel='stylesheet' href='<?= base_url() ?>/assets/plugins/luckysheet/src/plugins/css/pluginsCss.css' />
-    <link rel='stylesheet' href='<?= base_url() ?>/assets/plugins/luckysheet/src/plugins/plugins.css' />
-    <link rel='stylesheet' href='<?= base_url() ?>/assets/plugins/luckysheet/src/css/luckysheet.css' />
-    <link rel='stylesheet' href='<?= base_url() ?>/assets/plugins/luckysheet/src/assets/iconfont/iconfont.css' />
-
-    <!-- rollup luckysheet.js -->
-    <!--
-    <script src="<?= base_url() ?>/assets/plugins/luckysheet/src/plugins/js/plugin.js"></script>
-    <script src="<?= base_url() ?>/assets/plugins/luckysheet/src/luckysheet.umd.js"></script>
-    -->
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -283,7 +266,7 @@ function singkat_tanggal($str)
 
 ?>
 
-<body class="hold-transition sidebar-mini text-sm" spellcheck="false" onload="startTime()">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed text-sm" spellcheck="false" onload="startTime()">
 <div class="wrapper">
 
     <!-- Navbar -->

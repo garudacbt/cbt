@@ -8,7 +8,7 @@
 
 if (isset($jadwal_kbm)) {
     $ist = json_decode(json_encode($jadwal_kbm->istirahat));
-    $jmlIst = json_decode(json_encode(unserialize($ist)));
+    $jmlIst = json_decode(json_encode(unserialize($ist ?? '')));
 }
 ?>
 

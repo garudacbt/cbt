@@ -137,7 +137,7 @@
 
 <script>
     $(document).ready(function () {
-        function submitajax(url, data, msg, btn) {
+        function submitajax(url, data, msg, type) {
             swal.fire({
                 text: "Silahkan tunggu....",
                 button: false,
@@ -159,9 +159,13 @@
                             title: "Sukses",
                             text: msg,
                             icon: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                        }).then(result => {
+                            if (result.value) {
+                                location.href = base_url + "logout";
+                            }
                         });
-                        //showSuccessToast(msg);
-                        //$('form#change_password').trigger('reset');
                     } else {
                         if (response.errors) {
                             swal.fire({
@@ -169,17 +173,6 @@
                                 text: 'Gagal edit admin',
                                 icon: "error"
                             });
-                            //showDangerToast('Gagal edit admin')
-                            /*
-                            $.each(response.errors, function (key, val) {
-                                $('[name="' + key + '"]').closest('.form-group').addClass('has-error');
-                                $('[name="' + key + '"]').nextAll('.help-block').eq(0).text(val);
-                                if (val === '') {
-                                    $('[name="' + key + '"]').closest('.form-group').removeClass('has-error');
-                                    $('[name="' + key + '"]').nextAll('.help-block').eq(0).text('');
-                                }
-                            });
-                            */
                         }
                         if (response.msg) {
                             swal.fire({
@@ -187,10 +180,8 @@
                                 text: 'Password lama tidak benar',
                                 icon: "error"
                             });
-                            //showDangerToast("Password lama tidak benar");
                         }
                     }
-                    //btn.removeAttr('disabled').text('Ganti Password');
                 }, error: function (xhr, status, error) {
                     const err = JSON.parse(xhr.responseText)
                     swal.fire({
@@ -212,7 +203,7 @@
             url = $(this).attr('action');
             data = $(this).serialize();
             msg = "Password anda berhasil diganti";
-            submitajax(url, data, msg, btn);
+            submitajax(url, data, msg, 1);
         });
 
         $('form input, form select').on('change', function () {
@@ -230,7 +221,7 @@
             url = $(this).attr('action');
             data = $(this).serialize();
             msg = "Informasi user berhasil diupdate";
-            submitajax(url, data, msg, btn);
+            submitajax(url, data, msg, 2);
         });
 
         $('form#user_level').on('submit', function (e) {
@@ -243,7 +234,7 @@
             url = $(this).attr('action');
             data = $(this).serialize();
             msg = "Level user berhasil diupdate";
-            submitajax(url, data, msg, btn);
+            submitajax(url, data, msg, 3);
         });
 
         $('form#user_status').on('submit', function (e) {
@@ -256,7 +247,7 @@
             url = $(this).attr('action');
             data = $(this).serialize();
             msg = "Status user berhasil diupdate";
-            submitajax(url, data, msg, btn);
+            submitajax(url, data, msg, 4);
         });
 
     });

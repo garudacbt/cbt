@@ -102,7 +102,7 @@ $allowedDates = [];
                                                 <div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 14pt"><?= $setting->sekolah ?></div>
                                                 <div style="line-height: 1.1; font-family: 'Times New Roman'; font-size: 16pt">
                                                     <b>DAFTAR PENGAWAS</b></div>
-                                                <div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 13pt"><?= strtoupper($jenis_ujian->nama_jenis . ' (' . $jenis_ujian->kode_jenis . ')') ?></div>
+                                                <div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 13pt"><?= strtoupper($jenis_ujian->nama_jenis ?? '' . ' (' . $jenis_ujian->kode_jenis . ')') ?></div>
                                                 <div style="line-height: 1.2; font-family: 'Times New Roman'; font-size: 12pt">
                                                     Tahun Pelajaran: <?= $tp_active->tahun ?></div>
                                             </td>
@@ -181,7 +181,7 @@ $allowedDates = [];
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script>
-    var docTitle = '<?=$judul?>' + ' <?=$jenis[$jenis_selected]?>';
+    var docTitle = "<?=$judul?>" + " <?=$jenis[$jenis_selected]?>";
 
     $(document).ready(function () {
         ajaxcsrf();
@@ -191,7 +191,7 @@ $allowedDates = [];
             vertical_align: "middle"
         });
 
-        var allowed = JSON.parse('<?=json_encode($allowedDates)?>');
+        var allowed = JSON.parse("<?=json_encode($allowedDates)?>");
         //console.log(allowed);
         $('.tgl').datetimepicker({
             icons:

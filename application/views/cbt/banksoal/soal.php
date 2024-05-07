@@ -7,9 +7,9 @@
  */
 
 $dataFileAttach = [];
-$att = @unserialize($soal->file);
+$att = @unserialize($soal->file ?? '');
 if ($att !== false) {
-    $dataFileAttach = unserialize($soal->file);
+    $dataFileAttach = unserialize($soal->file ?? '');
 }
 
 $pg_belum_komplit = [];
@@ -271,7 +271,7 @@ foreach ($soal_ada as $key => $value) {
                                     foreach ($rangeAbjad as $abjad) :
                                         ?>
                                         <div class="mb-3 ml-3">
-                                            <label>Jawaban <?= strtoupper($abjad) ?></label>
+                                            <label>Jawaban <?= strtoupper($abjad ?? '') ?></label>
                                             <textarea class="textjawaban" id="textjawaban_<?= $abjad ?>"
                                                       name="jawaban_<?= $abjad ?>"
                                                       placeholder="Place some text here"
