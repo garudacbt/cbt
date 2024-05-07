@@ -1,1 +1,0 @@
-!function(a){MathJax.Hub.Insert(a.Parse.Entity,{Wcirc:"Ŵ",wcirc:"ŵ",wedbar:"⩟",wedge:"∧",wedgeq:"≙",wp:"℘",wr:"≀",wreath:"≀"}),MathJax.Ajax.loadComplete(a.entityDir+"/w.js")}(MathJax.InputJax.MathML);

@@ -576,6 +576,7 @@ function getRandomInt(max) {
                         ['font', ['bold', 'italic', 'underline']],
                         ['color', ['color']],
                         ['insert', ['picture']],
+                        ['view', ['codeview']],
                         ['delete', ['hapus']]
                     ],
                     buttons: {
@@ -674,7 +675,7 @@ function getRandomInt(max) {
 
                 //function resizeCanvas() {
                     const fixedHeight = hKiri < hKanan ? hKanan : hKiri
-                    selCanvas.attr("height", '' + (fixedHeight-10));
+                    selCanvas.attr("height", '' + (fixedHeight-15));
 
                     const rect = self.canvas.getBoundingClientRect();
                     self.offsetX = rect.left;

@@ -2,7 +2,11 @@ $(document).ready(function () {
     ajaxcsrf();
 
     $('#table-kelas').dataTable({
-        paging: false
+        paging: false,
+        order: [],
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [0,5]},
+        ],
     })
 
     $('.hapuskelas').click(function (e) {

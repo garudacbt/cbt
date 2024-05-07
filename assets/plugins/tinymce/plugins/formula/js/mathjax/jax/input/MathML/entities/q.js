@@ -1,1 +1,0 @@
-!function(t){MathJax.Hub.Insert(t.Parse.Entity,{QUOT:'"',qint:"⨌",qprime:"⁗",quaternions:"ℍ",quatint:"⨖",quest:"?",questeq:"≟",quot:'"'}),MathJax.Ajax.loadComplete(t.entityDir+"/q.js")}(MathJax.InputJax.MathML);

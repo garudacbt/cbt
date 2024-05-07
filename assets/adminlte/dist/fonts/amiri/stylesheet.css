@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Amiri';
+    src: url('Amiri-Regular.eot');
+    src: url('Amiri-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Amiri-Regular.woff2') format('woff2'),
+        url('Amiri-Regular.woff') format('woff'),
+        url('Amiri-Regular.ttf') format('truetype'),
+        url('Amiri-Regular.svg#Amiri-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

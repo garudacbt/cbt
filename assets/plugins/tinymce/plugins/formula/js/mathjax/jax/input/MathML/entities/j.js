@@ -1,1 +1,0 @@
-!function(t){MathJax.Hub.Insert(t.Parse.Entity,{Jcirc:"Ĵ",Jcy:"Й",Jsercy:"Ј",Jukcy:"Є",jcirc:"ĵ",jcy:"й",jsercy:"ј",jukcy:"є"}),MathJax.Ajax.loadComplete(t.entityDir+"/j.js")}(MathJax.InputJax.MathML);
