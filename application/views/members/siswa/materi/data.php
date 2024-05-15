@@ -33,7 +33,7 @@
                     <div class="card my-shadow">
                         <div class="card-header">
                             <h5 class="text-center">
-                                <?= strtoupper($judul) ?> HARI INI<br/><?= buat_tanggal(date('D, d M Y')) ?>
+                                <?= strtoupper($judul ?? '') ?> HARI INI<br/><?= buat_tanggal(date('D, d M Y')) ?>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -131,7 +131,7 @@
                                                                                   onclick="showDialog(this)"><b>SELESAI</b></span>
                                                                         <?php else : ?>
                                                                             <a href="<?= $href ?>"
-                                                                               class="small-box-footer p-2" <?= $disabled ?>>ULANGI <?= strtoupper($judul) ?>
+                                                                               class="small-box-footer p-2" <?= $disabled ?>>ULANGI <?= strtoupper($judul ?? '') ?>
                                                                                 <i class="fas fa-arrow-circle-right ml-3"></i><span
                                                                                         class="ml-2"></span>
                                                                             </a>
@@ -146,7 +146,7 @@
                                                                     <?php endif; ?>
                                                                 <?php else : ?>
                                                                     <a href="<?= $href ?>"
-                                                                       class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul) ?>
+                                                                       class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul ?? '') ?>
                                                                         <i class="fas fa-arrow-circle-right ml-3"></i><span
                                                                                 class="ml-2"></span>
                                                                     </a>
@@ -202,7 +202,7 @@
                     <div class="card my-shadow">
                         <div class="card-header">
                             <h5 class="text-center">
-                                <?= strtoupper($judul) ?> TERDAHULU
+                                <?= strtoupper($judul ?? '') ?> TERDAHULU
                             </h5>
                         </div>
                         <div class="card-body">
@@ -283,9 +283,13 @@
                                                             if (isset($log[$mat[$jamke]->id_kjm]) && $log[$mat[$jamke]->id_kjm]->finish_time != null) {
                                                                 // $status = '<a href="' . $href . '" class="btn btn-success ' . $disabled . '">Selesai</a>';
                                                                 //========
-                                                                $status = '<span class="btn btn-success"  data-nilai="' . $log[$mat[$jamke]->id_kjm]->nilai . '"
+                                                                if ($log[$mat[$jamke]->id_kjm]->nilai == '0') {
+                                                                    $status = '<a href="' . $href . '" class="btn btn-danger ' . $disabled . '">Ulangi</a>';
+                                                                } else {
+                                                                    $status = '<span class="btn btn-success"  data-nilai="' . $log[$mat[$jamke]->id_kjm]->nilai . '"
                                                                               data-text="' . $log[$mat[$jamke]->id_kjm]->catatan . '"
                                                                               onclick="showDialog(this)"><b>Selesai</b></span>';
+                                                                }
                                                                 //=========
                                                             } else {
                                                                 $status = '<a href="' . $href . '" class="btn btn-warning ' . $disabled . '">Belum Selesai</a>';
@@ -377,7 +381,7 @@
 
     function showDialog(sel) {
         swal.fire({
-            title: "HASIL <?= strtoupper($judul) ?>",
+            title: "HASIL <?= strtoupper($judul ?? '') ?>",
             html: '<table class="table table-striped table-bordered w-100">' +
                 '    <tr>' +
                 '        <th>NILAI</th>' +

@@ -312,15 +312,15 @@
                                                     <br>
                                                     <ul class="list-group list-group-unbordered pl-3"
                                                         style="list-style-type: upper-alpha">
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_a) ?></li>
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_b) ?></li>
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_c) ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_a ?? '') ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_b ?? '') ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_c ?? '') ?></li>
                                                         <?php if ($bank->opsi == '4') : ?>
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d) ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d ?? '') ?></li>
                                                         <?php endif; ?>
                                                         <?php if ($bank->opsi == '5') : ?>
-                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d) ?></li>
-                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_e) ?></li>
+                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d ?? '') ?></li>
+                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_e ?? '') ?></li>
                                                         <?php endif; ?>
                                                     </ul>
                                                     <div class="mb-2 mt-2">Jawaban:

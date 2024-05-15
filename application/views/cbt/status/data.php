@@ -417,7 +417,7 @@
                     '<td class="text-center align-middle '+dnone+'">' +
                     '	<button type="button" class="btn btn-default" ' +
                     'data-siswa="' + idSiswa + '" data-jadwal="' + data.info.id_jadwal + '" ' +
-                    'data-toggle="modal" data-target="#resetModal" ' + disabledResetWaktu + '><i class="fa fa-refresh"></i></button>' +
+                    'data-toggle="modal" data-target="#resetModal" ' + disabledReset + '><i class="fa fa-refresh"></i></button>' +
                     '</td>' +
                     '<td class="text-center text-success align-middle ' + dnone + '">' +
                     '<input class="check input-reset" type="checkbox" ' + disabledReset + '>' +

@@ -397,6 +397,7 @@ foreach ($soal_ada as $key => $value) {
 <script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/math/katex.min.js"></script>
 
 <script type="text/javascript">
     var nomor_soal = '<?=$p_no?>';

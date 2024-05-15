@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by IntelliJ IDEA.
- * User: AbangAzmi
- * Date: 12/06/2020
- * Time: 10.26
- */
-?>
-
 <div class="content-wrapper bg-white pt-4">
     <section class="content-header">
         <div class="container-fluid">
@@ -14,14 +5,6 @@
                 <div class="col-sm-6">
                     <h1><?= $judul ?></h1>
                 </div>
-                <!--
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">DataTables</li>
-                    </ol>
-                </div>
-                -->
             </div>
         </div>
     </section>
@@ -132,19 +115,7 @@
                                 <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <!--
                             <?= form_close() ?>
-                            <?= form_open('', array('id' => 'hariefektif')) ?>
-                            <label>Jumlah Hari Efektif Satu Semester</label>
-                            <div class="input-group">
-                                <input name="jml_hari" value="<?= $jml_hari ?>" type="number" class="form-control"
-                                       required>
-                                <div class="input-group-append">
-                                    <button class="btn btn-success" type="submit">Simpan</button>
-                                </div>
-                            </div>
-                            <?= form_close() ?>
-                            -->
                         </div>
                     </div>
                 </div>
@@ -153,7 +124,7 @@
     </section>
 </div>
 
-<?= form_open('create', array('id' => 'create')) ?>
+<?= form_open('', array('id' => 'create')) ?>
 <div class="modal fade" id="createTahunModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -171,23 +142,12 @@
                         <input type="text" id="createtahun" name="tahun" class="form-control" required>
                     </div>
                 </div>
-                <!--
-                <div class="form-group row">
-                    <label class="col-md-2 col-form-label">Status*</label>
-                    <div class="col-md-10">
-                        <select name="active_tahun" id="createactive" class="custom-select custom-select-sm form-control form-control-sm">
-                            <option value="1">Aktif</option>
-                            <option value="0">Tidak aktif</option>
-                        </select>
-                    </div>
-                </div>
-                -->
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="editIdTahun" class="form-control">
                 <input type="hidden" id="method" name="method" class="form-control">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" id="submit-tp">
                     <i class="fa fa-plus"></i> Simpan
                 </button>
             </div>
@@ -196,24 +156,10 @@
 </div>
 <?= form_close() ?>
 
-<div class="modal-box">
-    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">×</span></button>
-                <div class="modal-body">
-                    <div class="icon"><i class="fa fa-close"></i></div>
-                    <h3 class="title">Woohoo! <br> Lorem ipsum dolor sit amet</h3>
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid commodi
-                        consequatur cumque </p>
-                    <button class="subscribe">Subscribe</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<script type="text/javascript"
+        src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-cell.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-row.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson.js"></script>
 <script>
     $(document).ready(function () {
         $("#tahun").on("click", ".btn-aktif", function () {
@@ -365,19 +311,19 @@
             });
         });
 
-        $('#create').submit('click', function (e) {
-            e.stopPropagation();
+        $('#create').on('submit', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            //var tahun = $('#createtahun').val();
-            //var active = $('#createactive option:selected').val()
-            console.log("data:", $(this).serialize());
+            var form = new FormData($('#create')[0])
+            console.log("data:", Object.fromEntries(form));
 
             $.ajax({
                 url: base_url + "datatahun/add",
                 type: "POST",
-                dataType: "JSON",
-                data: $(this).serialize(),
+                data: form,
+                processData: false,
+                contentType: false,
+                cache: false,
                 success: function (data) {
                     location.href = base_url + 'datatahun';
                 }, error: function (xhr, status, error) {
@@ -391,6 +337,7 @@
             return false;
         });
 
+        /*
         $('#hariefektif').submit('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
@@ -432,5 +379,6 @@
                 }
             });
         });
+         */
     })
 </script>

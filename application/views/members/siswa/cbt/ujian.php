@@ -151,6 +151,7 @@
 <script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/math/katex.min.js"></script>
 
 <script>
     var elem = document.documentElement;
@@ -213,14 +214,15 @@
             var siswa = $('#up').find('input[name="siswa"]').val();
             var bank = $('#up').find('input[name="bank"]').val();
 
+
             let formData = new FormData($('#jawab')[0]);
             formData.append('siswa', siswa)
             formData.append('bank', bank)
-            formData.append('data', JSON.stringify(jsonJawaban))
-
-            //var dataPost = $(this).serialize() + '&siswa=' + siswa + '&bank=' + bank + '&data=' + JSON.stringify(jsonJawaban);
-            //console.log(dataPost);
-            //console.log(Object.fromEntries(formData))
+            for (const key in jsonJawaban) {
+                //console.log(key, jsonJawaban[key]);
+                formData.append('data['+key+']', jsonJawaban[key])
+            }
+            console.log(Object.fromEntries(formData))
             $.ajax({
                 url: base_url + 'siswa/savejawaban',
                 method: 'POST',
@@ -441,12 +443,16 @@
             html += '<div class="pr-4">' +
                 '<span class="">JAWABAN:</span><br>' +
                 '<div class="row"><div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4">'+
-                '<input id="jawaban-essai" class="pl-1 form-control" type="text"' +
+                '<input id="jawaban-isian" class="pl-1 form-control" type="text"' +
                 ' name="jawaban" value="' + jawabanSiswa + '"' +
                 ' placeholder="Tulis jawaban disini"/><br>' +
                 '</div></div>' +
                 '</div>';
             $('#konten-jawaban').html(html);
+
+            $("#jawaban-isian").on('change keyup paste', function () {
+                submitJawaban(null);
+            });
         } else {
             html += '<div class="pr-4">' +
                 '<label>JAWABAN:</label><br>' +
@@ -455,6 +461,31 @@
                 ' placeholder="Tulis jawaban disini">' + jawabanSiswa + '</textarea><br>' +
                 '</div>';
             $('#konten-jawaban').html(html);
+
+            $('#jawaban-essai').summernote({
+                placeholder: 'Tulis Jawaban disini, tidak dibolehkan copy paste!',
+                tabsize: 2,
+                minHeight: 100,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'math']],
+                    ['cleaner',['cleaner']],
+                ],
+                callbacks: {
+                    onKeyup: function(e) {
+                        submitJawaban(null);
+                    },
+                    onChange: function(contents, $editable) {
+                        submitJawaban(null);
+                    }
+                }
+            });
         }
 
         $('#konten-modal').html(data.soal_modal);
@@ -502,9 +533,6 @@
             }
         });
 
-        $("#jawaban-essai").on('change keyup paste', function () {
-            submitJawaban(null);
-        });
         if (!data.durasi) {
             window.location.href = base_url + 'siswa/cbt';
         } else {
@@ -713,8 +741,10 @@
             }
         } else if (jenisSoal == 3) {
             jawaban_Siswa = opsi
+        } else if (jenisSoal == 4){
+            jawaban_Siswa = $('#jawaban-isian').val();
         } else {
-            jawaban_Siswa = $('#jawaban-essai').val();
+            jawaban_Siswa = $('#jawaban-essai').summernote('code');
         }
         jawabanBaru = jawaban_Siswa;
         if (jenisSoal == 2) {
@@ -723,6 +753,7 @@
 
         updateModal(jawaban_Alias);
         jsonJawaban = createJsonJawaban(jawaban_Alias, jawaban_Siswa);
+        console.log('getJawaban', jsonJawaban)
     }
 
     function createJsonJawaban(jawab_Alias, jawab_Siswa) {

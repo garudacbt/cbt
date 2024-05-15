@@ -37,12 +37,10 @@
                                     title="Export As Word" onclick="exportWord()">
                                 <i class="fa fa-file-word"></i> <span class="d-none d-sm-inline-block ml-1"> Word</span>
                             </button>
-                            <!--
                             <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip"
                                     title="Export As Excel" onclick="exportExcel()">
                                 <i class="fa fa-file-excel"></i> <span
                                         class="d-none d-sm-inline-block ml-1"> Excel</span></button>
-                                        -->
                         </div>
                     </div>
                 </div>
@@ -103,41 +101,38 @@
                                     <span class="input-group-text">Materi/Tugas</span>
                                 </div>
                                 <select id="dropdown-materi" class="form-control">
-                                    <!--
-                                    <optgroup label="Materi" id="opt-materi">
-                                    </optgroup>
-                                    <optgroup label="Tugas" id="opt-tugas">
-                                    </optgroup>
-                                    -->
                                 </select>
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div id="table-info" class="table-responsive d-none">
-                        <table class="table table-sm table-borderless">
+                        <table id="atas" class="table table-sm table-borderless">
+                            <tbody>
                             <tr>
-                                <th colspan="2" class="border-bottom" id="info-judul">MATERI</th>
-                                <th colspan="2" class="border-bottom">PELAKSANAAN</th>
+                                <th colspan="2" class="border-bottom" id="label-jenis">MATERI</th>
+                                <th colspan="3" class="border-bottom" id="info-judul">MATERI</th>
+                                <th colspan="3" class="border-bottom">PELAKSANAAN</th>
                             </tr>
                             <tr>
-                                <td class="text-bold" style="width: 100px">Mapel</td>
-                                <td id="info-mapel">Sejarah</td>
+                                <td colspan="2" class="text-bold" style="width: 100px">Mapel</td>
+                                <td colspan="3" id="info-mapel">Sejarah</td>
                                 <td class="text-bold" style="width: 100px">Jam ke</td>
-                                <td id="info-jam">....</td>
+                                <td colspan="2" id="info-jam">....</td>
                             </tr>
                             <tr>
-                                <td class="text-bold">Guru</td>
-                                <td id="info-guru">....</td>
+                                <td colspan="2" class="text-bold">Guru</td>
+                                <td colspan="3" id="info-guru">....</td>
                                 <td class="text-bold">Dari</td>
-                                <td id="info-dari">....</td>
+                                <td colspan="2" id="info-dari">....</td>
                             </tr>
                             <tr>
-                                <td class="text-bold">Kelas</td>
-                                <td id="info-kelas">....</td>
+                                <td colspan="2" class="text-bold">Kelas</td>
+                                <td colspan="3" id="info-kelas">....</td>
                                 <td class="text-bold">Sampai</td>
-                                <td id="info-sampai">....</td>
+                                <td colspan="2" id="info-sampai">....</td>
                             </tr>
+                            </tbody>
                         </table>
                     </div>
                     <hr>
@@ -157,13 +152,12 @@
                                style="width: 100%;border: 1px solid #c0c0c0; border-collapse: collapse;">
                         </table>
                     </div>
-
-                    <div id="cloned"></div>
                 </div>
                 <div class="overlay d-none" id="loading">
                     <div class="spinner-grow"></div>
                 </div>
             </div>
+            <div id="konten-copy" class="d-none"></div>
         </div>
     </section>
 </div>
@@ -228,6 +222,8 @@
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/convertCss.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/convert-area.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
     var kelas = JSON.parse('<?= json_encode($kelas)?>');
@@ -243,6 +239,11 @@
     var docTitle = '';
     let label = '';
     const idGuru = '<?=isset($guru) ? $guru->id_guru : ""?>';
+
+    // style excel
+    var styleHead = ' data-fill-color="d3d3d3" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"';
+    var styleNormal = ' data-fill-color="ffffff" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
+    var styleNama = ' data-fill-color="ffffff" data-t="s" data-a-v="middle" data-b-a-s="thin" data-f-bold="false"';
 
     $(document).ready(function () {
         form = $('#formselect');
@@ -504,31 +505,32 @@
                 success: function (data) {
                     console.log('result', data);
                     $('#table-info').removeClass('d-none')
-                    $('#info-judul').text(label.toUpperCase()+': '+data.detail.judul)
-                    $('#info-mapel').text(data.detail.mapel || '-')
-                    $('#info-guru').text(data.detail.guru || '-')
-                    $('#info-kelas').text(data.detail.kelas || '-')
-                    $('#info-jam').text(data.detail.jam_ke || '-')
-                    $('#info-dari').text(data.detail.waktu.dari || '-')
-                    $('#info-sampai').text(data.detail.waktu.sampai || '-')
+                    $('#label-jenis').text(label.toUpperCase())
+                    $('#info-judul').text(': '+data.detail.judul)
+                    $('#info-mapel').text(': '+data.detail.mapel || '-')
+                    $('#info-guru').text(': '+data.detail.guru || '-')
+                    $('#info-kelas').text(': '+data.detail.kelas || '-')
+                    $('#info-jam').text(': '+data.detail.jam_ke || '-')
+                    $('#info-dari').text(': '+data.detail.waktu.dari || '-')
+                    $('#info-sampai').text(': '+data.detail.waktu.sampai || '-')
 
                     resultAll = data.log;
                     var table = $('#log');
                     table.empty();
                     var html = '<thead>' +
                         '<tr style="background-color:lightgrey;">' +
-                        '<th rowspan="2" height="50" width="50" class="align-middle text-center p-0 center">No.</th>' +
-                        '<th rowspan="2" class="align-middle text-center d-none d-md-table-cell center">NIS</th>' +
-                        '<th rowspan="2" class="align-middle text-center center">Nama Siswa</th>' +
-                        '<th rowspan="2" class="align-middle text-center p-0 d-none d-md-table-cell center">Kelas</th>' +
-                        '<th colspan="3" class="text-center align-middle center">Kehadiran</th>' +
-                        '<th rowspan="2" class="text-center align-middle hidden center">Hasil</th>' +
-                        '<th rowspan="2" class="text-center align-middle center">Nilai</th>' +
+                        '<th rowspan="2" height="50" width="50" class="align-middle text-center p-0 center" '+ styleHead +'>No.</th>' +
+                        '<th rowspan="2" class="align-middle text-center d-none d-md-table-cell center" '+ styleHead +'>NIS</th>' +
+                        '<th rowspan="2" class="align-middle text-center center" '+ styleHead +'>Nama Siswa</th>' +
+                        '<th rowspan="2" class="align-middle text-center p-0 d-none d-md-table-cell center" '+ styleHead +'>Kelas</th>' +
+                        '<th colspan="3" class="text-center align-middle center" '+ styleHead +'>Kehadiran</th>' +
+                        '<th rowspan="2" class="text-center align-middle hidden center" data-exclude="true" '+ styleHead +'>Hasil</th>' +
+                        '<th rowspan="2" class="text-center align-middle center" '+ styleHead +'>Nilai</th>' +
                         '</tr>' +
                         '<tr style="background-color:lightgrey;">' +
-                        '<th class="text-center align-middle center">Buka ' + label + '</th>' +
-                        '<th class="text-center align-middle center">Selesai</th>' +
-                        '<th class="text-center align-middle center">Keterangan</th>' +
+                        '<th class="text-center align-middle center" '+ styleHead +'>Buka ' + label + '</th>' +
+                        '<th class="text-center align-middle center" '+ styleHead +'>Selesai</th>' +
+                        '<th class="text-center align-middle center" '+ styleHead +'>Keterangan</th>' +
                         '</tr>' +
                         '</thead><tbody>';
 
@@ -582,7 +584,7 @@
                             ketMulai = diff == '' ? '' : 'Selesai, Terlambat <br>' + diff;
                              */
 
-                            console.log('diff', value.diff)
+                            //console.log('diff', value.diff)
                             if (value.diff.terlambat) {
                                 ketMulai = 'Selesai, terlambat ';
                                 if (value.diff.days > 0) {
@@ -601,18 +603,18 @@
 
                         html +=
                             '<tr>' +
-                            '<td class="align-middle text-center center">' + no + '</td>' +
-                            '<td class="align-middle d-none d-md-table-cell middle">' + value.nis + '</td>' +
-                            '<td class="align-middle middle">' + value.nama + '</td>' +
-                            '<td class="align-middle text-center d-none d-md-table-cell center">' + value.kelas + '</td>' +
+                            '<td class="align-middle text-center center" '+ styleNormal +'>' + no + '</td>' +
+                            '<td class="align-middle d-none d-md-table-cell middle" '+ styleNormal +'>' + value.nis + '</td>' +
+                            '<td class="align-middle middle" '+ styleNama +'>' + value.nama + '</td>' +
+                            '<td class="align-middle text-center d-none d-md-table-cell center" '+ styleNormal +'>' + value.kelas + '</td>' +
                             //'<td class="align-middle text-center">' + login + '</td>' +
-                            '<td class="align-middle text-center center">' + mulai + '</td>' +
-                            '<td class="align-middle text-center center">' + selesai + '</td>' +
-                            '<td class="align-middle text-center center">' + ketMulai + '</td>' +
-                            '<td class="align-middle text-center hidden">' +
+                            '<td class="align-middle text-center center" '+ styleNormal +'>' + mulai + '</td>' +
+                            '<td class="align-middle text-center center" '+ styleNormal +'>' + selesai + '</td>' +
+                            '<td class="align-middle text-center center" '+ styleNama +'>' + ketMulai + '</td>' +
+                            '<td class="align-middle text-center hidden" data-exclude="true" >' +
                             '<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#daftarModal" data-key="' + key + '">LIHAT</button>' +
                             '</td>' +
-                            '<td class="align-middle text-center center">' + nilai + '</td>' +
+                            '<td class="align-middle text-center center"'+ styleNormal +'>' + nilai + '</td>' +
                             '</tr>';
                         no++;
                     });
@@ -627,6 +629,19 @@
                     $('#loading').addClass('d-none');
 
                     $('input#search').quicksearch('table#log tbody tr');
+
+                    var colWidth = '5,15,35,15,25,25,40,10';
+                    var trsAtas = $('table#atas tbody').html();
+                    var trsHead = $('table#log thead').html();
+                    var trsBody = $('table#log tbody').html();
+                    var copy = '<table id="excel" style="font-size: 11pt;" data-cols-width="' + colWidth + '"><tbody>' +
+                        trsAtas +
+                        '<tr></tr>' +
+                        trsHead +
+                        trsBody +
+                        '</tbody>';
+
+                    $('#konten-copy').html(copy);
                 }
             });
         }, 300);
@@ -802,5 +817,17 @@
     function dialogDownload() {
         showSuccessToast("File telah didownload")
     }
+
+    function exportExcel() {
+        docTitle = 'NILAI HARIAN ' + namaMapel + ' ' + namaKelas + ' ' + tanggalSingkat.toUpperCase();
+        var table = document.querySelector("#excel");
+        TableToExcel.convert(table, {
+            name: docTitle + '.xlsx',
+            sheet: {
+                name: "Sheet 1"
+            }
+        });
+    }
+
 
 </script>

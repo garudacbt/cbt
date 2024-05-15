@@ -11,7 +11,7 @@
     "source": "https://github.com/bcit-ci/CodeIgniter"
   },
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.3",
     "ext-dom": "*",
 	"ext-mysqli": "*",
 	"ext-fileinfo": "*",
@@ -23,7 +23,8 @@
     "dompdf/dompdf": "^1.0",
     "ext-gd": "*",
     "ext-iconv": "*",
-    "ext-calendar": "*"
+    "ext-calendar": "*",
+    "ext-libxml": "*"
   },
   "suggest": {
     "paragonie/random_compat": "Provides better randomness in PHP 5.x"

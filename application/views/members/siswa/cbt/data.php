@@ -200,7 +200,7 @@ $jadwal_selesai = [];
                                                                              class="status small-box-footer p-2"
                                                                              data-tgl="<?= $jadwal->tgl_mulai ?>"
                                                                              data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                            <b><?= strtoupper($cbt_info->nama_sesi) ?>
+                                                                            <b><?= strtoupper($cbt_info->nama_sesi ?? '') ?>
                                                                                 BELUM DIMULAI</b>
                                                                         </div>
                                                                     <?php elseif ($now > strtotime($sesiSampai->format('H:i'))) : ?>
@@ -208,7 +208,7 @@ $jadwal_selesai = [];
                                                                              class="status small-box-footer p-2"
                                                                              data-tgl="<?= $jadwal->tgl_mulai ?>"
                                                                              data-jamke="<?= $jadwal->jam_ke ?>">
-                                                                            <b><?= strtoupper($cbt_info->nama_sesi) ?>
+                                                                            <b><?= strtoupper($cbt_info->nama_sesi ?? '') ?>
                                                                                 SUDAH BERAKHIR</b>
                                                                         </div>
                                                                     <?php else : ?>
@@ -344,11 +344,11 @@ $jadwal_selesai = [];
                                                         if ($now < strtotime($sesiMulai->format('H:i'))) {
                                                             $status = '<button id="' . $jadwal->id_jadwal . '" class="status-table btn btn-disabled ' . $bg . '"'
                                                                 . ' data-tgl="' . $jadwal->tgl_mulai . '" data-jamke="' . $jadwal->jam_ke . '">'
-                                                                . ' <b>' . strtoupper($cbt_info->nama_sesi) . ' BELUM DIMULAI</b></button>';
+                                                                . ' <b>' . strtoupper($cbt_info->nama_sesi ?? '') . ' BELUM DIMULAI</b></button>';
                                                         } elseif ($now > strtotime($sesiSampai->format('H:i'))) {
                                                             $status = '<button id="' . $jadwal->id_jadwal . '" class="status-table btn btn-disabled ' . $bg . '"'
                                                                 . ' data-tgl="' . $jadwal->tgl_mulai . '" data-jamke="' . $jadwal->jam_ke . '">'
-                                                                . '<b>' . strtoupper($cbt_info->nama_sesi) . ' SUDAH BERAKHIR</b></button>';
+                                                                . '<b>' . strtoupper($cbt_info->nama_sesi ?? '') . ' SUDAH BERAKHIR</b></button>';
                                                         } else {
                                                             if (isset($jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1]) && $jadwal_selesai[$jadwal->tgl_mulai][$jadwal->jam_ke - 1] == false) {
                                                                 $status = '<button id="' . $jadwal->id_jadwal . '"'

@@ -29,10 +29,10 @@
                         <?php
                         if (count($kelas) > 0) :
                             foreach ($kelas as $id => $kls) : ?>
-                                <div class="col-6 col-md-3 text-center mb-3">
+                                <div class="col-3 col-md-2 text-center mb-3">
                                     <div onclick="download(this)" data-kelas="<?= $kls ?>" data-id="<?=$id?>" class="card-tools btn-success btn btn-block">
                                         <i class="fas fa-download"></i>
-                                        <span class="ml-2">Download Data Siswa<br/>Kelas <?= $kls ?></span>
+                                        <span class="ml-2"><?= $kls ?></span>
                                     </div>
                                 </div>
                             <?php endforeach;
@@ -44,64 +44,112 @@
                     </div>
                 </div>
             </div>
-            <!--
-            <div class="row d-none">
-                <table id="download-tbl"
-                       style="font-size: 11pt; width: 100%;"
-                       data-cols-width="5,18,25,35,10,15,15,15,25,25,20,18,25,15,20,10,25,35,6,6,20,15,20,15,10,20,20,15,15,15,20,20,20,15,15,15,20,20,20,15,15,15,20,15">
+
+            <div class="card my-shadow mb-4">
+                <div class="card-header">
+                    <h6 class="card-title">Download Foto Siswa</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <?php
+                        if (count($kelas) > 0) :
+                            foreach ($kelas as $id => $kls) : ?>
+                                <div class="col-3 col-md-2 text-center mb-3">
+                                    <div onclick="downloadWord(this)" data-kelas="<?= $kls ?>" data-id="<?=$id?>" class="card-tools btn-success btn btn-block">
+                                        <i class="fas fa-download"></i>
+                                        <span class="ml-2"><?= $kls ?></span>
+                                    </div>
+                                </div>
+                            <?php endforeach;
+                        else: ?>
+                            <div class="alert alert-default-warning align-content-center" role="alert">Belum ada data
+                                siswa dan kelas
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-none" id="download-tbl">
+                <div style="display: flex;flex-direction: column">
+                    <p style="font-weight: bold; font-size: large">Update Foto Siswa</p>
+                    <ul>
+                        <li>
+                            <span>Jangan merubah format tabel!</span>
+                        </li>
+                        <li>
+                            <span>Hanya kolom NIS dan FOTO yang bisa diedit, jangan merubah isi kolom lain!</span>
+                        </li>
+                        <li>
+                            <span>Jika NIS kosong, isi NIS dengan angka unik (jangan ada yang sama) </span>
+                        </li>
+                        <li>
+                            <span>Gunakan format EXCEL untuk merubah data siswa selain FOTO</span>
+                        </li>
+                    </ul>
+                </div>
+                <table style="width:100%; font-size: 11pt; line-height: 1.3; border: 1px solid black; border-collapse: collapse; border-spacing: 0; page-break-after: always">
                     <thead>
-                    <tr id="header-table" data-height="60"></tr>
+                    <tr id="header-table" data-height="60" style="background-color: lightgrey"></tr>
                     </thead>
                     <tbody id="body-table">
                     </tbody>
                 </table>
             </div>
-            -->
             <div class="row">
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xs-12 col-sm-6">
                     <div class="card my-shadow mb-4">
-                        <div class="card-header">
-                            <h6 class="card-title">Upload File Excel</h6>
-                        </div>
                         <div class="card-body excel">
                             <?= form_open_multipart('', array('id' => 'formPreviewExcel')); ?>
                             <div class="form-group pb-2">
-                                <label for="upload_file">Pilih file excel</label>
-                                <input type="file" id="input-file-events-excel" name="upload_file" class="dropify"/>
+                                <label for="input-file-events-excel">Updata Data (Excel)</label>
+                                <input accept=".xlsx" type="file" id="input-file-events-excel" name="upload_file" class="dropify"/>
                             </div>
                             <?= form_close(); ?>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-8 col-lg-7">
+                <div class="col-xs-12 col-sm-6">
                     <div class="card my-shadow mb-4">
-                        <?= form_open('', array('id' => 'formUpload')); ?>
-                        <div class="card-header">
-                            <h6 class="card-title">Preview</h6>
-                            <button id="submit-excel" name="preview" type="submit"
-                                    class="btn btn-sm btn-primary card-tools" disabled="disabled">
-                                <i class="fas fa-cloud-upload-alt mr-2"></i>Upload
-                            </button>
-                        </div>
-                        <?= form_close(); ?>
-                        <div class="card-body table-responsive" id="file-preview">
-                            <table id="tableprev" class="mb-4 table table-sm table-striped table-bordered nowrap w-100"></table>
-                            <span class="text-center">Pastikan anda telah mengisi format yang telah disediakan.</span>
+                        <div class="card-body excel">
+                            <?= form_open_multipart('', array('id' => 'formPreviewWord')); ?>
+                            <div class="form-group pb-2">
+                                <label for="input-file-events-word">Update Foto (Word)</label>
+                                <input accept=".docx" type="file" id="input-file-events-word" name="upload_file" class="dropify"/>
+                            </div>
+                            <?= form_close(); ?>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card my-shadow mb-4">
+                <?= form_open('', array('id' => 'formUpload')); ?>
+                <div class="card-header">
+                    <h6 class="card-title">Preview</h6>
+                    <button id="submit-excel" name="preview" type="submit"
+                            class="btn btn-sm btn-primary card-tools" disabled="disabled">
+                        <i class="fas fa-cloud-upload-alt mr-2"></i>Upload
+                    </button>
+                </div>
+                <?= form_close(); ?>
+                <div class="card-body table-responsive" id="file-preview">
+                    <span class="text-center">Pastikan anda telah mengisi format yang telah disediakan.</span>
                 </div>
             </div>
         </div>
     </section>
 </div>
 
+<script src="<?= base_url() ?>/assets/app/js/mammoth.browser.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/excel/exceljs.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/excel/js-excel-template.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/convert-area.js"></script>
 <script>
     var typeImport = '<?=$tipe?>';
 
-    var dataSiswa;
+    var formDataSiswa;
+    var isUploadType;
     $(document).ready(function () {
         ajaxcsrf();
 
@@ -141,8 +189,7 @@
         });
 
         // Used events
-        var drEvente = $('#input-file-events-excel').dropify();
-        var drEventw = $('#input-file-events-word').dropify();
+        var drEvente = $('.dropify').dropify();
 
         drEvente.on('dropify.beforeClear', function (event, element) {
             return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
@@ -150,8 +197,8 @@
 
         drEvente.on('dropify.afterClear', function (event, element) {
             $('#submit-excel').attr('disabled', 'disabled');
-            $('#tableprev').html('')
-            //dataUpload = '';
+            $('#download-tbl').html('')
+            formDataSiswa = null;
         });
 
         drEvente.on('dropify.errors', function (event, element) {
@@ -171,16 +218,43 @@
             var files = e.target.files || [];
             if (!files.length) return;
 
+            $('#file-preview').html('<span class="text-center">Pastikan anda telah mengisi format yang telah disediakan.</span>')
+
             const jsonData = await getDataFromExcel(files[0])
-            createTable(jsonData[jsonData.sheets[0]], '#tableprev')
+            console.log('json', jsonData)
+            $('#submit-excel').attr('disabled', 'disabled');
+            $('#download-tbl').html('')
+            formDataSiswa = null;
+            isUploadType = null;
+
+            let tbl = $(' <table class="mb-4 table table-sm table-striped table-bordered nowrap w-100"></table>')
+            createTable(jsonData[jsonData.sheets[0]], tbl)
         });
+
+        $('#input-file-events-word').on('change', async function(e) {
+            var files = e.target.files || [];
+            if (!files.length) return;
+
+            $('#file-preview').html('<span class="text-center">Pastikan anda telah mengisi format yang telah disediakan.</span>')
+
+            $('#submit-excel').attr('disabled', 'disabled');
+            $('#download-tbl').html('')
+            formDataSiswa = null;
+            isUploadType = null;
+            parseWordDocxFile(files[0])
+        });
+
 
         $('#formUpload').on('submit', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            console.log("data:", Object.fromEntries(dataSiswa));
+            let url = '';
+            if (formDataSiswa && isUploadType) {
+                if (isUploadType === 'excel') url = "datasiswa/updateall"
+                else url = "datasiswa/update_foto"
+            }
+            console.log("data:", Object.fromEntries(formDataSiswa));
 
-            var url = "datasiswa/updateall";
             swal.fire({
                 text: "Silahkan tunggu....",
                 button: false,
@@ -196,7 +270,7 @@
             $.ajax({
                 url: base_url + url,
                 type: "POST",
-                data: dataSiswa,
+                data: formDataSiswa,
                 processData: false,
                 contentType: false,
                 cache: false,
@@ -242,13 +316,76 @@
                     });
                 }
             });
-            //return false;
+
+            return false;
         });
 
     });
 
-    function onRemoved() {
-        $(".dropify-filename-inner").text("");
+    function parseWordDocxFile(file) {
+        var showDiv = $('#file-preview')
+
+        swal.fire({
+            title: "Memuat file",
+            text: "Silahkan tunggu....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
+        console.time();
+        var reader = new FileReader();
+
+        reader.onloadend = function (event) {
+            var arrayBuffer = reader.result;
+            mammoth.convertToHtml({arrayBuffer: arrayBuffer}).then(function (resultObject) {
+                //console.log('file', resultObject)
+                showDiv.html(resultObject.value);
+                setTimeout(function () {
+                    formDataSiswa = new FormData($('#formUpload')[0])
+
+                    showDiv.children().not("table").remove();
+                    showDiv.children('table').each(function (i, v) {
+                        $(this).addClass('table table-bordered w-100 table-soal');
+                        const $trs = $(this).find('tr'), headers = $trs.splice(0, 1); // header rows
+                        $trs.each(function (index, tr) {
+                            var cekTbl = $(tr).parent().closest('td');
+                            if (cekTbl.length === 0) {
+                                var id = $(this).find("td:eq(1)").text().trim();
+                                var nis = $(this).find("td:eq(2)").text().trim();
+                                var nama = $(this).find("td:eq(3)").text().trim();
+                                var foto = $(this).find("td:eq(5)").find('img');
+                                foto.each(function (ind, img) {
+                                    $(img).attr('width', '100')
+                                });
+                                if (id && nis) {
+                                    formDataSiswa.append('siswa['+index+'][id]', id)
+                                    formDataSiswa.append('siswa['+index+'][nis]', nis)
+                                    formDataSiswa.append('siswa['+index+'][nama]', nama)
+                                    if (foto.length > 0) {
+                                        const ftsiswa = $(foto[0]).attr('src')
+                                        const ext = ftsiswa.substring("data:image/".length, ftsiswa.indexOf(";base64"))
+                                        const base64 = ftsiswa.split(';base64')[1]
+                                        formDataSiswa.append('siswa['+index+'][foto]', base64)
+                                        formDataSiswa.append('siswa['+index+'][ext]', ext)
+                                    }
+                                    $('#submit-excel').removeAttr('disabled');
+                                } else {
+                                    $(this).remove();
+                                }
+                            }
+                        });
+                    });
+                    swal.close();
+                    isUploadType = 'word'
+                }, 500);
+            });
+        };
+        reader.readAsArrayBuffer(file);
     }
 
     function createTable(list, selector) {
@@ -267,20 +404,19 @@
             }
             $(selector).append(row);
         }
+        $('#file-preview').prepend(selector)
 
         if (list.rows.length > 0) {
             $('#submit-excel').removeAttr('disabled');
 
-            console.log('rows', list.rows)
-            dataSiswa = new FormData($('#formUpload')[0])
+            //console.log('rows', list.rows)
+            formDataSiswa = new FormData($('#formUpload')[0])
             list.rows.forEach(function (siswa, ind) {
                 for (const key in siswa) {
-                    let k = key.split('(')[0];
-                    k = k.split('/')[0]
-                    k = k.split('1')[0]
-                    dataSiswa.append('siswa['+ind+']['+k.trim()+']', siswa[key])
+                    if (key) {formDataSiswa.append('siswa['+ind+']['+key+']', siswa[key])}
                 }
             })
+            isUploadType = 'excel'
         } else {
             $('#submit-excel').attr('disabled', 'disabled');
         }
@@ -323,23 +459,20 @@
                                 'header': [],
                                 'rows': []
                             }
-                            let head = []
+                            //let head = []
                             sheet.eachRow({includeEmpty: true}, (row, rowIndex) => {
                                 let obj = {}
                                 for (let i = 0; i < row.values.length; i++) {
                                     if (rowIndex === 1) {
-                                        let val = row.values[i] || '';
-                                        if (isRichValue(row.values[i])) {
-                                            val = richToString(row.values[i])
-                                        }
-                                        if (val && val.includes('|')) val = val.split('|')[0]
-                                        let key = val.replaceAll(' ', '').replaceAll('\n', '').toLowerCase();
-                                        head.push(key.toLowerCase())
                                         if (row.values[i]) {
-                                            if (val && val.includes('\n')) val = val.split('\n')[0]
+                                            let val = row.values[i] || 'val-'+i;
+                                            if (isRichValue(row.values[i])) {
+                                                val = richToString(row.values[i])
+                                            }
+                                            if (val && val.includes('|')) val = val.split('|')[0]
                                             let h = {
                                                 label: val,
-                                                value: key,
+                                                value: i//key,
                                             }
                                             cols.header.push(h)
                                         }
@@ -348,8 +481,11 @@
                                         if (isRichValue(row.values[i])) {
                                             val = richToString(row.values[i])
                                         }
-                                        val = val === '0' ? '' : val
-                                        obj[head[i]] = val
+                                        if (i===2||i===3||i===14||i===19||i===20||i===30||i===36||i===42) {
+                                            val = val.replace("'", "")
+                                            console.log('index', i, val)
+                                        }
+                                        obj[i] = val
                                     }
                                 }
                                 cols.rows.push(obj)
@@ -418,68 +554,80 @@
             }
         });
     }
-    /*
-    const headerTbl = [
-        {title: "No.", key: 'number', isCenter: true},
-        {title: "NISN*", key: "nisn", isNumber: true, isCenter: true},
-        {title: "NIS*", key: "nis", isNumber: true, isCenter: true},
-        {title: "NAMA SISWA*", key: "nama"},
-        {title: "JENIS KELAMIN (L/P) *", key: "jenis_kelamin", isCenter: true},
-        {title: "USERNAME*", key: "username", isCenter: true},
-        {title: "PASSWORD*", key: "password", isCenter: true},
-        {title: "KELAS AWAL* (gunakan nomor 1-12)", key: "kelas_awal", isCenter: true},
-        {title: "TANGGAL DI TERIMA* FORMAT (YYYY-MM-DD) CONTOH (2018-07-20)", key: "tahun_masuk", isCenter: true},
-        {title: "SEKOLAH ASAL", key: "sekolah_asal"},
-        {title: "TEMPAT LAHIR", key: "tempat_lahir"},
-        {title: "TANGGAL LAHIR FORMAT (DD-MM-YYY) CONTOH (05-06-1990)", key: "tanggal_lahir", isCenter: true},
-        {title: "AGAMA ", key: "agama", isCenter: true},
-        {title: "NOMOR TELEPON", key: "hp", isNumber: true, isCenter: true},
-        {title: "EMAIL", key: "email"},
-        {title: "ANAK KE", key: "anak_ke", isCenter: true},
-        {title: "STATUS DALAM KELUARGA, 1 = Anak Kandung, 2 = Anak Tiri, 3 = Anak Angkat", key: "status_keluarga", isCenter: true},
-        {title: "ALAMAT", key: "alamat"},
-        {title: "RT", key: "rt", isCenter: true},
-        {title: "RW", key: "rw", isCenter: true},
-        {title: "DESA/KELURAHAN", key: "kelurahan"},
-        {title: "KECAMATAN", key: "kecamatan"},
-        {title: "KABUPATEN/KOTA", key: "kabupaten"},
-        {title: "PROVINSI", key: "provinsi"},
-        {title: "KODE POS", key: "kode_pos", isCenter: true},
-        {title: "NAMA AYAH", key: '"nama_ayah"'},
-        {title: "TANGGAL LAHIR AYAH", key: "tgl_lahir_ayah", isCenter: true},
-        {title: "PENDIDIKAN AYAH", key: "pendidikan_ayah"},
-        {title: "PEKERJAAN AYAH", key: "pekerjaan_ayah"},
-        {title: "NOMOR TELEPON AYAH", key: "nohp_ayah", isNumber: true, isCenter: true},
-        {title: "ALAMAT AYAH", key: "alamat_ayah"},
-        {title: "NAMA IBU", key: "nama_ibu"},
-        {title: "TANGGAL LAHIR IBU", key: "tgl_lahir_ibu", isCenter: true},
-        {title: "PENDIDIKAN IBU", key: "pendidikan_ibu"},
-        {title: "PEKERJAAN IBU", key: "pekerjaan_ibu"},
-        {title: "NOMOR TELEPON IBU", key: "nohp_ibu", isNumber: true, isCenter: true},
-        {title: "ALAMAT IBU", key: "alamat_ibu"},
-        {title: "NAMA WALI", key: "nama_wali"},
-        {title: "TANGGAL LAHIR WALI", key: "tgl_lahir_wali", isCenter: true},
-        {title: "PENDIDIKAN WALI", key: "pendidikan_wali"},
-        {title: "PEKERJAAN WALI", key: "pekerjaan_wali"},
-        {title: "NOMOR TELEPON WALI", key: "nohp_wali", isNumber: true, isCenter: true},
-        {title: "ALAMAT WALI", key: "alamat_wali"},
-        {title: "ID_SISWA JANGAN DIRUBAH", key: "id_siswa", isCenter: true},
-    ]
 
-    function createTable(kls, res) {
+    function downloadWord(btn) {
+        const idKls = $(btn).data('id');
+        const kls = $(btn).data('kelas')
+        //console.log('download', idKls)
+
+        $.ajax({
+            url: base_url + "datasiswa/downloaddata/"+idKls,
+            method: "GET",
+            success: function (result) {
+                if (result.siswa) {
+                    prosesResult(result.siswa, kls)
+                } else {
+
+                }
+            }, error: function (xhr, status, error) {
+                console.log("error", xhr.responseText);
+                const err = JSON.parse(xhr.responseText)
+                swal.fire({
+                    title: "Error",
+                    text: err.Message,
+                    icon: "error"
+                });
+            }
+        });
+    }
+
+    function prosesResult(dataSiswa, kelas) {
+        swal.fire({
+            text: "Menyiapkan data foto kelas "+kelas+" ....",
+            button: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            onOpen: () => {
+                swal.showLoading();
+            }
+        });
+
+        const headerTbl = [
+            {title: "No.", key: 'number', isCenter: true, width: '60px'},
+            {title: "ID", key: 'id_siswa', isCenter: true, width: '60px'},
+            {title: "NIS", key: "nis", isNumber: true, isCenter: true, width: 'auto'},
+            {title: "NAMA SISWA", key: "nama", width: 'auto'},
+            {title: "JENIS KELAMIN (L/P)", key: "jenis_kelamin", isCenter: true, width: 'auto'},
+            {title: "FOTO", key: "foto", isCenter: true, width: '100px'},
+        ]
+
         let thead = '';
         let tbody = '';
         headerTbl.forEach(function (header) {
-            thead += '<th class="text-center align-middle" data-a-wrap="true" data-fill-color="d3d3d3" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true">'+header.title+'</th>';
+            thead += '<th style="width:'+header.width +'; border: 1px solid black;border-collapse: collapse;' +
+                ' text-align: center;font-weight: bold;" class="text-center align-middle">'+
+                '<span style="margin: 0; padding: 4px">'+header.title+'</span>' +
+                '</th>';
         })
-        res.forEach(function (siswa, ind) {
+        dataSiswa.forEach(function (siswa, ind) {
             tbody += '<tr>';
             headerTbl.forEach(function (header) {
                 if (header.key === 'number') {
-                    tbody += '<td data-a-v="middle" data-a-h="center">' + (ind+1) + '</td>';
+                    tbody += '<td style="border: 1px solid black;text-align: center;padding: 4px">' +
+                        (ind+1) +
+                        '</td>';
                 } else {
-                    const val = (header.isNumber ? "'" : "") + (siswa[header.key] || (header.isNumber ? "0" : " "))
-                    tbody += '<td '+ (header.isCenter ? 'data-a-h="center"' : '')+' data-a-v="middle" data-a-h="left">'+val+'</td>';
+                    if (header.key === 'foto') {
+                        tbody += '<td id="avatar-'+siswa.nis+'" style="border: 1px solid black;padding: 4px">'+
+                            '           <img class="avatar" ' +
+                            '                src="'+base_url+siswa.foto+'" alt="User Image" style="max-width: 100px; height: auto"> ' +
+                            '</td>';
+                    } else {
+                        const center = header.isCenter ? 'text-align: center;' : ''
+                        tbody += '<td style="border: 1px solid black;padding: 4px;'+center+'">'+siswa[header.key]+'</td>';
+                    }
                 }
             })
             tbody += '</tr>';
@@ -488,14 +636,42 @@
         $('#header-table').html(thead)
         $('#body-table').html(tbody)
 
-        var table = document.querySelector("#download-tbl");
-        TableToExcel.convert(table, {
-            name: `Data Siswa Kelas ${kls}.xlsx`,
-            sheet: {
-                name: `KELAS ${kls}`
+        let count = 0
+        $(`.avatar`).each(async function (i, v) {
+            const loaded = () => {
+                return new Promise((resolve, reject) => {
+                    let obj = {pos: i}
+                    $(v).on("error", function () {
+                        obj.error = true
+                        $(this).remove()
+                        resolve(obj)
+                    }).on('load', function () {
+                        obj.error = false
+                        resolve(obj)
+                    })
+                })
+            }
+            const imgs = await loaded()
+            count ++
+            if (count === dataSiswa.length) {
+                saveWord(kelas)
             }
         });
     }
-     */
+
+    function saveWord(kelas) {
+        swal.close();
+        var contentDocument = $('#download-tbl').convertToHtmlFile('detail', '');
+        var content = '<!DOCTYPE html>' + contentDocument.documentElement.outerHTML;
+        var converted = htmlDocx.asBlob(content, {
+            size: 'A4',
+            margins: {top: 700, bottom: 700, left: 1000, right: 1000}
+        });
+        saveAs(converted, `Foto Siswa Kelas ${kelas}.docx`);
+    }
+
+    function onRemoved() {
+        $(".dropify-filename-inner").text("");
+    }
 
 </script>

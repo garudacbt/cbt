@@ -407,7 +407,8 @@
                     confirmButtonColor: "#3085d6",
                 }).then(result => {
                     if (result.value) {
-                        window.location.href = base_url + 'cbtbanksoal';
+                        window.history.back()
+                        //window.location.href = base_url + 'cbtbanksoal';
                     }
                 });
             }, error: function (xhr, status, error) {

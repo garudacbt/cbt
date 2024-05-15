@@ -235,11 +235,11 @@ foreach ($materi as $k => $m) {
                                                         $icon = 'fa-file';
                                                         $arrFile = ['jpg', 'jpeg', 'png', 'gif'];
 
-                                                        if (strpos(strtolower($f['src'] ?? ''), 'doc') || strpos(strtolower($f['src']), 'docx')) {
+                                                        if (strpos(strtolower($f['src'] ?? ''), 'doc') || strpos(strtolower($f['src'] ?? ''), 'docx')) {
                                                             $icon = 'fa-file-word-o text-primary';
-                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'xls') || strpos(strtolower($f['src']), 'xlsx')) {
+                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'xls') || strpos(strtolower($f['src'] ?? ''), 'xlsx')) {
                                                             $icon = 'fa-file-excel-o text-success';
-                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'png') || strpos(strtolower($f['src']), 'jpg') || strpos(strtolower($f['src']), 'jpeg')) {
+                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'png') || strpos(strtolower($f['src'] ?? ''), 'jpg') || strpos(strtolower($f['src'] ?? ''), 'jpeg')) {
                                                             $icon = 'fa-file-picture-o text-orange';
                                                         } elseif (strpos(strtolower($f['src'] ?? ''), 'pdf')) {
                                                             $icon = 'fa-file-pdf-o text-danger';

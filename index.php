@@ -37,7 +37,7 @@
  */
 
 $envs = ['development', 'testing', 'production'];
-define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : $envs[2]);
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : $envs[0]);
 
 switch (ENVIRONMENT) {
     case 'development':
@@ -155,11 +155,15 @@ if ($database == '') {
     header("Location: installer");
 } else {
     $data = $db['default'];
-    $mysqli = new mysqli($data['hostname'], $data['username'], $data['password'], $data['database']);
-    if (mysqli_connect_errno()) {
+    $mysqli = @new mysqli($data['hostname'], $data['username'], $data['password'], '');
+    $dbname = $data['database'];
+    if (empty (mysqli_fetch_array(mysqli_query($mysqli,"SHOW DATABASES LIKE '$dbname'"))))
+    {
         $mysqli->close();
         header("Location: installer");
-    } else {
+    }
+    else
+    {
         $mysqli->close();
         require_once BASEPATH . 'core/CodeIgniter.php';
     }

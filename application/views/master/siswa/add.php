@@ -241,12 +241,7 @@
             dataSiswa = new FormData($('#formUpload')[0])
             list.rows.forEach(function (siswa, ind) {
                 for (const key in siswa) {
-                    if (key && key !== 'no') {
-                        let k = key.split('(')[0];
-                        k = k.split('/')[0]
-                        k = k.split('1')[0]
-                        dataSiswa.append('siswa['+ind+']['+k.trim()+']', siswa[key])
-                    }
+                    if (key) {dataSiswa.append('siswa['+ind+']['+key+']', siswa[key])}
                 }
             })
         } else {
@@ -291,23 +286,20 @@
                                 'header': [],
                                 'rows': []
                             }
-                            let head = []
+                            //let head = []
                             sheet.eachRow({includeEmpty: true}, (row, rowIndex) => {
                                 let obj = {}
                                 for (let i = 0; i < row.values.length; i++) {
                                     if (rowIndex === 1) {
-                                        let val = row.values[i] || '';
-                                        if (isRichValue(row.values[i])) {
-                                            val = richToString(row.values[i])
-                                        }
-                                        if (val && val.includes('|')) val = val.split('|')[0]
-                                        let key = val.replaceAll(' ', '').replaceAll('\n', '').toLowerCase();
-                                        head.push(key.toLowerCase())
                                         if (row.values[i]) {
-                                            if (val && val.includes('\n')) val = val.split('\n')[0]
+                                            let val = row.values[i] || 'val-'+i;
+                                            if (isRichValue(row.values[i])) {
+                                                val = richToString(row.values[i])
+                                            }
+                                            if (val && val.includes('|')) val = val.split('|')[0]
                                             let h = {
                                                 label: val,
-                                                value: key,
+                                                value: i//key,
                                             }
                                             cols.header.push(h)
                                         }
@@ -316,7 +308,11 @@
                                         if (isRichValue(row.values[i])) {
                                             val = richToString(row.values[i])
                                         }
-                                        obj[head[i]] = val
+                                        if (i===2||i===3||i===14||i===19||i===20||i===30||i===36||i===42) {
+                                            val = val.replace("'", "")
+                                            console.log('index', i, val)
+                                        }
+                                        obj[i] = val
                                     }
                                 }
                                 cols.rows.push(obj)

@@ -77,6 +77,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/summernote/plugin/audio/summernote-audio.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/math/katex.min.css">
     <!-- /texarea editor; -->
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/app/css/mystyle.css">
