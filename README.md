@@ -1,6 +1,6 @@
 # GarudaCBT
 ___________
-## Last version: 1.5.3
+## Last version: 1.5.3  (BETA)
 ___________
 ### CHANGELOG:
 #### Added
