@@ -1,7 +1,6 @@
 # GarudaCBT
-___________
 ## Last version: 1.5.3  (BETA)
-___________
+
 ### CHANGELOG:
 #### Added
 - Support PHP 7.4 ~ 8.3
