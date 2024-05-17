@@ -274,7 +274,7 @@ function initTextArea() {
             //['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
-            ['insert', ['picture']],
+            ['insert', ['picture', 'math']],
         ],
     });
 }
