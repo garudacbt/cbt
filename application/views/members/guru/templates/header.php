@@ -77,7 +77,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/summernote/plugin/audio/summernote-audio.css">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/math/katex.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/katex/katex.css">
     <!-- /texarea editor; -->
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/app/css/mystyle.css">
@@ -100,6 +100,8 @@
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/jexcel/css/jsuites.css">
     <script src="<?= base_url() ?>/assets/plugins/jexcel/js/jexcel.js"></script>
     <script src="<?= base_url() ?>/assets/plugins/jexcel/js/jsuites.js"></script>
+
+    <script defer src="<?= base_url() ?>/assets/plugins/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
     <style>
         .linker-list p {

@@ -297,8 +297,8 @@
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
-                                        <td class="text-center"><?= strtoupper(implode(", ", $s->jawaban_benar ?? '')) ?></td>
-                                        <td class="text-center"><?= $s->jawaban_siswa ? strtoupper(implode(", ", $s->jawaban_siswa ?? '')) : '' ?></td>
+                                        <td class="text-center"><?= strtoupper(implode(", ", $s->jawaban_benar ?? [''])) ?></td>
+                                        <td class="text-center"><?= $s->jawaban_siswa ? strtoupper(implode(", ", $s->jawaban_siswa)) : '' ?></td>
                                         <td class="text-center"><?= $s->analisa ?></td>
                                         <td class="text-center">
                                             <input id="input<?= $s->id_soal_siswa ?>"

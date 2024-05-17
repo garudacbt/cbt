@@ -51,6 +51,7 @@
     <!-- textarea editor -->
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/katex/katex.css">
     <!-- /texarea editor; -->
 
     <!-- fonts -->
@@ -79,6 +80,8 @@
 
     <!-- SweetAlert2 -->
     <script src="<?= base_url() ?>/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+
+    <script defer src="<?= base_url() ?>/assets/plugins/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
     <style>
         .linker-list p {

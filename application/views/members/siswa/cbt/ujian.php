@@ -151,7 +151,7 @@
 <script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/math/katex.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/katex/katex.min.js"></script>
 
 <script>
     var elem = document.documentElement;
@@ -218,11 +218,18 @@
             let formData = new FormData($('#jawab')[0]);
             formData.append('siswa', siswa)
             formData.append('bank', bank)
+
+            const jns = jsonJawaban['jenis']
             for (const key in jsonJawaban) {
-                //console.log(key, jsonJawaban[key]);
-                formData.append('data['+key+']', jsonJawaban[key])
+                console.log(key, jsonJawaban[key]);
+                if ((jns==='2' || jns==='3') && key === 'jawaban_siswa') {
+                    formData.append('data['+key+']', JSON.stringify(jsonJawaban[key]))
+                } else {
+                    formData.append('data['+key+']', jsonJawaban[key])
+                }
             }
             console.log(Object.fromEntries(formData))
+
             $.ajax({
                 url: base_url + 'siswa/savejawaban',
                 method: 'POST',
@@ -1074,4 +1081,22 @@
             location.href=base_url+"siswa/leavecbt/<?= $jadwal->id_jadwal ?>/<?= $siswa->id_siswa ?>";
         }
     });
+
+    function transformToFormData(data, formData=(new FormData), parentKey=null) {
+        $.each(data, function (value, key) {
+            if (value === null) return; // else "null" will be added
+            //let formattedKey = _.isEmpty(parentKey) ? key : `${parentKey}[${key}]`;
+            let formattedKey = parentKey ? `${parentKey}[${key}]` : key
+            if (value instanceof Array){
+                $.each(value, function (ele) {
+                    formData.append(`${formattedKey}[]`, ele)
+                });
+            } else if (value instanceof Object) {
+                transformToFormData(value, formData, formattedKey)
+            } else {
+                formData.set(formattedKey, value)
+            }
+        })
+        return formData
+    }
 </script>

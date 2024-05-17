@@ -261,7 +261,7 @@
                                                             </li>
                                                         <?php endforeach; ?>
                                                     </ol>
-                                                    <p>JAWABAN: <b><?= strtoupper(implode(", ", $soal->jawaban ?? '')) ?></b></p>
+                                                    <p>JAWABAN: <b><?= strtoupper(implode(", ", $soal->jawaban ?? [''])) ?></b></p>
                                                 </td>
                                                 <td style="width: 150px">
                                                 </td>
