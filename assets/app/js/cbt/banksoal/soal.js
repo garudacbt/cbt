@@ -72,7 +72,7 @@ $(document).ready(function() {
             //['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
-            //['insert', ['video', 'file']],
+            ['insert', ['math']],
             //['view', ['fullscreen', 'codeview', 'help']],
             //['cleaner',['cleaner']],
         ],
