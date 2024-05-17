@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Media Upload and Preview Using Bootstrap Modal</title>
+    <meta name="keywords" content="Media upload,Picture upload,Video Upload,bootstrap modal">
+    <meta name="description" content="multi select media upload and preview on bootstrap modal">
+    <meta name="author" content="Abhishek Mishra">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Jquery Plugin to select multiple media files v.1.0.0.1</h1>
+            <p>Use this plugin to create media upload and preview with bootstrap modal and jquery</p>
+        </div>
+    </div>
+    <div class="wrap-upload-buttons">
+        <div class="container">
+            <h3>Click To Select Files</h3>
+            <ul class="btn-nav">
+                <li><span><img src="images/cam_ico.png" /><input type="file" name="" click-type="type1" class="picupload" multiple accept="image/*" /></span></li>
+                <li><span><img src="images/video_ico.png" /><input type="file" name="" click-type="type1" class="picupload"  multiple accept="video/*" /></span></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!--boostatrp modal-->
+    <div class="modal fade popups" id="hint_brand" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content clearfix">
+                <div class="modal-body login-box clearfix">
+                    <!--user post text -wrap-->
+                    <div class="user-post-text-wrap">
+                        <div class="user-pic-post">
+                            <img src="images/img4.jpg">
+                        </div>
+                        <div class="user-txt-post">
+                            <textarea class="form-control upostTextarea" placeholder="What's on your mind"></textarea>
+                        </div>
+                    </div>
+                    <!--user post text -wrap end-->
+                    <ul id="media-list" class="clearfix">
+                        <li class="myupload">
+                            <span><i class="fa fa-plus" aria-hidden="true"></i><input type="file" click-type="type2" id="picupload" class="picupload" multiple></span>
+                        </li>
+                    </ul>
+
+                    <!--post btn wrap-->
+                    <div class="user-post-btn-wrap clearfix">
+                        <input type="submit" class="btn" value="post">
+                    </div>
+                    <!--post btn wrap end-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--bootstrap modal end-->
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/app.js"></script>
+
+</html>

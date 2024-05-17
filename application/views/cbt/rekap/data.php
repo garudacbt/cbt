@@ -136,7 +136,7 @@ function my_array_unique($array, $keep_key_assoc = false)
                             <?php
 
                             $jk = json_decode(json_encode($jadwal->bank_kelas));
-                            $jumlahKelas = $jadwal->bank_kelas == "" ? [] : json_decode(json_encode(unserialize($jk ?? '')));
+                            $jumlahKelas = $jadwal->bank_kelas == "" ? [] : json_decode(json_encode(unserialize($jk)));
                             //$jks = [];
 
                             $kelasbank = '';

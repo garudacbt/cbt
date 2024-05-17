@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>jQuery Popr Plugin Demos</title>
+	<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400|Merriweather:300,300italic" rel="stylesheet">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="inc/normalize.css">
+	<link rel="stylesheet" href="inc/standard.css">
+
+	<link rel="stylesheet" type="text/css" href="popr/popr.css">
+	<script type="text/javascript" src="popr/popr.js"></script>
+
+</head>
+<body>
+<div id="jquery-script-menu">
+	<div class="center">
+		<div class="inner" style="padding-top: 150px;"><h2>jQuery Popr Plugin Demos</h2>
+		</div>
+	</div>
+	<div class="center">
+		<div class="inner ital" style="padding-top: 17px;">Click on something below.</div>
+	</div>
+
+	<div class="center">
+		<div class="inner norm" style="padding-top: 17px;">
+			<div class="popr" data-id="1">Click Me</div>
+		</div>
+	</div>
+	<div class="center">
+		<div class="inner" style="padding-top: 15px;">
+			<div class="popr" data-id="2"><img src="img/popr_options.png"></div>
+		</div>
+	</div>
+	<div class="center">
+		<div class="inner norm" style="padding-top: 13px;">
+			<div class="popr" data-id="3" data-mode="top">Click Me</div>
+		</div>
+	</div>
+
+	<div class="popr-box" data-box-id="1">
+		<a href="#">
+			<div class="popr-item">Menu Item 1</div>
+		</a>
+		<a href="#">
+			<div class="popr-item">Menu Item 2</div>
+		</a>
+		<a href="#">
+			<div class="popr-item">Menu Item 3</div>
+		</a>
+	</div>
+
+	<div class="popr-box" data-box-id="2">
+		<a href="#">
+			<div class="popr-item">Menu Item 1</div>
+		</a>
+		<div class="popr-item" id="feugait">Menu Item 2</div>
+		<a href="#">
+			<div class="popr-item">Menu Item 3</div>
+		</a>
+	</div>
+
+	<div class="popr-box" data-box-id="3">
+		<a href="#">
+			<div class="popr-item">Menu Item 1</div>
+		</a>
+		<a href="#">
+			<div class="popr-item">Menu Item 2</div>
+		</a>
+		<a href="#">
+			<div class="popr-item">Menu Item 3</div>
+		</a>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$('.popr').popr();
+		});
+
+		$(document).on('click', '#feugait', function () {
+			alert('Feugait');
+		});
+	</script>
+</body>
+</html>

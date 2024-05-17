@@ -321,7 +321,7 @@
 
       $sWhere = '';
       $search = $this->ci->input->post('search');
-      $sSearch = $this->ci->db->escape_like_str(trim($search['value'] ?? ''));
+      $sSearch = $this->ci->db->escape_like_str(trim($search['value']));
       $columns = array_values(array_diff($this->columns, $this->unset_columns));
 
       if($sSearch != '')
@@ -444,7 +444,7 @@
       foreach($this->or_like as $val)
         $this->ci->db->or_like($val[0], $val[1], $val[2]);
 
-      if(strlen($this->distinct ?? '') > 0)
+      if(strlen($this->distinct) > 0)
       {
         $this->ci->db->distinct($this->distinct);
         $this->ci->db->select($this->columns);
@@ -509,7 +509,7 @@
     private function check_cType()
     {
       $column = $this->ci->input->post('columns');
-      if(is_numeric(isset($column[0]) && isset($column[0]['data']) ? $column[0]['data'] : ''))
+      if(is_numeric($column[0]['data']))
         return FALSE;
       else
         return TRUE;

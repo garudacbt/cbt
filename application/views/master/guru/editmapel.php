@@ -64,7 +64,7 @@
                                 <?php
                                 //var_dump($guru);
                                 $jmapel = json_decode(json_encode($guru->mapel_kelas));
-                                $jmapelval = json_decode(json_encode(unserialize($jmapel ?? '')));
+                                $jmapelval = json_decode(json_encode(unserialize($jmapel)));
                                 $jks = [];
                                 if ($jmapelval != null) {
                                     foreach ($jmapelval as $key => $val) {
@@ -73,7 +73,7 @@
                                 }
 
                                 $jekstra = json_decode(json_encode($guru->ekstra_kelas));
-                                $jekstraval = json_decode(json_encode(unserialize($jekstra ?? '')));
+                                $jekstraval = json_decode(json_encode(unserialize($jekstra)));
                                 $jke = [];
                                 if ($jekstraval != null) {
                                     foreach ($jekstraval as $key => $val) {
@@ -347,13 +347,13 @@
 <?= form_close() ?>
 
 <?php
-$ekstra_guru = $guru->ekstra_kelas == null ? [] : unserialize($guru->ekstra_kelas ?? '');
+$ekstra_guru = $guru->ekstra_kelas == null ? [] : unserialize($guru->ekstra_kelas);
 ?>
 <script type="text/javascript">
     var guru_id = '<?=$guru->id_guru?>';
     var kelas_id = '<?=$guru->id_kelas?>';
     var level_id = '<?=$guru->id_level?>';
-    var mapel_guru = '<?= json_encode(unserialize($guru->mapel_kelas ?? '')) ?>';
+    var mapel_guru = '<?= json_encode(unserialize($guru->mapel_kelas)) ?>';
     var ekstra_guru = '<?= json_encode($ekstra_guru) ?>';
     var guru_before = JSON.parse('<?= str_replace("'", "\'", json_encode($guru2)) ?>');
 </script>

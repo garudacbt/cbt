@@ -25,8 +25,6 @@ $YA = isset($convert) ? $convert['ya'] : 100; // hasil terbesar
 $YB = isset($convert) ? $convert['yb'] : 60;  // hasil terkecil
 
 $colWidth = '';
-
-$cols_name = ["PG", "PK", "JOD", "IS", "ES"];
 ?>
 
 <div class="content-wrapper bg-white">
@@ -189,27 +187,24 @@ $cols_name = ["PG", "PK", "JOD", "IS", "ES"];
                                         data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
                                         data-f-bold="true">Durasi
                                     </th>
-                                    <?php if ($info->tampil_pg > 0) : ?>
-                                        <th id="no-soal-tile" colspan="<?= $info->tampil_pg ?>"
-                                            class="text-center align-middle bg-blue d-none" data-fill-color="b8daff"
-                                            data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                            Nomor Soal PG
-                                        </th>
-                                        <th colspan="2" class="text-center align-middle bg-blue"
-                                            data-fill-color="b8daff"
-                                            data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                            PG
-                                        </th>
-                                    <?php endif; ?>
+                                    <th id="no-soal-tile" colspan="<?= $info->tampil_pg ?>"
+                                        class="text-center align-middle bg-blue d-none" data-fill-color="b8daff"
+                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                        style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                        Nomor Soal PG
+                                    </th>
+                                    <th colspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                        style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                        PG
+                                    </th>
 
                                     <th colspan="<?= count($cols) ?>" rowspan="<?= $rows ?>"
                                         class="text-center align-middle bg-blue"
                                         data-fill-color="b8daff"
                                         data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
                                         style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                        Skor <?= count($cols) > 1 ? "" : $cols_name[array_key_first($cols)] ?>
+                                        Skor
                                     </th>
                                     <th colspan="2" class="text-center align-middle bg-blue" data-fill-color="b8daff"
                                         data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
@@ -232,19 +227,16 @@ $cols_name = ["PG", "PK", "JOD", "IS", "ES"];
                                             <?= $js + 1 ?>
                                         </th>
                                     <?php endfor; ?>
-                                    <?php if ($info->tampil_pg > 0) : ?>
-                                        <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
-                                            data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                            B
-                                        </th>
-                                        <th class="text-center align-middle bg-blue"
-                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;"
-                                            data-fill-color="b8daff" data-a-v="middle" data-a-h="center"
-                                            data-b-a-s="thin"
-                                            data-f-bold="true">S
-                                        </th>
-                                    <?php endif; ?>
+                                    <th class="text-center align-middle bg-blue" data-fill-color="b8daff"
+                                        data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"
+                                        style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                        B
+                                    </th>
+                                    <th class="text-center align-middle bg-blue"
+                                        style="border: 1px solid black;border-collapse: collapse; text-align: center;"
+                                        data-fill-color="b8daff" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                        data-f-bold="true">S
+                                    </th>
                                     <?php
                                     if ($rows == 1) :
                                         if ($info->tampil_pg > 0) : ?>
@@ -349,17 +341,13 @@ $cols_name = ["PG", "PK", "JOD", "IS", "ES"];
                                                 data-b-a-s="thin"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;"><?= $jwb['jawaban'] ?></td>
                                         <?php endforeach; ?>
-
+                                        <td class="text-success" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                            <b><?= $disable ? '' : $benar_pg ?></b></td>
+                                        <td class="text-danger" data-a-v="middle" data-a-h="center" data-b-a-s="thin"
+                                            style="border: 1px solid black;border-collapse: collapse; text-align: center;">
+                                            <b><?= $disable ? '' : $salah_pg ?></b></td>
                                         <?php if ($info->tampil_pg > 0) : ?>
-                                            <td class="text-success" data-a-v="middle" data-a-h="center"
-                                                data-b-a-s="thin"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                <b><?= $disable ? '' : $benar_pg ?></b></td>
-                                            <td class="text-danger" data-a-v="middle" data-a-h="center"
-                                                data-b-a-s="thin"
-                                                style="border: 1px solid black;border-collapse: collapse; text-align: center;">
-                                                <b><?= $disable ? '' : $salah_pg ?></b></td>
-
                                             <td class="text-center text-info align-middle" data-a-v="middle"
                                                 data-a-h="center" data-b-a-s="thin"
                                                 style="border: 1px solid black;border-collapse: collapse; text-align: center;">

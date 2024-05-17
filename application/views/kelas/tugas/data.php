@@ -114,7 +114,7 @@ foreach ($tugas as $k => $m) {
                                 if (count($tugas) > 0) :
                                 $no = 1;
                                 foreach ($tugas as $key => $value) :
-                                    $arr = unserialize($value->tugas_kelas ?? '');
+                                    $arr = unserialize($value->tugas_kelas);
                                     array_push($arrIds, $value->id_materi);
                                     ?>
                                     <tr>
@@ -206,7 +206,7 @@ foreach ($tugas as $k => $m) {
                         <?php
                         $no = 1;
                         foreach ($all_tugas as $am) :
-                            $arr = unserialize($am->tugas_kelas ?? '');
+                            $arr = unserialize($am->tugas_kelas);
                             $kelas = '';
                             for ($i = 0; $i < count($arr); $i++) {
                                 $kelas .= $arr[$i];

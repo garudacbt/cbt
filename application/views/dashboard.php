@@ -208,7 +208,7 @@
                                                         $id_guru = isset($pengawas[$jadwal[0]->id_jadwal])
                                                         && isset($pengawas[$jadwal[0]->id_jadwal][$ruang]) &&
                                                         isset($pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id])
-                                                            ? explode(',', $pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id]->id_guru ?? '')
+                                                            ? explode(',', $pengawas[$jadwal[0]->id_jadwal][$ruang][$sesi->sesi_id]->id_guru)
                                                             : [];
 
                                                         $badge_kelas = '';

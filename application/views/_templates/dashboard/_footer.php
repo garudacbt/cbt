@@ -60,7 +60,7 @@
 <script src="<?= base_url() ?>/assets/plugins/summernote/plugin/audio/summernote-audio.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/summernote/plugin/file/summernote-file.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/summernote/plugin/gallery/dist/summernote-gallery.min.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/summernote/plugin/math/summernote-math.js"></script>
+<script src='<?= base_url() ?>/assets/plugins/tinymce/tinymce.min.js'></script>
 <!-- overlayScrollbars -->
 <script src="<?= base_url() ?>/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- SweetAlert2 -->
@@ -97,7 +97,11 @@
 <script src="<?= base_url() ?>/assets/plugins/jquery-timeago/jquery.timeago.js" type="text/javascript"></script>
 <!-- App JS -->
 <script src="<?= base_url() ?>/assets/app/js/show.toast.js"></script>
-
+<!--
+			<script src="<?= base_url() ?>/assets/plugins/multiple-file-select/js/app.js"></script>
+			<!--
+			<script src="<?= base_url() ?>/assets/plugins/file-uploader/src/image-uploader.js"></script>
+			-->
 <script src="<?= base_url() ?>/assets/app/js/jquery-thumbnail-cut.js"></script>
 
 <!-- Custom JS -->

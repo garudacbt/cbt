@@ -133,31 +133,31 @@
                                                 $mulai_sesi = $se->waktu_mulai ?? '';
                                                 $akhir_sesi = $se->waktu_akhir ?? '';
                                                 ?>
-                                                <table style="margin-top: 8px">
+                                                <table>
                                                     <tr>
                                                         <td style="width: 100px">RUANG</td>
-                                                        <td> : </td>
-                                                        <td><b><?= $sis[0]->nama_ruang ?></b></td>
+                                                        <td> :</td>
+                                                        <td> <?= $sis[0]->nama_ruang ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>SESI</td>
-                                                        <td> : </td>
-                                                        <td><b><?= $nama_sesi ?></b></td>
+                                                        <td> :</td>
+                                                        <td><?= $nama_sesi ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>WAKTU</td>
-                                                        <td> : </td>
-                                                        <td><b>
+                                                        <td> :</td>
+                                                        <td>
                                                             <?= date('H:i', strtotime($mulai_sesi)) ?>
                                                             sampai
-                                                            <?= date('H:i', strtotime($akhir_sesi)) ?></b>
+                                                            <?= date('H:i', strtotime($akhir_sesi)) ?>
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <table style="width: 100%; border: 1px solid black;border-collapse: collapse; font-size: 10pt;margin-top: 8px">
+                                                <table style="width: 100%; border: 1px solid black;border-collapse: collapse; font-size: 10pt">
                                                     <thead>
                                                     <tr>
-                                                        <th style="border: 1px solid black; width: 40px; height: 50px; text-align: center;">
+                                                        <th style="border: 1px solid black; width: 40px; height: 40px; text-align: center;">
                                                             NO
                                                         </th>
                                                         <th style="border: 1px solid black; text-align: center;">NO.
@@ -179,9 +179,7 @@
                                                     $no = 1;
                                                     foreach ($sis as $s) :?>
                                                         <tr>
-                                                            <td style="border: 1px solid black; text-align: center;height: 30px">
-                                                                <?= $no ?>
-                                                            </td>
+                                                            <td style="border: 1px solid black; text-align: center;"><?= $no ?></td>
                                                             <td style="border: 1px solid black; text-align: center;"><?= $s->nomor_peserta ?></td>
                                                             <td style="border: 1px solid black; padding: 1px 0 1px 6px"><?= $s->nama ?></td>
                                                             <td style="border: 1px solid black; text-align: center;"><?= $s->nama_kelas ?></td>
@@ -299,15 +297,15 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-    var logoKanan = "<?= isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : "" ?>";
-    var logoKiri = "<?= isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>";
-    var sklh = "<?= isset($kop->sekolah) ? $kop->sekolah : "" ?>";
+    var logoKanan = '<?= isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : "" ?>';
+    var logoKiri = '<?= isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>';
+    var sklh = '<?= isset($kop->sekolah) ? $kop->sekolah : "" ?>';
 
     $(document).ready(function () {
         ajaxcsrf();
         var opsiJenis = $("#jenis");
 
-        //opsiJenis.prepend("<option value="" selected='selected'>Pilih Jenis Ujian</option>");
+        opsiJenis.prepend("<option value='' selected='selected'>Pilih Jenis Ujian</option>");
 
         opsiJenis.change(function () {
             $('.jenis-ujian').text($("#jenis option:selected").text().toUpperCase());

@@ -57,44 +57,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 mb-2 d-flex flex-row justify-content-between">
-                                <!--
+                            <div class="col-12 mb-2">
                                 <button id="hapusterpilih" onclick="bulk_delete()" type="button" class="btn btn-danger" data-toggle="tooltip" title="Hapus Terpilh" disabled="disabled">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
-                                -->
-                                <div class="dropdown">
-                                    <button id="dropdown-btn" class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" disabled="disabled">
-                                        Aksi
-                                    </button>
-                                    <div id="dropdown-action" class="dropdown-menu">
-                                        <a class="dropdown-item" id="pindah" href="#">Set sebagai PINDAH</a>
-                                        <a class="dropdown-item" id="keluar" href="#">Set sebagai KELUAR</a>
-                                        <a class="dropdown-item" id="hapus" href="#">HAPUS</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center">
-                                    <span>Filter </span>
-                                    <select id="users-filter" class="ml-2 form-control form-control-sm">
-                                        <option value="1">Aktif</option>
-                                        <option value="5">Tanpa Kelas</option>
-                                        <option value="3">Pindah</option>
-                                        <option value="4">Keluar</option>
-                                    </select>
-                                </div>
                             </div>
                             <div class="col-12 mb-3">
                                 <?= form_open('datasiswa/delete', array('id' => 'bulk')); ?>
                                 <div class="table-responsive">
-                                    <table id="table-siswa" class="w-100 table table-md table-striped table-bordered table-hover">
+                                    <table id="table-siswa" class="w-100 table table-striped table-bordered table-hover">
                                         <thead>
                                         <tr>
-                                            <th height="50" class="align-middle text-center p-0">
+                                            <th class="align-middle text-center p-0">
                                                 <input class="select_all" type="checkbox">
                                             </th>
                                             <th class="align-middle text-center p-0">No.</th>
-                                            <th class="align-middle">NAMA & KELAS</th>
-                                            <th class="align-middle">NIS & NISN</th>
+                                            <th>NAMA & KELAS</th>
+                                            <th>NIS & NISN</th>
                                             <th class="align-middle text-center p-0">Aksi</th>
                                         </tr>
                                         </thead>
@@ -294,7 +273,7 @@
 <script>
     let currentPage = 1;
     let perPage = 10;
-    let $pagination, defaultOpts, query, actionBulk;
+    let $pagination, defaultOpts, query;
 
     $(document).ready(function () {
         ajaxcsrf();
@@ -313,11 +292,6 @@
         $('#users_length').change(function () {
             $('#pager-limit').val($(this).val());
             perPage = $(this).val();
-            currentPage = 1;
-            loadSiswa();
-        });
-
-        $('#users-filter').change(function () {
             currentPage = 1;
             loadSiswa();
         });
@@ -343,14 +317,12 @@
                     this.checked = true;
                     $(".select_all").prop("checked", true);
                     $('#hapusterpilih').removeAttr('disabled');
-                    $('#dropdown-btn').removeAttr('disabled');
                 });
             } else {
                 $(".check").each(function () {
                     this.checked = false;
                     $(".select_all").prop("checked", false);
                     $('#hapusterpilih').attr('disabled', 'disabled');
-                    $('#dropdown-btn').attr('disabled', 'disabled');
                 });
             }
         });
@@ -365,28 +337,26 @@
             }
 
             if (checked === 0) {
+                //$('#hapusterpilih').addClass('d-none');
                 $('#hapusterpilih').attr('disabled', 'disabled');
-                $('#dropdown-btn').attr('disabled', 'disabled');
             } else {
+                //$('#hapusterpilih').removeClass('d-none');
                 $('#hapusterpilih').removeAttr('disabled');
-                $('#dropdown-btn').removeAttr('disabled');
             }
         });
 
         $("#bulk").on("submit", function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            //console.log($(this).serialize() + '&aksi=' +actionBulk)
+
             $.ajax({
                 url: $(this).attr("action"),
-                data: $(this).serialize() + '&aksi=' +actionBulk,
+                data: $(this).serialize(),
                 type: "POST",
                 success: function (respon) {
                     if (respon.status) {
                         $(".select_all").prop("checked", false);
                         $('#hapusterpilih').attr('disabled', 'disabled');
-                        $('#dropdown-btn').attr('disabled', 'disabled');
-                        console.log('res', respon)
                         swal.fire({
                             title: "Berhasil",
                             text: respon.total + " data berhasil dihapus",
@@ -460,29 +430,14 @@
             })
         });
 
-        $("#dropdown-action a ").click(function () {
-            let x = $(this).attr('id');
-            //alert(x);
-            actionBulk = x;
-            if (x === "pindah") {
-                bulk_pindah()
-            } else if (x === "keluar") {
-                bulk_keluar()
-            } else if (x === "hapus") {
-                bulk_delete()
-            }
-        });
-
         loadSiswa();
     });
 
     function loadSiswa() {
-        $(".select_all").prop("checked", false);
         $('#pager-page').val(currentPage);
         $('#loading').removeClass('d-none');
         var cari = query != null ? '&search=' + query : ''
-        var filter = '&filter=' + $('#users-filter').val();
-        var dataPost = $('#pager').serialize() + cari + filter;
+        var dataPost = $('#pager').serialize() + cari;
         console.log('post', dataPost);
         $.ajax({
             url: base_url + 'datasiswa/list',
@@ -581,60 +536,12 @@
         } else {
             swal.fire({
                 title: "Anda yakin?",
-                text: "Data terpilih akan dihapus!",
+                text: "Data akan dihapus!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Hapus!"
-            }).then(result => {
-                if (result.value) {
-                    $("#bulk").submit();
-                }
-            });
-        }
-    }
-
-    function bulk_pindah() {
-        if ($("#table-siswa tbody tr .check:checked").length == 0) {
-            swal.fire({
-                title: "Gagal",
-                text: "Tidak ada data yang dipilih",
-                icon: "error"
-            });
-        } else {
-            swal.fire({
-                title: "Anda yakin?",
-                text: "Data terpilih akan diset sebagai siswa PINDAH",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "YA!"
-            }).then(result => {
-                if (result.value) {
-                    $("#bulk").submit();
-                }
-            });
-        }
-    }
-
-    function bulk_keluar() {
-        if ($("#table-siswa tbody tr .check:checked").length == 0) {
-            swal.fire({
-                title: "Gagal",
-                text: "Tidak ada data yang dipilih",
-                icon: "error"
-            });
-        } else {
-            swal.fire({
-                title: "Anda yakin?",
-                text: "Data terpilih akan diset sebagai siswa KELUAR",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "YA!"
             }).then(result => {
                 if (result.value) {
                     $("#bulk").submit();

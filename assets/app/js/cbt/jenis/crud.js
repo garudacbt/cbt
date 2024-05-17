@@ -30,24 +30,17 @@ $(document).ready(function () {
 		columns: [
 			{
 				data: "id_jenis",
-                className: "text-center align-middle",
 				orderable: false,
 				searchable: false
 			},
 			{
 				data: "id_jenis",
-				className: "text-center align-middle",
+				className: "text-center",
 				orderable: false,
 				searchable: false
 			},
-			{
-				data: "nama_jenis",
-                className: "align-middle",
-			},
-			{
-				data: "kode_jenis",
-                className: "text-center align-middle",
-			}
+			{data: "nama_jenis"},
+			{data: "kode_jenis"}
 		],
 		columnDefs: [
 			{
@@ -70,7 +63,7 @@ $(document).ready(function () {
 				targets: 0,
 				data: "id_jenis",
 				render: function (data, type, row, meta) {
-					return `<div class="text-center align-middle">
+					return `<div class="text-center">
 									<input name="checked[]" class="check" value="${data}" type="checkbox">
 								</div>`;
 				}

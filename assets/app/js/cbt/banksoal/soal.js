@@ -18,7 +18,7 @@ $(document).ready(function() {
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
-            ['insert', ['link', 'picture', 'video', 'file', 'math']],
+            ['insert', ['link', 'picture', 'video', 'file']],
             ['view', ['fullscreen', 'codeview', 'help']],
             ['cleaner',['cleaner']],
         ],
@@ -48,7 +48,7 @@ $(document).ready(function() {
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
             ['view', ['fullscreen', 'codeview', 'help']],
-            ['insert', ['picture', 'math']],
+            ['insert', ['picture']],
         ],
         callbacks: {
             onImageUpload: function(images) {

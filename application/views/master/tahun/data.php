@@ -1,3 +1,12 @@
+<?php
+/**
+ * Created by IntelliJ IDEA.
+ * User: AbangAzmi
+ * Date: 12/06/2020
+ * Time: 10.26
+ */
+?>
+
 <div class="content-wrapper bg-white pt-4">
     <section class="content-header">
         <div class="container-fluid">
@@ -5,6 +14,14 @@
                 <div class="col-sm-6">
                     <h1><?= $judul ?></h1>
                 </div>
+                <!--
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+                -->
             </div>
         </div>
     </section>
@@ -29,11 +46,11 @@
                         <div class="col-md-7 mb-4 table-responsive">
                             <label>Tahun Pelajaran</label>
                             <?= form_open('', array('id' => 'edittp')) ?>
-                            <table id="tahun" class="table table-sm table-striped table-bordered table-hover">
+                            <table id="tahun" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th class="d-none">id</th>
-                                    <th height="50" class="text-center p-0 align-middle">No.</th>
+                                    <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
                                     <th class="text-center p-0 align-middle">Tahun Pelajaran</th>
                                     <th class="text-center p-0 align-middle p-0">Status</th>
                                     <th class="text-center p-0 align-middle">Aksi</th>
@@ -48,10 +65,10 @@
                                         <td class="text-center">
                                             <?= ($key + 1) ?>
                                         </td>
-                                        <td class="text-center align-middle">
+                                        <td class="text-center">
                                             <?= $value->tahun ?>
                                         </td>
-                                        <td class="text-center align-middle">
+                                        <td class="text-center">
                                             <?php if ($value->active) : ?>
                                                 <span class="text-success"><i class="fa fa-check mr-2"></i>AKTIF</span>
                                             <?php else : ?>
@@ -81,11 +98,11 @@
                         <div class="col-md-5">
                             <label>Semester</label>
                             <?= form_open('', array('id' => 'editsmt')) ?>
-                            <table id="semester" class="table table-sm table-striped table-bordered table-hover">
+                            <table id="semester" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th class="d-none">id</th>
-                                    <th height="50" class="text-center p-0 align-middle">No.</th>
+                                    <th width="50" height="50" class="text-center p-0 align-middle">No.</th>
                                     <th class="text-center p-0 align-middle">Semester</th>
                                     <th class="text-center p-0 align-middle p-0">Status</th>
                                 </tr>
@@ -116,6 +133,16 @@
                                 </tbody>
                             </table>
                             <?= form_close() ?>
+                            <?= form_open('', array('id' => 'hariefektif')) ?>
+                            <label>Jumlah Hari Efektif Satu Semester</label>
+                            <div class="input-group">
+                                <input name="jml_hari" value="<?= $jml_hari ?>" type="number" class="form-control"
+                                       required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-success" type="submit">Simpan</button>
+                                </div>
+                            </div>
+                            <?= form_close() ?>
                         </div>
                     </div>
                 </div>
@@ -124,7 +151,7 @@
     </section>
 </div>
 
-<?= form_open('', array('id' => 'create')) ?>
+<?= form_open('create', array('id' => 'create')) ?>
 <div class="modal fade" id="createTahunModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -142,12 +169,23 @@
                         <input type="text" id="createtahun" name="tahun" class="form-control" required>
                     </div>
                 </div>
+                <!--
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Status*</label>
+                    <div class="col-md-10">
+                        <select name="active_tahun" id="createactive" class="custom-select custom-select-sm form-control form-control-sm">
+                            <option value="1">Aktif</option>
+                            <option value="0">Tidak aktif</option>
+                        </select>
+                    </div>
+                </div>
+                -->
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="editIdTahun" class="form-control">
                 <input type="hidden" id="method" name="method" class="form-control">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" id="submit-tp">
+                <button type="submit" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Simpan
                 </button>
             </div>
@@ -156,12 +194,32 @@
 </div>
 <?= form_close() ?>
 
+<div class="modal-box">
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                <div class="modal-body">
+                    <div class="icon"><i class="fa fa-close"></i></div>
+                    <h3 class="title">Woohoo! <br> Lorem ipsum dolor sit amet</h3>
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid commodi
+                        consequatur cumque </p>
+                    <button class="subscribe">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript"
         src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-cell.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson-row.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/plugins/jquery-table2json/src/tabletojson.js"></script>
 <script>
     $(document).ready(function () {
+        ajaxcsrf();
+
         $("#tahun").on("click", ".btn-aktif", function () {
             let id = $(this).data("id");
             var dataTahun = JSON.stringify($('#tahun').tableToJSON());
@@ -311,19 +369,19 @@
             });
         });
 
-        $('#create').on('submit', function (e) {
+        $('#create').submit('click', function (e) {
+            e.stopPropagation();
             e.preventDefault();
             e.stopImmediatePropagation();
-            var form = new FormData($('#create')[0])
-            console.log("data:", Object.fromEntries(form));
+            //var tahun = $('#createtahun').val();
+            //var active = $('#createactive option:selected').val()
+            console.log("data:", $(this).serialize());
 
             $.ajax({
                 url: base_url + "datatahun/add",
                 type: "POST",
-                data: form,
-                processData: false,
-                contentType: false,
-                cache: false,
+                dataType: "JSON",
+                data: $(this).serialize(),
                 success: function (data) {
                     location.href = base_url + 'datatahun';
                 }, error: function (xhr, status, error) {
@@ -337,7 +395,6 @@
             return false;
         });
 
-        /*
         $('#hariefektif').submit('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
@@ -379,6 +436,5 @@
                 }
             });
         });
-         */
     })
 </script>

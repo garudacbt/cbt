@@ -1,0 +1,117 @@
+
+/*
+Popr 1.0
+Copyright (c) 2015 Tipue
+Popr is released under the MIT License
+http://www.tipue.com/popr
+*/
+
+
+.popr
+{
+     cursor: pointer;
+}
+.popr a
+{
+     color: #333;
+     text-decoration: none;
+     border: 0;
+}
+.popr-box
+{
+     display: none;
+}
+.popr_content
+{
+     background-color: #f8f9fa;
+     padding: 7px;
+     margin: 0;
+}
+.popr-item
+{
+     font: 300 14px/1.7 'Helvetica Neue', Helvetica, Arial, sans-serif;
+     color: #333;
+     padding: 0 12px 0 12px;
+}
+.popr-item:hover
+{
+     color: #333;
+     background-color: #dcdcdc;
+}
+
+.popr-selected
+{
+	color: #FFF;
+	background-color: #007E33;
+}
+
+.popr_container_bottom
+{
+     display: none;
+     position: absolute;
+     margin-top: 10px;
+     box-shadow: 2px 2px 5px #CCCCCC;
+     z-index: 1000;
+}
+.popr_container_top
+{
+     display: none;
+     position: absolute;
+     box-shadow: 2px 2px 5px #f9f9f9;
+     z-index: 1000;
+}
+.popr_point_top, .popr_point_bottom
+{
+     position: relative;
+	background: #fff;
+	border: 1px solid #dcdcdc;
+}
+.popr_point_top:after, .popr_point_top:before
+{
+	position: absolute;
+	pointer-events: none;
+	border: solid transparent;
+	top: 100%;
+	content: "";
+	height: 0;
+	width: 0;
+}
+.popr_point_top:after
+{
+	border-top-color: #fff;
+	border-width: 8px;
+	left: 50%;
+	margin-left: -8px;
+}
+.popr_point_top:before
+{
+	border-top-color: #dcdcdc;
+	border-width: 9px;
+	left: 50%;
+	margin-left: -9px;
+}
+.popr_point_bottom:after, .popr_point_bottom:before
+{
+	position: absolute;
+	pointer-events: none;
+	border: solid transparent;
+	bottom: 100%;
+	content: "";
+	height: 0;
+	width: 0;
+}
+.popr_point_bottom:after
+{
+	border-bottom-color: #f8f9fa;
+	border-width: 8px;
+	left: 50%;
+	margin-left: -8px;
+}
+.popr_point_bottom:before
+{
+	border-bottom-color: #dcdcdc;
+	border-width: 9px;
+	left: 50%;
+	margin-left: -9px;
+}
+

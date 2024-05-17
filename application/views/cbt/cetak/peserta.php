@@ -94,7 +94,43 @@
                     <hr>
                     <br>
                     <div class="d-flex justify-content-center bg-gray-light" style="min-height: 300mm">
-                        <div id="print-preview" class="m-2"></div>
+                        <div id="print-preview" class="m-2">
+                            <!--
+                            <div class="bg-white" style="display: flex; justify-content: center; align-items: center;">
+                                <div style="width: 21cm; min-height: 30cm;" class="border my-shadow p-5">
+                                    <div style="display: flex; justify-content: center; align-items: center;">
+                                        <table id="table-header-print"
+                                               style="width: 100%; border: 0;">
+                                            <tr>
+                                                <td style="width:15%;">
+                                                    <img id="prev-logo-kanan-print" src="<?= base_url() . $kop->logo_kiri ?>"
+                                                         style="width:85px; height:85px; margin: 6px;">
+                                                </td>
+                                                <td style="width:70%; text-align: center;">
+                                                    <div style="line-height: 1.1;font-size: 13pt"><?= $kop->sekolah ?></div>
+                                                    <div style="line-height: 1.1;font-size: 16pt"><b>DAFTAR PESERTA</b>
+                                                    </div>
+                                                    <div style="line-height: 1.1;font-size: 14pt" id="jenis-ujian">Jenis
+                                                        Ujian
+                                                    </div>
+                                                    <div style="line-height: 1.1;font-size: 12pt">Tahun
+                                                        Pelajaran: <?= $tp_active->tahun ?>
+                                                        Semester: <?= $smt_active->smt ?></div>
+                                                </td>
+                                                <td style="width:15%;">
+                                                    <img id="prev-logo-kiri-print" src="<?= base_url() . $kop->logo_kanan ?>"
+                                                         style="width:85px; height:85px; margin: 6px; border-style: none">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                    <div id="daftar-siswa" style="display: flex; flex-wrap: wrap !important; -ms-flex-wrap: wrap !important; justify-content: center; align-items: center;">
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
                     </div>
                 </div>
                 <div class="overlay d-none" id="loading">
@@ -107,14 +143,14 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-    var logoKanan = "<?= isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : "" ?>";
-    var logoKiri = "<?= isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>";
-    var sklh = "<?= isset($kop->sekolah) ? $kop->sekolah : "" ?>";
+    var logoKanan = '<?= isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : "" ?>';
+    var logoKiri = '<?= isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>';
+    var sklh = '<?= isset($kop->sekolah) ? $kop->sekolah : "" ?>';
 
     function createPreview(data) {
         console.log(data);
         var pages = Math.ceil(data.length / 10);
-        var konten = "";
+        var konten = '';
 
         for (let a = 0; a < pages; a++) {
             var card = '<div class="border my-shadow mb-3 p-4 bg-white"><div class="pt-4" ' +
@@ -191,6 +227,11 @@
                     '<td>:</td>' +
                     '<td>' + data[i].nama_kelas + '</td>' +
                     '</tr>' +
+                    //'<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 12pt">' +
+                    //'<td>Ruang/Sesi</td>' +
+                    //'<td>:</td>' +
+                    //'<td>' + ruang + '/' + sesi + '</td>' +
+                    //'</tr>' +
                     '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 12pt">' +
                     '<td>Username</td>' +
                     '<td>:</td>' +
@@ -220,6 +261,29 @@
             konten += card + '<div style="page-break-after: always"></div>';
         }
 
+        /*
+        var tds = [];
+		for (let i = 0; i < data.length; i++) {
+			var td = '<div style="outline: 1px solid; padding: 10px; margin: 10px">' +
+                '<div style="display: block;width: 3cm;"> '+
+                '<img class="avatar" style="width: 3cm; height: 3.38cm; object-fit: cover;object-position: center;" ' +
+                'src= "' + base_url + data[i].foto + '"' +
+                '/>' +
+                '</div>' +
+				'<div>' + data[i].nomor_peserta +
+				'</div>' +
+				'<div>' + data[i].nama +
+				'</div></div>';
+
+			tds.push(td);
+		}
+
+		var divs = '';
+		for (let j = 0; j < tds.length; j++) {
+			divs += '<div style="text-align: left; width: 8.5cm">' + tds[j] + '</div>';
+		}
+		$("#daftar-siswa").html(divs);
+		*/
         $("#print-preview").html(konten);
 
         $(`.avatar`).each(function () {
@@ -309,6 +373,28 @@
                 })
             } else {
                 $('#print-preview').print();
+                /*
+                var header = '<style>' +
+                    '@media print {' +
+                    '    body{' +
+                    '        width: 21cm;' +
+                    '        min-height: 29.7cm;' +
+                    '        margin: auto;' +
+                    '   }' +
+                    '}' +
+                    //'* { margin:auto; padding:0; line-height:100%; }' +
+                    '</style>' +
+                    '</head>' +
+                    '<body onload="window.print()">';
+                var divToPrint = document.getElementById('print-preview');
+                var newWin = window.open('', 'Print-Window');
+                newWin.document.open();
+                newWin.document.write(header + divToPrint.innerHTML + '</body>');
+                newWin.document.close();
+
+                //setTimeout(function(){newWin.close();
+                //},10);
+                */
             }
         });
 

@@ -15,10 +15,10 @@
                     <h1><?= $judul ?></h1>
                 </div>
                 <div class="col-6">
-                    <button onclick="window.history.back();" type="button" class="btn btn-sm btn-danger float-right">
+                    <a href="<?= base_url('cbtjadwal') ?>" type="button" class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-arrow-circle-left"></i><span
                                 class="d-none d-sm-inline-block ml-1">Kembali</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -259,8 +259,7 @@
                             showCancelButton: false,
                         }).then(result => {
                             if (result.value) {
-                                window.history.back()
-                                //window.location.href = base_url + 'cbtjadwal';
+                                window.location.href = base_url + 'cbtjadwal';
                             }
                         });
                     } else {

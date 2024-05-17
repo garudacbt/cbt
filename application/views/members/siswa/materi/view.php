@@ -80,10 +80,10 @@ $ada_nilai = $logs != null && $logs->nilai != null && $logs->nilai != '0';
                             <img id="img1"/>
                             <ul class="clearfix media-list">
                                 <?php
-                                $files = unserialize($materi->file ?? '');
+                                $files = unserialize($materi->file);
                                 foreach ($files as $file) : ?>
                                     <?php
-                                    $temp = explode('.', $file["src"] ?? '');
+                                    $temp = explode('.', $file["src"]);
                                     $extension = end($temp);
                                     //echo $extension;
                                     if ($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif') :?>

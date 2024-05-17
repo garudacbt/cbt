@@ -62,15 +62,16 @@ function sortByPosition($a, $b)
                             </thead>
                             <tbody class="row">
                             <?php foreach ($gurus as $guru):
-                                $mapels_guru = json_decode(json_encode(unserialize($guru->mapel_kelas ?? '')));
-                                $ekstras_guru = json_decode(json_encode(unserialize($guru->ekstra_kelas ?? ''))); ?>
+                                $mapels_guru = json_decode(json_encode(unserialize($guru->mapel_kelas)));
+                                $ekstras_guru = json_decode(json_encode(unserialize($guru->ekstra_kelas))); ?>
                                 <tr role="row" class="col-md-6 col-xl-4 p-0 d-flex align-items-stretch">
                                     <td class="sorting_1 flex-fill">
                                         <div class="card card-primary card-outline m-0">
                                             <div class="card-body d-flex flex-column justify-content-between">
                                                 <div class="media mb-3">
                                                     <img class="d-flex mr-3 rounded-circle img-thumbnail thumb-lg"
-                                                         src="<?= base_url().$guru->foto ?>" alt="foto"/>
+                                                         onerror="this.src='<?= base_url('assets/img/siswa.png') ?>'"
+                                                         src="<?= base_url($guru->foto) ?>" alt="foto"/>
                                                     <div class="media-body overflow-hidden">
                                                         <p class="card-text mb-0 text-xs"><?= $guru->nip ?></p>
                                                         <h6 class="card-text mb-0"><?= $guru->nama_guru ?></h6>

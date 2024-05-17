@@ -14,7 +14,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
-/backups/
 /orm/
-#/vendor/
-/nbproject/private/

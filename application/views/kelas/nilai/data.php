@@ -130,6 +130,7 @@
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/convert-area.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/jquery.wordexport.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
@@ -137,7 +138,7 @@
     const namaBulan = ["", "Januar1", "Februar1", "Maret", "April", "Mei", "Juni",
         "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
-    var styleHead = 'data-fill-color="ffffff" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"';
+    var styleHead = 'data-fill-color="ffffff" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="medium" data-f-bold="true"';
     var styleNormal = 'data-fill-color="ffffff" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
     var styleEmpty = 'data-fill-color="D3D3D3" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
     var styleNama = 'data-fill-color="ffffff" data-t="s" data-a-v="middle" data-b-a-s="thin" data-f-bold="false"';
@@ -227,7 +228,7 @@
         $.each(data.log, function (key, value) {
             konten += '<tr>' +
                 '<td style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleNormal + '>' + no + '</td>' +
-                '<td style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleNormal + '>' + value.nis + '</td>' +
+                '<td style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;" ' + styleNormal + '>' + +value.nis + '</td>' +
                 '<td class="nama-siswa" style="border: 1px solid #c0c0c0; vertical-align: middle;" ' + styleNama + '>' + value.nama + '</td>';
             var totalMtr = 0;
             var totalNilai = 0;
@@ -295,7 +296,7 @@
             no += 1;
         });
         catatan = '<span><b>Catatan:</b></span><ul>' +
-            '<li> Jumlah penilaian dihitung dari jumlah hari tiap mapel dalam 1 bulan. </li>' +
+            '<li> Jumlah penilaian dihitung dari jumlah hari tiap mapel dalam 1 bulan</li>' +
             '<li> Nilai harian dihitung rata-rata dari jumlah jam perhari</li>' +
             '</ul>';
         konten += '</tbody></table>' + catatan;
@@ -328,10 +329,8 @@
             '<td colspan="' + (numCol + 9) + '" data-a-v="middle" data-a-h="center" data-f-bold="true">' + title + '</td>' +
             '</tr>' +
             trsAtas +
-            '<tr></tr>' +
             trsHead +
             trsBody +
-            '<tr></tr>' +
             '<tr>' +
             '<td colspan="' + (numCol + 9) + '" data-a-v="middle"">' + catatan + '</td>' +
             '</tr>' +

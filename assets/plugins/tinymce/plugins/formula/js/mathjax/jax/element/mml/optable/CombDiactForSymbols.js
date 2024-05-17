@@ -1,0 +1,1 @@
+!function(a){var o=a.mo.OPTYPES;a.TEXCLASS;MathJax.Hub.Insert(a.mo.prototype,{OPTABLE:{postfix:{"⃛":o.ACCENT,"⃜":o.ACCENT}}}),MathJax.Ajax.loadComplete(a.optableDir+"/CombDiactForSymbols.js")}(MathJax.ElementJax.mml);

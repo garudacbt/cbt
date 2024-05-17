@@ -140,7 +140,7 @@
                                                                     </li>
                                                                 <?php endif; ?>
                                                             </ol>
-                                                            <p>JAWABAN: <b><?= strtoupper($soal->jawaban ?? '') ?></b></p>
+                                                            <p>JAWABAN: <b><?= strtoupper($soal->jawaban) ?></b></p>
                                                         </td>
                                                         <td style="width: 150px">
                                                             <ul class="chart-legend clearfix m-0">
@@ -155,13 +155,13 @@
 
                                                                 foreach ($opsis as $opsi) :
                                                                     $bg = 'btn-danger';
-                                                                    if (strtoupper($opsi ?? '') == strtoupper($soal->jawaban ?? '')) {
+                                                                    if (strtoupper($opsi) == strtoupper($soal->jawaban)) {
                                                                         $bg = 'btn-success';
                                                                     } ?>
                                                                     <li class="m-1">
                                                     <span class="pl-2 pr-2 btn-circle-sm <?= $bg ?>"
                                                           style="white-space: nowrap">
-                                                        <?= strtoupper($opsi ?? '') ?>
+                                                        <?= strtoupper($opsi) ?>
                                                         = <?= isset($soal->jawaban_siswa['jawab_' . $opsi]) ? count($soal->jawaban_siswa['jawab_' . $opsi]) : 0 ?>
                                                         siswa
                                                     </span>
@@ -246,8 +246,8 @@
                                         <?php
                             $no = 1;
                             foreach ($soals[2] as $soal) :
-                                $soal->opsi_a = @unserialize($soal->opsi_a ?? '');
-                                $soal->jawaban = @unserialize($soal->jawaban ?? '');
+                                $soal->opsi_a = @unserialize($soal->opsi_a);
+                                $soal->jawaban = @unserialize($soal->jawaban);
                                 ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -261,7 +261,7 @@
                                                             </li>
                                                         <?php endforeach; ?>
                                                     </ol>
-                                                    <p>JAWABAN: <b><?= strtoupper(implode(", ", $soal->jawaban ?? '')) ?></b></p>
+                                                    <p>JAWABAN: <b><?= strtoupper(implode(", ", $soal->jawaban)) ?></b></p>
                                                 </td>
                                                 <td style="width: 150px">
                                                 </td>
@@ -277,8 +277,8 @@
                         <?php endif;
                         if (isset($soals[3])) :
                             foreach ($soals[3] as $soal) :
-                                $soal->jawaban_siswa = @unserialize($soal->jawaban_siswa ?? '');
-                                $soal->jawaban_benar = @unserialize($soal->jawaban_benar ?? '');
+                                $soal->jawaban_siswa = @unserialize($soal->jawaban_siswa);
+                                $soal->jawaban_benar = @unserialize($soal->jawaban_benar);
 
                                 $soal->jawaban_siswa = json_decode(json_encode($soal->jawaban_siswa));
                                 $soal->jawaban_benar = json_decode(json_encode($soal->jawaban_benar));

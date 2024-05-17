@@ -151,7 +151,6 @@
 <script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/math/katex.min.js"></script>
 
 <script>
     var elem = document.documentElement;
@@ -214,14 +213,13 @@
             var siswa = $('#up').find('input[name="siswa"]').val();
             var bank = $('#up').find('input[name="bank"]').val();
 
-
             let formData = new FormData($('#jawab')[0]);
             formData.append('siswa', siswa)
             formData.append('bank', bank)
-            for (const key in jsonJawaban) {
-                //console.log(key, jsonJawaban[key]);
-                formData.append('data['+key+']', jsonJawaban[key])
-            }
+            formData.append('data', JSON.stringify(jsonJawaban))
+
+            //var dataPost = $(this).serialize() + '&siswa=' + siswa + '&bank=' + bank + '&data=' + JSON.stringify(jsonJawaban);
+            //console.log(dataPost);
             console.log(Object.fromEntries(formData))
             $.ajax({
                 url: base_url + 'siswa/savejawaban',
@@ -243,7 +241,7 @@
         $("#plus").click(function () {
             if (zoomClicked > 20) return;
             $(".konten-soal-jawab").find('*').not('.img-fluid').each(function (idx, v) {
-                //console.log(idx, parseInt($(v).css("font-size")));
+                console.log(idx, parseInt($(v).css("font-size")));
                 var size = parseInt($(this).css("font-size"));
                 size = (size + 1) + "px";
                 $(this).css({'font-size': size});
@@ -277,7 +275,7 @@
             return;
         }
         var dataPost = $('#up').serialize() + '&nomor=' + nomor + '&timer=' + $('#timer').text() + '&elapsed=' + elapsed;
-        //console.log('res', dataPost);
+        console.log(dataPost);
         if (soalTotal === 0 || nomor <= parseInt(soalTotal)) {
             $.ajax({
                 type: 'POST',
@@ -321,7 +319,7 @@
     }
 
     function setKonten(data) {
-        //console.log('max_jawaban', data.max_jawaban);
+        console.log('max_jawaban', data.max_jawaban);
         idSoal = data.soal_id;
         idSoalSiswa = data.soal_siswa_id;
         nomorSoal = parseInt(data.soal_nomor);
@@ -382,7 +380,7 @@
 
             const dataJawab = data.soal_opsi
             const copy = $.extend(true, {}, dataJawab);
-            //console.log('test', copy)
+            console.log('test', copy)
 
             let arrData = [copy.tabel[0]]
             if (Array.isArray(copy.tbody)) {
@@ -418,7 +416,7 @@
                 model: modelSoal,
                 type: typeSoal,
             }
-            //console.log('obj', objJawaban)
+            console.log('obj', objJawaban)
             konten.linkerList({
                 enableEditor: false,
                 data: objJawaban,
@@ -442,17 +440,11 @@
         } else if (jenis == "4") {
             html += '<div class="pr-4">' +
                 '<span class="">JAWABAN:</span><br>' +
-                '<div class="row"><div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4">'+
-                '<input id="jawaban-isian" class="pl-1 form-control" type="text"' +
+                '<input id="jawaban-essai" class="pl-1" type="text"' +
                 ' name="jawaban" value="' + jawabanSiswa + '"' +
                 ' placeholder="Tulis jawaban disini"/><br>' +
-                '</div></div>' +
                 '</div>';
             $('#konten-jawaban').html(html);
-
-            $("#jawaban-isian").on('change keyup paste', function () {
-                submitJawaban(null);
-            });
         } else {
             html += '<div class="pr-4">' +
                 '<label>JAWABAN:</label><br>' +
@@ -461,31 +453,6 @@
                 ' placeholder="Tulis jawaban disini">' + jawabanSiswa + '</textarea><br>' +
                 '</div>';
             $('#konten-jawaban').html(html);
-
-            $('#jawaban-essai').summernote({
-                placeholder: 'Tulis Jawaban disini, tidak dibolehkan copy paste!',
-                tabsize: 2,
-                minHeight: 100,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['fontname', ['fontname']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'math']],
-                    ['cleaner',['cleaner']],
-                ],
-                callbacks: {
-                    onKeyup: function(e) {
-                        submitJawaban(null);
-                    },
-                    onChange: function(contents, $editable) {
-                        submitJawaban(null);
-                    }
-                }
-            });
         }
 
         $('#konten-modal').html(data.soal_modal);
@@ -533,6 +500,9 @@
             }
         });
 
+        $("#jawaban-essai").on('change keyup paste', function () {
+            submitJawaban(null);
+        });
         if (!data.durasi) {
             window.location.href = base_url + 'siswa/cbt';
         } else {
@@ -720,7 +690,7 @@
         } else if (jenisSoal == 2) {
             var isChecked = $('#konten-jawaban').find("input:checked");
             var max = $(opsi).data('max');
-            //console.log('max:'+max, 'checked:'+isChecked.length);
+            console.log('max:'+max, 'checked:'+isChecked.length);
             if (isChecked.length > max) {
                 $(opsi).prop('checked', !$(opsi).prop('checked'));
                 $.toast({
@@ -741,10 +711,16 @@
             }
         } else if (jenisSoal == 3) {
             jawaban_Siswa = opsi
-        } else if (jenisSoal == 4){
-            jawaban_Siswa = $('#jawaban-isian').val();
+            /*
+            var jawaban_json = modelSoal == '1' ? convertListToTable() : getDataTable();
+            console.log('click submit', jawaban_json);
+            jawaban_Siswa = {};
+            jawaban_Siswa['jawaban'] = jawaban_json;
+            jawaban_Siswa['type'] = typeSoal;
+            jawaban_Siswa['model'] = modelSoal;
+             */
         } else {
-            jawaban_Siswa = $('#jawaban-essai').summernote('code');
+            jawaban_Siswa = $('#jawaban-essai').val();
         }
         jawabanBaru = jawaban_Siswa;
         if (jenisSoal == 2) {
@@ -753,7 +729,6 @@
 
         updateModal(jawaban_Alias);
         jsonJawaban = createJsonJawaban(jawaban_Alias, jawaban_Siswa);
-        console.log('getJawaban', jsonJawaban)
     }
 
     function createJsonJawaban(jawab_Alias, jawab_Siswa) {
@@ -879,6 +854,43 @@
         });
         return [kolom, baris];
     }
+
+    /*
+    function convertListToTable() {
+        var results = fieldLinks.fieldsLinker("getLinks");
+        var links = results.links;
+        //console.log('linked', links);
+
+        var array = getListData();
+        var kolom = array[0];
+        //console.log('kolom', kolom);
+        var arrayres = [];
+        $.each(array[1], function (ind, val) {
+            //console.log('kolom', kolom);
+            var vv = [];
+            for (let i = 0; i < kolom.length; i++) {
+                var sv = '0';
+                if (links.length > 0) {
+                    $.each(links, function (p, isi) {
+                        if (encode(isi.from) == encode(val)) {
+                            if (encode(isi.to) == encode(kolom[i])) {
+                                sv = '1';
+                            }
+                        }
+                    });
+                }
+                vv.push(sv);
+            }
+
+            vv.unshift(val);
+            arrayres.push(vv);
+        });
+        kolom.unshift('#');
+        arrayres.unshift(kolom);
+        console.log('aray', arrayres);
+        return arrayres;
+    }
+     */
 
     function selesai() {
         if (soalTotal === soalTerjawab) {

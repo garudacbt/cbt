@@ -1151,7 +1151,7 @@ CREATE TABLE `master_kelas`  (
   `id_smt` int(11) NOT NULL,
   `nama_kelas` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kode_kelas` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `jurusan_id` int(11) NULL DEFAULT NULL,
+  `jurusan_id` int(11) NOT NULL,
   `level_id` int(11) NOT NULL,
   `guru_id` int(11) NULL DEFAULT NULL,
   `siswa_id` int(11) NULL DEFAULT NULL,

@@ -86,7 +86,7 @@
                                             <?php
                                             $ret = [];
                                             foreach ($tp as $key => $row) {
-                                                $thn = explode("/", $row->tahun ?? '');
+                                                $thn = explode("/", $row->tahun);
                                                 $ret [$thn[0]] = $thn[0];
                                             }
                                             echo form_dropdown(

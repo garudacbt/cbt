@@ -1,0 +1,1 @@
+MathJax.OutputJax.SVG.FONTDATA.FONTS.MathJax_SansSerif={directory:"SansSerif/Regular",family:"MathJax_SansSerif",id:"MJSS",Ranges:[[0,127,"BasicLatin"],[128,65535,"Other"],[768,879,"CombDiacritMarks"]]},MathJax.Ajax.loadComplete(MathJax.OutputJax.SVG.fontDir+"/SansSerif/Regular/Main.js");

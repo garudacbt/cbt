@@ -8,7 +8,7 @@
 
 if (isset($jadwal_kbm)) {
     $ist = json_decode(json_encode($jadwal_kbm->istirahat));
-    $jmlIst = json_decode(json_encode(unserialize($ist ?? '')));
+    $jmlIst = json_decode(json_encode(unserialize($ist)));
     $jmlMapelPerHari = $jadwal_kbm->kbm_jml_mapel_hari;
 } else {
     $jmlMapelPerHari = 0;
@@ -421,7 +421,7 @@ if (isset($jadwal_kbm)) {
             $("#input_dur" + o).remove();
         }
 
-        var istirahat = JSON.parse('<?= isset($ist) ? json_encode(unserialize($ist ?? '')) : '[]' ?>');
+        var istirahat = JSON.parse('<?= isset($ist) ? json_encode(unserialize($ist)) : '[]' ?>');
         //jmlMapel = $('#jml-mapel').val();
         console.log(jmlMapel);
 

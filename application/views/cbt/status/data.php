@@ -360,78 +360,74 @@
             '<th class="text-center align-middle ' + dnone + '">Ulang<br><input id="input-ulang-all" class="check" type="checkbox"></th>' +
             '</tr></thead><tbody>';
 
-        if (data.siswa.length > 0) {
-            for (let i = 0; i < data.siswa.length; i++) {
-                var idSiswa = data.siswa[i].id_siswa;
-                var durasi = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.lama_ujian : ' - -';
-                var adaWaktu = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.ada_waktu : true;
+        for (let i = 0; i < data.siswa.length; i++) {
+            var idSiswa = data.siswa[i].id_siswa;
+            var durasi = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.lama_ujian : ' - -';
+            var adaWaktu = data.durasi[idSiswa].dur != null ? data.durasi[idSiswa].dur.ada_waktu : true;
 
-                var logging = data.durasi[idSiswa].log;
-                var mulai = '- -  :  - -';
-                var selesai = '- -  :  - -';
-                var reset = null;
-                for (let k = 0; k < logging.length; k++) {
-                    if (logging[k].log_type === '1') {
-                        if (logging[k] != null) {
-                            reset = logging[k].reset;
-                            var t = logging[k].log_time.split(/[- :]/);
-                            //var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
-                            mulai = t[3] + ':' + t[4];
-                        }
-                    } else {
-                        if (logging[k] != null) {
-                            var ti = logging[k].log_time.split(/[- :]/);
-                            selesai = ti[3] + ':' + ti[4];
-                        }
+            var logging = data.durasi[idSiswa].log;
+            var mulai = '- -  :  - -';
+            var selesai = '- -  :  - -';
+            var reset = null;
+            for (let k = 0; k < logging.length; k++) {
+                if (logging[k].log_type === '1') {
+                    if (logging[k] != null) {
+                        reset = logging[k].reset;
+                        var t = logging[k].log_time.split(/[- :]/);
+                        //var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
+                        mulai = t[3] + ':' + t[4];
+                    }
+                } else {
+                    if (logging[k] != null) {
+                        var ti = logging[k].log_time.split(/[- :]/);
+                        selesai = ti[3] + ':' + ti[4];
                     }
                 }
-
-                var belumUjian = data.durasi[idSiswa].dur == null;
-                var sudahSelesai = !belumUjian && data.durasi[idSiswa].dur.selesai != null;
-                var loading = belumUjian ? '' : (sudahSelesai ? "" : '<i class="fa fa-spinner fa-spin mr-2"></i>');
-
-                var disabledResetWaktu = !sudahSelesai && !adaWaktu ? '' : 'disabled';
-                var disabledReset = !sudahSelesai && reset != null && reset == '0' ? '' : 'disabled';
-                var disabledSelesai = !sudahSelesai && !belumUjian ? '' : 'disabled';
-                var disabledUlang = belumUjian ? 'disabled' : (sudahSelesai ? '' : 'disabled');
-
-                // jika ingin selalu aktif
-                // var disabledResetWaktu = '';     // reset waktu selalu aktif
-                // var disabledReset = '';          // reset izin selalu aktif
-                // var disabledSelesai = '';        // paksa selesai selalu aktif
-                // var disabledUlang = '';         // ulangi selalu aktif
-
-                var sesi = data.siswa[i].kode_sesi;
-                var ruang = data.siswa[i].kode_ruang;
-                var kelas = data.siswa[i].kode_kelas;
-
-                tbody += '<tr data-id="' + idSiswa + '">' +
-                    '<td class="text-center align-middle">' + (i + 1) + '</td>' +
-                    '<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
-                    '<td class="align-middle">' + data.siswa[i].nama + '</td>' +
-                    '<td class="text-center align-middle">' + kelas + '</td>' +
-                    '<td class="text-center align-middle">' + sesi + '</td>' +
-                    '<td class="text-center align-middle">' + ruang + '</td>' +
-                    '<td class="text-center align-middle">' + mulai + '</td>' +
-                    '<td class="text-center align-middle">' + loading + durasi + '</td>' +
-                    '<td class="text-center align-middle '+dnone+'">' +
-                    '	<button type="button" class="btn btn-default" ' +
-                    'data-siswa="' + idSiswa + '" data-jadwal="' + data.info.id_jadwal + '" ' +
-                    'data-toggle="modal" data-target="#resetModal" ' + disabledReset + '><i class="fa fa-refresh"></i></button>' +
-                    '</td>' +
-                    '<td class="text-center text-success align-middle ' + dnone + '">' +
-                    '<input class="check input-reset" type="checkbox" ' + disabledReset + '>' +
-                    '</td>' +
-                    '<td class="text-center text-danger align-middle ' + dnone + '">' +
-                    '<input class="check input-force" type="checkbox" ' + disabledSelesai + '>' +
-                    '</td>' +
-                    '<td class="text-center text-danger align-middle ' + dnone + '">' +
-                    '<input class="check input-ulang" type="checkbox" ' + disabledUlang + '>' +
-                    '</td>' +
-                    '</tr>';
             }
-        } else {
-            tbody += '<tr><td colspan="12" class="text-center">Tidak ada siswa tergabung disini!</td></tr>'
+
+            var belumUjian = data.durasi[idSiswa].dur == null;
+            var sudahSelesai = !belumUjian && data.durasi[idSiswa].dur.selesai != null;
+            var loading = belumUjian ? '' : (sudahSelesai ? "" : '<i class="fa fa-spinner fa-spin mr-2"></i>');
+
+            var disabledResetWaktu = !sudahSelesai && !adaWaktu ? '' : 'disabled';
+            var disabledReset = !sudahSelesai && reset != null && reset == '0' ? '' : 'disabled';
+            var disabledSelesai = !sudahSelesai && !belumUjian ? '' : 'disabled';
+            var disabledUlang = belumUjian ? 'disabled' : (sudahSelesai ? '' : 'disabled');
+
+            // jika ingin selalu aktif
+            // var disabledResetWaktu = '';     // reset waktu selalu aktif
+            // var disabledReset = '';          // reset izin selalu aktif
+            // var disabledSelesai = '';        // paksa selesai selalu aktif
+            // var disabledUlang = '';         // ulangi selalu aktif
+
+            var sesi = data.siswa[i].kode_sesi;
+            var ruang = data.siswa[i].kode_ruang;
+            var kelas = data.siswa[i].kode_kelas;
+
+            tbody += '<tr data-id="' + idSiswa + '">' +
+                '<td class="text-center align-middle">' + (i + 1) + '</td>' +
+                '<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
+                '<td class="align-middle">' + data.siswa[i].nama + '</td>' +
+                '<td class="text-center align-middle">' + kelas + '</td>' +
+                '<td class="text-center align-middle">' + sesi + '</td>' +
+                '<td class="text-center align-middle">' + ruang + '</td>' +
+                '<td class="text-center align-middle">' + mulai + '</td>' +
+                '<td class="text-center align-middle">' + loading + durasi + '</td>' +
+                '<td class="text-center align-middle '+dnone+'">' +
+                '	<button type="button" class="btn btn-default" ' +
+                'data-siswa="' + idSiswa + '" data-jadwal="' + data.info.id_jadwal + '" ' +
+                'data-toggle="modal" data-target="#resetModal" ' + disabledResetWaktu + '><i class="fa fa-refresh"></i></button>' +
+                '</td>' +
+                '<td class="text-center text-success align-middle ' + dnone + '">' +
+                '<input class="check input-reset" type="checkbox" ' + disabledReset + '>' +
+                '</td>' +
+                '<td class="text-center text-danger align-middle ' + dnone + '">' +
+                '<input class="check input-force" type="checkbox" ' + disabledSelesai + '>' +
+                '</td>' +
+                '<td class="text-center text-danger align-middle ' + dnone + '">' +
+                '<input class="check input-ulang" type="checkbox" ' + disabledUlang + '>' +
+                '</td>' +
+                '</tr>';
         }
 
         tbody += '</tbody>';

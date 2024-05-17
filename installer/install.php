@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
     $core = new Core();
     $database = new Database();
 
-    $message = '';
     if ($core->checkEmpty($_POST) == true) {
         if ($database->create_database($_POST) == false) {
             $message = $core->show_message('error',
@@ -21,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
         } else if ($core->checkFile() == false) {
             $message = $core->show_message('error',
                 "ERROR#003<br>File application/config/database.php tidak ditemukan");
-
         } else if ($core->write_db_config($_POST) == false) {
             $message = $core->show_message('error',
                 "ERROR#004<br>Tidak bisa membuat database, silakan ganti permission chmod application/config/database.php menjadi 777");
@@ -33,3 +31,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
 
     echo $message;
 }
+?>

@@ -65,10 +65,6 @@
 <script src="<?= base_url() ?>/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Summernote -->
 <script src="<?= base_url() ?>/assets/plugins/summernote/summernote-bs4.min.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/summernote/plugin/audio/summernote-audio.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/summernote/plugin/file/summernote-file.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/summernote/plugin/gallery/dist/summernote-gallery.min.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/summernote/plugin/math/summernote-math.js"></script>
 <!-- overlayScrollbars -->
 <script src="<?= base_url() ?>/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- Toastr -->

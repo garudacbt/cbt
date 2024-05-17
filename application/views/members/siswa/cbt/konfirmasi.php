@@ -32,7 +32,7 @@
                                     <br>
                                     <?php
                                     $jk = json_decode(json_encode($bank->bank_kelas));
-                                    $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
+                                    $jumlahKelas = json_decode(json_encode(unserialize($jk)));
 
                                     $kelasbank = '';
                                     $no = 1;
@@ -83,9 +83,9 @@
                                         <?php if ($bank->token === '1') : ?>
                                             <li class="list-group-item p-1"><span
                                                         class="text-danger"><b>Token</b></span>
-                                                <div class="float-right" style="width: 100px">
-                                                    <input type='text' id="input-token" class="form-control form-control-sm text-center" name='token'
-                                                           placeholder="Token"/>
+                                                <div class="float-right">
+                                                    <input type='text' id="input-token" class="text-center" name='token'
+                                                           placeholder="Masukkan Token"/>
                                                 </div>
                                             </li>
                                         <?php endif; ?>

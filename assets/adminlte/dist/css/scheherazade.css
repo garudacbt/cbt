@@ -1,0 +1,28 @@
+/* scheherazade-regular - arabic */
+@font-face {
+    font-family: 'Scheherazade';
+    font-style: normal;
+    font-size: larger;
+    font-weight: 400;
+    src: url('../fonts/arabic/scheherazade-v20-arabic-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('../fonts/arabic/scheherazade-v20-arabic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/arabic/scheherazade-v20-arabic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/arabic/scheherazade-v20-arabic-regular.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/arabic/scheherazade-v20-arabic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/arabic/scheherazade-v20-arabic-regular.svg#Scheherazade') format('svg'); /* Legacy iOS */
+}
+/* scheherazade-700 - arabic */
+@font-face {
+    font-family: 'Scheherazade';
+    font-style: normal;
+    font-size: larger;
+    font-weight: 700;
+    src: url('../fonts/arabic/scheherazade-v20-arabic-700.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('../fonts/arabic/scheherazade-v20-arabic-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/arabic/scheherazade-v20-arabic-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/arabic/scheherazade-v20-arabic-700.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/arabic/scheherazade-v20-arabic-700.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/arabic/scheherazade-v20-arabic-700.svg#Scheherazade') format('svg'); /* Legacy iOS */
+}

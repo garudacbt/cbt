@@ -128,9 +128,7 @@
                                     <span class="input-group-text">Jadwal</span>
                                 </div>
                                 <?php
-                                //echo form_dropdown('jadwal', $jadwal, null, 'id="jadwal" class="form-control"');
-                                echo form_dropdown('jadwal', $mapel, null, 'id="jadwal" class="form-control"');
-                                ?>
+                                echo form_dropdown('jadwal', $jadwal, null, 'id="jadwal" class="form-control"'); ?>
                             </div>
                         </div>
                         <div class="col-3 col-md-2 mb-3">
@@ -156,28 +154,28 @@
 
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-    var oldVal1 = "<?=isset($kop->header_1) ? $kop->header_1 : ""?>";
-    var oldVal2 = "<?=isset($kop->header_2) ? $kop->header_2 : ""?>";
-    var oldVal3 = "<?=isset($kop->header_3) ? $kop->header_3 : ""?>";
-    var oldVal4 = "<?=isset($kop->header_4) ? $kop->header_4 : ""?>";
-    var logoKanan = "<?=isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>";
-    var logoKiri = "<?=isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : ""?>";
-    var tandatangan = "<?= isset($kop->tanda_tangan) ? base_url() . $kop->tanda_tangan : ""?>";
-    var proktor = "<?=isset($kop->proktor) ? $kop->proktor : ""?>";
-    //var pengawas1 = "<?=isset($kop->pengawas_1) ? $kop->pengawas_1 : ""?>";
-    //var pengawas2 = "<?=isset($kop->pengawas_2) ? $kop->pengawas_2 : ""?>";
+    var oldVal1 = '<?=isset($kop->header_1) ? $kop->header_1 : ""?>';
+    var oldVal2 = '<?=isset($kop->header_2) ? $kop->header_2 : ""?>';
+    var oldVal3 = '<?=isset($kop->header_3) ? $kop->header_3 : ""?>';
+    var oldVal4 = '<?=isset($kop->header_4) ? $kop->header_4 : ""?>';
+    var logoKanan = '<?=isset($kop->logo_kanan) ? base_url() . $kop->logo_kanan : ""?>';
+    var logoKiri = '<?=isset($kop->logo_kiri) ? base_url() . $kop->logo_kiri : ""?>';
+    var tandatangan = '<?= isset($kop->tanda_tangan) ? base_url() . $kop->tanda_tangan : ""?>';
+    var proktor = '<?=isset($kop->proktor) ? $kop->proktor : ""?>';
+    //var pengawas1 = '<?=isset($kop->pengawas_1) ? $kop->pengawas_1 : ""?>';
+    //var pengawas2 = '<?=isset($kop->pengawas_2) ? $kop->pengawas_2 : ""?>';
     var printBy = 1;
 
     function handleNull(value) {
-        if (value == null || value == "0" || value == "") return "-";
+        if (value == null || value == '0' || value == '') return '-';
         else return value;
     }
 
     function handleTanggal(tgl) {
-        var hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
-        var bulans = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        var ttl = "";
-        if (handleNull(tgl) != "-") {
+        var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+        var bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        var ttl = '';
+        if (handleNull(tgl) != '-') {
             var d = new Date(tgl);
             var curr_day = d.getDay();
             var curr_date = d.getDate();
@@ -206,8 +204,7 @@
 
     function createPrintPreview(data) {
         console.log(data);
-        //var bagi = 25;
-		var bagi = 28;
+        var bagi = 25;
         var pages = Math.ceil(data.siswa.length / bagi);
         console.log('page', pages);
         var kelasTitle = printBy === 2 ? 'Kelas' : 'Ruang';
@@ -421,7 +418,6 @@
                             createPrintPreview(response);
                         },
                         error: function (xhr, status, error) {
-                            $('#loading').addClass('d-none');
                             console.log("error", xhr.responseText);
                         }
                     });
@@ -492,6 +488,7 @@
             }
         });
 
+
         $("#header-1").on("change keyup paste", function () {
             var currentVal = $(this).val();
             if (currentVal === oldVal1) {
@@ -537,14 +534,10 @@
                     swal.showLoading();
                 }
             });
-            let form = new FormData($('#set-kop')[0]);
-
             $.ajax({
                 url: base_url + 'cbtcetak/savekop',
                 type: 'POST',
-                processData: false,
-                contentType: false,
-                data: form,
+                data: $(this).serialize(),
                 success: function (response) {
                     console.log(response);
                     swal.fire({
@@ -578,12 +571,10 @@
                 $('#by-kelas').addClass('d-none');
                 $('#by-ruang').removeClass('d-none');
                 printBy = 1;
-                loadSiswaRuang(opsiRuang.val(), opsiSesi.val(), opsiJadwal.val())
             } else {
                 $('#by-kelas').removeClass('d-none');
                 $('#by-ruang').addClass('d-none');
                 printBy = 2;
-                loadSiswaKelas(opsiKelas.val(), opsiSesi.val(), opsiJadwal.val())
             }
         });
 

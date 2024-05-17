@@ -75,7 +75,6 @@
                     <div class="spinner-grow"></div>
                 </div>
             </div>
-            <div id="konten-copy" class="d-none"></div>
         </div>
     </section>
 </div>
@@ -84,8 +83,6 @@
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/convertCss.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/convert-area.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
     var form;
@@ -100,16 +97,10 @@
     var arrbulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
     var docTitle = 'Kehadiran Harian';
 
-    var styleCenterMiddle = ' style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;"';
-    var styleLeftMiddle = ' style="border: 1px solid #c0c0c0; vertical-align: middle;margin: 0px;"';
-    var styleFlexCenter = ' style="display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-pack:center;justify-content:center;height:100%;"';
-    var styleKosong = ' style="border: 1px solid #c0c0c0;background-color: #eeeeee;"';
-
-    // style excel
-    var styleHead = ' data-fill-color="d3d3d3" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"';
-    var styleNormal = ' data-fill-color="ffffff" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
-    var styleNama = ' data-fill-color="ffffff" data-t="s" data-a-v="middle" data-b-a-s="thin" data-f-bold="false"';
-    var styleEmpty = ' data-fill-color="a6a6a6" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
+    var styleCenterMiddle = 'style="border: 1px solid #c0c0c0; text-align: center; vertical-align: middle;margin: 0px;"';
+    var styleLeftMiddle = 'style="border: 1px solid #c0c0c0; vertical-align: middle;margin: 0px;"';
+    var styleFlexCenter = 'style="display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-pack:center;justify-content:center;height:100%;"';
+    var styleKosong = 'style="border: 1px solid #c0c0c0;background-color: #eeeeee"';
 
     function dumpCSSText(element) {
         var s = '';
@@ -145,13 +136,7 @@
     }
 
     function exportExcel() {
-        var table = document.querySelector("#excel");
-        TableToExcel.convert(table, {
-            name: docTitle + '.xlsx',
-            sheet: {
-                name: "Sheet 1"
-            }
-        });
+
     }
 
     function createTabelKehadiran(data) {
@@ -165,29 +150,29 @@
             var ctgl = tgl < 10 ? '0' + tgl : tgl;
             var tglMateri = buatTanggal(thn + '-' + bln + '-' + ctgl + ' 00:00:00', true);
             var totalMapel = data.info.kbm_jml_mapel_hari;
-            table = '<div id="jdl" style="width:100%;">' +
+            table = '<div style="width:100%;">' +
                 '    <p style="text-align:center;font-size:14pt; font-weight: bold">DAFTAR KEHADIRAN HARIAN SISWA</p>' +
                 '</div>' +
                 '<div style="display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-pack:center;justify-content:center;height:100%;">' +
-                '    <table id="atas">' +
+                '    <table>' +
                 '        <tr>' +
-                '            <td colspan="2"><p style="margin: 1px; display: inline;">Kelas</p></td>' +
+                '            <td><p style="margin: 1px; display: inline;">Kelas</p></td>' +
                 '            <td><p style="margin: 1px; display: inline;">: <b>' + kelas + '</b></p></td>' +
                 '        </tr>' +
                 '        <tr>' +
-                '            <td colspan="2"><p style="margin: 1px; display: inline;">Hari, Tanggal</p></td>' +
+                '            <td><p style="margin: 1px; display: inline;">Hari, Tanggal</p></td>' +
                 '            <td><p style="margin: 1px; display: inline;">: <b>' + tglMateri + '</b></p></td>' +
                 '        </tr>' +
                 '        <tr>' +
-                '            <td colspan="2"><p style="margin: 1px; display: inline;">Jml. Mata Pelajaran</p></td>' +
+                '            <td><p style="margin: 1px; display: inline;">Jml. Mata Pelajaran</p></td>' +
                 '            <td><p style="margin: 1px; display: inline;">: <b>' + data.jadwal.length + '</b></p></td>' +
                 '        </tr>' +
                 '        <tr>' +
-                '            <td colspan="2"><p style="margin: 1px; display: inline;">Tahun Pelajaran</p></td>' +
+                '            <td><p style="margin: 1px; display: inline;">Tahun Pelajaran</p></td>' +
                 '            <td><p style="margin: 1px; display: inline;">: <b><?= isset($tp_active) ? $tp_active->tahun : "Belum di set"?></b></p></td>' +
                 '        </tr>' +
                 '        <tr>' +
-                '            <td colspan="2"><p style="margin: 1px; display: inline;">Semester</p></td>' +
+                '            <td><p style="margin: 1px; display: inline;">Semester</p></td>' +
                 '            <td><p style="margin: 1px; display: inline;">: <b><?= isset($smt_active) ? $smt_active->nama_smt : "Belum di set" ?></b></p></td>' +
                 '        </tr>' +
                 '    </table>' +
@@ -195,11 +180,11 @@
                 '<table id="tabelsiswa" class="table-responsive" style="width:100%;border-collapse: collapse; border-spacing: 0;">' +
                 '<thead>' +
                 '<tr style="background-color:lightgrey">' +
-                '<th rowspan="3" width="40" ' + styleCenterMiddle + styleHead +'><p style="margin: 4px; display: inline;">No</p></th>' +
-                '<th rowspan="3" ' + styleCenterMiddle + styleHead + '><p style="margin: 4px; display: inline;">N I S</p></th>' +
-                '<th rowspan="3" ' + styleCenterMiddle + styleHead + '><p style="margin: 4px; display: inline;">Nama</p></th>' +
-                '<th rowspan="3" ' + styleCenterMiddle + styleHead + '><p style="margin: 4px; display: inline;">Kelas</p></th>' +
-                '<th colspan="' + (data.jadwal.length * 2) + '" ' + styleCenterMiddle + styleHead +'><p style="margin: 4px; display: inline;">Kehadiran Jam</p></th>' +
+                '<th rowspan="3" width="40" ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">No</p></th>' +
+                '<th rowspan="3" ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">N I S</p></th>' +
+                '<th rowspan="3" ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">Nama</p></th>' +
+                '<th rowspan="3" ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">Kelas</p></th>' +
+                '<th colspan="' + (data.jadwal.length * 2) + '" ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">Kehadiran Jam</p></th>' +
                 '</tr>' +
                 '<tr style="background-color:lightgrey">';
 
@@ -210,12 +195,12 @@
                 $.each(data.jadwal, function (k, v) {
                     if (v.jam_ke == jam) {
                         idsMapel[v.jam_ke] = v.id_mapel;
-                        trJenis += '<th ' + styleCenterMiddle + styleHead +'><p style="margin: 4px; display: inline;">Materi</p></th>' +
-                            '<th ' + styleCenterMiddle + styleHead + '><p style="margin: 4px; display: inline;">Tugas</p></th>';
+                        trJenis += '<th ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">Materi</p></th>' +
+                            '<th ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">Tugas</p></th>';
                         if (v.nama_mapel != null) {
-                            table += '<th colspan="2" ' + styleCenterMiddle + styleHead + '><p style="margin: 4px; display: inline;">' + v.kode + '</p></th>';
+                            table += '<th colspan="2" ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">' + v.kode + '</p></th>';
                         } else {
-                            table += '<th colspan="2" ' + styleCenterMiddle + styleHead + '><p style="margin: 4px; display: inline;">Mapel</p></th>';
+                            table += '<th colspan="2" ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">Mapel</p></th>';
                         }
                     }
                 });
@@ -227,10 +212,10 @@
             var no = 1;
             $.each(data.log, function (key, value) {
                 table += '<tr>' +
-                    '<td ' + styleCenterMiddle + styleNormal +'><p style="margin: 4px; display: inline;">' + no + '</p></td>' +
-                    '<td ' + styleCenterMiddle + styleNormal + '><p style="margin: 4px; display: inline;">' + value.nis + '</p></td>' +
-                    '<td ' + styleLeftMiddle + styleNama + '><p style="margin: 4px; display: inline;">' + value.nama + '</p></td>' +
-                    '<td ' + styleCenterMiddle + styleNormal + '><p style="margin: 4px; display: inline;">' + value.kelas + '</p></td>';
+                    '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">' + no + '</p></td>' +
+                    '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">' + value.nis + '</p></td>' +
+                    '<td ' + styleLeftMiddle + '><p style="margin: 4px; display: inline;">' + value.nama + '</p></td>' +
+                    '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">' + value.kelas + '</p></td>';
 
                 $.each(idsMapel, function (jamke, idm) {
                     //console.log(idm, jamke)
@@ -242,12 +227,12 @@
                             var sls = value.status[jamke][idm][1].finish_time;
                             var tglSelesai = sls == null ? '' : buatTanggal(sls, false);
                             var durasi = mli != null && sls != null ? calculateTime(mli, sls) : '';
-                            table += '<td ' + styleCenterMiddle + styleNormal + '><p style="margin: 4px; display: inline;">' + tglSelesai + '<br><i class="fa fa-clock-o"></i> ' + durasi + '</p></td>';
+                            table += '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">' + tglSelesai + '<br><i class="fa fa-clock-o"></i> ' + durasi + '</p></td>';
                         } else {
-                            table += '<td ' + styleCenterMiddle + styleNormal + '><p style="margin: 4px; display: inline;"> - - </p></td>';
+                            table += '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;"> - - </p></td>';
                         }
                     } else {
-                        table += '<td ' + styleKosong + styleEmpty + '></td>';
+                        table += '<td ' + styleKosong + '></td>';
                     }
 
                     var adaTugas = data.materi[idm] != null && data.materi[idm][jamke] != null && data.materi[idm][jamke][2] != null;
@@ -257,12 +242,12 @@
                             var slst = value.status[jamke][idm][2].finish_time;
                             var tglSelesait = slst == null ? '' : buatTanggal(slst, false);
                             var durasit = mlit != null && slst != null ? calculateTime(mlit, slst) : '';
-                            table += '<td ' + styleCenterMiddle + styleNormal + '><p style="margin: 4px; display: inline;">' + tglSelesait + '<br><i class="fa fa-clock-o"></i> ' + durasit + '</p></td>';
+                            table += '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;">' + tglSelesait + '<br><i class="fa fa-clock-o"></i> ' + durasit + '</p></td>';
                         } else {
-                            table += '<td ' + styleCenterMiddle + styleNormal + '><p style="margin: 4px; display: inline;"> - - </p></td>';
+                            table += '<td ' + styleCenterMiddle + '><p style="margin: 4px; display: inline;"> - - </p></td>';
                         }
                     } else {
-                        table += '<td ' + styleKosong +  styleEmpty +'></td>';
+                        table += '<td ' + styleKosong + '></td>';
                     }
                 });
 
@@ -270,36 +255,13 @@
                 no++;
             });
 
-            table += '</table>';
+            table += '</table>' +
+                '<p><b>Catatan:</b> Kehadiran siswa dihitung ketika siswa menyelesaikan materi/tugas serta durasi pengerjaan.</p>';
         }
-        var catatan = '<p><b>Catatan:</b> Kehadiran siswa dihitung ketika siswa menyelesaikan materi/tugas serta durasi pengerjaan.</p>';
-        table += catatan;
-
         $('#konten-absensi').html(table);
         $('#loading').addClass('d-none');
 
         //$("#konten-absensi").makeCssInline();
-
-        var colWidth = '5,15,35,15';
-        var title = $('#jdl').html();
-        var trsAtas = $('table#atas tbody').html();
-        var trsHead = $('table#tabelsiswa thead').html();
-        var trsBody = $('table#tabelsiswa tbody').html();
-        var copy = '<table id="excel" style="font-size: 11pt;" data-cols-width="' + colWidth + '"><tbody>' +
-            '<tr>' +
-            '<td colspan="10" data-a-v="middle" data-a-h="center" data-f-bold="true">' + title + '</td>' +
-            '</tr>' +
-            trsAtas +
-            '<tr></tr>' +
-            trsHead +
-            trsBody +
-            '<tr></tr>' +
-            '<tr>' +
-            '<td data-a-v="middle"">' + catatan + '</td>' +
-            '</tr>' +
-            '</tbody>';
-
-        $('#konten-copy').html(copy);
     }
 
     $(document).ready(function () {

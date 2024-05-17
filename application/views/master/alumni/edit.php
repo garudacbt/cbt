@@ -205,7 +205,7 @@
                                                             <span class="input-group-text"><i
                                                                         class="<?= $data->icon ?>"></i></span>
                                                         </div>
-                                                        <input value="<?= trim($data->value ?? '') ?>" id="<?= $data->name ?>"
+                                                        <input value="<?= trim($data->value) ?>" id="<?= $data->name ?>"
                                                                type="<?= $data->type ?>"
                                                                class="form-control <?= $data->class ?>"
                                                                name="<?= $data->name ?>"
@@ -261,7 +261,7 @@
                                                             <span class="input-group-text"><i class="<?= $bio->icon ?>"></i></span>
                                                         </div>
                                                         -->
-                                                        <input value="<?= trim($bio->value ?? '') ?>" id="<?= $bio->name ?>"
+                                                        <input value="<?= trim($bio->value) ?>" id="<?= $bio->name ?>"
                                                                type="<?= $bio->type ?>"
                                                                class="form-control <?= $bio->class ?>"
                                                                name="<?= $bio->name ?>"
@@ -287,7 +287,7 @@
                                                                     class="<?= $ortu->icon ?>"></i></span>
                                                     </div>
                                                     -->
-                                                    <input value="<?= trim($ortu->value ?? '') ?>" id="<?= $ortu->name ?>"
+                                                    <input value="<?= trim($ortu->value) ?>" id="<?= $ortu->name ?>"
                                                            type="<?= $ortu->type ?>"
                                                            class="form-control" name="<?= $ortu->name ?>"
                                                            placeholder="<?= $ortu->label ?>">
@@ -311,7 +311,7 @@
                                                                     class="<?= $wali->icon ?>"></i></span>
                                                     </div>
                                                     -->
-                                                    <input value="<?= trim($wali->value ?? '') ?>" id="<?= $wali->name ?>"
+                                                    <input value="<?= trim($wali->value) ?>" id="<?= $wali->name ?>"
                                                            type="<?= $wali->type ?>"
                                                            class="form-control" name="<?= $wali->name ?>"
                                                            placeholder="<?= $wali->label ?>">

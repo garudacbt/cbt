@@ -156,7 +156,7 @@
 															<span class="input-group-text"><i
                                                                         class="<?= $input->icon ?>"></i></span>
                                                         </div>
-                                                        <input value="<?= trim($input->value ?? '') ?>"
+                                                        <input value="<?= trim($input->value) ?>"
                                                                id="<?= $input->name ?>" type="<?= $input->type ?>"
                                                                class="form-control" name="<?= $input->name ?>"
                                                                placeholder="<?= $input->label ?>">
@@ -179,7 +179,7 @@
 														<span class="input-group-text"><i
                                                                     class="<?= $alamat->icon ?>"></i></span>
                                                     </div>
-                                                    <input value="<?= trim($alamat->value ?? '') ?>" id="<?= $alamat->name ?>"
+                                                    <input value="<?= trim($alamat->value) ?>" id="<?= $alamat->name ?>"
                                                            type="<?= $alamat->type ?>"
                                                            class="form-control" name="<?= $alamat->name ?>"
                                                            placeholder="<?= $alamat->label ?>">

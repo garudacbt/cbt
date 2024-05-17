@@ -96,7 +96,7 @@
                                 </tr>
                                 <?php
                                 foreach ($jadwals as $jadwal):
-                                    $jumlahKelas = json_decode(json_encode(unserialize($jadwal->bank_kelas ?? '')));
+                                    $jumlahKelas = json_decode(json_encode(unserialize($jadwal->bank_kelas)));
                                     $kls_jadwal = [];
                                     $kelasbank = '';
                                     $no = 1;
@@ -151,40 +151,6 @@
         var opsiFilter = $("#filter");
         var opsiDari = $("#dari");
         var opsiSampai = $("#sampai");
-
-        opsiDari.datetimepicker({
-            icons:
-                {
-                    next: 'fa fa-angle-right',
-                    previous: 'fa fa-angle-left'
-                },
-            timepicker: false,
-            scrollInput: false,
-            scrollMonth: false,
-            format: 'Y-m-d',
-            //disabledWeekDays: [0],
-            widgetPositioning: {
-                horizontal: 'left',
-                vertical: 'bottom'
-            }
-        });
-
-        opsiSampai.datetimepicker({
-            icons:
-                {
-                    next: 'fa fa-angle-right',
-                    previous: 'fa fa-angle-left'
-                },
-            timepicker: false,
-            scrollInput: false,
-            scrollMonth: false,
-            format: 'Y-m-d',
-            //disabledWeekDays: [0],
-            widgetPositioning: {
-                horizontal: 'left',
-                vertical: 'bottom'
-            }
-        });
 
         opsiFilter.change(function () {
             if ($(this).val() == '0') {

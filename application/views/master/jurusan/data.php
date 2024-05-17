@@ -25,6 +25,8 @@
                                     class="fas fa-plus"></i><span
                                     class="d-none d-sm-inline-block ml-1">Tambah Data</span>
                         </button>
+                        <a href="<?= base_url('datajurusan/import') ?>" class="btn btn-sm btn-flat btn-success"><i
+                                    class="fas fa-upload"></i><span class="d-none d-sm-inline-block ml-1">Import</span></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -33,16 +35,16 @@
                     </div>
                     <?= form_open('', array('id' => 'bulk')) ?>
                     <div class="table-responsive">
-                        <table id="jurusan" class="w-100 table table-sm table-striped table-bordered table-hover">
+                        <table id="jurusan" class="w-100 table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th height="40" class="text-center align-middle p-0" style="width: 40px">
+                                <th class="text-center align-middle p-0" style="width: 40px">
                                     <input type="checkbox" id="select_all">
                                 </th>
                                 <th style="width: 40px" class="text-center align-middle p-0">No.</th>
-                                <th class="align-middle">Kode</th>
-                                <th class="align-middle">Jurusan</th>
-                                <th class="align-middle">Mapel Peminatan</th>
+                                <th>Kode</th>
+                                <th>Jurusan</th>
+                                <th>Mapel Peminatan</th>
                                 <th class="text-center align-middle p-0" style="width: 100px"><span>Aksi</span></th>
                             </tr>
                             </thead>
@@ -51,14 +53,14 @@
                             $no = 1;
                             foreach ($jurusans as $row) :
                                 $badges = '';
-                                foreach (explode(',', $row->mapel_peminatan ?? '') as $mid) {
+                                foreach (explode(',', $row->mapel_peminatan) as $mid) {
                                     if ($mid != '')
                                         $badges .= '<div class="badge badge-btn badge-success mr-1">' . $jurusan_mapels[$row->id_jurusan][$mid] . '</div>';
                                 }
                                 ?>
                                 <tr>
-                                    <td class="text-center">
-                                        <div>
+                                    <td>
+                                        <div class="text-center">
                                             <input id="check<?= $row->id_jurusan ?>" name="checked[]" class="check"
                                                    value="<?= $row->id_jurusan ?>" type="checkbox">
                                         </div>
@@ -120,30 +122,14 @@
                         <input type="text" id="createkode" name="kode_jurusan" class="form-control" required>
                     </div>
                 </div>
-                <?php foreach ($kode_peminatan as $kode) : ?>
-                    <div class="form-group row">
-                        <?php
-                        if (isset($mapel_peminatan[$kode->kode_kel_mapel])) : ?>
-                            <label class="col-md-3 col-form-label"><?= $kode->nama_kel_mapel ?></label>
-                            <div class="col-md-9">
-                                <?php if (count($mapel_peminatan) === 0) : ?>
-                                    <select class="form-control">
-                                        <option value="0" selected disabled>Belum ada mapel <?= $kode->nama_kel_mapel ?></option>
-                                    </select>
-                                <?php else:
-                                    foreach ($mapel_peminatan as $k_mpl=>$mapels) :
-                                        if ($k_mpl === $kode->kode_kel_mapel) : ?>
-                                            <select name="mapel[]" id="create_mapel_peminatan<?= $kode->kode_kel_mapel ?>"
-                                                    class="form-control mapel_peminatan select2" multiple="">
-                                                <?php foreach ($mapels as $kd_mpl=>$mapel) :?>
-                                                    <option class="opt-mapel" value="<?= $kd_mpl ?>"><?= $mapel ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        <?php endif; endforeach; endif; ?>
-                            </div>
-                        <?php endif; ?>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Mapel Peminatan*</label>
+                    <div class="col-md-9">
+                        <select name="mapel[]" id="create_mapel_peminatan" class="form-control mapel_peminatan select2"
+                                multiple="">
+                        </select>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -180,32 +166,14 @@
                         <input type="text" id="kodeEdit" name="kode_jurusan" class="form-control" required>
                     </div>
                 </div>
-                <?php
-                foreach ($kode_peminatan as $kode) : ?>
-                    <div class="form-group row">
-                        <?php if (isset($mapel_peminatan[$kode->kode_kel_mapel])) : ?>
-                            <label class="col-md-3 col-form-label"><?= $kode->nama_kel_mapel ?></label>
-                            <div class="col-md-9">
-                                <?php if (count($mapel_peminatan) === 0) : ?>
-                                    <select class="form-control">
-                                        <option value="0" selected disabled>Belum ada mapel <?= $kode->nama_kel_mapel ?></option>
-                                    </select>
-                                <?php else:
-                                    foreach ($mapel_peminatan as $k_mpl=>$mapels) :
-                                        if ($k_mpl === $kode->kode_kel_mapel) : ?>
-                                            <select name="mapel[]" id="mapel_peminatan<?= $kode->kode_kel_mapel ?>"
-                                                    class="form-control mapel_peminatan select2" multiple="">
-                                                <!--
-                                                <?php foreach ($mapels as $kd_mpl=>$mapel) : ?>
-                                                    <option class="opt-mapel" value="<?= $kd_mpl ?>"><?= $mapel ?></option>
-                                                <?php endforeach; ?>
-                                                -->
-                                            </select>
-                                        <?php endif; endforeach; endif; ?>
-                            </div>
-                        <?php endif; ?>
+                <div class="form-group row" id="formstatus">
+                    <label class="col-md-3 col-form-label">Mapel Peminatan*</label>
+                    <div class="col-md-9">
+                        <select name="mapel[]" id="mapel_peminatan" class="form-control mapel_peminatan select2"
+                                multiple="">
+                        </select>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="editIdJurusan" name="id_jurusan" class="form-control">

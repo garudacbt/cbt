@@ -56,7 +56,7 @@
                                         }
                                     }
                                     $oj = json_decode(json_encode($kelas->jumlah_siswa));
-                                    $jumlahSiswa = json_decode(json_encode(unserialize($oj ?? '')));
+                                    $jumlahSiswa = json_decode(json_encode(unserialize($oj)));
                                     $jjs = [];
                                     foreach ($jumlahSiswa as $js) {
                                         array_push($jjs, $js->id);

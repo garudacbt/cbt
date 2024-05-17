@@ -1,0 +1,26 @@
+{
+     "name": "Popr",
+     "title": "Popr",
+     "description": "Popr is a small and simple popup menu jQuery plugin.",
+     "keywords": [
+          "popup",
+          "menu"
+     ],
+     "version": "1.0.0",
+     "author": {
+          "name": "Tipue",
+          "url": "http://www.tipue.com"
+     },
+     "licenses": [
+          {
+               "type": "MIT",
+               "url": "https://github.com/Tipue/Popr/blob/master/MIT-LICENSE.txt"
+          }
+     ],
+     "homepage": "http://www.tipue.com/popr/",
+     "docs": "http://www.tipue.com/popr/",
+     "download": "http://www.tipue.com/popr/",
+     "dependencies": {
+          "jquery": ">=2.1.4"
+     }
+}

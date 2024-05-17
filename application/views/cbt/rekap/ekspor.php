@@ -51,7 +51,7 @@
                         <?php endif; ?>
                     <?php else: ?>
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-md-3 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Tahun</span>
@@ -65,7 +65,7 @@
                                     ); ?>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-3 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Semester</span>
@@ -79,23 +79,25 @@
                                     ); ?>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-3 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Penilaian</span>
                                     </div>
-                                    <select name="jenis" id="jenis" class="form-control"></select>
+                                    <select name="jenis" id="jenis" class="form-control">
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-3 mb-2" id="by-kelas">
+                            <div class="col-3" id="by-kelas">
                                 <div class="input-group">
                                     <div class="input-group-prepend w-30">
                                         <span class="input-group-text">Kelas</span>
                                     </div>
-                                    <select name="kelas" id="kelas" class="form-control"></select>
+                                    <select name="kelas" id="kelas" class="form-control">
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 mb-2" id="by-mapel">
+                            <div class="col-md-3 mb-2">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Mapel</span>
@@ -216,15 +218,12 @@
 
     var jeniss = <?= json_encode($jenis) ?>;
     var kelass = <?= json_encode($kelas) ?>;
-    var titleDownload = 'REKAP NILAI ASLI';
 
     function createPreview(data, convert) {
         if (convert) {
-            titleDownload = 'REKAP NILAI KATROL';
             $('#rollback').removeClass('d-none');
             $('#convert').addClass('d-none');
         } else {
-            titleDownload = 'REKAP NILAI ASLI';
             $('#convert').removeClass('d-none');
             $('#rollback').addClass('d-none');
         }
@@ -238,17 +237,17 @@
 
         if (oldData !== newData) {
             oldData = newData;
-            var opsis = '<option value="0" selected="selected">Semua Jadwal</option>';
+            var opsis = '<option value="0" selected="selected">Semua Mapel</option>';
             for (let i = 0; i < arrMapel.length; i++) {
-                var selected = mplSelected == arrMapel[i].id_jadwal ? 'selected' : '';
-                opsis += '<option value="' + arrMapel[i].id_jadwal + '" ' + selected + '>' + arrMapel[i].bank_kode + '</option>';
+                var selected = mplSelected == arrMapel[i].id_mapel ? 'selected' : '';
+                opsis += '<option value="' + arrMapel[i].id_mapel + '" ' + selected + '>' + arrMapel[i].kode + '</option>';
             }
             $('#opsi-mapel').html(opsis);
         }
 
         //console.log('mapel', arrMapel);
         var rows = arrMapel.length > 1 ? '2' : '1';
-        //var namaMpl = arrMapel.length > 1 ? '' : arrMapel[0].nama_mapel;
+        var namaMpl = arrMapel.length > 1 ? '' : arrMapel[0].nama_mapel;
 
         $('.table-header').remove();
         var tinfo = '<table class="table-header"><tr>' +
@@ -303,7 +302,7 @@
                 '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse; text-align: center;">' + v.nomor_peserta + '</td>' +
                 '<td data-a-v="middle" data-a-h="left" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;">' + v.nama + '</td>';
             $.each(arrMapel, function (key, val) {
-                var nn = data.nilai[i][val.id_jadwal];
+                var nn = data.nilai[i][val.id_mapel];
                 var nilaiPg = nn == null ? 0 : parseFloat(nn.nilai_pg);
                 var nilaiPg2 = nn == null ? 0 : parseFloat(nn.soal_kompleks.nilai);
                 var nilaiJod = nn == null ? 0 : parseFloat(nn.soal_jodohkan.nilai);
@@ -322,19 +321,17 @@
                     }
                 }
                 jumlahNilai += decimalFixed(skor);
-                var bgFill = skor == kkm ? 'D7F2DA' : (skor > kkm ? 'BEEBC2' : 'FFFFB7');
-                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" class="align-middle" data-fill-color="'+bgFill+'" style="border: 1px solid black;border-collapse: collapse; text-align: center;background-color: #'+bgFill+';">' + (''+decimalFixed(skor).toFixed(2)).replace('.', ',') + '</td>';
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" class="text-success" style="border: 1px solid black;border-collapse: collapse; text-align: center;"><b>' + decimalFixed(skor) + '</b></td>';
             });
 
             var rata2 = decimalFixed(jumlahNilai / arrMapel.length);
             var ketNilai = rata2 == kkm ? 'Tercapai' : (rata2 > kkm ? 'Terlampaui' : 'Remidi');
-            var bgFill = rata2 == kkm ? 'D7F2DA' : (rata2 > kkm ? 'BEEBC2' : 'FFFFB7');
             if (arrMapel.length > 1) {
-                tbody += '<td class="align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">' + ('' + decimalFixed(jumlahNilai).toFixed(2)).replace('.', ',') + '</td>';
-                tbody += '<td class="total align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-fill-color="'+bgFill+'" style="border: 1px solid black;border-collapse: collapse;text-align: center;background-color: #'+bgFill+';"><b>' + decimalFixed(jumlahNilai / arrMapel.length) + '</b></td>';
-                tbody += '<td class="align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"></td>';
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">' + decimalFixed(jumlahNilai) + '</td>';
+                tbody += '<td class="total" data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"><b>' + decimalFixed(jumlahNilai / arrMapel.length) + '</b></td>';
+                tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center"></td>';
             }
-            tbody += '<td class="align-middle" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-fill-color="'+bgFill+'" style="border: 1px solid black;border-collapse: collapse;text-align: center;background-color: #'+bgFill+';">' + ketNilai + '</td>';
+            tbody += '<td data-a-v="middle" data-a-h="center" data-b-a-s="thin" style="border: 1px solid black;border-collapse: collapse;text-align: center">' + ketNilai + '</td>';
             tbody += '</tr>';
             nos += 1;
         });
@@ -491,14 +488,14 @@
                 size: 'A4',
                 margins: {top: 700, bottom: 700, left: 1000, right: 1000}
             });
-            saveAs(converted, `${titleDownload} ${$("#jenis option:selected").text()} ${kodeMapel} ` +
-                `${$("#kelas option:selected").text()} ${$("#opsi-tahun option:selected").text()} smt ${$("#opsi-semester option:selected").text()}.docx`);
+            saveAs(converted, `REKAP NILAI ${$("#jenis option:selected").text()} ${kodeMapel} ` +
+                `Kls_${$("#kelas option:selected").text()} ${$("#opsi-tahun option:selected").text()} ${$("#opsi-semester option:selected").text()}.docx`);
         });
 
         $("#download-excel").click(function (event) {
             var table = document.querySelector("#table-status");
             TableToExcel.convert(table, {
-                name: `${titleDownload} ${$("#jenis option:selected").text()} ${kodeMapel} ${$("#kelas option:selected").text()} ${$("#opsi-tahun option:selected").text()} smt ${$("#opsi-semester option:selected").text()}.xlsx`,
+                name: `REKAP NILAI ${$("#jenis option:selected").text()} ${kodeMapel} ${$("#kelas option:selected").text()} ${$("#opsi-tahun option:selected").text()} ${$("#opsi-semester option:selected").text()}.xlsx`,
                 sheet: {
                     name: "Sheet 1"
                 }

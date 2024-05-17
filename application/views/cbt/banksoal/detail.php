@@ -107,7 +107,7 @@
                     $bg_color = $total_soal_tampil < $total_soal_seharusnya_tampil ? 'bg-danger' : 'bg-success';
 
                     $jk = json_decode(json_encode($bank->bank_kelas));
-                    $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
+                    $jumlahKelas = json_decode(json_encode(unserialize($jk)));
 
                     $kelasbank = '';
                     $no = 1;
@@ -292,6 +292,7 @@
                                 <div class="rTable" id="table-pg">
                                     <div class="rTableBody">
                                         <?php
+                                        echo $bank->opsi;
                                         foreach ($soals_pg as $s) :
                                             $checked = $s->tampilkan == 1 ? 'checked' : ''; ?>
                                             <div class="rTableRow">
@@ -312,19 +313,19 @@
                                                     <br>
                                                     <ul class="list-group list-group-unbordered pl-3"
                                                         style="list-style-type: upper-alpha">
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_a ?? '') ?></li>
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_b ?? '') ?></li>
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_c ?? '') ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_a) ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_b) ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_c) ?></li>
                                                         <?php if ($bank->opsi == '4') : ?>
-                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d ?? '') ?></li>
+                                                        <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d) ?></li>
                                                         <?php endif; ?>
                                                         <?php if ($bank->opsi == '5') : ?>
-                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d ?? '') ?></li>
-                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_e ?? '') ?></li>
+                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_d) ?></li>
+                                                            <li><?= str_replace(['<p>', '</p>'], '', $s->opsi_e) ?></li>
                                                         <?php endif; ?>
                                                     </ul>
                                                     <div class="mb-2 mt-2">Jawaban:
-                                                        <b><?= strtoupper($s->jawaban ?? '') ?></b>
+                                                        <b><?= strtoupper($s->jawaban) ?></b>
                                                     </div>
                                                 </div>
                                                 <div class="rTableCell text-right pt-2" style="width: 60px">
@@ -457,8 +458,8 @@
                                                     </div>
                                                     <br>
                                                     <?php
-                                                    $opsis = unserialize($s->opsi_a ?? '');
-                                                    $jawabs = unserialize($s->jawaban ?? '');
+                                                    $opsis = unserialize($s->opsi_a);
+                                                    $jawabs = unserialize($s->jawaban);
                                                     $jwb_pg2 = '';
                                                     if ($jawabs) {
                                                         $jwb_pg2 = implode(', ', array_filter($jawabs));
@@ -468,11 +469,11 @@
                                                             style="list-style-type: upper-alpha">
                                                             <?php for ($i = 97; $i < (97 + count($opsis)); $i++) :
                                                                 $abjad = chr($i); ?>
-                                                                <li><?=isset($opsis[$abjad]) ? str_replace(['<p>', '</p>'], '', $opsis[$abjad]) : 'null' ?></li>
+                                                                <li><?= str_replace(['<p>', '</p>'], '', $opsis[$abjad]) ?></li>
                                                             <?php endfor; ?>
                                                         </ul>
                                                     <?php endif; ?>
-                                                    <div class="mb-2 mt-2">Jawaban: <b><?= strtoupper($jwb_pg2 ?? '') ?></b>
+                                                    <div class="mb-2 mt-2">Jawaban: <b><?= strtoupper($jwb_pg2) ?></b>
                                                     </div>
                                                 </div>
                                                 <div class="rTableCell text-right pt-2" style="width: 60px">
@@ -604,7 +605,7 @@
                                                         <br>
                                                     </div>
                                                     <br>
-                                                    <?php $jawaban = unserialize($s->jawaban ?? '');
+                                                    <?php $jawaban = unserialize($s->jawaban);
                                                     if (!isset($jawaban['jawaban'])) $jawaban['jawaban'] = [];
                                                     ?>
                                                     <div class="mb-2 mt-2"><b>Jawaban:</b></div>
@@ -956,7 +957,7 @@
                             </td>
                             <td style="border: 1px solid black; vertical-align: top; padding-left: 6px">A</td>
                             <td style="border: 1px solid black; vertical-align: top; padding-left: 6px"><?= $s['opsi_a'] ?></td>
-                            <td style="border: 1px solid black; vertical-align: top; padding-left: 6px"><?= strtolower($s['jawaban'] ?? '') == 'a' ? 'v' : '' ?></td>
+                            <td style="border: 1px solid black; vertical-align: top; padding-left: 6px"><?= strtolower($s['jawaban']) == 'a' ? 'v' : '' ?></td>
                         </tr>
                         <?php
                         $post_char = 98;
@@ -965,12 +966,12 @@
                             ?>
                             <tr>
                                 <td style="border: 1px solid black; vertical-align: top; padding-left: 6px">
-                                    <?= strtoupper($abjad ?? '') ?>
+                                    <?= strtoupper($abjad) ?>
                                 </td>
                                 <td style="border: 1px solid black; vertical-align: top; padding-left: 6px">
                                     <?= $s['opsi_' . $abjad] ?>
                                 </td>
-                                <td style="border: 1px solid black; vertical-align: top; padding-left: 6px"><?= strtolower($s['jawaban'] ?? '') == $abjad ? 'v' : '' ?></td>
+                                <td style="border: 1px solid black; vertical-align: top; padding-left: 6px"><?= strtolower($s['jawaban']) == $abjad ? 'v' : '' ?></td>
                             </tr>
                             <?php $post_char++; endfor; endfor; ?>
                 </table>
@@ -1009,10 +1010,10 @@
                             'soal' => '',
                             'opsi_a' => serialize(['a' => '', 'b' => '', 'c' => ''])
                         ]));
-                        $opsis = unserialize($s->opsi_a ?? '');
+                        $opsis = unserialize($s->opsi_a);
                         $opsis = $opsis ? $opsis : ['a'=>'','b'=>'','c'=>''];
                         $rows = $opsis ? count($opsis) : 3;
-                        $jawabs = $opsis ? unserialize($s->jawaban ?? '') : [];
+                        $jawabs = $opsis ? unserialize($s->jawaban) : [];
                         $bg = $s->nomor_soal % 2 == 0 ? '#FFFFFF' : '#F2F2F2';
                         //if ($opsis) :
                         ?>
@@ -1046,7 +1047,7 @@
                             $abjad = chr($post_char); ?>
                             <tr style="background-color: <?= $bg ?>">
                                 <td style="border: 1px solid black;vertical-align: top;text-align: center;">
-                                    <?= strtoupper($abjad ?? '') ?>
+                                    <?= strtoupper($abjad) ?>
                                 </td>
                                 <td style="border: 1px solid black;vertical-align: top;padding-left: 6px">
                                     <?= $opsis[$abjad] ?>
@@ -1121,7 +1122,7 @@
                         $count++;
                         $bg = $count % 2 == 0 ? '#FFFFFF' : '#F2F2F2';
 
-                        $jawaban = isset($s->jawaban) ? unserialize($s->jawaban ?? '') : [];
+                        $jawaban = isset($s->jawaban) ? unserialize($s->jawaban) : [];
                         if (isset($jawaban['jawaban']) && $jawaban['jawaban'] != null) {
                             foreach ($jawaban['jawaban'] as $kk => $jwbn) {
                                 $jawaban['jawaban'][$kk] = (array)$jwbn;
@@ -1191,7 +1192,7 @@
                                     <?= isset($jawaban['jawaban'][$index][0]) ? $jawaban['jawaban'][$index][0] : '' ?>
                                 </td>
                                 <td style="border: 1px solid black;vertical-align: top;text-align: center;">
-                                    <?= isset($jawaban['jawaban'][0][$index]) && $jawaban['jawaban'][0][$index] != "" ? strtoupper($abjad ?? '') : ''; ?>
+                                    <?= isset($jawaban['jawaban'][0][$index]) && $jawaban['jawaban'][0][$index] != "" ? strtoupper($abjad) : ''; ?>
                                 </td>
                                 <td style="border: 1px solid black;vertical-align: top;text-align: center;">
                                     <?= isset($jawaban['jawaban'][0][$index]) ? $jawaban['jawaban'][0][$index] : '' ?>
@@ -1362,7 +1363,6 @@
                 $.each($div_lists, function () {
                     var noSoal = $(this).data('nomor');
                     var lists = $(this).data('list');
-                    console.log('res', lists)
                     if ($(this).children().length > 1) return
                     $(this).linkerList({
                         enableSelect: false,

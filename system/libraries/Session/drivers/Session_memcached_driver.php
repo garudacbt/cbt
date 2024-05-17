@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2019 - 2022, CodeIgniter Foundation
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,6 @@
  * @author	EllisLab Dev Team
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
- * @copyright	Copyright (c) 2019 - 2022, CodeIgniter Foundation (https://codeigniter.com/)
  * @license	https://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
  * @since	Version 3.0.0
@@ -45,9 +44,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Sessions
  * @author	Andrey Andreev
- * @link	https://codeigniter.com/userguide3/libraries/sessions.html
+ * @link	https://codeigniter.com/user_guide/libraries/sessions.html
  */
-class CI_Session_memcached_driver extends CI_Session_driver implements CI_Session_driver_interface {
+class CI_Session_memcached_driver extends CI_Session_driver implements SessionHandlerInterface {
 
 	/**
 	 * Memcached instance
@@ -296,31 +295,15 @@ class CI_Session_memcached_driver extends CI_Session_driver implements CI_Sessio
 	// --------------------------------------------------------------------
 
 	/**
-	 * Update Timestamp
-	 *
-	 * Update session timestamp without modifying data
-	 *
-	 * @param	string	$id	Session ID
-	 * @param	string	$data	Unknown & unused
-	 * @return	bool
-	 */
-	public function updateTimestamp($id, $unknown)
-	{
-		return $this->_memcached->touch($this->_key_prefix.$id, $this->_config['expiration']);
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Validate ID
 	 *
 	 * Checks whether a session ID record exists server-side,
 	 * to enforce session.use_strict_mode.
 	 *
-	 * @param	string	$id	Session ID
+	 * @param	string	$id
 	 * @return	bool
 	 */
-	public function validateId($id)
+	public function validateSessionId($id)
 	{
 		$this->_memcached->get($this->_key_prefix.$id);
 		return ($this->_memcached->getResultCode() === Memcached::RES_SUCCESS);

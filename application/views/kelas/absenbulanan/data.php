@@ -86,7 +86,7 @@
                                             <?php
                                             $ret = [];
                                             foreach ($tp as $key => $row) {
-                                                $thn = explode("/", $row->tahun ?? '');
+                                                $thn = explode("/", $row->tahun);
                                                 $ret [$thn[0]] = $thn[0];
                                                 $ret [$thn[1]] = $thn[1];
                                             }
@@ -110,7 +110,6 @@
                     <div class="spinner-grow"></div>
                 </div>
             </div>
-            <div id="konten-copy" class="d-none"></div>
         </div>
     </section>
 </div>
@@ -118,8 +117,6 @@
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/html-docx.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/convert-area.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/FileSaver.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 
 <script>
     var kelas = JSON.parse('<?= json_encode($kelas)?>');
@@ -130,25 +127,14 @@
     var oldData = '';
     var jmlStatus = {};
 
-    var styleBorder = ' style="border: 1px solid #8d8d8d; border-collapse: collapse;';
-    var styleMinggu = ' style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#FF9393;';
-    var styleHadir = ' style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#78E96B;';
-    var styleTelat = ' style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#FFF493;';
-    var styleAlpha = ' style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#FFCCCD;';
-    var styleCenterMiddle = ' style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;';
-    var styleLeftMiddle = ' style="border: 1px solid #8d8d8d; vertical-align: middle;';
-    var styleKosong = ' style="border: 1px solid #8d8d8d;background-color: #a6a6a6;';
-
-    // style excel
-    var styleHead = ' data-fill-color="d3d3d3" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"';
-    var styleHeadMinggu = ' data-fill-color="FF9393" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="true"';
-    var styleNormal = ' data-fill-color="ffffff" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
-    var styleNormalMinggu = ' data-fill-color="FF9393" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
-    var style_Hadir = ' data-fill-color="78E96B" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
-    var style_Telat = ' data-fill-color="FFF493" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
-    var style_Alpha = ' data-fill-color="FFCCCD" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
-    var styleEmpty = ' data-fill-color="a6a6a6" data-t="s" data-a-v="middle" data-a-h="center" data-b-a-s="thin" data-f-bold="false"';
-    var styleNama = ' data-fill-color="ffffff" data-t="s" data-a-v="middle" data-b-a-s="thin" data-f-bold="false"';
+    var styleBorder = 'style="border: 1px solid #8d8d8d; border-collapse: collapse;';
+    var styleMinggu = 'style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#FF9393;';
+    var styleHadir = 'style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#78E96B;';
+    var styleTelat = 'style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#FFF493;';
+    var styleAlpha = 'style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;background-color:#FFCCCD;';
+    var styleCenterMiddle = 'style="border: 1px solid #8d8d8d; text-align: center; vertical-align: middle;';
+    var styleLeftMiddle = 'style="border: 1px solid #8d8d8d; vertical-align: middle;';
+    var styleKosong = 'style="border: 1px solid #8d8d8d;background-color: #a6a6a6;';
 
     var docTitle = '';
 
@@ -191,32 +177,32 @@
             }
         }
 
-        table = '<div id="jdl" style="width:100%;"><p style="text-align:center;font-size:14pt; font-weight: bold">KEHADIRAN BULANAN SISWA</p></div>' +
+        table = '<div style="width:100%;"><p style="text-align:center;font-size:14pt; font-weight: bold">KEHADIRAN BULANAN SISWA</p></div>' +
             '<div style="display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-pack:center;justify-content:center;height:100%;">' +
-            '    <table id="atas">' +
+            '    <table>' +
             '        <tr>' +
-            '            <td colspan="2"><p style="margin: 1px; display: inline;">Mata Pelajaran</p></td>' +
+            '            <td><p style="margin: 1px; display: inline;">Mata Pelajaran</p></td>' +
             '            <td><p style="margin: 1px; display: inline;">: <b>' + mapel + '</b></p></td>' +
             '        </tr>' +
             '        <tr>' +
-            '            <td colspan="2"><p style="margin: 1px; display: inline;">Kelas</p></td>' +
+            '            <td><p style="margin: 1px; display: inline;">Kelas</p></td>' +
             '            <td><p style="margin: 1px; display: inline;">: <b>' + kelas + '</b></p></td>' +
             '        </tr>' +
             '        <tr>' +
-            '            <td colspan="2"><p style="margin: 1px; display: inline;">Bulan</p></td>' +
+            '            <td><p style="margin: 1px; display: inline;">Bulan</p></td>' +
             '            <td><p style="margin: 1px; display: inline;">: <b>' + bulan + '</b></p></td>' +
             '        </tr>' +
             '    </table>' +
             '</div><br>' +
-            '<table id="log-nilai" class="tabelsiswa" style="width: 100%; border: 1px solid #c0c0c0; border-collapse: collapse; font-size: 10pt;">' +
+            '<table class="tabelsiswa" style="width: 100%; border: 1px solid #c0c0c0; border-collapse: collapse; font-size: 10pt;">' +
             '<thead style="background-color:lightgrey;">' +
             '<tr>' +
-            '<th rowspan="4" ' + styleBorder + ' min-width: 40px;"' + styleHead + '>No</th>' +
-            '<th rowspan="4" ' + styleBorder + ' min-width: 80px;"' + styleHead + '>N I S</th>' +
-            '<th rowspan="4" ' + styleBorder + '"' + styleHead + '>Nama</th>' +
-            '<th rowspan="4" ' + styleCenterMiddle + '"' + styleHead + '>Kelas</th>' +
-            '<th colspan="' + totalJmlCol + '" ' + styleBorder + '"' + styleHead + '>HARI, TANGGAL</th>' +
-            '<th colspan="6" ' + styleBorder + '"' + styleHead + '>Jml. Kehadiran</th>' +
+            '<th rowspan="4" ' + styleBorder + ' min-width: 40px;">No</th>' +
+            '<th rowspan="4" ' + styleBorder + ' min-width: 80px;">N I S</th>' +
+            '<th rowspan="4" ' + styleBorder + '">Nama</th>' +
+            '<th rowspan="4" ' + styleCenterMiddle + '">Kelas</th>' +
+            '<th colspan="' + totalJmlCol + '" ' + styleBorder + '">HARI, TANGGAL</th>' +
+            '<th colspan="6" ' + styleBorder + '">Jml. Kehadiran</th>' +
             '</tr>' +
             '<tr>';
 
@@ -225,17 +211,17 @@
             var d = new Date(bln + '/' + tg + '/' + thn);
             var hari = weekday[d.getDay()];
             if (hari === 'Min') {
-                table += '<th rowspan="3" class="tanggal" ' + styleMinggu + '" ' + styleHeadMinggu + '>'+ hari + ' ' + '<br>' + tg + '</th>';
+                table += '<th rowspan="3" class="tanggal" ' + styleMinggu + '">' + tg + '<br>' + hari + '</th>';
             } else {
                 if (data.mapels[tg] != null) {
                     var jmlJam = Object.keys(data.mapels[tg]).length;
-                    table += '<th colspan="' + (2 * jmlJam) + '" class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>'+ hari + ' ' + '<br>' + tg + '</th>';
+                    table += '<th colspan="' + (2 * jmlJam) + '" class="tanggal" ' + styleCenterMiddle + '">' + tg + '<br>' + hari + '</th>';
                 }
             }
         }
 
-        table += '<th colspan="3" rowspan="2" ' + styleCenterMiddle + '"' + styleHead + '>Materi</th>' +
-            '<th colspan="3" rowspan="2" ' + styleCenterMiddle + '"' + styleHead + '>Tugas</th>' +
+        table += '<th colspan="3" rowspan="2" ' + styleCenterMiddle + '">Materi</th>' +
+            '<th colspan="3" rowspan="2" ' + styleCenterMiddle + '">Tugas</th>' +
             '</tr>';
 
         for (let i = 0; i < jmlHari; i++) {
@@ -246,7 +232,7 @@
             if (hari2 !== 'Min' && data.mapels[tg2] != null) {
                 //var jmlJam = Object.keys(data.mapels[tg2]).length;
                 $.each(data.mapels[tg2], function (k, v) {
-                    table += '<th colspan="2" class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>jam ke ' + k + '</th>';
+                    table += '<th colspan="2" class="tanggal" ' + styleCenterMiddle + '">jam ke ' + k + '</th>';
                 });
             }
         }
@@ -260,31 +246,29 @@
             if (hari2 !== 'Min' && data.mapels[tg2] != null) {
                 var jmlJam = Object.keys(data.mapels[tg2]).length;
                 for (let j = 0; j < jmlJam; j++) {
-                    table += '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>M</th>' +
-                        '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>T</th>';
+                    table += '<th class="tanggal" ' + styleCenterMiddle + '">M</th>' +
+                        '<th class="tanggal" ' + styleCenterMiddle + '">T</th>';
                 }
             }
         }
 
-        table += '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>H</th>' +
-            '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>TL</th>' +
-            '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>TH</th>' +
-            '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>H</th>' +
-            '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>TL</th>' +
-            '<th class="tanggal" ' + styleCenterMiddle + '"' + styleHead + '>TH</th>' +
+        table += '<th class="tanggal" ' + styleCenterMiddle + '">H</th>' +
+            '<th class="tanggal" ' + styleCenterMiddle + '">TL</th>' +
+            '<th class="tanggal" ' + styleCenterMiddle + '">TH</th>' +
+            '<th class="tanggal" ' + styleCenterMiddle + '">H</th>' +
+            '<th class="tanggal" ' + styleCenterMiddle + '">TL</th>' +
+            '<th class="tanggal" ' + styleCenterMiddle + '">TH</th>' +
             '</tr></thead>';
 
         var no = 1;
         var minggu = 0;
-        var colWidth = '';
         $.each(data.log, function (key, value) {
             table += '<tr>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + no + '</td>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + value.nis + '</td>' +
-                '<td class="nama-siswa" ' + styleLeftMiddle + '"'+ styleNama +'>' + value.nama + '</td>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + value.kelas + '</td>';
+                '<td ' + styleCenterMiddle + '">' + no + '</td>' +
+                '<td ' + styleCenterMiddle + '">' + value.nis + '</td>' +
+                '<td class="nama-siswa" ' + styleLeftMiddle + '">' + value.nama + '</td>' +
+                '<td ' + styleCenterMiddle + '">' + value.kelas + '</td>';
 
-            colWidth = '4,15,35,15';
             minggu = 0;
             var hMateri = 0, tlMateri = 0, thMateri = 0, hTugas = 0, tlTugas = 0, thTugas = 0;
             for (let i = 0; i < jmlHari; i++) {
@@ -295,8 +279,7 @@
                 var hari = weekday[d.getDay()];
                 if (hari === 'Min') {
                     minggu++;
-                    table += '<td ' + styleMinggu + '"'+ styleNormalMinggu +'>&ensp;</td>';
-                    colWidth += ',4';
+                    table += '<td ' + styleMinggu + '">&ensp;</td>';
                 } else {
                     if (adaJadwal) {
                         $.each(data.mapels[tglm], function (jamKe, tgl) {
@@ -304,20 +287,18 @@
                             if (adaMateri) {
                                 if (value.materi[i] != null && value.materi[i][jamKe] != null && value.materi[i][jamKe].jam != null) {
                                     if (terlambat(value.materi[i][jamKe], data.jadwal)) {
-                                        table += '<td ' + styleTelat + '"'+ style_Telat +'>&check;</td>';
+                                        table += '<td ' + styleTelat + '">&check;</td>';
                                         tlMateri++;
                                     } else {
-                                        table += '<td ' + styleHadir + '"'+ style_Hadir +'>&check;</td>';
+                                        table += '<td ' + styleHadir + '">&check;</td>';
                                         hMateri++;
                                     }
                                 } else {
-                                    table += '<td ' + styleAlpha + '"'+ style_Alpha +'>&ensp;</td>';
+                                    table += '<td ' + styleAlpha + '">&ensp;</td>';
                                     thMateri++;
                                 }
-                                colWidth += ',4';
                             } else {
-                                table += '<td ' + styleKosong + '"'+ styleEmpty +'>&ensp;</td>';
-                                colWidth += ',4';
+                                table += '<td ' + styleKosong + '">&ensp;</td>';
                             }
 
                             var adaTugas = data.materi[tglm][idmapel] != null && data.materi[tglm][idmapel][jamKe] != null && data.materi[tglm][idmapel][jamKe][2] != null;
@@ -325,32 +306,30 @@
                                 if (value.tugas[i] != null && value.tugas[i][jamKe] != null && value.tugas[i][jamKe].jam != null) {
                                     //var jt = value.tugas[i] != null ? value.tugas[i].jam : '-';
                                     if (terlambat(value.tugas[i][jamKe], data.jadwal)) {
-                                        table += '<td ' + styleTelat + '"'+ style_Telat +'>&check;</td>';
+                                        table += '<td ' + styleTelat + '">&check;</td>';
                                         tlTugas++;
                                     } else {
-                                        table += '<td ' + styleHadir + '"'+ style_Hadir +'>&check;</td>';
+                                        table += '<td ' + styleHadir + '">&check;</td>';
                                         hTugas++;
                                     }
                                 } else {
-                                    table += '<td ' + styleAlpha + '"'+ style_Alpha +'>&ensp;</td>';
+                                    table += '<td ' + styleAlpha + '">&ensp;</td>';
                                     thTugas++;
                                 }
-                                colWidth += ',4';
                             } else {
-                                table += '<td ' + styleKosong + '"'+ styleEmpty +'>&ensp;</td>';
-                                colWidth += ',4';
+                                table += '<td ' + styleKosong + '">&ensp;</td>';
                             }
                         });
                     }
                 }
             }
 
-            table += '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + hMateri + '</td>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + tlMateri + '</td>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + thMateri + '</td>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + hTugas + '</td>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + tlTugas + '</td>' +
-                '<td ' + styleCenterMiddle + '"'+ styleNormal +'>' + thTugas + '</td>' +
+            table += '<td ' + styleCenterMiddle + '">' + hMateri + '</td>' +
+                '<td ' + styleCenterMiddle + '">' + tlMateri + '</td>' +
+                '<td ' + styleCenterMiddle + '">' + thMateri + '</td>' +
+                '<td ' + styleCenterMiddle + '">' + hTugas + '</td>' +
+                '<td ' + styleCenterMiddle + '">' + tlTugas + '</td>' +
+                '<td ' + styleCenterMiddle + '">' + thTugas + '</td>' +
                 '</tr>';
 
             no++;
@@ -395,25 +374,6 @@
         } else {
             $('.tabelsiswa').css({'page-break-after': 'auto'});
         }
-
-        colWidth += ',4,4,4,4,4,4';
-        console.log('colWidth', colWidth.split(',').length)
-        var title = $('#jdl').html();
-        var trsAtas = $('table#atas tbody').html();
-        var trsHead = $('table#log-nilai thead').html();
-        var trsBody = $('table#log-nilai tbody').html();
-        var copy = '<table id="excel" style="font-size: 11pt;" data-cols-width="' + colWidth + '"><tbody>' +
-            '<tr>' +
-            '<td colspan="10" data-a-v="middle" data-a-h="center" data-f-bold="true">' + title + '</td>' +
-            '</tr>' +
-            trsAtas +
-            '<tr></tr>' +
-            trsHead +
-            trsBody +
-            '</tbody>';
-
-        $('#konten-copy').html(copy);
-
     }
 
     $(document).ready(function () {
@@ -580,12 +540,8 @@
     }
 
     function exportExcel() {
-        var table = document.querySelector("#excel");
-        TableToExcel.convert(table, {
-            name: docTitle + '.xlsx',
-            sheet: {
-                name: "Sheet 1"
-            }
-        });
+
     }
+
+
 </script>

@@ -145,16 +145,16 @@
     </section>
 </div>
 <script>
-    var oldVal1 = "<?=$kop->header_1?>";
-    var oldVal2 = "<?=$kop->header_2?>";
-    var oldVal3 = "<?=$kop->header_3?>";
-    var oldVal4 = "<?=$kop->header_4?>";
-    var oldKota = "<?=$kop->kota?>";
-    var oldTgl = "<?=$kop->tanggal?>";
-    var oldKepsek = "<?=$kop->kepala_sekolah?>";
-    var logoKanan = "<?=base_url() . $kop->logo_kanan?>";
-    var logoKiri = "<?=base_url() . $kop->logo_kiri?>";
-    var tandatangan = "<?=base_url() . $kop->tanda_tangan?>";
+    var oldVal1 = '<?=$kop->header_1?>';
+    var oldVal2 = '<?=$kop->header_2?>';
+    var oldVal3 = '<?=$kop->header_3?>';
+    var oldVal4 = '<?=$kop->header_4?>';
+    var oldKota = '<?=$kop->kota?>';
+    var oldTgl = '<?=$kop->tanggal?>';
+    var oldKepsek = '<?=$kop->kepala_sekolah?>';
+    var logoKanan = '<?=base_url() . $kop->logo_kanan?>';
+    var logoKiri = '<?=base_url() . $kop->logo_kiri?>';
+    var tandatangan = '<?=base_url() . $kop->tanda_tangan?>';
 
     function submitKop() {
         $('#set-kop').submit();

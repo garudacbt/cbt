@@ -21,7 +21,7 @@
                 <?php
                 if (isset($kbm->istirahat)) {
                     $ist = json_decode(json_encode($kbm->istirahat));
-                    $jmlIst = json_decode(json_encode(unserialize($ist ?? '')));
+                    $jmlIst = json_decode(json_encode(unserialize($ist)));
                     $arrIst = [];
                     foreach ($jmlIst as $istirahat) {
                         array_push($arrIst, $istirahat->ist);
@@ -33,7 +33,7 @@
                     <div class="card my-shadow">
                         <div class="card-header">
                             <h5 class="text-center">
-                                <?= strtoupper($judul ?? '') ?> HARI INI<br/><?= buat_tanggal(date('D, d M Y')) ?>
+                                <?= strtoupper($judul) ?> HARI INI<br/><?= buat_tanggal(date('D, d M Y')) ?>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -81,7 +81,7 @@
                                                     $jamSampai->add(new DateInterval('PT' . $kbm->kbm_jam_pel . 'M'));
                                                     if (isset($materi[$jamke]->id_materi)) :
                                                         $tkelas = '';
-                                                        $arrkelas = unserialize($materi[$jamke]->materi_kelas ?? '');
+                                                        $arrkelas = unserialize($materi[$jamke]->materi_kelas);
 
                                                         foreach ($arrkelas as $k => $kls) {
                                                             if ($k > 0) {
@@ -131,7 +131,7 @@
                                                                                   onclick="showDialog(this)"><b>SELESAI</b></span>
                                                                         <?php else : ?>
                                                                             <a href="<?= $href ?>"
-                                                                               class="small-box-footer p-2" <?= $disabled ?>>ULANGI <?= strtoupper($judul ?? '') ?>
+                                                                               class="small-box-footer p-2" <?= $disabled ?>>ULANGI <?= strtoupper($judul) ?>
                                                                                 <i class="fas fa-arrow-circle-right ml-3"></i><span
                                                                                         class="ml-2"></span>
                                                                             </a>
@@ -146,7 +146,7 @@
                                                                     <?php endif; ?>
                                                                 <?php else : ?>
                                                                     <a href="<?= $href ?>"
-                                                                       class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul ?? '') ?>
+                                                                       class="small-box-footer p-2" <?= $disabled ?>>BUKA <?= strtoupper($judul) ?>
                                                                         <i class="fas fa-arrow-circle-right ml-3"></i><span
                                                                                 class="ml-2"></span>
                                                                     </a>
@@ -202,7 +202,7 @@
                     <div class="card my-shadow">
                         <div class="card-header">
                             <h5 class="text-center">
-                                <?= strtoupper($judul ?? '') ?> TERDAHULU
+                                <?= strtoupper($judul) ?> TERDAHULU
                             </h5>
                         </div>
                         <div class="card-body">
@@ -234,7 +234,7 @@
                                 foreach ($materis as $tg => $mat) :
                                     if ($tg != $hari) :
                                         $show = $tg == $today ? 'show active' : '';
-                                        $stg = explode('-', $tg ?? '');
+                                        $stg = explode('-', $tg);
                                         $y = $stg[0];
                                         $m = $stg[1];
                                         $d = $stg[2];
@@ -283,13 +283,9 @@
                                                             if (isset($log[$mat[$jamke]->id_kjm]) && $log[$mat[$jamke]->id_kjm]->finish_time != null) {
                                                                 // $status = '<a href="' . $href . '" class="btn btn-success ' . $disabled . '">Selesai</a>';
                                                                 //========
-                                                                if ($log[$mat[$jamke]->id_kjm]->nilai == '0') {
-                                                                    $status = '<a href="' . $href . '" class="btn btn-danger ' . $disabled . '">Ulangi</a>';
-                                                                } else {
-                                                                    $status = '<span class="btn btn-success"  data-nilai="' . $log[$mat[$jamke]->id_kjm]->nilai . '"
+                                                                $status = '<span class="btn btn-success"  data-nilai="' . $log[$mat[$jamke]->id_kjm]->nilai . '"
                                                                               data-text="' . $log[$mat[$jamke]->id_kjm]->catatan . '"
                                                                               onclick="showDialog(this)"><b>Selesai</b></span>';
-                                                                }
                                                                 //=========
                                                             } else {
                                                                 $status = '<a href="' . $href . '" class="btn btn-warning ' . $disabled . '">Belum Selesai</a>';
@@ -381,7 +377,7 @@
 
     function showDialog(sel) {
         swal.fire({
-            title: "HASIL <?= strtoupper($judul ?? '') ?>",
+            title: "HASIL <?= strtoupper($judul) ?>",
             html: '<table class="table table-striped table-bordered w-100">' +
                 '    <tr>' +
                 '        <th>NILAI</th>' +

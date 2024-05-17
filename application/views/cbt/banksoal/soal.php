@@ -7,9 +7,9 @@
  */
 
 $dataFileAttach = [];
-$att = @unserialize($soal->file ?? '');
+$att = @unserialize($soal->file);
 if ($att !== false) {
-    $dataFileAttach = unserialize($soal->file ?? '');
+    $dataFileAttach = unserialize($soal->file);
 }
 
 $pg_belum_komplit = [];
@@ -271,7 +271,7 @@ foreach ($soal_ada as $key => $value) {
                                     foreach ($rangeAbjad as $abjad) :
                                         ?>
                                         <div class="mb-3 ml-3">
-                                            <label>Jawaban <?= strtoupper($abjad ?? '') ?></label>
+                                            <label>Jawaban <?= strtoupper($abjad) ?></label>
                                             <textarea class="textjawaban" id="textjawaban_<?= $abjad ?>"
                                                       name="jawaban_<?= $abjad ?>"
                                                       placeholder="Place some text here"
@@ -397,7 +397,6 @@ foreach ($soal_ada as $key => $value) {
 <script src="<?= base_url() ?>/assets/app/js/linker-list.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/math/katex.min.js"></script>
 
 <script type="text/javascript">
     var nomor_soal = '<?=$p_no?>';

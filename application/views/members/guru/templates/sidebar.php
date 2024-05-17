@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light-teal my-shadow">
+<aside class="main-sidebar sidebar-light-teal">
     <!-- Brand Logo -->
     <a href="<?= base_url(); ?>" class="brand-link bg-white">
         <?php $logo_app = $setting->logo_kiri == null ? base_url() . 'assets/img/favicon.png' : base_url() . $setting->logo_kiri; ?>
@@ -26,160 +26,394 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2 mb-5">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
-                id="tree-menus" data-accordion="false">
+                data-accordion="false">
+                <?php
+                $page = $this->uri->segment(1);
+                $elearning = ["kelasjadwal", "kelasmateri", "kelasmaterijadwal", "kelastugas", "kelasstatus", "kelasabsensiharian", "kelasabsensiharianmapel", "kelasabsensibulanan", "kelasnilai", "kelascatatan"];
+                $cbt = ["cbtbanksoal", "cbtjadwal", "cbtcetak", "cbtpeserta", "cbtstatus", "cbtnilai", "cbtanalisis", "cbtrekap"];
+                $wali = ["walisiswa", "walistruktur", "walicatatan"];
+                ?>
+                <li class="nav-item">
+                    <a href="<?= base_url('dashboard') ?>"
+                       class="nav-link <?= $page === 'dashboard' ? "active" : "" ?>">
+                        <i class="nav-icon fas fa-desktop"></i>
+                        <p>Beranda</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('guruview') ?>" class="nav-link <?= $page === 'guruview' ? "active" : "" ?>">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Profile</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('pengumuman') ?>"
+                       class="nav-link <?= $page === 'pengumuman' ? "active" : "" ?>">
+                        <i class="nav-icon fas fa-bullhorn"></i>
+                        <p>Pengumuman</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview <?= in_array($page, $elearning) ? "menu-open" : "" ?>">
+                    <a href="#" class="nav-link <?= in_array($page, $elearning) ? "active" : "" ?>">
+                        <i class="nav-icon fas fa-chalkboard"></i>
+                        <p>
+                            E-Learning
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasjadwal') ?>"
+                               class="nav-link <?= $page === 'kelasjadwal' ? "active" : "" ?>">
+                                <i class="fa fa-calendar-alt nav-icon"></i>
+                                <p>Jadwal Pelajaran</p>
+                            </a>
+                        </li>
+                        <?php $pageact = $this->uri->segment(2); ?>
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasmateri/materi') ?>"
+                               class="nav-link <?= $pageact === 'materi' ? "active" : "" ?>">
+                                <i class="fa fa-pencil-ruler nav-icon"></i>
+                                <p>Materi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasmateri/tugas') ?>"
+                               class="nav-link <?= $pageact === 'tugas' ? "active" : "" ?>">
+                                <i class="fa fa-drafting-compass nav-icon"></i>
+                                <p>Tugas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasmaterijadwal') ?>"
+                               class="nav-link <?= $page === 'kelasmaterijadwal' ? "active" : "" ?>">
+                                <i class="fa fa-calendar-alt nav-icon"></i>
+                                <p>Jadwal Materi/Tugas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasstatus') ?>"
+                               class="nav-link <?= $page === 'kelasstatus' ? "active" : "" ?>">
+                                <i class="far fa-clipboard nav-icon"></i>
+                                <p>Nilai Harian</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasabsensiharian') ?>"
+                               class="nav-link <?= $page === 'kelasabsensiharian' ? "active" : "" ?>">
+                                <i class="fa fa-user-check nav-icon"></i>
+                                <p>Kehadiran Harian</p>
+                            </a>
+                        </li>
+                        <!--
+						<li class="nav-item">
+							<a href="<?= base_url('kelasabsensiharianmapel') ?>" class="nav-link <?= $page === 'kelasabsensiharianmapel' ? "active" : "" ?>">
+                                <i class="fa fa-tasks nav-icon"></i>
+								<p>Absensi Mapel Harian</p>
+							</a>
+						</li>
+						-->
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasabsensibulanan') ?>"
+                               class="nav-link <?= $page === 'kelasabsensibulanan' ? "active" : "" ?>">
+                                <i class="fa fa-tasks nav-icon"></i>
+                                <p>Kehadiran Bulanan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelasnilai') ?>"
+                               class="nav-link <?= $page === 'kelasnilai' ? "active" : "" ?>">
+                                <i class="fa fa-trophy nav-icon"></i>
+                                <p>Rekap Nilai</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('kelascatatan') ?>"
+                               class="nav-link <?= $page === 'kelascatatan' ? "active" : "" ?>">
+                                <i class="fa fa-pencil-alt nav-icon"></i>
+                                <p>Catatan Guru</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview <?= in_array($page, $cbt) ? "menu-open" : "" ?>">
+                    <a href="#" class="nav-link <?= in_array($page, $cbt) ? "active" : "" ?>">
+                        <i class="nav-icon fa fa-user-graduate"></i>
+                        <p>
+                            Ulangan/Ujian
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbtbanksoal') ?>"
+                               class="nav-link <?= $page === 'cbtbanksoal' ? "active" : "" ?>">
+                                <i class="far fa-folder-open nav-icon"></i>
+                                <p>Bank Soal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbtjadwal') ?>"
+                               class="nav-link <?= $page === 'cbtjadwal' ? "active" : "" ?>">
+                                <i class="far fa-calendar-alt nav-icon"></i>
+                                <p>Jadwal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbtcetak') ?>"
+                               class="nav-link <?= $page === 'cbtcetak' ? "active" : "" ?>">
+                                <i class="fa fa-print nav-icon"></i>
+                                <p>Cetak</p>
+                            </a>
+                        </li>
+                        <!--
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbttoken') ?>"
+                               class="nav-link <?= $page === 'cbttoken' ? "active" : "" ?>">
+                                <i class="fa fa-key nav-icon"></i>
+                                <p>Token</p>
+                            </a>
+                        </li>
+						<li class="nav-item">
+							<a href="<?= base_url('cbtpeserta') ?>" class="nav-link <?= $page === 'cbtpeserta' ? "active" : "" ?>">
+                                <i class="fa fa-list-ol nav-icon"></i>
+								<p>Daftar Peserta</p>
+							</a>
+						</li>
+						-->
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbtstatus') ?>"
+                               class="nav-link <?= $page === 'cbtstatus' ? "active" : "" ?>">
+                                <i class="fa fa-user-clock nav-icon"></i>
+                                <p>Status Siswa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbtnilai') ?>"
+                               class="nav-link <?= $page === 'cbtnilai' ? "active" : "" ?>">
+                                <i class="fa fa-file-alt nav-icon"></i>
+                                <p>Hasil Ujian</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbtanalisis') ?>"
+                               class="nav-link <?= $page === 'cbtanalisis' ? "active" : "" ?>">
+                                <i class="fa fa-chart-line nav-icon"></i>
+                                <p>Analisis Soal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('cbtrekap') ?>"
+                               class="nav-link <?= $page === 'cbtrekap' ? "active" : "" ?>">
+                                <i class="nav-icon fas fa-trophy"></i>
+                                <p>Rekap Nilai</p>
+                            </a>
+                        </li>
+                        <!--
+						<li class="nav-item">
+							<a href="<?= base_url('cbtanalisis') ?>" class="nav-link <?= $page === 'cbtanalisis' ? "active" : "" ?>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Analisis Soal</p>
+							</a>
+						</li>
+						-->
+                    </ul>
+                </li>
+                <?php if ($guru->id_jabatan == '4') : ?>
+                    <li class="nav-item has-treeview <?= in_array($page, $wali) ? "menu-open" : "" ?>">
+                        <a href="#" class="nav-link <?= in_array($page, $wali) ? "active" : "" ?>">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                Wali Kelas
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('walisiswa') ?>"
+                                   class="nav-link <?= $page === 'walisiswa' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Siswa</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('walistruktur') ?>"
+                                   class="nav-link <?= $page === 'walistruktur' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Struktur</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('walicatatan') ?>"
+                                   class="nav-link <?= $page === 'walicatatan' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Catatan Kelas</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                <li class="nav-header">PENILAIAN</li>
+                <?php
+                $pageact = $this->uri->segment(2);
+                $data_rapor = ['raporkkm', 'raporkikd', 'raporsikap'];
+                $rapor_input = ['raporspiritual', 'raporsosial', 'raporprestasi', 'raporcatatan', 'raporfisik', 'rapornaik'];
+                $rapor_cetak = ['cetakpts', 'cetakakhir', 'cetakleger', 'dkn'];
+                ?>
+                <li class="nav-item has-treeview <?= in_array($pageact, $data_rapor) ? "menu-open" : "" ?>">
+                    <a href="#" class="nav-link <?= in_array($pageact, $data_rapor) ? "active" : "" ?>">
+                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <p>
+                            DATA RAPOR
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('rapor/raporkkm') ?>"
+                               class="nav-link <?= $pageact === 'raporkkm' ? "active" : "" ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>KKM dan Bobot</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('rapor/raporkikd') ?>"
+                               class="nav-link <?= $pageact === 'raporkikd' ? "active" : "" ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Indikator Nilai</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('rapor/rapornilai') ?>"
+                       class="nav-link <?= $pageact === 'rapornilai' ? "active" : "" ?>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>INPUT NILAI</p>
+                    </a>
+                </li>
+                <?php if ($guru->id_jabatan == '4') : ?>
+                    <li class="nav-item">
+                        <a href="<?= base_url('rapor/rapornilaiguru') ?>"
+                           class="nav-link <?= $pageact === 'rapornilaiguru' ? "active" : "" ?>">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>PERIKSA NILAI</p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview <?= in_array($pageact, $rapor_input) ? "menu-open" : "" ?>">
+                        <a href="#" class="nav-link <?= in_array($pageact, $rapor_input) ? "active" : "" ?>">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                INPUT WALI KELAS
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/raporspiritual') ?>"
+                                   class="nav-link <?= $pageact === 'raporspiritual' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sikap Spiritual</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/raporsosial') ?>"
+                                   class="nav-link <?= $pageact === 'raporsosial' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sikap Sosial</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/raporprestasi') ?>"
+                                   class="nav-link <?= $pageact === 'raporprestasi' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Prestasi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/raporcatatan') ?>"
+                                   class="nav-link <?= $pageact === 'raporcatatan' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Absensi & Catatan</p>
+                                </a>
+                            </li>
+                            <!--
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/raporfisik') ?>"
+                                   class="nav-link <?= $pageact === 'raporfisik' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Fisik</p>
+                                </a>
+                            </li>
+                            -->
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/rapornaik') ?>"
+                                   class="nav-link <?= $pageact === 'rapornaik' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Kenaikan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview <?= in_array($pageact, $rapor_cetak) ? "menu-open" : "" ?>">
+                        <a href="#" class="nav-link <?= in_array($pageact, $rapor_cetak) ? "active" : "" ?>">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                CETAK
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/cetakpts') ?>"
+                                   class="nav-link <?= $pageact === 'cetakpts' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Rapor PTS</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/cetakakhir') ?>"
+                                   class="nav-link <?= $pageact === 'cetakakhir' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Rapor Akhir</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/cetakleger') ?>"
+                                   class="nav-link <?= $pageact === 'cetakleger' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Ledger</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('rapor/dkn') ?>"
+                                   class="nav-link <?= $pageact === 'dkn' ? "active" : "" ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>DKN</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-header">ARSIP</li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('bukurapor') ?>"
+                           class="nav-link <?= $page === 'bukurapor' ? "active" : "" ?>">
+                            <i class="fas fa-book nav-icon"></i>
+                            <p>ARSIP RAPOR</p>
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <hr>
+                <li class="nav-item">
+                    <a href="#" onclick="logout()" class="nav-link">
+                        <i class="fas fa-sign-out-alt nav-icon"></i>
+                        <p>LOGOUT</p>
+                    </a>
+                </li>
+                <hr>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>
-
-<script>
-    const page = '<?= $this->uri->segment(1)?>';
-    const jabatan = '<?=$guru->id_jabatan?>';
-    const pageact = '<?= $this->uri->segment(2); ?>';
-    const menus = [
-        {
-            'header': 'HOME', 'cbt': '1',
-            'menu': [
-                {'name': 'Beranda', 'link': 'dashboard', 'icon': 'fas fa-desktop', 'cbt': '1'},
-                {'name': 'Profile', 'link': 'guruview', 'icon': 'fas fa-user', 'cbt': '1'},
-                {'name': 'Pengumuman', 'link': 'pengumuman', 'icon': 'fas fa-bullhorn', 'cbt': '1'},
-                {
-                    'name': 'Wali Kelas', 'icon': 'fas fa-chart-pie', 'cbt': '1', 'wali': true,
-                    'submenu': [
-                        {'name': 'Siswa', 'link':"walisiswa", 'icon': 'fas fa-users'},
-                        {'name': 'Struktur', 'link':"walistruktur", 'icon': 'far fa-circle'},
-                        {'name': 'Catatan', 'link':"walicatatan", 'icon': 'fa fa-pencil-alt'}
-                    ]
-                },
-                {
-                    'name': 'E-Learning', 'icon': 'fas fa-chalkboard', 'cbt': '0',
-                    'submenu': [
-                        {'name': "Jadwal Pelajaran", 'link': "kelasjadwal", 'icon': 'fa fa-calendar-alt'},
-                        {'name': "Materi", 'link': "kelasmateri/materi", 'icon': 'fa fa-pencil-ruler'},
-                        {'name': "Tugas", 'link': "kelasmateri/tugas", 'icon': 'fa fa-drafting-compass'},
-                        {'name': "Jadwal Materi/Tugas", 'link': "kelasmaterijadwal", 'icon': 'fa fa-calendar-alt'},
-                        {'name': 'Nilai Harian', 'link':"kelasstatus", 'icon': 'far fa-clipboard'},
-                        {'name': 'Kehadiran Harian', 'link':"kelasabsensiharian", 'icon': 'fa fa-user-check'},
-                        {'name': 'Kehadiran Bulanan', 'link':"kelasabsensibulanan", 'icon': 'fa fa-tasks'},
-                        {'name': 'Rekap Nilai', 'link':"kelasnilai", 'icon': 'fa fa-trophy'},
-                        {'name': 'Catatan Guru', 'link':"kelascatatan", 'icon': 'fa fa-pencil-alt'},
-                    ]
-                },
-                {
-                    'name': 'Ulangan / Ujian', 'icon': 'fa fa-user-graduate', 'cbt': '1',
-                    'submenu': [
-                        {'name':"Bank Soal", 'link':"cbtbanksoal", 'icon': 'far fa-folder-open'},
-                        {'name':"Jadwal", 'link':"cbtjadwal", 'icon': 'far fa-calendar-alt'},
-                        {'name': 'Cetak', 'link':"cbtcetak", 'icon': 'fa fa-print'},
-                        {'name': 'Status Siswa', 'link':"cbtstatus", 'icon': 'fa fa-user-clock'},
-                        {'name': 'Hasil Ujian', 'link':"cbtnilai", 'icon': 'fa fa-file-alt'},
-                        {'name': 'Analisis Soal', 'link':"cbtanalisis", 'icon': 'fa fa-chart-line'},
-                        {'name': 'Rekap Nilai', 'link':"cbtrekap", 'icon': 'fas fa-trophy'},
-                    ]
-                },
-            ]
-        },
-        {
-            'header': 'PENILAIAN', 'cbt': '0',
-            'menu': [
-                {
-                    'name': 'Data Rapor', 'icon': 'fas fa-chart-pie', 'cbt': '0',
-                    'submenu': [
-                        {'name': 'KKM dan Bobot', 'link': 'rapor/raporkkm', 'icon': 'fa fa-balance-scale-right', 'cbt': '0'},
-                        {'name': 'Indikator Nilai', 'link': 'rapor/raporkikd', 'icon': 'fas fa-book', 'cbt': '0'},
-                    ]
-                },
-                {'name': 'Input Nilai', 'link': 'rapor/rapornilai', 'icon': 'fa fa-users', 'cbt': '0'},
-                {'name': 'Periksa Nilai', 'link': 'rapor/rapornilaiguru', 'icon': 'fa fa-users', 'cbt': '0', 'wali': true},
-                {
-                    'name': 'Input Wali Kelas', 'icon': 'fas fa-chart-pie', 'cbt': '0', 'wali': true,
-                    'submenu': [
-                        {'name': 'Sikap Spiritual', 'link': 'rapor/raporspiritual', 'icon': 'fas fa-book', 'cbt': '0'},
-                        {'name': 'Sikap Sosial', 'link': 'rapor/raporsosial', 'icon': 'fas fa-book', 'cbt': '0'},
-                        {'name': 'Prestasi', 'link': 'rapor/raporprestasi', 'icon': 'fa fa-users', 'cbt': '0'},
-                        {'name': 'Kehadiran', 'link': 'rapor/raporcatatan', 'icon': 'fa fa-users', 'cbt': '0'},
-                        {'name': 'Kenaikan', 'link': 'rapor/rapornaik', 'icon': 'fa fa-users', 'cbt': '0'},
-                    ]
-                },
-            ]
-        },
-        {
-            'header': 'CETAK', 'cbt': '0', 'wali': true,
-            'menu': [
-                {'name': 'Rapor PTS', 'link': 'rapor/cetakpts', 'icon': 'fas fa-book', 'cbt': '0'},
-                {'name': 'Rapor Akhir', 'link': 'rapor/cetakakhir', 'icon': 'fas fa-book', 'cbt': '0'},
-                {'name': 'Ledger', 'link': 'rapor/cetakleger', 'icon': 'fa fa-users', 'cbt': '0'},
-                {'name': 'DKN', 'link': 'rapor/dkn', 'icon': 'fa fa-users', 'cbt': '0'},
-            ]
-        },
-        {
-            'header': 'ARSIP', 'cbt': '0', 'wali': true,
-            'menu': [
-                {'name': 'Arsip Rapor', 'link': 'bukurapor', 'icon': 'fas fa-university', 'cbt': '0',},
-            ]
-        },
-        {'name': 'LOGOUT', 'link': '', 'icon': 'fas fa-sign-out-alt', 'cbt': '1'},
-    ];
-
-    const isLogin = localStorage.getItem('garudaCBT.login')
-    const isCbtMode = isLogin ? isLogin === '1' : false
-    let htmlMenu = '';
-    menus.forEach(function (header) {
-        console.log(header)
-        if (isCbtMode && header.cbt === '0') {
-            return
-        }
-        if (jabatan !== '4' && header.wali) {
-            return
-        }
-        if (header.header) {
-            htmlMenu += `<li class="nav-header">${header.header}</li>`;
-            header.menu.forEach(function (menu) {
-                if (isCbtMode && menu.cbt === '0') {
-                    return
-                }
-                if (jabatan !== '4' && menu.wali) {
-                    return
-                }
-                if (menu.submenu) {
-                    var subs = menu.submenu.map(function(item) {
-                        if (item['link'].includes('/')) {
-                            return item['link'].split('/')[1]
-                        } else return item['link'];
-                    });
-                    htmlMenu += `<li class="nav-item has-treeview ${subs.includes(pageact) || subs.includes(page) ? "menu-open" : ""}">
-                    <a href="#" class="nav-link ${subs.includes(pageact) || subs.includes(page) ? "active" : ""}">
-                        <i class="nav-icon ${menu.icon}"></i>
-                        <p>${menu.name}<i class="fas fa-angle-left right"></i></p>
-                    </a><ul class="nav nav-treeview">`;
-                    menu.submenu.forEach(function (sub) {
-                        htmlMenu += `<li class="nav-item">
-                            <a href="${base_url + sub.link}"
-                               class="nav-link ${page+'/'+pageact === sub.link || page === sub.link ? "active" : ""}">
-                                <i class="${sub.icon} nav-icon"></i>
-                                <p>${sub.name}</p>
-                            </a>
-                        </li>`;
-                    })
-                    htmlMenu += `</ul></li>`;
-                } else {
-                    htmlMenu += `<li class="nav-item"><a href="${base_url + menu.link}"
-                       class="nav-link ${page === menu.link ? "active" : ""}">
-                        <i class="nav-icon ${menu.icon}"></i>
-                        <p>${menu.name}</p>
-                    </a></li>`
-                }
-            })
-        } else {
-            htmlMenu += `<hr /><li class="nav-item">
-                    <a href="#" onclick="logout()" class="nav-link">
-                        <i class="${header.icon} nav-icon"></i>
-                        <p>${header.name}</p>
-                    </a>
-                </li>`;
-        }
-    })
-    $('#tree-menus').html(htmlMenu)
-</script>

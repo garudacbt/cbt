@@ -95,7 +95,7 @@ foreach ($tugas as $k => $m) {
                         $arrIds = [];
                         if (count($tugas) > 0) :
                             foreach ($tugas as $key => $value) :
-                                $arr = unserialize($value->tugas_kelas ?? '');
+                                $arr = unserialize($value->tugas_kelas);
                                 array_push($arrIds, $value->id_materi);
                                 ?>
                                 <div class="col-md-6 col-lg-4">
@@ -190,9 +190,9 @@ foreach ($tugas as $k => $m) {
                                                     <?php
                                                     //$dataFileAttach = unserialize($value->file);
                                                     $dataFileAttach = [];
-                                                    $att = @unserialize($value->file ?? '');
+                                                    $att = @unserialize($value->file);
                                                     if ($att !== false) {
-                                                        $dataFileAttach = unserialize($value->file ?? '');
+                                                        $dataFileAttach = unserialize($value->file);
                                                     } else {
                                                         if ($value->file != null) {
                                                             $file = $value->file;
@@ -216,15 +216,15 @@ foreach ($tugas as $k => $m) {
                                                         $icon = 'fa-file';
                                                         $arrFile = ['jpg', 'jpeg', 'png', 'gif'];
 
-                                                        if (strpos(strtolower($f['src'] ?? ''), 'doc') || strpos(strtolower($f['src'] ?? ''), 'docx')) {
+                                                        if (strpos(strtolower($f['src']), 'doc') || strpos(strtolower($f['src']), 'docx')) {
                                                             $icon = 'fa-file-word-o text-primary';
-                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'xls') || strpos(strtolower($f['src'] ?? ''), 'xlsx')) {
+                                                        } elseif (strpos(strtolower($f['src']), 'xls') || strpos(strtolower($f['src']), 'xlsx')) {
                                                             $icon = 'fa-file-excel-o text-success';
-                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'png') || strpos(strtolower($f['src'] ?? ''), 'jpg') || strpos(strtolower($f['src'] ?? ''), 'jpeg')) {
+                                                        } elseif (strpos(strtolower($f['src']), 'png') || strpos(strtolower($f['src']), 'jpg') || strpos(strtolower($f['src']), 'jpeg')) {
                                                             $icon = 'fa-file-picture-o text-orange';
-                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'pdf')) {
+                                                        } elseif (strpos(strtolower($f['src']), 'pdf')) {
                                                             $icon = 'fa-file-pdf-o text-danger';
-                                                        } elseif (strpos(strtolower($f['src'] ?? ''), 'mp4')) {
+                                                        } elseif (strpos(strtolower($f['src']), 'mp4')) {
                                                             $icon = 'fa-file-video-o text-fuchsia';
                                                         }
                                                         ?>
@@ -419,7 +419,7 @@ foreach ($tugas as $k => $m) {
                         <?php
                         $no = 1;
                         foreach ($all_tugas as $am) :
-                            $arr = unserialize($am->tugas_kelas ?? '');
+                            $arr = unserialize($am->tugas_kelas);
                             $kelas = '';
                             for ($i = 0; $i < count($arr); $i++) {
                                 $kelas .= $arr[$i];

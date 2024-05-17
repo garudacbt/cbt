@@ -79,7 +79,7 @@
                         */
 
                         $jk = json_decode(json_encode($jadwal->bank_kelas));
-                        $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
+                        $jumlahKelas = json_decode(json_encode(unserialize($jk)));
                         //$jks = [];
 
                         $kelasbank = '';
