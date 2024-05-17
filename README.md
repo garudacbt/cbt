@@ -1,6 +1,9 @@
 # GarudaCBT
 ## Last version: 1.5.3  (BETA)
 
+Versi default: 1.5.3 BETA, untuk download v.1.5.2. [ada disini](https://github.com/garudacbt/cbt/tree/1.5.2-build-2024-05-17)
+
+
 ### CHANGELOG:
 #### Added
 - Support PHP 7.4 ~ 8.3
