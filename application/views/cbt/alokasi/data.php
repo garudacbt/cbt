@@ -96,7 +96,7 @@
                                 </tr>
                                 <?php
                                 foreach ($jadwals as $jadwal):
-                                    $jumlahKelas = json_decode(json_encode(unserialize($jadwal->bank_kelas)));
+                                    $jumlahKelas = json_decode(json_encode(unserialize($jadwal->bank_kelas ?? '')));
                                     $kls_jadwal = [];
                                     $kelasbank = '';
                                     $no = 1;

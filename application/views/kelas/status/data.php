@@ -141,6 +141,14 @@
                         </table>
                     </div>
                     <hr>
+                    <div class="row">
+                        <div class="col-12 col-md-6"></div>
+                        <div class="col-12 col-md-6 text-right">
+                            <label class="d-flex flex-row align-items-center">
+                                Search: <input type="text" id="search" class="ml-1 form-control form-control-sm">
+                            </label>
+                        </div>
+                    </div>
                     <div id="preview" class="table-responsive">
                         <div id="table-title" class="d-none" style="width:100%;">
                             <p id="title-doc" style="text-align:center;font-size:14pt; font-weight: bold"></p>
@@ -412,18 +420,22 @@
         klsMateri.html('');
         klsTugas.html('');
 
-        if (arrKelas != null && arrKelas[1] != null) {
-            for (let j = 0; j < arrKelas[1].length; j++) {
-                if (kelas[arrKelas[1][j]] !== undefined)
-                    klsMateri.append('<option value="' + arrKelas[1][j] + '">' + kelas[arrKelas[1][j]] + '</option>');
+        let testTugas = [], testMateri = [];
+
+        if (arrKelas != null && arrKelas['1'] != null) {
+            console.log("arrMateri", arrKelas['1'])
+            for (let j = 0; j < arrKelas['1'].length; j++) {
+                if (kelas[arrKelas['1'][j]] !== undefined)
+                    klsMateri.append('<option value="' + arrKelas['1'][j] + '">' + kelas[arrKelas['1'][j]] + '</option>');
             }
         } else {
             klsMateri.append('<option value="-">- -</option>');
         }
 
-        if (arrKelas != null && arrKelas[2] != null) {
-            for (let j = 0; j < arrKelas[2].length; j++) {
-                klsTugas.append('<option value="' + arrKelas[2][j] + '">' + kelas[arrKelas[2][j]] + '</option>');
+        if (arrKelas != null && arrKelas['2'] != null) {
+            console.log("arrTugas", arrKelas['2'])
+            for (let j = 0; j < arrKelas['2'].length; j++) {
+                klsTugas.append('<option value="' + arrKelas['2'][j] + '">' + kelas[arrKelas['2'][j]] + '</option>');
             }
         } else {
             klsTugas.append('<option value="-">- -</option>');
@@ -614,9 +626,7 @@
 
                     $('#loading').addClass('d-none');
 
-                    table.dataTable({
-                        paging: false
-                    })
+                    $('input#search').quicksearch('table#log tbody tr');
                 }
             });
         }, 300);

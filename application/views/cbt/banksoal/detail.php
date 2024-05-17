@@ -107,7 +107,7 @@
                     $bg_color = $total_soal_tampil < $total_soal_seharusnya_tampil ? 'bg-danger' : 'bg-success';
 
                     $jk = json_decode(json_encode($bank->bank_kelas));
-                    $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                    $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
 
                     $kelasbank = '';
                     $no = 1;
@@ -292,7 +292,6 @@
                                 <div class="rTable" id="table-pg">
                                     <div class="rTableBody">
                                         <?php
-                                        echo $bank->opsi;
                                         foreach ($soals_pg as $s) :
                                             $checked = $s->tampilkan == 1 ? 'checked' : ''; ?>
                                             <div class="rTableRow">
@@ -458,8 +457,8 @@
                                                     </div>
                                                     <br>
                                                     <?php
-                                                    $opsis = unserialize($s->opsi_a);
-                                                    $jawabs = unserialize($s->jawaban);
+                                                    $opsis = unserialize($s->opsi_a ?? '');
+                                                    $jawabs = unserialize($s->jawaban ?? '');
                                                     $jwb_pg2 = '';
                                                     if ($jawabs) {
                                                         $jwb_pg2 = implode(', ', array_filter($jawabs));
@@ -469,7 +468,7 @@
                                                             style="list-style-type: upper-alpha">
                                                             <?php for ($i = 97; $i < (97 + count($opsis)); $i++) :
                                                                 $abjad = chr($i); ?>
-                                                                <li><?= str_replace(['<p>', '</p>'], '', $opsis[$abjad]) ?></li>
+                                                                <li><?=isset($opsis[$abjad]) ? str_replace(['<p>', '</p>'], '', $opsis[$abjad]) : 'null' ?></li>
                                                             <?php endfor; ?>
                                                         </ul>
                                                     <?php endif; ?>
@@ -605,7 +604,7 @@
                                                         <br>
                                                     </div>
                                                     <br>
-                                                    <?php $jawaban = unserialize($s->jawaban);
+                                                    <?php $jawaban = unserialize($s->jawaban ?? '');
                                                     if (!isset($jawaban['jawaban'])) $jawaban['jawaban'] = [];
                                                     ?>
                                                     <div class="mb-2 mt-2"><b>Jawaban:</b></div>
@@ -1010,10 +1009,10 @@
                             'soal' => '',
                             'opsi_a' => serialize(['a' => '', 'b' => '', 'c' => ''])
                         ]));
-                        $opsis = unserialize($s->opsi_a);
+                        $opsis = unserialize($s->opsi_a ?? '');
                         $opsis = $opsis ? $opsis : ['a'=>'','b'=>'','c'=>''];
                         $rows = $opsis ? count($opsis) : 3;
-                        $jawabs = $opsis ? unserialize($s->jawaban) : [];
+                        $jawabs = $opsis ? unserialize($s->jawaban ?? '') : [];
                         $bg = $s->nomor_soal % 2 == 0 ? '#FFFFFF' : '#F2F2F2';
                         //if ($opsis) :
                         ?>
@@ -1122,7 +1121,7 @@
                         $count++;
                         $bg = $count % 2 == 0 ? '#FFFFFF' : '#F2F2F2';
 
-                        $jawaban = isset($s->jawaban) ? unserialize($s->jawaban) : [];
+                        $jawaban = isset($s->jawaban) ? unserialize($s->jawaban ?? '') : [];
                         if (isset($jawaban['jawaban']) && $jawaban['jawaban'] != null) {
                             foreach ($jawaban['jawaban'] as $kk => $jwbn) {
                                 $jawaban['jawaban'][$kk] = (array)$jwbn;
@@ -1363,6 +1362,7 @@
                 $.each($div_lists, function () {
                     var noSoal = $(this).data('nomor');
                     var lists = $(this).data('list');
+                    console.log('res', lists)
                     if ($(this).children().length > 1) return
                     $(this).linkerList({
                         enableSelect: false,

@@ -181,7 +181,7 @@ $allowedDates = [];
 <script type="text/javascript" src="<?= base_url() ?>/assets/app/js/tableToExcel.js"></script>
 <script src="<?= base_url() ?>/assets/app/js/jquery.rowspanizer.js"></script>
 <script>
-    var docTitle = '<?=$judul?>' + ' <?=$jenis[$jenis_selected]?>';
+    var docTitle = "<?=$judul?>" + " <?=$jenis[$jenis_selected]?>";
 
     $(document).ready(function () {
         ajaxcsrf();
@@ -191,7 +191,7 @@ $allowedDates = [];
             vertical_align: "middle"
         });
 
-        var allowed = JSON.parse('<?=json_encode($allowedDates)?>');
+        var allowed = JSON.parse("<?=json_encode($allowedDates)?>");
         //console.log(allowed);
         $('.tgl').datetimepicker({
             icons:

@@ -128,7 +128,7 @@ foreach ($materi as $k => $m) {
                                     <?php
                                     $no = 1;
                                     foreach ($curr_materi as $key => $value) :
-                                        $arr = unserialize($value->materi_kelas);
+                                        $arr = unserialize($value->materi_kelas ?? '');
                                         $arrIds[] = $value->id_materi;
                                         $rows = count($arr) > 1 ? count($arr) : '1';
                                         ?>
@@ -155,9 +155,9 @@ foreach ($materi as $k => $m) {
                                                         foreach ($jadwal_materi[$value->id_materi][$arr[0]] as $jtgl) {
                                                             $disabledBtn = $jtgl->jml_siswa == '0' ? '' : 'disabled';
                                                             $disableDates[] = $jtgl->jadwal_materi;
-                                                            $sisa = strlen($jtgl->id_kjm) - (strlen($jtgl->id_kelas) + 10);
+                                                            $sisa = strlen($jtgl->id_kjm ?? '') - (strlen($jtgl->id_kelas ?? '') + 10);
                                                             $len = $sisa === 3 ? 2 : 1;
-                                                            $jam = substr($jtgl->id_kjm, strlen($jtgl->id_kjm) - $sisa, $len);
+                                                            $jam = substr($jtgl->id_kjm, strlen($jtgl->id_kjm ?? '') - $sisa, $len);
                                                             $ctgl = singkat_tanggal(date('d M Y', strtotime($jtgl->jadwal_materi)));
                                                             $arrtgl .= '<div class="m-1"><span class="bg-circle bg-gray-light border text-sm">' . $ctgl . ' jam:' . $jam
                                                                 . '<button class="btn btn-sm" data-tgl="' . $ctgl . '" data-id="' . $jtgl->id_kjm . '" onclick="hapusTgl(this)" ' . $disabledBtn
@@ -301,7 +301,7 @@ foreach ($materi as $k => $m) {
                         <?php
                         $no = 1;
                         foreach ($all_materi as $am) :
-                            $arr = unserialize($am->materi_kelas);
+                            $arr = unserialize($am->materi_kelas ?? '');
                             $skelas = '';
                             for ($i = 0; $i < count($arr); $i++) {
                                 $skelas .= $kelas[$arr[$i]] ?? "-";

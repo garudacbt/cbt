@@ -55,14 +55,14 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-3 col-md-6">
-                            <a href="<?= base_url('cbtcetak/beritaacara') ?>">
+                        <div class="col-lg-3 col-md-6 <?=$dnone?>">
+                            <a href="<?= base_url('cbtcetak/pengawas') ?>">
                                 <div class="info-box border">
 								<span class="info-box-icon bg-gradient-primary elevation-1">
-									<i class="fa fa-pencil-square-o"></i>
+									<i class="fa fa-list-ul"></i>
 								</span>
                                     <div class="info-box-content">
-                                        <h5 class="info-box-content">Berita Acara</h5>
+                                        <h5 class="info-box-content">Jadwal Pengawas</h5>
                                     </div>
                                 </div>
                             </a>
@@ -75,6 +75,18 @@
 								</span>
                                     <div class="info-box-content">
                                         <h5 class="info-box-content">Peserta Ujian</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="<?= base_url('cbtcetak/beritaacara') ?>">
+                                <div class="info-box border">
+								<span class="info-box-icon bg-gradient-primary elevation-1">
+									<i class="fa fa-pencil-square-o"></i>
+								</span>
+                                    <div class="info-box-content">
+                                        <h5 class="info-box-content">Berita Acara</h5>
                                     </div>
                                 </div>
                             </a>
@@ -93,22 +105,10 @@
                             </a>
                         </div>
                         -->
-                        <div class="col-lg-3 col-md-6 <?=$dnone?>">
-                            <a href="<?= base_url('cbtcetak/pengawas') ?>">
-                                <div class="info-box border">
-								<span class="info-box-icon bg-gradient-primary elevation-1">
-									<i class="fa fa-list-ul"></i>
-								</span>
-                                    <div class="info-box-content">
-                                        <h5 class="info-box-content">Jadwal Pengawas</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <?php else: ?>
-                    <div class="card-body"></div>
+                    <div class="card-body">Halaman CETAK hanya untuk PENGAWAS UJIAN</div>
                 <?php endif; ?>
             </div>
         </div>

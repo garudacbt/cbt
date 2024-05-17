@@ -246,8 +246,8 @@
                                         <?php
                             $no = 1;
                             foreach ($soals[2] as $soal) :
-                                $soal->opsi_a = @unserialize($soal->opsi_a);
-                                $soal->jawaban = @unserialize($soal->jawaban);
+                                $soal->opsi_a = @unserialize($soal->opsi_a ?? '');
+                                $soal->jawaban = @unserialize($soal->jawaban ?? '');
                                 ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -277,8 +277,8 @@
                         <?php endif;
                         if (isset($soals[3])) :
                             foreach ($soals[3] as $soal) :
-                                $soal->jawaban_siswa = @unserialize($soal->jawaban_siswa);
-                                $soal->jawaban_benar = @unserialize($soal->jawaban_benar);
+                                $soal->jawaban_siswa = @unserialize($soal->jawaban_siswa ?? '');
+                                $soal->jawaban_benar = @unserialize($soal->jawaban_benar ?? '');
 
                                 $soal->jawaban_siswa = json_decode(json_encode($soal->jawaban_siswa));
                                 $soal->jawaban_benar = json_decode(json_encode($soal->jawaban_benar));

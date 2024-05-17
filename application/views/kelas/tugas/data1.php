@@ -95,7 +95,7 @@ foreach ($tugas as $k => $m) {
                         $arrIds = [];
                         if (count($tugas) > 0) :
                             foreach ($tugas as $key => $value) :
-                                $arr = unserialize($value->tugas_kelas);
+                                $arr = unserialize($value->tugas_kelas ?? '');
                                 array_push($arrIds, $value->id_materi);
                                 ?>
                                 <div class="col-md-6 col-lg-4">
@@ -190,9 +190,9 @@ foreach ($tugas as $k => $m) {
                                                     <?php
                                                     //$dataFileAttach = unserialize($value->file);
                                                     $dataFileAttach = [];
-                                                    $att = @unserialize($value->file);
+                                                    $att = @unserialize($value->file ?? '');
                                                     if ($att !== false) {
-                                                        $dataFileAttach = unserialize($value->file);
+                                                        $dataFileAttach = unserialize($value->file ?? '');
                                                     } else {
                                                         if ($value->file != null) {
                                                             $file = $value->file;
@@ -419,7 +419,7 @@ foreach ($tugas as $k => $m) {
                         <?php
                         $no = 1;
                         foreach ($all_tugas as $am) :
-                            $arr = unserialize($am->tugas_kelas);
+                            $arr = unserialize($am->tugas_kelas ?? '');
                             $kelas = '';
                             for ($i = 0; $i < count($arr); $i++) {
                                 $kelas .= $arr[$i];

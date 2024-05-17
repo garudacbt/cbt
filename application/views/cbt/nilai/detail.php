@@ -411,7 +411,7 @@
                                         </td>
                                         <td>
                                             <?php
-                                            $jwb = $s->tabel_jawab[0];
+                                            $jwb = isset($s->tabel_jawab[0]) ? $s->tabel_jawab[0] : [];
                                             if ($s->type_soal == '1') :?>
                                                     <span><?= $jwb->title ?></span>
                                                     <?php if (isset($jwb->subtitle)) : ?>
@@ -424,7 +424,7 @@
                                                         <br>--
                                                     <?php endif; ?>
                                             <?php else:?>
-                                                    <p><?= $jwb->title ?>
+                                                    <p><?= isset($jwb->title) ? $jwb->title : '' ?>
                                                         <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
                                             <?php endif; ?>
                                         </td>
@@ -474,7 +474,7 @@
                                     </td>
                                     <td>
                                         <?php
-                                        $jwb = $s->tabel_jawab[$t];
+                                        $jwb = isset($s->tabel_jawab[$t]) ? $s->tabel_jawab[$t] : [];
                                         if ($s->type_soal == '1') : ?>
                                                 <span><?= $jwb->title ?></span>
                                                 <?php if (isset($jwb->subtitle)) : ?>
@@ -487,7 +487,7 @@
                                                     <br>--
                                                 <?php endif; ?>
                                         <?php else: ?>
-                                                <p><?= $jwb->title ?>
+                                                <p><?= isset($jwb->title) ? $jwb->title : '' ?>
                                                     <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
                                         <?php endif; ?>
                                     </td>

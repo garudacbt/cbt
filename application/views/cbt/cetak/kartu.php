@@ -139,12 +139,12 @@
                                         <tr style="line-height: 1; font-family: 'Times New Roman'; font-size: 9pt">
                                             <td style="padding-left:22px;width: 35%">Username</td>
                                             <td>:</td>
-                                            <td>umbk001</td>
+                                            <td><b>umbk001</b></td>
                                         </tr>
                                         <tr style="line-height: 1; font-family: 'Times New Roman'; font-size: 9pt">
                                             <td style="padding-left:22px;width: 35%">Password</td>
                                             <td>:</td>
-                                            <td>umbk001</td>
+                                            <td><b>umbk001</b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"
@@ -251,22 +251,22 @@
 -->
 <script src="<?= base_url() ?>/assets/app/js/print-area.js"></script>
 <script>
-    var oldVal1 = '<?= isset($kartu->header_1) ? $kartu->header_1 : "" ?>';
-    var oldVal2 = '<?= isset($kartu->header_2) ? $kartu->header_2 : "" ?>';
-    var oldVal3 = '<?= isset($kartu->header_3) ? $kartu->header_3 : "" ?>';
-    var oldVal4 = '<?= isset($kartu->header_4) ? $kartu->header_4 : "" ?>';
-    var oldTgl = '<?= isset($kartu->tanggal) ? $kartu->tanggal : "" ?>';
-    var oldKota = '<?=$setting->kota?>';
-    var logoKanan = '<?=base_url() . $setting->logo_kanan?>';
-    var logoKiri = '<?=base_url() . $setting->logo_kiri?>';
-    var tandatangan = '<?=base_url() . $setting->tanda_tangan?>';
-    var kepsek = '<?= $setting->kepsek ?>';
-    var nip = '<?= $setting->nip ?>';
-    var satuanPend = '<?= $setting->satuan_pendidikan ?>' === '2' ? 'Madrasah' : 'Sekolah';
+    var oldVal1 = "<?= isset($kartu->header_1) ? $kartu->header_1 : "" ?>";
+    var oldVal2 = "<?= isset($kartu->header_2) ? $kartu->header_2 : "" ?>";
+    var oldVal3 = "<?= isset($kartu->header_3) ? $kartu->header_3 : "" ?>";
+    var oldVal4 = "<?= isset($kartu->header_4) ? $kartu->header_4 : "" ?>";
+    var oldTgl = "<?= isset($kartu->tanggal) ? $kartu->tanggal : "" ?>";
+    var oldKota = "<?=$setting->kota?>";
+    var logoKanan = "<?=base_url() . $setting->logo_kanan?>";
+    var logoKiri = "<?=base_url() . $setting->logo_kiri?>";
+    var tandatangan = "<?=base_url() . $setting->tanda_tangan?>";
+    var kepsek = "<?= $setting->kepsek ?>";
+    var nip = "<?= $setting->nip ?>";
+    var satuanPend = "<?= $setting->satuan_pendidikan ?>" === "2" ? "Madrasah" : "Sekolah";
     var printBy = 1;
 
     var raporSetting = JSON.parse(JSON.stringify(<?= json_encode($setting_rapor) ?>));
-    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === '1' ? nip : ' -';
+    var nipKepsek = raporSetting != null && raporSetting.nip_kepsek === "1" ? nip : " -";
 
     function submitKartu() {
         $('#set-kartu').submit();
@@ -337,7 +337,7 @@
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">Nama</td>' +
                         '<td>:</td>' +
-                        '<td>' + data[i].nama + '</td>' +
+                        '<td><b>' + data[i].nama + '</b></td>' +
                         '</tr>' +
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">NIS / NISN</td>' +
@@ -357,12 +357,12 @@
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">Username</td>' +
                         '<td>:</td>' +
-                        '<td>' + data[i].username + '</td>' +
+                        '<td><b>' + data[i].username + '</b></td>' +
                         '</tr>' +
                         '<tr style="line-height: 1; font-family: \'Times New Roman\'; font-size: 9pt">' +
                         '<td style="padding-left:22px;width: 30%">Password</td>' +
                         '<td>:</td>' +
-                        '<td>' + data[i].password + '</td>' +
+                        '<td><b>' + data[i].password + '</b></td>' +
                         '</tr>' +
                         '<tr>' +
                         '<td colspan="2" style="padding-top: 6px; padding-bottom: 6px; padding-left:22px;width: 35%">' +
@@ -379,7 +379,7 @@
                         '<br>' +
                         '<br>' +
                         '<span>' + kepsek + '</span>' +
-                        '<p id="prev-nip" style="margin-top: 4px; margin-bottom: 4px">NIP: '+nipKepsek+'</p>' +
+                        '<p id="prev-nip" style="margin-top: 4px; margin-bottom: 4px">NIP: '+nip+'</p>' +
                         '</div>' +
                         '</td>' +
                         '</tr>' +

@@ -6,7 +6,7 @@
  * Time: 17:46
  */
 
-$kelasSelected = json_encode(unserialize($bank->bank_kelas));
+$kelasSelected = json_encode(unserialize($bank->bank_kelas ?? ''));
 ?>
 
 <div class="content-wrapper bg-white pt-4">

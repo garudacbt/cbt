@@ -53,7 +53,7 @@
                             $no = 1;
                             foreach ($jurusans as $row) :
                                 $badges = '';
-                                foreach (explode(',', $row->mapel_peminatan) as $mid) {
+                                foreach (explode(',', $row->mapel_peminatan ?? '') as $mid) {
                                     if ($mid != '')
                                         $badges .= '<div class="badge badge-btn badge-success mr-1">' . $jurusan_mapels[$row->id_jurusan][$mid] . '</div>';
                                 }

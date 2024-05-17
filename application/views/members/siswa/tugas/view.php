@@ -6,7 +6,7 @@
  * Time: 23:18
  */
 
-$dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unserialize($log_selesai->file) : [];
+$dataFileAttach = $log_selesai != null && $log_selesai->file != null ? unserialize($log_selesai->file ?? '') : [];
 ?>
 <div class="content-wrapper" style="margin-top: -1px;">
     <div class="sticky">

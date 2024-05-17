@@ -576,6 +576,7 @@ function getRandomInt(max) {
                         ['font', ['bold', 'italic', 'underline']],
                         ['color', ['color']],
                         ['insert', ['picture']],
+                        ['view', ['codeview']],
                         ['delete', ['hapus']]
                     ],
                     buttons: {

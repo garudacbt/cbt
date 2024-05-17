@@ -59,13 +59,14 @@
     <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
     <!-- fonts -->
-    <!--
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/poppins.css">
-	-->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/calibri.css">
+    <!--
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/montserrat.css">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/scheherazade.css">
-    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/uthmanic.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/fonts.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/uthmanic.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/adminlte/dist/css/scheherazade.css">
+	-->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/app/css/show.toast.css">
 
     <!-- Theme style -->

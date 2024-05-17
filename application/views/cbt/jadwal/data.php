@@ -2,7 +2,7 @@
 
 if (isset($jadwal_ujian)) {
     $ist = json_decode(json_encode($jadwal_ujian->istirahat));
-    $jmlIst = json_decode(json_encode(unserialize($ist)));
+    $jmlIst = json_decode(json_encode(unserialize($ist ?? '')));
     $jmlMapelPerHari = $jadwal_ujian->jml_mapel_hari;
 } else {
     $jmlMapelPerHari = 0;
@@ -192,7 +192,7 @@ if (isset($jadwal_ujian)) {
                                         foreach ($sjadwal as $jadwal) :?>
                                             <?php
                                             $jk = json_decode(json_encode($jadwal->bank_kelas));
-                                            $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                            $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
 
                                             $kelasbank = '';
                                             $no = 1;
@@ -315,7 +315,7 @@ if (isset($jadwal_ujian)) {
                                         <?php foreach ($sjadwal as $jadwal) : ?>
                                             <?php
                                             $jk = json_decode(json_encode($jadwal->bank_kelas));
-                                            $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                            $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                             //$jks = [];
 
                                             $kelasbank = '';

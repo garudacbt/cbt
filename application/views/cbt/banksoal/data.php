@@ -139,7 +139,7 @@ $allBanksIds = [];
                                     foreach ($banks[$tp_active->id_tp][$smt_active->id_smt] as $bank): ?>
                                         <?php
                                         $jk = json_decode(json_encode($bank->bank_kelas));
-                                        $data = @unserialize($jk);
+                                        $data = @unserialize($jk ?? '');
                                         $jumlahKelas = json_decode(json_encode($data));
                                         $jks = [];
                                         $kelasbank = '';
@@ -236,7 +236,7 @@ $allBanksIds = [];
                                     foreach ($banks[0][0] as $bank) : ?>
                                         <?php
                                         $jk = json_decode(json_encode($bank->bank_kelas));
-                                        $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                        $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                         $jks = [];
 
                                         $kelasbank = '';
@@ -377,7 +377,7 @@ $allBanksIds = [];
                                             <div class="card-body pt-0">
                                                 <?php
                                                 $jk = json_decode(json_encode($bank->bank_kelas));
-                                                $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                                $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                                 $jks = [];
 
                                                 $kelasbank = '';
@@ -487,7 +487,7 @@ $allBanksIds = [];
                                             <div class="card-body pt-0">
                                                 <?php
                                                 $jk = json_decode(json_encode($bank->bank_kelas));
-                                                $jumlahKelas = json_decode(json_encode(unserialize($jk)));
+                                                $jumlahKelas = json_decode(json_encode(unserialize($jk ?? '')));
                                                 $jks = [];
 
                                                 $kelasbank = '';

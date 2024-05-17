@@ -89,11 +89,11 @@
                             <span style="font-family: 'Tahoma';"><b>1. Sikap Spiritual</b></span>
                             <div style="display: flex;-webkit-justify-content: center;justify-content: center;margin-top: 4px;">
                                 <?php
-                                $a = unserialize($sikap[0]->nilai);
+                                $a = unserialize($sikap[0]->nilai ?? '');
                                 $pred_a = $a['predikat'];
                                 $desk_a = $sikap[0]->deskripsi;
 
-                                $b = unserialize($sikap[1]->nilai);
+                                $b = unserialize($sikap[1]->nilai ?? '');
                                 $pred_b = $b['predikat'];
                                 $desk_b = $sikap[1]->deskripsi;
                                 ?>

@@ -25,7 +25,7 @@
 
                 if (isset($kbm->istirahat)) {
                     $ist = json_decode(json_encode($kbm->istirahat));
-                    $jmlIst = json_decode(json_encode(unserialize($ist)));
+                    $jmlIst = json_decode(json_encode(unserialize($ist ?? '')));
                     $arrIst = [];
                     foreach ($jmlIst as $istirahat) {
                         array_push($arrIst, $istirahat->ist);
@@ -80,7 +80,7 @@
                                                     $jamSampai->add(new DateInterval('PT' . $kbm->kbm_jam_pel . 'M'));
                                                     if (isset($tugas[$jamke]->id_materi)) :
                                                         $tkelas = '';
-                                                        $arrkelas = unserialize($tugas[$jamke]->materi_kelas);
+                                                        $arrkelas = unserialize($tugas[$jamke]->materi_kelas ?? '');
 
                                                         foreach ($arrkelas as $k => $kls) {
                                                             if ($k > 0) {

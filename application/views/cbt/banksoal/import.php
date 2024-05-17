@@ -202,8 +202,8 @@
                             var string = $(this).text();
                             if (arabic.test(string)) {
                                 $(this).css({
-                                    'font-size': '22pt',
-                                    'font-family': '"uthmanic"',
+                                    'font-size': '16pt',
+                                    'font-family': 'Calibri',
                                     'direction': 'rtl',
                                     'text-align': 'justify'
                                 });
@@ -253,6 +253,8 @@
                     return $(cell).html();
                 });
             });
+            if (tbl[0] === undefined) return;
+            //console.log('tabel1', tbl[0])
             var rowSoal = 0;
             if (i === index) {
                 var p = tbl[0][2];
@@ -289,17 +291,10 @@
 
                         if (soalCek != "" || imgCheck) {
                             formData.append('soal[' + tempJenis + ']' +'[' + no + '][soal]', encodeURIComponent(removeUrl(items[1])));
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no + '][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
-
                             formData.append('soal[' + tempJenis + ']' + '[' + no + '][opsi][' + ops + ']', encodeURIComponent(removeUrl(items[4])));
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no + '][opsi][' + ops + ']" value="' + encodeURIComponent(removeUrl(items[4])) + '">');
 
                             if (knc != "" && knc.toUpperCase() == "V") {
                                 formData.append('soal[' + tempJenis + ']' + '[' + no + '][kunci][]', ops);
-                                $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                    '[' + no + '][kunci][]" value="' + ops + '">');
                             }
                         }
                     } else {
@@ -309,14 +304,10 @@
                         var ops1 = $(items[0]).text().trim();
 
                         formData.append('soal[' + tempJenis + ']' + '[' + no1 + '][opsi][' + ops1 + ']', encodeURIComponent(removeUrl(items[1])));
-                        $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                            '[' + no1 + '][opsi][' + ops1 + ']" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                         var knc1 = $(items[2]).text().trim();
                         if (knc1 != "" && knc1.toUpperCase() == "V") {
                             formData.append('soal[' + tempJenis + ']' + '[' + no1 + '][kunci][]', ops1);
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no1 + '][kunci][]" value="' + ops1 + '">');
                         }
                     }
                 } else if (tempJenis == '3') {
@@ -328,30 +319,22 @@
                         var kd_kunci = $(items[7]).text().trim().toUpperCase();
 
                         formData.append('soal[' + tempJenis + ']' + '[' + no3 + '][soal]', encodeURIComponent(removeUrl(items[1])));
-                        $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                            '[' + no3 + '][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
 
                         const imgBrs = $(items[4]).find('img').length > 0
                         var brs = $(items[4]).text().trim();
                         if (brs != "" || imgBrs) {
                             formData.append('soal[' + tempJenis + ']' + '[' + no3 + '][baris][' + kd_baris + ']', encodeURIComponent(removeUrl(items[4])));
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no3 + '][baris][' + kd_baris + ']" value="' + brs + '">');
                         }
 
                         const imgKlm = $(items[6]).find('img').length > 0
                         var klm = $(items[6]).text().trim();
                         if (klm != "" || imgKlm) {
                             formData.append('soal[' + tempJenis + ']' + '[' + no3 + '][kolom][' + kd_kolom + ']', encodeURIComponent(removeUrl(items[6])));
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no3 + '][kolom][' + kd_kolom + ']" value="' + klm + '">');
                         }
 
                         var kncs = $(items[8]).text().trim().toUpperCase();
                         if (kncs != "") {
                             formData.append('soal[' + tempJenis + ']' + '[' + no3 + '][kunci][' + kd_kunci + ']', kncs);
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no3 + '][kunci][' + kd_kunci + ']" value="' + kncs + '">');
                         }
                     } else {
                         var kd_baris1 = $(items[0]).text().trim().toUpperCase();
@@ -362,35 +345,27 @@
                         var brs1 = $(items[1]).text().trim();
                         if (brs1 != "" || imgBrs1) {
                             formData.append('soal[' + tempJenis + ']' + '[' + no3 + '][baris][' + kd_baris1 + ']', encodeURIComponent(removeUrl(items[1])));
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no3 + '][baris][' + kd_baris1 + ']" value="' + brs1 + '">');
                         }
 
                         const imgKlm1 = $(items[3]).find('img').length > 0
                         var klm1 = $(items[3]).text().trim();
                         if (klm1 != "" || imgKlm1) {
                             formData.append('soal[' + tempJenis + ']' + '[' + no3 + '][kolom][' + kd_kolom1 + ']', encodeURIComponent(removeUrl(items[3])));
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no3 + '][kolom][' + kd_kolom1 + ']" value="' + klm1 + '">');
                         }
 
                         var kncs1 = $(items[5]).text().trim().toUpperCase();
                         if (kncs1 != "") {
                             formData.append('soal[' + tempJenis + ']' + '[' + no3 + '][kunci][' + kd_kunci1 + ']', kncs1);
-                            $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                                '[' + no3 + '][kunci][' + kd_kunci1 + ']" value="' + kncs1 + '">');
                         }
                     }
                 } else {
                     var no4 = $(items[0]).text().trim();
-
                     formData.append('soal[' + tempJenis + ']' + '[' + no4 + '][soal]', encodeURIComponent(removeUrl(items[1])));
-                    $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                        '[' + no4 + '][soal]" value="' + encodeURIComponent(removeUrl(items[1])) + '">');
-
-                    formData.append('soal[' + tempJenis + ']' + '[' + no4 + '][kunci]', encodeURIComponent(removeUrl(items[3])));
-                    $('#input-soal-word').append('<input type="text" name="soal[' + tempJenis + ']' +
-                        '[' + no4 + '][kunci]" value="' + encodeURIComponent(removeUrl(items[3])) + '">');
+                    if (tempJenis == '4') {
+                        formData.append('soal[' + tempJenis + ']' + '[' + no4 + '][kunci]', $(items[3]).text().trim());
+                    } else {
+                        formData.append('soal[' + tempJenis + ']' + '[' + no4 + '][kunci]', encodeURIComponent(removeUrl(items[3])));
+                    }
                 }
                 tbls[tempJenis] = myRows;
             }
@@ -398,11 +373,10 @@
         });
 
         setTimeout(function () {
-            //var datapost = $('#grouping').serialize() + "&id_bank=" + bank_id;// + "&data=" + JSON.stringify(tbls);
             //console.log('old_json', datapost);
             console.log('form', Object.fromEntries(formData))
             sendData(formData);
-        }, 1000);
+        }, 500);
     }
 
     function sendData(datapost) {

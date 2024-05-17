@@ -220,7 +220,7 @@
 
             //var dataPost = $(this).serialize() + '&siswa=' + siswa + '&bank=' + bank + '&data=' + JSON.stringify(jsonJawaban);
             //console.log(dataPost);
-            console.log(Object.fromEntries(formData))
+            //console.log(Object.fromEntries(formData))
             $.ajax({
                 url: base_url + 'siswa/savejawaban',
                 method: 'POST',
@@ -440,9 +440,11 @@
         } else if (jenis == "4") {
             html += '<div class="pr-4">' +
                 '<span class="">JAWABAN:</span><br>' +
-                '<input id="jawaban-essai" class="pl-1" type="text"' +
+                '<div class="row"><div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4">'+
+                '<input id="jawaban-essai" class="pl-1 form-control" type="text"' +
                 ' name="jawaban" value="' + jawabanSiswa + '"' +
                 ' placeholder="Tulis jawaban disini"/><br>' +
+                '</div></div>' +
                 '</div>';
             $('#konten-jawaban').html(html);
         } else {

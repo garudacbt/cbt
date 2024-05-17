@@ -7,9 +7,9 @@
  */
 
 $dataFileAttach = [];
-$att = @unserialize($soal->file);
+$att = @unserialize($soal->file ?? '');
 if ($att !== false) {
-    $dataFileAttach = unserialize($soal->file);
+    $dataFileAttach = unserialize($soal->file ?? '');
 }
 
 $pg_belum_komplit = [];
