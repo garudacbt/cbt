@@ -62,21 +62,8 @@
                             </div>
                         </div>
                         <div class="card-body p-3">
-                            <div class="resize-text mb-3">
-                                <button class="btn btn-outline-primary btn-oval-sm no-hover" id="minus"><i
-                                            class="fa fa-minus"></i></button>
-                                <button class="btn btn-outline-primary btn-oval-sm no-hover" id="plus"><i
-                                            class="fa fa-plus"></i></button>
-                            </div>
-                            <?php
-                            //echo '<pre>';
-                            //var_dump($konten_opsi);
-                            //echo '<br>';
-                            //echo '<br>';
-                            //var_dump($soal);
-                            //echo '</pre>';
-                            ?>
-                            <div style="border: 1px solid; border-color: #D3D3D3">
+                            <div class="zoom-tool-bar"></div>
+                            <div style="border: 1px solid; border-color: #D3D3D3;">
                                 <div class="konten-soal-jawab">
                                     <div class="row p-2 mb-4 ml-1">
                                         <div id="konten-soal" class="table-responsive"></div>
@@ -152,6 +139,7 @@
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ElementQueries.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/element-queries/ResizeSensor.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/katex/katex.min.js"></script>
+<script src="<?= base_url() ?>/assets/app/js/content-zoom-slider.js"></script>
 
 <script>
     var elem = document.documentElement;
@@ -180,7 +168,7 @@
     const durasiUjian = Number(infoJadwal.durasi_ujian);
     let dif;
     let fieldLinks;
-    let zoomClicked = 3;
+    let zoomClicked = 1;
     var arrSize = [];
 
     $(document).ready(function () {
@@ -247,33 +235,8 @@
             });
         });
 
-        $("#plus").click(function () {
-            if (zoomClicked > 20) return;
-            $(".konten-soal-jawab").find('*').not('.img-fluid').each(function (idx, v) {
-                //console.log(idx, parseInt($(v).css("font-size")));
-                var size = parseInt($(this).css("font-size"));
-                size = (size + 1) + "px";
-                $(this).css({'font-size': size});
-            });
-            $('.img-fluid').each(function () {
-                var currWidth = parseInt($(this).css('width'));
-                $(this).css('width', (currWidth + 20) + 'px');
-            });
-            zoomClicked +=1;
-        });
-
-        $("#minus").click(function () {
-            if (zoomClicked <= 0) return;
-            $(".konten-soal-jawab").find('*').not('.img-fluid').each(function () {
-                var size = parseInt($(this).css("font-size"));
-                size = (size - 1) + "px";
-                $(this).css({'font-size': size});
-            });
-            $('.img-fluid').each(function () {
-                var currWidth = parseInt($(this).css('width'));
-                $(this).css('width', (currWidth - 20) + 'px');
-            });
-            zoomClicked -=1;
+        $(".konten-soal-jawab").contentZoomSlider({
+            toolContainer: ".zoom-tool-bar",
         });
 
         loadSoalNomor(1);

@@ -53,7 +53,7 @@ $jadwal_selesai = [];
                                                 <ul class="list-group list-group-unbordered">
                                                     <?php
                                                     $arrTitle = ['No. Peserta', 'Ruang', 'Sesi', 'Dari', 'Sampai'];
-                                                    $arrSub = [$cbt_info->no_peserta->nomor_peserta, $cbt_info->nama_ruang, $cbt_info->nama_sesi, substr($cbt_info->waktu_mulai, 0, -3), substr($cbt_info->waktu_akhir, 0, -3)];
+                                                    $arrSub = [$cbt_info->no_peserta->nomor_peserta ?? '', $cbt_info->nama_ruang ?? '', $cbt_info->nama_sesi ?? '', substr($cbt_info->waktu_mulai, 0, -3), substr($cbt_info->waktu_akhir, 0, -3)];
                                                     foreach ($arrTitle as $key => $title) :
                                                         if ($arrSub[$key] == null) array_push($cbt_setting, $title)
                                                         ?>
