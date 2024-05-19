@@ -19,6 +19,7 @@ Versi default: 1.5.3 BETA, untuk download v.1.5.2. [ada disini](https://github.c
 - Remove vendor folder
 
 #### Fixed
+- Zoom in/out soal siswa
 - Koreksi Ujian
 - Rekap ujian
 - Pengawas undefined
