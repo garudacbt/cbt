@@ -1,8 +1,10 @@
 # GarudaCBT
 ## Last version: 1.5.3  (BETA 4)
-
+____
+#### LAPORAN BUG SILAKAN KUNJUNGI GROUP TELEGRAM [DISINI](http://t.me/garudacbt)
+____
 Versi default: 1.5.3 BETA, untuk download v.1.5.2. [ada disini](https://github.com/garudacbt/cbt/tree/1.5.2-build-2024-05-17)
-
+____
 
 ### CHANGELOG:
 #### Added
