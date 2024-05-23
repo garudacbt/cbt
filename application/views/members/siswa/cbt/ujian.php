@@ -209,14 +209,12 @@
 
             const jns = jsonJawaban['jenis']
             for (const key in jsonJawaban) {
-                console.log(key, jsonJawaban[key]);
                 if ((jns==='2' || jns==='3') && key === 'jawaban_siswa') {
                     formData.append('data['+key+']', JSON.stringify(jsonJawaban[key]))
                 } else {
                     formData.append('data['+key+']', jsonJawaban[key])
                 }
             }
-            console.log(Object.fromEntries(formData))
 
             $.ajax({
                 url: base_url + 'siswa/savejawaban',

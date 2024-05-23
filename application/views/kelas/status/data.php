@@ -173,7 +173,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid border">
-                    <div id="konten-hasil" class="row">
+                    <div id="konten-hasil" class="row" style="word-wrap: break-word">
                     </div>
                     <hr>
                     <div id="konten-nilai" class="row p-2">

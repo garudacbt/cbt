@@ -165,14 +165,14 @@
                                     ];
 
                                     if ($info->opsi == 3) {
-                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
+                                        $arrAlias[] = ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C'];
                                     } elseif ($info->opsi == 4) {
-                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
-                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D']);
+                                        $arrAlias[] = ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C'];
+                                        $arrAlias[] = ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D'];
                                     } else {
-                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C']);
-                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D']);
-                                        array_push($arrAlias, ['valAlias' => $s->opsi_alias_e, 'opsi' => $s->opsi_e, 'value' => 'E']);
+                                        $arrAlias[] = ['valAlias' => $s->opsi_alias_c, 'opsi' => $s->opsi_c, 'value' => 'C'];
+                                        $arrAlias[] = ['valAlias' => $s->opsi_alias_d, 'opsi' => $s->opsi_d, 'value' => 'D'];
+                                        $arrAlias[] = ['valAlias' => $s->opsi_alias_e, 'opsi' => $s->opsi_e, 'value' => 'E'];
                                     }
                                     array_multisort(array_column($arrAlias, 'valAlias'), SORT_ASC, $arrAlias);
                                     ?>
@@ -413,7 +413,7 @@
                                             <?php
                                             $jwb = isset($s->tabel_jawab[0]) ? $s->tabel_jawab[0] : [];
                                             if ($s->type_soal == '1') :?>
-                                                    <span><?= $jwb->title ?></span>
+                                                    <span><?= $jwb->title ?? '' ?></span>
                                                     <?php if (isset($jwb->subtitle)) : ?>
                                                         <ul>
                                                             <?php foreach ($jwb->subtitle as $sub) : ?>
@@ -424,7 +424,7 @@
                                                         <br>--
                                                     <?php endif; ?>
                                             <?php else:?>
-                                                    <p><?= isset($jwb->title) ? $jwb->title : '' ?>
+                                                    <p><?= $jwb->title ?? '' ?>
                                                         <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
                                             <?php endif; ?>
                                         </td>
@@ -451,7 +451,7 @@
                                                         class="fa fa-undo"></i></button>
                                         </td>
                                     </tr>
-                                <?php for ($t = 1; $t < count($s->tabel_soal); $t++):?>
+                                <?php for ($t = 1, $tMax = count($s->tabel_soal); $t < $tMax; $t++):?>
                                 <tr>
                                     <td>
                                         <?php
@@ -474,9 +474,9 @@
                                     </td>
                                     <td>
                                         <?php
-                                        $jwb = isset($s->tabel_jawab[$t]) ? $s->tabel_jawab[$t] : [];
+                                        $jwb = $s->tabel_jawab[$t] ?? [];
                                         if ($s->type_soal == '1') : ?>
-                                                <span><?= $jwb->title ?></span>
+                                                <span><?= $jwb->title ?? '' ?></span>
                                                 <?php if (isset($jwb->subtitle)) : ?>
                                                     <ul>
                                                         <?php foreach ($jwb->subtitle as $sub) : ?>
@@ -487,7 +487,7 @@
                                                     <br>--
                                                 <?php endif; ?>
                                         <?php else: ?>
-                                                <p><?= isset($jwb->title) ? $jwb->title : '' ?>
+                                                <p><?= $jwb->title ?? '' ?>
                                                     <br><?= isset($jwb->subtitle) ? $jwb->subtitle[0] : '--' ?></p>
                                         <?php endif; ?>
                                     </td>

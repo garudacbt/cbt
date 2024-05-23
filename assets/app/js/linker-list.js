@@ -575,7 +575,7 @@ function getRandomInt(max) {
                     toolbar: [
                         ['font', ['bold', 'italic', 'underline']],
                         ['color', ['color']],
-                        ['insert', ['picture']],
+                        ['insert', ['picture', 'math']],
                         ['view', ['codeview']],
                         ['delete', ['hapus']]
                     ],
@@ -915,7 +915,7 @@ function getRandomInt(max) {
                     return $tables
                 })
                 arrEmpty.shift()
-                //console.log('links', arrEmpty)
+                //console.log('links1', arrEmpty)
                 self.hasLinks = arrEmpty.includes(1)
                 return res;
             } else {
@@ -925,10 +925,22 @@ function getRandomInt(max) {
                         arrEmpty.push(value.length > 0 ? 1 : 0)
                     }
                 });
-                //console.log('links', arrEmpty)
+                //console.log('links2', arrEmpty)
                 self.hasLinks = arrEmpty.includes(1)
                 return convertListToTable(self.listKiri, self.listKanan, self.linkeds)
             }
+        },
+
+        getKeyLinked: function () {
+            let self = this
+            let links;
+            if (self.modelSoal === '2') {
+                const converted = convertDefaultToList(self.getResult())
+                links = converted.linked
+            } else {
+                links = self.linkeds
+            }
+            return links
         },
 
         saveEditor: function () {
@@ -1003,6 +1015,7 @@ function getRandomInt(max) {
             if (self.fnc) {
                 self.dataResult['type'] = self.tipeSoal
                 self.dataResult['model'] = self.modelSoal
+                self.dataResult['links'] = self.getKeyLinked()
                 self.dataResult['jawaban'] = self.getResult()
                 self.fnc(
                     self.idResult,
