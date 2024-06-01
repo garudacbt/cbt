@@ -1,5 +1,5 @@
 # GarudaCBT
-## Last version: 1.5.3  (BETA 4)
+## Last version: 1.5.3  (FIXED)
 ____
 #### LAPORAN BUG SILAKAN KUNJUNGI GROUP TELEGRAM [DISINI](http://t.me/garudacbt)
 ____

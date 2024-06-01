@@ -1,20 +1,24 @@
-/*
- Modifikasi Struktur DB
- Source Server         : origrata
- Source Server Type    : MySQL
- Source Server Version : 50739
- Source Host           : origrata:3306
- Source Schema         : master_cbt
+-- --------------------------------------
+-- Modifikasi Struktur DB
+-- Source Server         : origrata
+-- Source Server Type    : MySQL
+-- Source Server Version : 50739
+-- Source Host           : origrata:3306
+-- Source Schema         : master_cbt
 
- Target Server Type    : MySQL
- Target Server Version : 50739
- File Encoding         : 65001
-
- Date: 06/06/2023 22:01:03
-*/
+-- Target Server Type    : MySQL
+-- Target Server Version : 50739
+-- File Encoding         : 65001
+-- Date: 06/06/2023 22:01:03
+-- --------------------------------------
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 -- ----------------------------
 -- Table structure for api_setting

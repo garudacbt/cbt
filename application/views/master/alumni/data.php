@@ -36,6 +36,7 @@
                             <i class="fa fa-gear"></i>
                             <span class="d-none d-sm-inline-block ml-1">Generate Alumni</span>
                         </button>
+                        <!--
                         <button type="button" data-toggle="modal" data-target="#createAlumniModal"
                                 class="btn btn-sm btn-primary">
                             <i class="fas fa-plus"></i>
@@ -44,6 +45,7 @@
                         <a href="<?= base_url('dataalumni/add') ?>" class="btn btn-sm bg-gradient-success">
                             <i class="fas fa-upload"></i>
                             <span class="d-none d-sm-inline-block ml-1">Import</span></a>
+                            -->
                     </div>
                 </div>
                 <?php

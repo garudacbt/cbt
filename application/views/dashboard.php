@@ -101,7 +101,7 @@
                                                                                 - <?= $jamSampai->format('H:i') ?>
                                                                             </td>
                                                                             <td class="align-middle">
-                                                                                <?= $jadwals[$ky] && $jadwals[$ky][$jamke] && $jadwals[$ky][$jamke]->kode != null ? $jadwals[$ky][$jamke]->kode : '--' ?>
+                                                                                <?= isset($jadwals[$ky][$jamke]) && $jadwals[$ky][$jamke]->kode != null ? $jadwals[$ky][$jamke]->kode : '--' ?>
                                                                             </td>
                                                                         </tr>
 
