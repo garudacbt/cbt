@@ -1,0 +1,7 @@
+<?php
+/*   ________________________________________
+    |                 GarudaCBT              |
+    |    https://github.com/garudacbt/cbt    |
+    |________________________________________|
+*/
+ class Auth_model extends CI_Model { public function register($data, $group) { goto nKFkt; ZxWhO: $group = ["\x75\163\145\162\137\x69\x64" => $id, "\x67\162\157\165\x70\x5f\x69\144" => $group]; goto RUZ86; nKFkt: $this->db->insert("\165\x73\x65\x72\163", $data); goto i6iqh; i6iqh: $id = $this->db->insert_id(); goto ZxWhO; RUZ86: return $this->db->insert("\x75\x73\x65\162\163\x5f\147\162\x6f\165\x70\163", $group); goto CAuPN; CAuPN: } public function login($username) { return $this->db->select("\141\x2e\52\54\x20\x62\x2e\x75\x73\x65\x72\137\x69\144\x2c\x20\x62\56\147\162\x6f\x75\x70\137\x69\144\x2c\x20\143\x2e\x69\144\x20\141\x73\x20\x72\157\154\145\x2c\40\x63\x2e\156\141\x6d\x65\40\x61\163\40\162\x6f\x6c\x65\137\156\141\x6d\145\x2c\x20\143\56\x64\145\163\x63\x72\x69\x70\x74\151\x6f\x6e")->from("\x75\x73\145\162\x73\x20\141")->where(["\141\56\x75\x73\x65\162\x6e\x61\x6d\x65" => $username])->join("\165\163\145\162\163\137\147\162\x6f\x75\x70\163\40\142", "\x61\56\x69\x64\75\x62\56\x75\x73\x65\162\x5f\x69\144")->join("\147\x72\157\165\x70\x73\40\143", "\x62\56\x67\x72\157\x75\x70\137\151\x64\x3d\143\56\x69\x64")->get()->row(); } public function cekPercobaanLogin($username) { return $this->db->get_where("\x6c\x6f\147\x69\x6e\137\141\164\x74\x65\x6d\160\164\x73", ["\154\x6f\x67\x69\x6e" => $username])->result(); } }
