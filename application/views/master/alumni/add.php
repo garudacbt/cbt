@@ -456,7 +456,7 @@
                                             val = richToString(row.values[i])
                                         }
                                         if (i===3) {
-                                            val = val.replace("'", "")
+                                            val = String(val).replace("'", "")
                                             console.log('index', i, val)
                                         }
                                         obj[i] = val
