@@ -237,7 +237,7 @@ pageContents['pengawas'] = {
         </div>
         <div class="info-box info">
             <i class="fas fa-info-circle"></i>
-            <div>
+div>
                 <strong>Multi-Pengawas:</strong> Beberapa pengawas dapat mengakses dashboard monitoring secara bersamaan untuk koordinasi yang lebih baik.</div>
         </div>
     </div>

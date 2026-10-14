@@ -232,7 +232,7 @@ pageContents['monitoring'] = {
                 <tr><td>GET</td><td><code>cbtjadwal/monitoring/{id_jadwal}</code></td><td>Tampilkan dashboard monitoring</td></tr>
                 <tr><td>GET</td><td><code>cbtjadwal/getMonitoringData/{id_jadwal}</code></td><td>Ambil data monitoring real-time</td></tr>
                 <tr><td>POST</td><td><code>cbtjadwal/resetTokenSiswa</code></td><td>Reset token untuk siswa tertentu</td></tr>
-                <tr><td>POST</td><td><code>cbtjadwal/tambahWaktuSiswa</code></td><td>Tambah waktu untuk siswa tertentu</td></tr>
+                <tr><td>POST</td><code><code>cbtjadwal/tambahWaktuSiswa</code></td><td>Tambah waktu untuk siswa tertentu</td></tr>
                 <tr><td>POST</td><td><code>cbtjadwal/kirimPesanSiswa</code></td><td>Kirim pesan ke siswa</td></tr>
                 <tr><td>POST</td><td><code>cbtjadwal/forceSubmitSiswa</code></td><td>Paksa submit jawaban siswa</td></tr>
                 <tr><td>POST</td><td><code>cbtjadwal/pauseSiswa</code></td><td>Pause ujian untuk siswa</td></tr>

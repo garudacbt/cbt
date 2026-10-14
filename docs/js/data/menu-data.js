@@ -8,6 +8,7 @@ const menuData = [
                 label: 'Pendahuluan',
                 children: [
                     { id: 'tentang-aplikasi', label: 'Tentang GarudaCBT', prev: null, next: 'persyaratan-sistem' },
+                    { id: 'changelog', label: 'Changelog', prev: 'tips', next: '' },
                     { id: 'persyaratan-sistem', label: 'Persyaratan Sistem', prev: 'tentang-aplikasi', next: 'tentang-panduan' },
                     { id: 'tentang-panduan', label: 'Tentang Panduan', prev: 'persyaratan-sistem', next: 'instalasi' }
                 ]
@@ -178,19 +179,6 @@ const menuData = [
                 ]
             },
             {
-                id: 'eperpus',
-                icon: 'fas fa-book',
-                label: 'Perpustakaan Digital',
-                children: [
-                    { id: 'perpustakaan', label: 'Perpustakaan Digital', prev: 'absensi', next: 'hasil-elearning' }
-                ]
-            },
-        ]
-    },
-    {
-        section: 'Hasil E-Learning',
-        items: [
-            {
                 id: 'hasil-elearning',
                 icon: 'fas fa-microscope',
                 label: 'Hasil E-Learning',
@@ -200,7 +188,15 @@ const menuData = [
                     { id: 'kehadiran-bulanan', label: 'Kehadiran Bulanan', prev: 'kehadiran-harian', next: 'rekap-nilai-elearning' },
                     { id: 'rekap-nilai-elearning', label: 'Rekap Nilai', prev: 'kehadiran-bulanan', next: 'setting-rapor' }
                 ]
-            }
+            },
+            {
+                id: 'eperpus',
+                icon: 'fas fa-book',
+                label: 'Perpustakaan Digital',
+                children: [
+                    { id: 'perpustakaan', label: 'Perpustakaan Digital', prev: 'absensi', next: 'hasil-elearning' }
+                ]
+            },
         ]
     },
     {
@@ -312,8 +308,9 @@ const menuData = [
                 label: 'Database Management',
                 children: [
                     { id: 'db-management', label: 'Data Management', prev: 'user-siswa', next: 'backup-restore' },
-                    { id: 'backup-restore', label: 'Backup & Restore', prev: 'db-manager', next: 'img-converter' },
-                    { id: 'img-converter', label: 'Image Converter', prev: 'backup-restore', next: '' },
+                    { id: 'backup-restore', label: 'Backup & Restore', prev: 'db-manager', next: 'update-migrasi' },
+                    { id: 'update-migrasi', label: 'Update & Migrasi', prev: 'backup-restore', next: 'img-converter' },
+                    { id: 'img-converter', label: 'Image Converter', prev: 'update-migrasi', next: '' },
                 ]
             }
         ]
@@ -328,7 +325,6 @@ const menuData = [
                 children: [
                     { id: 'faq', label: 'FAQ', prev: 'backup-restore', next: 'tips' },
                     { id: 'tips', label: 'Tips & Trick', prev: 'faq', next: 'changelog' },
-                    { id: 'changelog', label: 'Changelog', prev: 'tips', next: '' },
                 ]
             }
         ]
