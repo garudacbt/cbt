@@ -482,7 +482,7 @@
                                             val = richToString(row.values[i])
                                         }
                                         if (i===2||i===3||i===14||i===19||i===20||i===30||i===36||i===42) {
-                                            val = val.replace("'", "")
+                                            val = String(val).replace("'", "")
                                             console.log('index', i, val)
                                         }
                                         obj[i] = val
