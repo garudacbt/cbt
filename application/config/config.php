@@ -9,7 +9,13 @@ date_default_timezone_set('Asia/Jakarta');
 // $config['base_url'] = "http://".$_SERVER['HTTP_HOST'];
 // $config['base_url'] .= preg_replace('@/+$@','',dirname($_SERVER['SCRIPT_NAME'])).'/';
 
-$scheme = (isset($_SERVER["HTTPS"]) && @$_SERVER["HTTPS"] == "on") ? "https" : "http";
+// [PATCH] Deteksi HTTPS dinamis termasuk reverse proxy (Cloudflare/Nginx/aaPanel)
+$is_https = (isset($_SERVER["HTTPS"]) && @$_SERVER["HTTPS"] == "on")
+    || (isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] == "https")
+    || (isset($_SERVER["HTTP_X_FORWARDED_SSL"]) && $_SERVER["HTTP_X_FORWARDED_SSL"] == "on")
+    || (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] == 443);
+$scheme = $is_https ? "https" : "http";
+if ($is_https) { $_SERVER["HTTPS"] = "on"; }
 $config['base_url'] = "$scheme://".$_SERVER['HTTP_HOST'];
 $config['base_url'] .= preg_replace('@/+$@','',dirname($_SERVER['SCRIPT_NAME'])).'/';
 
@@ -123,6 +129,12 @@ $config['cookie_domain']	= '';
 $config['cookie_path']		= '/';
 $config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;
+// [PATCH Issue #35] Cookie SameSite untuk kompatibilitas iOS Safari & mobile browsers
+$config['cookie_samesite'] 	= 'Lax';
+$config['sess_samesite'] 	= 'Lax';
+if (isset($is_https) && $is_https) {
+    $config['cookie_secure'] = TRUE;
+}
 
 /*
 |--------------------------------------------------------------------------
