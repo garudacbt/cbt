@@ -1,0 +1,14 @@
+.git
+.gitignore
+.idea
+.vscode
+*.iml
+backups/*.sql
+backups/*.zip
+uploads/temp/*
+!uploads/temp/.gitkeep
+!uploads/temp/doc.html
+installer/*.png
+installer/*.PNG
+install*.PNG
+.env
