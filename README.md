@@ -56,6 +56,15 @@ https://github.com/origrata/garudacbt-vdi
 
 ----
 ## Install
+### 1. Menggunakan Docker (Direkomendasikan & Cepat)
+Tidak perlu pusing konfigurasi XAMPP, ekstensi PHP, atau web server. Cukup jalankan:
+```bash
+docker compose up -d
+```
+Akses di browser: `http://localhost:8080`.
+Panduan lengkap: lihat [DOCKER_GUIDE.md](DOCKER_GUIDE.md).
+
+### 2. Menggunakan Web Server Konvensional (XAMPP / Laragon)
 * Download Aplikasi dari menu **Code => Download ZIP**
 * Extract di folder **htdocs** jika menggunakan XAMPP, atau folder **www** jika mengonakan Laragon
 * Lengkapnya sialhkan ke [TUTORIAL INSTALL](https://github.com/garudacbt/cbt/wiki)

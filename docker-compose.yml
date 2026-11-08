@@ -1,0 +1,74 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: garudacbt_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME:-garudacbt}
+      - DB_USER=${DB_USER:-garudacbt}
+      - DB_PASS=${DB_PASSWORD:-garuda123}
+      - FORCE_DB_CONFIG=false
+    volumes:
+      - ./uploads:/var/www/html/uploads
+      - ./backups:/var/www/html/backups
+      - ./application/config/database.php:/var/www/html/application/config/database.php
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - garuda_net
+
+  db:
+    image: mariadb:10.11
+    container_name: garudacbt_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootsecret}
+      MYSQL_DATABASE: ${DB_NAME:-garudacbt}
+      MYSQL_USER: ${DB_USER:-garudacbt}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-garuda123}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --max_connections=500
+      - --innodb_buffer_pool_size=512M
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./assets/app/db/master.sql:/docker-entrypoint-initdb.d/01-master.sql:ro
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks:
+      - garuda_net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: garudacbt_pma
+    restart: unless-stopped
+    ports:
+      - "${PMA_PORT:-8081}:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 128M
+    depends_on:
+      - db
+    networks:
+      - garuda_net
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  garuda_net:
+    driver: bridge
